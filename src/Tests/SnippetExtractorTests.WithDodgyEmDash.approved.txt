@@ -1,0 +1,8 @@
+﻿[
+  {
+    Key: 'key',
+    Error: 'Snippet contains invalid characters (\'“\', \'”\', \'—\'). This was probably caused by copying code from MS Word or Outlook. Dont do that.',
+    FileLocation: 'path.cs(3-3)',
+    IsInError: true
+  }
+]

@@ -1,0 +1,39 @@
+﻿{
+  MissingSnippets: [],
+  UsedSnippets: [
+    {
+      Key: 'snippet1',
+      Language: 'cs',
+      Value: 'Snippet',
+      Error: null,
+      FileLocation: 'thePath(1-2)',
+      IsInError: false
+    },
+    {
+      Key: 'snippet2',
+      Language: 'cs',
+      Value: 'Snippet',
+      Error: null,
+      FileLocation: 'thePath(1-2)',
+      IsInError: false
+    }
+  ],
+  content: '
+<!-- snippet: snippet1 -->
+```cs
+Snippet
+```
+<!-- endsnippet -->
+
+some text
+
+<!-- snippet: snippet2 -->
+```cs
+Snippet
+```
+<!-- endsnippet -->
+
+some other text
+
+'
+}

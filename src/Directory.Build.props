@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>CS1591;NU5105;CS1573</NoWarn>
+    <Version>8.6.4</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
+    <PackageIconUrl>https://raw.github.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
+    <PackageProjectUrl>http://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
+    <Description>Extract code snippets from any language to be used when building documentation</Description>
+    <PackageOutputPath>..\..\nugets</PackageOutputPath>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)Key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+</Project>

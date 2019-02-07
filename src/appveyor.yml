@@ -1,0 +1,9 @@
+image: Visual Studio 2019 Preview
+build_script:
+- ps: >-
+    dotnet build src --configuration Release
+
+    dotnet test src --configuration Release --no-build --no-restore
+test: off
+artifacts:
+- path: nugets\*.nupkg

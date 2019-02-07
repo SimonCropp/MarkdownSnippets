@@ -1,0 +1,3 @@
+﻿startcode snippet1
+Some code
+endcode

@@ -107,14 +107,14 @@ When scanning for snippets the following are ignored:
  * All binary files as defined by https://github.com/sindresorhus/binary-extensions/
  * Any of the following directory names: `bin`, `obj`
 
-To change these conventions manipulate lists `CaptureSnippets.Exclusions.ExcludedDirectorySuffixes` and `CaptureSnippets.Exclusions.ExcludedFileExtensions`.
+To change these conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.
 
 
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/CaptureSnippetsSimple.svg?style=flat)](https://www.nuget.org/packages/CaptureSnippetsSimple/)
+## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets/)
 
-https://nuget.org/packages/CaptureSnippetsSimple/
+https://nuget.org/packages/MarkdownSnippets/
 
-    PM> Install-Package CaptureSnippetsSimple
+    PM> Install-Package MarkdownSnippets
 
 
 ## Api Usage

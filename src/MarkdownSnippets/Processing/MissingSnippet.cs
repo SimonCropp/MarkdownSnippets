@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     /// <summary>
     /// Part of <see cref="ProcessResult"/>.

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using CaptureSnippets;
+using MarkdownSnippets;
 
 class Program
 {

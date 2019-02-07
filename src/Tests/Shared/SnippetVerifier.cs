@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using CaptureSnippets;
+using MarkdownSnippets;
 using ObjectApproval;
 
 static class SnippetVerifier

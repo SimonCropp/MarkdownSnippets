@@ -1,5 +1,5 @@
 using System;
-using CaptureSnippets;
+using MarkdownSnippets;
 using Newtonsoft.Json;
 
 class SnippetConverter : JsonConverter

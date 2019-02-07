@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     [DebuggerDisplay("Key={Key}, FileLocation={FileLocation}, Error={Error}")]
     public class Snippet

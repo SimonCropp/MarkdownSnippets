@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     public static class GitRepoDirectoryFinder
     {

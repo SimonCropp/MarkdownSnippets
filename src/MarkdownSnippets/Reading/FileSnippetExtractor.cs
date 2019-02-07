@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     /// <summary>
     /// Extracts <see cref="Snippet"/>s from a given input.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CaptureSnippets;
+using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
 
@@ -13,7 +13,7 @@ public class SnippetExtractorTests : TestBase
     public async Task AppendUrlAsSnippet()
     {
         var snippets = new List<Snippet>();
-        await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/CaptureSnippets/master/src/appveyor.yml");
+        await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
         ObjectApprover.VerifyWithJson(snippets);
     }
 

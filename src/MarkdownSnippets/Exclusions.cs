@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     public static class Exclusions
     {

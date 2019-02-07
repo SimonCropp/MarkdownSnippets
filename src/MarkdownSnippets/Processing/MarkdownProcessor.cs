@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     /// <summary>
     /// Merges <see cref="Snippet"/>s with an input file/text.

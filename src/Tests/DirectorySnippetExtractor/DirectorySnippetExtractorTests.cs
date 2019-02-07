@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CaptureSnippets;
+using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
 

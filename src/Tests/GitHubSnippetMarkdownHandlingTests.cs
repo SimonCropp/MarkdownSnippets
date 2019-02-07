@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 using ApprovalTests;
-using CaptureSnippets;
+using MarkdownSnippets;
 using Xunit;
 
 public class GitHubSnippetMarkdownHandlingTests : TestBase

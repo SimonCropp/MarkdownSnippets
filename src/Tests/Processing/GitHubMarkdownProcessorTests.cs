@@ -1,6 +1,6 @@
 using System.IO;
 using System.Linq;
-using CaptureSnippets;
+using MarkdownSnippets;
 using Xunit;
 
 public class GitHubMarkdownProcessorTests : TestBase

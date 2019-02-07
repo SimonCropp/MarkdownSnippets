@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using CaptureSnippets;
+using MarkdownSnippets;
 using Xunit;
 
 public class GirRepoDirectoryFinderTests

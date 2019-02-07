@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     /// <summary>
     /// Extension method to convert various error cases.

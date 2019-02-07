@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CaptureSnippets;
+using MarkdownSnippets;
 using Xunit;
 
 public class MarkdownProcessorTests : TestBase

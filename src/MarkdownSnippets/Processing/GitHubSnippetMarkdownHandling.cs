@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     /// <summary>
     /// GitHub markdown handling to be passed to <see cref="MarkdownProcessor"/>.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     [DebuggerDisplay("Count={Snippets.Count}")]
     public class ReadSnippets : IEnumerable<Snippet>

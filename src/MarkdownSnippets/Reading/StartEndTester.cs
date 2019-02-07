@@ -1,5 +1,5 @@
 ﻿using System;
-using CaptureSnippets;
+using MarkdownSnippets;
 
 static class StartEndTester
 {

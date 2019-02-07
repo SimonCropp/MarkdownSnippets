@@ -1,6 +1,6 @@
 using System;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     public class MarkdownProcessingException :
         Exception

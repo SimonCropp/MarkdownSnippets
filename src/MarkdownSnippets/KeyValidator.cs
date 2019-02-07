@@ -1,4 +1,4 @@
-﻿using CaptureSnippets;
+﻿using MarkdownSnippets;
 
 class KeyValidator
 {

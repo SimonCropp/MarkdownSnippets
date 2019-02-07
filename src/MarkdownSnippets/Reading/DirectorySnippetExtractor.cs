@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     public class DirectorySnippetExtractor
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CaptureSnippets
+namespace MarkdownSnippets
 {
     public class MissingSnippetsException :
         Exception

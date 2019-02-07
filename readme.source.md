@@ -1,4 +1,4 @@
-# <img src="https://raw.github.com/SimonCropp/MarkdownSnippets/master/src/icon.png" height="40px"> MarkdownSnippets
+# <img src="https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png" height="40px"> MarkdownSnippets
 
 Extract code snippets from any language to be used when building documentation
 

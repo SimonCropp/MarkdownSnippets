@@ -4,10 +4,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>latest</LangVersion>
     <NoWarn>CS1591;NU5105;CS1573</NoWarn>
-    <Version>8.6.5</Version>
+    <Version>8.6.6</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
-    <PackageIconUrl>https://raw.github.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
     <PackageProjectUrl>http://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
     <Description>Extract code snippets from any language to be used when building documentation</Description>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>

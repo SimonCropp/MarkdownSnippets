@@ -1,4 +1,5 @@
-﻿using MarkdownSnippets;
+﻿using ApprovalTests;
+using MarkdownSnippets;
 using Xunit;
 
 public class StartEndTester_IsStartRegionTests : TestBase
@@ -6,7 +7,7 @@ public class StartEndTester_IsStartRegionTests : TestBase
     [Fact]
     public void CanExtractFromXml()
     {
-        StartEndTester.IsStartRegion("#region CodeKey", out var key);
+        StartEndTester.IsStartRegion("#region CodeKey", "file", out var key);
         Assert.Equal("CodeKey", key);
     }
 
@@ -14,16 +15,16 @@ public class StartEndTester_IsStartRegionTests : TestBase
     public void ShouldThrowForKeyStartingWithSymbol()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
-            StartEndTester.IsStartRegion("#region _key", out _));
-        Assert.Equal("Key should not start or end with symbols. Key: _key", exception.Message);
+            StartEndTester.IsStartRegion("#region _key", "file", out _));
+        Approvals.Verify(exception.Message);
     }
 
     [Fact]
     public void ShouldThrowForKeyEndingWithSymbol()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
-            StartEndTester.IsStartRegion("#region key_ ", out _));
-        Assert.Equal("Key should not start or end with symbols. Key: key_", exception.Message);
+            StartEndTester.IsStartRegion("#region key_ ", "file", out _));
+        Approvals.Verify(exception.Message);
     }
 
 
@@ -31,35 +32,35 @@ public class StartEndTester_IsStartRegionTests : TestBase
     public void ShouldIgnoreForNoKey()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
-            StartEndTester.IsStartRegion("#region ", out _));
+            StartEndTester.IsStartRegion("#region ", "file", out _));
         Assert.Equal("No Key could be derived. Line: '#region '.", exception.Message);
     }
 
     [Fact]
     public void CanExtractFromXmlWithExtraSpaces()
     {
-        StartEndTester.IsStartRegion("#region  CodeKey   ", out var key);
+        StartEndTester.IsStartRegion("#region  CodeKey   ", "file", out var key);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractWithNoTrailingCharacters()
     {
-        StartEndTester.IsStartRegion("#region CodeKey", out var key);
+        StartEndTester.IsStartRegion("#region CodeKey", "file", out var key);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractWithUnderScores()
     {
-        StartEndTester.IsStartRegion("#region Code_Key", out var key);
+        StartEndTester.IsStartRegion("#region Code_Key", "file", out var key);
         Assert.Equal("Code_Key", key);
     }
 
     [Fact]
     public void CanExtractWithDashes()
     {
-        StartEndTester.IsStartRegion("#region Code-Key", out var key);
+        StartEndTester.IsStartRegion("#region Code-Key", "file", out var key);
         Assert.Equal("Code-Key", key);
     }
 }

@@ -2,16 +2,23 @@
 
 class KeyValidator
 {
-    public static void ValidateKeyDoesNotStartOrEndWithSymbol(string key)
+    public static void ValidateKeyDoesNotStartOrEndWithSymbol(string key, string path, string line)
     {
         if (key.Contains(" "))
         {
-            throw new SnippetReadingException($"Key should not contain whitespace. Key: {key}");
+            throw new SnippetReadingException($@"Key should not contain whitespace.
+Key: {key}
+Path: {path}
+Line: {line}");
         }
+
         if (char.IsLetterOrDigit(key, 0) && char.IsLetterOrDigit(key, key.Length - 1))
         {
             return;
         }
-        throw new SnippetReadingException($"Key should not start or end with symbols. Key: {key}");
+        throw new SnippetReadingException($@"Key should not start or end with symbols.
+Key: {key}
+Path: {path}
+Line: {line}");
     }
 }

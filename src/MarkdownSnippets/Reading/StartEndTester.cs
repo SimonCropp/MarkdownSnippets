@@ -6,18 +6,20 @@ static class StartEndTester
     static Func<string, bool> isEndCode = s => IsEndCode(s);
     static Func<string, bool> isEndRegion = s => IsEndRegion(s);
 
-    internal static bool IsStart(string trimmedLine, out string currentKey, out Func<string, bool> endFunc)
+    internal static bool IsStart(string trimmedLine, string path, out string currentKey, out Func<string, bool> endFunc)
     {
-        if (IsStartCode(trimmedLine, out currentKey))
+        if (IsStartCode(trimmedLine, path, out currentKey))
         {
             endFunc = isEndCode;
             return true;
         }
-        if (IsStartRegion(trimmedLine, out currentKey))
+
+        if (IsStartRegion(trimmedLine, path, out currentKey))
         {
             endFunc = isEndRegion;
             return true;
         }
+
         endFunc = null;
         return false;
     }
@@ -32,7 +34,7 @@ static class StartEndTester
         return line.IndexOf("endcode", StringComparison.Ordinal) >= 0;
     }
 
-    internal static bool IsStartRegion(string line, out string key)
+    internal static bool IsStartRegion(string line, string path, out string key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
@@ -40,10 +42,10 @@ static class StartEndTester
             return false;
         }
         var substring = line.Substring(8);
-        return TryExtractParts(out key, substring, line, false);
+        return TryExtractParts(substring, line, false, path, out key);
     }
 
-    internal static bool IsStartCode(string line, out string key)
+    internal static bool IsStartCode(string line, string path, out string key)
     {
         var startCodeIndex = line.IndexOf("startcode ", StringComparison.Ordinal);
         if (startCodeIndex == -1)
@@ -54,10 +56,10 @@ static class StartEndTester
         var startIndex = startCodeIndex + 10;
         var substring = line
             .TrimBackCommentChars(startIndex);
-        return TryExtractParts(out key, substring, line, true);
+        return TryExtractParts(substring, line, true, path, out key);
     }
 
-    static bool TryExtractParts(out string key, string substring, string line, bool throwForTooManyParts)
+    static bool TryExtractParts(string substring, string line, bool throwForTooManyParts, string path, out string key)
     {
         var split = substring.SplitBySpace();
         if (split.Length == 0)
@@ -65,7 +67,7 @@ static class StartEndTester
             throw new SnippetReadingException($"No Key could be derived. Line: '{line}'.");
         }
         key = split[0];
-        KeyValidator.ValidateKeyDoesNotStartOrEndWithSymbol(key);
+        KeyValidator.ValidateKeyDoesNotStartOrEndWithSymbol(key, path, line);
         if (split.Length == 1)
         {
             return true;

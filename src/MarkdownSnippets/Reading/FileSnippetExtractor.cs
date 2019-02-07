@@ -127,6 +127,7 @@ namespace MarkdownSnippets
                             lineNumberInError: current.StartLine + 1,
                             key: current.Key);
                     }
+
                     break;
                 }
 
@@ -134,11 +135,12 @@ namespace MarkdownSnippets
                     .Replace("  ", " ")
                     .ToLowerInvariant();
 
-                if (StartEndTester.IsStart(trimmedLine, out var key, out var endFunc))
+                if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
                 {
                     loopStack.Push(endFunc, key, stringReader.Index);
                     continue;
                 }
+
                 if (loopStack.IsInSnippet)
                 {
                     if (!loopStack.Current.EndFunc(trimmedLine))
@@ -179,6 +181,6 @@ namespace MarkdownSnippets
             );
         }
 
-        static char[] invalidCharacters = { '“', '”', '—' };
+        static char[] invalidCharacters = {'“', '”', '—'};
     }
 }

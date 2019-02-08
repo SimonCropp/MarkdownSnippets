@@ -40,8 +40,10 @@ namespace MarkdownSnippets
             Run(targetDirectory, findFiles);
         }
 
-        internal static void Run(string targetDirectory, List<string> snippetSourceFiles)
+        public static void Run(string targetDirectory, List<string> snippetSourceFiles)
         {
+            Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
+            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             log($"Searching {snippetSourceFiles.Count} files for snippets");
             var mdFinder = new FileFinder(path => true, IsSourceMd);
             var snippets = FileSnippetExtractor.Read(snippetSourceFiles).ToList();

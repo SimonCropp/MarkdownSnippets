@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
 		Directory.Build.props = Directory.Build.props
+		..\readme.source.md = ..\readme.source.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets", "MarkdownSnippets\MarkdownSnippets.csproj", "{D791BD27-4C4F-4C6F-B159-537F3FB9820D}"

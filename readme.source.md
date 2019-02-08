@@ -26,7 +26,6 @@ The resulting markdown will be will be:
     ```
 
 
-
 ## Defining Snippets
 
 
@@ -50,6 +49,7 @@ Any code wrapped in a named C# region will be picked up. The name of the region 
 My Snippet Code
 #endregion
 ```
+
 
 ### Code indentation
 
@@ -133,7 +133,6 @@ snippet: ReadingDirectorySimple
 ### Full Usage
 
 snippet: markdownProcessingSimple
-
 
 
 ## GitHubMarkdownSnippets

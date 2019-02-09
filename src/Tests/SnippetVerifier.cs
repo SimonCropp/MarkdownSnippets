@@ -23,7 +23,13 @@ static class SnippetVerifier
                 processResult.UsedSnippets,
                 content = stringBuilder.ToString()
             };
-            ObjectApprover.VerifyWithJson(output, s => s.Replace("\\r\\n", "\r\n"));
+            ObjectApprover.VerifyWithJson(output, Scrub);
         }
+    }
+
+    static string Scrub(string value)
+    {
+        var gitDir = GitRepoDirectoryFinder.FindForFilePath().Replace('\\', '/');
+        return value.Replace("\\r\\n", "\r\n").Replace(gitDir, "");
     }
 }

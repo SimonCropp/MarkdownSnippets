@@ -25,7 +25,7 @@ Content
 From
 File',
       Error: null,
-      FileLocation: 'C:/Code/MarkdownSnippets/src/Tests/FileToUseAsSnippet.txt(1-4)',
+      FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
       IsInError: false
     },
     {
@@ -36,7 +36,7 @@ Content
 From
 File',
       Error: null,
-      FileLocation: 'C:/Code/MarkdownSnippets/src/Tests/FileToUseAsSnippet.txt(1-4)',
+      FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
       IsInError: false
     }
   ],

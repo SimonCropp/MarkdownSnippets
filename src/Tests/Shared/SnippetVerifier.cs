@@ -6,11 +6,12 @@ using ObjectApproval;
 
 static class SnippetVerifier
 {
-    public static void Verify(string markdownContent, List<Snippet> availableSnippets)
+    public static void Verify(string markdownContent, List<Snippet> availableSnippets, List<string> snippetSourceFiles)
     {
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets,
-            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
+            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
+            snippetSourceFiles: snippetSourceFiles);
         var stringBuilder = new StringBuilder();
         using (var reader = new StringReader(markdownContent))
         using (var writer = new StringWriter(stringBuilder))

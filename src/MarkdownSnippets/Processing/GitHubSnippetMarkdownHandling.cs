@@ -16,7 +16,7 @@ namespace MarkdownSnippets
             this.repositoryRoot = repositoryRoot.Replace(@"\", "/");
         }
 
-        public void AppendGroup(string key, IReadOnlyList<Snippet> snippets, TextWriter writer)
+        public void AppendGroup(string key, IEnumerable<Snippet> snippets, TextWriter writer)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(writer, nameof(writer));

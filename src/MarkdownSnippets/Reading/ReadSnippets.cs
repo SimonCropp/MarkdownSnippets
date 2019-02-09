@@ -9,13 +9,16 @@ namespace MarkdownSnippets
     public class ReadSnippets : IEnumerable<Snippet>
     {
         public IReadOnlyList<Snippet> Snippets { get; }
+        public IReadOnlyList<string> Files { get; }
         public IReadOnlyDictionary<string, IReadOnlyList<Snippet>> Lookup { get; }
         public IReadOnlyList<Snippet> SnippetsInError { get; }
 
-        public ReadSnippets(IReadOnlyList<Snippet> snippets)
+        public ReadSnippets(IReadOnlyList<Snippet> snippets, IReadOnlyList<string> files)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
+            Guard.AgainstNull(files, nameof(files));
             Snippets = snippets;
+            Files = files;
             SnippetsInError = Snippets.Where(_ => _.IsInError).Distinct().ToList();
             Lookup = Snippets.ToDictionary();
         }

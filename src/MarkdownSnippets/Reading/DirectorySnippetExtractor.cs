@@ -13,24 +13,17 @@ namespace MarkdownSnippets
             fileFinder = new FileFinder(directoryFilter, fileFilter);
         }
 
-        public ReadSnippets ReadSnippets(string directory)
-        {
-            var snippets = fileFinder.FindFiles(directory)
-                .SelectMany(Read)
-                .ToList();
-            return new ReadSnippets(snippets);
-        }
-
         public ReadSnippets ReadSnippets(params string[] directories)
         {
             Guard.AgainstNull(directories, nameof(directories));
-            var snippets = fileFinder.FindFiles(directories)
+            var files = fileFinder.FindFiles(directories).ToList();
+            var snippets = files
                 .SelectMany(Read)
                 .ToList();
-            return new ReadSnippets(snippets);
+            return new ReadSnippets(snippets, files);
         }
 
-        private static IEnumerable<Snippet> Read(string file)
+        static IEnumerable<Snippet> Read(string file)
         {
             using (var reader = File.OpenText(file))
             {

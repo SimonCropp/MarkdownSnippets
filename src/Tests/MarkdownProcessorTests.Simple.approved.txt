@@ -16,6 +16,28 @@
       Error: null,
       FileLocation: 'thePath(1-2)',
       IsInError: false
+    },
+    {
+      Key: 'FileToUseAsSnippet.txt',
+      Language: 'txt',
+      Value: 'The
+Content
+From
+File',
+      Error: null,
+      FileLocation: 'C:/Code/MarkdownSnippets/src/Tests/FileToUseAsSnippet.txt(1-4)',
+      IsInError: false
+    },
+    {
+      Key: '/FileToUseAsSnippet.txt',
+      Language: 'txt',
+      Value: 'The
+Content
+From
+File',
+      Error: null,
+      FileLocation: 'C:/Code/MarkdownSnippets/src/Tests/FileToUseAsSnippet.txt(1-4)',
+      IsInError: false
     }
   ],
   content: '
@@ -34,6 +56,26 @@ Snippet
 <!-- endsnippet -->
 
 some other text
+
+<!-- snippet: FileToUseAsSnippet.txt -->
+```txt
+The
+Content
+From
+File
+```
+<!-- endsnippet -->
+
+some other text
+
+<!-- snippet: /FileToUseAsSnippet.txt -->
+```txt
+The
+Content
+From
+File
+```
+<!-- endsnippet -->
 
 '
 }

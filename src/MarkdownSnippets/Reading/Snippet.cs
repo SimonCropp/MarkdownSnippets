@@ -31,7 +31,6 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstEmpty(path, nameof(path));
-            Guard.AgainstUpperCase(key, nameof(key));
             Guard.AgainstNull(language, nameof(language));
             Guard.AgainstUpperCase(language, nameof(language));
             Guard.AgainstNegativeAndZero(startLine, nameof(startLine));

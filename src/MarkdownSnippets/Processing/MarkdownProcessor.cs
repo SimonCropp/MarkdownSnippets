@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,25 +13,51 @@ namespace MarkdownSnippets
     {
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
+        List<string> snippetSourceFiles;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
+            AppendSnippetGroupToMarkdown appendSnippetGroup,
+            IReadOnlyList<string> snippetSourceFiles)
+        {
+            Guard.AgainstNull(snippets, nameof(snippets));
+            Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
+            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            this.snippets = snippets;
+            this.appendSnippetGroup = appendSnippetGroup;
+            InitSourceFiles(snippetSourceFiles);
+        }
+
+        public MarkdownProcessor(
+            ReadSnippets snippets,
             AppendSnippetGroupToMarkdown appendSnippetGroup)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
-            this.snippets = snippets;
+            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            this.snippets = snippets.ToDictionary();
             this.appendSnippetGroup = appendSnippetGroup;
+            InitSourceFiles(snippets.Files);
         }
 
         public MarkdownProcessor(
             IEnumerable<Snippet> snippets,
-            AppendSnippetGroupToMarkdown appendSnippetGroup)
+            AppendSnippetGroupToMarkdown appendSnippetGroup,
+            IReadOnlyList<string> snippetSourceFiles)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
+            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             this.snippets = snippets.ToDictionary();
             this.appendSnippetGroup = appendSnippetGroup;
+            InitSourceFiles(snippetSourceFiles);
+        }
+
+        void InitSourceFiles(IEnumerable<string> snippetSourceFiles)
+        {
+            this.snippetSourceFiles = snippetSourceFiles
+                .Select(x => x.Replace('\\', '/'))
+                .ToList();
         }
 
         public string Apply(string input)
@@ -73,8 +100,10 @@ namespace MarkdownSnippets
                 {
                     continue;
                 }
+
                 writer.WriteLine(line);
             }
+
             return new ProcessResult(
                 missingSnippets: missing,
                 usedSnippets: usedSnippets.Distinct().ToList());
@@ -86,23 +115,53 @@ namespace MarkdownSnippets
             {
                 return false;
             }
+
             writer.WriteLine($"<!-- snippet: {key} -->");
 
-            if (!snippets.TryGetValue(key, out var group))
+            if (TryGetFromFiles(key, out var snippetFromFiles))
             {
-                var missing = new MissingSnippet(
-                    key: key,
-                    line: reader.Index);
-                missings.Add(missing);
-                var message = $"** Could not find snippet '{key}' **";
-                writer.WriteLine(message);
+                appendSnippetGroup(key, snippetFromFiles, writer);
+                writer.WriteLine($"<!-- endsnippet -->");
+                used.AddRange(snippetFromFiles);
                 return true;
             }
 
-            appendSnippetGroup(key, group, writer);
-            writer.WriteLine($"<!-- endsnippet -->");
-            used.AddRange(group);
+            var missing = new MissingSnippet(
+                key: key,
+                line: reader.Index);
+            missings.Add(missing);
+            var message = $"** Could not find snippet '{key}' **";
+            writer.WriteLine(message);
             return true;
+        }
+
+        bool TryGetFromFiles(string key, out IReadOnlyList<Snippet> snippetFromFiles)
+        {
+            if (snippets.TryGetValue(key, out snippetFromFiles))
+            {
+                return true;
+            }
+
+            snippetFromFiles = FilesToSnippets(key);
+            return snippetFromFiles.Any();
+        }
+
+        List<Snippet> FilesToSnippets(string key)
+        {
+            return snippetSourceFiles
+                .Where(x => x.EndsWith(key, StringComparison.OrdinalIgnoreCase))
+                .Select(x =>
+                {
+                    var allText = File.ReadAllText(x);
+                    return Snippet.Build(
+                        startLine: 1,
+                        endLine: allText.LineCount(),
+                        value: allText,
+                        key: key,
+                        language: Path.GetExtension(x).Substring(1),
+                        path: x);
+                })
+                .ToList();
         }
     }
 }

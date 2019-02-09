@@ -165,7 +165,9 @@ var snippetExtractor = new DirectorySnippetExtractor(
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
 // Merge with some markdown text
-var markdownProcessor = new MarkdownProcessor(snippets, SimpleSnippetMarkdownHandling.AppendGroup);
+var markdownProcessor = new MarkdownProcessor(
+    snippets: snippets,
+    appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
 
 using (var reader = File.OpenText(@"C:\path\inputMarkdownFile.md"))
 using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
@@ -178,7 +180,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L49-L71)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L49-L73)</sup>
 <!-- endsnippet -->
 
 

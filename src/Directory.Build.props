@@ -4,7 +4,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>latest</LangVersion>
     <NoWarn>CS1591;NU5105;CS1573</NoWarn>
-    <Version>8.6.8</Version>
+    <Version>8.7.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>

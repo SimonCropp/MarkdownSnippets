@@ -32,17 +32,21 @@ static class Extensions
         var count = 1;
         var len = input.Length;
         for(var i = 0; i != len; ++i)
+        {
             switch(input[i])
             {
                 case '\r':
                     ++count;
                     if (i + 1 != len && input[i + 1] == '\n')
+                    {
                         ++i;
+                    }
                     break;
                 case '\n':
                     ++count;
                     break;
             }
+        }
         return count;
     }
 

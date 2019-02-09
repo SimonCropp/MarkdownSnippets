@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using MarkdownSnippets;
 using Xunit;
 
@@ -11,13 +12,11 @@ public class MarkdownProcessorTests : TestBase
         {
             SnippetBuild(
                 language: "cs",
-                key: "snippet1",
-                package: "package1"
+                key: "snippet1"
             ),
             SnippetBuild(
                 language: "cs",
-                key: "snippet2",
-                package: "package1"
+                key: "snippet2"
             )
         };
         var markdownContent = @"
@@ -29,11 +28,23 @@ snippet: snippet2
 
 some other text
 
+snippet: FileToUseAsSnippet.txt
+
+some other text
+
+snippet: /FileToUseAsSnippet.txt
+
 ";
-        SnippetVerifier.Verify(markdownContent, availableSnippets);
+        SnippetVerifier.Verify(
+            markdownContent,
+            availableSnippets,
+            new List<string>
+            {
+                Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
+            });
     }
 
-    Snippet SnippetBuild(string language, string key, string package)
+    Snippet SnippetBuild(string language, string key)
     {
         return Snippet.Build(
             language: language,

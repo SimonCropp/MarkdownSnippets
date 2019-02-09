@@ -64,14 +64,6 @@ namespace MarkdownSnippets
             return fileFilter(path);
         }
 
-        public List<string> FindFiles(string directoryPath)
-        {
-            Guard.DirectoryExists(directoryPath,nameof(directoryPath));
-            var files = new List<string>();
-            FindFiles(directoryPath, files);
-            return files;
-        }
-
         public List<string> FindFiles(params string[] directoryPaths)
         {
             Guard.AgainstNull(directoryPaths, nameof(directoryPaths));

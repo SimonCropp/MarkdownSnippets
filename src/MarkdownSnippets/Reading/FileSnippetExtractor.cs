@@ -98,14 +98,19 @@ namespace MarkdownSnippets
             }
             catch (Exception exception)
             {
-                throw new Exception($"Could not extract snippets from '{path}';", exception);
+                throw new Exception($"Could not extract snippets from '{path}'.", exception);
             }
         }
 
         static string GetLanguageFromPath(string path)
         {
             var extension = Path.GetExtension(path);
-            return extension?.TrimStart('.') ?? string.Empty;
+            var s = extension?.TrimStart('.');
+            if (s == null)
+            {
+                return string.Empty;
+            }
+            return s;
         }
 
         static IEnumerable<Snippet> GetSnippets(IndexReader stringReader, string path)

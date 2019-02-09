@@ -8,7 +8,7 @@
     <PackageId>GitHubMarkdownSnippets</PackageId>
     <PackAsTool>True</PackAsTool>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-    <Description>.NET Core Global Tool for applying snippets to GitHub markdown documents</Description>
+    <Description>.NET Core Global Tool for merging code snippets with GitHub markdown documents</Description>
   </PropertyGroup>
 
   <ItemGroup>

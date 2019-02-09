@@ -49,7 +49,7 @@ namespace MarkdownSnippets
             var snippets = FileSnippetExtractor.Read(snippetSourceFiles).ToList();
             log($"Found {snippets.Count} snippets");
             var handling = new GitHubSnippetMarkdownHandling(targetDirectory);
-            var processor = new MarkdownProcessor(snippets, handling.AppendGroup);
+            var processor = new MarkdownProcessor(snippets, handling.AppendGroup, snippetSourceFiles);
             var sourceMdFiles = mdFinder.FindFiles(targetDirectory);
             log($"Found {sourceMdFiles.Count} .source.md files");
             foreach (var sourceFile in sourceMdFiles)

@@ -30,6 +30,8 @@ static class SnippetVerifier
     static string Scrub(string value)
     {
         var gitDir = GitRepoDirectoryFinder.FindForFilePath().Replace('\\', '/');
-        return value.Replace("\\r\\n", "\r\n").Replace(gitDir, "");
+        return value
+            .Replace("\\r\\n", "\r\n")
+            .Replace(gitDir, "");
     }
 }

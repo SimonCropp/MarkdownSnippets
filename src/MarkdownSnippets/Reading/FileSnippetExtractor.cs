@@ -146,17 +146,18 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (loopStack.IsInSnippet)
+                if (!loopStack.IsInSnippet)
                 {
-                    if (!loopStack.Current.EndFunc(trimmedLine))
-                    {
-                        loopStack.AppendLine(line);
-                        continue;
-                    }
-
-                    yield return BuildSnippet(stringReader, path, loopStack, language);
-                    loopStack.Pop();
+                    continue;
                 }
+                if (!loopStack.Current.EndFunc(trimmedLine))
+                {
+                    loopStack.AppendLine(line);
+                    continue;
+                }
+
+                yield return BuildSnippet(stringReader, path, loopStack, language);
+                loopStack.Pop();
             }
         }
 

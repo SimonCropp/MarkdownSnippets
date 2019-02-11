@@ -26,6 +26,17 @@ The resulting markdown will be will be:
     ```
 
 
+### Including full files
+
+When [snippets are read](MarkdownSnippets#reading-snippets-from-files) all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have have a suffix matching the key. This result in the ability to include full files as snippets using the following syntax:
+
+<pre>
+snippet&#58; directory/FileToInclude.txt
+</pre>
+
+The path syntax uses forward slashes `/`.
+
+
 ## Defining Snippets
 
 
@@ -206,6 +217,6 @@ snippet: GitHubMarkdownProcessorRun
 
 ## Icon
 
-Icon courtesy of [The Noun Project](http://thenounproject.com) and is licensed under Creative Commons Attribution as: 
+Icon courtesy of [The Noun Project](http://thenounproject.com) and is licensed under Creative Commons Attribution as:
 
 > ["Down"](https://thenounproject.com/AlfredoCreates/collection/arrows-5-glyph/) by [Alfredo Creates](https://thenounproject.com/AlfredoCreates) from The Noun Project

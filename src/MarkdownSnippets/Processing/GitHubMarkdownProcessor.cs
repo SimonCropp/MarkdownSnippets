@@ -70,7 +70,7 @@ namespace MarkdownSnippets
             using (var writer = File.CreateText(target))
             {
                 writer.WriteLine($@"<!--
-This file was generate by the MarkdownSnippets.
+This file was generate by MarkdownSnippets.
 Source File: {sourceFile.ReplaceCaseless(targetDirectory,"")}
 To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
 -->

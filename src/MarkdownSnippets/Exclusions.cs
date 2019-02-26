@@ -22,9 +22,22 @@ namespace MarkdownSnippets
             "obj"
         };
 
-        public static List<string> ExcludedFileExtensions { get; set; }= new List<string>
+        public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
         {
-            //from https://github.com/sindresorhus/binary-extensions/edit/master/binary-extensions.json
+            //files that dont accept comments hence cant contain snippets
+            "csv",
+            "json",
+            "geojson",
+
+            // extra binary
+            "mdb",
+            "shp",
+            "dbf",
+            "shx",
+            "pbf",
+            "sbn",
+
+            //from https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json
             "3dm",
             "3ds",
             "3g2",
@@ -60,7 +73,6 @@ namespace MarkdownSnippets
             "cmx",
             "cpio",
             "cr2",
-            "csv",
             "cur",
             "dat",
             "dcm",
@@ -214,6 +226,7 @@ namespace MarkdownSnippets
             "snk",
             "so",
             "stl",
+            "suo",
             "sub",
             "swf",
             "tar",

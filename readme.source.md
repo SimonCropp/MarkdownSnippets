@@ -217,7 +217,7 @@ snippet: GitHubMarkdownProcessorRun
 
 ## Release Notes
 
-See [closed milestones](/milestones?state=closed).
+See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).
 
 
 ## Icon

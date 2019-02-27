@@ -5,13 +5,14 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ToolCommandName>mdsnippets</ToolCommandName>
     <AssemblyName>mdsnippets</AssemblyName>
-    <PackageId>GitHubMarkdownSnippets</PackageId>
+    <PackageId>MarkdownSnippets.Tool</PackageId>
     <PackAsTool>True</PackAsTool>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-    <Description>Obsolete. Use MarkdownSnippets.Tool instead. Use the following to change over:
-dotnet tool uninstall -g GitHubMarkdownSnippets
-dotnet tool install -g MarkdownSnippets.Tool
-</Description>
+    <Description>.NET Core Global Tool for merging code snippets with markdown documents</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -146,7 +146,7 @@ snippet: ReadingDirectorySimple
 snippet: markdownProcessingSimple
 
 
-## GitHubMarkdownSnippets
+## MarkdownSnippets.Tool
 
 A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for merging snippets into GitHub markdown document.
 
@@ -171,19 +171,19 @@ The target directory can be defined via one of the following:
 To install use:
 
 ```ps
-dotnet tool install -g GitHubMarkdownSnippets
+dotnet tool install -g MarkdownSnippets.Tool
 ```
 
 To update use:
 
 ```ps
-dotnet tool update -g GitHubMarkdownSnippets
+dotnet tool update -g MarkdownSnippets.Tool
 ```
 
 To uninstall use:
 
 ```ps
-dotnet tool uninstall -g GitHubMarkdownSnippets
+dotnet tool uninstall -g MarkdownSnippets.Tool
 ```
 
 
@@ -213,6 +213,11 @@ snippet: GitHubMarkdownProcessorRunForFilePath
 For a specific directory:
 
 snippet: GitHubMarkdownProcessorRun
+
+
+## Release Notes
+
+See [closed milestones](/milestones?state=closed).
 
 
 ## Icon

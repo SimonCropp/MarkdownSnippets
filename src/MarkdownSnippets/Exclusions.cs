@@ -35,6 +35,7 @@ namespace MarkdownSnippets
             "dbf",
             "shx",
             "pbf",
+            "map",
             "sbn",
 
             //from https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json

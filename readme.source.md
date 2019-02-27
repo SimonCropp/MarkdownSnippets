@@ -5,6 +5,13 @@ Extract code snippets from any language to be used when building documentation
 Loosely based on some code from  https://github.com/shiftkey/scribble
 
 
+## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets/)
+
+https://nuget.org/packages/MarkdownSnippets/
+
+    PM> Install-Package MarkdownSnippets
+
+
 ## Using Snippets
 
 The keyed snippets can be used in any documentation `.md` file by adding the text `snippet: KEY`.
@@ -121,13 +128,6 @@ When scanning for snippets the following are ignored:
 To change these conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.
 
 
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets/)
-
-https://nuget.org/packages/MarkdownSnippets/
-
-    PM> Install-Package MarkdownSnippets
-
-
 ## Api Usage
 
 
@@ -149,6 +149,11 @@ snippet: markdownProcessingSimple
 ## MarkdownSnippets.Tool
 
 A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for merging snippets into markdown documents.
+
+
+### The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
+
+https://nuget.org/packages/MarkdownSnippets.Tool/
 
 
 ### Target directory

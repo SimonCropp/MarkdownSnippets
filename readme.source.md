@@ -7,7 +7,7 @@ Loosely based on some code from  https://github.com/shiftkey/scribble
 
 ## Using Snippets
 
-The keyed snippets can then be used in any documentation `.md` file by adding the text `snippet: KEY`.
+The keyed snippets can be used in any documentation `.md` file by adding the text `snippet: KEY`.
 
 Then snippets with the key (all versions) will be rendered in a tabbed manner. If there is only a single version then it will be rendered as a simple code block with no tabs.
 
@@ -28,7 +28,7 @@ The resulting markdown will be will be:
 
 ### Including full files
 
-When [snippets are read](#reading-snippets-from-files) all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have have a suffix matching the key. This result in the ability to include full files as snippets using the following syntax:
+When [snippets are read](#reading-snippets-from-files) all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
 
 <pre>
 snippet&#58; directory/FileToInclude.txt
@@ -107,10 +107,10 @@ Line one of the snippet
 &#10137;&#10137;Line one of the snippet
 </pre>
 
-Note none of the tabs have been trimmed.
+Note that none of the tabs have been trimmed.
 
 
-### Ignore paths
+### Ignored paths
 
 When scanning for snippets the following are ignored:
 
@@ -161,9 +161,9 @@ The target directory can be defined via one of the following:
 
 ### Behavior
 
- * Recursively scan the [target directory](#target-directory) for alln on [ignored files](#ignore-paths) for snippets.
+ * Recursively scan the [target directory](#target-directory) for all non [ignored files](#ignore-paths) for snippets.
  * Recursively scan the [target directory](#target-directory) for all `*.source.md` files.
- * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` pairs.
+ * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
 
 
 ### Installation

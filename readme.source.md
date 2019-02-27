@@ -148,7 +148,7 @@ snippet: markdownProcessingSimple
 
 ## MarkdownSnippets.Tool
 
-A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for merging snippets into GitHub markdown document.
+A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for merging snippets into markdown documents.
 
 
 ### Target directory

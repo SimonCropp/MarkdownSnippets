@@ -7,7 +7,8 @@ class Timestamp
     static DateTime minFileDate = DateTime.FromFileTimeUtc(0);
     public DateTime? Expiry;
     public DateTime? LastModified;
-    public   static Timestamp GetTimestamp(HttpResponseMessage headResponse)
+
+    public static Timestamp GetTimestamp(HttpResponseMessage headResponse)
     {
         var timestamp = new Timestamp();
         if (headResponse.Content.Headers.LastModified != null)

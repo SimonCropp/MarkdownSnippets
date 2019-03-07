@@ -47,19 +47,19 @@ static class Guard
 
     public static void DirectoryExists(string path, string argumentName)
     {
-        AgainstNullAndEmpty(path,nameof(argumentName));
+        AgainstNullAndEmpty(path, argumentName);
         if (!Directory.Exists(path))
         {
-            throw new ArgumentException($"Directory does not exist: {path}", nameof(argumentName));
+            throw new ArgumentException($"Directory does not exist: {path}", argumentName);
         }
     }
 
     public static void FileExists(string path, string argumentName)
     {
-        AgainstNullAndEmpty(path,nameof(argumentName));
+        AgainstNullAndEmpty(path, argumentName);
         if (!File.Exists(path))
         {
-            throw new ArgumentException($"File does not exist: {path}", nameof(argumentName));
+            throw new ArgumentException($"File does not exist: {path}", argumentName);
         }
     }
 

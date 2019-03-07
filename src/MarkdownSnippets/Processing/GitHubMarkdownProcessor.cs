@@ -61,7 +61,8 @@ namespace MarkdownSnippets
         static void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor, string targetDirectory)
         {
             log($"Processing {sourceFile}");
-            var target = sourceFile.Replace(".source.md", ".md");
+            // remove ".md" from ".source.md" then change ".source" to ".md"
+            var target = Path.ChangeExtension(Path.ChangeExtension(sourceFile, null), ".md");
             if (File.Exists(target))
             {
                 File.Delete(target);

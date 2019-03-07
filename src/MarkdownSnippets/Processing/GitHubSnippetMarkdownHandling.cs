@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MarkdownSnippets
 {
@@ -36,7 +37,10 @@ namespace MarkdownSnippets
 
             if (snippet.Path != null)
             {
-                var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(repositoryRoot,"");
+                var path = Regex.Replace(snippet.Path.Replace(@"\", "/"),
+                                         "^" + Regex.Escape(repositoryRoot),
+                                         string.Empty,
+                                         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
                 writer.WriteLine($"<sup>[snippet source]({path}#L{snippet.StartLine}-L{snippet.EndLine})</sup>");
             }
         }

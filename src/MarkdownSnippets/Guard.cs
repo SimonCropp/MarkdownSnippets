@@ -21,14 +21,6 @@ static class Guard
         }
     }
 
-    public static void AgainstNegativeAndZero(long value, string argumentName)
-    {
-        if (value <= 0)
-        {
-            throw new ArgumentOutOfRangeException(argumentName);
-        }
-    }
-
     public static void AgainstNegativeAndZero(int value, string argumentName)
     {
         if (value <= 0)
@@ -51,15 +43,6 @@ static class Guard
         if (!Directory.Exists(path))
         {
             throw new ArgumentException($"Directory does not exist: {path}", argumentName);
-        }
-    }
-
-    public static void DirectoryIsFullyQualified(string path, string argumentName)
-    {
-        AgainstNullAndEmpty(path, argumentName);
-        if (Path.GetPathRoot(path) == string.Empty)
-        {
-            throw new ArgumentException($"Directory path must be fully qualified. Path: {path}", argumentName);
         }
     }
 

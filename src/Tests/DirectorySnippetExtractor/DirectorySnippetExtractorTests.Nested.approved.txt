@@ -4,7 +4,7 @@
     Language: 'txt',
     Value: 'Some code',
     Error: null,
-    FileLocation: 'root\\DirectorySnippetExtractor/Nested\nested\nested\code.txt(1-3)',
+    FileLocation: 'root\\DirectorySnippetExtractor\Nested\nested\nested\code.txt(1-3)',
     IsInError: false
   }
 ]

@@ -40,6 +40,7 @@ class Program
         if (args.Length == 1)
         {
             var targetDirectory = args[0];
+            targetDirectory = Path.GetFullPath(targetDirectory);
             if (Directory.Exists(targetDirectory))
             {
                 return targetDirectory;

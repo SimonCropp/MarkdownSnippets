@@ -17,7 +17,7 @@ namespace MarkdownSnippets
 
         public bool IncludeDirectory(string directoryPath)
         {
-            Guard.DirectoryExists(directoryPath,nameof(directoryPath));
+            Guard.DirectoryExists(directoryPath, nameof(directoryPath));
             var fileName = Path.GetFileName(directoryPath);
             if (fileName.StartsWith("."))
             {
@@ -71,7 +71,7 @@ namespace MarkdownSnippets
             foreach (var directoryPath in directoryPaths)
             {
                 Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-                FindFiles(directoryPath, files);
+                FindFiles(Path.GetFullPath(directoryPath), files);
             }
 
             return files;

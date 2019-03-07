@@ -35,6 +35,7 @@ namespace MarkdownSnippets
         public static void Run(string targetDirectory)
         {
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
+            Guard.DirectoryIsFullyQualified(targetDirectory, nameof(targetDirectory));
             var finder = new FileFinder();
             var findFiles = finder.FindFiles(targetDirectory);
             Run(targetDirectory, findFiles);
@@ -43,6 +44,7 @@ namespace MarkdownSnippets
         public static void Run(string targetDirectory, List<string> snippetSourceFiles)
         {
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
+            Guard.DirectoryIsFullyQualified(targetDirectory, nameof(targetDirectory));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             log($"Searching {snippetSourceFiles.Count} files for snippets");
             var mdFinder = new FileFinder(path => true, IsSourceMd);

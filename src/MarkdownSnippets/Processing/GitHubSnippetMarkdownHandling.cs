@@ -13,6 +13,7 @@ namespace MarkdownSnippets
         public GitHubSnippetMarkdownHandling(string repositoryRoot)
         {
             Guard.AgainstNullAndEmpty(repositoryRoot, nameof(repositoryRoot));
+            Guard.DirectoryIsFullyQualified(repositoryRoot, nameof(repositoryRoot));
             this.repositoryRoot = repositoryRoot.Replace(@"\", "/");
         }
 

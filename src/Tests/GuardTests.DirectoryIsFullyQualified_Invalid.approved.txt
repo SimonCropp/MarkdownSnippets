@@ -1,0 +1,2 @@
+﻿Directory path must be fully qualified. Path: foo
+Parameter name: arg

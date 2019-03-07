@@ -54,6 +54,15 @@ static class Guard
         }
     }
 
+    public static void DirectoryIsFullyQualified(string path, string argumentName)
+    {
+        AgainstNullAndEmpty(path, argumentName);
+        if (Path.GetPathRoot(path) == string.Empty)
+        {
+            throw new ArgumentException($"Directory path must be fully qualified. Path: {path}", argumentName);
+        }
+    }
+
     public static void FileExists(string path, string argumentName)
     {
         AgainstNullAndEmpty(path, argumentName);
@@ -69,6 +78,7 @@ static class Guard
         {
             return;
         }
+
         if (string.IsNullOrWhiteSpace(value))
         {
             throw new ArgumentException("Cannot be only whitespace.", argumentName);

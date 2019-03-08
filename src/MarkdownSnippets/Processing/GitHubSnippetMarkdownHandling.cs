@@ -30,10 +30,9 @@ namespace MarkdownSnippets
 
         void WriteSnippet(TextWriter writer, Snippet snippet)
         {
-            var format = $@"```{snippet.Language}
-{snippet.Value}
-```";
-            writer.WriteLine(format);
+            writer.WriteLine($"```{snippet.Language}");
+            writer.WriteLine(snippet.Value);
+            writer.WriteLine("```");
 
             if (snippet.Path != null)
             {

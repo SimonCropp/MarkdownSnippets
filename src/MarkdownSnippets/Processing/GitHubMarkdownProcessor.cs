@@ -65,10 +65,6 @@ namespace MarkdownSnippets
             log($"Processing {sourceFile}");
             // remove ".md" from ".source.md" then change ".source" to ".md"
             var target = Path.ChangeExtension(Path.ChangeExtension(sourceFile, null), ".md");
-            if (File.Exists(target))
-            {
-                File.Delete(target);
-            }
             using (var reader = File.OpenText(sourceFile))
             using (var writer = File.CreateText(target))
             {

@@ -42,7 +42,7 @@ static class Downloader
         var requestMessage = new HttpRequestMessage(HttpMethod.Head, requestUri);
 
         Timestamp webTimeStamp;
-        using (var headResponse = await httpClient.SendAsync(requestMessage).ConfigureAwait(false))
+        using (var headResponse = await httpClient.SendAsync(requestMessage))
         {
             webTimeStamp = Timestamp.GetTimestamp(headResponse);
 
@@ -58,12 +58,12 @@ static class Downloader
             }
         }
 
-        using (var response = await httpClient.GetAsync(requestUri).ConfigureAwait(false))
-        using (var httpStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+        using (var response = await httpClient.GetAsync(requestUri))
+        using (var httpStream = await response.Content.ReadAsStreamAsync())
         {
             using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                await httpStream.CopyToAsync(fileStream).ConfigureAwait(false);
+                await httpStream.CopyToAsync(fileStream);
             }
 
             webTimeStamp = Timestamp.GetTimestamp(response);

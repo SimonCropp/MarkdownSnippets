@@ -22,7 +22,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(urls, nameof(urls));
             foreach (var url in urls)
             {
-                await AppendUrlAsSnippet(snippets, url).ConfigureAwait(false);
+                await AppendUrlAsSnippet(snippets, url);
             }
         }
 
@@ -30,7 +30,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNullAndEmpty(url, nameof(url));
-            var text = await Downloader.DownloadFile(url).ConfigureAwait(false);
+            var text = await Downloader.DownloadFile(url);
             var snippet = Snippet.Build(1, text.LineCount(), text, key, GetLanguageFromPath(url), null);
             snippets.Add(snippet);
         }

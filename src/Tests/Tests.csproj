@@ -5,7 +5,6 @@
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>
     <Optimize>False</Optimize>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="3.0.22" />

@@ -96,6 +96,10 @@ namespace MarkdownSnippets
             string line;
             while ((line = reader.ReadLine()) != null)
             {
+                if (reader.Index == 1)
+                {
+                    writer.NewLine = reader.NewLine;
+                } 
                 if (TryProcessSnippetLine(writer, reader, line, missing, usedSnippets))
                 {
                     continue;

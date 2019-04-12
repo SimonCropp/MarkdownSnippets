@@ -1,8 +1,10 @@
 ﻿using ApprovalTests;
 using MarkdownSnippets;
 using Xunit;
+using Xunit.Abstractions;
 
-public class StartEndTester_IsStartCodeTests : TestBase
+public class StartEndTester_IsStartCodeTests : 
+    TestBase
 {
     [Fact]
     public void CanExtractFromXml()
@@ -96,5 +98,10 @@ public class StartEndTester_IsStartCodeTests : TestBase
         var isStartCode = StartEndTester.IsStartCode("/*startcode CodeKey */", "file", out var key);
         Assert.True(isStartCode);
         Assert.Equal("CodeKey", key);
+    }
+
+    public StartEndTester_IsStartCodeTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

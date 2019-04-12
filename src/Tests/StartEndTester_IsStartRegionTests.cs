@@ -1,8 +1,10 @@
 ﻿using ApprovalTests;
 using MarkdownSnippets;
 using Xunit;
+using Xunit.Abstractions;
 
-public class StartEndTester_IsStartRegionTests : TestBase
+public class StartEndTester_IsStartRegionTests :
+    TestBase
 {
     [Fact]
     public void CanExtractFromXml()
@@ -62,5 +64,10 @@ public class StartEndTester_IsStartRegionTests : TestBase
     {
         StartEndTester.IsStartRegion("#region Code-Key", "file", out var key);
         Assert.Equal("Code-Key", key);
+    }
+
+    public StartEndTester_IsStartRegionTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

@@ -4,8 +4,10 @@ using System.Text;
 using ApprovalTests;
 using MarkdownSnippets;
 using Xunit;
+using Xunit.Abstractions;
 
-public class GitHubSnippetMarkdownHandlingTests : TestBase
+public class GitHubSnippetMarkdownHandlingTests : 
+    TestBase
 {
     [Fact]
     public void AppendGroup()
@@ -19,5 +21,10 @@ public class GitHubSnippetMarkdownHandlingTests : TestBase
         }
 
         Approvals.Verify(builder.ToString());
+    }
+
+    public GitHubSnippetMarkdownHandlingTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
 public class DirectorySnippetExtractorTests : TestBase
 {
@@ -90,5 +91,10 @@ public class DirectorySnippetExtractorTests : TestBase
     public class CapturedFile
     {
         public string Path;
+    }
+
+    public DirectorySnippetExtractorTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

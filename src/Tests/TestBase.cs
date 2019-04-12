@@ -1,7 +1,14 @@
 ﻿using ObjectApproval;
+using Xunit.Abstractions;
 
-public class TestBase
+public class TestBase:
+    XunitLoggingBase
 {
+    public TestBase(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+
     static TestBase()
     {
         SerializerBuilder.ExtraSettings = settings =>

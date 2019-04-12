@@ -1,7 +1,9 @@
 using ApprovalTests;
 using Xunit;
+using Xunit.Abstractions;
 
-public class LoopStateTests : TestBase
+public class LoopStateTests :
+    TestBase
 {
     [Fact]
     public void TrimIndentation()
@@ -57,5 +59,10 @@ public class LoopStateTests : TestBase
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
         Approvals.Verify(loopState.GetLines());
+    }
+
+    public LoopStateTests(ITestOutputHelper output) : 
+        base(output)
+    {
     }
 }

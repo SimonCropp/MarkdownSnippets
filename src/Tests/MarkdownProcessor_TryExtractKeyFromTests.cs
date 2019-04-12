@@ -1,7 +1,9 @@
 ﻿using MarkdownSnippets;
 using Xunit;
+using Xunit.Abstractions;
 
-public class MarkdownProcessor_TryExtractKeyFromTests : TestBase
+public class MarkdownProcessor_TryExtractKeyFromTests : 
+    TestBase
 {
     [Fact]
     public void MissingSpaces()
@@ -29,5 +31,10 @@ public class MarkdownProcessor_TryExtractKeyFromTests : TestBase
     {
         SnippetKeyReader.TryExtractKeyFromLine("snippet:  snippet   ", out var key);
         Assert.Equal("snippet", key);
+    }
+
+    public MarkdownProcessor_TryExtractKeyFromTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

@@ -2,8 +2,10 @@
 using System.IO;
 using MarkdownSnippets;
 using Xunit;
+using Xunit.Abstractions;
 
-public class MarkdownProcessorTests : TestBase
+public class MarkdownProcessorTests :
+    TestBase
 {
     [Fact]
     public void Simple()
@@ -53,5 +55,10 @@ snippet: /FileToUseAsSnippet.txt
             value: "Snippet",
             key: key,
             path: "thePath");
+    }
+
+    public MarkdownProcessorTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

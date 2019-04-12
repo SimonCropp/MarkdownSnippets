@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
-public class SnippetExtractorTests : TestBase
+public class SnippetExtractorTests : 
+    TestBase
 {
     [Fact]
     public async Task AppendUrlAsSnippet()
@@ -40,39 +42,6 @@ public class SnippetExtractorTests : TestBase
         {
             File.Delete(temp);
         }
-    }
-
-    [Fact]
-    public void WithDodgyEmDash()
-    {
-        var input = @"
-  <!-- startcode key -->
-  —
-  <!-- endcode -->";
-        var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
-    }
-
-    [Fact]
-    public void WithDodgyLeftQuote()
-    {
-        var input = @"
-  <!-- startcode key -->
-  “
-  <!-- endcode -->";
-        var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
-    }
-
-    [Fact]
-    public void WithDodgyRightQuote()
-    {
-        var input = @"
-  <!-- startcode key -->
-  ”
-  <!-- endcode -->";
-        var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
     }
 
     [Fact]
@@ -277,5 +246,10 @@ public class SnippetExtractorTests : TestBase
   // endcode   ";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
+    }
+
+    public SnippetExtractorTests(ITestOutputHelper output) : 
+        base(output)
+    {
     }
 }

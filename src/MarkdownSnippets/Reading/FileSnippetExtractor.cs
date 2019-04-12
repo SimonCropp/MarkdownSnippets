@@ -167,15 +167,6 @@ namespace MarkdownSnippets
             var startRow = loopState.StartLine + 1;
 
             var value = loopState.GetLines();
-            if (value.IndexOfAny(invalidCharacters) > -1)
-            {
-                var joinedInvalidChars = $"'{string.Join("', '", invalidCharacters)}'";
-                return Snippet.BuildError(
-                    error: $"Snippet contains invalid characters ({joinedInvalidChars}). This was probably caused by copying code from MS Word or Outlook. Dont do that.",
-                    path: path,
-                    lineNumberInError: startRow,
-                    key: loopState.Key);
-            }
 
             return Snippet.Build(
                 startLine: loopState.StartLine,
@@ -186,7 +177,5 @@ namespace MarkdownSnippets
                 language: language.ToLowerInvariant()
             );
         }
-
-        static char[] invalidCharacters = {'“', '”', '—'};
     }
 }

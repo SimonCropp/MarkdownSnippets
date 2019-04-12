@@ -66,7 +66,9 @@ namespace MarkdownSnippets
         public static IEnumerable<Snippet> Read(IEnumerable<string> paths)
         {
             Guard.AgainstNull(paths, nameof(paths));
-            return paths.SelectMany(Read);
+            return paths
+                .Where(x => Exclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
+                .SelectMany(Read);
         }
 
         /// <summary>

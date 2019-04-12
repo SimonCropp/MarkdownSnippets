@@ -11,6 +11,12 @@ namespace MarkdownSnippets
             return ExcludedFileExtensions.Contains(extension);
         }
 
+        public static bool CanContainCommentsExtension(string extension)
+        {
+            extension = extension.ToLowerInvariant();
+            return !NoAcceptCommentsExtensions.Contains(extension);
+        }
+
         public static bool ShouldExcludeDirectory(string suffix)
         {
             suffix = suffix.ToLowerInvariant();
@@ -23,13 +29,16 @@ namespace MarkdownSnippets
             "obj"
         };
 
-        public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
+        public static List<string> NoAcceptCommentsExtensions { get; set; } = new List<string>
         {
             //files that dont accept comments hence cant contain snippets
             "csv",
             "json",
-            "geojson",
+            "geojson"
+        };
 
+        public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
+        {
             // extra binary
             "mdb",
             "shp",

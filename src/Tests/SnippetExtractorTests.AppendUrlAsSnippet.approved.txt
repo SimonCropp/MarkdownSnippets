@@ -2,7 +2,7 @@
   {
     Key: 'appveyor.yml',
     Language: 'yml',
-    Value: 'image: Visual Studio 2019 Preview\nbuild_script:\n- ps: >-\n    dotnet build src --configuration Release\n\n    dotnet test src --configuration Release --no-build --no-restore\ntest: off\nartifacts:\n- path: nugets\*.nupkg',
+    Value: 'image: Visual Studio 2019 Preview\nskip_commits:\n  message: /Merge pull request.*/\nbuild_script:\n- ps: >-\n    dotnet build src --configuration Release\n\n    dotnet test src --configuration Release --no-build --no-restore\ntest: off\nartifacts:\n- path: nugets\*.nupkg',
     Error: null,
     FileLocation: null,
     IsInError: false

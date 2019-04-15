@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using CommandLine;
 using MarkdownSnippets;
 
 class Program
@@ -7,7 +9,32 @@ class Program
     static void Main(string[] args)
     {
         GitHubMarkdownProcessor.Log = Console.WriteLine;
-        var targetDirectory = GetTargetDirectory(args);
+        if (args.Length == 1)
+        {
+            var firstArg = args[0];
+            if (!firstArg.StartsWith('-'))
+            {
+                Inner(firstArg);
+                return;
+            }
+        }
+        CommandLine.Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(
+                options =>
+                {
+                    ApplyDefaults(options);
+                    Inner(options.TargetDirectory);
+                });
+    }
+    
+    static void Inner(string targetDirectory)
+    {
+        Console.WriteLine($"TargetDirectory: {targetDirectory}");
+        if (!Directory.Exists(targetDirectory))
+        {
+            Console.WriteLine($"Target directory does not exist: {targetDirectory}");
+            Environment.Exit(1);
+        }
         try
         {
             GitHubMarkdownProcessor.Run(targetDirectory);
@@ -29,32 +56,20 @@ class Program
         }
     }
 
-    static string GetTargetDirectory(string[] args)
+    static void ApplyDefaults(Options options)
     {
-        if (args.Length > 1)
+        if (options.TargetDirectory == null)
         {
-            Console.WriteLine("Only one argument (target directory) is supported");
-            Environment.Exit(1);
-        }
-
-        if (args.Length == 1)
-        {
-            var targetDirectory = args[0];
-            targetDirectory = Path.GetFullPath(targetDirectory);
-            if (Directory.Exists(targetDirectory))
+            options.TargetDirectory = Environment.CurrentDirectory;
+            if (!GitRepoDirectoryFinder.IsInGitRepository(options.TargetDirectory))
             {
-                return targetDirectory;
+                Console.WriteLine($"The current directory does no exist with a .git repository. Pass in a target directory instead. Current directory: {options.TargetDirectory}");
+                Environment.Exit(1);
             }
-            Console.WriteLine($"Target directory does not exist: {targetDirectory}");
-            Environment.Exit(1);
         }
-
-        var currentDirectory = Environment.CurrentDirectory;
-        if (!GitRepoDirectoryFinder.IsInGitRepository(currentDirectory))
+        else
         {
-            Console.WriteLine($"The current directory does no exist with a .git repository. Pass in a target directory instead. Current directory: {currentDirectory}");
-            Environment.Exit(1);
+            options.TargetDirectory = Path.GetFullPath(options.TargetDirectory);
         }
-        return currentDirectory;
     }
 }

@@ -9,10 +9,12 @@
     <PackAsTool>True</PackAsTool>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Description>.NET Core Global Tool for merging code snippets with markdown documents</Description>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
+    <PackageReference Include="CommandLineParser" Version="2.4.3" />
   </ItemGroup>
 
 </Project>

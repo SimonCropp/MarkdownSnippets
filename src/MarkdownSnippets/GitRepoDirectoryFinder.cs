@@ -18,6 +18,30 @@ namespace MarkdownSnippets
             return rootDirectory;
         }
 
+        public static string GetHash(string targetDirectory)
+        {
+            Guard.DirectoryExists(targetDirectory,nameof(targetDirectory));
+            var head = ReadHead(targetDirectory);
+            var @ref = Path.Combine(targetDirectory, ".git", head);
+            return ReadFirstLine(@ref);
+        }
+
+        static string ReadHead(string targetDirectory)
+        {
+            var head = Path.Combine(targetDirectory, ".git", "HEAD");
+            var line = ReadFirstLine(head);
+            return line.Replace("ref: ", "");
+        }
+
+        static string ReadFirstLine(string head)
+        {
+            using (var stream = FileEx.OpenRead(head))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadLine();
+            }
+        }
+
         public static bool IsInGitRepository(string targetDirectory)
         {
             Guard.DirectoryExists(targetDirectory,nameof(targetDirectory));

@@ -153,17 +153,17 @@ namespace MarkdownSnippets
         List<Snippet> FilesToSnippets(string key)
         {
             return snippetSourceFiles
-                .Where(x => x.EndsWith(key, StringComparison.OrdinalIgnoreCase))
-                .Select(x =>
+                .Where(file => file.EndsWith(key, StringComparison.OrdinalIgnoreCase))
+                .Select(file =>
                 {
-                    var allText = File.ReadAllText(x);
+                    var allText = File.ReadAllText(file);
                     return Snippet.Build(
                         startLine: 1,
                         endLine: allText.LineCount(),
                         value: allText,
                         key: key,
-                        language: Path.GetExtension(x).Substring(1),
-                        path: x);
+                        language: Path.GetExtension(file).Substring(1),
+                        path: file);
                 })
                 .ToList();
         }

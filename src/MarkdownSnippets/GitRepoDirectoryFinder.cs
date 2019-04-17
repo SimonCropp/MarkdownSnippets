@@ -18,34 +18,10 @@ namespace MarkdownSnippets
             return rootDirectory;
         }
 
-        public static string GetHash(string targetDirectory)
+        public static bool IsInGitRepository(string directory)
         {
-            Guard.DirectoryExists(targetDirectory,nameof(targetDirectory));
-            var head = ReadHead(targetDirectory);
-            var @ref = Path.Combine(targetDirectory, ".git", head);
-            return ReadFirstLine(@ref);
-        }
-
-        static string ReadHead(string targetDirectory)
-        {
-            var head = Path.Combine(targetDirectory, ".git", "HEAD");
-            var line = ReadFirstLine(head);
-            return line.Replace("ref: ", "");
-        }
-
-        static string ReadFirstLine(string head)
-        {
-            using (var stream = FileEx.OpenRead(head))
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadLine();
-            }
-        }
-
-        public static bool IsInGitRepository(string targetDirectory)
-        {
-            Guard.DirectoryExists(targetDirectory,nameof(targetDirectory));
-            if (TryFind(targetDirectory, out _))
+            Guard.DirectoryExists(directory, nameof(directory));
+            if (TryFind(directory, out _))
             {
                 return true;
             }
@@ -53,26 +29,26 @@ namespace MarkdownSnippets
             return false;
         }
 
-        public static bool TryFind(string targetDirectory, out string path)
+        public static bool TryFind(string directory, out string path)
         {
-            Guard.DirectoryExists(targetDirectory,nameof(targetDirectory));
+            Guard.DirectoryExists(directory, nameof(directory));
 
             do
             {
-                if (Directory.Exists(Path.Combine(targetDirectory, ".git")))
+                if (Directory.Exists(Path.Combine(directory, ".git")))
                 {
-                    path = targetDirectory;
+                    path = directory;
                     return true;
                 }
 
-                var parent = Directory.GetParent(targetDirectory);
+                var parent = Directory.GetParent(directory);
                 if (parent == null)
                 {
                     path = null;
                     return false;
                 }
 
-                targetDirectory = parent.FullName;
+                directory = parent.FullName;
             } while (true);
         }
     }

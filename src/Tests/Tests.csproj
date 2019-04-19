@@ -7,7 +7,6 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="GitDirs\" />
     <PackageReference Include="ApprovalTests" Version="3.0.22" />
     <PackageReference Include="ObjectApproval" Version="8.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
@@ -25,23 +24,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
-    <None Update="DirectorySnippetExtractor\Case\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-    <None Update="DirectorySnippetExtractor\Nested\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-    <None Update="DirectorySnippetExtractor\Simple\**\*.*">
+    <None Update="DirectorySnippetExtractor\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
     <None Update="GitDirs\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-    <None Update="DirectorySnippetExtractor\VerifyLambdasAreCalled\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>

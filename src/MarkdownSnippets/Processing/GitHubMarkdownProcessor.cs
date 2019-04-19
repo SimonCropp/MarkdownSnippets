@@ -47,9 +47,14 @@ namespace MarkdownSnippets
             targetDirectory = Path.GetFullPath(targetDirectory);
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             log($"Searching {snippetSourceFiles.Count} files for snippets");
-            var mdFinder = new FileFinder(path => true, IsSourceMd);
             var snippets = FileSnippetExtractor.Read(snippetSourceFiles).ToList();
             log($"Found {snippets.Count} snippets");
+            Run(targetDirectory, snippetSourceFiles, snippets);
+        }
+
+        public static void Run(string targetDirectory, List<string> snippetSourceFiles, List<Snippet> snippets)
+        {
+            var mdFinder = new FileFinder(path => true, IsSourceMd);
             var handling = new GitHubSnippetMarkdownHandling(targetDirectory);
             var processor = new MarkdownProcessor(snippets, handling.AppendGroup, snippetSourceFiles);
             var sourceMdFiles = mdFinder.FindFiles(targetDirectory);

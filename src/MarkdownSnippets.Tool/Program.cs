@@ -6,7 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        GitHubMarkdownProcessor.Log = Console.WriteLine;
         CommandRunner.RunCommand(args, Inner);
     }
 
@@ -21,7 +20,8 @@ class Program
 
         try
         {
-            GitHubMarkdownProcessor.Run(targetDirectory);
+            var processor = new DirectoryMarkdownProcessor(targetDirectory, log: Console.WriteLine);
+            processor.Run();
         }
         catch (SnippetReadingException exception)
         {

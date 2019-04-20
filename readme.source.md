@@ -213,7 +213,7 @@ The above functionality can also be achieved via a unit test via using the API.
 
 For the git repository containing the unit test file:
 
-snippet: BuildForForFilePath
+snippet: RunForFilePath
 
 For a specific directory:
 

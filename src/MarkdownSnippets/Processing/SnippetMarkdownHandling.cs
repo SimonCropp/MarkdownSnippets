@@ -8,13 +8,13 @@ namespace MarkdownSnippets
     /// </summary>
     public class SnippetMarkdownHandling
     {
-        string repositoryRoot;
+        string rootDirectory;
 
-        public SnippetMarkdownHandling(string repositoryRoot)
+        public SnippetMarkdownHandling(string rootDirectory)
         {
-            Guard.AgainstNullAndEmpty(repositoryRoot, nameof(repositoryRoot));
-            repositoryRoot = Path.GetFullPath(repositoryRoot);
-            this.repositoryRoot = repositoryRoot.Replace(@"\", "/");
+            Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
+            rootDirectory = Path.GetFullPath(rootDirectory);
+            this.rootDirectory = rootDirectory.Replace(@"\", "/");
         }
 
         public void AppendGroup(string key, IEnumerable<Snippet> snippets, TextWriter writer)
@@ -36,7 +36,7 @@ namespace MarkdownSnippets
 
             if (snippet.Path != null)
             {
-                var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(repositoryRoot,"");
+                var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(rootDirectory, "");
                 writer.WriteLine($"<sup>[snippet source]({path}#L{snippet.StartLine}-L{snippet.EndLine})</sup>");
             }
         }

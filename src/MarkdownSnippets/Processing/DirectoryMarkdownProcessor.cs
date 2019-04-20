@@ -8,9 +8,8 @@ using System.Runtime.CompilerServices;
 namespace MarkdownSnippets
 {
     public class DirectoryMarkdownProcessor
-    {
-        public bool WriteHeader { set; get; } = true;
-         Action<string> log;
+    { bool writeHeader;
+        Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
         List<Snippet> snippets = new List<Snippet>();
@@ -22,8 +21,10 @@ namespace MarkdownSnippets
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
             Action<string> log = null,
-            AppendSnippetGroupToMarkdown appendSnippetGroup = null)
+            AppendSnippetGroupToMarkdown appendSnippetGroup = null,
+            bool writeHeader= true)
         {
+            this.writeHeader = writeHeader;
             if (appendSnippetGroup == null)
             {
                 this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
@@ -106,11 +107,11 @@ namespace MarkdownSnippets
             }
         }
 
-        public static DirectoryMarkdownProcessor BuildForForFilePath([CallerFilePath] string sourceFilePath = "")
+        public static void RunForForFilePath([CallerFilePath] string sourceFilePath = "")
         {
             Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
             var root = GitRepoDirectoryFinder.FindForFilePath(sourceFilePath);
-            return new DirectoryMarkdownProcessor(root);
+            new DirectoryMarkdownProcessor(root).Run();
         }
 
         public void Run()
@@ -131,7 +132,7 @@ namespace MarkdownSnippets
             using (var reader = File.OpenText(sourceFile))
             using (var writer = File.CreateText(target))
             {
-                if (WriteHeader)
+                if (writeHeader)
                 {
                     HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
                 }

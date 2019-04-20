@@ -16,10 +16,9 @@ class Usage
 
     void RunForFilePath()
     {
-        #region BuildForForFilePath
+        #region RunForFilePath
 
-        var processor = DirectoryMarkdownProcessor.BuildForForFilePath();
-        processor.Run();
+        DirectoryMarkdownProcessor.RunForForFilePath();
 
         #endregion
     }

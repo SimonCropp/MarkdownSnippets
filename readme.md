@@ -160,7 +160,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
     fileFilter: filePath => filePath.EndsWith(".js") || filePath.EndsWith(".cs"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L39-L49)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L38-L48)</sup>
 <!-- endsnippet -->
 
 
@@ -190,7 +190,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L54-L78)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L77)</sup>
 <!-- endsnippet -->
 
 
@@ -261,12 +261,11 @@ The above functionality can also be achieved via a unit test via using the API.
 
 For the git repository containing the unit test file:
 
-<!-- snippet: BuildForForFilePath -->
+<!-- snippet: RunForFilePath -->
 ```cs
-var processor = DirectoryMarkdownProcessor.BuildForForFilePath();
-processor.Run();
+DirectoryMarkdownProcessor.RunForForFilePath();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L24)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L23)</sup>
 <!-- endsnippet -->
 
 For a specific directory:
@@ -276,7 +275,7 @@ For a specific directory:
 var processor = new DirectoryMarkdownProcessor("targetDirectory");
 processor.Run();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L29-L34)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L28-L33)</sup>
 <!-- endsnippet -->
 
 

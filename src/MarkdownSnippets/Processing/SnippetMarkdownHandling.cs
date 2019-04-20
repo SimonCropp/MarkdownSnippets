@@ -6,11 +6,11 @@ namespace MarkdownSnippets
     /// <summary>
     /// GitHub markdown handling to be passed to <see cref="MarkdownProcessor"/>.
     /// </summary>
-    public class GitHubSnippetMarkdownHandling
+    public class SnippetMarkdownHandling
     {
         string repositoryRoot;
 
-        public GitHubSnippetMarkdownHandling(string repositoryRoot)
+        public SnippetMarkdownHandling(string repositoryRoot)
         {
             Guard.AgainstNullAndEmpty(repositoryRoot, nameof(repositoryRoot));
             repositoryRoot = Path.GetFullPath(repositoryRoot);

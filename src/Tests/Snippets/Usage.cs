@@ -18,13 +18,18 @@ class Usage
     {
         #region GitHubMarkdownProcessorRunForFilePath
 
-        GitHubMarkdownProcessor.RunForFilePath();
+        var processor = GitHubMarkdownProcessor.BuildForForFilePath();
+        processor.Run();
 
         #endregion
+    }
 
+    void GitHubMarkdownProcessorRun()
+    {
         #region GitHubMarkdownProcessorRun
 
-        GitHubMarkdownProcessor.Run("targetDirectory");
+        var processor = new GitHubMarkdownProcessor("targetDirectory");
+        processor.Run();
 
         #endregion
     }

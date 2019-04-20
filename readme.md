@@ -160,7 +160,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
     fileFilter: filePath => filePath.EndsWith(".js") || filePath.EndsWith(".cs"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L34-L44)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L39-L49)</sup>
 <!-- endsnippet -->
 
 
@@ -190,7 +190,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L49-L73)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L54-L78)</sup>
 <!-- endsnippet -->
 
 
@@ -263,18 +263,20 @@ For the git repository containing the unit test file:
 
 <!-- snippet: GitHubMarkdownProcessorRunForFilePath -->
 ```cs
-GitHubMarkdownProcessor.RunForFilePath();
+var processor = GitHubMarkdownProcessor.BuildForForFilePath();
+processor.Run();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L23)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L24)</sup>
 <!-- endsnippet -->
 
 For a specific directory:
 
 <!-- snippet: GitHubMarkdownProcessorRun -->
 ```cs
-GitHubMarkdownProcessor.Run("targetDirectory");
+var processor = new GitHubMarkdownProcessor("targetDirectory");
+processor.Run();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L25-L29)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L29-L34)</sup>
 <!-- endsnippet -->
 
 

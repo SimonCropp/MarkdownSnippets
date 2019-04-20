@@ -6,16 +6,19 @@ using System.Runtime.CompilerServices;
 
 namespace MarkdownSnippets
 {
-    public static class GitHubMarkdownProcessor
+    public class GitHubMarkdownProcessor
     {
-        static Action<string> log;
+        public bool WriteHeader { set; get; } = true;
+        Action<string> log = s => { };
+        string targetDirectory;
 
-        static GitHubMarkdownProcessor()
+        public GitHubMarkdownProcessor(string targetDirectory)
         {
-            log = s => { };
+            Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
+            this.targetDirectory = Path.GetFullPath(targetDirectory);
         }
 
-        public static Action<string> Log
+        public Action<string> Log
         {
             get => log;
             set
@@ -25,59 +28,55 @@ namespace MarkdownSnippets
             }
         }
 
-        public static void RunForFilePath([CallerFilePath] string sourceFilePath = "",bool writeHeader=true)
+        public static GitHubMarkdownProcessor BuildForForFilePath([CallerFilePath] string sourceFilePath = "")
         {
             Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
             var root = GitRepoDirectoryFinder.FindForFilePath(sourceFilePath);
-            Run(root,writeHeader);
+            return new GitHubMarkdownProcessor(root);
         }
 
-        public static void Run(string targetDirectory, bool writeHeader=true)
+        public void Run()
         {
-            Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
-            targetDirectory = Path.GetFullPath(targetDirectory);
             var finder = new FileFinder();
             var findFiles = finder.FindFiles(targetDirectory);
-            Run(targetDirectory, findFiles,writeHeader);
+            Run(findFiles);
         }
 
-        public static void Run(string targetDirectory, List<string> snippetSourceFiles, bool writeHeader=true)
+        public void Run(List<string> snippetSourceFiles)
         {
-            Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             targetDirectory = Path.GetFullPath(targetDirectory);
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             log($"Searching {snippetSourceFiles.Count} files for snippets");
             var snippets = FileSnippetExtractor.Read(snippetSourceFiles).ToList();
             log($"Found {snippets.Count} snippets");
-            Run(targetDirectory, snippets, snippetSourceFiles,writeHeader);
+            Run(snippets, snippetSourceFiles);
         }
 
-        public static void Run(string targetDirectory, List<Snippet> snippets, List<string> snippetSourceFiles, bool writeHeader=true)
+        public void Run(List<Snippet> snippets, List<string> snippetSourceFiles)
         {
-            Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var mdFinder = new FileFinder(path => true, IsSourceMd);
             var sourceMdFiles = mdFinder.FindFiles(targetDirectory);
             log($"Found {sourceMdFiles.Count} .source.md files");
-            var handling = new GitHubSnippetMarkdownHandling(targetDirectory);
+            var handling = new SnippetMarkdownHandling(targetDirectory);
             var processor = new MarkdownProcessor(snippets, handling.AppendGroup, snippetSourceFiles);
             foreach (var sourceFile in sourceMdFiles)
             {
-                ProcessFile(sourceFile, processor, targetDirectory,writeHeader);
+                ProcessFile(sourceFile, processor);
             }
         }
 
-        static void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor, string rootDirectory, bool writeHeader)
+        void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor)
         {
             log($"Processing {sourceFile}");
-            var target = GetTargetFile(sourceFile, rootDirectory);
+            var target = GetTargetFile(sourceFile, targetDirectory);
             using (var reader = File.OpenText(sourceFile))
             using (var writer = File.CreateText(target))
             {
-                if (writeHeader)
+                if (WriteHeader)
                 {
-                    HeaderWriter.WriteHeader(sourceFile, rootDirectory, writer);
+                    HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
                 }
 
                 var result = markdownProcessor.Apply(reader, writer);
@@ -94,7 +93,7 @@ namespace MarkdownSnippets
             var relativePath = FileEx.GetRelativePath(sourceFile, rootDirectory);
 
             var filtered = relativePath.Split(Path.DirectorySeparatorChar)
-                .Where(x=>!string.Equals(x, "source", StringComparison.OrdinalIgnoreCase))
+                .Where(x => !string.Equals(x, "source", StringComparison.OrdinalIgnoreCase))
                 .ToArray();
             var sourceTrimmed = Path.Combine(filtered);
             var targetFile = Path.Combine(rootDirectory, sourceTrimmed);

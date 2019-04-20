@@ -16,7 +16,8 @@ public class GitHubMarkdownProcessorTests :
         var root = GitRepoDirectoryFinder.FindForFilePath();
 
         var files = Directory.EnumerateFiles(Path.Combine(root, "src/Tests/Snippets"), "*.cs");
-        GitHubMarkdownProcessor.Run(root, files.ToList());
+        var processor = new GitHubMarkdownProcessor(root);
+        processor.Run(files.ToList());
     }
 
     [Fact]
@@ -28,7 +29,8 @@ public class GitHubMarkdownProcessorTests :
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2"),
         };
-        GitHubMarkdownProcessor.Run(root,snippets, new List<string>(),false);
+        var processor = new GitHubMarkdownProcessor(root) {WriteHeader = false};
+        processor.Run(snippets, new List<string>());
 
          var builder = new StringBuilder();
          foreach (var file in Directory.EnumerateFiles(root,"*.*",SearchOption.AllDirectories))

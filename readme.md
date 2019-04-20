@@ -263,7 +263,7 @@ For the git repository containing the unit test file:
 
 <!-- snippet: RunForFilePath -->
 ```cs
-DirectoryMarkdownProcessor.RunForForFilePath();
+DirectoryMarkdownProcessor.RunForFilePath();
 ```
 <sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L23)</sup>
 <!-- endsnippet -->

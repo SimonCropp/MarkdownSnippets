@@ -17,6 +17,6 @@ the code from snippet2
 <!-- endsnippet -->
 
 
-\source\two.source.md
+\mdsource\two.source.md
 snippet: snippet2
 

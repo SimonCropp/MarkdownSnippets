@@ -96,8 +96,9 @@ namespace MarkdownSnippets
         {
             Guard.DirectoryExists(directory, nameof(directory));
             var mdFinder = new FileFinder(path => true, IsSourceMd);
-            sourceMdFiles.AddRange(mdFinder.FindFiles(directory));
-            log($"Added {sourceMdFiles.Count} .source.md files");
+            var files = mdFinder.FindFiles(directory).ToList();
+            sourceMdFiles.AddRange(files);
+            log($"Added {files.Count} .source.md files");
         }
 
         public void IncludeMdFiles(params string[] files)
@@ -153,7 +154,7 @@ namespace MarkdownSnippets
             var relativePath = FileEx.GetRelativePath(sourceFile, rootDirectory);
 
             var filtered = relativePath.Split(Path.DirectorySeparatorChar)
-                .Where(x => !string.Equals(x, "source", StringComparison.OrdinalIgnoreCase))
+                .Where(x => !string.Equals(x, "mdsource", StringComparison.OrdinalIgnoreCase))
                 .ToArray();
             var sourceTrimmed = Path.Combine(filtered);
             var targetFile = Path.Combine(rootDirectory, sourceTrimmed);

@@ -21,9 +21,17 @@ namespace MarkdownSnippets
             string targetDirectory,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
-            Action<string> log = null)
-        { 
-            appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
+            Action<string> log = null,
+            AppendSnippetGroupToMarkdown appendSnippetGroup = null)
+        {
+            if (appendSnippetGroup == null)
+            {
+                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
+            }
+            else
+            {
+                this.appendSnippetGroup = appendSnippetGroup;
+            }
             if (log == null)
             {
                 this.log = s => { Trace.WriteLine(s); };
@@ -44,12 +52,6 @@ namespace MarkdownSnippets
             {
                 IncludeSnippetsFrom(targetDirectory);
             }
-        }
-
-        //TODO: add an overload that accepts a format string
-        public void UseSnippetHandling(AppendSnippetGroupToMarkdown appendSnippetGroup)
-        {
-            this.appendSnippetGroup = appendSnippetGroup;
         }
 
         public void IncludeSnippets(List<Snippet> snippets)
@@ -115,8 +117,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            var handling = new SnippetMarkdownHandling(targetDirectory);
-            var processor = new MarkdownProcessor(snippets, handling.AppendGroup, snippetSourceFiles);
+            var processor = new MarkdownProcessor(snippets, appendSnippetGroup, snippetSourceFiles);
             foreach (var sourceFile in sourceMdFiles)
             {
                 ProcessFile(sourceFile, processor);

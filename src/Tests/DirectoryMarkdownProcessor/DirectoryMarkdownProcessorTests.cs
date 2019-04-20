@@ -23,7 +23,7 @@ public class DirectoryMarkdownProcessorTests :
     public void Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false,writeHeader:false);
+        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
         processor.IncludeSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")
@@ -47,7 +47,7 @@ public class DirectoryMarkdownProcessorTests :
             language: ".cs",
             startLine: 1,
             endLine: 2,
-            value: "the code from "+ key,
+            value: "the code from " + key,
             key: key,
             path: null);
     }

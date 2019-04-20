@@ -8,7 +8,8 @@ using System.Runtime.CompilerServices;
 namespace MarkdownSnippets
 {
     public class DirectoryMarkdownProcessor
-    { bool writeHeader;
+    {
+        bool writeHeader;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -22,7 +23,7 @@ namespace MarkdownSnippets
             bool scanForSnippets = true,
             Action<string> log = null,
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
-            bool writeHeader= true)
+            bool writeHeader = true)
         {
             this.writeHeader = writeHeader;
             if (appendSnippetGroup == null)
@@ -33,6 +34,7 @@ namespace MarkdownSnippets
             {
                 this.appendSnippetGroup = appendSnippetGroup;
             }
+
             if (log == null)
             {
                 this.log = s => { Trace.WriteLine(s); };
@@ -107,7 +109,7 @@ namespace MarkdownSnippets
             }
         }
 
-        public static void RunForForFilePath([CallerFilePath] string sourceFilePath = "")
+        public static void RunForFilePath([CallerFilePath] string sourceFilePath = "")
         {
             Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
             var root = GitRepoDirectoryFinder.FindForFilePath(sourceFilePath);

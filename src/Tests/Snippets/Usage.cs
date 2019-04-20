@@ -18,7 +18,7 @@ class Usage
     {
         #region RunForFilePath
 
-        DirectoryMarkdownProcessor.RunForForFilePath();
+        DirectoryMarkdownProcessor.RunForFilePath();
 
         #endregion
     }

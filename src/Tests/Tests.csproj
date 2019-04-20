@@ -45,7 +45,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
-    <None Update="GitHubMarkdownProcessor\**\*.md">
+    <None Update="DirectoryMarkdownProcessor\**\*.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>

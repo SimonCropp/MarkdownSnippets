@@ -20,10 +20,7 @@ class Program
 
         try
         {
-            var processor = new GitHubMarkdownProcessor(targetDirectory)
-            {
-                Log = Console.WriteLine
-            };
+            var processor = new DirectoryMarkdownProcessor(targetDirectory, log: Console.WriteLine);
             processor.Run();
         }
         catch (SnippetReadingException exception)

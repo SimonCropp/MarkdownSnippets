@@ -16,19 +16,19 @@ class Usage
 
     void RunForFilePath()
     {
-        #region GitHubMarkdownProcessorRunForFilePath
+        #region BuildForForFilePath
 
-        var processor = GitHubMarkdownProcessor.BuildForForFilePath();
+        var processor = DirectoryMarkdownProcessor.BuildForForFilePath();
         processor.Run();
 
         #endregion
     }
 
-    void GitHubMarkdownProcessorRun()
+    void DirectoryMarkdownProcessorRun()
     {
-        #region GitHubMarkdownProcessorRun
+        #region DirectoryMarkdownProcessorRun
 
-        var processor = new GitHubMarkdownProcessor("targetDirectory");
+        var processor = new DirectoryMarkdownProcessor("targetDirectory");
         processor.Run();
 
         #endregion

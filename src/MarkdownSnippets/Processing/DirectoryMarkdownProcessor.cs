@@ -1,26 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace MarkdownSnippets
 {
-    public class GitHubMarkdownProcessor
+    public class DirectoryMarkdownProcessor
     {
         public bool WriteHeader { set; get; } = true;
-        Action<string> log = s => { };
+         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
+        List<Snippet> snippets = new List<Snippet>();
+        List<string> snippetSourceFiles = new List<string>();
+        AppendSnippetGroupToMarkdown appendSnippetGroup;
 
-        public GitHubMarkdownProcessor(string targetDirectory, bool autoScanTargetForMdFiles = true)
-        {
+        public DirectoryMarkdownProcessor(
+            string targetDirectory,
+            bool scanForMdFiles = true,
+            bool scanForSnippets = true,
+            Action<string> log = null)
+        { 
+            appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
+            if (log == null)
+            {
+                this.log = s => { Trace.WriteLine(s); };
+            }
+            else
+            {
+                this.log = log;
+            }
+
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             this.targetDirectory = Path.GetFullPath(targetDirectory);
-            if (autoScanTargetForMdFiles)
+            if (scanForMdFiles)
             {
                 IncludeMdFilesFrom(targetDirectory);
             }
+
+            if (scanForSnippets)
+            {
+                IncludeSnippetsFrom(targetDirectory);
+            }
+        }
+
+        //TODO: add an overload that accepts a format string
+        public void UseSnippetHandling(AppendSnippetGroupToMarkdown appendSnippetGroup)
+        {
+            this.appendSnippetGroup = appendSnippetGroup;
+        }
+
+        public void IncludeSnippets(List<Snippet> snippets)
+        {
+            Guard.AgainstNull(snippets, nameof(snippets));
+            var files = snippets
+                .Select(x => x.Path)
+                .Where(x => x != null)
+                .Distinct()
+                .ToList();
+            snippetSourceFiles.AddRange(files);
+            log($"Added {files.Count} files for snippets");
+            this.snippets.AddRange(snippets);
+            log($"Added {snippets.Count} snippets");
+        }
+
+        public void IncludeSnippets(params Snippet[] snippets)
+        {
+            Guard.AgainstNull(snippets, nameof(snippets));
+            IncludeSnippets(snippets.ToList());
+        }
+
+        public void IncludeSnippetsFrom(string directory)
+        {
+            Guard.AgainstNull(directory, nameof(directory));
+            directory = Path.Combine(targetDirectory, directory);
+            directory = Path.GetFullPath(directory);
+            Guard.DirectoryExists(directory, nameof(directory));
+            var finder = new FileFinder();
+            var files = finder.FindFiles(directory);
+            snippetSourceFiles.AddRange(files);
+            log($"Searching {files.Count} files for snippets");
+            var read = FileSnippetExtractor.Read(files).ToList();
+            snippets.AddRange(read);
+            log($"Added {read.Count} snippets");
         }
 
         public void IncludeMdFilesFrom(string directory)
@@ -28,7 +92,7 @@ namespace MarkdownSnippets
             Guard.DirectoryExists(directory, nameof(directory));
             var mdFinder = new FileFinder(path => true, IsSourceMd);
             sourceMdFiles.AddRange(mdFinder.FindFiles(directory));
-            log($"Found {sourceMdFiles.Count} .source.md files");
+            log($"Added {sourceMdFiles.Count} .source.md files");
         }
 
         public void IncludeMdFiles(params string[] files)
@@ -37,45 +101,17 @@ namespace MarkdownSnippets
             foreach (var file in files)
             {
                 sourceMdFiles.Add(file);
-                
             }
         }
 
-        public Action<string> Log
-        {
-            get => log;
-            set
-            {
-                Guard.AgainstNull(value, nameof(value));
-                log = value;
-            }
-        }
-
-        public static GitHubMarkdownProcessor BuildForForFilePath([CallerFilePath] string sourceFilePath = "")
+        public static DirectoryMarkdownProcessor BuildForForFilePath([CallerFilePath] string sourceFilePath = "")
         {
             Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
             var root = GitRepoDirectoryFinder.FindForFilePath(sourceFilePath);
-            return new GitHubMarkdownProcessor(root);
+            return new DirectoryMarkdownProcessor(root);
         }
 
         public void Run()
-        {
-            var finder = new FileFinder();
-            var findFiles = finder.FindFiles(targetDirectory);
-            Run(findFiles);
-        }
-
-        public void Run(List<string> snippetSourceFiles)
-        {
-            targetDirectory = Path.GetFullPath(targetDirectory);
-            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            log($"Searching {snippetSourceFiles.Count} files for snippets");
-            var snippets = FileSnippetExtractor.Read(snippetSourceFiles).ToList();
-            log($"Found {snippets.Count} snippets");
-            Run(snippets, snippetSourceFiles);
-        }
-
-        public void Run(List<Snippet> snippets, List<string> snippetSourceFiles)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));

@@ -261,9 +261,9 @@ The above functionality can also be achieved via a unit test via using the API.
 
 For the git repository containing the unit test file:
 
-<!-- snippet: GitHubMarkdownProcessorRunForFilePath -->
+<!-- snippet: BuildForForFilePath -->
 ```cs
-var processor = GitHubMarkdownProcessor.BuildForForFilePath();
+var processor = DirectoryMarkdownProcessor.BuildForForFilePath();
 processor.Run();
 ```
 <sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L24)</sup>
@@ -271,9 +271,9 @@ processor.Run();
 
 For a specific directory:
 
-<!-- snippet: GitHubMarkdownProcessorRun -->
+<!-- snippet: DirectoryMarkdownProcessorRun -->
 ```cs
-var processor = new GitHubMarkdownProcessor("targetDirectory");
+var processor = new DirectoryMarkdownProcessor("targetDirectory");
 processor.Run();
 ```
 <sup>[snippet source](/src/Tests/Snippets/Usage.cs#L29-L34)</sup>

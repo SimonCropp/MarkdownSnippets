@@ -213,11 +213,11 @@ The above functionality can also be achieved via a unit test via using the API.
 
 For the git repository containing the unit test file:
 
-snippet: GitHubMarkdownProcessorRunForFilePath
+snippet: BuildForForFilePath
 
 For a specific directory:
 
-snippet: GitHubMarkdownProcessorRun
+snippet: DirectoryMarkdownProcessorRun
 
 
 ## Release Notes

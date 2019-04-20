@@ -4,7 +4,7 @@ using System.IO;
 namespace MarkdownSnippets
 {
     /// <summary>
-    /// GitHub markdown handling to be passed to <see cref="MarkdownProcessor"/>.
+    /// Handling to be passed to <see cref="MarkdownProcessor"/>.
     /// </summary>
     public class SnippetMarkdownHandling
     {

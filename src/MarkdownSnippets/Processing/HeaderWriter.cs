@@ -2,10 +2,10 @@
 
 static class HeaderWriter
 {
-    public static void WriteHeader(string sourceFile, string targetDirectory, TextWriter writer)
+    public static void WriteHeader(string sourceFile, string rootDirectory, TextWriter writer)
     {
         var relativeSource = sourceFile
-            .ReplaceCaseless(targetDirectory, "")
+            .ReplaceCaseless(rootDirectory, "")
             .Replace('\\', '/');
         writer.WriteLine(@"<!--");
         writer.WriteLine(@"This file was generate by MarkdownSnippets.");

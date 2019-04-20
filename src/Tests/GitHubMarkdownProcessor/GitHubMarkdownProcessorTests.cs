@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using ApprovalTests;
 using MarkdownSnippets;
+using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,7 +30,16 @@ public class GitHubMarkdownProcessorTests :
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2"),
         };
-        GitHubMarkdownProcessor.Run(root, new List<string>(),snippets);
+        GitHubMarkdownProcessor.Run(root,snippets, new List<string>(),false);
+
+         var builder = new StringBuilder();
+         foreach (var file in Directory.EnumerateFiles(root,"*.*",SearchOption.AllDirectories))
+         {
+             builder.AppendLine(file.Replace(root, ""));
+             builder.AppendLine(File.ReadAllText(file));
+             builder.AppendLine();
+        }
+        Approvals.Verify(builder.ToString());
     }  
 
     Snippet SnippetBuild(string key)
@@ -37,7 +50,7 @@ public class GitHubMarkdownProcessorTests :
             endLine: 2,
             value: "the code from "+ key,
             key: key,
-            path: "thePath");
+            path: null);
     }
 
     public GitHubMarkdownProcessorTests(ITestOutputHelper output) :

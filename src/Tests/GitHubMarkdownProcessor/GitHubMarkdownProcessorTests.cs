@@ -16,7 +16,8 @@ public class GitHubMarkdownProcessorTests :
         var root = GitRepoDirectoryFinder.FindForFilePath();
 
         var files = Directory.EnumerateFiles(Path.Combine(root, "src/Tests/Snippets"), "*.cs");
-        var processor = new GitHubMarkdownProcessor(root);
+        var processor = new GitHubMarkdownProcessor(root, false);
+        processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
         processor.Run(files.ToList());
     }
 

@@ -18,13 +18,13 @@ namespace MarkdownSnippets
         public bool IncludeDirectory(string directoryPath)
         {
             Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-            var fileName = Path.GetFileName(directoryPath);
-            if (fileName.StartsWith("."))
+            var suffix = Path.GetFileName(directoryPath);
+            if (suffix.StartsWith("."))
             {
                 return false;
             }
 
-            if (Exclusions.ShouldExcludeDirectory(fileName))
+            if (Exclusions.ShouldExcludeDirectory(suffix))
             {
                 return false;
             }

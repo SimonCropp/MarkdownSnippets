@@ -73,15 +73,10 @@ namespace MarkdownSnippets
             using (var reader = File.OpenText(sourceFile))
             using (var writer = File.CreateText(target))
             {
-                writer.WriteLine(@"<!--");
-                writer.WriteLine(@"This file was generate by MarkdownSnippets.");
-                writer.WriteLine($@"Source File: {sourceFile.ReplaceCaseless(targetDirectory, "")
-                                                            .Replace('\\', '/')}");
-                writer.WriteLine(@"To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).");
-                writer.WriteLine(@"-->");
+                HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
 
-                var processResult = markdownProcessor.Apply(reader, writer);
-                var missing = processResult.MissingSnippets;
+                var result = markdownProcessor.Apply(reader, writer);
+                var missing = result.MissingSnippets;
                 if (missing.Any())
                 {
                     throw new MissingSnippetsException(missing);

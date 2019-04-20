@@ -21,17 +21,22 @@ public class GitHubMarkdownProcessorTests :
     public void Convention()
     {
         var root = Path.GetFullPath("GitHubMarkdownProcessor/Convention");
-        GitHubMarkdownProcessor.Run(root, new List<string>(),new List<Snippet> {SnippetBuild()});
+        var snippets = new List<Snippet>
+        {
+            SnippetBuild("snippet1"),
+            SnippetBuild("snippet2"),
+        };
+        GitHubMarkdownProcessor.Run(root, new List<string>(),snippets);
     }  
 
-    Snippet SnippetBuild()
+    Snippet SnippetBuild(string key)
     {
         return Snippet.Build(
             language: ".cs",
             startLine: 1,
             endLine: 2,
-            value: "the code",
-            key: "theKey",
+            value: "the code from "+ key,
+            key: key,
             path: "thePath");
     }
 

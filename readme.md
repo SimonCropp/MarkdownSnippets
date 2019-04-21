@@ -1,7 +1,7 @@
 <!--
 This file was generate by MarkdownSnippets.
 Source File: /readme.source.md
-To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
+To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#markdownsnippetstool) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
 -->
 # <img src="https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png" height="40px"> MarkdownSnippets
 
@@ -217,6 +217,13 @@ The target directory can be defined via one of the following:
  * Recursively scan the [target directory](#target-directory) for all non [ignored files](#ignore-paths) for snippets.
  * Recursively scan the [target directory](#target-directory) for all `*.source.md` files.
  * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
+
+
+#### mdsource directory convention
+
+There is a secondary convention that leverages the use of a directory named `mssnippets`. Where `.source.md` files are placed in a `mdsource` sub-directory, the `mdsource` part of the file path will be removed when calculating the target path. This allows the `.source.md` to be grouped in a sub directory and avoid cluttering up the main documentation directory.
+
+When using `mdsource` convention, all references to other files, such as hyperlinks and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
 ### Installation

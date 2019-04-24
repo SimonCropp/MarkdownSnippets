@@ -8,7 +8,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
-    <PackageProjectUrl>http://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
     <Description>Extract code snippets from any language to be used when building documentation</Description>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

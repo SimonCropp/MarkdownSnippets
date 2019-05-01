@@ -99,7 +99,7 @@ namespace MarkdownSnippets
                 {
                     writer.NewLine = reader.NewLine;
                 } 
-                if (TryProcessSnippetLine(writer, reader, line, missing, usedSnippets))
+                if (TryProcessSnippetLine(writer, reader.Index, line, missing, usedSnippets))
                 {
                     continue;
                 }
@@ -112,7 +112,7 @@ namespace MarkdownSnippets
                 usedSnippets: usedSnippets.Distinct().ToList());
         }
 
-        bool TryProcessSnippetLine(TextWriter writer, IndexReader reader, string line, List<MissingSnippet> missings, List<Snippet> used)
+        bool TryProcessSnippetLine(TextWriter writer, int index, string line, List<MissingSnippet> missings, List<Snippet> used)
         {
             if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
             {
@@ -131,7 +131,7 @@ namespace MarkdownSnippets
 
             var missing = new MissingSnippet(
                 key: key,
-                line: reader.Index);
+                line: index);
             missings.Add(missing);
             var message = $"** Could not find snippet '{key}' **";
             writer.WriteLine(message);

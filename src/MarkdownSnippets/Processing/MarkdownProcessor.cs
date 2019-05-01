@@ -99,7 +99,7 @@ namespace MarkdownSnippets
                 {
                     writer.NewLine = reader.NewLine;
                 } 
-                if (TryProcessSnippetLine(writer, reader.Index, line, missing, usedSnippets))
+                if (TryProcessSnippetLine(writer.WriteLine, reader.Index, line, missing, usedSnippets))
                 {
                     continue;
                 }
@@ -112,19 +112,19 @@ namespace MarkdownSnippets
                 usedSnippets: usedSnippets.Distinct().ToList());
         }
 
-        bool TryProcessSnippetLine(TextWriter writer, int index, string line, List<MissingSnippet> missings, List<Snippet> used)
+        bool TryProcessSnippetLine(Action<string> appendLine, int index, string line, List<MissingSnippet> missings, List<Snippet> used)
         {
             if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
             {
                 return false;
             }
 
-            writer.WriteLine($"<!-- snippet: {key} -->");
+            appendLine($"<!-- snippet: {key} -->");
 
             if (TryGetFromFiles(key, out var snippetFromFiles))
             {
-                appendSnippetGroup(key, snippetFromFiles, writer);
-                writer.WriteLine($"<!-- endsnippet -->");
+                appendSnippetGroup(key, snippetFromFiles, appendLine);
+                appendLine($"<!-- endsnippet -->");
                 used.AddRange(snippetFromFiles);
                 return true;
             }
@@ -133,8 +133,7 @@ namespace MarkdownSnippets
                 key: key,
                 line: index);
             missings.Add(missing);
-            var message = $"** Could not find snippet '{key}' **";
-            writer.WriteLine(message);
+            appendLine($"** Could not find snippet '{key}' **");
             return true;
         }
 

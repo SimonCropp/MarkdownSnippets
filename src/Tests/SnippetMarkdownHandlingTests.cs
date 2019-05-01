@@ -17,7 +17,7 @@ public class SnippetMarkdownHandlingTests :
         var gitHubSnippetMarkdownHandling = new SnippetMarkdownHandling(GitRepoDirectoryFinder.FindForFilePath());
         using (var writer = new StringWriter(builder))
         {
-            gitHubSnippetMarkdownHandling.AppendGroup("key1", snippets, writer);
+            gitHubSnippetMarkdownHandling.AppendGroup("key1", snippets, writer.WriteLine);
         }
 
         Approvals.Verify(builder.ToString());

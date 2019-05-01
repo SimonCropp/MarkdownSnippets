@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -17,27 +18,27 @@ namespace MarkdownSnippets
             this.rootDirectory = rootDirectory.Replace(@"\", "/");
         }
 
-        public void AppendGroup(string key, IEnumerable<Snippet> snippets, TextWriter writer)
+        public void AppendGroup(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(writer, nameof(writer));
+            Guard.AgainstNull(appendLine, nameof(appendLine));
 
             foreach (var snippet in snippets)
             {
-                WriteSnippet(writer, snippet);
+                WriteSnippet(appendLine, snippet);
             }
         }
 
-        void WriteSnippet(TextWriter writer, Snippet snippet)
+        void WriteSnippet(Action<string> appendLine, Snippet snippet)
         {
-            writer.WriteLine($"```{snippet.Language}");
-            writer.WriteLine(snippet.Value);
-            writer.WriteLine("```");
+            appendLine($"```{snippet.Language}");
+            appendLine(snippet.Value);
+            appendLine("```");
 
             if (snippet.Path != null)
             {
                 var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(rootDirectory, "");
-                writer.WriteLine($"<sup>[snippet source]({path}#L{snippet.StartLine}-L{snippet.EndLine})</sup>");
+                appendLine($"<sup>[snippet source]({path}#L{snippet.StartLine}-L{snippet.EndLine})</sup>");
             }
         }
     }

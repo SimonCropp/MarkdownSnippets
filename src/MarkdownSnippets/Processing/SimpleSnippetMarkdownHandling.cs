@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace MarkdownSnippets
 {
@@ -8,22 +8,22 @@ namespace MarkdownSnippets
     /// </summary>
     public static class SimpleSnippetMarkdownHandling
     {
-        public static void AppendGroup(string key, IEnumerable<Snippet> snippets, TextWriter writer)
+        public static void AppendGroup(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(writer, nameof(writer));
+            Guard.AgainstNull(appendLine, nameof(appendLine));
 
             foreach (var snippet in snippets)
             {
-                WriteSnippet(writer, snippet);
+                WriteSnippet(appendLine, snippet);
             }
         }
 
-        static void WriteSnippet(TextWriter writer, Snippet snippet)
+        static void WriteSnippet(Action<string> appendLine, Snippet snippet)
         {
-            writer.WriteLine($@"```{snippet.Language}");
-            writer.WriteLine(snippet.Value);
-            writer.WriteLine(@"```");
+            appendLine($@"```{snippet.Language}");
+            appendLine(snippet.Value);
+            appendLine(@"```");
         }
     }
 }

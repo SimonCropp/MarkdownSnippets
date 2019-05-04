@@ -146,6 +146,27 @@ snippet: ReadingDirectorySimple
 snippet: markdownProcessingSimple
 
 
+### Running as a unit test
+
+For the git repository containing the unit test file:
+
+snippet: RunForFilePath
+
+For a specific directory:
+
+snippet: DirectoryMarkdownProcessorRun
+
+
+## MarkdownSnippets.MsBuild
+
+A MsBuild task for merging snippets into markdown documents.
+
+
+### The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
+
+https://nuget.org/packages/MarkdownSnippets.MsBuild/
+
+
 ## MarkdownSnippets.Tool
 
 A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for merging snippets into markdown documents.
@@ -214,17 +235,6 @@ mdsnippets C:\Code\TheTargetDirectory
 ```
 
 
-### Running as a unit test
-
-The above functionality can also be achieved via a unit test via using the API.
-
-For the git repository containing the unit test file:
-
-snippet: RunForFilePath
-
-For a specific directory:
-
-snippet: DirectoryMarkdownProcessorRun
 
 
 ## Release Notes

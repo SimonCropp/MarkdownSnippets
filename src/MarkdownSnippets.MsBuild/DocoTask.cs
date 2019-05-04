@@ -14,7 +14,21 @@ namespace MarkdownSnippets
         {
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
             var processor = new DirectoryMarkdownProcessor(root, log: s => Log.LogMessage(s));
-            processor.Run();
+            try
+            {
+                processor.Run();
+            }
+            catch (MissingSnippetsException exception)
+            {
+                Log.LogError($"MarkdownSnippets: {exception.Message}");
+                return false;
+            }
+            catch (MarkdownProcessingException exception)
+            {
+                Log.LogError($"MarkdownSnippets: {exception.Message}");
+                return false;
+            }
+            
             return true;
         }
 

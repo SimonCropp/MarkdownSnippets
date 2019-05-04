@@ -1,0 +1,13 @@
+﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MarkdownSnippetsAssembly>$(MSBuildThisFileDirectory)..\task\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
+  </PropertyGroup>
+  <UsingTask TaskName="MarkdownSnippets.DocoTask"
+             AssemblyFile="$(MarkdownSnippetsAssembly)" />
+  <Target
+      Name="MarkdownSnippetsTarget"
+      AfterTargets="AfterCompile"
+      Condition="$(DesignTimeBuild) != true">
+    <MarkdownSnippets.DocoTask ProjectDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+</Project>

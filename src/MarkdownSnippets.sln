@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.Tool", "MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj", "{670DF721-9C32-44B7-9DA0-58508A386155}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.MsBuild", "MarkdownSnippets.MsBuild\MarkdownSnippets.MsBuild.csproj", "{DC81D2B7-5280-409A-8DE2-2C1DF7512281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{670DF721-9C32-44B7-9DA0-58508A386155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{670DF721-9C32-44B7-9DA0-58508A386155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{670DF721-9C32-44B7-9DA0-58508A386155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

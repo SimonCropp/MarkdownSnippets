@@ -10,6 +10,12 @@ namespace MarkdownSnippets
         {
             Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
             var directory = Path.GetDirectoryName(sourceFilePath);
+            return FindForDirectory(directory);
+        }
+
+        public static string FindForDirectory(string directory)
+        {
+            Guard.DirectoryExists(directory, nameof(directory));
             if (!TryFind(directory, out var rootDirectory))
             {
                 throw new Exception("Could not find git repository directory");

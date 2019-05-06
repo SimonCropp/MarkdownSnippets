@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <LangVersion>latest</LangVersion>
-    <NoWarn>CS1591;NU5105;CS1573</NoWarn>
+    <NoWarn>CS1591</NoWarn>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <Version>10.1.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

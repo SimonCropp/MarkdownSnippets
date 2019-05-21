@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MarkdownSnippets;
 
 class Program
 {
     static void Main(string[] args)
     {
-        CommandRunner.RunCommand(args, Inner);
+        CommandRunner.RunCommand(Inner, args);
     }
 
-    static void Inner(string targetDirectory)
+    static void Inner(string targetDirectory, List<string> excludes)
     {
         Console.WriteLine($"TargetDirectory: {targetDirectory}");
         if (!Directory.Exists(targetDirectory))
@@ -18,9 +20,20 @@ class Program
             Environment.Exit(1);
         }
 
+        if (excludes.Any())
+        {
+            var separator = Environment.NewLine + "\t";
+            Console.WriteLine($"Excludes:{separator}{string.Join(separator, excludes)}");
+        }
+
+        excludes = GetExcludesWithBothSlashes(excludes).ToList();
+
         try
         {
-            var processor = new DirectoryMarkdownProcessor(targetDirectory, log: Console.WriteLine);
+            var processor = new DirectoryMarkdownProcessor(
+                targetDirectory, 
+                log: Console.WriteLine,
+                directoryFilter: path => !excludes.Any(path.Contains));
             processor.Run();
         }
         catch (SnippetReadingException exception)
@@ -37,6 +50,15 @@ class Program
         {
             Console.WriteLine($"Failed to process markdown files: {exception.Message}");
             Environment.Exit(1);
+        }
+    }
+
+    static IEnumerable<string> GetExcludesWithBothSlashes(List<string> excludes)
+    {
+        foreach (var exclude in excludes)
+        {
+            yield return exclude.Replace('\\','/');
+            yield return exclude.Replace('/','\\');
         }
     }
 }

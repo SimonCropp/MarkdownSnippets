@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CommandLine;
 using MarkdownSnippets;
 
 static class CommandRunner
 {
-    public static void RunCommand(string[] args, Invoke invoke)
+    public static void RunCommand(Invoke invoke, params string[] args)
     {
         if (args.Length == 1)
         {
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                invoke(firstArg);
+                invoke(firstArg, new List<string>());
                 return;
             }
         }
@@ -22,7 +24,7 @@ static class CommandRunner
                 options =>
                 {
                     ApplyDefaults(options);
-                    invoke(options.TargetDirectory);
+                    invoke(options.TargetDirectory, options.Exclude.ToList());
                 });
     }
 
@@ -39,6 +41,17 @@ static class CommandRunner
         else
         {
             options.TargetDirectory = Path.GetFullPath(options.TargetDirectory);
+        }
+
+        var exclude = options.Exclude;
+        if (exclude.Distinct().Count() != exclude.Count)
+        {
+            throw new CommandLineException("Exclude contains duplicates");
+        }
+
+        if (exclude.Any(string.IsNullOrWhiteSpace))
+        {
+            throw new CommandLineException("Some excludes are empty");
         }
     }
 }

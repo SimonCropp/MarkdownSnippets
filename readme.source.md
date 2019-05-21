@@ -235,6 +235,15 @@ mdsnippets C:\Code\TheTargetDirectory
 ```
 
 
+#### Exclude directories
+
+To exclude directories use `-e` or `--exclude`.
+
+For example the following will exclude any directory containing 'foo' or 'bar'
+
+```ps
+mdsnippets -e foo:bar
+```
 
 
 ## Release Notes

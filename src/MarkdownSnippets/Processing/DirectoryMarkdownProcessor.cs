@@ -10,6 +10,7 @@ namespace MarkdownSnippets
     public class DirectoryMarkdownProcessor
     {
         bool writeHeader;
+        DirectoryFilter directoryFilter;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -23,9 +24,11 @@ namespace MarkdownSnippets
             bool scanForSnippets = true,
             Action<string> log = null,
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
-            bool writeHeader = true)
+            bool writeHeader = true,
+            DirectoryFilter directoryFilter = null)
         {
             this.writeHeader = writeHeader;
+            this.directoryFilter = directoryFilter;
             if (appendSnippetGroup == null)
             {
                 this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
@@ -83,7 +86,7 @@ namespace MarkdownSnippets
             directory = Path.Combine(targetDirectory, directory);
             directory = Path.GetFullPath(directory);
             Guard.DirectoryExists(directory, nameof(directory));
-            var finder = new FileFinder();
+            var finder = new FileFinder(directoryFilter);
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
@@ -95,7 +98,7 @@ namespace MarkdownSnippets
         public void IncludeMdFilesFrom(string directory)
         {
             Guard.DirectoryExists(directory, nameof(directory));
-            var mdFinder = new FileFinder(path => true, IsSourceMd);
+            var mdFinder = new FileFinder(directoryFilter, IsSourceMd);
             var files = mdFinder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
             log($"Added {files.Count} .source.md files");

@@ -27,7 +27,7 @@ mdsnippets C:\Code\TheTargetDirectory
 
 If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
 
-**There is known a issue on OSX and Linux that results in [dotnet tools not being discovered in the current path](https://github.com/dotnet/cli/issues/9321).**
+**There is known a issue on macOS and Linux that results in [dotnet tools not being discovered in the current path](https://github.com/dotnet/cli/issues/9321).**
 
 
 ### Behavior
@@ -41,7 +41,7 @@ If no directory is passed the current directory will be used, but only if it exi
 
 There is a secondary convention that leverages the use of a directory named `mdsource`. Where `.source.md` files are placed in a `mdsource` sub-directory, the `mdsource` part of the file path will be removed when calculating the target path. This allows the `.source.md` to be grouped in a sub directory and avoid cluttering up the main documentation directory.
 
-When using `mdsource` convention, all references to other files, such as hyperlinks and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
+When using `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
 ## Defining Snippets

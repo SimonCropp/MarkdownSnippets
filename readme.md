@@ -7,15 +7,6 @@ To change this file edit the source file and then re-run the generation using ei
 
 Extract code snippets from any language to be used when building documentation
 
-Loosely based on some code from  https://github.com/shiftkey/scribble
-
-
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets/)
-
-https://nuget.org/packages/MarkdownSnippets/
-
-    PM> Install-Package MarkdownSnippets
-
 
 ## Using Snippets
 
@@ -40,7 +31,7 @@ The resulting markdown will be will be:
 
 ### Including full files
 
-When [snippets are read](#reading-snippets-from-files) all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
+When snippets are read all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
 
 <pre>
 snippet&#58; directory/FileToInclude.txt
@@ -130,101 +121,6 @@ When scanning for snippets the following are ignored:
  * All binary files as defined by https://github.com/sindresorhus/binary-extensions/
  * Any of the following directory names: `bin`, `obj`
 
-To change these conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.
-
-
-## Api Usage
-
-
-### Reading snippets from files
-
-<!-- snippet: ReadingFilesSimple -->
-```cs
-var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
-
-var snippets = FileSnippetExtractor.Read(files);
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L8-L14)</sup>
-<!-- endsnippet -->
-
-
-### Reading snippets from a directory structure
-
-<!-- snippet: ReadingDirectorySimple -->
-```cs
-// extract snippets from files
-var snippetExtractor = new DirectorySnippetExtractor(
-    // all directories except bin and obj
-    directoryFilter: dirPath => !dirPath.EndsWith("bin") && !dirPath.EndsWith("obj"),
-    // all js and cs files
-    fileFilter: filePath => filePath.EndsWith(".js") || filePath.EndsWith(".cs"));
-var snippets = snippetExtractor.ReadSnippets(@"C:\path");
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L38-L48)</sup>
-<!-- endsnippet -->
-
-
-### Full Usage
-
-<!-- snippet: markdownProcessingSimple -->
-```cs
-// setup version convention and extract snippets from files
-var snippetExtractor = new DirectorySnippetExtractor(
-    directoryFilter: x => true,
-    fileFilter: s => s.EndsWith(".js") || s.EndsWith(".cs"));
-var snippets = snippetExtractor.ReadSnippets(@"C:\path");
-
-// Merge with some markdown text
-var markdownProcessor = new MarkdownProcessor(
-    snippets: snippets,
-    appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
-
-using (var reader = File.OpenText(@"C:\path\inputMarkdownFile.md"))
-using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
-{
-    var result = markdownProcessor.Apply(reader, writer);
-    // snippets that the markdown file expected but did not exist in the input snippets
-    var missingSnippets = result.MissingSnippets;
-
-    // snippets that the markdown file used
-    var usedSnippets = result.UsedSnippets;
-}
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L77)</sup>
-<!-- endsnippet -->
-
-
-### Running as a unit test
-
-For the git repository containing the unit test file:
-
-<!-- snippet: RunForFilePath -->
-```cs
-DirectoryMarkdownProcessor.RunForFilePath();
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L23)</sup>
-<!-- endsnippet -->
-
-For a specific directory:
-
-<!-- snippet: DirectoryMarkdownProcessorRun -->
-```cs
-var processor = new DirectoryMarkdownProcessor("targetDirectory");
-processor.Run();
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L28-L33)</sup>
-<!-- endsnippet -->
-
-
-## MarkdownSnippets.MsBuild
-
-A MsBuild task for merging snippets into markdown documents.
-
-
-### The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
-
-https://nuget.org/packages/MarkdownSnippets.MsBuild/
-
 
 ## MarkdownSnippets.Tool
 
@@ -308,6 +204,11 @@ mdsnippets -e foo:bar
 ## Release Notes
 
 See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).
+
+
+## Creadits
+
+Loosely based on some code from  https://github.com/shiftkey/scribble
 
 
 ## Icon

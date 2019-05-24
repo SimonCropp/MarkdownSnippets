@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Text;
 using ApprovalTests;
 using MarkdownSnippets;
@@ -15,6 +16,7 @@ public class DirectoryMarkdownProcessorTests :
 
         var processor = new DirectoryMarkdownProcessor(root, false, false);
         processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
+        processor.IncludeMdFiles(Directory.EnumerateFiles(Path.Combine(root, "docs"),"*.source.md").ToArray());
         processor.IncludeSnippetsFrom("src/Tests/Snippets");
         processor.Run();
     }

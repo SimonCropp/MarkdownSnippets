@@ -2,15 +2,6 @@
 
 Extract code snippets from any language to be used when building documentation
 
-Loosely based on some code from  https://github.com/shiftkey/scribble
-
-
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets/)
-
-https://nuget.org/packages/MarkdownSnippets/
-
-    PM> Install-Package MarkdownSnippets
-
 
 ## Using Snippets
 
@@ -35,7 +26,7 @@ The resulting markdown will be will be:
 
 ### Including full files
 
-When [snippets are read](#reading-snippets-from-files) all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
+When snippets are read all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
 
 <pre>
 snippet&#58; directory/FileToInclude.txt
@@ -125,51 +116,6 @@ When scanning for snippets the following are ignored:
  * All binary files as defined by https://github.com/sindresorhus/binary-extensions/
  * Any of the following directory names: `bin`, `obj`
 
-To change these conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.
-
-
-## Api Usage
-
-
-### Reading snippets from files
-
-snippet: ReadingFilesSimple
-
-
-### Reading snippets from a directory structure
-
-snippet: ReadingDirectorySimple
-
-
-### Full Usage
-
-snippet: markdownProcessingSimple
-
-
-### Running as a unit test
-
-For the git repository containing the unit test file:
-
-snippet: RunForFilePath
-
-For a specific directory:
-
-snippet: DirectoryMarkdownProcessorRun
-
-
-## MarkdownSnippets.MsBuild
-
-A [MsBuild task](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-task) for merging snippets into markdown documents.
-
-MsBuild has a [convention](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#from-a-convention-based-working-directory) to automatically run build tasks from included NuGet packages. This package takes advantage of that hook to run markdownsnippets on build.
-
-This package only need to be included in one project of the solution. A logical choice is the test project.
-
-
-### The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
-
-https://nuget.org/packages/MarkdownSnippets.MsBuild/
-
 
 ## MarkdownSnippets.Tool
 
@@ -253,6 +199,11 @@ mdsnippets -e foo:bar
 ## Release Notes
 
 See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).
+
+
+## Creadits
+
+Loosely based on some code from  https://github.com/shiftkey/scribble
 
 
 ## Icon

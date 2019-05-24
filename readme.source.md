@@ -20,7 +20,7 @@ dotnet tool install -g MarkdownSnippets.Tool
 mdsnippets C:\Code\TheTargetDirectory
 ```
 
-The no directory passed. The current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
+If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
 
 
 ### Behavior

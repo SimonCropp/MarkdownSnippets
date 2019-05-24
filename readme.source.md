@@ -1,6 +1,6 @@
 # <img src="https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png" height="40px"> MarkdownSnippets
 
-A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract code snippets from any language and merges them into markdown documents.
+A [.NET Core Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code file and merges them into markdown documents.
 
 There is also a [.net API](/docs/api.md) and an [MsBuild Task](/docs/msbuild.md).
 

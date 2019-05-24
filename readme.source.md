@@ -97,7 +97,7 @@ The path syntax uses forward slashes `/`.
 ## Snippet Exclusions
 
 
-## Exclude directories from snippet discovery
+### Exclude directories from snippet discovery
 
 To exclude directories use `-e` or `--exclude`.
 

@@ -6,7 +6,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 -->
 # <img src="https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png" height="40px"> MarkdownSnippets
 
-A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code file and merges them into markdown documents.
+A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
 There is also a [.net API](/docs/api.md) and an [MsBuild Task](/docs/msbuild.md).
 

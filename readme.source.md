@@ -49,7 +49,7 @@ My Snippet Code
 // endcode
 ```
 
-Named C# regions will be picked up, with the name of the region is used as the key.
+Named C# regions will also be picked up, with the name of the region is used as the key.
 
 
 ## Using Snippets

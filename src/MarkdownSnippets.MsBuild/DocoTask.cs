@@ -28,7 +28,7 @@ namespace MarkdownSnippets
                 Log.LogError($"MarkdownSnippets: {exception.Message}");
                 return false;
             }
-            
+
             return true;
         }
 

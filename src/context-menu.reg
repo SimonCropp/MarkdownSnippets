@@ -7,4 +7,4 @@ Windows Registry Editor Version 5.00
 "Position"="bottom"
 [HKEY_CLASSES_ROOT\Directory\shell\mdsnippets\command]
 [HKEY_CLASSES_ROOT\Directory\Background\shell\mdsnippets\command]
-@="cmd.exe /s /k mdsnippets \"%V\""
+@="cmd.exe /c mdsnippets \"%V\""

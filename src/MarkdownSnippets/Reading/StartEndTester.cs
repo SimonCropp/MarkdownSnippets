@@ -3,8 +3,8 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
-    static Func<string, bool> isEndCode = s => IsEndCode(s);
-    static Func<string, bool> isEndRegion = s => IsEndRegion(s);
+    static Func<string, bool> isEndCode = IsEndCode;
+    static Func<string, bool> isEndRegion = IsEndRegion;
 
     internal static bool IsStart(string trimmedLine, string path, out string currentKey, out Func<string, bool> endFunc)
     {

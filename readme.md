@@ -47,9 +47,6 @@ When using `mdsource` convention, all references to other files, such as links a
 
 ## Defining Snippets
 
-
-### Using comments
-
 Any code wrapped in a convention based comment will be picked up. The comment needs to start with `startcode` which is followed by the key. The snippet is then terminated by `endcode`.
 
 ```
@@ -58,16 +55,7 @@ My Snippet Code
 // endcode
 ```
 
-
-### Using regions
-
-Any code wrapped in a named C# region will be picked up. The name of the region is used as the key.
-
-```
-#region MySnippetName
-My Snippet Code
-#endregion
-```
+Named C# regions will be picked up, with the name of the region is used as the key.
 
 
 ## Using Snippets

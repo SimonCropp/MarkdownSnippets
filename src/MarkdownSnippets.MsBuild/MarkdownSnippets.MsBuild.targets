@@ -1,13 +1,26 @@
 ﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MarkdownSnippetsAssembly>$(MSBuildThisFileDirectory)..\task\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
+    <MdTargetDir Condition="'$(SolutionDir)' != '' AND Exists('$(SolutionDir).git')">$(SolutionDir)</MdTargetDir>
+    <MdTargetDir Condition="'$(SolutionDir)' != '' AND Exists('$(SolutionDir)..\.git')">$(SolutionDir)..\</MdTargetDir>
   </PropertyGroup>
-  <UsingTask TaskName="MarkdownSnippets.DocoTask"
-             AssemblyFile="$(MarkdownSnippetsAssembly)" />
+
+  <ItemGroup>
+    <CustomAdditionalCompileInputs Include="$(MdTargetDir)**\*.source.md"/>
+  </ItemGroup>
+
+  <UsingTask
+    TaskName="MarkdownSnippets.DocoTask"
+    AssemblyFile="$(MarkdownSnippetsAssembly)" />
+
   <Target
       Name="MarkdownSnippetsTarget"
       AfterTargets="AfterCompile"
-      Condition="$(DesignTimeBuild) != true">
+      Condition="$(DesignTimeBuild) != true"
+      >
+     <Error
+        Text="No '.git' directory found. Define a `MdTargetDir`."
+        Condition="'$(MdTargetDir)' == ''" />
     <MarkdownSnippets.DocoTask ProjectDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 </Project>

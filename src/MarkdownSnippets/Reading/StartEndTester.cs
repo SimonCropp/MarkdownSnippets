@@ -3,20 +3,23 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
-    static Func<string, bool> isEndCode = IsEndCode;
-    static Func<string, bool> isEndRegion = IsEndRegion;
-
     internal static bool IsStart(string trimmedLine, string path, out string currentKey, out Func<string, bool> endFunc)
     {
+        if (IsBeginSnippet(trimmedLine, path, out currentKey))
+        {
+            endFunc = IsEndSnippet;
+            return true;
+        }
+
         if (IsStartCode(trimmedLine, path, out currentKey))
         {
-            endFunc = isEndCode;
+            endFunc = IsEndCode;
             return true;
         }
 
         if (IsStartRegion(trimmedLine, path, out currentKey))
         {
-            endFunc = isEndRegion;
+            endFunc = IsEndRegion;
             return true;
         }
 
@@ -34,6 +37,11 @@ static class StartEndTester
         return line.IndexOf("endcode", StringComparison.Ordinal) >= 0;
     }
 
+    static bool IsEndSnippet(string line)
+    {
+        return line.IndexOf("end-snippet", StringComparison.Ordinal) >= 0;
+    }
+
     internal static bool IsStartRegion(string line, string path, out string key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
@@ -44,6 +52,21 @@ static class StartEndTester
         var substring = line.Substring(8);
         return TryExtractParts(substring, line, false, path, out key);
     }
+
+    internal static bool IsBeginSnippet(string line, string path, out string key)
+    {
+        var startCodeIndex = line.IndexOf("begin-snippet: ", StringComparison.Ordinal);
+        if (startCodeIndex == -1)
+        {
+            key  = null;
+            return false;
+        }
+        var startIndex = startCodeIndex + 15;
+        var substring = line
+            .TrimBackCommentChars(startIndex);
+        return TryExtractParts(substring, line, true, path, out key);
+    }
+
 
     internal static bool IsStartCode(string line, string path, out string key)
     {

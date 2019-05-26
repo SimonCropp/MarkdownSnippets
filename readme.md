@@ -13,22 +13,23 @@ There is also a [.net API](/docs/api.md) and an [MsBuild Task](/docs/msbuild.md)
 
 ## Installation
 
-Install the dotnet tool https://nuget.org/packages/MarkdownSnippets.Tool/ [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
+Ensure [dotnet CLI is installed](https://docs.microsoft.com/en-us/dotnet/core/tools/).
+
+**There is known a issue with dotnet tools on macOS and Linux that results in [tools not being discovered in the current path](https://github.com/dotnet/cli/issues/9321). The workaround is to add `~/.dotnet/tools` to the PATH.**
+
+Install MarkdownSnippets.Tool https://nuget.org/packages/MarkdownSnippets.Tool/ [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?style=flat)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
 
 ```ps
 dotnet tool install -g MarkdownSnippets.Tool
 ```
 
-
 ## Usage
 
 ```ps
-mdsnippets C:\Code\TheTargetDirectory
+mdsnippets C:\Code\TargetDirectory
 ```
 
 If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
-
-**There is known a issue on macOS and Linux that results in [dotnet tools not being discovered in the current path](https://github.com/dotnet/cli/issues/9321).**
 
 
 ### Behavior
@@ -47,15 +48,18 @@ When using `mdsource` convention, all references to other files, such as links a
 
 ## Defining Snippets
 
-Any code wrapped in a convention based comment will be picked up. The comment needs to start with `startcode` which is followed by the key. The snippet is then terminated by `endcode`.
+Any code wrapped in a convention based comment will be picked up. The comment needs to start with `begin-snippet:` which is followed by the key. The snippet is then terminated by `end-snippet`.
 
 ```
-// startcode MySnippetName
+// begin-snippet: MySnippetName
 My Snippet Code
-// endcode
+// end-snippet
 ```
 
-Named C# regions will also be picked up, with the name of the region is used as the key.
+There is a legacy convention for defining snippets. Where a snippet starts with `startcode` and ends with `endcode`. This convention will be removed in a future release.
+
+
+Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) will also be picked up, with the name of the region is used as the key.
 
 
 ## Using Snippets

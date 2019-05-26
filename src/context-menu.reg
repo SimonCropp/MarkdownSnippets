@@ -2,9 +2,12 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\Directory\Shell]
 @="none"
 [HKEY_CLASSES_ROOT\Directory\shell\mdsnippets]
+"MUIVerb"="run mdsnippets"
+"Position"="bottom"
 [HKEY_CLASSES_ROOT\Directory\Background\shell\mdsnippets]
 "MUIVerb"="run mdsnippets"
 "Position"="bottom"
 [HKEY_CLASSES_ROOT\Directory\shell\mdsnippets\command]
+@="cmd.exe /c mdsnippets \"%V\""
 [HKEY_CLASSES_ROOT\Directory\Background\shell\mdsnippets\command]
 @="cmd.exe /c mdsnippets \"%V\""

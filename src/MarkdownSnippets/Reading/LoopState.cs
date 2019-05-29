@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 
-[DebuggerDisplay("Key={Key}, Version={Version}")]
+[DebuggerDisplay("Key={Key}")]
 class LoopState
 {
     public string GetLines()
@@ -11,6 +11,7 @@ class LoopState
         {
             return string.Empty;
         }
+
         builder.TrimEnd();
         return builder.ToString();
     }
@@ -21,18 +22,20 @@ class LoopState
         {
             builder = new StringBuilder();
         }
+
         if (builder.Length == 0)
         {
             if (line.IsWhiteSpace())
             {
                 return;
             }
+
             CheckWhiteSpace(line, ' ');
             CheckWhiteSpace(line, '\t');
         }
         else
         {
-            if (newlineCount<2)
+            if (newlineCount < 2)
             {
                 builder.AppendLine();
             }
@@ -74,7 +77,6 @@ class LoopState
     char paddingChar;
     int paddingLength;
 
-    public string Version;
     public Func<string, bool> EndFunc;
     public int StartLine;
     int newlineCount=0;

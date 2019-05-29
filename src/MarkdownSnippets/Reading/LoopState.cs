@@ -60,6 +60,7 @@ class LoopState
         {
             return;
         }
+
         paddingChar = whiteSpace;
         for (var index = 1; index < line.Length; index++)
         {

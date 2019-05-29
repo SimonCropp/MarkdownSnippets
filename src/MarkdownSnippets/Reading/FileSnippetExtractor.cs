@@ -108,11 +108,7 @@ namespace MarkdownSnippets
         {
             var extension = Path.GetExtension(path);
             var s = extension?.TrimStart('.');
-            if (s == null)
-            {
-                return string.Empty;
-            }
-            return s;
+            return s ?? string.Empty;
         }
 
         static IEnumerable<Snippet> GetSnippets(IndexReader stringReader, string path)

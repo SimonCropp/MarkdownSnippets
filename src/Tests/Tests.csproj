@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="GitDirs\" />
-    <PackageReference Include="ApprovalTests" Version="3.0.22" />
+    <PackageReference Include="ApprovalTests" Version="3.1.0" />
     <PackageReference Include="ObjectApproval" Version="9.1.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Xunit" Version="2.4.1" />

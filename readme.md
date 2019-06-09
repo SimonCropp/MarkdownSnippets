@@ -118,6 +118,13 @@ When scanning for snippets the following are ignored:
  * Any of the following directory names: `bin`, `obj`
 
 
+## More Documentation
+
+ * [.net API](/docs/api.md)
+ * [Indentation](/docs/indentation.md)
+ * [Merging snippets from MsBuild](/docs/msbuild.md)
+
+
 ## Release Notes
 
 See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).

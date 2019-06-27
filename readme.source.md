@@ -112,6 +112,17 @@ When scanning for snippets the following are ignored:
  * Any of the following directory names: `bin`, `obj`
 
 
+## Mark resulting files as read only
+
+To mark the resulting `.md` files as read only use `-r` or `--readonly`.
+
+This can be helpful in preventing incorrectly editing the `.md` file instead of the `.source.md` file.
+
+```ps
+mdsnippets -r
+```
+
+
 ## More Documentation
 
  * [.net API](/docs/api.md)

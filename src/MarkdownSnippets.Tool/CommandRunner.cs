@@ -14,7 +14,7 @@ static class CommandRunner
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                invoke(firstArg, new List<string>());
+                invoke(firstArg, false, new List<string>());
                 return;
             }
         }
@@ -24,7 +24,7 @@ static class CommandRunner
                 options =>
                 {
                     ApplyDefaults(options);
-                    invoke(options.TargetDirectory, options.Exclude.ToList());
+                    invoke(options.TargetDirectory, options.ReadOnly, options.Exclude.ToList());
                 });
     }
 

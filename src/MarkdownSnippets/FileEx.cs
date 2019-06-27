@@ -18,4 +18,20 @@ static class FileEx
         var directoryUri = new Uri(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
+
+    public static void ClearReadOnly(string path)
+    {
+        var fileInfo = new FileInfo(path)
+        {
+            IsReadOnly = false
+        };
+    }
+
+    public static void MakeReadOnly(string path)
+    {
+        var fileInfo = new FileInfo(path)
+        {
+            IsReadOnly = true
+        };
+    }
 }

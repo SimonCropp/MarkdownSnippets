@@ -11,6 +11,7 @@ namespace MarkdownSnippets
     {
         bool writeHeader;
         DirectoryFilter directoryFilter;
+        bool readOnly;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -25,10 +26,12 @@ namespace MarkdownSnippets
             Action<string> log = null,
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
             bool writeHeader = true,
-            DirectoryFilter directoryFilter = null)
+            DirectoryFilter directoryFilter = null,
+            bool readOnly = true)
         {
             this.writeHeader = writeHeader;
             this.directoryFilter = directoryFilter;
+            this.readOnly = readOnly;
             if (appendSnippetGroup == null)
             {
                 this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
@@ -135,6 +138,7 @@ namespace MarkdownSnippets
         {
             log($"Processing {sourceFile}");
             var target = GetTargetFile(sourceFile, targetDirectory);
+            FileEx.ClearReadOnly(target);
             using (var reader = File.OpenText(sourceFile))
             using (var writer = File.CreateText(target))
             {
@@ -149,6 +153,11 @@ namespace MarkdownSnippets
                 {
                     throw new MissingSnippetsException(missing);
                 }
+            }
+
+            if (readOnly)
+            {
+                FileEx.MakeReadOnly(target);
             }
         }
 

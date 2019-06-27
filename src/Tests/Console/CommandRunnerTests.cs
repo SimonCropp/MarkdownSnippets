@@ -10,6 +10,7 @@ public class CommandRunnerTests :
 {
     string targetDirectory;
     List<string> exclude;
+    bool readOnly;
 
     [Fact]
     public void Empty()
@@ -17,6 +18,7 @@ public class CommandRunnerTests :
         CommandRunner.RunCommand(Capture);
         Assert.Equal(Environment.CurrentDirectory, targetDirectory);
         Assert.Empty(exclude);
+        Assert.False(readOnly);
     }
 
     [Fact]
@@ -25,6 +27,25 @@ public class CommandRunnerTests :
         CommandRunner.RunCommand(Capture, "dir");
         Assert.Equal("dir", targetDirectory);
         Assert.Empty(exclude);
+        Assert.False(readOnly);
+    }
+
+    [Fact]
+    public void ReadOnlyShort()
+    {
+        CommandRunner.RunCommand(Capture, "-r");
+        Assert.Equal(Environment.CurrentDirectory, targetDirectory);
+        Assert.Empty(exclude);
+        Assert.True(readOnly);
+    }
+
+    [Fact]
+    public void ReadOnlyLong()
+    {
+        CommandRunner.RunCommand(Capture, "--readonly");
+        Assert.Equal(Environment.CurrentDirectory, targetDirectory);
+        Assert.Empty(exclude);
+        Assert.True(readOnly);
     }
 
     [Fact]
@@ -32,6 +53,7 @@ public class CommandRunnerTests :
     {
         CommandRunner.RunCommand(Capture, "-t", "dir");
         Assert.Equal(Path.GetFullPath("dir"), targetDirectory);
+        Assert.False(readOnly);
     }
 
     [Fact]
@@ -39,6 +61,7 @@ public class CommandRunnerTests :
     {
         CommandRunner.RunCommand(Capture, "--target-directory", "dir");
         Assert.Equal(Path.GetFullPath("dir"), targetDirectory);
+        Assert.False(readOnly);
     }
 
     [Fact]
@@ -46,6 +69,7 @@ public class CommandRunnerTests :
     {
         CommandRunner.RunCommand(Capture, "-e", "dir");
         Assert.Equal("dir", exclude.Single());
+        Assert.False(readOnly);
     }
 
     [Fact]
@@ -53,6 +77,7 @@ public class CommandRunnerTests :
     {
         CommandRunner.RunCommand(Capture, "-e", "dir1:dir2");
         Assert.Equal(new List<string> {"dir1", "dir2"}, exclude);
+        Assert.False(readOnly);
     }
 
     [Fact]
@@ -72,12 +97,14 @@ public class CommandRunnerTests :
     {
         CommandRunner.RunCommand(Capture, "--exclude", "dir");
         Assert.Equal("dir", exclude.Single());
+        Assert.False(readOnly);
     }
 
-    void Capture(string targetDirectory, List<string> exclude)
+    void Capture(string targetDirectory, bool readOnly, List<string> exclude)
     {
         this.targetDirectory = targetDirectory;
         this.exclude = exclude;
+        this.readOnly = readOnly;
     }
 
     public CommandRunnerTests(ITestOutputHelper output) :

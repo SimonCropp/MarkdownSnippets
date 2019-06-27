@@ -11,7 +11,7 @@ class Program
         CommandRunner.RunCommand(Inner, args);
     }
 
-    static void Inner(string targetDirectory, List<string> excludes)
+    static void Inner(string targetDirectory, bool readOnly, List<string> excludes)
     {
         Console.WriteLine($"TargetDirectory: {targetDirectory}");
         if (!Directory.Exists(targetDirectory))
@@ -31,9 +31,10 @@ class Program
         try
         {
             var processor = new DirectoryMarkdownProcessor(
-                targetDirectory, 
+                targetDirectory,
                 log: Console.WriteLine,
-                directoryFilter: path => !excludes.Any(path.Contains));
+                directoryFilter: path => !excludes.Any(path.Contains),
+                readOnly: readOnly);
             processor.Run();
         }
         catch (SnippetReadingException exception)

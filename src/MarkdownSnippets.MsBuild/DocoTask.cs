@@ -10,10 +10,15 @@ namespace MarkdownSnippets
         [Required]
         public string ProjectDirectory { get; set; }
 
+        public bool ReadOnly { get; set; }
+
         public override bool Execute()
         {
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
-            var processor = new DirectoryMarkdownProcessor(root, log: s => Log.LogMessage(s));
+            var processor = new DirectoryMarkdownProcessor(
+                root,
+                log: s => Log.LogMessage(s),
+                readOnly: ReadOnly);
             try
             {
                 processor.Run();

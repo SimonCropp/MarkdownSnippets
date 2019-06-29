@@ -21,6 +21,10 @@ static class FileEx
 
     public static void ClearReadOnly(string path)
     {
+        if (!File.Exists(path))
+        {
+            return;
+        }
         var fileInfo = new FileInfo(path)
         {
             IsReadOnly = false

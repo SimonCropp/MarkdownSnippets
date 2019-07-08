@@ -124,7 +124,7 @@ namespace MarkdownSnippets
             if (TryGetFromFiles(key, out var snippetFromFiles))
             {
                 appendSnippetGroup(key, snippetFromFiles, appendLine);
-                appendLine($"<!-- endsnippet -->");
+                appendLine("<!-- endsnippet -->");
                 used.AddRange(snippetFromFiles);
                 return true;
             }

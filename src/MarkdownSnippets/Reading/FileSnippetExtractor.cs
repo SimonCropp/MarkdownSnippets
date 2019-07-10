@@ -162,7 +162,6 @@ namespace MarkdownSnippets
         static Snippet BuildSnippet(IndexReader stringReader, string path, LoopStack loopStack, string language)
         {
             var loopState = loopStack.Current;
-            var startRow = loopState.StartLine + 1;
 
             var value = loopState.GetLines();
 

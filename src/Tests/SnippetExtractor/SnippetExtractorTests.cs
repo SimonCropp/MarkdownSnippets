@@ -8,7 +8,7 @@ using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
-public class SnippetExtractorTests : 
+public class SnippetExtractorTests :
     TestBase
 {
     [Fact]
@@ -248,7 +248,7 @@ public class SnippetExtractorTests :
         ObjectApprover.VerifyWithJson(snippets);
     }
 
-    public SnippetExtractorTests(ITestOutputHelper output) : 
+    public SnippetExtractorTests(ITestOutputHelper output) :
         base(output)
     {
     }

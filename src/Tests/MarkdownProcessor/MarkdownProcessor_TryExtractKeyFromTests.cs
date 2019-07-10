@@ -2,13 +2,13 @@
 using Xunit;
 using Xunit.Abstractions;
 
-public class MarkdownProcessor_TryExtractKeyFromTests : 
+public class MarkdownProcessor_TryExtractKeyFromTests :
     TestBase
 {
     [Fact]
     public void MissingSpaces()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => SnippetKeyReader.TryExtractKeyFromLine("snippet:snippet", out var key));
+        var exception = Assert.Throws<MarkdownProcessingException>(() => SnippetKeyReader.TryExtractKeyFromLine("snippet:snippet", out _));
         Assert.True(exception.Message == "Invalid syntax for the snippet 'snippet': There must be a space before the start of the key.");
     }
 

@@ -80,5 +80,5 @@ class LoopState
 
     public Func<string, bool> EndFunc;
     public int StartLine;
-    int newlineCount=0;
+    int newlineCount;
 }

@@ -25,7 +25,7 @@ static class FileEx
         {
             return;
         }
-        var fileInfo = new FileInfo(path)
+        new FileInfo(path)
         {
             IsReadOnly = false
         };
@@ -33,7 +33,7 @@ static class FileEx
 
     public static void MakeReadOnly(string path)
     {
-        var fileInfo = new FileInfo(path)
+        new FileInfo(path)
         {
             IsReadOnly = true
         };

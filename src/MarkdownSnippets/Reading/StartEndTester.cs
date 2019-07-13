@@ -3,6 +3,16 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
+    internal static bool IsStartOrEnd(string trimmedLine)
+    {
+        return IsBeginSnippet(trimmedLine) ||
+               IsEndSnippet(trimmedLine) ||
+               IsStartCode(trimmedLine) ||
+               IsEndCode(trimmedLine) ||
+               IsStartRegion(trimmedLine) ||
+               IsEndRegion(trimmedLine);
+    }
+
     internal static bool IsStart(string trimmedLine, string path, out string currentKey, out Func<string, bool> endFunc)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey))
@@ -42,6 +52,11 @@ static class StartEndTester
         return line.IndexOf("end-snippet", StringComparison.Ordinal) >= 0;
     }
 
+    static bool IsStartRegion(string line)
+    {
+        return line.StartsWith("#region ", StringComparison.Ordinal);
+    }
+
     internal static bool IsStartRegion(string line, string path, out string key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
@@ -51,6 +66,12 @@ static class StartEndTester
         }
         var substring = line.Substring(8);
         return TryExtractParts(substring, line, false, path, out key);
+    }
+
+    static bool IsBeginSnippet(string line)
+    {
+        var startCodeIndex = line.IndexOf("begin-snippet: ", StringComparison.Ordinal);
+        return startCodeIndex != -1;
     }
 
     internal static bool IsBeginSnippet(string line, string path, out string key)
@@ -67,6 +88,11 @@ static class StartEndTester
         return TryExtractParts(substring, line, true, path, out key);
     }
 
+    static bool IsStartCode(string line)
+    {
+        var startCodeIndex = line.IndexOf("startcode ", StringComparison.Ordinal);
+        return startCodeIndex != -1;
+    }
 
     internal static bool IsStartCode(string line, string path, out string key)
     {

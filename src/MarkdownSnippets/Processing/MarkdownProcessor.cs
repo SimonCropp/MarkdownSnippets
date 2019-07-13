@@ -164,7 +164,7 @@ namespace MarkdownSnippets
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file =>
                 {
-                    var allText = File.ReadAllText(file);
+                    var allText = ReadNonStartEndLines(file);
                     return Snippet.Build(
                         startLine: 1,
                         endLine: allText.LineCount(),
@@ -174,6 +174,11 @@ namespace MarkdownSnippets
                         path: file);
                 })
                 .ToList();
+        }
+
+        static string ReadNonStartEndLines(string file)
+        {
+            return string.Join(Environment.NewLine, File.ReadAllLines(file).Where(x=>!StartEndTester.IsStartOrEnd(x)));
         }
     }
 }

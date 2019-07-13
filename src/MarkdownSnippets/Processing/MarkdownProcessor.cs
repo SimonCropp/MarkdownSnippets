@@ -150,8 +150,18 @@ namespace MarkdownSnippets
 
         List<Snippet> FilesToSnippets(string key)
         {
+            string keyWithDirChar;
+            if (key.StartsWith("/"))
+            {
+                keyWithDirChar = key;
+            }
+            else
+            {
+                keyWithDirChar = "/" + key;
+            }
+
             return snippetSourceFiles
-                .Where(file => file.EndsWith(key, StringComparison.OrdinalIgnoreCase))
+                .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file =>
                 {
                     var allText = File.ReadAllText(file);

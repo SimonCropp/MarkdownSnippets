@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <NoWarn>CS1591</NoWarn>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>12.0.2</Version>
+    <Version>12.0.3</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>

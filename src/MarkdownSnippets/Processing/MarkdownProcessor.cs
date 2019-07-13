@@ -67,7 +67,7 @@ namespace MarkdownSnippets
             using (var reader = new StringReader(input))
             using (var writer = new StringWriter(builder))
             {
-                var processResult = Apply(reader, writer,file);
+                var processResult = Apply(reader, writer, file);
                 var missing = processResult.MissingSnippets;
                 if (missing.Any())
                 {
@@ -87,7 +87,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
             var reader = new IndexReader(textReader);
-            return Apply(writer, reader,file);
+            return Apply(writer, reader, file);
         }
 
         ProcessResult Apply(TextWriter writer, IndexReader reader, string file)
@@ -101,6 +101,7 @@ namespace MarkdownSnippets
                 {
                     writer.NewLine = reader.NewLine;
                 }
+
                 if (TryProcessSnippetLine(writer.WriteLine, reader.Index, line, missing, usedSnippets, file))
                 {
                     continue;
@@ -178,7 +179,9 @@ namespace MarkdownSnippets
 
         static string ReadNonStartEndLines(string file)
         {
-            return string.Join(Environment.NewLine, File.ReadAllLines(file).Where(x=>!StartEndTester.IsStartOrEnd(x)));
+            var cleanedLines = File.ReadAllLines(file)
+                .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart()));
+            return string.Join(Environment.NewLine, cleanedLines);
         }
     }
 }

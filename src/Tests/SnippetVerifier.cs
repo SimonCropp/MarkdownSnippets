@@ -16,7 +16,7 @@ static class SnippetVerifier
         using (var reader = new StringReader(markdownContent))
         using (var writer = new StringWriter(stringBuilder))
         {
-            var processResult = markdownProcessor.Apply(reader, writer);
+            var processResult = markdownProcessor.Apply(reader, writer, null);
             var output = new
             {
                 processResult.MissingSnippets,

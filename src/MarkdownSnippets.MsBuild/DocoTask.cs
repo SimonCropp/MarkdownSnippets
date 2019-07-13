@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -7,8 +8,7 @@ namespace MarkdownSnippets
         Task,
         ICancelableTask
     {
-        [Required]
-        public string ProjectDirectory { get; set; }
+        [Required] public string ProjectDirectory { get; set; }
 
         public bool ReadOnly { get; set; }
 
@@ -25,12 +25,13 @@ namespace MarkdownSnippets
             }
             catch (MissingSnippetsException exception)
             {
-                Log.LogError($"MarkdownSnippets: {exception.Message}");
+                var first = exception.Missing.First();
+                Log.LogFileError($"MarkdownSnippets: {exception.Message}", first.File, first.Line);
                 return false;
             }
             catch (MarkdownProcessingException exception)
             {
-                Log.LogError($"MarkdownSnippets: {exception.Message}");
+                Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.Line);
                 return false;
             }
 

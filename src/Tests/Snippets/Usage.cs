@@ -63,10 +63,11 @@ class Usage
             snippets: snippets,
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
 
-        using (var reader = File.OpenText(@"C:\path\inputMarkdownFile.md"))
+        var path = @"C:\path\inputMarkdownFile.md";
+        using (var reader = File.OpenText(path))
         using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
         {
-            var result = markdownProcessor.Apply(reader, writer);
+            var result = markdownProcessor.Apply(reader, writer, path);
             // snippets that the markdown file expected but did not exist in the input snippets
             var missingSnippets = result.MissingSnippets;
 

@@ -59,14 +59,15 @@ namespace MarkdownSnippets
                 .ToList();
         }
 
-        public string Apply(string input)
+        public string Apply(string input, string file = null)
         {
             Guard.AgainstNull(input, nameof(input));
+            Guard.AgainstEmpty(file, nameof(file));
             var builder = new StringBuilder();
             using (var reader = new StringReader(input))
             using (var writer = new StringWriter(builder))
             {
-                var processResult = Apply(reader, writer);
+                var processResult = Apply(reader, writer,file);
                 var missing = processResult.MissingSnippets;
                 if (missing.Any())
                 {
@@ -80,15 +81,16 @@ namespace MarkdownSnippets
         /// <summary>
         /// Apply to <paramref name="writer"/>.
         /// </summary>
-        public ProcessResult Apply(TextReader textReader, TextWriter writer)
+        public ProcessResult Apply(TextReader textReader, TextWriter writer, string file = null)
         {
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
+            Guard.AgainstEmpty(file, nameof(file));
             var reader = new IndexReader(textReader);
-            return Apply(writer, reader);
+            return Apply(writer, reader,file);
         }
 
-        ProcessResult Apply(TextWriter writer, IndexReader reader)
+        ProcessResult Apply(TextWriter writer, IndexReader reader, string file)
         {
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
@@ -99,7 +101,7 @@ namespace MarkdownSnippets
                 {
                     writer.NewLine = reader.NewLine;
                 }
-                if (TryProcessSnippetLine(writer.WriteLine, reader.Index, line, missing, usedSnippets))
+                if (TryProcessSnippetLine(writer.WriteLine, reader.Index, line, missing, usedSnippets, file))
                 {
                     continue;
                 }
@@ -112,9 +114,9 @@ namespace MarkdownSnippets
                 usedSnippets: usedSnippets.Distinct().ToList());
         }
 
-        bool TryProcessSnippetLine(Action<string> appendLine, int index, string line, List<MissingSnippet> missings, List<Snippet> used)
+        bool TryProcessSnippetLine(Action<string> appendLine, int index, string line, List<MissingSnippet> missings, List<Snippet> used, string file)
         {
-            if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
+            if (!SnippetKeyReader.TryExtractKeyFromLine(line, file, index, out var key))
             {
                 return false;
             }
@@ -129,9 +131,7 @@ namespace MarkdownSnippets
                 return true;
             }
 
-            var missing = new MissingSnippet(
-                key: key,
-                line: index);
+            var missing = new MissingSnippet(key, index, file);
             missings.Add(missing);
             appendLine($"** Could not find snippet '{key}' **");
             return true;

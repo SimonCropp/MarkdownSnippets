@@ -11,12 +11,14 @@ namespace MarkdownSnippets
         /// <summary>
         /// Initialise a new instance of <see cref="MissingSnippet"/>.
         /// </summary>
-        public MissingSnippet(string key, int line)
+        public MissingSnippet(string key, int line, string file)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNegativeAndZero(line, nameof(line));
+            Guard.AgainstEmpty(file, nameof(file));
             Key = key;
             Line = line;
+            File = file;
         }
 
         /// <summary>
@@ -29,12 +31,24 @@ namespace MarkdownSnippets
         /// </summary>
         public int Line { get; }
 
+        /// <summary>
+        /// The File of the missing snippet.
+        /// </summary>
+        public string File { get; }
+
         public override string ToString()
         {
-            return $@"MissingSnippet.
+            if (File == null)
+            {
+                return $@"MissingSnippet.
   Line: {Line}
-  Key: {Key}
-";
+  Key: {Key}";
+            }
+
+            return $@"MissingSnippet.
+  File: {File}
+  Line: {Line}
+  Key: {Key}";
         }
     }
 }

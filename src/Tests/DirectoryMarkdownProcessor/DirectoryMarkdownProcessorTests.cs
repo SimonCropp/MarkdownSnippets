@@ -57,7 +57,7 @@ public class DirectoryMarkdownProcessorTests :
         Approvals.Verify(builder.ToString());
     }
 
-    Snippet SnippetBuild(string key)
+    static Snippet SnippetBuild(string key)
     {
         return Snippet.Build(
             language: ".cs",

@@ -46,7 +46,7 @@ snippet: /FileToUseAsSnippet.txt
             });
     }
 
-    Snippet SnippetBuild(string language, string key)
+    static Snippet SnippetBuild(string language, string key)
     {
         return Snippet.Build(
             language: language,

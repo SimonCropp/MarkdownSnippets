@@ -5,11 +5,12 @@
     <LangVersion>latest</LangVersion>
     <NoWarn>CS1591</NoWarn>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>12.0.3</Version>
+    <Version>12.0.4</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
+    <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

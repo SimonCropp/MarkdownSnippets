@@ -62,7 +62,7 @@ There is a legacy convention for defining snippets. Where a snippet starts with 
 
 Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) will also be picked up, with the name of the region is used as the key.
 
-To stop regions collapsing in Visual Studio [disable 'enter outlining mode when files open'](/docs/stop-regions-collapsing.png)). See [Visual Studio outlining](https://docs.microsoft.com/en-us/visualstudio/ide/outlining).
+To stop regions collapsing in Visual Studio [disable 'enter outlining mode when files open'](/docs/stop-regions-collapsing.png). See [Visual Studio outlining](https://docs.microsoft.com/en-us/visualstudio/ide/outlining).
 
 
 ## Using Snippets

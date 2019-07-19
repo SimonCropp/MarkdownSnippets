@@ -2,7 +2,7 @@
 
 namespace MarkdownSnippets
 {
-    public static class Exclusions
+    public static class SnippetFileExclusions
     {
         public static bool ShouldExcludeExtension(string extension)
         {
@@ -16,18 +16,6 @@ namespace MarkdownSnippets
             return !NoAcceptCommentsExtensions.Contains(extension);
         }
 
-        public static bool ShouldExcludeDirectory(string suffix)
-        {
-            suffix = suffix.ToLowerInvariant();
-            return ExcludedDirectorySuffixes.Contains(suffix);
-        }
-
-        public static List<string> ExcludedDirectorySuffixes { get; set; } = new List<string>
-        {
-            "bin",
-            "obj"
-        };
-
         public static List<string> NoAcceptCommentsExtensions { get; set; } = new List<string>
         {
             //files that dont accept comments hence cant contain snippets
@@ -38,6 +26,7 @@ namespace MarkdownSnippets
 
         public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
         {
+            "md",
             // extra binary
             "mdb",
             "shp",

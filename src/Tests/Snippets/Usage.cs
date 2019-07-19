@@ -40,9 +40,8 @@ class Usage
         // extract snippets from files
         var snippetExtractor = new DirectorySnippetExtractor(
             // all directories except bin and obj
-            directoryFilter: dirPath => !dirPath.EndsWith("bin") && !dirPath.EndsWith("obj"),
-            // all js and cs files
-            fileFilter: filePath => filePath.EndsWith(".js") || filePath.EndsWith(".cs"));
+            directoryFilter: dirPath => !dirPath.EndsWith("bin") &&
+                                        !dirPath.EndsWith("obj"));
         var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
         #endregion
@@ -53,9 +52,7 @@ class Usage
         #region markdownProcessingSimple
 
         // setup version convention and extract snippets from files
-        var snippetExtractor = new DirectorySnippetExtractor(
-            directoryFilter: x => true,
-            fileFilter: s => s.EndsWith(".js") || s.EndsWith(".cs"));
+        var snippetExtractor = new DirectorySnippetExtractor();
         var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
         // Merge with some markdown text

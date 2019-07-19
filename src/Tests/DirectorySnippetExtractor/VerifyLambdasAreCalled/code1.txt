@@ -1,3 +1,0 @@
-﻿startcode snippet2
-Some code
-endcode

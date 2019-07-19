@@ -4,15 +4,13 @@ using System.Linq;
 
 namespace MarkdownSnippets
 {
-    public class FileFinder
+    public class SnippetFileFinder
     {
         DirectoryFilter directoryFilter;
-        FileFilter fileFilter;
 
-        public FileFinder(DirectoryFilter directoryFilter = null, FileFilter fileFilter = null)
+        public SnippetFileFinder(DirectoryFilter directoryFilter = null)
         {
             this.directoryFilter = directoryFilter;
-            this.fileFilter = fileFilter;
         }
 
         public bool IncludeDirectory(string directoryPath)
@@ -24,7 +22,7 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            if (Exclusions.ShouldExcludeDirectory(suffix))
+            if (DirectoryExclusions.ShouldExcludeDirectory(suffix))
             {
                 return false;
             }
@@ -37,7 +35,7 @@ namespace MarkdownSnippets
             return directoryFilter(directoryPath);
         }
 
-        bool IncludeFile(string path)
+        static bool IncludeFile(string path)
         {
             var fileName = Path.GetFileName(path);
             if (fileName.StartsWith("."))
@@ -51,17 +49,12 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            if (Exclusions.ShouldExcludeExtension(extension.Substring(1)))
+            if (SnippetFileExclusions.ShouldExcludeExtension(extension.Substring(1)))
             {
                 return false;
             }
 
-            if (fileFilter == null)
-            {
-                return true;
-            }
-
-            return fileFilter(path);
+            return true;
         }
 
         public List<string> FindFiles(params string[] directoryPaths)

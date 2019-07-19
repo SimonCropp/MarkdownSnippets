@@ -1,16 +1,7 @@
 ﻿{
-  Files: [
+  Directories: [
     {
-      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\code1.txt'
-    },
-    {
-      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\code2.txt'
-    },
-    {
-      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\code3.txt'
-    },
-    {
-      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\code4.txt'
+      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
     }
   ]
 }

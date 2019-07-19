@@ -67,7 +67,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(paths, nameof(paths));
             return paths
-                .Where(x => Exclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
+                .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
                 .SelectMany(Read);
         }
 

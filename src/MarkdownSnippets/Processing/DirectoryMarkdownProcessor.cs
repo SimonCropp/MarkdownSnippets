@@ -89,7 +89,7 @@ namespace MarkdownSnippets
             directory = Path.Combine(targetDirectory, directory);
             directory = Path.GetFullPath(directory);
             Guard.DirectoryExists(directory, nameof(directory));
-            var finder = new FileFinder(directoryFilter);
+            var finder = new SnippetFileFinder(directoryFilter);
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
@@ -101,7 +101,7 @@ namespace MarkdownSnippets
         public void IncludeMdFilesFrom(string directory)
         {
             Guard.DirectoryExists(directory, nameof(directory));
-            var mdFinder = new FileFinder(directoryFilter, IsSourceMd);
+            var mdFinder = new MdFileFinder(directoryFilter);
             var files = mdFinder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
             log($"Added {files.Count} .source.md files");
@@ -173,11 +173,6 @@ namespace MarkdownSnippets
             // remove ".md" from ".source.md" then change ".source" to ".md"
             targetFile = Path.ChangeExtension(Path.ChangeExtension(targetFile, null), ".md");
             return targetFile;
-        }
-
-        static bool IsSourceMd(string path)
-        {
-            return path.EndsWith(".source.md", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

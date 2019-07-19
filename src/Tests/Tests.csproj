@@ -7,6 +7,7 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
     <PackageReference Include="ApprovalTests" Version="4.0.0" />
     <PackageReference Include="ObjectApproval" Version="9.1.0" />
@@ -17,7 +18,6 @@
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <Reference Include="Microsoft.CSharp" />
-    <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\Ignore\" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

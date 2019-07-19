@@ -6,11 +6,11 @@ namespace MarkdownSnippets
 {
     public class DirectorySnippetExtractor
     {
-        FileFinder fileFinder;
+        SnippetFileFinder fileFinder;
 
-        public DirectorySnippetExtractor(DirectoryFilter directoryFilter = null, FileFilter fileFilter = null)
+        public DirectorySnippetExtractor(DirectoryFilter directoryFilter = null)
         {
-            fileFinder = new FileFinder(directoryFilter, fileFilter);
+            fileFinder = new SnippetFileFinder(directoryFilter);
         }
 
         public ReadSnippets ReadSnippets(params string[] directories)

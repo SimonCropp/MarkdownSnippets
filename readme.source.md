@@ -61,7 +61,7 @@ Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-refer
 
 The keyed snippets can be used in any documentation `.md` file by adding the text `snippet: KEY`.
 
-Then snippets with the key (all versions) will be rendered in a tabbed manner. If there is only a single version then it will be rendered as a simple code block with no tabs.
+Then snippets with that key.
 
 For example
 

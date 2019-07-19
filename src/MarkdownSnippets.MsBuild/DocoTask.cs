@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -8,12 +9,14 @@ namespace MarkdownSnippets
         Task,
         ICancelableTask
     {
-        [Required] public string ProjectDirectory { get; set; }
+        [Required]
+        public string ProjectDirectory { get; set; }
 
         public bool ReadOnly { get; set; }
 
         public override bool Execute()
         {
+            var stopwatch = Stopwatch.StartNew();
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
             var processor = new DirectoryMarkdownProcessor(
                 root,
@@ -22,6 +25,7 @@ namespace MarkdownSnippets
             try
             {
                 processor.Run();
+                Log.LogMessageFromText($"Finished MarkdownSnippets {stopwatch.ElapsedMilliseconds}ms", MessageImportance.Normal);
             }
             catch (MissingSnippetsException exception)
             {

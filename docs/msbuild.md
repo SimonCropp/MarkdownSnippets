@@ -16,3 +16,8 @@ This package only need to be included in one project of the solution. A logical 
 ## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
 
 https://nuget.org/packages/MarkdownSnippets.MsBuild/
+
+
+## More Info
+
+ * [Config file convention](/docs/config-file.md).

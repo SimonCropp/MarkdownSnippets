@@ -20,6 +20,7 @@ public class DirectoryMarkdownProcessorTests :
         var files = Directory.EnumerateFiles(doc,"*.source.md",SearchOption.AllDirectories).ToArray();
         processor.IncludeMdFiles(files);
         processor.IncludeSnippetsFrom("src/Tests/Snippets");
+        processor.IncludeSnippetsFrom("src/ConfigReader.Tests");
         processor.Run();
     }
 

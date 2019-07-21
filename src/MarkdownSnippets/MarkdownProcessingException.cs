@@ -6,15 +6,20 @@ namespace MarkdownSnippets
         Exception
     {
         public string File { get; }
-        public int Line { get; }
+        public int LineNumber { get; }
 
-        public MarkdownProcessingException(string message, string file, int line) :
+        public MarkdownProcessingException(string message, string file, int lineNumber) :
             base(message)
         {
-            Guard.AgainstNegativeAndZero(line, nameof(line));
+            Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
             Guard.AgainstEmpty(file, nameof(file));
             File = file;
-            Line = line;
+            LineNumber = lineNumber;
+        }
+
+        public override string ToString()
+        {
+            return $"{Message} File: {File}. LineNumber: {LineNumber}.";
         }
     }
 }

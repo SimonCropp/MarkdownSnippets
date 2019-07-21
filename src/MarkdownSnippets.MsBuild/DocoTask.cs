@@ -41,7 +41,7 @@ namespace MarkdownSnippets
             }
             catch (MarkdownProcessingException exception)
             {
-                Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.Line);
+                Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.LineNumber);
                 return false;
             }
 

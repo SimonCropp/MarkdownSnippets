@@ -16,7 +16,9 @@ public class DirectoryMarkdownProcessorTests :
 
         var processor = new DirectoryMarkdownProcessor(root, false, false);
         processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
-        processor.IncludeMdFiles(Directory.EnumerateFiles(Path.Combine(root, "docs"),"*.source.md").ToArray());
+        var doc = Path.Combine(root, "docs");
+        var files = Directory.EnumerateFiles(doc,"*.source.md",SearchOption.AllDirectories).ToArray();
+        processor.IncludeMdFiles(files);
         processor.IncludeSnippetsFrom("src/Tests/Snippets");
         processor.Run();
     }

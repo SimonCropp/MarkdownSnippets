@@ -16,6 +16,6 @@ public static class ConfigReader
 
     public static Config Parse(string value)
     {
-        return JsonSerializer.Parse<Config>(value,new JsonSerializerOptions{});
+        return JsonSerializer.Parse<Config>(value);
     }
 }

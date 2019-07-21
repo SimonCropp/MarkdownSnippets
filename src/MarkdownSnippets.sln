@@ -18,6 +18,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.Tool", "Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.MsBuild", "MarkdownSnippets.MsBuild\MarkdownSnippets.MsBuild.csproj", "{DC81D2B7-5280-409A-8DE2-2C1DF7512281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigReader", "ConfigReader\ConfigReader.csproj", "{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigReader.Tests", "ConfigReader.Tests\ConfigReader.Tests.csproj", "{B7DA8493-0480-444F-AE8F-BFA5D5E98995}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,14 @@ Global
 		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC81D2B7-5280-409A-8DE2-2C1DF7512281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7DA8493-0480-444F-AE8F-BFA5D5E98995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7DA8493-0480-444F-AE8F-BFA5D5E98995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7DA8493-0480-444F-AE8F-BFA5D5E98995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7DA8493-0480-444F-AE8F-BFA5D5E98995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

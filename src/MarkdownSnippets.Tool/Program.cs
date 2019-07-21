@@ -11,7 +11,7 @@ class Program
         CommandRunner.RunCommand(Inner, args);
     }
 
-    static void Inner(string targetDirectory, bool readOnly, List<string> excludes)
+    static void Inner(string targetDirectory, bool? commandLineReadOnly, bool? commandLineWriteHeader, List<string> excludes)
     {
         Console.WriteLine($"TargetDirectory: {targetDirectory}");
         if (!Directory.Exists(targetDirectory))
@@ -28,13 +28,17 @@ class Program
 
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
 
+        var config = ConfigReader.Read(targetDirectory);
+        var (readOnly, writeHeader) = ConfigDefaults.Convert(config, commandLineReadOnly, commandLineWriteHeader);
+
         try
         {
             var processor = new DirectoryMarkdownProcessor(
                 targetDirectory,
                 log: Console.WriteLine,
                 directoryFilter: path => !excludes.Any(path.Contains),
-                readOnly: readOnly);
+                readOnly: readOnly,
+                writeHeader: writeHeader);
             processor.Run();
         }
         catch (SnippetReadingException exception)
@@ -58,8 +62,8 @@ class Program
     {
         foreach (var exclude in excludes)
         {
-            yield return exclude.Replace('\\','/');
-            yield return exclude.Replace('/','\\');
+            yield return exclude.Replace('\\', '/');
+            yield return exclude.Replace('/', '\\');
         }
     }
 }

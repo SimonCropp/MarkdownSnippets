@@ -12,6 +12,9 @@ public class Options
         HelpText = "Directories to be excluded")]
     public IList<string> Exclude { get; set; }
 
-    [Option('r', "readonly", Required = false, HelpText = "Set output to verbose messages.")]
-    public bool ReadOnly { get; set; }
+    [Option('r', "readonly", Required = false, HelpText = "Set resultant md files as read-only.")]
+    public bool? ReadOnly { get; set; }
+
+    [Option('h', "write-header", Required = false, HelpText = "Write a header at the top of each resultant md file.")]
+    public bool? WriteHeader { get; set; }
 }

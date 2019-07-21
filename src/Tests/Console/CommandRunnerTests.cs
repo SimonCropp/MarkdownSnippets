@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -10,74 +9,77 @@ public class CommandRunnerTests :
 {
     string targetDirectory;
     List<string> exclude;
-    bool readOnly;
+    bool? readOnly;
+    bool? writeHeader;
 
     [Fact]
     public void Empty()
     {
         CommandRunner.RunCommand(Capture);
-        Assert.Equal(Environment.CurrentDirectory, targetDirectory);
-        Assert.Empty(exclude);
-        Assert.False(readOnly);
+        Verify();
     }
 
     [Fact]
     public void SingleUnNamedArg()
     {
         CommandRunner.RunCommand(Capture, "dir");
-        Assert.Equal("dir", targetDirectory);
-        Assert.Empty(exclude);
-        Assert.False(readOnly);
+        Verify();
+    }
+
+    [Fact]
+    public void WriteHeaderShort()
+    {
+        CommandRunner.RunCommand(Capture, "-h", "false");
+        Verify();
+    }
+
+    [Fact]
+    public void WriteHeaderLong()
+    {
+        CommandRunner.RunCommand(Capture, "--write-header", "false");
+        Verify();
     }
 
     [Fact]
     public void ReadOnlyShort()
     {
         CommandRunner.RunCommand(Capture, "-r");
-        Assert.Equal(Environment.CurrentDirectory, targetDirectory);
-        Assert.Empty(exclude);
-        Assert.True(readOnly);
+        Verify();
     }
 
     [Fact]
     public void ReadOnlyLong()
     {
         CommandRunner.RunCommand(Capture, "--readonly");
-        Assert.Equal(Environment.CurrentDirectory, targetDirectory);
-        Assert.Empty(exclude);
-        Assert.True(readOnly);
+        Verify();
     }
 
     [Fact]
     public void TargetDirectoryShort()
     {
         CommandRunner.RunCommand(Capture, "-t", "dir");
-        Assert.Equal(Path.GetFullPath("dir"), targetDirectory);
-        Assert.False(readOnly);
+        Verify();
     }
 
     [Fact]
     public void TargetDirectoryLong()
     {
         CommandRunner.RunCommand(Capture, "--target-directory", "dir");
-        Assert.Equal(Path.GetFullPath("dir"), targetDirectory);
-        Assert.False(readOnly);
+        Verify();
     }
 
     [Fact]
     public void ExcludeShort()
     {
         CommandRunner.RunCommand(Capture, "-e", "dir");
-        Assert.Equal("dir", exclude.Single());
-        Assert.False(readOnly);
+        Verify();
     }
 
     [Fact]
     public void ExcludeMultiple()
     {
         CommandRunner.RunCommand(Capture, "-e", "dir1:dir2");
-        Assert.Equal(new List<string> {"dir1", "dir2"}, exclude);
-        Assert.False(readOnly);
+        Verify();
     }
 
     [Fact]
@@ -96,15 +98,20 @@ public class CommandRunnerTests :
     public void ExcludeLong()
     {
         CommandRunner.RunCommand(Capture, "--exclude", "dir");
-        Assert.Equal("dir", exclude.Single());
-        Assert.False(readOnly);
+        Verify();
     }
 
-    void Capture(string targetDirectory, bool readOnly, List<string> exclude)
+    void Capture(string targetDirectory, bool? readOnly, bool? writeHeader, List<string> exclude)
     {
         this.targetDirectory = targetDirectory;
         this.exclude = exclude;
         this.readOnly = readOnly;
+        this.writeHeader = writeHeader;
+    }
+
+    void Verify()
+    {
+        ObjectApprover.VerifyWithJson(new {targetDirectory, readOnly, writeHeader, exclude},s => s.Replace(Environment.CurrentDirectory, "TheTargetDirectory"));
     }
 
     public CommandRunnerTests(ITestOutputHelper output) :

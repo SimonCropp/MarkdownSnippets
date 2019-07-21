@@ -14,6 +14,7 @@ namespace MarkdownSnippets
 
         public bool? ReadOnly { get; set; }
         public bool? WriteHeader { get; set; }
+        public LinkFormat? LinkFormat { get; set; }
 
         public override bool Execute()
         {
@@ -21,13 +22,14 @@ namespace MarkdownSnippets
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
             var config = ConfigReader.Read(root);
 
-            var (readOnly, writeHeader) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader);
+            var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader, LinkFormat);
 
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 log: s => Log.LogMessage(s),
                 readOnly: readOnly,
-                writeHeader: writeHeader);
+                writeHeader: writeHeader,
+                linkFormat: linkFormat);
             try
             {
                 processor.Run();

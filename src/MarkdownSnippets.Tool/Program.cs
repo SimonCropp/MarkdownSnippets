@@ -11,7 +11,7 @@ class Program
         CommandRunner.RunCommand(Inner, args);
     }
 
-    static void Inner(string targetDirectory, bool? commandLineReadOnly, bool? commandLineWriteHeader, List<string> excludes)
+    static void Inner(string targetDirectory, bool? commandLineReadOnly, bool? commandLineWriteHeader, LinkFormat? commandLineLinkFormat, List<string> excludes)
     {
         Console.WriteLine($"TargetDirectory: {targetDirectory}");
         if (!Directory.Exists(targetDirectory))
@@ -29,7 +29,7 @@ class Program
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
 
         var config = ConfigReader.Read(targetDirectory);
-        var (readOnly, writeHeader) = ConfigDefaults.Convert(config, commandLineReadOnly, commandLineWriteHeader);
+        var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, commandLineReadOnly, commandLineWriteHeader, commandLineLinkFormat);
 
         try
         {
@@ -38,7 +38,8 @@ class Program
                 log: Console.WriteLine,
                 directoryFilter: path => !excludes.Any(path.Contains),
                 readOnly: readOnly,
-                writeHeader: writeHeader);
+                writeHeader: writeHeader,
+                linkFormat: linkFormat);
             processor.Run();
         }
         catch (SnippetException exception)

@@ -6,7 +6,7 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class SnippetMarkdownHandlingTests : 
+public class SnippetMarkdownHandlingTests :
     TestBase
 {
     [Fact]
@@ -14,7 +14,7 @@ public class SnippetMarkdownHandlingTests :
     {
         var builder = new StringBuilder();
         var snippets = new List<Snippet> {Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", "thePath")};
-        var gitHubSnippetMarkdownHandling = new SnippetMarkdownHandling(GitRepoDirectoryFinder.FindForFilePath());
+        var gitHubSnippetMarkdownHandling = new SnippetMarkdownHandling(GitRepoDirectoryFinder.FindForFilePath(), LinkFormat.GitHub);
         using (var writer = new StringWriter(builder))
         {
             gitHubSnippetMarkdownHandling.AppendGroup("key1", snippets, writer.WriteLine);

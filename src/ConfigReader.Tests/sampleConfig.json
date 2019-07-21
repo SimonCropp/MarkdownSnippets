@@ -1,4 +1,5 @@
 ﻿{
-    "WriteHeader" : true,
-    "ReadOnly" : false
+  "WriteHeader": true,
+  "ReadOnly": false,
+  "LinkFormat": "Tfs"
 }

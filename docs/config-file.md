@@ -13,9 +13,10 @@ Add a file named `msdnippets.json` at the target directory with the following co
 <!-- snippet: sampleConfig.json -->
 ```json
 {
-    "WriteHeader" : true,
-    "ReadOnly" : false
+  "WriteHeader": true,
+  "ReadOnly": false,
+  "LinkFormat": "Tfs"
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L4)</sup>
+<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L5)</sup>
 <!-- endsnippet -->

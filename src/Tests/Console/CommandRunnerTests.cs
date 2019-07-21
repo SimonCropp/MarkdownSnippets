@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,6 +12,7 @@ public class CommandRunnerTests :
     List<string> exclude;
     bool? readOnly;
     bool? writeHeader;
+    LinkFormat? linkFormat;
 
     [Fact]
     public void Empty()
@@ -51,6 +53,20 @@ public class CommandRunnerTests :
     public void ReadOnlyLong()
     {
         CommandRunner.RunCommand(Capture, "--readonly");
+        Verify();
+    }
+
+    [Fact]
+    public void LinkFormatShort()
+    {
+        CommandRunner.RunCommand(Capture, "-l", "tfs");
+        Verify();
+    }
+
+    [Fact]
+    public void LinkFormatLong()
+    {
+        CommandRunner.RunCommand(Capture, "--link-format", "tfs");
         Verify();
     }
 
@@ -101,17 +117,27 @@ public class CommandRunnerTests :
         Verify();
     }
 
-    void Capture(string targetDirectory, bool? readOnly, bool? writeHeader, List<string> exclude)
+    void Capture(string targetDirectory, bool? readOnly, bool? writeHeader, LinkFormat? linkFormat, List<string> exclude)
     {
         this.targetDirectory = targetDirectory;
         this.exclude = exclude;
         this.readOnly = readOnly;
         this.writeHeader = writeHeader;
+        this.linkFormat = linkFormat;
     }
 
     void Verify()
     {
-        ObjectApprover.VerifyWithJson(new {targetDirectory, readOnly, writeHeader, exclude},s => s.Replace(Environment.CurrentDirectory, "TheTargetDirectory"));
+        ObjectApprover.VerifyWithJson(
+            new
+            {
+                targetDirectory,
+                readOnly,
+                writeHeader,
+                linkFormat,
+                exclude
+            },
+            scrubber: s => s.Replace(Environment.CurrentDirectory, "TheTargetDirectory"));
     }
 
     public CommandRunnerTests(ITestOutputHelper output) :

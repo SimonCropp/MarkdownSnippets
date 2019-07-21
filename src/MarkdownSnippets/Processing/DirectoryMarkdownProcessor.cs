@@ -27,14 +27,15 @@ namespace MarkdownSnippets
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
             bool writeHeader = true,
             DirectoryFilter directoryFilter = null,
-            bool readOnly = true)
+            bool readOnly = true,
+            LinkFormat linkFormat = LinkFormat.GitHub)
         {
             this.writeHeader = writeHeader;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
             if (appendSnippetGroup == null)
             {
-                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory).AppendGroup;
+                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory,linkFormat).AppendGroup;
             }
             else
             {

@@ -9,10 +9,12 @@ namespace MarkdownSnippets
     /// </summary>
     public class SnippetMarkdownHandling
     {
+        LinkFormat linkFormat;
         string rootDirectory;
 
-        public SnippetMarkdownHandling(string rootDirectory)
+        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat)
         {
+            this.linkFormat = linkFormat;
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
             rootDirectory = Path.GetFullPath(rootDirectory);
             this.rootDirectory = rootDirectory.Replace(@"\", "/");
@@ -38,8 +40,23 @@ namespace MarkdownSnippets
             if (snippet.Path != null)
             {
                 var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(rootDirectory, "");
-                appendLine($"<sup>[snippet source]({path}#L{snippet.StartLine}-L{snippet.EndLine})</sup>");
+                var link = BuildLink(snippet, path);
+                appendLine($"<sup>[snippet source]({link})</sup>");
             }
+        }
+
+        string BuildLink(Snippet snippet, string path)
+        {
+            if (linkFormat == LinkFormat.GitHub)
+            {
+                return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+            }
+            if (linkFormat == LinkFormat.Tfs)
+            {
+                return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+            }
+
+            throw new Exception($"Unknown LinkFormat: {linkFormat}");
         }
     }
 }

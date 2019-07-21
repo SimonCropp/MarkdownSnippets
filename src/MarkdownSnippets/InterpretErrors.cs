@@ -43,7 +43,7 @@ namespace MarkdownSnippets
             builder.AppendLine("## Missing snippets\r\n");
             foreach (var error in missingSnippets)
             {
-                builder.AppendLine($" * Key:'{error.Key}' Line:'{error.Line}'");
+                builder.AppendLine($" * Key:'{error.Key}' Line:'{error.LineNumber}'");
             }
             builder.AppendLine();
             return StringBuilderCache.GetStringAndRelease(builder);

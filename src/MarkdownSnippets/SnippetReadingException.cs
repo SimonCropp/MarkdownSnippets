@@ -1,9 +1,7 @@
-using System;
-
 namespace MarkdownSnippets
 {
     public class SnippetReadingException :
-        Exception
+        SnippetException
     {
         public SnippetReadingException(string message) :
             base(message)

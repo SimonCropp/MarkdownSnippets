@@ -1,9 +1,7 @@
-using System;
-
 namespace MarkdownSnippets
 {
     public class MarkdownProcessingException :
-        Exception
+        SnippetException
     {
         public string File { get; }
         public int LineNumber { get; }

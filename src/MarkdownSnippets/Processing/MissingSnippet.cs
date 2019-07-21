@@ -5,19 +5,19 @@ namespace MarkdownSnippets
     /// <summary>
     /// Part of <see cref="ProcessResult"/>.
     /// </summary>
-    [DebuggerDisplay("Key={Key}, Line={Line}")]
+    [DebuggerDisplay("Key={Key}, Line={LineNumber}")]
     public class MissingSnippet
     {
         /// <summary>
         /// Initialise a new instance of <see cref="MissingSnippet"/>.
         /// </summary>
-        public MissingSnippet(string key, int line, string file)
+        public MissingSnippet(string key, int lineNumber, string file)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
-            Guard.AgainstNegativeAndZero(line, nameof(line));
+            Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
             Guard.AgainstEmpty(file, nameof(file));
             Key = key;
-            Line = line;
+            LineNumber = lineNumber;
             File = file;
         }
 
@@ -29,7 +29,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// The line number in the input text where the snippet was expected to be injected.
         /// </summary>
-        public int Line { get; }
+        public int LineNumber { get; }
 
         /// <summary>
         /// The File of the missing snippet.
@@ -41,13 +41,13 @@ namespace MarkdownSnippets
             if (File == null)
             {
                 return $@"MissingSnippet.
-  Line: {Line}
+  LineNumber: {LineNumber}
   Key: {Key}";
             }
 
             return $@"MissingSnippet.
   File: {File}
-  Line: {Line}
+  LineNumber: {LineNumber}
   Key: {Key}";
         }
     }

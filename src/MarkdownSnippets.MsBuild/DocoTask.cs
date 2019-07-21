@@ -36,12 +36,17 @@ namespace MarkdownSnippets
             catch (MissingSnippetsException exception)
             {
                 var first = exception.Missing.First();
-                Log.LogFileError($"MarkdownSnippets: {exception.Message}", first.File, first.Line);
+                Log.LogFileError($"MarkdownSnippets: {exception.Message}", first.File, first.LineNumber);
                 return false;
             }
             catch (MarkdownProcessingException exception)
             {
                 Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.LineNumber);
+                return false;
+            }
+            catch (SnippetException exception)
+            {
+                Log.LogError($"MarkdownSnippets: {exception}");
                 return false;
             }
 

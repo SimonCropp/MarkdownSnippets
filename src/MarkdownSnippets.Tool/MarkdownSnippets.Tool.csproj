@@ -11,6 +11,10 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\ConfigReader\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview6.19303.8" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
   </ItemGroup>

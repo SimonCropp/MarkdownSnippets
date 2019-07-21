@@ -1,0 +1,4 @@
+﻿{
+  WriteHeader: true,
+  ReadOnly: false
+}

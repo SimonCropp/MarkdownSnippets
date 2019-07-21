@@ -1,0 +1,7 @@
+﻿{
+  targetDirectory: 'TheTargetDirectory',
+  exclude: [
+    'dir1',
+    'dir2'
+  ]
+}

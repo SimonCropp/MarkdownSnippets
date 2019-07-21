@@ -147,7 +147,7 @@ namespace MarkdownSnippets
                     HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
                 }
 
-                var result = markdownProcessor.Apply(reader, writer,sourceFile);
+                var result = markdownProcessor.Apply(reader, writer, sourceFile);
                 var missing = result.MissingSnippets;
                 if (missing.Any())
                 {

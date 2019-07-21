@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Tests\TestConfig.cs" Link="TestConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConfigReader\ConfigReader.csproj" />
+    <PackageReference Include="ApprovalTests" Version="4.0.0" />
+    <PackageReference Include="ObjectApproval" Version="9.1.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="Xunit" Version="2.4.1" />
+    <PackageReference Include="XunitLogger" Version="2.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="sampleConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

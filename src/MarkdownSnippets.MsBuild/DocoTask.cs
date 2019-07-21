@@ -12,16 +12,22 @@ namespace MarkdownSnippets
         [Required]
         public string ProjectDirectory { get; set; }
 
-        public bool ReadOnly { get; set; }
+        public bool? ReadOnly { get; set; }
+        public bool? WriteHeader { get; set; }
 
         public override bool Execute()
         {
             var stopwatch = Stopwatch.StartNew();
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
+            var config = ConfigReader.Read(root);
+
+            var (readOnly, writeHeader) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader);
+
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 log: s => Log.LogMessage(s),
-                readOnly: ReadOnly);
+                readOnly: readOnly,
+                writeHeader: writeHeader);
             try
             {
                 processor.Run();

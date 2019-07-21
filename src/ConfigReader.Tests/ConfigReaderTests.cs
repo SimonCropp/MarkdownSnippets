@@ -1,4 +1,5 @@
-﻿using ObjectApproval;
+﻿using System.IO;
+using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,12 +16,8 @@ public class ConfigReaderTests :
     [Fact]
     public void Values()
     {
-        var config = ConfigReader.Parse(@"
-{
-    ""WriteHeader"":true,
-    ""ReadOnly"":false
-}
-");
+        var text = File.ReadAllText("sampleConfig.json");
+        var config = ConfigReader.Parse(text);
         ObjectApprover.VerifyWithJson(config);
     }
 

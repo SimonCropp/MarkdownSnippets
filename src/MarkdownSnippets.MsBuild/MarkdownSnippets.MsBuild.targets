@@ -3,7 +3,6 @@
     <MarkdownSnippetsAssembly>$(MSBuildThisFileDirectory)..\task\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
     <MdTargetDir Condition="'$(SolutionDir)' != '' AND Exists('$(SolutionDir).git')">$(SolutionDir)</MdTargetDir>
     <MdTargetDir Condition="'$(SolutionDir)' != '' AND Exists('$(SolutionDir)..\.git')">$(SolutionDir)..\</MdTargetDir>
-    <MarkdownSnippetsReadOnly Condition="$(MarkdownSnippetsReadOnly) == ''">false</MarkdownSnippetsReadOnly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +23,7 @@
         Condition="'$(MdTargetDir)' == ''" />
     <MarkdownSnippets.DocoTask
       ProjectDirectory="$(MSBuildProjectDirectory)"
-      ReadOnly="$(MarkdownSnippetsReadOnly)" />
+      ReadOnly="$(MarkdownSnippetsReadOnly)"
+      WriteHeader="$(MarkdownSnippetsWriteHeader)" />
   </Target>
 </Project>

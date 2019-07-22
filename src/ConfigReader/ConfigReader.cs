@@ -5,7 +5,7 @@ public static class ConfigReader
 {
     public static Config Read(string directory)
     {
-        var path = Path.Combine(directory, "msdnippets.json");
+        var path = Path.Combine(directory, "mdsnippets.json");
         if (!File.Exists(path))
         {
             return null;

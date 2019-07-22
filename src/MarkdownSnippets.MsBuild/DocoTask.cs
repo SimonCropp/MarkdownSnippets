@@ -24,6 +24,11 @@ namespace MarkdownSnippets
 
             var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader, LinkFormat);
 
+            Log.LogMessage($@"Config:
+    ReadOnly: {readOnly}
+    WriteHeader: {writeHeader}
+    LinkFormat: {linkFormat}");
+
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 log: s => Log.LogMessage(s),

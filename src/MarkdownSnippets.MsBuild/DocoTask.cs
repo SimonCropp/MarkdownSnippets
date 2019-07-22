@@ -12,13 +12,17 @@ namespace MarkdownSnippets
         [Required]
         public string ProjectDirectory { get; set; }
 
+        public bool? ReadOnly { get; set; }
+        public bool? WriteHeader { get; set; }
+        public LinkFormat? LinkFormat { get; set; }
+
         public override bool Execute()
         {
             var stopwatch = Stopwatch.StartNew();
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
             var config = ConfigReader.Read(root);
 
-            var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, null, null, null);
+            var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader, LinkFormat);
 
             Log.LogMessage($@"Config:
     ReadOnly: {readOnly}

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Text;
 
 public static class ConfigReader
 {
@@ -11,15 +12,16 @@ public static class ConfigReader
             return null;
         }
 
-        using (var stream = File.OpenRead(path))
-        {
-            return Parse(stream);
-        }
+        return Parse(File.ReadAllText(path));
     }
 
-    public static Config Parse(Stream stream)
+    public static Config Parse(string contents)
     {
-        var serializer = new DataContractJsonSerializer(typeof(Config));
-        return (Config) serializer.ReadObject(stream);
+        using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(contents)))
+        {
+            memoryStream.Position = 0;
+            var serializer = new DataContractJsonSerializer(typeof(Config));
+            return (Config) serializer.ReadObject(memoryStream);
+        }
     }
 }

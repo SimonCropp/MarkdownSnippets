@@ -11,7 +11,6 @@ namespace MarkdownSnippets
     {
         [Required]
         public string ProjectDirectory { get; set; }
-
         public bool? ReadOnly { get; set; }
         public bool? WriteHeader { get; set; }
         public LinkFormat? LinkFormat { get; set; }
@@ -20,21 +19,28 @@ namespace MarkdownSnippets
         {
             var stopwatch = Stopwatch.StartNew();
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
-            var config = ConfigReader.Read(root);
+            var fileConfig = ConfigReader.Read(root);
 
-            var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, ReadOnly, WriteHeader, LinkFormat);
+            var configResult = ConfigDefaults.Convert(
+                fileConfig,
+                new ConfigInput
+                {
+                    ReadOnly = ReadOnly,
+                    WriteHeader = WriteHeader,
+                    LinkFormat = LinkFormat
+                });
 
             Log.LogMessage($@"Config:
-    ReadOnly: {readOnly}
-    WriteHeader: {writeHeader}
-    LinkFormat: {linkFormat}");
+    ReadOnly: {configResult.ReadOnly}
+    WriteHeader: {configResult.WriteHeader}
+    LinkFormat: {configResult.LinkFormat}");
 
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 log: s => Log.LogMessage(s),
-                readOnly: readOnly,
-                writeHeader: writeHeader,
-                linkFormat: linkFormat);
+                readOnly: configResult.ReadOnly,
+                writeHeader: configResult.WriteHeader,
+                linkFormat: configResult.LinkFormat);
             try
             {
                 processor.Run();

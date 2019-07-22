@@ -28,8 +28,15 @@ class Program
 
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
 
-        var config = ConfigReader.Read(targetDirectory);
-        var (readOnly, writeHeader, linkFormat) = ConfigDefaults.Convert(config, commandLineReadOnly, commandLineWriteHeader, commandLineLinkFormat);
+        var fileConfig = ConfigReader.Read(targetDirectory);
+        var configResult = ConfigDefaults.Convert(
+            fileConfig,
+            new ConfigInput
+            {
+                ReadOnly = commandLineReadOnly,
+                WriteHeader = commandLineWriteHeader,
+                LinkFormat = commandLineLinkFormat
+            });
 
         try
         {
@@ -37,9 +44,9 @@ class Program
                 targetDirectory,
                 log: Console.WriteLine,
                 directoryFilter: path => !excludes.Any(path.Contains),
-                readOnly: readOnly,
-                writeHeader: writeHeader,
-                linkFormat: linkFormat);
+                readOnly: configResult.ReadOnly,
+                writeHeader: configResult.WriteHeader,
+                linkFormat: configResult.LinkFormat);
             processor.Run();
         }
         catch (SnippetException exception)

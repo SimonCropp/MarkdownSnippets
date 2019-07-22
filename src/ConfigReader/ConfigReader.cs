@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using MarkdownSnippets;
 
 public static class ConfigReader
 {
-    public static Config Read(string directory)
+    public static ConfigInput Read(string directory)
     {
         var path = Path.Combine(directory, "mdsnippets.json");
         if (!File.Exists(path))
@@ -15,13 +17,33 @@ public static class ConfigReader
         return Parse(File.ReadAllText(path));
     }
 
-    public static Config Parse(string contents)
+    public static ConfigInput Parse(string contents)
     {
-        using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(contents)))
+        using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents)))
         {
-            memoryStream.Position = 0;
-            var serializer = new DataContractJsonSerializer(typeof(Config));
-            return (Config) serializer.ReadObject(memoryStream);
+            stream.Position = 0;
+            var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
+            var configSerialization = (ConfigSerialization) serializer.ReadObject(stream);
+            return new ConfigInput
+            {
+                WriteHeader = configSerialization.WriteHeader,
+                ReadOnly = configSerialization.ReadOnly,
+                LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
+            };
         }
+    }
+    static LinkFormat? GetLinkFormat(string value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (!Enum.TryParse<LinkFormat>(value, out var linkFormat))
+        {
+            throw new ConfigurationException("Failed to parse LinkFormat:" + linkFormat);
+        }
+
+        return linkFormat;
     }
 }

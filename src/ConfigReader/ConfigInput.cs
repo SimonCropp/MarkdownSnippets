@@ -1,6 +1,6 @@
 ﻿using MarkdownSnippets;
 
-public class Config
+public class ConfigInput
 {
     public bool? WriteHeader { get; set; }
     public bool? ReadOnly { get; set; }

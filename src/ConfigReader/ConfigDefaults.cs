@@ -1,5 +1,4 @@
-﻿using System;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 
 public static class ConfigDefaults
 {
@@ -14,27 +13,10 @@ public static class ConfigDefaults
             );
         }
 
-        var configLinkFormat = GetLinkFormat(config.LinkFormat);
-
         return (
             readOnly: inputReadOnly.GetValueOrDefault(config.ReadOnly.GetValueOrDefault(false)),
             writeHeader: writeHeader.GetValueOrDefault(config.WriteHeader.GetValueOrDefault(true)),
-            linkFormat: linkFormat.GetValueOrDefault(configLinkFormat.GetValueOrDefault(LinkFormat.GitHub))
+            linkFormat: linkFormat.GetValueOrDefault(config.LinkFormat.GetValueOrDefault(LinkFormat.GitHub))
         );
-    }
-
-    static LinkFormat? GetLinkFormat(string value)
-    {
-        if (value == null)
-        {
-            return null;
-        }
-
-        if (!Enum.TryParse<LinkFormat>(value, out var linkFormat))
-        {
-            throw new Exception("Failed to parse LinkFormat:" + linkFormat);
-        }
-
-        return linkFormat;
     }
 }

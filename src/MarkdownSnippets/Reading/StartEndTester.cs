@@ -114,7 +114,7 @@ static class StartEndTester
 
     static int IndexOf(string line, string value)
     {
-        var charactersToScan = Math.Min(line.Length, value.Length+10);
+        var charactersToScan = Math.Min(line.Length, value.Length + 10);
         return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
     }
 

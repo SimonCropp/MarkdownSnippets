@@ -28,6 +28,8 @@ public static class ConfigReader
             {
                 WriteHeader = configSerialization.WriteHeader,
                 ReadOnly = configSerialization.ReadOnly,
+                UrlsAsSnippets = configSerialization.UrlsAsSnippets,
+                Exclude = configSerialization.Exclude,
                 LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
             };
         }

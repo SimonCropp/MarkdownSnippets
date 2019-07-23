@@ -1,5 +1,13 @@
 ﻿{
   WriteHeader: true,
   ReadOnly: false,
-  LinkFormat: 'Tfs'
+  LinkFormat: 'Tfs',
+  UrlsAsSnippets: [
+    'Url1',
+    'Url2'
+  ],
+  Exclude: [
+    'Dir1',
+    'Dir2'
+  ]
 }

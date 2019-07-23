@@ -17,13 +17,13 @@ static class LogBuilder
         if (config.Exclude.Any())
         {
             builder.AppendLine($@"    Exclude:
-        {string.Join("        \r\n", config.Exclude)}");
+        {string.Join("\r\n        ", config.Exclude)}");
         }
 
         if (config.UrlsAsSnippets.Any())
         {
             builder.AppendLine($@"    UrlsAsSnippets:
-        {string.Join("        \r\n", config.UrlsAsSnippets)}");
+        {string.Join("\r\n        ", config.UrlsAsSnippets)}");
         }
 
         return builder.ToString().Trim();

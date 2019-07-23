@@ -6,5 +6,7 @@
     FileConfigPath: theConfigFilePath (exists:False)
     Exclude:
         Dir1
+        Dir2
     UrlsAsSnippets:
         Url1
+        Url2

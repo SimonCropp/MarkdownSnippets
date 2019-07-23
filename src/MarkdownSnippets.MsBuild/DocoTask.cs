@@ -44,6 +44,11 @@ namespace MarkdownSnippets
                 readOnly: configResult.ReadOnly,
                 writeHeader: configResult.WriteHeader,
                 linkFormat: configResult.LinkFormat);
+
+            var snippets = new List<Snippet>();
+            snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
+            processor.IncludeSnippets(snippets);
+
             try
             {
                 processor.Run();

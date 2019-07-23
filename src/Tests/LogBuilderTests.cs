@@ -13,10 +13,10 @@ public class LogBuilderTests :
         var config = new ConfigResult
         {
             WriteHeader = true,
-            Exclude = new List<string> {"Dir1"},
+            Exclude = new List<string> {"Dir1", "Dir2"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
-            UrlsAsSnippets = new List<string> {"Url1"}
+            UrlsAsSnippets = new List<string> {"Url1", "Url2"}
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         Approvals.Verify(message);

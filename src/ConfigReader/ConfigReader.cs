@@ -6,15 +6,15 @@ using MarkdownSnippets;
 
 public static class ConfigReader
 {
-    public static ConfigInput Read(string directory)
+    public static (ConfigInput config, string path) Read(string directory)
     {
         var path = Path.Combine(directory, "mdsnippets.json");
         if (!File.Exists(path))
         {
-            return null;
+            return (null, path);
         }
 
-        return Parse(File.ReadAllText(path));
+        return (Parse(File.ReadAllText(path)),path);
     }
 
     public static ConfigInput Parse(string contents)

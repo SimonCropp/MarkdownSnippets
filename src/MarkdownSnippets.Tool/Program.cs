@@ -21,26 +21,28 @@ class Program
         }
 
         var excludes = configInput.Exclude;
-        if (excludes.Any())
-        {
-            var separator = Environment.NewLine + "\t";
-            Console.WriteLine($"Excludes:{separator}{string.Join(separator, excludes)}");
-        }
-
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
 
-        var fileConfig = ConfigReader.Read(targetDirectory);
+        var (fileConfig, configFilePath) = ConfigReader.Read(targetDirectory);
         var configResult = ConfigDefaults.Convert(fileConfig, configInput);
+
+        var message = LogBuilder.BuildConfigLogMessage(targetDirectory, configResult, configFilePath);
+        Console.WriteLine(message);
+
+        var processor = new DirectoryMarkdownProcessor(
+            targetDirectory,
+            log: Console.WriteLine,
+            directoryFilter: path => !excludes.Any(path.Contains),
+            readOnly: configResult.ReadOnly,
+            writeHeader: configResult.WriteHeader,
+            linkFormat: configResult.LinkFormat);
+
+        var snippets = new List<Snippet>();
+        snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
+        processor.IncludeSnippets(snippets);
 
         try
         {
-            var processor = new DirectoryMarkdownProcessor(
-                targetDirectory,
-                log: Console.WriteLine,
-                directoryFilter: path => !excludes.Any(path.Contains),
-                readOnly: configResult.ReadOnly,
-                writeHeader: configResult.WriteHeader,
-                linkFormat: configResult.LinkFormat);
             processor.Run();
         }
         catch (SnippetException exception)

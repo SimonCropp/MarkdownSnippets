@@ -17,7 +17,12 @@ namespace MarkdownSnippets
             return AppendUrlAsSnippet(snippets, url, Path.GetFileName(url).ToLowerInvariant());
         }
 
-        public static async Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls)
+        public static Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls)
+        {
+            return AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
+        }
+
+        public static async Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, IEnumerable<string> urls)
         {
             Guard.AgainstNull(urls, nameof(urls));
             foreach (var url in urls)

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -23,7 +22,7 @@ namespace MarkdownSnippets
         {
             var stopwatch = Stopwatch.StartNew();
             var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
-            var fileConfig = ConfigReader.Read(root);
+            var (fileConfig, configFilePath) = ConfigReader.Read(root);
 
             var configResult = ConfigDefaults.Convert(
                 fileConfig,
@@ -36,7 +35,8 @@ namespace MarkdownSnippets
                     UrlsAsSnippets = UrlsAsSnippets
                 });
 
-            WriteLog(configResult);
+            var message = LogBuilder.BuildConfigLogMessage(root,configResult, configFilePath);
+            Log.LogMessage(message);
 
             var processor = new DirectoryMarkdownProcessor(
                 root,
@@ -67,28 +67,6 @@ namespace MarkdownSnippets
             }
 
             return true;
-        }
-
-        void WriteLog(ConfigResult configResult)
-        {
-            var builder = new StringBuilder($@"Config:
-    ReadOnly: {configResult.ReadOnly}
-    WriteHeader: {configResult.WriteHeader}
-    LinkFormat: {configResult.LinkFormat}");
-            if (configResult.Exclude.Any())
-            {
-                builder.AppendLine($@"
-    Exclude:
-        {string.Join("        \r\n", configResult.Exclude)}");
-            }
-            if (configResult.UrlsAsSnippets.Any())
-            {
-                builder.AppendLine($@"
-    UrlsAsSnippets:
-        {string.Join("        \r\n", configResult.UrlsAsSnippets)}");
-            }
-
-            Log.LogMessage(builder.ToString());
         }
 
         public void Cancel()

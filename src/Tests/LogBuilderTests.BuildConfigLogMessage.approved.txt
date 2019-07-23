@@ -1,0 +1,10 @@
+﻿Config:
+    RootDir: theRoot
+    ReadOnly: True
+    WriteHeader: True
+    LinkFormat: Tfs
+    FileConfigPath: theConfigFilePath (exists:False)
+    Exclude:
+        Dir1
+    UrlsAsSnippets:
+        Url1

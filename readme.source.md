@@ -130,6 +130,14 @@ This can be helpful in preventing incorrectly editing the `.md` file instead of 
 mdsnippets -r
 ```
 
+### LinkFormat
+
+Defines the format of `snippet source` links that appear under each snippet.
+
+snippet: LinkFormat.cs
+
+snippet: BuildLink
+
 
 ## More Documentation
 

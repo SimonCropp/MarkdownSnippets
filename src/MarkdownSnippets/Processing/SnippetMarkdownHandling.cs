@@ -47,6 +47,7 @@ namespace MarkdownSnippets
 
         string BuildLink(Snippet snippet, string path)
         {
+            #region BuildLink
             if (linkFormat == LinkFormat.GitHub)
             {
                 return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
@@ -55,6 +56,7 @@ namespace MarkdownSnippets
             {
                 return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
             }
+            #endregion
 
             throw new Exception($"Unknown LinkFormat: {linkFormat}");
         }

@@ -136,6 +136,38 @@ This can be helpful in preventing incorrectly editing the `.md` file instead of 
 mdsnippets -r
 ```
 
+### LinkFormat
+
+Defines the format of `snippet source` links that appear under each snippet.
+
+<!-- snippet: LinkFormat.cs -->
+```cs
+namespace MarkdownSnippets
+{
+    public enum LinkFormat
+    {
+        GitHub,
+        Tfs
+    }
+}
+```
+<sup>[snippet source](/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L8)</sup>
+<!-- endsnippet -->
+
+<!-- snippet: BuildLink -->
+```cs
+if (linkFormat == LinkFormat.GitHub)
+{
+    return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+}
+if (linkFormat == LinkFormat.Tfs)
+{
+    return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+}
+```
+<sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L50-L59)</sup>
+<!-- endsnippet -->
+
 
 ## More Documentation
 

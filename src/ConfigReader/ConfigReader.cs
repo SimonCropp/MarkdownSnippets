@@ -32,6 +32,7 @@ public static class ConfigReader
             };
         }
     }
+
     static LinkFormat? GetLinkFormat(string value)
     {
         if (value == null)

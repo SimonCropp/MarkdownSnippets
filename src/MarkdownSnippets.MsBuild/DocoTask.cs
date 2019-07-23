@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -14,6 +16,8 @@ namespace MarkdownSnippets
         public bool? ReadOnly { get; set; }
         public bool? WriteHeader { get; set; }
         public LinkFormat? LinkFormat { get; set; }
+        public List<string> Exclude { get; set; } = new List<string>();
+        public List<string> UrlsAsSnippets { get; set; } = new List<string>();
 
         public override bool Execute()
         {
@@ -27,13 +31,12 @@ namespace MarkdownSnippets
                 {
                     ReadOnly = ReadOnly,
                     WriteHeader = WriteHeader,
-                    LinkFormat = LinkFormat
+                    LinkFormat = LinkFormat,
+                    Exclude = Exclude,
+                    UrlsAsSnippets = UrlsAsSnippets
                 });
 
-            Log.LogMessage($@"Config:
-    ReadOnly: {configResult.ReadOnly}
-    WriteHeader: {configResult.WriteHeader}
-    LinkFormat: {configResult.LinkFormat}");
+            WriteLog(configResult);
 
             var processor = new DirectoryMarkdownProcessor(
                 root,
@@ -64,6 +67,28 @@ namespace MarkdownSnippets
             }
 
             return true;
+        }
+
+        void WriteLog(ConfigResult configResult)
+        {
+            var builder = new StringBuilder($@"Config:
+    ReadOnly: {configResult.ReadOnly}
+    WriteHeader: {configResult.WriteHeader}
+    LinkFormat: {configResult.LinkFormat}");
+            if (configResult.Exclude.Any())
+            {
+                builder.AppendLine($@"
+    Exclude:
+        {string.Join("        \r\n", configResult.Exclude)}");
+            }
+            if (configResult.UrlsAsSnippets.Any())
+            {
+                builder.AppendLine($@"
+    UrlsAsSnippets:
+        {string.Join("        \r\n", configResult.UrlsAsSnippets)}");
+            }
+
+            Log.LogMessage(builder.ToString());
         }
 
         public void Cancel()

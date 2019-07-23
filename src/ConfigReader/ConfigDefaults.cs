@@ -1,4 +1,6 @@
-﻿using MarkdownSnippets;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MarkdownSnippets;
 
 public static class ConfigDefaults
 {
@@ -10,7 +12,9 @@ public static class ConfigDefaults
             {
                 ReadOnly = otherConfig.ReadOnly.GetValueOrDefault(),
                 WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
-                LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub)
+                LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
+                Exclude = otherConfig.Exclude,
+                UrlsAsSnippets = otherConfig.UrlsAsSnippets
             };
         }
 
@@ -18,8 +22,18 @@ public static class ConfigDefaults
         {
             ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
             WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
-            LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub)
+            LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
+            Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
+            UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets)
         };
+    }
+
+    static List<string> JoinLists(List<string> list1, List<string> list2)
+    {
+        return list1
+            .Concat(list2)
+            .Distinct()
+            .ToList();
     }
 
     static T GetValueOrDefault<T>(string name, T? input, T? config, T defaultValue)

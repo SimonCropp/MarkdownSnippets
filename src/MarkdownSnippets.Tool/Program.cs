@@ -11,7 +11,7 @@ class Program
         CommandRunner.RunCommand(Inner, args);
     }
 
-    static void Inner(string targetDirectory, bool? commandLineReadOnly, bool? commandLineWriteHeader, LinkFormat? commandLineLinkFormat, List<string> excludes)
+    static void Inner(string targetDirectory, ConfigInput configInput)
     {
         Console.WriteLine($"TargetDirectory: {targetDirectory}");
         if (!Directory.Exists(targetDirectory))
@@ -20,6 +20,7 @@ class Program
             Environment.Exit(1);
         }
 
+        var excludes = configInput.Exclude;
         if (excludes.Any())
         {
             var separator = Environment.NewLine + "\t";
@@ -29,14 +30,7 @@ class Program
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
 
         var fileConfig = ConfigReader.Read(targetDirectory);
-        var configResult = ConfigDefaults.Convert(
-            fileConfig,
-            new ConfigInput
-            {
-                ReadOnly = commandLineReadOnly,
-                WriteHeader = commandLineWriteHeader,
-                LinkFormat = commandLineLinkFormat
-            });
+        var configResult = ConfigDefaults.Convert(fileConfig, configInput);
 
         try
         {

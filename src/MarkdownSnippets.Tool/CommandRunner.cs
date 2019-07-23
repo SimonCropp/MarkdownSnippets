@@ -14,7 +14,7 @@ static class CommandRunner
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                invoke(firstArg, null, null, null, new List<string>());
+                invoke(firstArg, new ConfigInput());
                 return;
             }
         }
@@ -24,7 +24,15 @@ static class CommandRunner
                 options =>
                 {
                     ApplyDefaults(options);
-                    invoke(options.TargetDirectory, options.ReadOnly, options.WriteHeader, options.LinkFormat, options.Exclude.ToList());
+                    invoke(options.TargetDirectory,
+                        new ConfigInput
+                        {
+                            ReadOnly = options.ReadOnly,
+                            WriteHeader = options.WriteHeader,
+                            LinkFormat = options.LinkFormat,
+                            Exclude = options.Exclude.ToList(),
+                            UrlsAsSnippets = options.UrlsAsSnippets.ToList()
+                        });
                 });
     }
 
@@ -43,15 +51,20 @@ static class CommandRunner
             options.TargetDirectory = Path.GetFullPath(options.TargetDirectory);
         }
 
-        var exclude = options.Exclude;
-        if (exclude.Distinct().Count() != exclude.Count)
+        ValidateItems("Exclude", options.Exclude);
+        ValidateItems("UrlsAsSnippets", options.UrlsAsSnippets);
+    }
+
+    static void ValidateItems(string name, IList<string> items)
+    {
+        if (items.Distinct().Count() != items.Count)
         {
-            throw new CommandLineException("Exclude contains duplicates");
+            throw new CommandLineException($"duplicates found in {name}.");
         }
 
-        if (exclude.Any(string.IsNullOrWhiteSpace))
+        if (items.Any(string.IsNullOrWhiteSpace))
         {
-            throw new CommandLineException("Some excludes are empty");
+            throw new CommandLineException($"Empty items found in `{name}`.");
         }
     }
 }

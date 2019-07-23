@@ -13,6 +13,12 @@ public class Options
         HelpText = "Directories to be excluded")]
     public IList<string> Exclude { get; set; }
 
+    [Option('u', "urls-as-snippets",
+        Separator = ':',
+        Required = false,
+        HelpText = "UrlsAsSnippets to be included as snippets")]
+    public IList<string> UrlsAsSnippets { get; set; }
+
     [Option('r', "readonly", Required = false, HelpText = "Set resultant md files as read-only.")]
     public bool? ReadOnly { get; set; }
 

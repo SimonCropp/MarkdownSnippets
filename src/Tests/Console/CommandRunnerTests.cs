@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using MarkdownSnippets;
 using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,10 +7,7 @@ public class CommandRunnerTests :
     XunitLoggingBase
 {
     string targetDirectory;
-    List<string> exclude;
-    bool? readOnly;
-    bool? writeHeader;
-    LinkFormat? linkFormat;
+    ConfigInput configInput;
 
     [Fact]
     public void Empty()
@@ -117,13 +112,43 @@ public class CommandRunnerTests :
         Verify();
     }
 
-    void Capture(string targetDirectory, bool? readOnly, bool? writeHeader, LinkFormat? linkFormat, List<string> exclude)
+    [Fact]
+    public void UrlsAsSnippetsShort()
+    {
+        CommandRunner.RunCommand(Capture, "-u", "url");
+        Verify();
+    }
+
+    [Fact]
+    public void UrlsAsSnippetsMultiple()
+    {
+        CommandRunner.RunCommand(Capture, "-u", "url1:url2");
+        Verify();
+    }
+
+    [Fact]
+    public void UrlsAsSnippetsDuplicates()
+    {
+        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url:url"));
+    }
+
+    [Fact]
+    public void UrlsAsSnippetsWhitespace()
+    {
+        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", ": :"));
+    }
+
+    [Fact]
+    public void UrlsAsSnippetsLong()
+    {
+        CommandRunner.RunCommand(Capture, "--urls-as-snippets", "url");
+        Verify();
+    }
+
+    void Capture(string targetDirectory, ConfigInput configInput)
     {
         this.targetDirectory = targetDirectory;
-        this.exclude = exclude;
-        this.readOnly = readOnly;
-        this.writeHeader = writeHeader;
-        this.linkFormat = linkFormat;
+        this.configInput = configInput;
     }
 
     void Verify()
@@ -132,10 +157,7 @@ public class CommandRunnerTests :
             new
             {
                 targetDirectory,
-                readOnly,
-                writeHeader,
-                linkFormat,
-                exclude
+                configInput
             },
             scrubber: s => s.Replace(Environment.CurrentDirectory, "TheTargetDirectory"));
     }

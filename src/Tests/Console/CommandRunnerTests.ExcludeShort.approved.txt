@@ -1,6 +1,8 @@
 ﻿{
   targetDirectory: 'TheTargetDirectory',
-  exclude: [
-    'dir'
-  ]
+  configInput: {
+    Exclude: [
+      'dir'
+    ]
+  }
 }

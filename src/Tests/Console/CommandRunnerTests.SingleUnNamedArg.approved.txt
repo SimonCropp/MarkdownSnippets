@@ -1,3 +1,4 @@
 ﻿{
-  targetDirectory: 'dir'
+  targetDirectory: 'dir',
+  configInput: {}
 }

@@ -3,6 +3,7 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
+
     internal static bool IsStartOrEnd(string trimmedLine)
     {
         return IsBeginSnippet(trimmedLine) ||
@@ -39,17 +40,17 @@ static class StartEndTester
 
     static bool IsEndRegion(string line)
     {
-        return line.IndexOf("#endregion", StringComparison.Ordinal) >= 0;
+        return line.StartsWith("#endregion", StringComparison.Ordinal);
     }
 
     static bool IsEndCode(string line)
     {
-        return line.IndexOf("endcode", StringComparison.Ordinal) >= 0;
+        return IndexOf(line, "endcode") >= 0;
     }
 
     static bool IsEndSnippet(string line)
     {
-        return line.IndexOf("end-snippet", StringComparison.Ordinal) >= 0;
+        return IndexOf(line, "end-snippet") >= 0;
     }
 
     static bool IsStartRegion(string line)
@@ -64,24 +65,26 @@ static class StartEndTester
             key = null;
             return false;
         }
+
         var substring = line.Substring(8);
         return TryExtractParts(substring, line, false, path, out key);
     }
 
     static bool IsBeginSnippet(string line)
     {
-        var startCodeIndex = line.IndexOf("begin-snippet: ", StringComparison.Ordinal);
+        var startCodeIndex = IndexOf(line, "begin-snippet: ");
         return startCodeIndex != -1;
     }
 
     internal static bool IsBeginSnippet(string line, string path, out string key)
     {
-        var startCodeIndex = line.IndexOf("begin-snippet: ", StringComparison.Ordinal);
+        var startCodeIndex = IndexOf(line, "begin-snippet: ");
         if (startCodeIndex == -1)
         {
-            key  = null;
+            key = null;
             return false;
         }
+
         var startIndex = startCodeIndex + 15;
         var substring = line
             .TrimBackCommentChars(startIndex);
@@ -90,22 +93,29 @@ static class StartEndTester
 
     static bool IsStartCode(string line)
     {
-        var startCodeIndex = line.IndexOf("startcode ", StringComparison.Ordinal);
+        var startCodeIndex = IndexOf(line, "startcode ");
         return startCodeIndex != -1;
     }
 
     internal static bool IsStartCode(string line, string path, out string key)
     {
-        var startCodeIndex = line.IndexOf("startcode ", StringComparison.Ordinal);
+        var startCodeIndex = IndexOf(line, "startcode ");
         if (startCodeIndex == -1)
         {
-            key  = null;
+            key = null;
             return false;
         }
+
         var startIndex = startCodeIndex + 10;
         var substring = line
             .TrimBackCommentChars(startIndex);
         return TryExtractParts(substring, line, true, path, out key);
+    }
+
+    static int IndexOf(string line, string value)
+    {
+        var charactersToScan = Math.Min(line.Length, value.Length+10);
+        return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
     }
 
     static bool TryExtractParts(string substring, string line, bool throwForTooManyParts, string path, out string key)
@@ -115,6 +125,7 @@ static class StartEndTester
         {
             throw new SnippetReadingException($"No Key could be derived. Line: '{line}'.");
         }
+
         key = split[0];
         KeyValidator.ValidateKeyDoesNotStartOrEndWithSymbol(key, path, line);
         if (split.Length == 1)
@@ -126,6 +137,7 @@ static class StartEndTester
         {
             return false;
         }
+
         throw new SnippetReadingException($"Too many parts. Line: '{line}'.");
     }
 }

@@ -1,8 +1,8 @@
 ﻿
 
-startcode snippet1
+begin-snippet: snippet1
 this is some text to import
-endcode
-startcode snippet1
+end-snippet
+begin-snippet: snippet1
 this is some text to import
-endcode
+end-snippet

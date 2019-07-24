@@ -94,9 +94,9 @@ public class SnippetExtractorTests :
         var input = @"
   #region KeyParent
   a
-  <!-- startcode KeyChild -->
+  <!-- begin-snippet: KeyChild -->
   b
-  <!-- endcode -->
+  <!-- end-snippet -->
   c
   #endregion";
         var snippets = FromText(input);
@@ -109,25 +109,25 @@ public class SnippetExtractorTests :
         var input = @"
 
 
-  <!-- startcode KeyParent -->
+  <!-- begin-snippet: KeyParent -->
 
 
   a
 
 
-  <!-- startcode KeyChild -->
+  <!-- begin-snippet: KeyChild -->
 
 
   b
 
 
-  <!-- endcode -->
+  <!-- end-snippet -->
 
 
   c
 
 
-  <!-- endcode -->
+  <!-- end-snippet -->
 
 
 ";
@@ -139,13 +139,13 @@ public class SnippetExtractorTests :
     public void NestedStartCode()
     {
         var input = @"
-  <!-- startcode KeyParent -->
+  <!-- begin-snippet: KeyParent -->
   a
-  <!-- startcode KeyChild -->
+  <!-- begin-snippet: KeyChild -->
   b
-  <!-- endcode -->
+  <!-- end-snippet -->
   c
-  <!-- endcode -->";
+  <!-- end-snippet -->";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }
@@ -154,13 +154,13 @@ public class SnippetExtractorTests :
     public void NestedMixed1()
     {
         var input = @"
-  <!-- startcode KeyParent -->
+  <!-- begin-snippet: KeyParent -->
   a
   #region KeyChild
   b
   #endregion
   c
-  <!-- endcode -->";
+  <!-- end-snippet -->";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }
@@ -169,9 +169,9 @@ public class SnippetExtractorTests :
     public void CanExtractFromXml()
     {
         var input = @"
-  <!-- startcode CodeKey -->
+  <!-- begin-snippet: CodeKey -->
   <configSections/>
-  <!-- endcode -->";
+  <!-- end-snippet -->";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }
@@ -188,7 +188,7 @@ public class SnippetExtractorTests :
     public void UnClosedSnippet()
     {
         var input = @"
-  <!-- startcode CodeKey -->
+  <!-- begin-snippet: CodeKey -->
   <configSections/>";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
@@ -219,9 +219,9 @@ public class SnippetExtractorTests :
     public void CanExtractWithNoTrailingCharacters()
     {
         var input = @"
-  // startcode CodeKey
+  // begin-snippet: CodeKey
   the code
-  // endcode ";
+  // end-snippet ";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }
@@ -230,9 +230,9 @@ public class SnippetExtractorTests :
     public void CanExtractWithMissingSpaces()
     {
         var input = @"
-  <!--startcode CodeKey-->
+  <!--begin-snippet: CodeKey-->
   <configSections/>
-  <!--endcode-->";
+  <!--end-snippet-->";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }
@@ -241,9 +241,9 @@ public class SnippetExtractorTests :
     public void CanExtractWithTrailingWhitespace()
     {
         var input = @"
-  // startcode CodeKey
+  // begin-snippet: CodeKey
   the code
-  // endcode   ";
+  // end-snippet   ";
         var snippets = FromText(input);
         ObjectApprover.VerifyWithJson(snippets);
     }

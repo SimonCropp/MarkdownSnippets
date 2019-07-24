@@ -3,14 +3,14 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class StartEndTesterIsBeginSnippetTests :
+public class StartEndTester_IsBeginSnippetTests :
     TestBase
 {
     [Fact]
     public void CanExtractFromXml()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
@@ -30,40 +30,40 @@ public class StartEndTesterIsBeginSnippetTests :
     [Fact]
     public void CanExtractFromXmlWithMissingSpaces()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractFromXmlWithExtraSpaces()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractWithNoTrailingCharacters()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractWithUnderScores()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("Code_Key", key);
     }
 
     [Fact]
     public void CanExtractWithDashes()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("Code-Key", key);
     }
 
@@ -87,20 +87,20 @@ public class StartEndTesterIsBeginSnippetTests :
     [Fact]
     public void CanExtractWithDifferentEndComments()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
     [Fact]
     public void CanExtractWithDifferentEndCommentsAndNoSpaces()
     {
-        var isStartCode = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key);
-        Assert.True(isStartCode);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key);
+        Assert.True(isBeginSnippet);
         Assert.Equal("CodeKey", key);
     }
 
-    public StartEndTesterIsBeginSnippetTests(ITestOutputHelper output) :
+    public StartEndTester_IsBeginSnippetTests(ITestOutputHelper output) :
         base(output)
     {
     }

@@ -8,8 +8,6 @@ static class StartEndTester
     {
         return IsBeginSnippet(trimmedLine) ||
                IsEndSnippet(trimmedLine) ||
-               IsStartCode(trimmedLine) ||
-               IsEndCode(trimmedLine) ||
                IsStartRegion(trimmedLine) ||
                IsEndRegion(trimmedLine);
     }
@@ -19,12 +17,6 @@ static class StartEndTester
         if (IsBeginSnippet(trimmedLine, path, out currentKey))
         {
             endFunc = IsEndSnippet;
-            return true;
-        }
-
-        if (IsStartCode(trimmedLine, path, out currentKey))
-        {
-            endFunc = IsEndCode;
             return true;
         }
 
@@ -41,11 +33,6 @@ static class StartEndTester
     static bool IsEndRegion(string line)
     {
         return line.StartsWith("#endregion", StringComparison.Ordinal);
-    }
-
-    static bool IsEndCode(string line)
-    {
-        return IndexOf(line, "endcode") >= 0;
     }
 
     static bool IsEndSnippet(string line)
@@ -72,41 +59,20 @@ static class StartEndTester
 
     static bool IsBeginSnippet(string line)
     {
-        var startCodeIndex = IndexOf(line, "begin-snippet: ");
-        return startCodeIndex != -1;
+        var startIndex = IndexOf(line, "begin-snippet: ");
+        return startIndex != -1;
     }
 
     internal static bool IsBeginSnippet(string line, string path, out string key)
     {
-        var startCodeIndex = IndexOf(line, "begin-snippet: ");
-        if (startCodeIndex == -1)
+        var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
+        if (beginSnippetIndex == -1)
         {
             key = null;
             return false;
         }
 
-        var startIndex = startCodeIndex + 15;
-        var substring = line
-            .TrimBackCommentChars(startIndex);
-        return TryExtractParts(substring, line, true, path, out key);
-    }
-
-    static bool IsStartCode(string line)
-    {
-        var startCodeIndex = IndexOf(line, "startcode ");
-        return startCodeIndex != -1;
-    }
-
-    internal static bool IsStartCode(string line, string path, out string key)
-    {
-        var startCodeIndex = IndexOf(line, "startcode ");
-        if (startCodeIndex == -1)
-        {
-            key = null;
-            return false;
-        }
-
-        var startIndex = startCodeIndex + 10;
+        var startIndex = beginSnippetIndex + 15;
         var substring = line
             .TrimBackCommentChars(startIndex);
         return TryExtractParts(substring, line, true, path, out key);

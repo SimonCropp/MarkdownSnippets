@@ -35,13 +35,14 @@ namespace MarkdownSnippets
                     UrlsAsSnippets = UrlsAsSnippets
                 });
 
-            var message = LogBuilder.BuildConfigLogMessage(root,configResult, configFilePath);
+            var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
             Log.LogMessage(message);
 
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 log: s => Log.LogMessage(s),
                 readOnly: configResult.ReadOnly,
+                directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
                 writeHeader: configResult.WriteHeader,
                 linkFormat: configResult.LinkFormat);
 

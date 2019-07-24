@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using MarkdownSnippets;
 
 class Program
@@ -20,9 +19,6 @@ class Program
             Environment.Exit(1);
         }
 
-        var excludes = configInput.Exclude;
-        excludes = GetExcludesWithBothSlashes(excludes).ToList();
-
         var (fileConfig, configFilePath) = ConfigReader.Read(targetDirectory);
         var configResult = ConfigDefaults.Convert(fileConfig, configInput);
 
@@ -32,7 +28,7 @@ class Program
         var processor = new DirectoryMarkdownProcessor(
             targetDirectory,
             log: Console.WriteLine,
-            directoryFilter: path => !excludes.Any(path.Contains),
+            directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
             readOnly: configResult.ReadOnly,
             writeHeader: configResult.WriteHeader,
             linkFormat: configResult.LinkFormat);
@@ -49,15 +45,6 @@ class Program
         {
             Console.WriteLine($"Failed: {exception.Message}");
             Environment.Exit(1);
-        }
-    }
-
-    static IEnumerable<string> GetExcludesWithBothSlashes(List<string> excludes)
-    {
-        foreach (var exclude in excludes)
-        {
-            yield return exclude.Replace('\\', '/');
-            yield return exclude.Replace('/', '\\');
         }
     }
 }

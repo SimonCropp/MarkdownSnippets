@@ -1,3 +1,3 @@
-﻿start-snippet: Snippet
+﻿begin-snippet: Snippet
 Some code
 end-snippet

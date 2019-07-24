@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MarkdownSnippets
 {
@@ -63,19 +62,26 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(input, nameof(input));
             Guard.AgainstEmpty(file, nameof(file));
-            var builder = new StringBuilder();
-            using (var reader = new StringReader(input))
-            using (var writer = new StringWriter(builder))
+            var builder = StringBuilderCache.Acquire();
+            try
             {
-                var processResult = Apply(reader, writer, file);
-                var missing = processResult.MissingSnippets;
-                if (missing.Any())
+                using (var reader = new StringReader(input))
+                using (var writer = new StringWriter(builder))
                 {
-                    throw new MissingSnippetsException(missing);
+                    var processResult = Apply(reader, writer, file);
+                    var missing = processResult.MissingSnippets;
+                    if (missing.Any())
+                    {
+                        throw new MissingSnippetsException(missing);
+                    }
                 }
-            }
 
-            return builder.ToString();
+                return builder.ToString();
+            }
+            finally
+            {
+                StringBuilderCache.Release(builder);
+            }
         }
 
         /// <summary>

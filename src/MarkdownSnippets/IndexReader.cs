@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Text;
 
 class IndexReader
 {
@@ -15,44 +14,55 @@ class IndexReader
 
     string ReadFirstLine()
     {
-        var builder = new StringBuilder();
-        do
+        var builder = StringBuilderCache.Acquire();
+        try
         {
-            var c = textReader.Read();
-            if (c == -1)
+
+            do
             {
-                break;
-            }
-            if (c == '\r')
-            {
-                var peek = textReader.Peek();
-                if (peek == -1)
+                var c = textReader.Read();
+                if (c == -1)
                 {
-                    NewLine = "\r";
                     break;
                 }
-                if (peek == '\n')
+
+                if (c == '\r')
                 {
-                    NewLine = "\r\n";
+                    var peek = textReader.Peek();
+                    if (peek == -1)
+                    {
+                        NewLine = "\r";
+                        break;
+                    }
+
+                    if (peek == '\n')
+                    {
+                        NewLine = "\r\n";
+                    }
+                    else
+                    {
+                        NewLine = "\r";
+                    }
+
+                    textReader.Read();
+                    break;
                 }
-                else
+
+                if (c == '\n')
                 {
-                    NewLine = "\r";
+                    NewLine = "\n";
+                    break;
                 }
 
-                textReader.Read();
-                break;
-            }
+                builder.Append((char) c);
+            } while (true);
 
-            if (c == '\n')
-            {
-                NewLine = "\n";
-                break;
-            }
-
-            builder.Append((char)c);
-        } while (true);
-        return builder.ToString();
+            return builder.ToString();
+        }
+        finally
+        {
+            StringBuilderCache.Release(builder);
+        }
     }
 
     public string ReadLine()

@@ -77,7 +77,6 @@ class LoopState
     public string Key;
     char paddingChar;
     int paddingLength;
-
     public Func<string, bool> EndFunc;
     public int StartLine;
     int newlineCount;

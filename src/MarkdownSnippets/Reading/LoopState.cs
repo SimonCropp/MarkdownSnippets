@@ -12,15 +12,22 @@ class LoopState
             return string.Empty;
         }
 
-        builder.TrimEnd();
-        return builder.ToString();
+        try
+        {
+            builder.TrimEnd();
+            return builder.ToString();
+        }
+        finally
+        {
+            StringBuilderCache.Release(builder);
+        }
     }
 
     public void AppendLine(string line)
     {
         if (builder == null)
         {
-            builder = new StringBuilder();
+            builder = StringBuilderCache.Acquire();
         }
 
         if (builder.Length == 0)

@@ -5,7 +5,7 @@ static class HeaderWriter
     public static void WriteHeader(string sourceFile, string rootDirectory, TextWriter writer)
     {
         var relativeSource = sourceFile
-            .ReplaceCaseless(rootDirectory, "")
+            .Substring(rootDirectory.Length)
             .Replace('\\', '/');
         writer.WriteLine("<!--");
         writer.WriteLine("GENERATED FILE - DO NOT EDIT");

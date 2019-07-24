@@ -39,7 +39,7 @@ namespace MarkdownSnippets
 
             if (snippet.Path != null)
             {
-                var path = snippet.Path.Replace(@"\", "/").ReplaceCaseless(rootDirectory, "");
+                var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
                 var link = BuildLink(snippet, path);
                 appendLine($"<sup>[snippet source]({link})</sup>");
             }

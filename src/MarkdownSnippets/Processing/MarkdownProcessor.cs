@@ -126,7 +126,7 @@ namespace MarkdownSnippets
             {
                 builder.Clear();
                 builder.Append(@"<!-- toc -->
-## Table of contents
+## Contents
 
 ");
                 foreach (var headerLine in headerLines)

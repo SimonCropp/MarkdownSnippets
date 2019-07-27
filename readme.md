@@ -18,7 +18,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [Indentation](/docs/indentation.md)
 
 <!-- toc -->
-## Table of contents
+## Contents
 
  * [Installation](#installation)
  * [Usage](#usage)

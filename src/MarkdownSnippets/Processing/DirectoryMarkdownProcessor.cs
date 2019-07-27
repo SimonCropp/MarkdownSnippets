@@ -140,19 +140,28 @@ namespace MarkdownSnippets
             log($"Processing {sourceFile}");
             var target = GetTargetFile(sourceFile, targetDirectory);
             FileEx.ClearReadOnly(target);
+
             using (var reader = File.OpenText(sourceFile))
-            using (var writer = File.CreateText(target))
             {
+                var (lines, newLine) = LineReader.ReadAllLines(reader, sourceFile);
                 if (writeHeader)
                 {
-                    HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
+                    lines.Insert(0, new Line(HeaderWriter.WriteHeader(sourceFile, targetDirectory),"",0));
                 }
 
-                var result = markdownProcessor.Apply(reader, writer, sourceFile);
+                var result = markdownProcessor.Apply(lines, newLine);
                 var missing = result.MissingSnippets;
                 if (missing.Any())
                 {
                     throw new MissingSnippetsException(missing);
+                }
+
+                using (var writer = File.CreateText(target))
+                {
+                    foreach (var line in lines)
+                    {
+                        writer.WriteLine(line.Current);
+                    }
                 }
             }
 

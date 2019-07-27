@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace MarkdownSnippets
 {
@@ -91,6 +92,7 @@ namespace MarkdownSnippets
 
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
+            var builder = new StringBuilder();
             foreach (var line in lines)
             {
                 if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
@@ -98,8 +100,7 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                var builder = StringBuilderCache.Acquire();
-
+                builder.Clear();
                 void AppendLine(string s)
                 {
                     builder.Append(s);
@@ -108,7 +109,6 @@ namespace MarkdownSnippets
 
                 ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
                 builder.TrimEnd();
-                StringBuilderCache.Release(builder);
                 line.Current = builder.ToString();
             }
 

@@ -11,7 +11,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     [Fact]
@@ -56,7 +56,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("Code_Key", key);
+        Assert.Equal("code_key", key);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("Code-Key", key);
+        Assert.Equal("code-key", key);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     [Fact]
@@ -97,7 +97,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        Assert.Equal("codekey", key);
     }
 
     public StartEndTester_IsBeginSnippetTests(ITestOutputHelper output) :

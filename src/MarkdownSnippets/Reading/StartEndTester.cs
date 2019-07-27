@@ -92,7 +92,7 @@ static class StartEndTester
             throw new SnippetReadingException($"No Key could be derived. Line: '{line}'.");
         }
 
-        key = split[0];
+        key = split[0].ToLowerInvariant();
         KeyValidator.ValidateKeyDoesNotStartOrEndWithSymbol(key, path, line);
         if (split.Length == 1)
         {

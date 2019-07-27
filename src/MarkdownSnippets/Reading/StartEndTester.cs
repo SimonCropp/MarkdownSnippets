@@ -3,7 +3,6 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
-
     internal static bool IsStartOrEnd(string trimmedLine)
     {
         return IsBeginSnippet(trimmedLine) ||
@@ -89,7 +88,9 @@ static class StartEndTester
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {
-            throw new SnippetReadingException($"No Key could be derived. Line: '{line}'.");
+            throw new SnippetReadingException($@"No Key could be derived.
+Path: {path}
+Line: '{line}'");
         }
 
         key = split[0].ToLowerInvariant();
@@ -104,6 +105,8 @@ static class StartEndTester
             return false;
         }
 
-        throw new SnippetReadingException($"Too many parts. Line: '{line}'.");
+        throw new SnippetReadingException($@"Too many parts.
+Path: {path}
+Line: '{line}'");
     }
 }

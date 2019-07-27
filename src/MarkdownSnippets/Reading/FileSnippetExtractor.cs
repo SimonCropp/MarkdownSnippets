@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -98,14 +97,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNullAndEmpty(path, nameof(path));
-            try
-            {
-                return GetSnippets(textReader, path);
-            }
-            catch (Exception exception)
-            {
-                throw new Exception($"Could not extract snippets from '{path}'.", exception);
-            }
+            return GetSnippets(textReader, path);
         }
 
         static string GetLanguageFromPath(string path)

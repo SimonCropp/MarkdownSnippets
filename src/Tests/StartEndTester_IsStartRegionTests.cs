@@ -29,13 +29,12 @@ public class StartEndTester_IsStartRegionTests :
         Approvals.Verify(exception.Message);
     }
 
-
     [Fact]
     public void ShouldIgnoreForNoKey()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region ", "file", out _));
-        Assert.Equal("No Key could be derived. Line: '#region '.", exception.Message);
+        Approvals.Verify(exception.Message);
     }
 
     [Fact]

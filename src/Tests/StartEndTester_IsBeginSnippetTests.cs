@@ -18,7 +18,7 @@ public class StartEndTester_IsBeginSnippetTests :
     public void ShouldThrowForNoKey()
     {
         var exception = Assert.Throws<SnippetReadingException>(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
-        Assert.Equal("No Key could be derived. Line: '<!-- begin-snippet: -->'.", exception.Message);
+        Approvals.Verify(exception.Message);
     }
 
     [Fact]

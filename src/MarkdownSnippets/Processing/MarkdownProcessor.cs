@@ -89,6 +89,7 @@ namespace MarkdownSnippets
             {
                 lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath), "", 0));
             }
+
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
             foreach (var line in lines)
@@ -98,7 +99,7 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                var builder = new StringBuilder();
+                var builder = StringBuilderCache.Acquire();
 
                 void AppendLine(string s)
                 {
@@ -108,6 +109,7 @@ namespace MarkdownSnippets
 
                 ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
                 builder.TrimEnd();
+                StringBuilderCache.Release(builder);
                 line.Current = builder.ToString();
             }
 

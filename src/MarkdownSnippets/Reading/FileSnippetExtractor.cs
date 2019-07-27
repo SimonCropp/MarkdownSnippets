@@ -143,13 +143,14 @@ namespace MarkdownSnippets
                 {
                     continue;
                 }
+
                 if (!loopStack.Current.EndFunc(trimmedLine))
                 {
                     loopStack.AppendLine(line);
                     continue;
                 }
 
-                yield return BuildSnippet(path, loopStack, language,index);
+                yield return BuildSnippet(path, loopStack, language, index);
                 loopStack.Pop();
             }
         }

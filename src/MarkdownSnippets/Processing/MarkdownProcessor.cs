@@ -85,31 +85,58 @@ namespace MarkdownSnippets
 
         internal ProcessResult Apply(List<Line> lines, string newLine, string relativePath)
         {
+            var missing = new List<MissingSnippet>();
+            var usedSnippets = new List<Snippet>();
+            var builder = new StringBuilder();
+            Line tocLine = null;
+            var headerLines = new List<Line>();
+            foreach (var line in lines)
+            {
+                if (line.Current.StartsWith("## "))
+                {
+                    headerLines.Add(line);
+                    continue;
+                }
+                if (line.Current == "toc")
+                {
+                    tocLine = line;
+                    continue;
+                }
+                if (SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
+                {
+                    builder.Clear();
+
+                    void AppendLine(string s)
+                    {
+                        builder.Append(s);
+                        builder.Append(newLine);
+                    }
+
+                    ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
+                    builder.TrimEnd();
+                    line.Current = builder.ToString();
+                }
+            }
             if (writeHeader)
             {
                 lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath), "", 0));
             }
 
-            var missing = new List<MissingSnippet>();
-            var usedSnippets = new List<Snippet>();
-            var builder = new StringBuilder();
-            foreach (var line in lines)
+            if (tocLine != null )
             {
-                if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
-                {
-                    continue;
-                }
-
                 builder.Clear();
-                void AppendLine(string s)
+                builder.Append(@"<!-- toc -->
+## Table of contents
+
+");
+                foreach (var headerLine in headerLines)
                 {
-                    builder.Append(s);
-                    builder.Append(newLine);
+                    var title = headerLine.Current.Substring(3).Trim();
+                    var link = title.ToLowerInvariant().Replace(' ', '-');
+                    builder.AppendLine($" * [{title}](#{link})");
                 }
 
-                ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
-                builder.TrimEnd();
-                line.Current = builder.ToString();
+                tocLine.Current = builder.ToString();
             }
 
             return new ProcessResult(

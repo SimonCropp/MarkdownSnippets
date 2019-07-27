@@ -17,6 +17,21 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [Config file convention](/docs/config-file.md)
  * [Indentation](/docs/indentation.md)
 
+<!-- toc -->
+## Table of contents
+
+ * [More Info](#more-info)
+ * [Installation](#installation)
+ * [Usage](#usage)
+ * [Defining Snippets](#defining-snippets)
+ * [Using Snippets](#using-snippets)
+ * [Snippet Exclusions](#snippet-exclusions)
+ * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
+ * [More Documentation](#more-documentation)
+ * [Release Notes](#release-notes)
+ * [Credits](#credits)
+ * [Icon](#icon)
+
 
 ## Installation
 

@@ -10,6 +10,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [Config file convention](/docs/config-file.md)
  * [Indentation](/docs/indentation.md)
 
+toc
 
 ## Installation
 

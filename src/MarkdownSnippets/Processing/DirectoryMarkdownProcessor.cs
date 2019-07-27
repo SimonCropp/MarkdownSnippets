@@ -145,7 +145,7 @@ namespace MarkdownSnippets
             {
                 if (writeHeader)
                 {
-                    HeaderWriter.WriteHeader(sourceFile, targetDirectory, writer);
+                    writer.Write(HeaderWriter.WriteHeader(sourceFile, targetDirectory));
                 }
 
                 var result = markdownProcessor.Apply(reader, writer, sourceFile);

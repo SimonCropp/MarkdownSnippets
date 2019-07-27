@@ -37,8 +37,8 @@ The result will be rendered:
 <!-- toc -->
 ## Contents
 
- * [Heading 1](heading-1)
- * [Heading 2](heading-2)
+ * [Heading 1](#heading-1)
+ * [Heading 2](#heading-2)
 
 ## Heading 1
 

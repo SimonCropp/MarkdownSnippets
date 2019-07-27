@@ -50,7 +50,7 @@ namespace MarkdownSnippets
 
         void FindFiles(string directoryPath, List<string> files)
         {
-            foreach (var file in Directory.EnumerateFiles(directoryPath,"*.source.md"))
+            foreach (var file in Directory.EnumerateFiles(directoryPath, "*.source.md"))
             {
                 files.Add(file);
             }

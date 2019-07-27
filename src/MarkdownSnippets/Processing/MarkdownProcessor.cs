@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace MarkdownSnippets
 {
@@ -92,28 +93,39 @@ namespace MarkdownSnippets
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
-            var reader = new IndexReader(textReader);
-            return Apply(writer, reader, file);
+            var (lines, newLine) = LineReader.ReadAllLines(textReader, null);
+            writer.NewLine = newLine;
+            var result = Apply(lines, newLine);
+            foreach (var line in lines)
+            {
+                writer.WriteLine(line.Current);
+            }
+
+            return result;
         }
 
-        ProcessResult Apply(TextWriter writer, IndexReader reader, string file)
+        internal ProcessResult Apply(List<Line> lines, string newLine)
         {
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            foreach (var line in lines)
             {
-                if (reader.Index == 1)
-                {
-                    writer.NewLine = reader.NewLine;
-                }
-
-                if (TryProcessSnippetLine(writer.WriteLine, reader.Index, line, missing, usedSnippets, file))
+                if (!SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
                 {
                     continue;
                 }
 
-                writer.WriteLine(line);
+                var builder = new StringBuilder();
+
+                void AppendLine(string s)
+                {
+                    builder.Append(s);
+                    builder.Append(newLine);
+                }
+
+                ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
+                builder.TrimEnd();
+                line.Current = builder.ToString();
             }
 
             return new ProcessResult(
@@ -121,38 +133,32 @@ namespace MarkdownSnippets
                 usedSnippets: usedSnippets.Distinct().ToList());
         }
 
-        bool TryProcessSnippetLine(Action<string> appendLine, int index, string line, List<MissingSnippet> missings, List<Snippet> used, string file)
+        void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {
-            if (!SnippetKeyReader.TryExtractKeyFromLine(line, file, index, out var key))
-            {
-                return false;
-            }
-
             appendLine($"<!-- snippet: {key} -->");
 
-            if (TryGetFromFiles(key, out var snippetFromFiles))
+            if (TryGetSnippets(key, out var snippetsForKey))
             {
-                appendSnippetGroup(key, snippetFromFiles, appendLine);
+                appendSnippetGroup(key, snippetsForKey, appendLine);
                 appendLine("<!-- endsnippet -->");
-                used.AddRange(snippetFromFiles);
-                return true;
+                used.AddRange(snippetsForKey);
+                return;
             }
 
-            var missing = new MissingSnippet(key, index, file);
+            var missing = new MissingSnippet(key, line.LineNumber, line.Path);
             missings.Add(missing);
             appendLine($"** Could not find snippet '{key}' **");
-            return true;
         }
 
-        bool TryGetFromFiles(string key, out IReadOnlyList<Snippet> snippetFromFiles)
+        bool TryGetSnippets(string key, out IReadOnlyList<Snippet> snippetsForKey)
         {
-            if (snippets.TryGetValue(key, out snippetFromFiles))
+            if (snippets.TryGetValue(key, out snippetsForKey))
             {
                 return true;
             }
 
-            snippetFromFiles = FilesToSnippets(key);
-            return snippetFromFiles.Any();
+            snippetsForKey = FilesToSnippets(key);
+            return snippetsForKey.Any();
         }
 
         List<Snippet> FilesToSnippets(string key)

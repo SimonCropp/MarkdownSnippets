@@ -141,33 +141,44 @@ namespace MarkdownSnippets
             var target = GetTargetFile(sourceFile, targetDirectory);
             FileEx.ClearReadOnly(target);
 
-            using (var reader = File.OpenText(sourceFile))
+            var (lines, newLine) = ReadLines(sourceFile);
+
+            if (writeHeader)
             {
-                var (lines, newLine) = LineReader.ReadAllLines(reader, sourceFile);
-                if (writeHeader)
-                {
-                    lines.Insert(0, new Line(HeaderWriter.WriteHeader(sourceFile, targetDirectory),"",0));
-                }
-
-                var result = markdownProcessor.Apply(lines, newLine);
-                var missing = result.MissingSnippets;
-                if (missing.Any())
-                {
-                    throw new MissingSnippetsException(missing);
-                }
-
-                using (var writer = File.CreateText(target))
-                {
-                    foreach (var line in lines)
-                    {
-                        writer.WriteLine(line.Current);
-                    }
-                }
+                lines.Insert(0, new Line(HeaderWriter.WriteHeader(sourceFile, targetDirectory), "", 0));
             }
+
+            var result = markdownProcessor.Apply(lines, newLine);
+            var missing = result.MissingSnippets;
+            if (missing.Any())
+            {
+                throw new MissingSnippetsException(missing);
+            }
+
+            WriteLines(target, lines);
 
             if (readOnly)
             {
                 FileEx.MakeReadOnly(target);
+            }
+        }
+
+        private static void WriteLines(string target, List<Line> lines)
+        {
+            using (var writer = File.CreateText(target))
+            {
+                foreach (var line in lines)
+                {
+                    writer.WriteLine(line.Current);
+                }
+            }
+        }
+
+        static (List<Line> lines, string newLine) ReadLines(string sourceFile)
+        {
+            using (var reader = File.OpenText(sourceFile))
+            {
+                return LineReader.ReadAllLines(reader, sourceFile);
             }
         }
 

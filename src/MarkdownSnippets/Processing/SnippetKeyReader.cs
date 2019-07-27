@@ -3,19 +3,19 @@ using MarkdownSnippets;
 
 static class SnippetKeyReader
 {
-    public static bool TryExtractKeyFromLine(string line, string file, int lineNumber, out string key)
+    public static bool TryExtractKeyFromLine(Line line, out string key)
     {
-        if (!line.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase))
+        if (!line.Current.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase))
         {
             key = null;
             return false;
         }
 
-        key = line.Substring(8);
+        key = line.Current.Substring(8);
 
         if (!key.StartsWith(" "))
         {
-            throw new MarkdownProcessingException($"Invalid syntax for the snippet '{key}': There must be a space before the start of the key.", file, lineNumber);
+            throw new MarkdownProcessingException($"Invalid syntax for the snippet '{key}': There must be a space before the start of the key.", line.Path, line.LineNumber);
         }
 
         key = key.Trim();

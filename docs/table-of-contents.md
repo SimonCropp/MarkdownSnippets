@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Table of contents
 
-If a line is 'toc' it will be replaces with a table of contents containing all level 2 headings (Lines starting with `## `).
+If a line is `toc` it will be replaces with a table of contents containing all level 2 headings (Lines starting with `## `).
 
 So if a markdown document contains the following
 

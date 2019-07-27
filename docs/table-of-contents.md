@@ -7,22 +7,15 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Table of contents
 
-If a line is 'toc' it will be replaces with a table of contents containeing all level 2 headings (Lines starting with `## `).
+If a line is 'toc' it will be replaces with a table of contents containing all level 2 headings (Lines starting with `## `).
 
 So if a markdown document contains the following
 
-```
+<!-- snippet: tocBefore.txt -->
+```txt
 # Title
 
-<!-- toc -->
-## Contents
-
- * [Heading 1](#heading-1)
- * [Heading 1](#heading-1)
- * [Contents](#contents)
- * [Heading 1](#heading-1)
- * [Heading 2](#heading-2)
-
+toc
 
 ## Heading 1
 
@@ -32,10 +25,13 @@ Text1
 
 Text2
 ```
+<sup>[snippet source](/docs/mdsource/toc/tocBefore.txt#L1-L11)</sup>
+<!-- endsnippet -->
 
 The result will be rendered:
 
-```
+<!-- snippet: tocAfter.txt -->
+```txt
 # Title
 
 <!-- toc -->
@@ -52,3 +48,5 @@ Text1
 
 Text2
 ```
+<sup>[snippet source](/docs/mdsource/toc/tocAfter.txt#L1-L15)</sup>
+<!-- endsnippet -->

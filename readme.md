@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
 
-## More Info
+### More Info
 
  * [.net API](/docs/api.md)
  * [MsBuild Task](/docs/msbuild.md)
@@ -20,7 +20,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 <!-- toc -->
 ## Table of contents
 
- * [More Info](#more-info)
  * [Installation](#installation)
  * [Usage](#usage)
  * [Defining Snippets](#defining-snippets)

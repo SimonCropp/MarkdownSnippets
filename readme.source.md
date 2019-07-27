@@ -3,7 +3,7 @@
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
 
-## More Info
+### More Info
 
  * [.net API](/docs/api.md)
  * [MsBuild Task](/docs/msbuild.md)

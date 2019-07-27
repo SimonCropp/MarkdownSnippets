@@ -8,6 +8,26 @@ public class MarkdownProcessorTests :
     TestBase
 {
     [Fact]
+    public void Toc()
+    {
+        var markdownContent = @"
+# Title
+
+toc
+
+## Heading 1
+
+Text1
+
+## Heading 1
+
+Text2
+
+";
+        SnippetVerifier.Verify(markdownContent,new List<Snippet>(),new List<string>());
+    }
+
+    [Fact]
     public void Simple()
     {
         var availableSnippets = new List<Snippet>

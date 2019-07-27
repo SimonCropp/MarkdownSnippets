@@ -16,6 +16,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [MsBuild Task](/docs/msbuild.md)
  * [Config file convention](/docs/config-file.md)
  * [Indentation](/docs/indentation.md)
+ * [Table of contents](/docs/table-of-contents.md)
 
 <!-- toc -->
 ## Contents

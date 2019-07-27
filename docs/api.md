@@ -23,7 +23,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L8-L14)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L9-L15)</sup>
 <!-- endsnippet -->
 
 
@@ -38,7 +38,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L38-L47)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L39-L48)</sup>
 <!-- endsnippet -->
 
 
@@ -52,8 +52,9 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
 // Merge with some markdown text
 var markdownProcessor = new MarkdownProcessor(
-    snippets: snippets,
-    appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
+    snippets: snippets.ToDictionary(),
+    appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
+    snippetSourceFiles: new List<string>());
 
 var path = @"C:\path\inputMarkdownFile.md";
 using (var reader = File.OpenText(path))
@@ -67,7 +68,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L52-L75)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L77)</sup>
 <!-- endsnippet -->
 
 
@@ -79,7 +80,7 @@ For the git repository containing the unit test file:
 ```cs
 DirectoryMarkdownProcessor.RunForFilePath();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L19-L23)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L20-L24)</sup>
 <!-- endsnippet -->
 
 For a specific directory:
@@ -89,7 +90,7 @@ For a specific directory:
 var processor = new DirectoryMarkdownProcessor("targetDirectory");
 processor.Run();
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L28-L33)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L29-L34)</sup>
 <!-- endsnippet -->
 
 

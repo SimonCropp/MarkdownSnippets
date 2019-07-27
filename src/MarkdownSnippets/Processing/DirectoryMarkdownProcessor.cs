@@ -128,7 +128,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            var processor = new MarkdownProcessor(snippets, appendSnippetGroup, snippetSourceFiles);
+            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles);
             foreach (var sourceFile in sourceMdFiles)
             {
                 ProcessFile(sourceFile, processor);

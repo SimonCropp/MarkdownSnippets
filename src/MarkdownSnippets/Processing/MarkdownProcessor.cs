@@ -28,30 +28,6 @@ namespace MarkdownSnippets
             InitSourceFiles(snippetSourceFiles);
         }
 
-        public MarkdownProcessor(
-            ReadSnippets snippets,
-            AppendSnippetGroupToMarkdown appendSnippetGroup)
-        {
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
-            this.snippets = snippets.ToDictionary();
-            this.appendSnippetGroup = appendSnippetGroup;
-            InitSourceFiles(snippets.Files);
-        }
-
-        public MarkdownProcessor(
-            IEnumerable<Snippet> snippets,
-            AppendSnippetGroupToMarkdown appendSnippetGroup,
-            IReadOnlyList<string> snippetSourceFiles)
-        {
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
-            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            this.snippets = snippets.ToDictionary();
-            this.appendSnippetGroup = appendSnippetGroup;
-            InitSourceFiles(snippetSourceFiles);
-        }
-
         void InitSourceFiles(IEnumerable<string> snippetSourceFiles)
         {
             this.snippetSourceFiles = snippetSourceFiles

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using MarkdownSnippets;
 
 class Usage
@@ -57,8 +58,9 @@ class Usage
 
         // Merge with some markdown text
         var markdownProcessor = new MarkdownProcessor(
-            snippets: snippets,
-            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup);
+            snippets: snippets.ToDictionary(),
+            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
+            snippetSourceFiles: new List<string>());
 
         var path = @"C:\path\inputMarkdownFile.md";
         using (var reader = File.OpenText(path))

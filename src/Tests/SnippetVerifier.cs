@@ -9,7 +9,7 @@ static class SnippetVerifier
     public static void Verify(string markdownContent, List<Snippet> availableSnippets, List<string> snippetSourceFiles)
     {
         var markdownProcessor = new MarkdownProcessor(
-            snippets: availableSnippets,
+            snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles);
         var stringBuilder = new StringBuilder();

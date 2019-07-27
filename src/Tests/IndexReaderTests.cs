@@ -22,9 +22,8 @@ public class IndexReaderTests :
             File.WriteAllText(fileName, input);
             using (var streamReader = File.OpenText(fileName))
             {
-                var indexReader = new IndexReader(streamReader);
-                indexReader.ReadLine();
-                Assert.Equal(expected, indexReader.NewLine);
+                var lines = LineReader.ReadFirstLine(streamReader);
+                Assert.Equal(expected, lines.newLine);
             }
         }
         finally

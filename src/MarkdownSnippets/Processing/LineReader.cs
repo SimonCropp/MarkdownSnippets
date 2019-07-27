@@ -29,7 +29,7 @@ static class LineReader
         return (lines, newLine);
     }
 
-    static (string content, string newLine) ReadFirstLine(TextReader textReader)
+    internal static (string content, string newLine) ReadFirstLine(TextReader textReader)
     {
         var builder = new StringBuilder();
         var newLine = Environment.NewLine;

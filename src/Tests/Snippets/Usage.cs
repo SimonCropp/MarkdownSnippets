@@ -60,7 +60,8 @@ class Usage
         var markdownProcessor = new MarkdownProcessor(
             snippets: snippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
-            snippetSourceFiles: new List<string>());
+            snippetSourceFiles: new List<string>(),
+            writeHeader: true);
 
         var path = @"C:\path\inputMarkdownFile.md";
         using (var reader = File.OpenText(path))

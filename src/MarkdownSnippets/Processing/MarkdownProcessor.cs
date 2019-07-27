@@ -13,18 +13,21 @@ namespace MarkdownSnippets
     {
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
+        bool writeHeader;
         List<string> snippetSourceFiles;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
-            IReadOnlyList<string> snippetSourceFiles)
+            IReadOnlyList<string> snippetSourceFiles,
+            bool writeHeader)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
+            this.writeHeader = writeHeader;
             InitSourceFiles(snippetSourceFiles);
         }
 
@@ -71,7 +74,7 @@ namespace MarkdownSnippets
             Guard.AgainstEmpty(file, nameof(file));
             var (lines, newLine) = LineReader.ReadAllLines(textReader, null);
             writer.NewLine = newLine;
-            var result = Apply(lines, newLine);
+            var result = Apply(lines, newLine, file);
             foreach (var line in lines)
             {
                 writer.WriteLine(line.Current);
@@ -80,8 +83,12 @@ namespace MarkdownSnippets
             return result;
         }
 
-        internal ProcessResult Apply(List<Line> lines, string newLine)
+        internal ProcessResult Apply(List<Line> lines, string newLine, string relativePath)
         {
+            if (writeHeader)
+            {
+                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath), "", 0));
+            }
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
             foreach (var line in lines)

@@ -11,7 +11,8 @@ static class SnippetVerifier
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
-            snippetSourceFiles: snippetSourceFiles);
+            snippetSourceFiles: snippetSourceFiles,
+            writeHeader: true);
         var stringBuilder = new StringBuilder();
         using (var reader = new StringReader(markdownContent))
         using (var writer = new StringWriter(stringBuilder))

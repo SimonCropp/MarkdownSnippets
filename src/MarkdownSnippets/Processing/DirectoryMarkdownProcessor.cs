@@ -128,7 +128,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles);
+            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles, writeHeader);
             foreach (var sourceFile in sourceMdFiles)
             {
                 ProcessFile(sourceFile, processor);
@@ -143,12 +143,10 @@ namespace MarkdownSnippets
 
             var (lines, newLine) = ReadLines(sourceFile);
 
-            if (writeHeader)
-            {
-                lines.Insert(0, new Line(HeaderWriter.WriteHeader(sourceFile, targetDirectory), "", 0));
-            }
-
-            var result = markdownProcessor.Apply(lines, newLine);
+            var relativeSource = sourceFile
+                .Substring(targetDirectory.Length)
+                .Replace('\\', '/');
+            var result = markdownProcessor.Apply(lines, newLine, relativeSource);
             var missing = result.MissingSnippets;
             if (missing.Any())
             {
@@ -163,7 +161,7 @@ namespace MarkdownSnippets
             }
         }
 
-        private static void WriteLines(string target, List<Line> lines)
+        static void WriteLines(string target, List<Line> lines)
         {
             using (var writer = File.CreateText(target))
             {

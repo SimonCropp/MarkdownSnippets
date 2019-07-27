@@ -54,7 +54,8 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 var markdownProcessor = new MarkdownProcessor(
     snippets: snippets.ToDictionary(),
     appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
-    snippetSourceFiles: new List<string>());
+    snippetSourceFiles: new List<string>(),
+    writeHeader: true);
 
 var path = @"C:\path\inputMarkdownFile.md";
 using (var reader = File.OpenText(path))
@@ -68,7 +69,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L77)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L78)</sup>
 <!-- endsnippet -->
 
 

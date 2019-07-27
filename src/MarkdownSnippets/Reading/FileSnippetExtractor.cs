@@ -100,8 +100,7 @@ namespace MarkdownSnippets
             Guard.AgainstNullAndEmpty(path, nameof(path));
             try
             {
-                var reader = new IndexReader(textReader);
-                return GetSnippets(reader, path);
+                return GetSnippets(textReader, path);
             }
             catch (Exception exception)
             {
@@ -116,13 +115,14 @@ namespace MarkdownSnippets
             return s ?? string.Empty;
         }
 
-        static IEnumerable<Snippet> GetSnippets(IndexReader stringReader, string path)
+        static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path)
         {
             var language = GetLanguageFromPath(path);
             var loopStack = new LoopStack();
-
+            var index = 0;
             while (true)
             {
+                index++;
                 var line = stringReader.ReadLine();
                 if (line == null)
                 {
@@ -143,7 +143,7 @@ namespace MarkdownSnippets
 
                 if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
                 {
-                    loopStack.Push(endFunc, key, stringReader.Index);
+                    loopStack.Push(endFunc, key, index);
                     continue;
                 }
 
@@ -157,12 +157,12 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                yield return BuildSnippet(stringReader, path, loopStack, language);
+                yield return BuildSnippet(path, loopStack, language,index);
                 loopStack.Pop();
             }
         }
 
-        static Snippet BuildSnippet(IndexReader stringReader, string path, LoopStack loopStack, string language)
+        static Snippet BuildSnippet(string path, LoopStack loopStack, string language, int index)
         {
             var loopState = loopStack.Current;
 
@@ -170,7 +170,7 @@ namespace MarkdownSnippets
 
             return Snippet.Build(
                 startLine: loopState.StartLine,
-                endLine: stringReader.Index,
+                endLine: index,
                 key: loopState.Key,
                 value: value,
                 path: path,

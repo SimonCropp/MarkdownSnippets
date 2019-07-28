@@ -37,7 +37,7 @@ namespace MarkdownSnippets
             this.tocLevel = tocLevel;
             if (appendSnippetGroup == null)
             {
-                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory,linkFormat).AppendGroup;
+                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
             }
             else
             {

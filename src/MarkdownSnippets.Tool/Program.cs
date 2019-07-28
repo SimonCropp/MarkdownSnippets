@@ -7,7 +7,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        CommandRunner.RunCommand(Inner, args);
+        try
+        {
+            CommandRunner.RunCommand(Inner, args);
+        }
+        catch (CommandLineException exception)
+        {
+            Console.WriteLine($"Failed: {exception.Message}");
+            Environment.Exit(1);
+        }
     }
 
     static void Inner(string targetDirectory, ConfigInput configInput)

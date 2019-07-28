@@ -53,6 +53,10 @@ static class CommandRunner
             options.TargetDirectory = Path.GetFullPath(options.TargetDirectory);
         }
 
+        if (options.TocLevel <= 0)
+        {
+            throw new CommandLineException("toc-level must be positive.");
+        }
         ValidateItems("Exclude", options.Exclude);
         ValidateItems("UrlsAsSnippets", options.UrlsAsSnippets);
     }

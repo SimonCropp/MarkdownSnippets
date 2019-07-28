@@ -27,6 +27,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;

@@ -14,7 +14,7 @@ public class TocBuilderTests :
             new Line("## Heading", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines));
+        Approvals.Verify(TocBuilder.BuildToc(lines,1));
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class TocBuilderTests :
             new Line("##  A B ", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines));
+        Approvals.Verify(TocBuilder.BuildToc(lines,1));
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class TocBuilderTests :
             new Line("## a", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines));
+        Approvals.Verify(TocBuilder.BuildToc(lines,1));
     }
 
     public TocBuilderTests(ITestOutputHelper output) :

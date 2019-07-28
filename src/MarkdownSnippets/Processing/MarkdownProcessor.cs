@@ -14,13 +14,15 @@ namespace MarkdownSnippets
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
+        int tocLevel;
         List<string> snippetSourceFiles;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
             IReadOnlyList<string> snippetSourceFiles,
-            bool writeHeader)
+            bool writeHeader,
+            int tocLevel)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
@@ -28,6 +30,7 @@ namespace MarkdownSnippets
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
+            this.tocLevel = tocLevel;
             InitSourceFiles(snippetSourceFiles);
         }
 
@@ -122,9 +125,9 @@ namespace MarkdownSnippets
                 lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath), "", 0));
             }
 
-            if (tocLine != null )
+            if (tocLine != null)
             {
-                tocLine.Current = TocBuilder.BuildToc(headerLines);;
+                tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel);
             }
 
             return new ProcessResult(

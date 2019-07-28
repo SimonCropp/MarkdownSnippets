@@ -4,7 +4,7 @@ using System.Text;
 
 static class TocBuilder
 {
-    public static string BuildToc(List<Line> headerLines)
+    public static string BuildToc(List<Line> headerLines, int level)
     {
         var processed = new List<string>();
         var builder = new StringBuilder(@"<!-- toc -->
@@ -18,7 +18,7 @@ static class TocBuilder
             builder.AppendLine($" * [{title}](#{link})");
         }
 
-        builder.AppendLine($"<!-- endtoc -->");
+        builder.AppendLine("<!-- endtoc -->");
         return builder.ToString();
     }
 

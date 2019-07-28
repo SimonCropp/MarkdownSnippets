@@ -23,17 +23,6 @@ snippet: ReadingDirectorySimple
 snippet: markdownProcessingSimple
 
 
-## Running as a unit test
-
-For the git repository containing the unit test file:
-
-snippet: RunForFilePath
-
-For a specific directory:
-
-snippet: DirectoryMarkdownProcessorRun
-
-
 ## Ignored paths
 
 To change conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.

@@ -11,6 +11,7 @@ static class LogBuilder
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
     LinkFormat: {config.LinkFormat}
+    TocLevel: {config.TocLevel}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 ");
 

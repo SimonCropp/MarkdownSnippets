@@ -80,6 +80,13 @@ public class CommandRunnerTests :
     }
 
     [Fact]
+    public void TocLevelLong()
+    {
+        CommandRunner.RunCommand(Capture, "--toc-level", "5");
+        Verify();
+    }
+
+    [Fact]
     public void ExcludeShort()
     {
         CommandRunner.RunCommand(Capture, "-e", "dir");

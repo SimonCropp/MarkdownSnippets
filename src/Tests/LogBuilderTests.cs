@@ -16,7 +16,8 @@ public class LogBuilderTests :
             Exclude = new List<string> {"Dir1", "Dir2"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
-            UrlsAsSnippets = new List<string> {"Url1", "Url2"}
+            UrlsAsSnippets = new List<string> {"Url1", "Url2"},
+            TocLevel = 5
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         Approvals.Verify(message);

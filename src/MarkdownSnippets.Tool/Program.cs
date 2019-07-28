@@ -31,7 +31,8 @@ class Program
             directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
             readOnly: configResult.ReadOnly,
             writeHeader: configResult.WriteHeader,
-            linkFormat: configResult.LinkFormat);
+            linkFormat: configResult.LinkFormat,
+            tocLevel: configResult.TocLevel);
 
         var snippets = new List<Snippet>();
         snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();

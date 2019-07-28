@@ -24,15 +24,17 @@ static class CommandRunner
                 options =>
                 {
                     ApplyDefaults(options);
+                    var configInput = new ConfigInput
+                    {
+                        ReadOnly = options.ReadOnly,
+                        WriteHeader = options.WriteHeader,
+                        LinkFormat = options.LinkFormat,
+                        TocLevel = options.TocLevel,
+                        Exclude = options.Exclude.ToList(),
+                        UrlsAsSnippets = options.UrlsAsSnippets.ToList()
+                    };
                     invoke(options.TargetDirectory,
-                        new ConfigInput
-                        {
-                            ReadOnly = options.ReadOnly,
-                            WriteHeader = options.WriteHeader,
-                            LinkFormat = options.LinkFormat,
-                            Exclude = options.Exclude.ToList(),
-                            UrlsAsSnippets = options.UrlsAsSnippets.ToList()
-                        });
+                        configInput);
                 });
     }
 

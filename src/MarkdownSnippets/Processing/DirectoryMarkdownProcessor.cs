@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace MarkdownSnippets
 {
@@ -12,6 +11,7 @@ namespace MarkdownSnippets
         bool writeHeader;
         DirectoryFilter directoryFilter;
         bool readOnly;
+        int tocLevel;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -28,11 +28,13 @@ namespace MarkdownSnippets
             bool writeHeader = true,
             DirectoryFilter directoryFilter = null,
             bool readOnly = true,
-            LinkFormat linkFormat = LinkFormat.GitHub)
+            LinkFormat linkFormat = LinkFormat.GitHub,
+            int tocLevel = 2)
         {
             this.writeHeader = writeHeader;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
+            this.tocLevel = tocLevel;
             if (appendSnippetGroup == null)
             {
                 this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory,linkFormat).AppendGroup;
@@ -117,18 +119,11 @@ namespace MarkdownSnippets
             }
         }
 
-        public static void RunForFilePath([CallerFilePath] string sourceFilePath = "")
-        {
-            Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
-            var root = GitRepoDirectoryFinder.FindForFilePath(sourceFilePath);
-            new DirectoryMarkdownProcessor(root).Run();
-        }
-
         public void Run()
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles, writeHeader);
+            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles, writeHeader, tocLevel);
             foreach (var sourceFile in sourceMdFiles)
             {
                 ProcessFile(sourceFile, processor);

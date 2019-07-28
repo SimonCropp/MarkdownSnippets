@@ -38,7 +38,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L39-L48)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L30-L39)</sup>
 <!-- endsnippet -->
 
 
@@ -55,7 +55,8 @@ var markdownProcessor = new MarkdownProcessor(
     snippets: snippets.ToDictionary(),
     appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
     snippetSourceFiles: new List<string>(),
-    writeHeader: true);
+    writeHeader: true,
+    tocLevel: 2);
 
 var path = @"C:\path\inputMarkdownFile.md";
 using (var reader = File.OpenText(path))
@@ -69,29 +70,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L53-L78)</sup>
-<!-- endsnippet -->
-
-
-## Running as a unit test
-
-For the git repository containing the unit test file:
-
-<!-- snippet: RunForFilePath -->
-```cs
-DirectoryMarkdownProcessor.RunForFilePath();
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L20-L24)</sup>
-<!-- endsnippet -->
-
-For a specific directory:
-
-<!-- snippet: DirectoryMarkdownProcessorRun -->
-```cs
-var processor = new DirectoryMarkdownProcessor("targetDirectory");
-processor.Run();
-```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L29-L34)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L70)</sup>
 <!-- endsnippet -->
 
 

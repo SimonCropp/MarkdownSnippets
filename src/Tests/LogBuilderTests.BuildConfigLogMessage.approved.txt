@@ -3,6 +3,7 @@
     ReadOnly: True
     WriteHeader: True
     LinkFormat: Tfs
+    TocLevel: 5
     FileConfigPath: theConfigFilePath (exists:False)
     Exclude:
         Dir1

@@ -6,6 +6,7 @@ public class ConfigResult
     public bool ReadOnly;
     public bool WriteHeader;
     public LinkFormat LinkFormat;
+    public int TocLevel;
     public List<string> UrlsAsSnippets = new List<string>();
     public List<string> Exclude = new List<string>();
 }

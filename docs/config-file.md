@@ -17,9 +17,10 @@ Add a file named `msdnippets.json` at the target directory with the following co
   "WriteHeader": true,
   "ReadOnly": false,
   "LinkFormat": "Tfs",
+  "TocLevel": 3,
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ]
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L7)</sup>
+<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L8)</sup>
 <!-- endsnippet -->

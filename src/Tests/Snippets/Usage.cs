@@ -14,16 +14,7 @@ class Usage
 
         #endregion
     }
-
-    void RunForFilePath()
-    {
-        #region RunForFilePath
-
-        DirectoryMarkdownProcessor.RunForFilePath();
-
-        #endregion
-    }
-
+    
     void DirectoryMarkdownProcessorRun()
     {
         #region DirectoryMarkdownProcessorRun
@@ -61,7 +52,8 @@ class Usage
             snippets: snippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: new List<string>(),
-            writeHeader: true);
+            writeHeader: true,
+            tocLevel: 2);
 
         var path = @"C:\path\inputMarkdownFile.md";
         using (var reader = File.OpenText(path))

@@ -12,7 +12,8 @@ static class SnippetVerifier
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
-            writeHeader: true);
+            writeHeader: true,
+            tocLevel:2);
         var stringBuilder = new StringBuilder();
         using (var reader = new StringReader(markdownContent))
         using (var writer = new StringWriter(stringBuilder))

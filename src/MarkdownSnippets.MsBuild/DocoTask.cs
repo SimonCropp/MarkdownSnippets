@@ -14,6 +14,7 @@ namespace MarkdownSnippets
         public string ProjectDirectory { get; set; }
         public bool? ReadOnly { get; set; }
         public bool? WriteHeader { get; set; }
+        public int? TocLevel { get; set; }
         public LinkFormat? LinkFormat { get; set; }
         public List<string> Exclude { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
@@ -32,6 +33,7 @@ namespace MarkdownSnippets
                     WriteHeader = WriteHeader,
                     LinkFormat = LinkFormat,
                     Exclude = Exclude,
+                    TocLevel = TocLevel,
                     UrlsAsSnippets = UrlsAsSnippets
                 });
 
@@ -44,7 +46,8 @@ namespace MarkdownSnippets
                 readOnly: configResult.ReadOnly,
                 directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
                 writeHeader: configResult.WriteHeader,
-                linkFormat: configResult.LinkFormat);
+                linkFormat: configResult.LinkFormat,
+                tocLevel: configResult.TocLevel);
 
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();

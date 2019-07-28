@@ -2,6 +2,7 @@
   "WriteHeader": true,
   "ReadOnly": false,
   "LinkFormat": "Tfs",
+  "TocLevel": 3,
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ]
 }

@@ -27,4 +27,7 @@ public class Options
 
     [Option('l', "link-format", Required = false, HelpText = "Controls the format of the link under each snippet.")]
     public LinkFormat? LinkFormat { get; set; }
+
+    [Option("toc-level", Required = false, HelpText = "Controls how many header levels to write in the table of contents.")]
+    public int? TocLevel { get; set; }
 }

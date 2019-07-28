@@ -1,0 +1,6 @@
+﻿{
+  targetDirectory: 'TheTargetDirectory',
+  configInput: {
+    TocLevel: 5
+  }
+}

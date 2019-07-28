@@ -208,9 +208,9 @@ Text2
 
 ### Heading Level
 
-Headings with level 2 (`##`)or greater can be rendered. By default all level 2 and level 3 headings are included.
+Headings with level 2 (`##`) or greater can be rendered. By default all level 2 and level 3 headings are included.
 
-To include more levels change the toc-level using the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
+To include more levels use the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
 
 ```ps
 mdsnippets --toc-level 4

@@ -162,14 +162,6 @@ snippet: LinkFormat.cs
 snippet: BuildLink
 
 
-## More Documentation
-
- * [.net API](/docs/api.md)
- * [Indentation](/docs/indentation.md)
- * [Merging snippets from MsBuild](/docs/msbuild.md)
- * [Config file convention](/docs/config-file.md)
-
-
 ## Release Notes
 
 See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).

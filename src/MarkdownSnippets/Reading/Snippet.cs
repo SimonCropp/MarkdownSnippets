@@ -66,7 +66,7 @@ namespace MarkdownSnippets
         public string Path { get; private set; }
 
         /// <summary>
-        /// The line the snippets started on
+        /// The line the snippets started on.
         /// </summary>
         public int StartLine { get; private set; }
 
@@ -99,6 +99,7 @@ namespace MarkdownSnippets
                 return value;
             }
         }
+
         string value;
 
         void ThrowIfIsInError()

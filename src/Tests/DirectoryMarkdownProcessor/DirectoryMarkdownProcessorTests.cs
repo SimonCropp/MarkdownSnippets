@@ -14,7 +14,11 @@ public class DirectoryMarkdownProcessorTests :
     {
         var root = GitRepoDirectoryFinder.FindForFilePath();
 
-        var processor = new DirectoryMarkdownProcessor(root, false, false);
+        var processor = new DirectoryMarkdownProcessor(
+            targetDirectory: root,
+            scanForMdFiles: false,
+            scanForSnippets: false,
+            tocLevel: 1);
         processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
         var doc = Path.Combine(root, "docs");
         var files = Directory.EnumerateFiles(doc, "*.source.md", SearchOption.AllDirectories).ToArray();

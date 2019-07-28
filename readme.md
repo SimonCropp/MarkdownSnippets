@@ -22,19 +22,12 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
   * [Installation](#installation)
   * [Usage](#usage)
-    * [Behavior](#behavior)
-    * [mdsource directory convention](#mdsource-directory-convention)
   * [Defining Snippets](#defining-snippets)
   * [Using Snippets](#using-snippets)
-    * [Including full files](#including-full-files)
   * [Snippet Exclusions](#snippet-exclusions)
-    * [Exclude directories from snippet discovery](#exclude-directories-from-snippet-discovery)
-    * [Ignored paths](#ignored-paths)
   * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
   * [Table of contents](#table-of-contents)
-    * [Heading Level](#heading-level)
   * [LinkFormat](#linkformat)
-  * [More Documentation](#more-documentation)
   * [Release Notes](#release-notes)
   * [Credits](#credits)
   * [Icon](#icon)
@@ -248,14 +241,6 @@ if (linkFormat == LinkFormat.Tfs)
 ```
 <sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L50-L59)</sup>
 <!-- endsnippet -->
-
-
-## More Documentation
-
- * [.net API](/docs/api.md)
- * [Indentation](/docs/indentation.md)
- * [Merging snippets from MsBuild](/docs/msbuild.md)
- * [Config file convention](/docs/config-file.md)
 
 
 ## Release Notes

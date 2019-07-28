@@ -34,7 +34,8 @@ public class TocBuilderTests :
         var lines = new List<Line>
         {
             new Line("## A", "", 0),
-            new Line("## A", "", 0)
+            new Line("## A", "", 0),
+            new Line("## a", "", 0)
         };
 
         Approvals.Verify(TocBuilder.BuildToc(lines));

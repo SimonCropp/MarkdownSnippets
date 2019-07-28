@@ -16,7 +16,6 @@ static class TocBuilder
             var title = headerLine.Current.Substring(3).Trim();
             var link = BuildLink(processed, title);
             builder.AppendLine($" * [{title}](#{link})");
-            processed.Add(title);
         }
 
         return builder.ToString();
@@ -24,8 +23,9 @@ static class TocBuilder
 
     static string BuildLink(List<string> processed, string title)
     {
-        var processedCount = processed.Count(x => x == title);
         var lowerTitle = title.ToLowerInvariant();
+        var processedCount = processed.Count(x => x == lowerTitle);
+        processed.Add(lowerTitle);
         var noSpaces = lowerTitle.Replace(' ', '-');
         if (processedCount == 0)
         {

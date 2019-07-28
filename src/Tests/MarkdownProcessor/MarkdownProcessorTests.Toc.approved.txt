@@ -13,8 +13,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 <!-- toc -->
 ## Contents
 
- * [Heading 1](#heading-1)
- * [Heading 2](#heading-2)
+  * [Heading 1](#heading-1)
+  * [Heading 2](#heading-2)
 <!-- endtoc -->
 
 

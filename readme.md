@@ -21,16 +21,24 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 <!-- toc -->
 ## Contents
 
- * [Installation](#installation)
- * [Usage](#usage)
- * [Defining Snippets](#defining-snippets)
- * [Using Snippets](#using-snippets)
- * [Snippet Exclusions](#snippet-exclusions)
- * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
- * [More Documentation](#more-documentation)
- * [Release Notes](#release-notes)
- * [Credits](#credits)
- * [Icon](#icon)
+    * [More Info](#more-info)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    * [Behavior](#behavior)
+    * [mdsource directory convention](#mdsource-directory-convention)
+  * [Defining Snippets](#defining-snippets)
+  * [Using Snippets](#using-snippets)
+    * [Including full files](#including-full-files)
+  * [Snippet Exclusions](#snippet-exclusions)
+    * [Exclude directories from snippet discovery](#exclude-directories-from-snippet-discovery)
+    * [Ignored paths](#ignored-paths)
+  * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
+  * [Table of contents](#table-of-contents)
+  * [LinkFormat](#linkformat)
+  * [More Documentation](#more-documentation)
+  * [Release Notes](#release-notes)
+  * [Credits](#credits)
+  * [Icon](#icon)
 <!-- endtoc -->
 
 
@@ -150,7 +158,62 @@ This can be helpful in preventing incorrectly editing the `.md` file instead of 
 mdsnippets -r
 ```
 
-### LinkFormat
+
+## Table of contents
+
+If a line is `toc` it will be replaces with a table of contents
+
+So if a markdown document contains the following
+
+<!-- snippet: tocBefore.txt -->
+```txt
+# Title
+
+toc
+
+## Heading 1
+
+Text1
+
+## Heading 1
+
+Text2
+```
+<sup>[snippet source](/docs/mdsource/toc/tocBefore.txt#L1-L11)</sup>
+<!-- endsnippet -->
+
+The result will be rendered:
+
+<!-- snippet: tocAfter.txt -->
+```txt
+# Title
+
+<!-- toc -->
+## Contents
+
+ * [Heading 1](#heading-1)
+ * [Heading 2](#heading-2)
+
+## Heading 1
+
+Text1
+
+## Heading 2
+
+Text2
+```
+<sup>[snippet source](/docs/mdsource/toc/tocAfter.txt#L1-L15)</sup>
+<!-- endsnippet -->
+
+Headings with level 2 (`##`)or greater can be rendered. By default all level 2 and level 3 headings are included.
+
+To include more levels change the toc-level using the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
+
+```ps
+mdsnippets --toc-level 4
+```
+
+## LinkFormat
 
 Defines the format of `snippet source` links that appear under each snippet.
 

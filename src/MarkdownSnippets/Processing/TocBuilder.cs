@@ -12,7 +12,7 @@ static class TocBuilder
 
 ");
         const int startingLevel = 2;
-        var headerDepth = level + startingLevel;
+        var headerDepth = level + startingLevel - 1;
         var headingCount = 0;
         foreach (var headerLine in headerLines)
         {
@@ -36,7 +36,7 @@ static class TocBuilder
 
             var title = current.Substring(3).Trim();
             var link = BuildLink(processed, title);
-            var indent = new string(' ', headerLevel-1);
+            var indent = new string(' ', (headerLevel-1)*2);
             builder.AppendLine($"{indent}* [{title}](#{link})");
         }
 

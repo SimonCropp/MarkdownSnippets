@@ -129,7 +129,28 @@ This can be helpful in preventing incorrectly editing the `.md` file instead of 
 mdsnippets -r
 ```
 
-### LinkFormat
+
+## Table of contents
+
+If a line is `toc` it will be replaces with a table of contents
+
+So if a markdown document contains the following
+
+snippet: tocBefore.txt
+
+The result will be rendered:
+
+snippet: tocAfter.txt
+
+Headings with level 2 (`##`)or greater can be rendered. By default all level 2 and level 3 headings are included.
+
+To include more levels change the toc-level using the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
+
+```ps
+mdsnippets --toc-level 4
+```
+
+## LinkFormat
 
 Defines the format of `snippet source` links that appear under each snippet.
 

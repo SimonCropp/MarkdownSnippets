@@ -95,7 +95,7 @@ namespace MarkdownSnippets
             var headerLines = new List<Line>();
             foreach (var line in lines)
             {
-                if (line.Current.StartsWith("## "))
+                if (line.Current.StartsWith("#"))
                 {
                     headerLines.Add(line);
                     continue;

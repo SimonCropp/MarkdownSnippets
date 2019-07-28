@@ -124,25 +124,14 @@ namespace MarkdownSnippets
 
             if (tocLine != null )
             {
-                builder.Clear();
-                builder.Append(@"<!-- toc -->
-## Contents
-
-");
-                foreach (var headerLine in headerLines)
-                {
-                    var title = headerLine.Current.Substring(3).Trim();
-                    var link = title.ToLowerInvariant().Replace(' ', '-');
-                    builder.AppendLine($" * [{title}](#{link})");
-                }
-
-                tocLine.Current = builder.ToString();
+                tocLine.Current = TocBuilder.BuildToc(headerLines);;
             }
 
             return new ProcessResult(
                 missingSnippets: missing,
                 usedSnippets: usedSnippets.Distinct().ToList());
         }
+
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {

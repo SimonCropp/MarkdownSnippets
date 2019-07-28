@@ -18,6 +18,7 @@ static class TocBuilder
             builder.AppendLine($" * [{title}](#{link})");
         }
 
+        builder.AppendLine($"<!-- endtoc -->");
         return builder.ToString();
     }
 

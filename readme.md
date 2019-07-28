@@ -31,6 +31,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [Release Notes](#release-notes)
  * [Credits](#credits)
  * [Icon](#icon)
+<!-- endtoc -->
 
 
 ## Installation

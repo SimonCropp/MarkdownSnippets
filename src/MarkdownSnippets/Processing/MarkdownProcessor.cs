@@ -185,11 +185,11 @@ namespace MarkdownSnippets
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file =>
                 {
-                    var allText = ReadNonStartEndLines(file);
+                    var (text, lineCount) = ReadNonStartEndLines(file);
                     return Snippet.Build(
                         startLine: 1,
-                        endLine: allText.LineCount(),
-                        value: allText,
+                        endLine: lineCount,
+                        value: text,
                         key: key,
                         language: Path.GetExtension(file).Substring(1),
                         path: file);
@@ -197,11 +197,11 @@ namespace MarkdownSnippets
                 .ToList();
         }
 
-        static string ReadNonStartEndLines(string file)
+        static (string text, int lineCount) ReadNonStartEndLines(string file)
         {
             var cleanedLines = File.ReadAllLines(file)
-                .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart()));
-            return string.Join(Environment.NewLine, cleanedLines);
+                .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart())).ToList();
+            return (string.Join(Environment.NewLine, cleanedLines),cleanedLines.Count);
         }
     }
 }

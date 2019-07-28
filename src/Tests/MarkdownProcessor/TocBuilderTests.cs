@@ -28,6 +28,18 @@ public class TocBuilderTests :
         Approvals.Verify(TocBuilder.BuildToc(lines));
     }
 
+    [Fact]
+    public void Duplicates()
+    {
+        var lines = new List<Line>
+        {
+            new Line("## A", "", 0),
+            new Line("## A", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines));
+    }
+
     public TocBuilderTests(ITestOutputHelper output) :
         base(output)
     {

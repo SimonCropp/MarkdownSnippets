@@ -141,6 +141,9 @@ The result will be rendered:
 
 snippet: tocAfter.txt
 
+
+### Heading Level
+
 Headings with level 2 (`##`)or greater can be rendered. By default all level 2 and level 3 headings are included.
 
 To include more levels change the toc-level using the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
@@ -148,6 +151,7 @@ To include more levels change the toc-level using the `--toc-level` argument. So
 ```ps
 mdsnippets --toc-level 4
 ```
+
 
 ## LinkFormat
 

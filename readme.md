@@ -33,6 +33,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
     * [Ignored paths](#ignored-paths)
   * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
   * [Table of contents](#table-of-contents)
+    * [Heading Level](#heading-level)
   * [LinkFormat](#linkformat)
   * [More Documentation](#more-documentation)
   * [Release Notes](#release-notes)
@@ -204,6 +205,9 @@ Text2
 <sup>[snippet source](/docs/mdsource/toc/tocAfter.txt#L1-L15)</sup>
 <!-- endsnippet -->
 
+
+### Heading Level
+
 Headings with level 2 (`##`)or greater can be rendered. By default all level 2 and level 3 headings are included.
 
 To include more levels change the toc-level using the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
@@ -211,6 +215,7 @@ To include more levels change the toc-level using the `--toc-level` argument. So
 ```ps
 mdsnippets --toc-level 4
 ```
+
 
 ## LinkFormat
 

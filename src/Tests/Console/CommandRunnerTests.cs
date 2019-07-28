@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
@@ -68,14 +69,14 @@ public class CommandRunnerTests :
     [Fact]
     public void TargetDirectoryShort()
     {
-        CommandRunner.RunCommand(Capture, "-t", "dir");
+        CommandRunner.RunCommand(Capture, "-t", "../");
         Verify();
     }
 
     [Fact]
     public void TargetDirectoryLong()
     {
-        CommandRunner.RunCommand(Capture, "--target-directory", "dir");
+        CommandRunner.RunCommand(Capture, "--target-directory", "../");
         Verify();
     }
 
@@ -166,7 +167,11 @@ public class CommandRunnerTests :
                 targetDirectory,
                 configInput
             },
-            scrubber: s => s.Replace(Environment.CurrentDirectory, "TheTargetDirectory"));
+            scrubber: s =>
+            {
+                return s.Replace(Environment.CurrentDirectory, "TheTargetDirectory")
+                    .Replace(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,"../")), "TheTargetDirectory");
+            });
     }
 
     public CommandRunnerTests(ITestOutputHelper output) :

@@ -23,7 +23,7 @@ static class CommandRunner
             .WithParsed(
                 options =>
                 {
-                    ApplyDefaults(options);
+                    ValidateAndApplyDefaults(options);
                     var configInput = new ConfigInput
                     {
                         ReadOnly = options.ReadOnly,
@@ -33,12 +33,11 @@ static class CommandRunner
                         Exclude = options.Exclude.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList()
                     };
-                    invoke(options.TargetDirectory,
-                        configInput);
+                    invoke(options.TargetDirectory, configInput);
                 });
     }
 
-    static void ApplyDefaults(Options options)
+    static void ValidateAndApplyDefaults(Options options)
     {
         if (options.TargetDirectory == null)
         {
@@ -50,6 +49,10 @@ static class CommandRunner
         }
         else
         {
+            if (!Directory.Exists(options.TargetDirectory))
+            {
+                throw new CommandLineException("target-directory does not exist.");
+            }
             options.TargetDirectory = Path.GetFullPath(options.TargetDirectory);
         }
 
@@ -57,8 +60,8 @@ static class CommandRunner
         {
             throw new CommandLineException("toc-level must be positive.");
         }
-        ValidateItems("Exclude", options.Exclude);
-        ValidateItems("UrlsAsSnippets", options.UrlsAsSnippets);
+        ValidateItems("exclude", options.Exclude);
+        ValidateItems("urls-as-snippets", options.UrlsAsSnippets);
     }
 
     static void ValidateItems(string name, IList<string> items)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using MarkdownSnippets;
 
 class Program
@@ -20,13 +19,6 @@ class Program
 
     static void Inner(string targetDirectory, ConfigInput configInput)
     {
-        Console.WriteLine($"TargetDirectory: {targetDirectory}");
-        if (!Directory.Exists(targetDirectory))
-        {
-            Console.WriteLine($"Target directory does not exist: {targetDirectory}");
-            Environment.Exit(1);
-        }
-
         var (fileConfig, configFilePath) = ConfigReader.Read(targetDirectory);
         var configResult = ConfigDefaults.Convert(fileConfig, configInput);
 

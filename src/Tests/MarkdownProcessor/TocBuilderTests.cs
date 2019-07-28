@@ -14,7 +14,7 @@ public class TocBuilderTests :
             new Line("##", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
     }
 
     [Fact]
@@ -26,7 +26,19 @@ public class TocBuilderTests :
             new Line("## Heading2", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+    }
+
+    [Fact]
+    public void Exclude()
+    {
+        var lines = new List<Line>
+        {
+            new Line("## Heading1", "", 0),
+            new Line("### Heading2", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}));
     }
 
     [Fact]
@@ -40,8 +52,9 @@ public class TocBuilderTests :
             new Line("### Heading4", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,2));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>()));
     }
+
     [Fact]
     public void StopAtLevel()
     {
@@ -52,7 +65,7 @@ public class TocBuilderTests :
             new Line("#### Heading3", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,2));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>()));
     }
 
     [Fact]
@@ -63,7 +76,7 @@ public class TocBuilderTests :
             new Line("## Heading", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
     }
 
     [Fact]
@@ -74,7 +87,7 @@ public class TocBuilderTests :
             new Line("##  A B ", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
     }
 
     [Fact]
@@ -87,7 +100,7 @@ public class TocBuilderTests :
             new Line("## a", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
     }
 
     public TocBuilderTests(ITestOutputHelper output) :

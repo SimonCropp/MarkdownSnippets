@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,13 @@ public class DirectoryMarkdownProcessorTests :
             targetDirectory: root,
             scanForMdFiles: false,
             scanForSnippets: false,
-            tocLevel: 1);
+            tocLevel: 1,
+            tocExcludes: new List<string>
+            {
+                "Icon",
+                "Credits",
+                "Release Notes"
+            });
         processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
         var doc = Path.Combine(root, "docs");
         var files = Directory.EnumerateFiles(doc, "*.source.md", SearchOption.AllDirectories).ToArray();

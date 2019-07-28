@@ -12,6 +12,7 @@ namespace MarkdownSnippets
         DirectoryFilter directoryFilter;
         bool readOnly;
         int tocLevel;
+        IEnumerable<string> tocExcludes;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -29,12 +30,15 @@ namespace MarkdownSnippets
             DirectoryFilter directoryFilter = null,
             bool readOnly = true,
             LinkFormat linkFormat = LinkFormat.GitHub,
-            int tocLevel = 2)
+            int tocLevel = 2,
+            IEnumerable<string> tocExcludes = null)
         {
             this.writeHeader = writeHeader;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
+            this.tocExcludes = tocExcludes;
+
             if (appendSnippetGroup == null)
             {
                 this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
@@ -123,7 +127,13 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            var processor = new MarkdownProcessor(snippets.ToDictionary(), appendSnippetGroup, snippetSourceFiles, writeHeader, tocLevel);
+            var processor = new MarkdownProcessor(
+                snippets.ToDictionary(),
+                appendSnippetGroup,
+                snippetSourceFiles,
+                writeHeader,
+                tocLevel,
+                tocExcludes);
             foreach (var sourceFile in sourceMdFiles)
             {
                 ProcessFile(sourceFile, processor);

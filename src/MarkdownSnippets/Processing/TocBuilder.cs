@@ -4,7 +4,7 @@ using System.Text;
 
 static class TocBuilder
 {
-    public static string BuildToc(List<Line> headerLines, int level)
+    public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes)
     {
         var processed = new List<string>();
         var builder = new StringBuilder(@"<!-- toc -->
@@ -22,21 +22,28 @@ static class TocBuilder
             {
                 continue;
             }
+
             var headerLevel = current.Length - trimmedHash.Length;
             if (headerLevel == 1)
             {
                 continue;
             }
+
             if (headerLevel > headerDepth)
+            {
+                continue;
+            }
+
+            var title = current.Substring(3).Trim();
+            if (tocExcludes.Contains(title))
             {
                 continue;
             }
 
             headingCount++;
 
-            var title = current.Substring(3).Trim();
             var link = BuildLink(processed, title);
-            var indent = new string(' ', (headerLevel-1)*2);
+            var indent = new string(' ', (headerLevel - 1) * 2);
             builder.AppendLine($"{indent}* [{title}](#{link})");
         }
 
@@ -44,6 +51,7 @@ static class TocBuilder
         {
             return string.Empty;
         }
+
         builder.AppendLine("<!-- endtoc -->");
         return builder.ToString();
     }

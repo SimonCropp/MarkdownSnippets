@@ -15,6 +15,7 @@ namespace MarkdownSnippets
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
         int tocLevel;
+        List<string> tocExcludes;
         List<string> snippetSourceFiles;
 
         public MarkdownProcessor(
@@ -22,7 +23,8 @@ namespace MarkdownSnippets
             AppendSnippetGroupToMarkdown appendSnippetGroup,
             IReadOnlyList<string> snippetSourceFiles,
             bool writeHeader,
-            int tocLevel)
+            int tocLevel,
+            IEnumerable<string> tocExcludes = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
@@ -32,6 +34,15 @@ namespace MarkdownSnippets
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
             this.tocLevel = tocLevel;
+            if (tocExcludes == null)
+            {
+                this.tocExcludes = new List<string>();
+            }
+            else
+            {
+                this.tocExcludes = tocExcludes.ToList();
+            }
+
             InitSourceFiles(snippetSourceFiles);
         }
 
@@ -132,7 +143,7 @@ namespace MarkdownSnippets
 
             if (tocLine != null)
             {
-                tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel);
+                tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes);
             }
 
             return new ProcessResult(

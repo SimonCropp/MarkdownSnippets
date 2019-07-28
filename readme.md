@@ -28,9 +28,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
   * [Table of contents](#table-of-contents)
   * [LinkFormat](#linkformat)
-  * [Release Notes](#release-notes)
-  * [Credits](#credits)
-  * [Icon](#icon)
 <!-- endtoc -->
 
 

@@ -193,6 +193,7 @@ The result will be rendered:
 
  * [Heading 1](#heading-1)
  * [Heading 2](#heading-2)
+<!-- endtoc -->
 
 ## Heading 1
 
@@ -202,7 +203,7 @@ Text1
 
 Text2
 ```
-<sup>[snippet source](/docs/mdsource/toc/tocAfter.txt#L1-L15)</sup>
+<sup>[snippet source](/docs/mdsource/toc/tocAfter.txt#L1-L16)</sup>
 <!-- endsnippet -->
 
 

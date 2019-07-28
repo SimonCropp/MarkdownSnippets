@@ -11,13 +11,36 @@ static class TocBuilder
 ## Contents
 
 ");
+        const int startingLevel = 2;
+        var headerDepth = level + startingLevel;
+        var headingCount = 0;
         foreach (var headerLine in headerLines)
         {
-            var title = headerLine.Current.Substring(3).Trim();
+            var current = headerLine.Current;
+            var trimmedHash = current.TrimStart('#');
+            if (!trimmedHash.StartsWith(" "))
+            {
+                continue;
+            }
+
+            var headerLevel = current.Length - trimmedHash.Length;
+            if (headerLevel > headerDepth)
+            {
+                continue;
+            }
+
+            headingCount++;
+
+            var title = current.Substring(3).Trim();
             var link = BuildLink(processed, title);
-            builder.AppendLine($" * [{title}](#{link})");
+            var indent = new string(' ', headerLevel-1);
+            builder.AppendLine($"{indent}* [{title}](#{link})");
         }
 
+        if (headingCount == 0)
+        {
+            return string.Empty;
+        }
         builder.AppendLine("<!-- endtoc -->");
         return builder.ToString();
     }

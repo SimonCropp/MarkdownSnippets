@@ -7,6 +7,17 @@ public class TocBuilderTests :
     TestBase
 {
     [Fact]
+    public void EmptyHeading()
+    {
+        var lines = new List<Line>
+        {
+            new Line("##", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+    }
+
+    [Fact]
     public void Single()
     {
         var lines = new List<Line>

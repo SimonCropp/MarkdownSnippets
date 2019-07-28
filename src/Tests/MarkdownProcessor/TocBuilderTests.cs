@@ -18,6 +18,18 @@ public class TocBuilderTests :
     }
 
     [Fact]
+    public void IgnoreTop()
+    {
+        var lines = new List<Line>
+        {
+            new Line("# Heading1", "", 0),
+            new Line("## Heading2", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines,1));
+    }
+
+    [Fact]
     public void Single()
     {
         var lines = new List<Line>

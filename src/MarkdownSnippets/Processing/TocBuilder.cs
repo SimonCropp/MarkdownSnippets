@@ -22,8 +22,11 @@ static class TocBuilder
             {
                 continue;
             }
-
             var headerLevel = current.Length - trimmedHash.Length;
+            if (headerLevel == 1)
+            {
+                continue;
+            }
             if (headerLevel > headerDepth)
             {
                 continue;

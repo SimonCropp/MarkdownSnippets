@@ -97,7 +97,11 @@ namespace MarkdownSnippets
             {
                 if (line.Current.StartsWith("#"))
                 {
-                    headerLines.Add(line);
+                    if (tocLine != null)
+                    {
+                        headerLines.Add(line);
+                    }
+
                     continue;
                 }
                 if (line.Current == "toc")

@@ -8,9 +8,27 @@ public class MarkdownProcessorTests :
     TestBase
 {
     [Fact]
+    public void SkipHeadingBeforeToc()
+    {
+        var content = @"
+## Heading 1
+
+toc
+
+Text1
+
+## Heading 2
+
+Text2
+
+";
+        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>());
+    }
+
+    [Fact]
     public void Toc()
     {
-        var markdownContent = @"
+        var content = @"
 # Title
 
 toc
@@ -24,7 +42,7 @@ Text1
 Text2
 
 ";
-        SnippetVerifier.Verify(markdownContent,new List<Snippet>(),new List<string>());
+        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
@@ -41,7 +59,7 @@ Text2
                 key: "snippet2"
             )
         };
-        var markdownContent = @"
+        var content = @"
 snippet: snippet1
 
 some text
@@ -58,7 +76,7 @@ snippet: /FileToUseAsSnippet.txt
 
 ";
         SnippetVerifier.Verify(
-            markdownContent,
+            content,
             availableSnippets,
             new List<string>
             {

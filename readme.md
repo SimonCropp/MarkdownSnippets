@@ -20,7 +20,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 <!-- toc -->
 ## Contents
 
-    * [More Info](#more-info)
   * [Installation](#installation)
   * [Usage](#usage)
     * [Behavior](#behavior)

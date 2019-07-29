@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 static class TocBuilder
 {
@@ -34,7 +35,7 @@ static class TocBuilder
                 continue;
             }
 
-            var title = current.Substring(3).Trim();
+            var title = GetTitle(current);
             if (tocExcludes.Contains(title))
             {
                 continue;
@@ -54,6 +55,12 @@ static class TocBuilder
 
         builder.AppendLine("<!-- endtoc -->");
         return builder.ToString();
+    }
+
+    static string GetTitle(string current)
+    {
+        var title = current.Substring(3).Trim();
+        return Regex.Replace(title, "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)", "$1");
     }
 
     static string BuildLink(List<string> processed, string title)

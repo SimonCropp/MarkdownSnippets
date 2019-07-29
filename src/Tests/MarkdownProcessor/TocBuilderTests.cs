@@ -30,6 +30,17 @@ public class TocBuilderTests :
     }
 
     [Fact]
+    public void StripMarkdown()
+    {
+        var lines = new List<Line>
+        {
+            new Line("## **bold** *italic* [Link](link)", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+    }
+
+    [Fact]
     public void Exclude()
     {
         var lines = new List<Line>

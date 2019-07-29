@@ -59,8 +59,8 @@ static class TocBuilder
 
     static string GetTitle(string current)
     {
-        var title = current.Substring(3).Trim();
-        return Regex.Replace(title, "(?:__|[*#])|\\[(.*?)\\]\\(.*?\\)", "$1");
+        var title = current.Substring(3).Trim().Replace("*","");
+        return Regex.Replace(title, @"\[(.*?)\][\[\(].*?[\]\)]", "$1");
     }
 
     static string BuildLink(List<string> processed, string title)

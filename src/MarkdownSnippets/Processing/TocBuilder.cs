@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 static class TocBuilder
 {
@@ -59,8 +58,8 @@ static class TocBuilder
 
     static string GetTitle(string current)
     {
-        var title = current.Substring(3).Trim().Replace("*","");
-        return Regex.Replace(title, @"\[(.*?)\][\[\(].*?[\]\)]", "$1");
+        var trim = current.Substring(3).Trim();
+        return Markdown.StripMarkdown(trim);
     }
 
     static string BuildLink(List<string> processed, string title)

@@ -10,5 +10,9 @@
   Exclude: [
     'Dir1',
     'Dir2'
+  ],
+  TocExcludes: [
+    'Exclude Heading1',
+    'Exclude Heading2'
   ]
 }

@@ -14,6 +14,7 @@ public static class ConfigDefaults
                 WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
                 Exclude = otherConfig.Exclude,
+                TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2)
             };
@@ -26,6 +27,7 @@ public static class ConfigDefaults
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),
             Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
+            TocExcludes = JoinLists(fileConfig.TocExcludes, otherConfig.TocExcludes),
             UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets)
         };
     }

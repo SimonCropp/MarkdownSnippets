@@ -9,4 +9,5 @@ public class ConfigResult
     public int TocLevel;
     public List<string> UrlsAsSnippets = new List<string>();
     public List<string> Exclude = new List<string>();
+    public List<string> TocExcludes = new List<string>();
 }

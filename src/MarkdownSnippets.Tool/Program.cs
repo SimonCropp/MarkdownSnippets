@@ -32,6 +32,7 @@ class Program
             readOnly: configResult.ReadOnly,
             writeHeader: configResult.WriteHeader,
             linkFormat: configResult.LinkFormat,
+            tocExcludes: configResult.TocExcludes,
             tocLevel: configResult.TocLevel);
 
         var snippets = new List<Snippet>();

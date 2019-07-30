@@ -17,6 +17,7 @@ namespace MarkdownSnippets
         public int? TocLevel { get; set; }
         public LinkFormat? LinkFormat { get; set; }
         public List<string> Exclude { get; set; } = new List<string>();
+        public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
 
         public override bool Execute()
@@ -33,6 +34,7 @@ namespace MarkdownSnippets
                     WriteHeader = WriteHeader,
                     LinkFormat = LinkFormat,
                     Exclude = Exclude,
+                    TocExcludes = TocExcludes,
                     TocLevel = TocLevel,
                     UrlsAsSnippets = UrlsAsSnippets
                 });
@@ -47,7 +49,8 @@ namespace MarkdownSnippets
                 directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
                 writeHeader: configResult.WriteHeader,
                 linkFormat: configResult.LinkFormat,
-                tocLevel: configResult.TocLevel);
+                tocLevel: configResult.TocLevel,
+                tocExcludes: configResult.TocExcludes);
 
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();

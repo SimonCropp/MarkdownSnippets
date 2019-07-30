@@ -20,6 +20,11 @@ static class LogBuilder
             builder.AppendLine($@"    Exclude:
         {string.Join("\r\n        ", config.Exclude)}");
         }
+        if (config.TocExcludes.Any())
+        {
+            builder.AppendLine($@"    TocExcludes:
+        {string.Join("\r\n        ", config.TocExcludes)}");
+        }
 
         if (config.UrlsAsSnippets.Any())
         {

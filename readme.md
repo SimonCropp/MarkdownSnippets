@@ -207,6 +207,15 @@ mdsnippets --toc-level 5
 ```
 
 
+### Ignore Headings
+
+To exclude headings use the `--toc-excludes` argument. So for example to exclude `heading1` and `heading2` use:
+
+```ps
+mdsnippets --toc-excludes heading1:heading2
+```
+
+
 ## LinkFormat
 
 Defines the format of `snippet source` links that appear under each snippet.

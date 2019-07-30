@@ -31,6 +31,7 @@ static class CommandRunner
                         LinkFormat = options.LinkFormat,
                         TocLevel = options.TocLevel,
                         Exclude = options.Exclude.ToList(),
+                        TocExcludes = options.TocExcludes.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList()
                     };
                     invoke(options.TargetDirectory, configInput);
@@ -61,6 +62,7 @@ static class CommandRunner
             throw new CommandLineException("toc-level must be positive.");
         }
         ValidateItems("exclude", options.Exclude);
+        ValidateItems("toc-excludes", options.TocExcludes);
         ValidateItems("urls-as-snippets", options.UrlsAsSnippets);
     }
 

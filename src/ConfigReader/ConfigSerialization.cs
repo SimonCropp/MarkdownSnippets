@@ -8,4 +8,5 @@ public class ConfigSerialization
     public int? TocLevel { get; set; }
     public List<string> UrlsAsSnippets { get; set; } = new List<string>();
     public List<string> Exclude { get; set; } = new List<string>();
+    public List<string> TocExcludes { get; set; } = new List<string>();
 }

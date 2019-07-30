@@ -15,6 +15,12 @@ public class Options
         HelpText = "Directories to be excluded. Optional. Colon ':' separated for multiple values.")]
     public IList<string> Exclude { get; set; }
 
+    [Option("toc-excludes",
+        Separator = ':',
+        Required = false,
+        HelpText = "Headings to be excluded from table of contents. Optional. Colon ':' separated for multiple values.")]
+    public IList<string> TocExcludes { get; set; }
+
     [Option('u', "urls-as-snippets",
         Separator = ':',
         Required = false,

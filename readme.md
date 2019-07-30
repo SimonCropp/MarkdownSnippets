@@ -28,6 +28,9 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
   * [Table of contents](#table-of-contents)
   * [LinkFormat](#linkformat)
+  * [Release Notes](#release-notes)
+  * [Credits](#credits)
+  * [Icon](#icon)
 <!-- endtoc -->
 
 
@@ -64,7 +67,7 @@ If no directory is passed the current directory will be used, but only if it exi
 
 There is a secondary convention that leverages the use of a directory named `mdsource`. Where `.source.md` files are placed in a `mdsource` sub-directory, the `mdsource` part of the file path will be removed when calculating the target path. This allows the `.source.md` to be grouped in a sub directory and avoid cluttering up the main documentation directory.
 
-When using `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
+When using the `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
 ## Defining Snippets
@@ -77,7 +80,7 @@ My Snippet Code
 // end-snippet
 ```
 
-Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) will also be picked up, with the name of the region is used as the key.
+Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) will also be picked up, with the name of the region used as the key.
 
 To stop regions collapsing in Visual Studio [disable 'enter outlining mode when files open'](/docs/stop-regions-collapsing.png). See [Visual Studio outlining](https://docs.microsoft.com/en-us/visualstudio/ide/outlining).
 
@@ -95,7 +98,7 @@ Some blurb about the below snippet
 snippet&#58; MySnippetName
 </pre>
 
-The resulting markdown will be will be:
+The resulting markdown will be:
 
     Some blurb about the below snippet
     ```
@@ -105,7 +108,7 @@ The resulting markdown will be will be:
 
 ### Including full files
 
-When snippets are read all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files have that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
+When snippets are read all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
 
 <pre>
 snippet&#58; directory/FileToInclude.txt
@@ -144,15 +147,15 @@ To mark the resulting `.md` files as read only use `-r` or `--readonly`.
 This can be helpful in preventing incorrectly editing the `.md` file instead of the `.source.md` file.
 
 ```ps
-mdsnippets -r
+mdsnippets -r true
 ```
 
 
 ## Table of contents
 
-If a line is `toc` it will be replaces with a table of contents
+If a line is `toc` it will be replaced with a table of contents
 
-So if a markdown document contains the following
+So if a markdown document contains the following:
 
 <!-- snippet: tocBefore.txt -->
 ```txt

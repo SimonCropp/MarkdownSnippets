@@ -42,3 +42,6 @@ NugetBuild
 *.received.txt
 
 .vs/
+src/Tests/DirectoryMarkdownProcessor/Convention/one.md
+src/Tests/DirectoryMarkdownProcessor/Convention/two.md
+src/Tests/DirectoryMarkdownProcessor/ReadOnly/one.md

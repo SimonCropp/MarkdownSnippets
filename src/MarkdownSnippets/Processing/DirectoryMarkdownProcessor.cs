@@ -28,7 +28,7 @@ namespace MarkdownSnippets
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
             bool writeHeader = true,
             DirectoryFilter directoryFilter = null,
-            bool readOnly = true,
+            bool readOnly = false,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string> tocExcludes = null)

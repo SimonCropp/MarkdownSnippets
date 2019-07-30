@@ -41,14 +41,29 @@ public class DirectoryMarkdownProcessorTests :
     public void ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");
-        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
-        processor.IncludeSnippets(
-            SnippetBuild("snippet1"),
-            SnippetBuild("snippet2")
-        );
-        processor.Run();
+        try
+        {
+            var processor = new DirectoryMarkdownProcessor(
+                root,
+                scanForSnippets: false,
+                writeHeader: false,
+                readOnly: true);
+            processor.IncludeSnippets(
+                SnippetBuild("snippet1"),
+                SnippetBuild("snippet2")
+            );
+            processor.Run();
 
-        Assert.True(new FileInfo(Path.Combine(root, "one.md")).IsReadOnly);
+            var fileInfo = new FileInfo(Path.Combine(root, "one.md"));
+            Assert.True(fileInfo.IsReadOnly);
+        }
+        finally
+        {
+            foreach (var file in Directory.EnumerateFiles(root))
+            {
+                FileEx.ClearReadOnly(file);
+            }
+        }
     }
 
     [Fact]

@@ -17,8 +17,6 @@ public class DirectoryMarkdownProcessorTests :
 
         var processor = new DirectoryMarkdownProcessor(
             targetDirectory: root,
-            scanForMdFiles: false,
-            scanForSnippets: false,
             tocLevel: 1,
             tocExcludes: new List<string>
             {
@@ -26,14 +24,6 @@ public class DirectoryMarkdownProcessorTests :
                 "Credits",
                 "Release Notes"
             });
-        processor.IncludeMdFiles(Path.Combine(root, "readme.source.md"));
-        var doc = Path.Combine(root, "docs");
-        var files = Directory.EnumerateFiles(doc, "*.source.md", SearchOption.AllDirectories).ToArray();
-        processor.IncludeMdFiles(files);
-        processor.IncludeSnippetsFrom("docs/mdsource/toc");
-        processor.IncludeSnippetsFrom("src/MarkdownSnippets");
-        processor.IncludeSnippetsFrom("src/Tests/Snippets");
-        processor.IncludeSnippetsFrom("src/ConfigReader.Tests");
         processor.Run();
     }
 

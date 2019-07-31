@@ -16,7 +16,7 @@ public class SnippetExtractorTests :
     {
         var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -28,7 +28,7 @@ public class SnippetExtractorTests :
             File.WriteAllText(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
-            ObjectApprover.VerifyWithJson(
+            ObjectApprover.Verify(
                 snippets,
                 scrubber: x =>
                 {
@@ -56,7 +56,7 @@ public class SnippetExtractorTests :
 
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -85,7 +85,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -132,7 +132,7 @@ public class SnippetExtractorTests :
 
 ";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -162,7 +162,7 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -173,7 +173,7 @@ public class SnippetExtractorTests :
   <configSections/>
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     public List<Snippet> FromText(string contents)
@@ -191,7 +191,7 @@ public class SnippetExtractorTests :
   <!-- begin-snippet: CodeKey -->
   <configSections/>";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -201,7 +201,7 @@ public class SnippetExtractorTests :
   #region CodeKey
   <configSections/>";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -212,7 +212,7 @@ public class SnippetExtractorTests :
   The Code
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -223,7 +223,7 @@ public class SnippetExtractorTests :
   the code
   // end-snippet ";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -234,7 +234,7 @@ public class SnippetExtractorTests :
   <configSections/>
   <!--end-snippet-->";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     [Fact]
@@ -245,7 +245,7 @@ public class SnippetExtractorTests :
   the code
   // end-snippet   ";
         var snippets = FromText(input);
-        ObjectApprover.VerifyWithJson(snippets);
+        ObjectApprover.Verify(snippets);
     }
 
     public SnippetExtractorTests(ITestOutputHelper output) :

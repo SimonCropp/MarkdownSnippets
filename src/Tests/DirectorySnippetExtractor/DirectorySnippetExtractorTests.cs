@@ -16,7 +16,7 @@ public class DirectorySnippetExtractorTests : TestBase
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
         AssertCaseInsensitive(snippets.Lookup);
-        ObjectApprover.VerifyWithJson(snippets, Scrubber.Scrub);
+        ObjectApprover.Verify(snippets, Scrubber.Scrub);
     }
 
     static void AssertCaseInsensitive(IReadOnlyDictionary<string, IReadOnlyList<Snippet>> dictionary)
@@ -31,7 +31,7 @@ public class DirectorySnippetExtractorTests : TestBase
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
         var extractor = new DirectorySnippetExtractor();
         var components = extractor.ReadSnippets(directory);
-        ObjectApprover.VerifyWithJson(components, Scrubber.Scrub);
+        ObjectApprover.Verify(components, Scrubber.Scrub);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class DirectorySnippetExtractorTests : TestBase
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
         var extractor = new DirectorySnippetExtractor();
         var components = extractor.ReadSnippets(directory);
-        ObjectApprover.VerifyWithJson(components, Scrubber.Scrub);
+        ObjectApprover.Verify(components, Scrubber.Scrub);
     }
 
     [Fact]
@@ -63,7 +63,7 @@ public class DirectorySnippetExtractorTests : TestBase
         );
         extractor.ReadSnippets(targetDirectory);
         result.Directories = directories.OrderBy(file => file.Path).ToList();
-        ObjectApprover.VerifyWithJson(result, Scrubber.Scrub);
+        ObjectApprover.Verify(result, Scrubber.Scrub);
     }
 
     public class TestResult

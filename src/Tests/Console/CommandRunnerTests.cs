@@ -161,7 +161,7 @@ public class CommandRunnerTests :
 
     void Verify()
     {
-        ObjectApprover.VerifyWithJson(
+        ObjectApprover.Verify(
             new
             {
                 targetDirectory,

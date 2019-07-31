@@ -11,7 +11,7 @@ public class ConfigReaderTests :
     {
         var config = ConfigReader.Parse("{}");
 
-        ObjectApprover.VerifyWithJson(config);
+        ObjectApprover.Verify(config);
     }
 
     [Fact]
@@ -19,7 +19,7 @@ public class ConfigReaderTests :
     {
         var stream = File.ReadAllText("sampleConfig.json");
         var config = ConfigReader.Parse(stream);
-        ObjectApprover.VerifyWithJson(config);
+        ObjectApprover.Verify(config);
     }
 
     public ConfigReaderTests(ITestOutputHelper output) :

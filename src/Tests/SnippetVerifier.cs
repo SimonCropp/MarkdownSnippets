@@ -25,7 +25,7 @@ static class SnippetVerifier
                 processResult.UsedSnippets,
                 content = stringBuilder.ToString()
             };
-            ObjectApprover.VerifyWithJson(output, Scrub);
+            ObjectApprover.Verify(output, Scrub);
         }
     }
 

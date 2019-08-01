@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 static class TocBuilder
 {
@@ -67,12 +68,18 @@ static class TocBuilder
         var lowerTitle = title.ToLowerInvariant();
         var processedCount = processed.Count(x => x == lowerTitle);
         processed.Add(lowerTitle);
-        var noSpaces = lowerTitle.Replace(' ', '-');
+        var noSpaces = SanitizeLink(lowerTitle);
         if (processedCount == 0)
         {
             return noSpaces;
         }
 
         return $"{noSpaces}-{processedCount}";
+    }
+
+    internal static string SanitizeLink(string lowerTitle)
+    {
+        lowerTitle = new string(lowerTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-' || c == '_').ToArray());
+        return lowerTitle.Replace(' ', '-');
     }
 }

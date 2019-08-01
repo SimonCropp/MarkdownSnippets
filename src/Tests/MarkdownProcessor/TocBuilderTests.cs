@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;
@@ -27,6 +29,12 @@ public class TocBuilderTests :
         };
 
         Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+    }
+
+    [Fact]
+    public void SanitizeLink()
+    {
+        Approvals.Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
     }
 
     [Fact]

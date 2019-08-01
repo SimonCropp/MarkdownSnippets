@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;

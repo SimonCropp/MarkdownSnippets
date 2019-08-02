@@ -12,13 +12,13 @@ static class SnippetVerifier
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
-            writeHeader: true,
-            tocLevel:2);
+            tocLevel: 2,
+            writeHeader: true);
         var stringBuilder = new StringBuilder();
         using (var reader = new StringReader(markdownContent))
         using (var writer = new StringWriter(stringBuilder))
         {
-            var processResult = markdownProcessor.Apply(reader, writer, null);
+            var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
             var output = new
             {
                 processResult.MissingSnippets,

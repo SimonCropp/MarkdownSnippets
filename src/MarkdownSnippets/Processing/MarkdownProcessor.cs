@@ -14,6 +14,7 @@ namespace MarkdownSnippets
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
+        string header;
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
@@ -22,17 +23,20 @@ namespace MarkdownSnippets
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
             IReadOnlyList<string> snippetSourceFiles,
-            bool writeHeader,
             int tocLevel,
+            bool writeHeader,
+            string header = null,
             IEnumerable<string> tocExcludes = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
+            this.header = header;
             this.tocLevel = tocLevel;
             if (tocExcludes == null)
             {
@@ -116,11 +120,13 @@ namespace MarkdownSnippets
 
                     continue;
                 }
+
                 if (line.Current == "toc")
                 {
                     tocLine = line;
                     continue;
                 }
+
                 if (SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
                 {
                     builder.Clear();
@@ -136,9 +142,10 @@ namespace MarkdownSnippets
                     line.Current = builder.ToString();
                 }
             }
+
             if (writeHeader)
             {
-                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath), "", 0));
+                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath, header), "", 0));
             }
 
             if (tocLine != null)
@@ -212,7 +219,7 @@ namespace MarkdownSnippets
         {
             var cleanedLines = File.ReadAllLines(file)
                 .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart())).ToList();
-            return (string.Join(Environment.NewLine, cleanedLines),cleanedLines.Count);
+            return (string.Join(Environment.NewLine, cleanedLines), cleanedLines.Count);
         }
     }
 }

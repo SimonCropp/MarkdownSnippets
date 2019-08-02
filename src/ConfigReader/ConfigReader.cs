@@ -30,6 +30,7 @@ public static class ConfigReader
                 ReadOnly = configSerialization.ReadOnly,
                 UrlsAsSnippets = configSerialization.UrlsAsSnippets,
                 Exclude = configSerialization.Exclude,
+                Header = configSerialization.Header,
                 TocExcludes = configSerialization.TocExcludes,
                 TocLevel = configSerialization.TocLevel,
                 LinkFormat = GetLinkFormat(configSerialization.LinkFormat),

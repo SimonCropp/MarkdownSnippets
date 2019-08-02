@@ -2,6 +2,7 @@
     RootDir: theRoot
     ReadOnly: True
     WriteHeader: True
+    Header: GENERATED FILE - Source File: {relativePath}
     LinkFormat: Tfs
     TocLevel: 5
     FileConfigPath: theConfigFilePath (exists:False)

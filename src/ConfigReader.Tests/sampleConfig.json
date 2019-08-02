@@ -1,9 +1,10 @@
 ﻿{
-  "WriteHeader": true,
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
-  "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ]
+  "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
+  "WriteHeader": true,
+  "Header": "GENERATED FILE - Source File: {relativePath}"
 }

@@ -14,6 +14,7 @@ public static class ConfigDefaults
                 WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
                 Exclude = otherConfig.Exclude,
+                Header = otherConfig.Header,
                 TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2)
@@ -26,6 +27,7 @@ public static class ConfigDefaults
             WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),
+            Header = GetValueOrDefault("Header", otherConfig.Header, fileConfig.Header),
             Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
             TocExcludes = JoinLists(fileConfig.TocExcludes, otherConfig.TocExcludes),
             UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets)
@@ -59,5 +61,20 @@ public static class ConfigDefaults
         }
 
         return defaultValue;
+    }
+
+    static string GetValueOrDefault(string name, string input, string config)
+    {
+        if (input != null && config != null)
+        {
+            throw new ConfigurationException($"'{name}' cannot be defined in both mdsnippets.json and input");
+        }
+
+        if (input != null)
+        {
+            return input;
+        }
+
+        return config;
     }
 }

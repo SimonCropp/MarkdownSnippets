@@ -28,6 +28,7 @@ static class CommandRunner
                     {
                         ReadOnly = options.ReadOnly,
                         WriteHeader = options.WriteHeader,
+                        Header = options.Header,
                         LinkFormat = options.LinkFormat,
                         TocLevel = options.TocLevel,
                         Exclude = options.Exclude.ToList(),
@@ -40,6 +41,11 @@ static class CommandRunner
 
     static void ValidateAndApplyDefaults(Options options)
     {
+        if (options.Header != null && string.IsNullOrWhiteSpace(options.Header))
+        {
+            throw new CommandLineException("Empty Header is not allowed.");
+        }
+
         if (options.TargetDirectory == null)
         {
             options.TargetDirectory = Environment.CurrentDirectory;
@@ -61,6 +67,7 @@ static class CommandRunner
         {
             throw new CommandLineException("toc-level must be positive.");
         }
+
         ValidateItems("exclude", options.Exclude);
         ValidateItems("toc-excludes", options.TocExcludes);
         ValidateItems("urls-as-snippets", options.UrlsAsSnippets);

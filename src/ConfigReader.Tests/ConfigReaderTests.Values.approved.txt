@@ -1,5 +1,4 @@
 ﻿{
-  WriteHeader: true,
   ReadOnly: false,
   LinkFormat: 'Tfs',
   TocLevel: 3,
@@ -11,6 +10,8 @@
     'Dir1',
     'Dir2'
   ],
+  WriteHeader: true,
+  Header: 'GENERATED FILE - Source File: {relativePath}',
   TocExcludes: [
     'Exclude Heading1',
     'Exclude Heading2'

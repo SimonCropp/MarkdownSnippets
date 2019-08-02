@@ -14,14 +14,15 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <!-- snippet: sampleConfig.json -->
 ```json
 {
-  "WriteHeader": true,
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
-  "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ]
+  "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
+  "WriteHeader": true,
+  "Header": "GENERATED FILE - Source File: {relativePath}"
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L9)</sup>
+<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L10)</sup>
 <!-- endsnippet -->

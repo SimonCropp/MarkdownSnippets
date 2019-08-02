@@ -13,6 +13,7 @@ public class LogBuilderTests :
         var config = new ConfigResult
         {
             WriteHeader = true,
+            Header = "GENERATED FILE - Source File: {relativePath}",
             Exclude = new List<string> {"Dir1", "Dir2"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,

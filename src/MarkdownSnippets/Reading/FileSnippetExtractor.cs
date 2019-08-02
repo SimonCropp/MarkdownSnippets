@@ -82,6 +82,10 @@ namespace MarkdownSnippets
         public static IEnumerable<Snippet> Read(string path)
         {
             Guard.AgainstNullAndEmpty(path, nameof(path));
+            if (!File.Exists(path))
+            {
+                return Enumerable.Empty<Snippet>();
+            }
             using (var reader = File.OpenText(path))
             {
                 return Read(reader, path).ToList();

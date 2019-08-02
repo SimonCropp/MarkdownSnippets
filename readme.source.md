@@ -161,6 +161,24 @@ To exclude headings use the `--toc-excludes` argument. So for example to exclude
 mdsnippets --toc-excludes heading1:heading2
 ```
 
+## Header
+
+When a .md file is written, a header is include. The default header is:
+
+snippet: HeaderWriterTests.DefaultHeader.approved.txt
+
+To disable the header use '--write-header'
+
+```ps
+mdsnippets --write-header false
+```
+
+To apply a custom header use '--header'
+
+```ps
+mdsnippets --header 'GENERATED FILE - Source File: {relativePath}'
+```
+
 
 ## LinkFormat
 

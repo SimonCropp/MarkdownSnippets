@@ -1,6 +1,0 @@
-﻿{
-  targetDirectory: 'TheTargetDirectory',
-  configInput: {
-    WriteHeader: false
-  }
-}

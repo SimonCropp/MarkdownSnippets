@@ -1,0 +1,6 @@
+﻿{
+  targetDirectory: 'TheTargetDirectory',
+  configInput: {
+    Header: 'the header'
+  }
+}

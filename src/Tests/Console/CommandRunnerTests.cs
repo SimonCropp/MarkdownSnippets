@@ -25,14 +25,14 @@ public class CommandRunnerTests :
     }
 
     [Fact]
-    public void WriteHeaderShort()
+    public void Header()
     {
-        CommandRunner.RunCommand(Capture, "-h", "false");
+        CommandRunner.RunCommand(Capture, "--header", "the header");
         Verify();
     }
 
     [Fact]
-    public void WriteHeaderLong()
+    public void WriteHeader()
     {
         CommandRunner.RunCommand(Capture, "--write-header", "false");
         Verify();

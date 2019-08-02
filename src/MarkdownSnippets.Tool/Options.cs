@@ -32,10 +32,16 @@ public class Options
         HelpText = "Set resultant md files as read-only. Optional. Defaults to false.")]
     public bool? ReadOnly { get; set; }
 
-    [Option('h', "write-header",
+    [Option("write-header",
         Required = false,
         HelpText = "Write a header at the top of each resultant md file. Optional. Defaults to true")]
     public bool? WriteHeader { get; set; }
+
+    [Option("header",
+        Required = false,
+        HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:
+" + HeaderWriter.DefaultHeader)]
+    public string Header { get; set; }
 
     [Option('l', "link-format",
         Required = false,

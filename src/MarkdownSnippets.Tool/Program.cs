@@ -31,6 +31,7 @@ class Program
             directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
             readOnly: configResult.ReadOnly,
             writeHeader: configResult.WriteHeader,
+            header: configResult.Header,
             linkFormat: configResult.LinkFormat,
             tocExcludes: configResult.TocExcludes,
             tocLevel: configResult.TocLevel);

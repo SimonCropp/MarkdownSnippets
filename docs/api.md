@@ -55,8 +55,8 @@ var markdownProcessor = new MarkdownProcessor(
     snippets: snippets.ToDictionary(),
     appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
     snippetSourceFiles: new List<string>(),
-    writeHeader: true,
-    tocLevel: 2);
+    tocLevel: 2,
+    writeHeader: true);
 
 var path = @"C:\path\inputMarkdownFile.md";
 using (var reader = File.OpenText(path))

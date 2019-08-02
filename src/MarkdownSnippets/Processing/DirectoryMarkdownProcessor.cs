@@ -9,6 +9,7 @@ namespace MarkdownSnippets
     public class DirectoryMarkdownProcessor
     {
         bool writeHeader;
+        string header;
         DirectoryFilter directoryFilter;
         bool readOnly;
         int tocLevel;
@@ -27,6 +28,7 @@ namespace MarkdownSnippets
             Action<string> log = null,
             AppendSnippetGroupToMarkdown appendSnippetGroup = null,
             bool writeHeader = true,
+            string header = null,
             DirectoryFilter directoryFilter = null,
             bool readOnly = false,
             LinkFormat linkFormat = LinkFormat.GitHub,
@@ -34,6 +36,7 @@ namespace MarkdownSnippets
             IEnumerable<string> tocExcludes = null)
         {
             this.writeHeader = writeHeader;
+            this.header = header;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
@@ -131,8 +134,9 @@ namespace MarkdownSnippets
                 snippets.ToDictionary(),
                 appendSnippetGroup,
                 snippetSourceFiles,
-                writeHeader,
                 tocLevel,
+                writeHeader,
+                header,
                 tocExcludes);
             foreach (var sourceFile in sourceMdFiles)
             {

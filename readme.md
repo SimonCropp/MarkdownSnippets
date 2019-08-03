@@ -239,7 +239,7 @@ mdsnippets --write-header false
 To apply a custom header use '--header'
 
 ```ps
-mdsnippets --header 'GENERATED FILE - Source File: {relativePath}'
+mdsnippets --header "GENERATED FILE - Source File: {relativePath}"
 ```
 
 

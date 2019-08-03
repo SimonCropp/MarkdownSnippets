@@ -94,9 +94,13 @@ static class Extensions
             }, StringSplitOptions.RemoveEmptyEntries);
     }
 
+    public static string[] Lines(this string value)
+    {
+        return value.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
+    }
+
     public static bool IsWhiteSpace(this string target)
     {
         return string.IsNullOrWhiteSpace(target);
     }
-
 }

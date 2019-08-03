@@ -2,7 +2,7 @@
     RootDir: theRoot
     ReadOnly: False
     WriteHeader: False
-    Header: 
+    Header:
     LinkFormat: GitHub
     TocLevel: 0
     FileConfigPath: theConfigFilePath (exists:False)

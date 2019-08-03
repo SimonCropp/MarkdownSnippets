@@ -7,11 +7,12 @@ static class LogBuilder
 {
     public static string BuildConfigLogMessage(string root, ConfigResult config, string configFilePath)
     {
+        var header = GetHeader(config);
         var builder = new StringBuilder($@"Config:
     RootDir: {root}
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
-    Header: {config.Header?.Replace(@"\n", Environment.NewLine)}
+    Header:{header}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
@@ -35,5 +36,19 @@ static class LogBuilder
         }
 
         return builder.ToString().Trim();
+    }
+
+    static string GetHeader(ConfigResult config)
+    {
+        var header = config.Header;
+        if (header == null)
+        {
+            return null;
+        }
+        var newlineIndent = $"{Environment.NewLine}        ";
+        header = string.Join(newlineIndent, header.Lines());
+        header = header.Replace(@"\n", newlineIndent);
+        return $@"
+        {header}";
     }
 }

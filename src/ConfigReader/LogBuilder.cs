@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ static class LogBuilder
     RootDir: {root}
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
-    Header: {config.Header}
+    Header: {config.Header.Replace(@"\n", Environment.NewLine)}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})

@@ -145,7 +145,7 @@ namespace MarkdownSnippets
 
             if (writeHeader)
             {
-                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath, header), "", 0));
+                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath, header, newLine), "", 0));
             }
 
             if (tocLine != null)

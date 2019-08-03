@@ -179,6 +179,12 @@ To apply a custom header use '--header'
 mdsnippets --header "GENERATED FILE - Source File: {relativePath}"
 ```
 
+To insert a newline use `\n`
+
+```ps
+mdsnippets --header "GENERATED FILE\nSource File: {relativePath}"
+```
+
 
 ## LinkFormat
 
@@ -196,7 +202,7 @@ See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestone
 
 ## Credits
 
-Loosely based on some code from  https://github.com/shiftkey/scribble
+Loosely based on some code from https://github.com/shiftkey/scribble.
 
 
 ## Icon

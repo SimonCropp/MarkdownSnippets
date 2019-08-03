@@ -1,0 +1,8 @@
+﻿Config:
+    RootDir: theRoot
+    ReadOnly: False
+    WriteHeader: False
+    Header: 
+    LinkFormat: GitHub
+    TocLevel: 0
+    FileConfigPath: theConfigFilePath (exists:False)

@@ -11,7 +11,7 @@ static class LogBuilder
     RootDir: {root}
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
-    Header: {config.Header.Replace(@"\n", Environment.NewLine)}
+    Header: {config.Header?.Replace(@"\n", Environment.NewLine)}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})

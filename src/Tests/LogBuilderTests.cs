@@ -24,6 +24,14 @@ public class LogBuilderTests :
         Approvals.Verify(message);
     }
 
+    [Fact]
+    public void BuildConfigLogMessageMinimal()
+    {
+        var config = new ConfigResult();
+        var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
+        Approvals.Verify(message);
+    }
+
     public LogBuilderTests(ITestOutputHelper output) :
         base(output)
     {

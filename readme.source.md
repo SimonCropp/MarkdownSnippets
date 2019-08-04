@@ -167,13 +167,13 @@ When a .md file is written, a header is include. The default header is:
 
 snippet: HeaderWriterTests.DefaultHeader.approved.txt
 
-To disable the header use '--write-header'
+To disable the header use `--write-header`
 
 ```ps
 mdsnippets --write-header false
 ```
 
-To apply a custom header use '--header'
+To apply a custom header use `--header`. `{relativePath}` will be replaced with the relative path of the `.source.md` file.
 
 ```ps
 mdsnippets --header "GENERATED FILE - Source File: {relativePath}"

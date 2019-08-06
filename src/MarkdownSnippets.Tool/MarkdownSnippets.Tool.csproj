@@ -6,7 +6,6 @@
     <AssemblyName>mdsnippets</AssemblyName>
     <PackageId>MarkdownSnippets.Tool</PackageId>
     <PackAsTool>True</PackAsTool>
-    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
     <Description>.NET Core Global Tool for merging code snippets with markdown documents</Description>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
@@ -16,5 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>

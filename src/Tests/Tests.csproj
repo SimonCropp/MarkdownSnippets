@@ -2,9 +2,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
-    <DebugType>full</DebugType>
-    <DebugSymbols>True</DebugSymbols>
-    <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
@@ -17,6 +14,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.3" PrivateAssets="All" />
     <Reference Include="Microsoft.CSharp" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

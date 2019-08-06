@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <LangVersion>latest</LangVersion>
     <NoWarn>CS1591</NoWarn>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
     <Version>16.1.1</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
-    <PackageIconUrl>https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/icon.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/SimonCropp/MarkdownSnippets</PackageProjectUrl>
-    <ReleaseNotes>$(PackageProjectUrl)/milestones?state=closed</ReleaseNotes>
     <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>
-    <PackageOutputPath>..\..\nugets</PackageOutputPath>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)Key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 </Project>

@@ -207,6 +207,4 @@ Loosely based on some code from https://github.com/shiftkey/scribble.
 
 ## Icon
 
-Icon courtesy of [The Noun Project](http://thenounproject.com) and is licensed under Creative Commons Attribution as:
-
-> ["Down"](https://thenounproject.com/AlfredoCreates/collection/arrows-5-glyph/) by [Alfredo Creates](https://thenounproject.com/AlfredoCreates) from [The Noun Project](https://thenounproject.com/)
+[Down](https://thenounproject.com/AlfredoCreates/collection/arrows-5-glyph/) by [Alfredo Creates](https://thenounproject.com/AlfredoCreates) from [The Noun Project](https://thenounproject.com/).

@@ -8,11 +8,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 # Library Usage
 
 
-## NuGet package [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg)](https://www.nuget.org/packages/MarkdownSnippets/)
+## NuGet package
 
-https://nuget.org/packages/MarkdownSnippets/
-
-    PM> Install-Package MarkdownSnippets
+https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg)](https://www.nuget.org/packages/MarkdownSnippets/)
 
 
 ## Reading snippets from files

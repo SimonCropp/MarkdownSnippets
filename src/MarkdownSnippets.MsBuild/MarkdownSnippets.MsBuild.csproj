@@ -6,7 +6,7 @@
     <DevelopmentDependency>true</DevelopmentDependency>
     <NuSpecFile>MarkdownSnippets.MsBuild.nuspec</NuSpecFile>
   </PropertyGroup>
-  <Target Name="SetPackageDependencies" BeforeTargets="GenerateNuspec">
+  <Target Name="SetPackageDependencies" AfterTargets="ProjectDefaultsUpdateNuspec">
     <PropertyGroup>
       <NuspecProperties>configuration=$(Configuration);version=$(PackageVersion);authors=$(Authors);iconUrl=$(PackageIconUrl);projectUrl=$(PackageProjectUrl);description=$(Description);tags=$(PackageTags)</NuspecProperties>
     </PropertyGroup>

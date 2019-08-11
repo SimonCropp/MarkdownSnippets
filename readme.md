@@ -98,10 +98,15 @@ snippet&#58; MySnippetName
 
 The resulting markdown will be:
 
+    <!-- snippet: tocBefore.txt -->
     Some blurb about the below snippet
+    <a id='snippet-MySnippetName'/></a>
     ```
     My Snippet Code
     ```
+    <sup>[snippet source](/relativeUrlToFile#L1-L11) / [anchor](#snippet-MySnippetName)</sup>
+    <!-- endsnippet -->
+
 
 
 ### Including full files

@@ -8,7 +8,7 @@
   </PropertyGroup>
   <Target Name="SetPackageDependencies" AfterTargets="ProjectDefaultsUpdateNuspec">
     <PropertyGroup>
-      <NuspecProperties>configuration=$(Configuration);version=$(PackageVersion);authors=$(Authors);iconUrl=$(PackageIconUrl);projectUrl=$(PackageProjectUrl);description=$(Description);tags=$(PackageTags)</NuspecProperties>
+      <NuspecProperties>configuration=$(Configuration);version=$(Version);authors=$(Authors);iconUrl=$(PackageIconUrl);projectUrl=$(PackageProjectUrl);description=$(Description);tags=$(PackageTags)</NuspecProperties>
     </PropertyGroup>
   </Target>
   <ItemGroup>

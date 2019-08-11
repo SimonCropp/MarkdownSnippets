@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
-using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 

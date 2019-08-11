@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 

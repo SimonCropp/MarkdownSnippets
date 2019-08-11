@@ -12,6 +12,7 @@ The [dotnet tool](/MarkdownSnippets#installation) and the [MSBuild Task](msbuild
 Add a file named `mdsnippets.json` at the target directory with the following content:
 
 <!-- snippet: sampleConfig.json -->
+<a id='snippet-sampleConfig.json'/></a>
 ```json
 {
   "ReadOnly": false,
@@ -24,5 +25,5 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Header": "GENERATED FILE - Source File: {relativePath}"
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L10)</sup>
+<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L10) / [anchor](#snippet-sampleConfig.json)</sup>
 <!-- endsnippet -->

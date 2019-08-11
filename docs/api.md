@@ -16,18 +16,20 @@ https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](http://img.shields
 ## Reading snippets from files
 
 <!-- snippet: ReadingFilesSimple -->
+<a id='snippet-readingfilessimple'/></a>
 ```cs
 var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L9-L15)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L9-L15) / [anchor](#snippet-readingfilessimple)</sup>
 <!-- endsnippet -->
 
 
 ## Reading snippets from a directory structure
 
 <!-- snippet: ReadingDirectorySimple -->
+<a id='snippet-readingdirectorysimple'/></a>
 ```cs
 // extract snippets from files
 var snippetExtractor = new DirectorySnippetExtractor(
@@ -36,13 +38,14 @@ var snippetExtractor = new DirectorySnippetExtractor(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L30-L39)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L30-L39) / [anchor](#snippet-readingdirectorysimple)</sup>
 <!-- endsnippet -->
 
 
 ## Full Usage
 
 <!-- snippet: markdownProcessingSimple -->
+<a id='snippet-markdownprocessingsimple'/></a>
 ```cs
 // setup version convention and extract snippets from files
 var snippetExtractor = new DirectorySnippetExtractor();
@@ -68,7 +71,7 @@ using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
     var usedSnippets = result.UsedSnippets;
 }
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L70)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L70) / [anchor](#snippet-markdownprocessingsimple)</sup>
 <!-- endsnippet -->
 
 

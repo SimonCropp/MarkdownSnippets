@@ -22,27 +22,49 @@ namespace MarkdownSnippets
 
         public void AppendGroup(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
+            Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendLine, nameof(appendLine));
-
+            uint index = 0;
             foreach (var snippet in snippets)
             {
-                WriteSnippet(appendLine, snippet);
+                WriteSnippet(appendLine, snippet, index);
+                index++;
             }
         }
 
-        void WriteSnippet(Action<string> appendLine, Snippet snippet)
+        void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
+        {
+            string anchor;
+            if (index == 0)
+            {
+                anchor = $"snippet-{snippet.Key}";
+            }
+            else
+            {
+                anchor = $"snippet-{snippet.Key}-{index}";
+            }
+
+            appendLine($"<a id='{anchor}'/></a>");
+            if (snippet.Path == null)
+            {
+                WriteSnippetValueAndLanguage(appendLine, snippet);
+                appendLine($"<sup>[anchor](#{anchor})</sup>");
+            }
+            else
+            {
+                var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
+                var sourceLink = BuildLink(snippet, path);
+                WriteSnippetValueAndLanguage(appendLine, snippet);
+                appendLine($"<sup>[snippet source]({sourceLink}) / [anchor](#{anchor})</sup>");
+            }
+        }
+
+        private static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
         {
             appendLine($"```{snippet.Language}");
             appendLine(snippet.Value);
             appendLine("```");
-
-            if (snippet.Path != null)
-            {
-                var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
-                var link = BuildLink(snippet, path);
-                appendLine($"<sup>[snippet source]({link})</sup>");
-            }
         }
 
         string BuildLink(Snippet snippet, string path)

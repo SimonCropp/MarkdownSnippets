@@ -8,9 +8,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets*.dll">
+
+    <Content Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.MsBuild.dll">
+      <Pack>true</Pack>
+      <PackagePath>task</PackagePath>
+    </Content>
+    <Content Include="$(SolutionDir)MarkdownSnippets\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.dll">
       <Pack>true</Pack>
       <PackagePath>task</PackagePath>
     </Content>
@@ -18,8 +21,7 @@
       <Pack>true</Pack>
       <PackagePath>build</PackagePath>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
+
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.0.461" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.10" PrivateAssets="All" />

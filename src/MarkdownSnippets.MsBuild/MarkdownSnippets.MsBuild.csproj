@@ -1,22 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Extract code snippets from any language to be used when building documentation.</Description>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <NuSpecFile>MarkdownSnippets.MsBuild.nuspec</NuSpecFile>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
-  <Target Name="SetPackageDependencies" AfterTargets="ProjectDefaultsUpdateNuspec">
-    <PropertyGroup>
-      <NuspecProperties>configuration=$(Configuration);version=$(Version);authors=$(Authors);iconUrl=$(PackageIconUrl);projectUrl=$(PackageProjectUrl);description=$(Description);tags=$(PackageTags)</NuspecProperties>
-    </PropertyGroup>
-  </Target>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets*.dll">
+      <Pack>true</Pack>
+      <PackagePath>task</PackagePath>
+    </Content>
+    <Content Include="MarkdownSnippets.MsBuild.targets">
+      <Pack>true</Pack>
+      <PackagePath>build</PackagePath>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.0.461" PrivateAssets="All" />
-    <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
+    <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.10" PrivateAssets="All" />
   </ItemGroup>
 </Project>

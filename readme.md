@@ -98,7 +98,7 @@ snippet&#58; MySnippetName
 
 The resulting markdown will be:
 
-    <!-- snippet: tocBefore.txt -->
+    <!-- snippet: MySnippetName -->
     Some blurb about the below snippet
     <a id='snippet-MySnippetName'/></a>
     ```

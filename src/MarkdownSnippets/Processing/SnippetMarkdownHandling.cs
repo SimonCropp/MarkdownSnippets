@@ -78,6 +78,14 @@ namespace MarkdownSnippets
             {
                 return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
             }
+            if (linkFormat == LinkFormat.Bitbucket)
+            {
+                return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+            }
+            if (linkFormat == LinkFormat.GitLab)
+            {
+                return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+            }
             #endregion
 
             throw new Exception($"Unknown LinkFormat: {linkFormat}");

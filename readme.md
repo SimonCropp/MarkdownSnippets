@@ -269,11 +269,13 @@ namespace MarkdownSnippets
     public enum LinkFormat
     {
         GitHub,
-        Tfs
+        Tfs,
+        Bitbucket,
+        GitLab
     }
 }
 ```
-<sup>[snippet source](/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L8) / [anchor](#snippet-LinkFormat.cs)</sup>
+<sup>[snippet source](/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10) / [anchor](#snippet-LinkFormat.cs)</sup>
 <!-- endsnippet -->
 
 <!-- snippet: BuildLink -->
@@ -287,8 +289,16 @@ if (linkFormat == LinkFormat.Tfs)
 {
     return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
 }
+if (linkFormat == LinkFormat.Bitbucket)
+{
+    return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+}
+if (linkFormat == LinkFormat.GitLab)
+{
+    return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+}
 ```
-<sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L72-L81) / [anchor](#snippet-buildlink)</sup>
+<sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L72-L89) / [anchor](#snippet-buildlink)</sup>
 <!-- endsnippet -->
 
 

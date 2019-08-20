@@ -49,14 +49,26 @@ namespace MarkdownSnippets
             if (snippet.Path == null)
             {
                 WriteSnippetValueAndLanguage(appendLine, snippet);
-                appendLine($"<sup>[anchor](#{anchor})</sup>");
+                // id anchors not supported on TFS
+                //https://developercommunity.visualstudio.com/content/problem/63289/anchors-in-markdown-documents-not-working.html
+                if (linkFormat != LinkFormat.Tfs)
+                {
+                    appendLine($"<sup>[anchor](#{anchor})</sup>");
+                }
             }
             else
             {
                 var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
                 var sourceLink = BuildLink(snippet, path);
                 WriteSnippetValueAndLanguage(appendLine, snippet);
-                appendLine($"<sup>[snippet source]({sourceLink}) / [anchor](#{anchor})</sup>");
+                if (linkFormat == LinkFormat.Tfs)
+                {
+                    appendLine($"<sup>[snippet source]({sourceLink})</sup>");
+                }
+                else
+                {
+                    appendLine($"<sup>[snippet source]({sourceLink}) / [anchor](#{anchor})</sup>");
+                }
             }
         }
 

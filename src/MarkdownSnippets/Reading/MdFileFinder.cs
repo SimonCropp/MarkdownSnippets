@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -42,7 +43,13 @@ namespace MarkdownSnippets
             foreach (var directoryPath in directoryPaths)
             {
                 Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-                FindFiles(Path.GetFullPath(directoryPath), files);
+                try
+                {
+                    FindFiles(Path.GetFullPath(directoryPath), files);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                }
             }
 
             return files;

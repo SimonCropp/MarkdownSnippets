@@ -43,13 +43,7 @@ namespace MarkdownSnippets
             foreach (var directoryPath in directoryPaths)
             {
                 Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-                try
-                {
                     FindFiles(Path.GetFullPath(directoryPath), files);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                }
             }
 
             return files;
@@ -57,9 +51,15 @@ namespace MarkdownSnippets
 
         void FindFiles(string directoryPath, List<string> files)
         {
-            foreach (var file in Directory.EnumerateFiles(directoryPath, "*.source.md"))
+            try
             {
-                files.Add(file);
+                foreach (var file in Directory.EnumerateFiles(directoryPath, "*.source.md"))
+                {
+                    files.Add(file);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
             }
 
             foreach (var subDirectory in Directory.EnumerateDirectories(directoryPath)

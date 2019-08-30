@@ -1,5 +1,4 @@
 ﻿{
-  MissingSnippets: [],
   UsedSnippets: [
     {
       Key: 'snippet1',

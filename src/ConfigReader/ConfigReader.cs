@@ -8,13 +8,36 @@ public static class ConfigReader
 {
     public static (ConfigInput config, string path) Read(string directory)
     {
-        var path = Path.Combine(directory, "mdsnippets.json");
-        if (!File.Exists(path))
+        var exists = TryFindConfigFile(directory, out var path);
+        if (!exists)
         {
             return (null, path);
         }
 
         return (Parse(File.ReadAllText(path)),path);
+    }
+
+    static bool TryFindConfigFile(string directory, out string path)
+    {
+        path = Path.Combine(directory, "mdsnippets.json");
+        var exists = File.Exists(path);
+        if (exists)
+        {
+            return true;
+        }
+
+        foreach (var subDirectory in Directory.EnumerateDirectories(directory))
+        {
+            path = Path.Combine(subDirectory, "mdsnippets.json");
+            exists = File.Exists(path);
+            if (exists)
+            {
+                return true;
+            }
+        }
+
+        path = null;
+        return false;
     }
 
     public static ConfigInput Parse(string contents)

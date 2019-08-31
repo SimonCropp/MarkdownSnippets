@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591</NoWarn>
-    <Version>16.3.3</Version>
+    <Version>16.4.0</Version>
     <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>
   </PropertyGroup>

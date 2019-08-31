@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -51,16 +50,7 @@ namespace MarkdownSnippets
 
         void FindFiles(string directoryPath, List<string> files)
         {
-            try
-            {
-                foreach (var file in Directory.EnumerateFiles(directoryPath, "*.source.md"))
-                {
-                    files.Add(file);
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
+            files.AddRange(FileEx.FindFiles(directoryPath,"*.source.md"));
 
             foreach (var subDirectory in Directory.EnumerateDirectories(directoryPath)
                 .Where(IncludeDirectory))

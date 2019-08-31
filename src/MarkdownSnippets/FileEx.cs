@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 static class FileEx
@@ -18,7 +19,20 @@ static class FileEx
         var directoryUri = new Uri(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
+    
+    public static IEnumerable<string> FindFiles(string directory, string pattern)
+    {
+        var files = new List<string>();
+        try
+        {
+            files.AddRange(Directory.EnumerateFiles(directory, pattern));
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
 
+        return files;
+    }
     public static void ClearReadOnly(string path)
     {
         if (!File.Exists(path))

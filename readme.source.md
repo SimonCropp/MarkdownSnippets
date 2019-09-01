@@ -1,7 +1,7 @@
 # <img src="/src/icon.png" height="30px"> MarkdownSnippets
 
 [![Build status](https://ci.appveyor.com/api/projects/status/8ijthhby6mhw8fk3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
-[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=MarkdownSnippets.Tool:EfLocalDb&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
+[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=MarkdownSnippets.Tool&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MarkdownSnippets.MsBuild&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=MarkdownSnippets&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets/)
 

@@ -36,7 +36,7 @@ static class TocBuilder
                 continue;
             }
 
-            var title = GetTitle(current);
+            var title = GetTitle(trimmedHash);
             if (tocExcludes.Contains(title))
             {
                 continue;
@@ -63,7 +63,7 @@ static class TocBuilder
 
     static string GetTitle(string current)
     {
-        var trim = current.Substring(3).Trim();
+        var trim = current.Substring(1).Trim();
         return Markdown.StripMarkdown(trim);
     }
 

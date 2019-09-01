@@ -74,6 +74,20 @@ public class TocBuilderTests :
     }
 
     [Fact]
+    public void Deep()
+    {
+        var lines = new List<Line>
+        {
+            new Line("## Heading1", "", 0),
+            new Line("### Heading2", "", 0),
+            new Line("#### Heading3", "", 0),
+            new Line("##### Heading4", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines, 10, new List<string>(), Environment.NewLine));
+    }
+
+    [Fact]
     public void StopAtLevel()
     {
         var lines = new List<Line>

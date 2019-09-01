@@ -16,15 +16,15 @@ To change this file edit the source file and then run MarkdownSnippets.";
 
     public static string WriteHeader(string relativePath, string header, string newline)
     {
-        var lines=Header(header, newline);
-        var inner = string.Join(newline,lines)
+        var lines = Header(header);
+        var inner = string.Join(newline, lines)
             .Replace("{relativePath}", relativePath)
             .Replace(@"\n", newline);
         return $@"<!--{newline}{inner}{newline}-->{newline}";
     }
 
     static string[] separator = {"\r\n", "\r", "\n", @"\n"};
-    static string[] Header(string header, string newline)
+    static string[] Header(string header)
     {
         if (header == null)
         {

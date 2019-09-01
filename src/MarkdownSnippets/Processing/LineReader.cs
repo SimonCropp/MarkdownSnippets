@@ -10,7 +10,7 @@ static class LineReader
         var lines = new List<Line>();
 
         var (content, newLine) = ReadFirstLine(textReader);
-        lines.Add(new Line(content,path,1));
+        lines.Add(new Line(content, path, 1));
         var index = 1;
         do
         {
@@ -22,7 +22,7 @@ static class LineReader
                 break;
             }
 
-            lines.Add(new Line(original, path,index));
+            lines.Add(new Line(original, path, index));
 
         } while (true);
 
@@ -40,6 +40,7 @@ static class LineReader
             {
                 break;
             }
+
             if (c == '\r')
             {
                 var peek = textReader.Peek();
@@ -48,6 +49,7 @@ static class LineReader
                     newLine = "\r";
                     break;
                 }
+
                 if (peek == '\n')
                 {
                     newLine = "\r\n";
@@ -67,8 +69,9 @@ static class LineReader
                 break;
             }
 
-            builder.Append((char)c);
+            builder.Append((char) c);
         } while (true);
-        return (builder.ToString(),newLine);
+
+        return (builder.ToString(), newLine);
     }
 }

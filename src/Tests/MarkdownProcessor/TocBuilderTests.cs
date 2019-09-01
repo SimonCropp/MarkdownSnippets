@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;
@@ -14,7 +15,7 @@ public class TocBuilderTests :
             new Line("##", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -26,7 +27,7 @@ public class TocBuilderTests :
             new Line("## Heading2", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -43,7 +44,7 @@ public class TocBuilderTests :
             new Line("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -55,7 +56,7 @@ public class TocBuilderTests :
             new Line("### Heading2", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}, Environment.NewLine));
     }
 
     [Fact]
@@ -69,7 +70,7 @@ public class TocBuilderTests :
             new Line("### Heading4", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -82,7 +83,7 @@ public class TocBuilderTests :
             new Line("#### Heading3", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -93,7 +94,7 @@ public class TocBuilderTests :
             new Line("## Heading", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -104,7 +105,7 @@ public class TocBuilderTests :
             new Line("##  A B ", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -117,7 +118,7 @@ public class TocBuilderTests :
             new Line("## a", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>()));
+        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     public TocBuilderTests(ITestOutputHelper output) :

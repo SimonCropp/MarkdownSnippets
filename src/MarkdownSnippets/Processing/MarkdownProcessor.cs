@@ -150,7 +150,7 @@ namespace MarkdownSnippets
 
             if (tocLine != null)
             {
-                tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes);
+                tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
             }
 
             return new ProcessResult(

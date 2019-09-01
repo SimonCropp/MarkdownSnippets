@@ -4,13 +4,15 @@ using System.Text;
 
 static class TocBuilder
 {
-    public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes)
+    public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)
     {
         var processed = new List<string>();
-        var builder = new StringBuilder(@"<!-- toc -->
-## Contents
-
-");
+        var builder = new StringBuilder();
+        builder.Append("<!-- toc -->");
+        builder.Append(newLine);
+        builder.Append("## Contents");
+        builder.Append(newLine);
+        builder.Append(newLine);
         const int startingLevel = 2;
         var headerDepth = level + startingLevel - 1;
         var headingCount = 0;
@@ -44,7 +46,8 @@ static class TocBuilder
 
             var link = BuildLink(processed, title);
             var indent = new string(' ', (headerLevel - 1) * 2);
-            builder.AppendLine($"{indent}* [{title}](#{link})");
+            builder.Append($"{indent}* [{title}](#{link})");
+            builder.Append(newLine);
         }
 
         if (headingCount == 0)
@@ -52,7 +55,9 @@ static class TocBuilder
             return string.Empty;
         }
 
-        builder.AppendLine("<!-- endtoc -->");
+        builder.Append("<!-- endtoc -->");
+        builder.Append(newLine);
+
         return builder.ToString();
     }
 

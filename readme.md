@@ -5,7 +5,12 @@ Source File: /readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/src/icon.png" height="40px"> MarkdownSnippets
+# <img src="/src/icon.png" height="30px"> MarkdownSnippets
+
+[![Build status](https://ci.appveyor.com/api/projects/status/8ijthhby6mhw8fk3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
+ [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=MarkdownSnippets.Tool:EfLocalDb&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
+ [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=nuget:MarkdownSnippets.MsBuild&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
+ [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=nuget:MarkdownSnippets&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets/)
 
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
@@ -16,6 +21,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
  * [MsBuild Task](/docs/msbuild.md)
  * [Config file convention](/docs/config-file.md)
  * [Indentation](/docs/indentation.md)
+
 
 <!-- toc -->
 ## Contents
@@ -30,6 +36,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Header](#header)
   * [LinkFormat](#linkformat)
 <!-- endtoc -->
+
 
 
 ## Installation
@@ -304,7 +311,7 @@ if (linkFormat == LinkFormat.GitLab)
 
 ## Release Notes
 
-See [closed milestones](https://github.com/SimonCropp/MarkdownSnippets/milestones?state=closed).
+See [closed milestones](../../milestones?state=closed).
 
 
 ## Credits

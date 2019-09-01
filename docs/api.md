@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## NuGet package
 
-https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](http://img.shields.io/nuget/v/MarkdownSnippets.svg)](https://www.nuget.org/packages/MarkdownSnippets/)
+https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg)](https://www.nuget.org/packages/MarkdownSnippets/)
 
 
 ## Reading snippets from files

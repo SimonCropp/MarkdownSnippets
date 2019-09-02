@@ -123,6 +123,19 @@ public class TocBuilderTests :
     }
 
     [Fact]
+    public void DuplicateNested()
+    {
+        var lines = new List<Line>
+        {
+            new Line("## Heading", "", 0),
+            new Line("### Heading", "", 0),
+            new Line("#### Heading", "", 0)
+        };
+
+        Approvals.Verify(TocBuilder.BuildToc(lines,4, new List<string>(), Environment.NewLine));
+    }
+
+    [Fact]
     public void Duplicates()
     {
         var lines = new List<Line>

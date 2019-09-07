@@ -5,7 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class TocBuilderTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public void EmptyHeading()

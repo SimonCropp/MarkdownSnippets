@@ -1,15 +1,8 @@
-﻿using Xunit.Abstractions;
-using ObjectApproval;
+﻿using ObjectApproval;
 
-public class TestBase:
-    XunitApprovalBase
+static class ModuleInitializer
 {
-    public TestBase(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
-    static TestBase()
+    public static void Initialize()
     {
         SerializerBuilder.ExtraSettings = settings =>
         {

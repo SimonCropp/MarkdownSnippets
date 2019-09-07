@@ -7,7 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class SnippetMarkdownHandlingTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public void AppendGroup()

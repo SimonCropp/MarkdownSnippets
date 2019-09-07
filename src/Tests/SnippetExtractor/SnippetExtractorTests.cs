@@ -8,7 +8,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class SnippetExtractorTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public async Task AppendUrlAsSnippet()

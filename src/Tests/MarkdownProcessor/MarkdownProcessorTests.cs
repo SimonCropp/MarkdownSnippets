@@ -5,7 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class MarkdownProcessorTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public void SkipHeadingBeforeToc()

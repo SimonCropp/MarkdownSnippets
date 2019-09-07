@@ -7,7 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class DirectoryMarkdownProcessorTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public void Run()

@@ -3,7 +3,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class IndexReaderTests :
-    TestBase
+    XunitApprovalBase
 {
     [Theory]
     [InlineData("a\r", "\r")]

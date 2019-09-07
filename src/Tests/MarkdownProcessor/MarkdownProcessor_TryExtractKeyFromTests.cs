@@ -3,7 +3,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class MarkdownProcessor_TryExtractKeyFromTests :
-    TestBase
+    XunitApprovalBase
 {
     [Fact]
     public void MissingSpaces()

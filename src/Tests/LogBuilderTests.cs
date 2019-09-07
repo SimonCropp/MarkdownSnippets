@@ -5,7 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class LogBuilderTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void BuildConfigLogMessage()

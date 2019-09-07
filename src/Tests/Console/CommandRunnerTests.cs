@@ -4,7 +4,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class CommandRunnerTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     string targetDirectory;
     ConfigInput configInput;

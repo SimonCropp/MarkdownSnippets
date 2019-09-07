@@ -4,7 +4,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class GirRepoDirectoryFinderTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void CanFindGirRepoDir()

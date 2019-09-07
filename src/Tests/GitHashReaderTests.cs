@@ -5,7 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class GitHashReaderTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void GetHash()

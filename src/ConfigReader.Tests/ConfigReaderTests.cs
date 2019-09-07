@@ -3,7 +3,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class ConfigReaderTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void Empty()

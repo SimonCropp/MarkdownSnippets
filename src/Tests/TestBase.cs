@@ -2,7 +2,7 @@
 using ObjectApproval;
 
 public class TestBase:
-    XunitLoggingBase
+    XunitApprovalBase
 {
     public TestBase(ITestOutputHelper output) :
         base(output)

@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\Tests\TestConfig.cs" Link="TestConfig.cs" />
-  </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\ConfigReader\ConfigReader.csproj" />
     <PackageReference Include="ApprovalTests" Version="4.2.2" />
     <PackageReference Include="ObjectApproval" Version="11.1.0" />
@@ -18,9 +16,7 @@
     <PackageReference Include="Xunit.ApprovalTests" Version="3.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.24" PrivateAssets="All" />
-  </ItemGroup>
 
-  <ItemGroup>
     <None Update="sampleConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

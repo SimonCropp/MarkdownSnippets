@@ -8,7 +8,7 @@ namespace MarkdownSnippets
     {
         SnippetFileFinder fileFinder;
 
-        public DirectorySnippetExtractor(DirectoryFilter directoryFilter = null)
+        public DirectorySnippetExtractor(DirectoryFilter? directoryFilter = null)
         {
             fileFinder = new SnippetFileFinder(directoryFilter);
         }
@@ -25,10 +25,8 @@ namespace MarkdownSnippets
 
         static IEnumerable<Snippet> Read(string file)
         {
-            using (var reader = File.OpenText(file))
-            {
-                return FileSnippetExtractor.Read(reader, file).ToList();
-            }
+            using var reader = File.OpenText(file);
+            return FileSnippetExtractor.Read(reader, file).ToList();
         }
     }
 }

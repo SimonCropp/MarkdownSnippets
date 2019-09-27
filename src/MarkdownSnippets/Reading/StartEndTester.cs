@@ -25,9 +25,10 @@ static class StartEndTester
             return true;
         }
 
-        endFunc = null;
+        endFunc = throwFunc;
         return false;
     }
+    static Func<string, bool> throwFunc = s => throw new Exception("Do not use out func");
 
     static bool IsEndRegion(string line)
     {
@@ -48,7 +49,7 @@ static class StartEndTester
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
-            key = null;
+            key = "";
             return false;
         }
 
@@ -67,7 +68,7 @@ static class StartEndTester
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
-            key = null;
+            key = "";
             return false;
         }
 

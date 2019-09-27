@@ -4,7 +4,7 @@ using MarkdownSnippets;
 
 public static class ConfigDefaults
 {
-    public static ConfigResult Convert(ConfigInput fileConfig, ConfigInput otherConfig)
+    public static ConfigResult Convert(ConfigInput? fileConfig, ConfigInput otherConfig)
     {
         if (fileConfig == null)
         {
@@ -63,7 +63,7 @@ public static class ConfigDefaults
         return defaultValue;
     }
 
-    static string GetValueOrDefault(string name, string input, string config)
+    static string? GetValueOrDefault(string name, string? input, string? config)
     {
         if (input != null && config != null)
         {

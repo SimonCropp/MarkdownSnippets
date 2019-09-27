@@ -80,11 +80,18 @@ class LoopState
         }
     }
 
-    StringBuilder builder;
-    public string Key;
+    StringBuilder? builder;
+    public string Key { get; }
     char paddingChar;
     int paddingLength;
-    public Func<string, bool> EndFunc;
-    public int StartLine;
+    public Func<string, bool> EndFunc { get; }
+    public int StartLine { get; }
     int newlineCount;
+
+    public LoopState(string key, Func<string, bool> endFunc, int startLine)
+    {
+        Key = key;
+        EndFunc = endFunc;
+        StartLine = startLine;
+    }
 }

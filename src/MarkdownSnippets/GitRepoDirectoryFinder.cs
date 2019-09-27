@@ -50,7 +50,7 @@ namespace MarkdownSnippets
                 var parent = Directory.GetParent(directory);
                 if (parent == null)
                 {
-                    path = null;
+                    path = "";
                     return false;
                 }
 

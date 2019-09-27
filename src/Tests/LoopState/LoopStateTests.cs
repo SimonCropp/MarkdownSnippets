@@ -1,3 +1,4 @@
+using System;
 using ApprovalTests;
 using Xunit;
 using Xunit.Abstractions;
@@ -8,7 +9,7 @@ public class LoopStateTests :
     [Fact]
     public void TrimIndentation()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("   Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
@@ -18,7 +19,7 @@ public class LoopStateTests :
     [Fact]
     public void ExcludeEmptyPaddingLines()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("   ");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   ");
@@ -28,7 +29,7 @@ public class LoopStateTests :
     [Fact]
     public void TrimIndentation_with_mis_match()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("      Line2");
         loopState.AppendLine("   ");
         loopState.AppendLine("     Line4");
@@ -38,14 +39,14 @@ public class LoopStateTests :
     [Fact]
     public void ExcludeEmptyPaddingLines_empty_list()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         Approvals.Verify(loopState.GetLines());
     }
 
     [Fact]
     public void ExcludeEmptyPaddingLines_whitespace_list()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("");
         loopState.AppendLine("  ");
         Approvals.Verify(loopState.GetLines());
@@ -54,14 +55,14 @@ public class LoopStateTests :
     [Fact]
     public void TrimIndentation_no_initial_padding()
     {
-        var loopState = new LoopState();
+        var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
         Approvals.Verify(loopState.GetLines());
     }
 
-    public LoopStateTests(ITestOutputHelper output) : 
+    public LoopStateTests(ITestOutputHelper output) :
         base(output)
     {
     }

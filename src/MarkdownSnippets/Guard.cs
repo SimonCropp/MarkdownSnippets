@@ -28,7 +28,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullAndEmpty(string value, string argumentName)
+    public static void AgainstNullAndEmpty(string? value, string argumentName)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
@@ -45,7 +45,7 @@ static class Guard
         }
     }
 
-    public static void FileExists(string path, string argumentName)
+    public static void FileExists(string? path, string argumentName)
     {
         AgainstNullAndEmpty(path, argumentName);
         if (!File.Exists(path))
@@ -54,7 +54,7 @@ static class Guard
         }
     }
 
-    public static void AgainstEmpty(string value, string argumentName)
+    public static void AgainstEmpty(string? value, string argumentName)
     {
         if (value == null)
         {

@@ -17,8 +17,7 @@
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.24" PrivateAssets="All" />
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.25" PrivateAssets="All" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

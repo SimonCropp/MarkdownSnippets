@@ -25,11 +25,11 @@ class LoopStack
     public void Push(Func<string, bool> endFunc, string key, int startLine)
     {
         var state = new LoopState
-        {
-            Key = key,
-            EndFunc = endFunc,
-            StartLine = startLine,
-        };
+        (
+            key: key,
+            endFunc: endFunc,
+            startLine: startLine
+        );
         stack.Push(state);
     }
 

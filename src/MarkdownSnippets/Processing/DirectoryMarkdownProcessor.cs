@@ -9,11 +9,11 @@ namespace MarkdownSnippets
     public class DirectoryMarkdownProcessor
     {
         bool writeHeader;
-        string header;
-        DirectoryFilter directoryFilter;
+        string? header;
+        DirectoryFilter? directoryFilter;
         bool readOnly;
         int tocLevel;
-        IEnumerable<string> tocExcludes;
+        IEnumerable<string>? tocExcludes;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -25,15 +25,15 @@ namespace MarkdownSnippets
             string targetDirectory,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
-            Action<string> log = null,
-            AppendSnippetGroupToMarkdown appendSnippetGroup = null,
+            Action<string>? log = null,
+            AppendSnippetGroupToMarkdown? appendSnippetGroup = null,
             bool writeHeader = true,
-            string header = null,
-            DirectoryFilter directoryFilter = null,
+            string? header = null,
+            DirectoryFilter? directoryFilter = null,
             bool readOnly = false,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
-            IEnumerable<string> tocExcludes = null)
+            IEnumerable<string>? tocExcludes = null)
         {
             this.writeHeader = writeHeader;
             this.header = header;
@@ -77,8 +77,8 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             var files = snippets
-                .Select(x => x.Path)
-                .Where(x => x != null)
+                .Where(x => x.Path != null)
+                .Select(x => x.Path!)
                 .Distinct()
                 .ToList();
             snippetSourceFiles.AddRange(files);

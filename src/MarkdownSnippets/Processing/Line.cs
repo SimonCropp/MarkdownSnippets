@@ -2,13 +2,14 @@
 
 class Line
 {
-    public Line(string original, string path, int lineNumber)
+    public Line(string original, string? path, int lineNumber)
     {
         Original = original;
         Current = original;
         Path = path;
         LineNumber = lineNumber;
     }
+
     public readonly string Original;
 
     public override string ToString()
@@ -27,12 +28,12 @@ class Line
         }
     }
 
-    public string Path { get; }
+    public string? Path { get; }
     public int LineNumber { get; }
 
-    public int Length{ get;private set; }
+    public int Length { get; private set; }
 
-    string current;
+    string current = null!;
 
-    public bool IsWhiteSpace{ get; private set; }
+    public bool IsWhiteSpace { get; private set; }
 }

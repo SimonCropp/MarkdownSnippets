@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.";
         defaultHeaderLines = DefaultHeader.Lines();
     }
 
-    public static string WriteHeader(string relativePath, string header, string newline)
+    public static string WriteHeader(string relativePath, string? header, string newline)
     {
         var lines = Header(header);
         var inner = string.Join(newline, lines)
@@ -24,7 +24,7 @@ To change this file edit the source file and then run MarkdownSnippets.";
     }
 
     static string[] separator = {"\r\n", "\r", "\n", @"\n"};
-    static string[] Header(string header)
+    static string[] Header(string? header)
     {
         if (header == null)
         {

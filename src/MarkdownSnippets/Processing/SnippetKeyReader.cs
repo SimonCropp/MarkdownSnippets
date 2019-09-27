@@ -7,7 +7,7 @@ static class SnippetKeyReader
     {
         if (!line.Current.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase))
         {
-            key = null;
+            key = "";
             return false;
         }
 

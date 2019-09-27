@@ -10,11 +10,10 @@ namespace MarkdownSnippets
         Task,
         ICancelableTask
     {
-        [Required]
-        public string ProjectDirectory { get; set; }
+        [Required] public string ProjectDirectory { get; set; } = null!;
         public bool? ReadOnly { get; set; }
         public bool? WriteHeader { get; set; }
-        public string Header { get; set; }
+        public string? Header { get; set; }
         public int? TocLevel { get; set; }
         public LinkFormat? LinkFormat { get; set; }
         public List<string> Exclude { get; set; } = new List<string>();

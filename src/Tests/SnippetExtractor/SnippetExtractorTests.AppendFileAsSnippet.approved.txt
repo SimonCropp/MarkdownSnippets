@@ -3,7 +3,7 @@
     Key: 'File.tmp',
     Language: 'tmp',
     Value: 'Foo',
-    Error: null,
+    Error: '',
     FileLocation: 'FilePath.txt(1-1)',
     IsInError: false
   }

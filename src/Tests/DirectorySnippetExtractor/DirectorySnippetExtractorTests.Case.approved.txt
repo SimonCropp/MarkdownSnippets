@@ -3,7 +3,7 @@
     Key: 'snippet',
     Language: 'txt',
     Value: 'Some code',
-    Error: null,
+    Error: '',
     FileLocation: 'root\\DirectorySnippetExtractor\Case\code1.txt(1-3)',
     IsInError: false
   },
@@ -11,7 +11,7 @@
     Key: 'snippet',
     Language: 'txt',
     Value: 'Some code',
-    Error: null,
+    Error: '',
     FileLocation: 'root\\DirectorySnippetExtractor\Case\code2.txt(1-3)',
     IsInError: false
   }

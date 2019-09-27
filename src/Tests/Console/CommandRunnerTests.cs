@@ -6,8 +6,8 @@ using Xunit.Abstractions;
 public class CommandRunnerTests :
     XunitApprovalBase
 {
-    string targetDirectory;
-    ConfigInput configInput;
+    string? targetDirectory;
+    ConfigInput? configInput;
 
     [Fact]
     public void Empty()

@@ -7,25 +7,25 @@ public class Options
     [Option('t', "target-directory",
         Required = false,
         HelpText = @"The target directory to run against. Optional. If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.")]
-    public string TargetDirectory { get; set; }
+    public string? TargetDirectory { get; set; }
 
     [Option('e', "exclude",
         Separator = ':',
         Required = false,
         HelpText = "Directories to be excluded. Optional. Colon ':' separated for multiple values.")]
-    public IList<string> Exclude { get; set; }
+    public IList<string> Exclude { get; set; } = null!;
 
     [Option("toc-excludes",
         Separator = ':',
         Required = false,
         HelpText = "Headings to be excluded from table of contents. Optional. Colon ':' separated for multiple values.")]
-    public IList<string> TocExcludes { get; set; }
+    public IList<string> TocExcludes { get; set; } = null!;
 
     [Option('u', "urls-as-snippets",
         Separator = ':',
         Required = false,
         HelpText = "UrlsAsSnippets to be included as snippets. Optional. Colon ':' separated for multiple values.")]
-    public IList<string> UrlsAsSnippets { get; set; }
+    public IList<string> UrlsAsSnippets { get; set; } = null!;
 
     [Option('r', "readonly",
         Required = false,
@@ -41,7 +41,7 @@ public class Options
         Required = false,
         HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:
 " + HeaderWriter.DefaultHeader)]
-    public string Header { get; set; }
+    public string? Header { get; set; }
 
     [Option('l', "link-format",
         Required = false,

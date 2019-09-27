@@ -11,10 +11,11 @@ public static class Extensions
 
     public static string ToCurrentDirectory(this Assembly assembly, string relativePath)
     {
-        var fullPath = new Uri(assembly.CodeBase).AbsolutePath;
-        var directory = Path.GetDirectoryName(fullPath);
+        var fullPath = new Uri(assembly.CodeBase!).AbsolutePath;
+        var directory = Path.GetDirectoryName(fullPath)!;
         return Path.Combine(directory, relativePath);
     }
+
     internal static string ReplaceCaseless(this string str, string oldValue, string newValue)
     {
         var stringBuilder = StringBuilderCache.Acquire();

@@ -11,7 +11,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// Initialise a new instance of <see cref="MissingSnippet"/>.
         /// </summary>
-        public MissingSnippet(string key, int lineNumber, string file)
+        public MissingSnippet(string key, int lineNumber, string? file)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
@@ -34,7 +34,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// The File of the missing snippet.
         /// </summary>
-        public string File { get; }
+        public string? File { get; }
 
         public override string ToString()
         {

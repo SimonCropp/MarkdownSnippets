@@ -38,7 +38,7 @@ static class LogBuilder
         return builder.ToString().Trim();
     }
 
-    static string GetHeader(ConfigResult config)
+    static string? GetHeader(ConfigResult config)
     {
         var header = config.Header;
         if (header == null)

@@ -4,7 +4,7 @@
       Key: 'snippet1',
       Language: 'cs',
       Value: 'Snippet',
-      Error: null,
+      Error: '',
       FileLocation: 'thePath(1-2)',
       IsInError: false
     },
@@ -12,7 +12,7 @@
       Key: 'snippet2',
       Language: 'cs',
       Value: 'Snippet',
-      Error: null,
+      Error: '',
       FileLocation: 'thePath(1-2)',
       IsInError: false
     },
@@ -23,7 +23,7 @@
 Content
 From
 File',
-      Error: null,
+      Error: '',
       FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
       IsInError: false
     },
@@ -34,7 +34,7 @@ File',
 Content
 From
 File',
-      Error: null,
+      Error: '',
       FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
       IsInError: false
     }

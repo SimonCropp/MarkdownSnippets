@@ -6,9 +6,9 @@ namespace MarkdownSnippets
 {
     public class SnippetFileFinder
     {
-        DirectoryFilter directoryFilter;
+        DirectoryFilter? directoryFilter;
 
-        public SnippetFileFinder(DirectoryFilter directoryFilter = null)
+        public SnippetFileFinder(DirectoryFilter? directoryFilter = null)
         {
             this.directoryFilter = directoryFilter;
         }

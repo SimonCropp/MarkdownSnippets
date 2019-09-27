@@ -5,7 +5,7 @@ using System.Text;
 
 static class LineReader
 {
-    public static (List<Line> lines, string newLine) ReadAllLines(TextReader textReader, string path)
+    public static (List<Line> lines, string newLine) ReadAllLines(TextReader textReader, string? path)
     {
         var lines = new List<Line>();
 

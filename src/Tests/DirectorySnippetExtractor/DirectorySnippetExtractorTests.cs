@@ -46,34 +46,18 @@ public class DirectorySnippetExtractorTests :
     [Fact]
     public void VerifyLambdasAreCalled()
     {
-        var directories = new ConcurrentBag<CapturedDirectory>();
+        var directories = new ConcurrentBag<string>();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "DirectorySnippetExtractor/VerifyLambdasAreCalled");
-        var result = new TestResult();
         var extractor = new DirectorySnippetExtractor(
             directoryFilter: path =>
             {
-                var capture = new CapturedDirectory
-                {
-                    Path = path
-                };
-                directories.Add(capture);
+                directories.Add(path);
                 return true;
             }
         );
         extractor.ReadSnippets(targetDirectory);
-        result.Directories = directories.OrderBy(file => file.Path).ToList();
-        ObjectApprover.Verify(result, Scrubber.Scrub);
-    }
-
-    public class TestResult
-    {
-        public List<CapturedDirectory> Directories;
-    }
-
-    public class CapturedDirectory
-    {
-        public string Path;
+        ObjectApprover.Verify(directories.OrderBy(file => file), Scrubber.Scrub);
     }
 
     public DirectorySnippetExtractorTests(ITestOutputHelper output) :

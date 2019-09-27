@@ -3,7 +3,7 @@
     Key: 'keychild',
     Language: 'cs',
     Value: 'b\r\nc',
-    Error: null,
+    Error: '',
     FileLocation: 'path.cs(4-7)',
     IsInError: false
   },

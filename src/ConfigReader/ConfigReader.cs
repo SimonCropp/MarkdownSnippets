@@ -6,7 +6,7 @@ using MarkdownSnippets;
 
 public static class ConfigReader
 {
-    public static (ConfigInput config, string path) Read(string directory)
+    public static (ConfigInput? config, string path) Read(string directory)
     {
         var exists = TryFindConfigFile(directory, out var path);
         if (!exists)
@@ -36,7 +36,7 @@ public static class ConfigReader
             }
         }
 
-        path = null;
+        path = "";
         return false;
     }
 
@@ -61,7 +61,7 @@ public static class ConfigReader
         }
     }
 
-    static LinkFormat? GetLinkFormat(string value)
+    static LinkFormat? GetLinkFormat(string? value)
     {
         if (value == null)
         {

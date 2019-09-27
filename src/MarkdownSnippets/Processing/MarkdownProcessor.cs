@@ -14,7 +14,7 @@ namespace MarkdownSnippets
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
-        string header;
+        string? header;
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
@@ -25,8 +25,8 @@ namespace MarkdownSnippets
             IReadOnlyList<string> snippetSourceFiles,
             int tocLevel,
             bool writeHeader,
-            string header = null,
-            IEnumerable<string> tocExcludes = null)
+            string? header = null,
+            IEnumerable<string>? tocExcludes = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
@@ -47,17 +47,12 @@ namespace MarkdownSnippets
                 this.tocExcludes = tocExcludes.ToList();
             }
 
-            InitSourceFiles(snippetSourceFiles);
-        }
-
-        void InitSourceFiles(IEnumerable<string> snippetSourceFiles)
-        {
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
         }
 
-        public string Apply(string input, string file = null)
+        public string Apply(string input, string? file = null)
         {
             Guard.AgainstNull(input, nameof(input));
             Guard.AgainstEmpty(file, nameof(file));
@@ -86,7 +81,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// Apply to <paramref name="writer"/>.
         /// </summary>
-        public ProcessResult Apply(TextReader textReader, TextWriter writer, string file = null)
+        public ProcessResult Apply(TextReader textReader, TextWriter writer, string? file = null)
         {
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
@@ -102,12 +97,12 @@ namespace MarkdownSnippets
             return result;
         }
 
-        internal ProcessResult Apply(List<Line> lines, string newLine, string relativePath)
+        internal ProcessResult Apply(List<Line> lines, string newLine, string? relativePath)
         {
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
             var builder = new StringBuilder();
-            Line tocLine = null;
+            Line? tocLine = null;
             var headerLines = new List<Line>();
             foreach (var line in lines)
             {
@@ -145,7 +140,7 @@ namespace MarkdownSnippets
 
             if (writeHeader)
             {
-                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath, header, newLine), "", 0));
+                lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
             }
 
             if (tocLine != null)

@@ -3,10 +3,10 @@ namespace MarkdownSnippets
     public class MarkdownProcessingException :
         SnippetException
     {
-        public string File { get; }
+        public string? File { get; }
         public int LineNumber { get; }
 
-        public MarkdownProcessingException(string message, string file, int lineNumber) :
+        public MarkdownProcessingException(string message, string? file, int lineNumber) :
             base(message)
         {
             Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));

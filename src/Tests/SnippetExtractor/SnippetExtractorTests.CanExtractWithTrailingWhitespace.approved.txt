@@ -3,7 +3,7 @@
     Key: 'codekey',
     Language: 'cs',
     Value: 'the code',
-    Error: null,
+    Error: '',
     FileLocation: 'path.cs(2-4)',
     IsInError: false
   }

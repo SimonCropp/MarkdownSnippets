@@ -27,7 +27,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// Initialise a new instance of <see cref="Snippet"/>.
         /// </summary>
-        public static Snippet Build(int startLine, int endLine, string value, string key, string language, string path)
+        public static Snippet Build(int startLine, int endLine, string value, string key, string language, string? path)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstEmpty(path, nameof(path));
@@ -41,29 +41,38 @@ namespace MarkdownSnippets
                 EndLine = endLine,
                 value = value,
                 Key = key,
-                Language = language,
+                language = language,
                 Path = path,
+                Error = ""
             };
         }
 
-        public string Error { get; private set; }
+        public string Error { get; private set; } = null!;
 
         public bool IsInError { get; private set; }
 
         /// <summary>
         /// The key used to identify the snippet.
         /// </summary>
-        public string Key { get; private set; }
+        public string Key { get; private set; } = null!;
 
         /// <summary>
         /// The language of the snippet, extracted from the file extension of the input file.
         /// </summary>
-        public string Language { get; private set; }
+        public string Language
+        {
+            get
+            {
+                ThrowIfIsInError();
+                return language!;
+            }
+        }
+        string? language;
 
         /// <summary>
         /// The path the snippet was read from.
         /// </summary>
-        public string Path { get; private set; }
+        public string? Path { get; private set; }
 
         /// <summary>
         /// The line the snippets started on.
@@ -78,7 +87,7 @@ namespace MarkdownSnippets
         /// <summary>
         /// The <see cref="Path"/>, <see cref="StartLine"/>, and <see cref="EndLine"/> concatenated.
         /// </summary>
-        public string FileLocation
+        public string? FileLocation
         {
             get
             {
@@ -96,11 +105,11 @@ namespace MarkdownSnippets
             get
             {
                 ThrowIfIsInError();
-                return value;
+                return value!;
             }
         }
 
-        string value;
+        string? value;
 
         void ThrowIfIsInError()
         {

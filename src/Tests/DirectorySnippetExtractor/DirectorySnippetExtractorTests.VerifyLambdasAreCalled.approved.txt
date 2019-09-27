@@ -1,7 +1,3 @@
-﻿{
-  Directories: [
-    {
-      Path: 'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
-    }
-  ]
-}
+﻿[
+  'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
+]

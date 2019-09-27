@@ -3,7 +3,7 @@
     Key: 'keychild',
     Language: 'cs',
     Value: 'b',
-    Error: null,
+    Error: '',
     FileLocation: 'path.cs(10-16)',
     IsInError: false
   },
@@ -11,7 +11,7 @@
     Key: 'keyparent',
     Language: 'cs',
     Value: 'a\r\n\r\nb\r\n\r\nc',
-    Error: null,
+    Error: '',
     FileLocation: 'path.cs(4-22)',
     IsInError: false
   }

@@ -6,7 +6,7 @@ static class StringBuilderCache
     const int MAX_BUILDER_SIZE = 360;
 
     [ThreadStatic]
-    static StringBuilder CachedInstance;
+    static StringBuilder? CachedInstance;
 
     public static StringBuilder Acquire(int capacity = 16)
     {

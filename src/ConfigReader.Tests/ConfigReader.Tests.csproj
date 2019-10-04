@@ -15,7 +15,7 @@
     <PackageReference Include="XunitLogger" Version="3.2.1" />
     <PackageReference Include="Xunit.ApprovalTests" Version="3.2.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.25" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.26" PrivateAssets="All" />
 
     <None Update="sampleConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

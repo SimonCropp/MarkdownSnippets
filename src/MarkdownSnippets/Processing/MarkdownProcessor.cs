@@ -59,17 +59,14 @@ namespace MarkdownSnippets
             var builder = StringBuilderCache.Acquire();
             try
             {
-                using (var reader = new StringReader(input))
-                using (var writer = new StringWriter(builder))
+                using var reader = new StringReader(input);
+                using var writer = new StringWriter(builder);
+                var processResult = Apply(reader, writer, file);
+                var missing = processResult.MissingSnippets;
+                if (missing.Any())
                 {
-                    var processResult = Apply(reader, writer, file);
-                    var missing = processResult.MissingSnippets;
-                    if (missing.Any())
-                    {
-                        throw new MissingSnippetsException(missing);
-                    }
+                    throw new MissingSnippetsException(missing);
                 }
-
                 return builder.ToString();
             }
             finally

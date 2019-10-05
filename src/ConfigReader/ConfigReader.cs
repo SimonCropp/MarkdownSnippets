@@ -42,23 +42,23 @@ public static class ConfigReader
 
     public static ConfigInput Parse(string contents)
     {
-        using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents)))
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents))
         {
-            stream.Position = 0;
-            var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
-            var configSerialization = (ConfigSerialization) serializer.ReadObject(stream);
-            return new ConfigInput
-            {
-                WriteHeader = configSerialization.WriteHeader,
-                ReadOnly = configSerialization.ReadOnly,
-                UrlsAsSnippets = configSerialization.UrlsAsSnippets,
-                Exclude = configSerialization.Exclude,
-                Header = configSerialization.Header,
-                TocExcludes = configSerialization.TocExcludes,
-                TocLevel = configSerialization.TocLevel,
-                LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
-            };
-        }
+            Position = 0
+        };
+        var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
+        var configSerialization = (ConfigSerialization) serializer.ReadObject(stream);
+        return new ConfigInput
+        {
+            WriteHeader = configSerialization.WriteHeader,
+            ReadOnly = configSerialization.ReadOnly,
+            UrlsAsSnippets = configSerialization.UrlsAsSnippets,
+            Exclude = configSerialization.Exclude,
+            Header = configSerialization.Header,
+            TocExcludes = configSerialization.TocExcludes,
+            TocLevel = configSerialization.TocLevel,
+            LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
+        };
     }
 
     static LinkFormat? GetLinkFormat(string? value)

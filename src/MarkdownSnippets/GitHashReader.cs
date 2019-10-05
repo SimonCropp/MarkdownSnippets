@@ -23,10 +23,8 @@ static class GitHashReader
 
     static string ReadFirstLine(string head)
     {
-        using (var stream = FileEx.OpenRead(head))
-        using (var reader = new StreamReader(stream))
-        {
-            return reader.ReadLine();
-        }
+        using var stream = FileEx.OpenRead(head);
+        using var reader = new StreamReader(stream);
+        return reader.ReadLine();
     }
 }

@@ -56,17 +56,14 @@ class Usage
             writeHeader: true);
 
         var path = @"C:\path\inputMarkdownFile.md";
-        using (var reader = File.OpenText(path))
-        using (var writer = File.CreateText(@"C:\path\outputMarkdownFile.md"))
-        {
-            var result = markdownProcessor.Apply(reader, writer, path);
-            // snippets that the markdown file expected but did not exist in the input snippets
-            var missingSnippets = result.MissingSnippets;
+        using var reader = File.OpenText(path);
+        using var writer = File.CreateText(@"C:\path\outputMarkdownFile.md");
+        var result = markdownProcessor.Apply(reader, writer, path);
+        // snippets that the markdown file expected but did not exist in the input snippets
+        var missingSnippets = result.MissingSnippets;
 
-            // snippets that the markdown file used
-            var usedSnippets = result.UsedSnippets;
-        }
-
+        // snippets that the markdown file used
+        var usedSnippets = result.UsedSnippets;
         #endregion
     }
 }

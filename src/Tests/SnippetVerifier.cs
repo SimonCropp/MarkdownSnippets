@@ -14,18 +14,16 @@ static class SnippetVerifier
             tocLevel: 2,
             writeHeader: true);
         var stringBuilder = new StringBuilder();
-        using (var reader = new StringReader(markdownContent))
-        using (var writer = new StringWriter(stringBuilder))
+        using var reader = new StringReader(markdownContent);
+        using var writer = new StringWriter(stringBuilder);
+        var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
+        var output = new
         {
-            var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
-            var output = new
-            {
-                processResult.MissingSnippets,
-                processResult.UsedSnippets,
-                content = stringBuilder.ToString()
-            };
-            ObjectApprover.Verify(output, Scrub);
-        }
+            processResult.MissingSnippets,
+            processResult.UsedSnippets,
+            content = stringBuilder.ToString()
+        };
+        ObjectApprover.Verify(output, Scrub);
     }
 
     static string Scrub(string value)

@@ -20,11 +20,9 @@ public class IndexReaderTests :
         try
         {
             File.WriteAllText(fileName, input);
-            using (var streamReader = File.OpenText(fileName))
-            {
-                var lines = LineReader.ReadFirstLine(streamReader);
-                Assert.Equal(expected, lines.newLine);
-            }
+            using var streamReader = File.OpenText(fileName);
+            var lines = LineReader.ReadFirstLine(streamReader);
+            Assert.Equal(expected, lines.newLine);
         }
         finally
         {

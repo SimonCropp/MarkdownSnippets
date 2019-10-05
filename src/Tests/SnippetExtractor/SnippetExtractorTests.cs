@@ -177,10 +177,8 @@ public class SnippetExtractorTests :
 
     public List<Snippet> FromText(string contents)
     {
-        using (var stringReader = new StringReader(contents))
-        {
-            return FileSnippetExtractor.Read(stringReader, "path.cs").ToList();
-        }
+        using var stringReader = new StringReader(contents);
+        return FileSnippetExtractor.Read(stringReader, "path.cs").ToList();
     }
 
     [Fact]

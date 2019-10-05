@@ -86,10 +86,9 @@ namespace MarkdownSnippets
             {
                 return Enumerable.Empty<Snippet>();
             }
-            using (var reader = File.OpenText(path))
-            {
-                return Read(reader, path).ToList();
-            }
+
+            using var reader = File.OpenText(path);
+            return Read(reader, path).ToList();
         }
 
         /// <summary>

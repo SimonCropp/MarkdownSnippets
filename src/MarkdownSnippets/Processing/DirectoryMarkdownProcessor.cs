@@ -172,21 +172,17 @@ namespace MarkdownSnippets
 
         static void WriteLines(string target, List<Line> lines)
         {
-            using (var writer = File.CreateText(target))
+            using var writer = File.CreateText(target);
+            foreach (var line in lines)
             {
-                foreach (var line in lines)
-                {
-                    writer.WriteLine(line.Current);
-                }
+                writer.WriteLine(line.Current);
             }
         }
 
         static (List<Line> lines, string newLine) ReadLines(string sourceFile)
         {
-            using (var reader = File.OpenText(sourceFile))
-            {
-                return LineReader.ReadAllLines(reader, sourceFile);
-            }
+            using var reader = File.OpenText(sourceFile);
+            return LineReader.ReadAllLines(reader, sourceFile);
         }
 
         static string GetTargetFile(string sourceFile, string rootDirectory)

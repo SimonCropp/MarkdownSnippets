@@ -2,7 +2,8 @@ using System;
 using MarkdownSnippets;
 using Newtonsoft.Json;
 
-class SnippetConverter : JsonConverter
+class SnippetConverter :
+    JsonConverter
 {
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {

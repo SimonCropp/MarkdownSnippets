@@ -1,0 +1,3 @@
+﻿begin-snippet: nestedsnippet
+Some code
+end-snippet

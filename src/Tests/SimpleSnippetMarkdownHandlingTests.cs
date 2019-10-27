@@ -22,7 +22,8 @@ public class SimpleSnippetMarkdownHandlingTests :
         Approvals.Verify(builder.ToString());
     }
 
-    public SimpleSnippetMarkdownHandlingTests(ITestOutputHelper output) : base(output)
+    public SimpleSnippetMarkdownHandlingTests(ITestOutputHelper output) :
+        base(output)
     {
     }
 }

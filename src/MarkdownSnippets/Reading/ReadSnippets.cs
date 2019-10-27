@@ -6,7 +6,8 @@ using System.Linq;
 namespace MarkdownSnippets
 {
     [DebuggerDisplay("Count={Snippets.Count}")]
-    public class ReadSnippets : IEnumerable<Snippet>
+    public class ReadSnippets :
+        IEnumerable<Snippet>
     {
         public IReadOnlyList<Snippet> Snippets { get; }
         public IReadOnlyList<string> Files { get; }

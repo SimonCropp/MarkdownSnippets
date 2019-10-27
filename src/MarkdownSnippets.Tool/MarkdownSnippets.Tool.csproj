@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
-    
+
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.27" PrivateAssets="All" />

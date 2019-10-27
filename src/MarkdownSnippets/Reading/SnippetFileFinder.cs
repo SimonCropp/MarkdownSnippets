@@ -13,7 +13,7 @@ namespace MarkdownSnippets
             this.directoryFilter = directoryFilter;
         }
 
-        public bool IncludeDirectory(string directoryPath)
+        bool IncludeDirectory(string directoryPath)
         {
             Guard.DirectoryExists(directoryPath, nameof(directoryPath));
             var suffix = Path.GetFileName(directoryPath);

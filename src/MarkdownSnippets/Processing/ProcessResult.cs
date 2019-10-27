@@ -7,7 +7,8 @@ namespace MarkdownSnippets
     /// <summary>
     /// The result of <see cref="MarkdownProcessor"/> Apply methods.
     /// </summary>
-    public class ProcessResult : IEnumerable<Snippet>
+    public class ProcessResult :
+        IEnumerable<Snippet>
     {
         public ProcessResult(IReadOnlyList<Snippet> usedSnippets, IReadOnlyList<MissingSnippet> missingSnippets)
         {

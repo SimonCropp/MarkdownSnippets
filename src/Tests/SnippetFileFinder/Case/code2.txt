@@ -1,0 +1,3 @@
+﻿begin-snippet: Snippet
+Some code
+end-snippet

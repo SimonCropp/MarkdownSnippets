@@ -6,7 +6,7 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class DirectorySnippetExtractorTests : 
+public class DirectorySnippetExtractorTests :
     XunitApprovalBase
 {
     [Fact]

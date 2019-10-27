@@ -1,0 +1,3 @@
+﻿[
+  'root\\IncludeFileFinder\VerifyLambdasAreCalled\subpath'
+]

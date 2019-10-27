@@ -24,6 +24,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
+    <None Update="IncludeFileFinder\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
     <None Update="SnippetFileFinder\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>

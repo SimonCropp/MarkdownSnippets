@@ -1,0 +1,4 @@
+﻿[
+  'root\\IncludeFileFinder\Simple\file1.include.md',
+  'root\\IncludeFileFinder\Simple\file2.include.md'
+]

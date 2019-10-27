@@ -1,3 +1,0 @@
-﻿begin-snippet: snipPet
-Some code
-end-snippet

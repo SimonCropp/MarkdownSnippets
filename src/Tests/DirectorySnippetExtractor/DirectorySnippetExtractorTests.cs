@@ -30,8 +30,8 @@ public class DirectorySnippetExtractorTests :
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
         var extractor = new DirectorySnippetExtractor();
-        var components = extractor.ReadSnippets(directory);
-        ObjectApprover.Verify(components, Scrubber.Scrub);
+        var snippets = extractor.ReadSnippets(directory);
+        ObjectApprover.Verify(snippets, Scrubber.Scrub);
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class DirectorySnippetExtractorTests :
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
         var extractor = new DirectorySnippetExtractor();
-        var components = extractor.ReadSnippets(directory);
-        ObjectApprover.Verify(components, Scrubber.Scrub);
+        var snippets = extractor.ReadSnippets(directory);
+        ObjectApprover.Verify(snippets, Scrubber.Scrub);
     }
 
     [Fact]

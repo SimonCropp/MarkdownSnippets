@@ -166,11 +166,13 @@ public class CommandRunnerTests :
                 targetDirectory,
                 configInput
             },
-            scrubber: s =>
-            {
-                return s.Replace(Environment.CurrentDirectory, "TheTargetDirectory")
-                    .Replace(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,"../")), "TheTargetDirectory");
-            });
+            scrubber: CleanCurrentDir);
+    }
+
+    static string CleanCurrentDir(string s)
+    {
+        return s.Replace(Environment.CurrentDirectory, "TheTargetDirectory")
+            .Replace(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,"../")), "TheTargetDirectory");
     }
 
     public CommandRunnerTests(ITestOutputHelper output) :

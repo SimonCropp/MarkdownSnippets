@@ -37,7 +37,7 @@ public class DirectoryMarkdownProcessorTests :
                 scanForSnippets: false,
                 writeHeader: false,
                 readOnly: true);
-            processor.IncludeSnippets(
+            processor.AddSnippets(
                 SnippetBuild("snippet1"),
                 SnippetBuild("snippet2")
             );
@@ -60,7 +60,7 @@ public class DirectoryMarkdownProcessorTests :
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
         var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
-        processor.IncludeSnippets(
+        processor.AddSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")
         );

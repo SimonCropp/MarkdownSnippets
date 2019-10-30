@@ -56,7 +56,7 @@ namespace MarkdownSnippets
 
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
-            processor.IncludeSnippets(snippets);
+            processor.AddSnippets(snippets);
 
             try
             {

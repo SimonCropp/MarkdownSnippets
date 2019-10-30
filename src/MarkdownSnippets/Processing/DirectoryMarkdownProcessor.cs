@@ -64,16 +64,16 @@ namespace MarkdownSnippets
             this.targetDirectory = Path.GetFullPath(targetDirectory);
             if (scanForMdFiles)
             {
-                IncludeMdFilesFrom(targetDirectory);
+                AddMdFilesFrom(targetDirectory);
             }
 
             if (scanForSnippets)
             {
-                IncludeSnippetsFrom(targetDirectory);
+                AddSnippetsFrom(targetDirectory);
             }
         }
 
-        public void IncludeSnippets(List<Snippet> snippets)
+        public void AddSnippets(List<Snippet> snippets)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             var files = snippets
@@ -87,13 +87,13 @@ namespace MarkdownSnippets
             log($"Added {snippets.Count} snippets");
         }
 
-        public void IncludeSnippets(params Snippet[] snippets)
+        public void AddSnippets(params Snippet[] snippets)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
-            IncludeSnippets(snippets.ToList());
+            AddSnippets(snippets.ToList());
         }
 
-        public void IncludeSnippetsFrom(string directory)
+        public void AddSnippetsFrom(string directory)
         {
             Guard.AgainstNull(directory, nameof(directory));
             directory = Path.Combine(targetDirectory, directory);
@@ -108,7 +108,7 @@ namespace MarkdownSnippets
             log($"Added {read.Count} snippets");
         }
 
-        public void IncludeMdFilesFrom(string directory)
+        public void AddMdFilesFrom(string directory)
         {
             Guard.DirectoryExists(directory, nameof(directory));
             var mdFinder = new MdFileFinder(directoryFilter);
@@ -117,7 +117,7 @@ namespace MarkdownSnippets
             log($"Added {files.Count} .source.md files");
         }
 
-        public void IncludeMdFiles(params string[] files)
+        public void AddMdFiles(params string[] files)
         {
             Guard.AgainstNull(files, nameof(files));
             foreach (var file in files)

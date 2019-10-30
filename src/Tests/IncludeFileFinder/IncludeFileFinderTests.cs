@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
-using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 

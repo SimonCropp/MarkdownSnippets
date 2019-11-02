@@ -200,7 +200,7 @@ mdsnippets --header "GENERATED FILE\nSource File: {relativePath}"
 
 ## Markdown includes
 
-Markdown includes are pulled into the document prior to passing the content through the markdown conversion.
+Markdown includes are pulled into the document prior to passing the content through the snippet insertion.
 
 
 ### Defining an include

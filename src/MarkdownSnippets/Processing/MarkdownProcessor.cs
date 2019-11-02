@@ -111,36 +111,12 @@ namespace MarkdownSnippets
             {
                 var line = lines[index];
 
-                var current = line.Current;
-                if (current.StartsWith("include: "))
+                if (TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
                 {
-                    var includeKey = current.Substring(9);
-                    var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
-                    if (include!= null)
-                    {
-                        usedIncludes.Add(include);
-                        line.Current = $@"<!--
-{current}
-path: {include.Path}
--->";
-                        var includeLines = include.Lines;
-                        for (var includeIndex = 0; includeIndex < includeLines.Count; includeIndex++)
-                        {
-                            var includeLine = includeLines[includeIndex];
-                            //todo: path of include
-                            lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
-                        }
-                    }
-                    else
-                    {
-                        missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
-                        line.Current = $"** Could not find include '{includeKey}' **";
-                    }
-
                     continue;
                 }
 
-                if (current.StartsWith("#"))
+                if (line.Current.StartsWith("#"))
                 {
                     if (tocLine != null)
                     {
@@ -150,7 +126,7 @@ path: {include.Path}
                     continue;
                 }
 
-                if (current == "toc")
+                if (line.Current == "toc")
                 {
                     tocLine = line;
                     continue;
@@ -187,6 +163,38 @@ path: {include.Path}
                 usedSnippets: usedSnippets.Distinct().ToList(),
                 usedIncludes: usedIncludes.Distinct().ToList(),
                 missingIncludes: missingIncludes);
+        }
+
+        bool TryProcessInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, List<MissingInclude> missingIncludes)
+        {
+            if (!line.Current.StartsWith("include: "))
+            {
+                return false;
+            }
+
+            var includeKey = line.Current.Substring(9);
+            var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
+            if (include == null)
+            {
+                missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
+                line.Current = $"** Could not find include '{includeKey}' **";
+            }
+            else
+            {
+                usedIncludes.Add(include);
+                line.Current = $@"<!--
+{line.Current}
+path: {include.Path}
+-->";
+                for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
+                {
+                    var includeLine = include.Lines[includeIndex];
+                    //todo: path of include
+                    lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
+                }
+            }
+
+            return true;
         }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)

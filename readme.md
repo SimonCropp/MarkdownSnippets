@@ -267,7 +267,7 @@ mdsnippets --header "GENERATED FILE\nSource File: {relativePath}"
 
 ## Markdown includes
 
-Markdown includes are pulled into the document prior to passing the content through the markdown conversion.
+Markdown includes are pulled into the document prior to passing the content through the snippet insertion.
 
 
 ### Defining an include
@@ -279,7 +279,7 @@ Add a file anywhere in the docs repository that is suffixed with `.include.md`. 
 
 Add the following to the markdown:
 ```
-include: theKey
+** Could not find include 'theKey' **
 ```
 
 

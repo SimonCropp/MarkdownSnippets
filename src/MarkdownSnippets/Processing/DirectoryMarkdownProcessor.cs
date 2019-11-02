@@ -95,10 +95,7 @@ namespace MarkdownSnippets
 
         public void AddSnippetsFrom(string directory)
         {
-            Guard.AgainstNull(directory, nameof(directory));
-            directory = Path.Combine(targetDirectory, directory);
-            directory = Path.GetFullPath(directory);
-            Guard.DirectoryExists(directory, nameof(directory));
+            directory = ExpandDirectory(directory);
             var finder = new SnippetFileFinder(directoryFilter);
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
@@ -108,9 +105,18 @@ namespace MarkdownSnippets
             log($"Added {read.Count} snippets");
         }
 
+        string ExpandDirectory(string directory)
+        {
+            Guard.AgainstNull(directory, nameof(directory));
+            directory = Path.Combine(targetDirectory, directory);
+            directory = Path.GetFullPath(directory);
+            Guard.DirectoryExists(directory, nameof(directory));
+            return directory;
+        }
+
         public void AddMdFilesFrom(string directory)
         {
-            Guard.DirectoryExists(directory, nameof(directory));
+            directory = ExpandDirectory(directory);
             var mdFinder = new MdFileFinder(directoryFilter);
             var files = mdFinder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);

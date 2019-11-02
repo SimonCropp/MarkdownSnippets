@@ -6,7 +6,7 @@ namespace MarkdownSnippets
     public class Snippet
     {
         /// <summary>
-        /// Initialise a new instance of <see cref="Snippet"/>.
+        /// Initialise a new instance of an in-error <see cref="Snippet"/>.
         /// </summary>
         public static Snippet BuildError(string key, int lineNumberInError, string path, string error)
         {

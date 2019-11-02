@@ -117,6 +117,30 @@ snippet: /FileToUseAsSnippet.txt
             });
     }
 
+    [Fact]
+    public void SnippetInInclude()
+    {
+        var availableSnippets = new List<Snippet>
+        {
+            SnippetBuild(
+                language: "cs",
+                key: "snippet1"
+            )
+        };
+        var content = @"
+some text
+
+include: theKey
+
+some other text
+";
+        SnippetVerifier.Verify(
+            content,
+            availableSnippets,
+            new List<string>(),
+            includes: new []{ Include.Build("theKey", new List<string> {"snippet: snippet1"}, "thePath")});
+    }
+
     static Snippet SnippetBuild(string language, string key)
     {
         return Snippet.Build(

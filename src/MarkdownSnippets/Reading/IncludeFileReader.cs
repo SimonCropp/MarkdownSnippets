@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using MarkdownSnippets;
 
 static class IncludeFileReader
 {
-    public static Func<string, string[]> ReadIncludes(IEnumerable<string> files)
+    public static Func<string, Include> ReadIncludes(IEnumerable<string> files)
     {
-        var dictionary = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
+        var dictionary = new Dictionary<string, Include>(StringComparer.OrdinalIgnoreCase);
         foreach (var file in files)
         {
             var key = Path.GetFileName(file).Replace(".include.md", "");
@@ -15,7 +16,7 @@ static class IncludeFileReader
                 throw new Exception($"Duplicate include: {key}");
             }
 
-            dictionary[key] = File.ReadAllLines(file);
+            dictionary[key] = Include.Build(key, File.ReadAllLines(file), file);
         }
 
         return key =>

@@ -1,3 +1,8 @@
-﻿[
-  'Simple1'
-]
+﻿{
+  Error: '',
+  Key: 'file',
+  Path: 'IncludeFileReader\file.include.md',
+  Lines: [
+    'Simple1'
+  ]
+}

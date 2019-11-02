@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MarkdownSnippets
 {
@@ -25,13 +26,14 @@ namespace MarkdownSnippets
         /// <summary>
         /// Initialise a new instance of <see cref="Include"/>.
         /// </summary>
-        public static Include Build(string value, string key, string? path)
+        public static Include Build(string key, IReadOnlyList<string> lines, string? path)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstEmpty(path, nameof(path));
+            Guard.AgainstNull(lines, nameof(lines));
             return new Include
             {
-                value = value,
+                lines = lines,
                 Key = key,
                 Path = path,
                 Error = ""
@@ -52,16 +54,16 @@ namespace MarkdownSnippets
         /// </summary>
         public string? Path { get; private set; }
 
-        public string Value
+        public IReadOnlyList<string> Lines
         {
             get
             {
                 ThrowIfIsInError();
-                return value!;
+                return lines!;
             }
         }
 
-        string? value;
+        IReadOnlyList<string>? lines;
 
         void ThrowIfIsInError()
         {

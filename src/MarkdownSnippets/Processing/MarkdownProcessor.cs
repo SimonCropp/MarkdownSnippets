@@ -18,7 +18,7 @@ namespace MarkdownSnippets
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
-        GetIncludeLines getIncludeLines;
+        GetInclude getInclude;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -28,7 +28,7 @@ namespace MarkdownSnippets
             bool writeHeader,
             string? header = null,
             IEnumerable<string>? tocExcludes = null,
-            GetIncludeLines? getIncludeLines = null)
+            GetInclude? getInclude = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
@@ -40,13 +40,13 @@ namespace MarkdownSnippets
             this.writeHeader = writeHeader;
             this.header = header;
             this.tocLevel = tocLevel;
-            if (getIncludeLines == null)
+            if (getInclude == null)
             {
-                this.getIncludeLines = key => throw new Exception($"No GetIncludeLines defined. Key: {key}");
+                this.getInclude = key => throw new Exception($"No GetIncludeLines defined. Key: {key}");
             }
             else
             {
-                this.getIncludeLines = getIncludeLines;
+                this.getInclude = getInclude;
             }
             if (tocExcludes == null)
             {
@@ -118,13 +118,17 @@ namespace MarkdownSnippets
                 var current = line.Current;
                 if (current.StartsWith("include: "))
                 {
-                    var includeLines = getIncludeLines(current.Substring(9));
-                    line.Current = $"<!-- {current} -->";
+                    var include = getInclude(current.Substring(9));
+                    line.Current = $@"<!--
+{current}
+path: {include.Path}
+-->";
+                    var includeLines = include.Lines;
                     for (var includeIndex = 0; includeIndex < includeLines.Count; includeIndex++)
                     {
                         var includeLine = includeLines[includeIndex];
                         //todo: path of include
-                        lines.Insert(index + includeIndex + 1, new Line(includeLine, null, includeIndex));
+                        lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
                     }
                 }
 

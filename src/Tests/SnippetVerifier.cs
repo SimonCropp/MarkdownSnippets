@@ -9,7 +9,7 @@ static class SnippetVerifier
         string markdownContent,
         List<Snippet> availableSnippets,
         List<string> snippetSourceFiles,
-        GetIncludeLines? getIncludeLines = null)
+        GetInclude? getInclude = null)
     {
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),
@@ -17,7 +17,7 @@ static class SnippetVerifier
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: true,
-            getIncludeLines: getIncludeLines);
+            getInclude: getInclude);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);

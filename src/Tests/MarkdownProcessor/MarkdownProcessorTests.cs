@@ -8,7 +8,7 @@ public class MarkdownProcessorTests :
     XunitApprovalBase
 {
     [Fact]
-    public void Include()
+    public void WithInclude()
     {
         var content = @"
 before
@@ -17,7 +17,7 @@ include: theKey
 
 after
 ";
-        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), key => new List<string> {"theValue"});
+        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), key => Include.Build("theKey", new List<string> {"theValue"}, "thePath"));
     }
 
     [Fact]

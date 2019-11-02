@@ -108,6 +108,7 @@ namespace MarkdownSnippets
         {
             var missing = new List<MissingSnippet>();
             var usedSnippets = new List<Snippet>();
+            var usedIncludes = new List<Include>();
             var builder = new StringBuilder();
             Line? tocLine = null;
             var headerLines = new List<Line>();
@@ -119,6 +120,7 @@ namespace MarkdownSnippets
                 if (current.StartsWith("include: "))
                 {
                     var include = getInclude(current.Substring(9));
+                    usedIncludes.Add(include);
                     line.Current = $@"<!--
 {current}
 path: {include.Path}
@@ -176,7 +178,8 @@ path: {include.Path}
 
             return new ProcessResult(
                 missingSnippets: missing,
-                usedSnippets: usedSnippets.Distinct().ToList());
+                usedSnippets: usedSnippets.Distinct().ToList(),
+                usedIncludes: usedIncludes.Distinct().ToList());
         }
 
 

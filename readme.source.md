@@ -205,7 +205,7 @@ Markdown includes are pulled into the document prior to passing the content thro
 
 ### Defining an include
 
-Add a file anywhere in the docs repository that is suffixed with `.include.md`. For example, the file might be named `theKey.include.md`.
+Add a file anywhere in the target directory that is suffixed with `.include.md`. For example, the file might be named `theKey.include.md`.
 
 
 ### Using an include

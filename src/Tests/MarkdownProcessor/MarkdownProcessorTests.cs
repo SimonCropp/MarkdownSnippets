@@ -17,7 +17,7 @@ include: theKey
 
 after
 ";
-        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), key => Include.Build("theKey", new List<string> {"theValue"}, "thePath"));
+        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), new []{ Include.Build("theKey", new List<string> {"theValue"}, "thePath")});
     }
 
     [Fact]

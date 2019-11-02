@@ -47,13 +47,18 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 <!-- snippet: markdownProcessingSimple -->
 <a id='snippet-markdownprocessingsimple'/></a>
 ```cs
-// setup version convention and extract snippets from files
+// extract snippets from files
 var snippetExtractor = new DirectorySnippetExtractor();
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
+// extract includes from files
+var includeFinder = new IncludeFinder();
+var includes = includeFinder.ReadIncludes(@"C:\path");
+
 // Merge with some markdown text
 var markdownProcessor = new MarkdownProcessor(
-    snippets: snippets.ToDictionary(),
+    snippets: snippets.Lookup,
+    includes: includes,
     appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
     snippetSourceFiles: new List<string>(),
     tocLevel: 2,
@@ -69,7 +74,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L67) / [anchor](#snippet-markdownprocessingsimple)</sup>
+<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L72) / [anchor](#snippet-markdownprocessingsimple)</sup>
 <!-- endsnippet -->
 
 

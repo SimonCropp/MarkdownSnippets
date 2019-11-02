@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -9,15 +10,19 @@ static class SnippetVerifier
         string markdownContent,
         List<Snippet> availableSnippets,
         List<string> snippetSourceFiles,
-        GetInclude? getInclude = null)
+        IReadOnlyList<Include>? includes=null)
     {
+        if (includes == null)
+        {
+            includes = Array.Empty<Include>();
+        }
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: true,
-            getInclude: getInclude);
+            includes: includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);

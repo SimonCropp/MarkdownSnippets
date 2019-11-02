@@ -43,13 +43,18 @@ class Usage
     {
         #region markdownProcessingSimple
 
-        // setup version convention and extract snippets from files
+        // extract snippets from files
         var snippetExtractor = new DirectorySnippetExtractor();
         var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 
+        // extract includes from files
+        var includeFinder = new IncludeFinder();
+        var includes = includeFinder.ReadIncludes(@"C:\path");
+
         // Merge with some markdown text
         var markdownProcessor = new MarkdownProcessor(
-            snippets: snippets.ToDictionary(),
+            snippets: snippets.Lookup,
+            includes: includes,
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: new List<string>(),
             tocLevel: 2,

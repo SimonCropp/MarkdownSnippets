@@ -12,42 +12,36 @@ namespace MarkdownSnippets
     public class MarkdownProcessor
     {
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
+        IReadOnlyList<Include> includes;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
         string? header;
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
-        GetInclude getInclude;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
+            IReadOnlyList<Include> includes,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
             IReadOnlyList<string> snippetSourceFiles,
             int tocLevel,
             bool writeHeader,
             string? header = null,
-            IEnumerable<string>? tocExcludes = null,
-            GetInclude? getInclude = null)
+            IEnumerable<string>? tocExcludes = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            Guard.AgainstNull(includes, nameof(includes));
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             this.snippets = snippets;
+            this.includes = includes;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
             this.header = header;
             this.tocLevel = tocLevel;
-            if (getInclude == null)
-            {
-                this.getInclude = key => throw new Exception($"No GetIncludeLines defined. Key: {key}");
-            }
-            else
-            {
-                this.getInclude = getInclude;
-            }
             if (tocExcludes == null)
             {
                 this.tocExcludes = new List<string>();
@@ -106,7 +100,8 @@ namespace MarkdownSnippets
 
         internal ProcessResult Apply(List<Line> lines, string newLine, string? relativePath)
         {
-            var missing = new List<MissingSnippet>();
+            var missingSnippets = new List<MissingSnippet>();
+            var missingIncludes = new List<MissingInclude>();
             var usedSnippets = new List<Snippet>();
             var usedIncludes = new List<Include>();
             var builder = new StringBuilder();
@@ -119,19 +114,30 @@ namespace MarkdownSnippets
                 var current = line.Current;
                 if (current.StartsWith("include: "))
                 {
-                    var include = getInclude(current.Substring(9));
-                    usedIncludes.Add(include);
-                    line.Current = $@"<!--
+                    var includeKey = current.Substring(9);
+                    var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
+                    if (include!= null)
+                    {
+                        usedIncludes.Add(include);
+                        line.Current = $@"<!--
 {current}
 path: {include.Path}
 -->";
-                    var includeLines = include.Lines;
-                    for (var includeIndex = 0; includeIndex < includeLines.Count; includeIndex++)
-                    {
-                        var includeLine = includeLines[includeIndex];
-                        //todo: path of include
-                        lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
+                        var includeLines = include.Lines;
+                        for (var includeIndex = 0; includeIndex < includeLines.Count; includeIndex++)
+                        {
+                            var includeLine = includeLines[includeIndex];
+                            //todo: path of include
+                            lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
+                        }
                     }
+                    else
+                    {
+                        missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
+                        line.Current = $"** Could not find include '{includeKey}' **";
+                    }
+
+                    continue;
                 }
 
                 if (current.StartsWith("#"))
@@ -160,7 +166,7 @@ path: {include.Path}
                         builder.Append(newLine);
                     }
 
-                    ProcessSnippetLine(AppendLine, missing, usedSnippets, key, line);
+                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
                     builder.TrimEnd();
                     line.Current = builder.ToString();
                 }
@@ -177,11 +183,11 @@ path: {include.Path}
             }
 
             return new ProcessResult(
-                missingSnippets: missing,
+                missingSnippets: missingSnippets,
                 usedSnippets: usedSnippets.Distinct().ToList(),
-                usedIncludes: usedIncludes.Distinct().ToList());
+                usedIncludes: usedIncludes.Distinct().ToList(),
+                missingIncludes: missingIncludes);
         }
-
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {

@@ -13,13 +13,16 @@ namespace MarkdownSnippets
         public ProcessResult(
             IReadOnlyList<Snippet> usedSnippets,
             IReadOnlyList<MissingSnippet> missingSnippets,
-            IReadOnlyList<Include> usedIncludes)
+            IReadOnlyList<Include> usedIncludes,
+            IReadOnlyList<MissingInclude> missingIncludes)
         {
             Guard.AgainstNull(usedSnippets, nameof(usedSnippets));
             Guard.AgainstNull(missingSnippets, nameof(missingSnippets));
             Guard.AgainstNull(usedIncludes, nameof(usedIncludes));
             UsedSnippets = usedSnippets;
             UsedIncludes = usedIncludes;
+            MissingIncludes = missingIncludes;
+            MissingSnippets = missingSnippets;
             MissingSnippets = missingSnippets;
         }
 
@@ -52,5 +55,10 @@ namespace MarkdownSnippets
         /// List of all snippets that the markdown file expected but did not exist in the input snippets.
         /// </summary>
         public IReadOnlyList<MissingSnippet> MissingSnippets { get; }
+
+        /// <summary>
+        /// List of all includes that the markdown file expected but did not exist in the input includes.
+        /// </summary>
+        public IReadOnlyList<MissingInclude> MissingIncludes { get; }
     }
 }

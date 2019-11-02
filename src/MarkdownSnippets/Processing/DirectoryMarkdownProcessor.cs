@@ -17,6 +17,7 @@ namespace MarkdownSnippets
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
+        List<Include> includes = new List<Include>();
         List<Snippet> snippets = new List<Snippet>();
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
@@ -117,10 +118,19 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            var mdFinder = new MdFileFinder(directoryFilter);
-            var files = mdFinder.FindFiles(directory).ToList();
+            var finder = new MdFileFinder(directoryFilter);
+            var files = finder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
             log($"Added {files.Count} .source.md files");
+        }
+
+        public void AddIncludeFilesFrom(string directory)
+        {
+            directory = ExpandDirectory(directory);
+            var finder = new IncludeFinder(directoryFilter);
+            var toAdd = finder.ReadIncludes(directory).ToList();
+            includes.AddRange(toAdd);
+            log($"Added {toAdd.Count} .include files");
         }
 
         public void AddMdFiles(params string[] files)
@@ -138,6 +148,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var processor = new MarkdownProcessor(
                 snippets.ToDictionary(),
+                includes,
                 appendSnippetGroup,
                 snippetSourceFiles,
                 tocLevel,

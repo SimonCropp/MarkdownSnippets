@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Xunit;
+﻿using Xunit;
 using Xunit.Abstractions;
 
 public class CommandRunnerTests :
@@ -166,14 +164,9 @@ public class CommandRunnerTests :
                 targetDirectory,
                 configInput
             },
-            scrubber: CleanCurrentDir);
+            scrubber: Scrubber.Scrub);
     }
 
-    static string CleanCurrentDir(string s)
-    {
-        return s.Replace(Environment.CurrentDirectory, "TheTargetDirectory")
-            .Replace(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,"../")), "TheTargetDirectory");
-    }
 
     public CommandRunnerTests(ITestOutputHelper output) :
         base(output)

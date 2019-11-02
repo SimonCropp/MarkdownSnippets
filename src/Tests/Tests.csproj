@@ -46,7 +46,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Update="IncludeFileReader\file.include.md">
+    <None Update="IncludeFinder\file.include.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

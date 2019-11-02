@@ -1,5 +1,5 @@
 ﻿{
-  targetDirectory: 'TheTargetDirectory',
+  targetDirectory: 'root\',
   configInput: {
     UrlsAsSnippets: [
       'url1',

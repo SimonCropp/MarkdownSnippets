@@ -34,6 +34,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Mark resulting files as read only](#mark-resulting-files-as-read-only)
   * [Table of contents](#table-of-contents)
   * [Header](#header)
+  * [Markdown includes](#markdown-includes)
   * [LinkFormat](#linkformat)
 <!-- endtoc -->
 
@@ -261,6 +262,24 @@ To insert a newline use `\n`
 
 ```ps
 mdsnippets --header "GENERATED FILE\nSource File: {relativePath}"
+```
+
+
+## Markdown includes
+
+Markdown includes are pulled into the document prior to passing the content through the markdown conversion.
+
+
+### Defining an include
+
+Add a file anywhere in the docs repository that is suffixed with `.include.md`. For example, the file might be named `theKey.include.md`.
+
+
+### Using an include
+
+Add the following to the markdown:
+```
+include: theKey
 ```
 
 

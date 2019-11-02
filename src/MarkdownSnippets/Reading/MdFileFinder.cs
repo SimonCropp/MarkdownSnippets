@@ -42,7 +42,7 @@ namespace MarkdownSnippets
             foreach (var directoryPath in directoryPaths)
             {
                 Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-                    FindFiles(Path.GetFullPath(directoryPath), files);
+                FindFiles(Path.GetFullPath(directoryPath), files);
             }
 
             return files;
@@ -50,7 +50,7 @@ namespace MarkdownSnippets
 
         void FindFiles(string directoryPath, List<string> files)
         {
-            files.AddRange(FileEx.FindFiles(directoryPath,"*.source.md"));
+            files.AddRange(FileEx.FindFiles(directoryPath, "*.source.md"));
 
             foreach (var subDirectory in Directory.EnumerateDirectories(directoryPath)
                 .Where(IncludeDirectory))

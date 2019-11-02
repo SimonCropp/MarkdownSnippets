@@ -17,7 +17,27 @@ include: theKey
 
 after
 ";
-        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), new []{ Include.Build("theKey", new List<string> {"theValue"}, "thePath")});
+        SnippetVerifier.Verify(
+            content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new []{ Include.Build("theKey", new List<string> {"theValue"}, "thePath")});
+    }
+
+    [Fact]
+    public void MissingInclude()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        SnippetVerifier.Verify(content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new List<Include>());
     }
 
     [Fact]

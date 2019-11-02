@@ -8,6 +8,19 @@ public class MarkdownProcessorTests :
     XunitApprovalBase
 {
     [Fact]
+    public void Include()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>(), key => new List<string> {"theValue"});
+    }
+
+    [Fact]
     public void SkipHeadingBeforeToc()
     {
         var content = @"

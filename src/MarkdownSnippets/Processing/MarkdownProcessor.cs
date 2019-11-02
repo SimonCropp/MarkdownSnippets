@@ -18,6 +18,7 @@ namespace MarkdownSnippets
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
+        GetIncludeLines getIncludeLines;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -26,7 +27,8 @@ namespace MarkdownSnippets
             int tocLevel,
             bool writeHeader,
             string? header = null,
-            IEnumerable<string>? tocExcludes = null)
+            IEnumerable<string>? tocExcludes = null,
+            GetIncludeLines? getIncludeLines = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
@@ -38,6 +40,14 @@ namespace MarkdownSnippets
             this.writeHeader = writeHeader;
             this.header = header;
             this.tocLevel = tocLevel;
+            if (getIncludeLines == null)
+            {
+                this.getIncludeLines = key => throw new Exception($"No GetIncludeLines defined. Key: {key}");
+            }
+            else
+            {
+                this.getIncludeLines = getIncludeLines;
+            }
             if (tocExcludes == null)
             {
                 this.tocExcludes = new List<string>();
@@ -101,9 +111,24 @@ namespace MarkdownSnippets
             var builder = new StringBuilder();
             Line? tocLine = null;
             var headerLines = new List<Line>();
-            foreach (var line in lines)
+            for (var index = 0; index < lines.Count; index++)
             {
-                if (line.Current.StartsWith("#"))
+                var line = lines[index];
+
+                var current = line.Current;
+                if (current.StartsWith("include: "))
+                {
+                    var includeLines = getIncludeLines(current.Substring(9));
+                    line.Current = $"<!-- {current} -->";
+                    for (var includeIndex = 0; includeIndex < includeLines.Count; includeIndex++)
+                    {
+                        var includeLine = includeLines[includeIndex];
+                        //todo: path of include
+                        lines.Insert(index + includeIndex + 1, new Line(includeLine, null, includeIndex));
+                    }
+                }
+
+                if (current.StartsWith("#"))
                 {
                     if (tocLine != null)
                     {
@@ -113,7 +138,7 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (line.Current == "toc")
+                if (current == "toc")
                 {
                     tocLine = line;
                     continue;

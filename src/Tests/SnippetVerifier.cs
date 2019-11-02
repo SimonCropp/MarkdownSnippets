@@ -5,14 +5,19 @@ using MarkdownSnippets;
 
 static class SnippetVerifier
 {
-    public static void Verify(string markdownContent, List<Snippet> availableSnippets, List<string> snippetSourceFiles)
+    public static void Verify(
+        string markdownContent,
+        List<Snippet> availableSnippets,
+        List<string> snippetSourceFiles,
+        GetIncludeLines? getIncludeLines = null)
     {
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
-            writeHeader: true);
+            writeHeader: true,
+            getIncludeLines: getIncludeLines);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);

@@ -177,7 +177,7 @@ namespace MarkdownSnippets
             if (include == null)
             {
                 missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
-                line.Current = $"** Could not find include '{includeKey}' **";
+                line.Current = $"** Could not find include '{includeKey}.include.md' **";
             }
             else
             {

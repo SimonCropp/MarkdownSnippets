@@ -72,6 +72,7 @@ namespace MarkdownSnippets
             {
                 AddSnippetsFrom(targetDirectory);
             }
+            AddIncludeFilesFrom(targetDirectory);
         }
 
         public void AddSnippets(List<Snippet> snippets)

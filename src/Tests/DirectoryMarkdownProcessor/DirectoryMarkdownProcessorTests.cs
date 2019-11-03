@@ -22,7 +22,8 @@ public class DirectoryMarkdownProcessorTests :
                 "Icon",
                 "Credits",
                 "Release Notes"
-            });
+            },
+            directoryFilter: path => !path.Contains("IncludeFileFinder"));
         processor.Run();
     }
 

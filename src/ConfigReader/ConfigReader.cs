@@ -14,7 +14,7 @@ public static class ConfigReader
             return (null, path);
         }
 
-        return (Parse(File.ReadAllText(path)),path);
+        return (Parse(File.ReadAllText(path)), path);
     }
 
     static bool TryFindConfigFile(string directory, out string path)

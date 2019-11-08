@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using MarkdownSnippets;
 
 static class StartEndTester
@@ -11,7 +12,11 @@ static class StartEndTester
                IsEndRegion(trimmedLine);
     }
 
-    internal static bool IsStart(string trimmedLine, string path, out string currentKey, out Func<string, bool> endFunc)
+    internal static bool IsStart(
+        string trimmedLine,
+        string path,
+        [NotNullWhen(true)] out string? currentKey,
+        [NotNullWhen(true)] out Func<string, bool>? endFunc)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey))
         {
@@ -28,6 +33,7 @@ static class StartEndTester
         endFunc = throwFunc;
         return false;
     }
+
     static Func<string, bool> throwFunc = s => throw new Exception("Do not use out func");
 
     static bool IsEndRegion(string line)
@@ -45,7 +51,10 @@ static class StartEndTester
         return line.StartsWith("#region ", StringComparison.Ordinal);
     }
 
-    internal static bool IsStartRegion(string line, string path, out string key)
+    internal static bool IsStartRegion(
+        string line,
+        string path,
+        [NotNullWhen(true)] out string? key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
@@ -63,12 +72,15 @@ static class StartEndTester
         return startIndex != -1;
     }
 
-    internal static bool IsBeginSnippet(string line, string path, out string key)
+    internal static bool IsBeginSnippet(
+        string line,
+        string path,
+        [NotNullWhen(true)] out string? key)
     {
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
-            key = "";
+            key = null;
             return false;
         }
 
@@ -84,7 +96,12 @@ static class StartEndTester
         return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
     }
 
-    static bool TryExtractParts(string substring, string line, bool throwForTooManyParts, string path, out string key)
+    static bool TryExtractParts(
+        string substring,
+        string line,
+        bool throwForTooManyParts,
+        string path,
+        [NotNullWhen(true)] out string? key)
     {
         var split = substring.SplitBySpace();
         if (split.Length == 0)

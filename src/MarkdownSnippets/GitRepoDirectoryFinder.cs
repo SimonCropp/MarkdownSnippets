@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace MarkdownSnippets
@@ -35,7 +36,7 @@ namespace MarkdownSnippets
             return false;
         }
 
-        public static bool TryFind(string directory, out string path)
+        public static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
         {
             Guard.DirectoryExists(directory, nameof(directory));
 
@@ -50,7 +51,7 @@ namespace MarkdownSnippets
                 var parent = Directory.GetParent(directory);
                 if (parent == null)
                 {
-                    path = "";
+                    path = null;
                     return false;
                 }
 

@@ -1,13 +1,14 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using MarkdownSnippets;
 
 static class SnippetKeyReader
 {
-    public static bool TryExtractKeyFromLine(Line line, out string key)
+    public static bool TryExtractKeyFromLine(Line line, [NotNullWhen(true)] out string? key)
     {
         if (!line.Current.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase))
         {
-            key = "";
+            key = null;
             return false;
         }
 

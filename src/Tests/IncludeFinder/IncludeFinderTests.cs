@@ -8,7 +8,8 @@ public class IncludeFinderTests :
     [Fact]
     public void Simple()
     {
-        var includes = new IncludeFinder().ReadIncludes("IncludeFinder");
+        var finder = new IncludeFinder();
+        var includes = finder.ReadIncludes("IncludeFinder");
         ObjectApprover.Verify(includes, Scrubber.Scrub);
     }
 

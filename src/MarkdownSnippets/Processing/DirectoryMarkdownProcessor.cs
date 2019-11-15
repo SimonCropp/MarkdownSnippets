@@ -43,23 +43,9 @@ namespace MarkdownSnippets
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
 
-            if (appendSnippetGroup == null)
-            {
-                this.appendSnippetGroup = new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
-            }
-            else
-            {
-                this.appendSnippetGroup = appendSnippetGroup;
-            }
+            this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
 
-            if (log == null)
-            {
-                this.log = s => { Trace.WriteLine(s); };
-            }
-            else
-            {
-                this.log = log;
-            }
+            this.log = log ?? (s => { Trace.WriteLine(s); });
 
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             this.targetDirectory = Path.GetFullPath(targetDirectory);

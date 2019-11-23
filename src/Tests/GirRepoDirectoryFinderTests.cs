@@ -1,10 +1,11 @@
 ﻿using System.IO;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class GirRepoDirectoryFinderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public void CanFindGirRepoDir()

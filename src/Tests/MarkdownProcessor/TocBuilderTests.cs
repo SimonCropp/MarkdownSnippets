@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApprovalTests;
+using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class TocBuilderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void EmptyHeading()
+    public Task EmptyHeading()
     {
         var lines = new List<Line>
         {
             new Line("##", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void IgnoreTop()
+    public Task IgnoreTop()
     {
         var lines = new List<Line>
         {
@@ -27,28 +28,28 @@ public class TocBuilderTests :
             new Line("## Heading2", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void SanitizeLink()
+    public Task SanitizeLink()
     {
-        Approvals.Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
+        return Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
     }
 
     [Fact]
-    public void StripMarkdown()
+    public Task StripMarkdown()
     {
         var lines = new List<Line>
         {
             new Line("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void Exclude()
+    public Task Exclude()
     {
         var lines = new List<Line>
         {
@@ -56,11 +57,11 @@ public class TocBuilderTests :
             new Line("### Heading2", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}, Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}, Environment.NewLine));
     }
 
     [Fact]
-    public void Nested()
+    public Task Nested()
     {
         var lines = new List<Line>
         {
@@ -70,11 +71,11 @@ public class TocBuilderTests :
             new Line("### Heading4", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void Deep()
+    public Task Deep()
     {
         var lines = new List<Line>
         {
@@ -84,11 +85,11 @@ public class TocBuilderTests :
             new Line("##### Heading4", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 10, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 10, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void StopAtLevel()
+    public Task StopAtLevel()
     {
         var lines = new List<Line>
         {
@@ -97,33 +98,33 @@ public class TocBuilderTests :
             new Line("#### Heading3", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void Single()
+    public Task Single()
     {
         var lines = new List<Line>
         {
             new Line("## Heading", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void WithSpaces()
+    public Task WithSpaces()
     {
         var lines = new List<Line>
         {
             new Line("##  A B ", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void DuplicateNested()
+    public Task DuplicateNested()
     {
         var lines = new List<Line>
         {
@@ -132,11 +133,11 @@ public class TocBuilderTests :
             new Line("#### Heading", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines,4, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines,4, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
-    public void Duplicates()
+    public Task Duplicates()
     {
         var lines = new List<Line>
         {
@@ -145,7 +146,7 @@ public class TocBuilderTests :
             new Line("## a", "", 0)
         };
 
-        Approvals.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     public TocBuilderTests(ITestOutputHelper output) :

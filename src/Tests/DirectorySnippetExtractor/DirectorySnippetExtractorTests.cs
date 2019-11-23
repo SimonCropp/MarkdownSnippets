@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class DirectorySnippetExtractorTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void Case()
+    public Task Case()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Case");
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
         AssertCaseInsensitive(snippets.Lookup);
-        ObjectApprover.Verify(snippets, Scrubber.Scrub);
+
+        return Verify(snippets);
     }
 
     static void AssertCaseInsensitive(IReadOnlyDictionary<string, IReadOnlyList<Snippet>> dictionary)
@@ -26,25 +29,25 @@ public class DirectorySnippetExtractorTests :
     }
 
     [Fact]
-    public void Nested()
+    public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
-        ObjectApprover.Verify(snippets, Scrubber.Scrub);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void Simple()
+    public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
-        ObjectApprover.Verify(snippets, Scrubber.Scrub);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void VerifyLambdasAreCalled()
+    public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
@@ -57,7 +60,7 @@ public class DirectorySnippetExtractorTests :
             }
         );
         extractor.ReadSnippets(targetDirectory);
-        ObjectApprover.Verify(directories.OrderBy(file => file), Scrubber.Scrub);
+        return Verify(directories.OrderBy(file => file));
     }
 
     public DirectorySnippetExtractorTests(ITestOutputHelper output) :

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using ApprovalTests;
+using System.Threading.Tasks;
+using VerifyXunit;
 using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
 public class LogBuilderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void BuildConfigLogMessage()
+    public Task BuildConfigLogMessage()
     {
         var config = new ConfigResult
         {
@@ -22,15 +23,15 @@ line2",
             TocLevel = 5
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        Approvals.Verify(message);
+        return Verify(message);
     }
 
     [Fact]
-    public void BuildConfigLogMessageMinimal()
+    public Task BuildConfigLogMessageMinimal()
     {
         var config = new ConfigResult();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        Approvals.Verify(message);
+        return Verify(message);
     }
 
     public LogBuilderTests(ITestOutputHelper output) :

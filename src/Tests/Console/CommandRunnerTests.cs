@@ -1,101 +1,103 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
+using VerifyXunit;
+using Xunit;
 using Xunit.Abstractions;
 
 public class CommandRunnerTests :
-    XunitApprovalBase
+    VerifyBase
 {
     string? targetDirectory;
     ConfigInput? configInput;
 
     [Fact]
-    public void Empty()
+    public Task Empty()
     {
         CommandRunner.RunCommand(Capture);
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void SingleUnNamedArg()
+    public Task SingleUnNamedArg()
     {
         CommandRunner.RunCommand(Capture, "dir");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void Header()
+    public Task Header()
     {
         CommandRunner.RunCommand(Capture, "--header", "the header");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void WriteHeader()
+    public Task WriteHeader()
     {
         CommandRunner.RunCommand(Capture, "--write-header", "false");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void ReadOnlyShort()
+    public Task ReadOnlyShort()
     {
         CommandRunner.RunCommand(Capture, "-r");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void ReadOnlyLong()
+    public Task ReadOnlyLong()
     {
         CommandRunner.RunCommand(Capture, "--readonly");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void LinkFormatShort()
+    public Task LinkFormatShort()
     {
         CommandRunner.RunCommand(Capture, "-l", "tfs");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void LinkFormatLong()
+    public Task LinkFormatLong()
     {
         CommandRunner.RunCommand(Capture, "--link-format", "tfs");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void TargetDirectoryShort()
+    public Task TargetDirectoryShort()
     {
         CommandRunner.RunCommand(Capture, "-t", "../");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void TargetDirectoryLong()
+    public Task TargetDirectoryLong()
     {
         CommandRunner.RunCommand(Capture, "--target-directory", "../");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void TocLevelLong()
+    public Task TocLevelLong()
     {
         CommandRunner.RunCommand(Capture, "--toc-level", "5");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void ExcludeShort()
+    public Task ExcludeShort()
     {
         CommandRunner.RunCommand(Capture, "-e", "dir");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void ExcludeMultiple()
+    public Task ExcludeMultiple()
     {
         CommandRunner.RunCommand(Capture, "-e", "dir1:dir2");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
@@ -111,24 +113,24 @@ public class CommandRunnerTests :
     }
 
     [Fact]
-    public void ExcludeLong()
+    public Task ExcludeLong()
     {
         CommandRunner.RunCommand(Capture, "--exclude", "dir");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
-    public void UrlsAsSnippetsShort()
+    public Task UrlsAsSnippetsShort()
     {
         CommandRunner.RunCommand(Capture, "-u", "url");
-        Verify();
+        return VerifyResult();
     }
 
     [Fact]
     public void UrlsAsSnippetsMultiple()
     {
         CommandRunner.RunCommand(Capture, "-u", "url1:url2");
-        Verify();
+        VerifyResult();
     }
 
     [Fact]
@@ -144,10 +146,10 @@ public class CommandRunnerTests :
     }
 
     [Fact]
-    public void UrlsAsSnippetsLong()
+    public Task UrlsAsSnippetsLong()
     {
         CommandRunner.RunCommand(Capture, "--urls-as-snippets", "url");
-        Verify();
+        return VerifyResult();
     }
 
     void Capture(string targetDirectory, ConfigInput configInput)
@@ -156,15 +158,14 @@ public class CommandRunnerTests :
         this.configInput = configInput;
     }
 
-    void Verify()
+    Task VerifyResult()
     {
-        ObjectApprover.Verify(
+        return Verify(
             new
             {
                 targetDirectory,
                 configInput
-            },
-            scrubber: Scrubber.Scrub);
+            });
     }
 
 

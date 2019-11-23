@@ -1,26 +1,27 @@
-﻿using ApprovalTests;
+﻿using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class HeaderWriterTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void DefaultHeader()
+    public Task DefaultHeader()
     {
-        Approvals.Verify(HeaderWriter.DefaultHeader);
+        return Verify(HeaderWriter.DefaultHeader);
     }
 
     [Fact]
-    public void WriteHeaderDefaultHeader()
+    public Task WriteHeaderDefaultHeader()
     {
-        Approvals.Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
+        return Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
     }
 
     [Fact]
-    public void WriteHeaderHeaderCustom()
+    public Task WriteHeaderHeaderCustom()
     {
-        Approvals.Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
+        return Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
     }
 
     public HeaderWriterTests(ITestOutputHelper output) :

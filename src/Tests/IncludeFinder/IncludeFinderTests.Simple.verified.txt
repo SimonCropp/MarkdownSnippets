@@ -1,0 +1,10 @@
+[
+  {
+    Error: '',
+    Key: 'file',
+    Path: 'BaseDirectoryIncludeFinder\file.include.md',
+    Lines: [
+      'Simple1'
+    ]
+  }
+]

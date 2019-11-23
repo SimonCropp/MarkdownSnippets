@@ -1,0 +1,17 @@
+[
+  {
+    Key: 'keychild',
+    Language: 'cs',
+    Value: 'b
+c',
+    Error: '',
+    FileLocation: 'path.cs(4-7)',
+    IsInError: false
+  },
+  {
+    Key: 'keyparent',
+    Error: 'Snippet was not closed',
+    FileLocation: 'path.cs(3-3)',
+    IsInError: true
+  }
+]

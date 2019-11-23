@@ -1,14 +1,15 @@
-﻿using ObjectApproval;
+﻿using VerifyXunit;
 
 static class ModuleInitializer
 {
     public static void Initialize()
     {
-        SerializerBuilder.ExtraSettings = settings =>
+        Global.ApplyExtraSettings(settings =>
         {
             var converters = settings.Converters;
             converters.Add(new ProcessResultConverter());
             converters.Add(new SnippetConverter());
-        };
+        });
+        Global.AddScrubber(Scrubber.Scrub);
     }
 }

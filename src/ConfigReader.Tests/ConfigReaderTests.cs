@@ -1,24 +1,26 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class ConfigReaderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void Empty()
+    public Task Empty()
     {
         var config = ConfigReader.Parse("{}");
 
-        ObjectApprover.Verify(config);
+        return Verify(config);
     }
 
     [Fact]
-    public void Values()
+    public Task Values()
     {
         var stream = File.ReadAllText("sampleConfig.json");
         var config = ConfigReader.Parse(stream);
-        ObjectApprover.Verify(config);
+        return Verify(config);
     }
 
     public ConfigReaderTests(ITestOutputHelper output) :

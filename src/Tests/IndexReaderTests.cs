@@ -1,9 +1,10 @@
 ﻿using System.IO;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class IndexReaderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Theory]
     [InlineData("a\r", "\r")]

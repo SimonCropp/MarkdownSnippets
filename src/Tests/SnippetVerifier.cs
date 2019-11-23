@@ -2,20 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 
 static class SnippetVerifier
 {
-    public static void Verify(
+    public static Task VerifySnippets(
+        this VerifyBase verifyBase,
         string markdownContent,
         List<Snippet> availableSnippets,
         List<string> snippetSourceFiles,
-        IReadOnlyList<Include>? includes=null)
+        IReadOnlyList<Include>? includes = null)
     {
         if (includes == null)
         {
             includes = Array.Empty<Include>();
         }
+
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
@@ -33,14 +37,6 @@ static class SnippetVerifier
             processResult.UsedSnippets,
             content = stringBuilder.ToString()
         };
-        ObjectApprover.Verify(output, Scrub);
-    }
-
-    static string Scrub(string value)
-    {
-        var gitDir = GitRepoDirectoryFinder.FindForFilePath().Replace('\\', '/');
-        return value
-            .Replace("\\r\\n", "\r\n")
-            .Replace(gitDir, "");
+        return verifyBase.Verify(output);
     }
 }

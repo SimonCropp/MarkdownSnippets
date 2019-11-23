@@ -1,0 +1,20 @@
+[
+  {
+    Key: 'keychild',
+    Language: 'cs',
+    Value: 'b',
+    Error: '',
+    FileLocation: 'path.cs(4-6)',
+    IsInError: false
+  },
+  {
+    Key: 'keyparent',
+    Language: 'cs',
+    Value: 'a
+b
+c',
+    Error: '',
+    FileLocation: 'path.cs(2-8)',
+    IsInError: false
+  }
+]

@@ -1,9 +1,0 @@
-﻿{
-  targetDirectory: 'root\',
-  configInput: {
-    Exclude: [
-      'dir1',
-      'dir2'
-    ]
-  }
-}

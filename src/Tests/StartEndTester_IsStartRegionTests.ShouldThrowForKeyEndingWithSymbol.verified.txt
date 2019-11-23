@@ -1,0 +1,4 @@
+Key should not start or end with symbols.
+Key: key_
+Path: file
+Line: #region key_ 

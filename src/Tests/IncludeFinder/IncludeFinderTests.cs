@@ -1,16 +1,18 @@
-﻿using MarkdownSnippets;
+﻿using System.Threading.Tasks;
+using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class IncludeFinderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void Simple()
+    public Task Simple()
     {
         var finder = new IncludeFinder();
         var includes = finder.ReadIncludes("IncludeFinder");
-        ObjectApprover.Verify(includes, Scrubber.Scrub);
+        return Verify(includes);
     }
 
     public IncludeFinderTests(ITestOutputHelper output) :

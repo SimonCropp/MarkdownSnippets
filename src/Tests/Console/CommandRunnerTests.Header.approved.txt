@@ -1,6 +1,0 @@
-﻿{
-  targetDirectory: 'root\',
-  configInput: {
-    Header: 'the header'
-  }
-}

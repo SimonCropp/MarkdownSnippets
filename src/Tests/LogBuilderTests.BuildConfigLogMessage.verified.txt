@@ -1,0 +1,16 @@
+Config:
+    RootDir: theRoot
+    ReadOnly: True
+    WriteHeader: True
+    Header:
+        line1
+        line2
+    LinkFormat: Tfs
+    TocLevel: 5
+    FileConfigPath: theConfigFilePath (exists:False)
+    Exclude:
+        Dir1
+        Dir2
+    UrlsAsSnippets:
+        Url1
+        Url2

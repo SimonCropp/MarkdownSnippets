@@ -1,3 +1,0 @@
-﻿[
-  'root\\SnippetFileFinder\VerifyLambdasAreCalled\subpath'
-]

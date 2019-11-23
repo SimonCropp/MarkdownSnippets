@@ -1,0 +1,6 @@
+[
+  'BaseDirectorySnippetFileFinder\Simple\code1.txt',
+  'BaseDirectorySnippetFileFinder\Simple\code2.txt',
+  'BaseDirectorySnippetFileFinder\Simple\code3.txt',
+  'BaseDirectorySnippetFileFinder\Simple\code4.txt'
+]

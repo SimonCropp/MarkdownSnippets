@@ -1,33 +1,35 @@
 ﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class SnippetFileFinderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void Nested()
+    public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Nested");
         var finder = new SnippetFileFinder();
         var files = finder.FindFiles(directory);
-        ObjectApprover.Verify(files, Scrubber.Scrub);
+        return Verify(files);
     }
 
     [Fact]
-    public void Simple()
+    public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Simple");
         var finder = new SnippetFileFinder();
         var files = finder.FindFiles(directory);
-        ObjectApprover.Verify(files, Scrubber.Scrub);
+        return Verify(files);
     }
 
     [Fact]
-    public void VerifyLambdasAreCalled()
+    public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
@@ -40,7 +42,7 @@ public class SnippetFileFinderTests :
             }
         );
         finder.FindFiles(targetDirectory);
-        ObjectApprover.Verify(directories.OrderBy(file => file), Scrubber.Scrub);
+        return Verify(directories.OrderBy(file => file));
     }
 
     public SnippetFileFinderTests(ITestOutputHelper output) :

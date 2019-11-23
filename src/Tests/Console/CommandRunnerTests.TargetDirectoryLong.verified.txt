@@ -1,0 +1,4 @@
+{
+  targetDirectory: 'TheTargetDirectory',
+  configInput: {}
+}

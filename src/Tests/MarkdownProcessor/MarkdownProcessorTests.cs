@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class MarkdownProcessorTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void WithInclude()
+    public Task WithInclude()
     {
         var content = @"
 before
@@ -17,7 +19,7 @@ include: theKey
 
 after
 ";
-        SnippetVerifier.Verify(
+       return this.VerifySnippets(
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -25,7 +27,7 @@ after
     }
 
     [Fact]
-    public void MissingInclude()
+    public Task MissingInclude()
     {
         var content = @"
 before
@@ -34,14 +36,14 @@ include: theKey
 
 after
 ";
-        SnippetVerifier.Verify(content,
+       return this.VerifySnippets(content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
             includes: new List<Include>());
     }
 
     [Fact]
-    public void SkipHeadingBeforeToc()
+    public Task SkipHeadingBeforeToc()
     {
         var content = @"
 ## Heading 1
@@ -55,11 +57,11 @@ Text1
 Text2
 
 ";
-        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>());
+        return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
-    public void Toc()
+    public Task Toc()
     {
         var content = @"
 # Title
@@ -75,11 +77,11 @@ Text1
 Text2
 
 ";
-        SnippetVerifier.Verify(content, new List<Snippet>(), new List<string>());
+       return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
-    public void Simple()
+    public Task Simple()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -108,7 +110,7 @@ some other text
 snippet: /FileToUseAsSnippet.txt
 
 ";
-        SnippetVerifier.Verify(
+        return this.VerifySnippets(
             content,
             availableSnippets,
             new List<string>
@@ -118,7 +120,7 @@ snippet: /FileToUseAsSnippet.txt
     }
 
     [Fact]
-    public void SnippetInInclude()
+    public Task SnippetInInclude()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -134,7 +136,7 @@ include: theKey
 
 some other text
 ";
-        SnippetVerifier.Verify(
+        return this.VerifySnippets(
             content,
             availableSnippets,
             new List<string>(),

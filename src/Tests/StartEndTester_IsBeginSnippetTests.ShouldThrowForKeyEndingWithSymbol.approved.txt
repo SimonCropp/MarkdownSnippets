@@ -1,4 +1,0 @@
-﻿Key should not start or end with symbols.
-Key: key_
-Path: file
-Line: <!-- begin-snippet: key_ -->

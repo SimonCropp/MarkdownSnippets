@@ -1,0 +1,9 @@
+{
+  targetDirectory: 'CurrentDirectory',
+  configInput: {
+    UrlsAsSnippets: [
+      'url1',
+      'url2'
+    ]
+  }
+}

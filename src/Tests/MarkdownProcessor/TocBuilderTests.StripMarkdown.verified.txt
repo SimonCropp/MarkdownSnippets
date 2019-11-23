@@ -1,0 +1,5 @@
+<!-- toc -->
+## Contents
+
+  * [bold italic Link](#bold-italic-link)
+<!-- endtoc -->

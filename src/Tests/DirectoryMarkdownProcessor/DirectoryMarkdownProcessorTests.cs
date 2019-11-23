@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ApprovalTests;
+using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class DirectoryMarkdownProcessorTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public void Run()
@@ -57,7 +58,7 @@ public class DirectoryMarkdownProcessorTests :
     }
 
     [Fact]
-    public void Convention()
+    public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
         var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
@@ -75,7 +76,7 @@ public class DirectoryMarkdownProcessorTests :
             builder.AppendLine();
         }
 
-        Approvals.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     static Snippet SnippetBuild(string key)

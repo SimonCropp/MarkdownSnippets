@@ -1,8 +1,0 @@
-﻿[
-  {
-    Key: 'codekey',
-    Error: 'Snippet was not closed',
-    FileLocation: 'path.cs(3-3)',
-    IsInError: true
-  }
-]

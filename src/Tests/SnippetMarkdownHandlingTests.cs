@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ApprovalTests;
+using System.Threading.Tasks;
+using VerifyXunit;
 using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
 public class SnippetMarkdownHandlingTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void AppendGroup()
+    public Task AppendGroup()
     {
         var builder = new StringBuilder();
         var snippets = new List<Snippet> {Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", "c:/dir/thePath")};
@@ -20,7 +21,7 @@ public class SnippetMarkdownHandlingTests :
             markdownHandling.AppendGroup("key1", snippets, writer.WriteLine);
         }
 
-        Approvals.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     public SnippetMarkdownHandlingTests(ITestOutputHelper output) :

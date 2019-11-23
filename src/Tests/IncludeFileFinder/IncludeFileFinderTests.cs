@@ -1,32 +1,34 @@
 ﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class IncludeFileFinderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
-    public void Nested()
+    public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Nested");
         var finder = new IncludeFileFinder();
         var files = finder.FindFiles(directory);
-        ObjectApprover.Verify(files, Scrubber.Scrub);
+        return Verify(files);
     }
 
     [Fact]
-    public void Simple()
+    public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Simple");
         var finder = new IncludeFileFinder();
         var files = finder.FindFiles(directory);
-        ObjectApprover.Verify(files, Scrubber.Scrub);
+        return Verify(files);
     }
 
     [Fact]
-    public void VerifyLambdasAreCalled()
+    public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
@@ -39,7 +41,7 @@ public class IncludeFileFinderTests :
             }
         );
         finder.FindFiles(targetDirectory);
-        ObjectApprover.Verify(directories.OrderBy(file => file), Scrubber.Scrub);
+        return Verify(directories.OrderBy(file => file));
     }
 
     public IncludeFileFinderTests(ITestOutputHelper output) :

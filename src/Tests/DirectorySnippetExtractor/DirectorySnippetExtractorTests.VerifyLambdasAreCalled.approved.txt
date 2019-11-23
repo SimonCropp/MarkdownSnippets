@@ -1,3 +1,0 @@
-﻿[
-  'root\\DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
-]

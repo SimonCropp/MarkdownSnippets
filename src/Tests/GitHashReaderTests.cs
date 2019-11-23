@@ -1,11 +1,12 @@
 ﻿using System.IO;
-using ApprovalTests;
+using System.Threading.Tasks;
+using VerifyXunit;
 using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
 public class GitHashReaderTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public void GetHash()
@@ -17,22 +18,22 @@ public class GitHashReaderTests :
     }
 
     [Fact]
-    public void NoRef()
+    public Task NoRef()
     {
-        Verify("GitDirs/NoRef");
+        return VerifyInner("GitDirs/NoRef");
     }
 
     [Fact]
-    public void WithRef()
+    public Task WithRef()
     {
-        Verify("GitDirs/WithRef");
+        return VerifyInner("GitDirs/WithRef");
     }
 
-    static void Verify(string path)
+    Task VerifyInner(string path)
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, path);
         var hash = GitHashReader.GetHashForGitDirectory(directory);
-        Approvals.Verify(hash);
+        return Verify(hash);
     }
 
     public GitHashReaderTests(ITestOutputHelper output) :

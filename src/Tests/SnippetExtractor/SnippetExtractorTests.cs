@@ -4,22 +4,23 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class SnippetExtractorTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public async Task AppendUrlAsSnippet()
     {
         var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
-        ObjectApprover.Verify(snippets);
+        await Verify(snippets);
     }
 
     [Fact]
-    public void AppendFileAsSnippet()
+    public async Task AppendFileAsSnippet()
     {
         var temp = Path.GetTempFileName();
         try
@@ -27,15 +28,14 @@ public class SnippetExtractorTests :
             File.WriteAllText(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
-            ObjectApprover.Verify(
-                snippets,
-                scrubber: x =>
-                {
-                    var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
-                    return x
-                        .Replace(temp, "FilePath.txt")
-                        .Replace(nameWithoutExtension, "File", StringComparison.OrdinalIgnoreCase);
-                });
+            AddScrubber(x =>
+            {
+                var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
+                return x
+                    .Replace(temp, "FilePath.txt")
+                    .Replace(nameWithoutExtension, "File", StringComparison.OrdinalIgnoreCase);
+            });
+            await Verify(snippets);
         }
         finally
         {
@@ -44,7 +44,7 @@ public class SnippetExtractorTests :
     }
 
     [Fact]
-    public void CanExtractWithInnerWhiteSpace()
+    public Task CanExtractWithInnerWhiteSpace()
     {
         var input = @"
   #region CodeKey
@@ -55,11 +55,11 @@ public class SnippetExtractorTests :
 
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void NestedBroken()
+    public Task NestedBroken()
     {
         var input = @"
   #region KeyParent
@@ -69,11 +69,11 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void NestedRegion()
+    public Task NestedRegion()
     {
         var input = @"
   #region KeyParent
@@ -84,11 +84,11 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void NestedMixed2()
+    public Task NestedMixed2()
     {
         var input = @"
   #region KeyParent
@@ -99,11 +99,11 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void RemoveDuplicateNewlines()
+    public Task RemoveDuplicateNewlines()
     {
         var input = @"
 
@@ -131,11 +131,11 @@ public class SnippetExtractorTests :
 
 ";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void NestedStartCode()
+    public Task NestedStartCode()
     {
         var input = @"
   <!-- begin-snippet: KeyParent -->
@@ -146,11 +146,11 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void NestedMixed1()
+    public Task NestedMixed1()
     {
         var input = @"
   <!-- begin-snippet: KeyParent -->
@@ -161,18 +161,18 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void CanExtractFromXml()
+    public Task CanExtractFromXml()
     {
         var input = @"
   <!-- begin-snippet: CodeKey -->
   <configSections/>
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     public List<Snippet> FromText(string contents)
@@ -182,67 +182,67 @@ public class SnippetExtractorTests :
     }
 
     [Fact]
-    public void UnClosedSnippet()
+    public Task UnClosedSnippet()
     {
         var input = @"
   <!-- begin-snippet: CodeKey -->
   <configSections/>";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void UnClosedRegion()
+    public Task UnClosedRegion()
     {
         var input = @"
   #region CodeKey
   <configSections/>";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void CanExtractFromRegion()
+    public Task CanExtractFromRegion()
     {
         var input = @"
   #region CodeKey
   The Code
   #endregion";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void CanExtractWithNoTrailingCharacters()
+    public Task CanExtractWithNoTrailingCharacters()
     {
         var input = @"
   // begin-snippet: CodeKey
   the code
   // end-snippet ";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void CanExtractWithMissingSpaces()
+    public Task CanExtractWithMissingSpaces()
     {
         var input = @"
   <!--begin-snippet: CodeKey-->
   <configSections/>
   <!--end-snippet-->";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     [Fact]
-    public void CanExtractWithTrailingWhitespace()
+    public Task CanExtractWithTrailingWhitespace()
     {
         var input = @"
   // begin-snippet: CodeKey
   the code
   // end-snippet   ";
         var snippets = FromText(input);
-        ObjectApprover.Verify(snippets);
+        return Verify(snippets);
     }
 
     public SnippetExtractorTests(ITestOutputHelper output) :

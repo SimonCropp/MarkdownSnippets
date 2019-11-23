@@ -1,9 +1,10 @@
 ﻿using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class MarkdownProcessor_TryExtractKeyFromTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public void MissingSpaces()

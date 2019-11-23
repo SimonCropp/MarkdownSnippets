@@ -1,0 +1,4 @@
+[
+  'BaseDirectoryIncludeFileFinder\Simple\file1.include.md',
+  'BaseDirectoryIncludeFileFinder\Simple\file2.include.md'
+]

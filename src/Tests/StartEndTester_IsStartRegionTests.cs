@@ -1,10 +1,11 @@
-﻿using ApprovalTests;
+﻿using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
 public class StartEndTester_IsStartRegionTests :
-    XunitApprovalBase
+    VerifyBase
 {
     [Fact]
     public void CanExtractFromXml()
@@ -14,27 +15,27 @@ public class StartEndTester_IsStartRegionTests :
     }
 
     [Fact]
-    public void ShouldThrowForKeyStartingWithSymbol()
+    public Task ShouldThrowForKeyStartingWithSymbol()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region _key", "file", out _));
-        Approvals.Verify(exception.Message);
+        return Verify(exception.Message);
     }
 
     [Fact]
-    public void ShouldThrowForKeyEndingWithSymbol()
+    public Task ShouldThrowForKeyEndingWithSymbol()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region key_ ", "file", out _));
-        Approvals.Verify(exception.Message);
+        return Verify(exception.Message);
     }
 
     [Fact]
-    public void ShouldIgnoreForNoKey()
+    public Task ShouldIgnoreForNoKey()
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region ", "file", out _));
-        Approvals.Verify(exception.Message);
+        return Verify(exception.Message);
     }
 
     [Fact]

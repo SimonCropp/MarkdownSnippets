@@ -1,3 +1,0 @@
-﻿[
-  'root\\SnippetFileFinder\Nested\nested\nested\code.txt'
-]

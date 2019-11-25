@@ -11,15 +11,21 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="Fody" Version="6.0.5" PrivateAssets="all" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="CachedSnippetExtractor\**\*.*">
+    <None Update="DirectorySnippetExtractor\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+    <None Update="DirectoryMarkdownProcessor\**\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+    <None Update="GitDirs\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
@@ -31,20 +37,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
-    <None Update="DirectorySnippetExtractor\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-    <None Update="GitDirs\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-    <None Update="DirectoryMarkdownProcessor\**\*.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Update="IncludeFinder\file.include.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

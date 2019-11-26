@@ -9,14 +9,14 @@ public class TocBuilderTests :
     VerifyBase
 {
     [Fact]
-    public Task EmptyHeading()
+    public void EmptyHeading()
     {
         var lines = new List<Line>
         {
             new Line("##", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        Assert.Empty(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]

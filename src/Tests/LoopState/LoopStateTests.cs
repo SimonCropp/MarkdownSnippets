@@ -38,19 +38,19 @@ public class LoopStateTests :
     }
 
     [Fact]
-    public Task ExcludeEmptyPaddingLines_empty_list()
+    public void ExcludeEmptyPaddingLines_empty_list()
     {
         var loopState = new LoopState("key", s => throw new Exception(), 1);
-        return Verify(loopState.GetLines());
+        Assert.Empty(loopState.GetLines());
     }
 
     [Fact]
-    public Task ExcludeEmptyPaddingLines_whitespace_list()
+    public void ExcludeEmptyPaddingLines_whitespace_list()
     {
         var loopState = new LoopState("key", s => throw new Exception(), 1);
         loopState.AppendLine("");
         loopState.AppendLine("  ");
-        return Verify(loopState.GetLines());
+        Assert.Empty(loopState.GetLines());
     }
 
     [Fact]

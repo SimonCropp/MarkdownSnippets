@@ -12,9 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 <!-- toc -->
 ## Contents
 
-  * [Heading 2](#heading-2)
-<!-- endtoc -->
-
+  * [Heading 2](#heading-2)<!-- endtoc -->
 
 Text1
 

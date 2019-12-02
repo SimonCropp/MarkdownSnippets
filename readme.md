@@ -35,9 +35,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Table of contents](#table-of-contents)
   * [Header](#header)
   * [Markdown includes](#markdown-includes)
-  * [LinkFormat](#linkformat)
-<!-- endtoc -->
-
+  * [LinkFormat](#linkformat)<!-- endtoc -->
 
 
 ## Installation

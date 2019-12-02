@@ -1,3 +1,3 @@
 [
-  'BaseDirectoryDirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
+  'CurrentDirectory\DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath'
 ]

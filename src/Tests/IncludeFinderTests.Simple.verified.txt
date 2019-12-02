@@ -2,7 +2,7 @@
   {
     Error: '',
     Key: 'file',
-    Path: 'BaseDirectoryIncludeFinder\file.include.md',
+    Path: 'CurrentDirectory\IncludeFinder\file.include.md',
     Lines: [
       'Simple1'
     ]

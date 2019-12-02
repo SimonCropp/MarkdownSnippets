@@ -1,3 +1,3 @@
 [
-  'BaseDirectoryIncludeFileFinder\Nested\nested\nested\file.include.md'
+  'CurrentDirectory\IncludeFileFinder\Nested\nested\nested\file.include.md'
 ]

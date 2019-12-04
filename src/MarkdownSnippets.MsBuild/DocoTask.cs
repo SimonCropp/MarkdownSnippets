@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -65,8 +64,10 @@ namespace MarkdownSnippets
             }
             catch (MissingSnippetsException exception)
             {
-                var first = exception.Missing.First();
-                Log.LogFileError($"MarkdownSnippets: {exception.Message}", first.File, first.LineNumber);
+                foreach (var missing in exception.Missing)
+                {
+                    Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                }
                 return false;
             }
             catch (MarkdownProcessingException exception)

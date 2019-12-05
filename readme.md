@@ -15,14 +15,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
 
-### More Info
-
- * [.net API](/docs/api.md)
- * [MsBuild Task](/docs/msbuild.md)
- * [Config file convention](/docs/config-file.md)
- * [Indentation](/docs/indentation.md)
-
-
 <!-- toc -->
 ## Contents
 
@@ -36,6 +28,10 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Header](#header)
   * [Markdown includes](#markdown-includes)
   * [LinkFormat](#linkformat)<!-- endtoc -->
+  * [.net API](/docs/api.md)
+  * [MsBuild Task](/docs/msbuild.md)
+  * [Config file convention](/docs/config-file.md)
+  * [Indentation](/docs/indentation.md)
 
 
 ## Installation

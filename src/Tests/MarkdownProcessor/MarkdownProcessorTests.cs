@@ -23,7 +23,7 @@ after
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
-            includes: new []{ Include.Build("theKey", new List<string> {"theValue"}, "thePath")});
+            includes: new []{ Include.Build("theKey", new List<string> {"theValue"}, "c:/root/thePath")});
     }
 
     [Fact]

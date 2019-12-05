@@ -26,7 +26,8 @@ static class SnippetVerifier
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: true,
-            includes: includes);
+            includes: includes,
+            rootDirectory: "c:/root");
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);

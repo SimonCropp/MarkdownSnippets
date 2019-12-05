@@ -43,13 +43,15 @@ class Usage
     {
         #region markdownProcessingSimple
 
+        var directory = @"C:\path";
+
         // extract snippets from files
         var snippetExtractor = new DirectorySnippetExtractor();
-        var snippets = snippetExtractor.ReadSnippets(@"C:\path");
+        var snippets = snippetExtractor.ReadSnippets(directory);
 
         // extract includes from files
         var includeFinder = new IncludeFinder();
-        var includes = includeFinder.ReadIncludes(@"C:\path");
+        var includes = includeFinder.ReadIncludes(directory);
 
         // Merge with some markdown text
         var markdownProcessor = new MarkdownProcessor(
@@ -58,7 +60,8 @@ class Usage
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: new List<string>(),
             tocLevel: 2,
-            writeHeader: true);
+            writeHeader: true,
+            rootDirectory: directory);
 
         var path = @"C:\path\inputMarkdownFile.md";
         using var reader = File.OpenText(path);
@@ -69,6 +72,7 @@ class Usage
 
         // snippets that the markdown file used
         var usedSnippets = result.UsedSnippets;
+
         #endregion
     }
 }

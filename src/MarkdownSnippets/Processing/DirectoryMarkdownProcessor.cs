@@ -140,6 +140,7 @@ namespace MarkdownSnippets
                 snippetSourceFiles,
                 tocLevel,
                 writeHeader,
+                targetDirectory,
                 header,
                 tocExcludes);
             foreach (var sourceFile in sourceMdFiles)

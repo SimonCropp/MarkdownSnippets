@@ -72,7 +72,7 @@ namespace MarkdownSnippets
             }
         }
 
-        private static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
+        static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
         {
             appendLine($"```{snippet.Language}");
             appendLine(snippet.Value);

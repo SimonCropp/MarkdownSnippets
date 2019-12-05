@@ -19,6 +19,7 @@ namespace MarkdownSnippets
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
+        string rootDirectory;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -27,6 +28,7 @@ namespace MarkdownSnippets
             IReadOnlyList<string> snippetSourceFiles,
             int tocLevel,
             bool writeHeader,
+            string rootDirectory,
             string? header = null,
             IEnumerable<string>? tocExcludes = null)
         {
@@ -36,6 +38,9 @@ namespace MarkdownSnippets
             Guard.AgainstNull(includes, nameof(includes));
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
+            Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
+            rootDirectory = Path.GetFullPath(rootDirectory);
+            this.rootDirectory = rootDirectory.Replace(@"\", "/");
             this.snippets = snippets;
             this.includes = includes;
             this.appendSnippetGroup = appendSnippetGroup;
@@ -182,9 +187,10 @@ namespace MarkdownSnippets
             else
             {
                 usedIncludes.Add(include);
+                var path = GetPath(include);
                 line.Current = $@"<!--
 {line.Current}
-path: {include.Path}
+path: {path}
 -->";
                 for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
                 {
@@ -195,6 +201,21 @@ path: {include.Path}
             }
 
             return true;
+        }
+
+        string? GetPath(Include include)
+        {
+            if (include.Path == null)
+            {
+                return null;
+            }
+            var path = include.Path.Replace(@"\", "/");
+            if (path.StartsWith(rootDirectory))
+            {
+                path = path.Substring(rootDirectory.Length);
+            }
+
+            return path;
         }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)

@@ -11,7 +11,7 @@ before
 
 <!--
 include: theKey
-path: thePath
+path: /thePath
 -->
 theValue
 

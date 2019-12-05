@@ -91,12 +91,11 @@ namespace MarkdownSnippets
         {
             get
             {
-                if (Path != null)
+                if (Path == null)
                 {
-                    return $"{Path}({StartLine}-{EndLine})";
+                    return null;
                 }
-
-                return null;
+                return $"{Path}({StartLine}-{EndLine})";
             }
         }
 

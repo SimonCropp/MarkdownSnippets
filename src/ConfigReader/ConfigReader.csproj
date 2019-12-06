@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.34" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

@@ -17,7 +17,8 @@ public static class ConfigDefaults
                 Header = otherConfig.Header,
                 TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
-                TocLevel = otherConfig.TocLevel.GetValueOrDefault(2)
+                TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
+                TreatMissingSnippetsAsErrors = otherConfig.ReadOnly.GetValueOrDefault()
             };
         }
 
@@ -30,7 +31,8 @@ public static class ConfigDefaults
             Header = GetValueOrDefault("Header", otherConfig.Header, fileConfig.Header),
             Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
             TocExcludes = JoinLists(fileConfig.TocExcludes, otherConfig.TocExcludes),
-            UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets)
+            UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets),
+            TreatMissingSnippetsAsErrors = GetValueOrDefault("TreatMissingSnippetsAsErrors", otherConfig.TreatMissingSnippetsAsErrors, fileConfig.TreatMissingSnippetsAsErrors, false)
         };
     }
 

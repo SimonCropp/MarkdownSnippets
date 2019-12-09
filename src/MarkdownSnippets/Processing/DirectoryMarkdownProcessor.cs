@@ -36,7 +36,7 @@ namespace MarkdownSnippets
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null, 
-            bool treatMissingSnippetsAsErrors = false)
+            bool treatMissingSnippetsAsErrors = true)
         {
             this.writeHeader = writeHeader;
             this.header = header;

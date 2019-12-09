@@ -11,5 +11,5 @@ public class ConfigResult
     public bool WriteHeader;
     public string? Header;
     public List<string> TocExcludes = new List<string>();
-    public bool TreatMissingSnippetsAsErrors { get; set; }
+    public bool TreatMissingSnippetsAsErrors;
 }

@@ -67,7 +67,7 @@ namespace MarkdownSnippets
                 }
                 else
                 {
-                    appendLine($"<sup>[snippet source]({sourceLink}) / [anchor](#{anchor})</sup>");
+                    appendLine($"<sup>[snippet source]({sourceLink}) | [anchor](#{anchor})</sup>");
                 }
             }
         }

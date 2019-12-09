@@ -2,4 +2,4 @@
 ```thelanguage
 theValue
 ```
-<sup>[snippet source](thePath#L1-L2) / [anchor](#snippet-thekey)</sup>
+<sup>[snippet source](thePath#L1-L2) | [anchor](#snippet-thekey)</sup>

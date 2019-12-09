@@ -85,10 +85,12 @@ The resulting markdown will be:
     ```
     My Snippet Code
     ```
-    <sup>[snippet source](/relativeUrlToFile#L1-L11) / [anchor](#snippet-MySnippetName)</sup>
+    <sup>[snippet source](/relativeUrlToFile#L1-L11) | [anchor](#snippet-MySnippetName)</sup>
     <!-- endsnippet -->
 
+Notes:
 
+ * The vertical bar ( | ) is used to separate adjacent links as per web accessibility recommendations: https://webaim.org/techniques/hypertext/hypertext_links#groups
 
 ### Including full files
 

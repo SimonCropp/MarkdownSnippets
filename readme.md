@@ -306,20 +306,23 @@ if (linkFormat == LinkFormat.GitHub)
 {
     return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
 }
+
 if (linkFormat == LinkFormat.Tfs)
 {
     return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
 }
+
 if (linkFormat == LinkFormat.Bitbucket)
 {
     return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
 }
+
 if (linkFormat == LinkFormat.GitLab)
 {
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L86-L103) | [anchor](#snippet-buildlink)</sup>
+<sup>[snippet source](/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L102-L122) | [anchor](#snippet-buildlink)</sup>
 <!-- endsnippet -->
 
 

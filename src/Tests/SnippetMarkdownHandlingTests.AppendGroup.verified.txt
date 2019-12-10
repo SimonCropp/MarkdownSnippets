@@ -2,4 +2,4 @@
 ```thelanguage
 theValue
 ```
-<sup>[snippet source](thePath#L1-L2) | [anchor](#snippet-thekey)</sup>
+<sup><a href='thePath#L1-L2' title='File snippet `thekey` was extracted from'>snippet source</a> | <a href='#snippet-thekey' title='Navigate to start of snippet `thekey`'>anchor</a></sup>

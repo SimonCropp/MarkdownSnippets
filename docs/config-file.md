@@ -25,5 +25,5 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Header": "GENERATED FILE - Source File: {relativePath}"
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L10) | [anchor](#snippet-sampleConfig.json)</sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L10' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -4,7 +4,7 @@
 ```.cs
 the code from snippet1
 ```
-<sup>[anchor](#snippet-snippet1)</sup>
+<sup><a href='#snippet-snippet1' title='Navigate to start of snippet `snippet1`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -17,7 +17,7 @@ snippet: snippet1
 ```.cs
 the code from snippet2
 ```
-<sup>[anchor](#snippet-snippet2)</sup>
+<sup><a href='#snippet-snippet2' title='Navigate to start of snippet `snippet2`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

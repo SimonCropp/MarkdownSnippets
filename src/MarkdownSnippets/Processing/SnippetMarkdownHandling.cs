@@ -60,7 +60,7 @@ namespace MarkdownSnippets
 
         bool TryGetSupText(Snippet snippet, string anchor, [NotNullWhen(true)] out string? supText)
         {
-            var linkForAnchor = $"[anchor](#{anchor})";
+            var linkForAnchor = $"<a href='#{anchor}' title='Navigate to start of snippet `{snippet.Key}`'>anchor</a>";
             if (snippet.Path == null)
             {
                 // id anchors not supported on TFS
@@ -77,7 +77,7 @@ namespace MarkdownSnippets
 
             var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
             var sourceLink = BuildLink(snippet, path);
-            var linkForSource = $"[snippet source]({sourceLink})";
+            var linkForSource = $"<a href='{sourceLink}' title='File snippet `{snippet.Key}` was extracted from'>snippet source</a>";
             if (linkFormat == LinkFormat.Tfs)
             {
                 supText = linkForSource;

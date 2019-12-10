@@ -46,6 +46,7 @@ namespace MarkdownSnippets
             }
 
             appendLine($"<a id='{anchor}'/></a>");
+            var linkForAnchor = $"[anchor](#{anchor})";
             if (snippet.Path == null)
             {
                 WriteSnippetValueAndLanguage(appendLine, snippet);
@@ -53,21 +54,22 @@ namespace MarkdownSnippets
                 //https://developercommunity.visualstudio.com/content/problem/63289/anchors-in-markdown-documents-not-working.html
                 if (linkFormat != LinkFormat.Tfs)
                 {
-                    appendLine($"<sup>[anchor](#{anchor})</sup>");
+                    appendLine($"<sup>{linkForAnchor}</sup>");
                 }
             }
             else
             {
                 var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
                 var sourceLink = BuildLink(snippet, path);
+                var linkForSource = $"[snippet source]({sourceLink})";
                 WriteSnippetValueAndLanguage(appendLine, snippet);
                 if (linkFormat == LinkFormat.Tfs)
                 {
-                    appendLine($"<sup>[snippet source]({sourceLink})</sup>");
+                    appendLine($"<sup>{linkForSource}</sup>");
                 }
                 else
                 {
-                    appendLine($"<sup>[snippet source]({sourceLink}) | [anchor](#{anchor})</sup>");
+                    appendLine($"<sup>{linkForSource} | {linkForAnchor}</sup>");
                 }
             }
         }

@@ -67,13 +67,11 @@ namespace MarkdownSnippets
             }
             catch (MissingSnippetsException exception)
             {
-                
                 foreach (var missing in exception.Missing)
                 {
                     if (configResult.TreatMissingSnippetsAsErrors)
                     {
                         Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
-
                     }
                     else
                     {

@@ -81,22 +81,19 @@ public class DirectoryMarkdownProcessorTests :
     }
 
     [Fact]
-    public Task MustErrorByDefaultWhenSnippetsAreMissing()
+    public void MustErrorByDefaultWhenSnippetsAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
         var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
         Assert.Throws<MissingSnippetsException>(() => processor.Run());
-        return Task.CompletedTask;
     }
 
     [Fact]
-    public Task MustNotErrorForMissingSnippetsIfConfigured()
+    public void MustNotErrorForMissingSnippetsIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
         var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false, treatMissingSnippetsAsErrors: false);
-        var exception = Record.Exception(() => processor.Run());
-        Assert.True(exception == null);
-        return Task.CompletedTask;
+        processor.Run();
     }
 
     static Snippet SnippetBuild(string key)

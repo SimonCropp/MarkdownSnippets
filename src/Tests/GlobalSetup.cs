@@ -1,4 +1,4 @@
-﻿using VerifyXunit;
+﻿using Verify;
 using Xunit;
 
 [GlobalSetUp]

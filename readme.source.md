@@ -19,8 +19,6 @@ toc
 
 Ensure [dotnet CLI is installed](https://docs.microsoft.com/en-us/dotnet/core/tools/).
 
-**There is known a issue with dotnet tools on macOS and Linux that results in [installed tools not being discovered in the current path](https://github.com/dotnet/cli/issues/9321). The workaround is to add `~/.dotnet/tools` to the PATH.**
-
 Install [MarkdownSnippets.Tool](https://nuget.org/packages/MarkdownSnippets.Tool/)
 
 ```ps
@@ -87,9 +85,13 @@ The resulting markdown will be:
     ```
     My Snippet Code
     ```
-    <sup>[snippet source](/relativeUrlToFile#L1-L11) / [anchor](#snippet-MySnippetName)</sup>
+    <sup><a href='/relativeUrlToFile#L1-L11' title='File snippet `MySnippetName` was extracted from'>snippet source</a> | <a href='#snippet-MySnippetName' title='Navigate to start of snippet `MySnippetName`'>anchor</a></sup>
     <!-- endsnippet -->
 
+Notes:
+
+ * The vertical bar ( | ) is used to separate adjacent links as per web accessibility recommendations: https://webaim.org/techniques/hypertext/hypertext_links#groups
+ * [H33: Supplementing link text with the title attribute](https://www.w3.org/TR/WCAG20-TECHS/H33.html)
 
 
 ### Including full files

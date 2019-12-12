@@ -26,5 +26,5 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "TreatMissingSnippetsAsErrors" :  false
 }
 ```
-<sup>[snippet source](/src/ConfigReader.Tests/sampleConfig.json#L1-L11) / [anchor](#snippet-sampleConfig.json)</sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L10' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->

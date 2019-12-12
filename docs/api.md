@@ -22,7 +22,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L9-L15) / [anchor](#snippet-readingfilessimple)</sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L9-L15' title='File snippet `readingfilessimple` was extracted from'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Navigate to start of snippet `readingfilessimple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -38,7 +38,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L30-L39) / [anchor](#snippet-readingdirectorysimple)</sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L30-L39' title='File snippet `readingdirectorysimple` was extracted from'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Navigate to start of snippet `readingdirectorysimple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -77,7 +77,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup>[snippet source](/src/Tests/Snippets/Usage.cs#L44-L76) / [anchor](#snippet-markdownprocessingsimple)</sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L44-L76' title='File snippet `markdownprocessingsimple` was extracted from'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Navigate to start of snippet `markdownprocessingsimple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

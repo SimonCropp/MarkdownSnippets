@@ -23,8 +23,8 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
   "WriteHeader": true,
   "Header": "GENERATED FILE - Source File: {relativePath}",
-  "TreatMissingSnippetsAsErrors" :  false
+  "TreatMissingSnippetsAsWarnings": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L10' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L11' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->

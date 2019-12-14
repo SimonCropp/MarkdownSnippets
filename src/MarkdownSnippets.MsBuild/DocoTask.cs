@@ -18,7 +18,7 @@ namespace MarkdownSnippets
         public List<string> Exclude { get; set; } = new List<string>();
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
-        public bool? TreatMissingSnippetsAsErrors { get; set; }
+        public bool? TreatMissingSnippetsAsWarnings { get; set; }
 
         public override bool Execute()
         {
@@ -38,7 +38,7 @@ namespace MarkdownSnippets
                     TocExcludes = TocExcludes,
                     TocLevel = TocLevel,
                     UrlsAsSnippets = UrlsAsSnippets,
-                    TreatMissingSnippetsAsErrors = TreatMissingSnippetsAsErrors
+                    TreatMissingSnippetsAsWarnings = TreatMissingSnippetsAsWarnings
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
@@ -54,7 +54,7 @@ namespace MarkdownSnippets
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
-                treatMissingSnippetsAsErrors: configResult.TreatMissingSnippetsAsErrors);
+                TreatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings);
 
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
@@ -69,17 +69,17 @@ namespace MarkdownSnippets
             {
                 foreach (var missing in exception.Missing)
                 {
-                    if (configResult.TreatMissingSnippetsAsErrors)
-                    {
-                        Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
-                    }
-                    else
+                    if (configResult.TreatMissingSnippetsAsWarnings)
                     {
                         Log.LogWarning($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
                     }
+                    else
+                    {
+                        Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                    }
                 }
 
-                return !configResult.TreatMissingSnippetsAsErrors;
+                return configResult.TreatMissingSnippetsAsWarnings;
             }
             catch (MarkdownProcessingException exception)
             {

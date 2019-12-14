@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -92,7 +91,7 @@ public class DirectoryMarkdownProcessorTests :
     public void MustNotErrorForMissingSnippetsIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false, treatMissingSnippetsAsErrors: false);
+        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false, treatMissingSnippetsAsWarnings: true);
         processor.Run();
     }
 

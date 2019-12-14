@@ -21,7 +21,7 @@ namespace MarkdownSnippets
         List<Snippet> snippets = new List<Snippet>();
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
-        bool treatMissingSnippetsAsErrors;
+        bool treatMissingSnippetsAsWarnings;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -35,8 +35,8 @@ namespace MarkdownSnippets
             bool readOnly = false,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
-            IEnumerable<string>? tocExcludes = null, 
-            bool treatMissingSnippetsAsErrors = true)
+            IEnumerable<string>? tocExcludes = null,
+            bool treatMissingSnippetsAsWarnings = false)
         {
             this.writeHeader = writeHeader;
             this.header = header;
@@ -44,7 +44,7 @@ namespace MarkdownSnippets
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
-            this.treatMissingSnippetsAsErrors = treatMissingSnippetsAsErrors;
+            this.treatMissingSnippetsAsWarnings = treatMissingSnippetsAsWarnings;
 
             this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
 
@@ -169,16 +169,16 @@ namespace MarkdownSnippets
             if (missing.Any())
             {
                 // If the config value is set to treat missing snippets as warnings, then don't throw
-                if (treatMissingSnippetsAsErrors)
-                {
-                    throw new MissingSnippetsException(missing);
-                }
-                else
+                if (treatMissingSnippetsAsWarnings)
                 {
                     foreach (var missingSnippet in missing)
                     {
                         log($"WARN: The source file:{missingSnippet.File} includes a key {missingSnippet.Key}, however the snippet is missing. Make sure that the snippet is defined.");
                     }
+                }
+                else
+                {
+                    throw new MissingSnippetsException(missing);
                 }
             }
 

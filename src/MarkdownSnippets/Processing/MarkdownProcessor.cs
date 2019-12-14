@@ -76,6 +76,7 @@ namespace MarkdownSnippets
                 {
                     throw new MissingSnippetsException(missing);
                 }
+
                 return builder.ToString();
             }
             finally
@@ -209,6 +210,7 @@ path: {path}
             {
                 return null;
             }
+
             var path = include.Path.Replace(@"\", "/");
             if (path.StartsWith(rootDirectory))
             {
@@ -263,6 +265,11 @@ path: {path}
                 .Select(file =>
                 {
                     var (text, lineCount) = ReadNonStartEndLines(file);
+
+                    if (lineCount == 0)
+                    {
+                        lineCount++;
+                    }
                     return Snippet.Build(
                         startLine: 1,
                         endLine: lineCount,

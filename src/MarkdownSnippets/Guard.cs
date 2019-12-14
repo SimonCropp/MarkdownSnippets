@@ -16,7 +16,7 @@ static class Guard
     {
         if (value.Any(char.IsUpper))
         {
-            throw new ArgumentException("Cannot contain upper case", argumentName);
+            throw new ArgumentException($"Cannot contain upper case. Value: {value}", argumentName);
         }
     }
 
@@ -24,7 +24,7 @@ static class Guard
     {
         if (value <= 0)
         {
-            throw new ArgumentOutOfRangeException(argumentName);
+            throw new ArgumentOutOfRangeException(argumentName,value, "Less than zero");
         }
     }
 

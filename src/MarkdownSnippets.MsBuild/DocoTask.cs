@@ -54,7 +54,7 @@ namespace MarkdownSnippets
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
-                TreatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings);
+                treatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings);
 
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();

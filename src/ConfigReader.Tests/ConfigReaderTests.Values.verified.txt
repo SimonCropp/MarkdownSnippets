@@ -15,5 +15,6 @@
   TocExcludes: [
     'Exclude Heading1',
     'Exclude Heading2'
-  ]
+  ],
+  TreatMissingSnippetsAsErrors: false
 }

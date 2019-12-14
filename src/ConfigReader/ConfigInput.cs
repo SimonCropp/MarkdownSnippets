@@ -11,4 +11,6 @@ public class ConfigInput
     public bool? WriteHeader { get; set; }
     public string? Header { get; set; }
     public List<string> TocExcludes { get; set; } = new List<string>();
+
+    public bool? TreatMissingSnippetsAsErrors { get; set; }
 }

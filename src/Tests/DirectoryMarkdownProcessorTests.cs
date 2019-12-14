@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -77,6 +78,22 @@ public class DirectoryMarkdownProcessorTests :
         }
 
         return Verify(builder.ToString());
+    }
+
+    [Fact]
+    public void MustErrorByDefaultWhenSnippetsAreMissing()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
+        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
+        Assert.Throws<MissingSnippetsException>(() => processor.Run());
+    }
+
+    [Fact]
+    public void MustNotErrorForMissingSnippetsIfConfigured()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
+        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false, treatMissingSnippetsAsErrors: false);
+        processor.Run();
     }
 
     static Snippet SnippetBuild(string key)

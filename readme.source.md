@@ -1,9 +1,9 @@
 # <img src="/src/icon.png" height="30px"> MarkdownSnippets
 
 [![Build status](https://ci.appveyor.com/api/projects/status/8ijthhby6mhw8fk3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
-[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=dotnet%20tool&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
-[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MsBuild%20Task&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
-[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.net%20API&cacheSeconds=86400)](https://www.nuget.org/packages/MarkdownSnippets/)
+[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
+[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MsBuild%20Task)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
+[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.net%20API)](https://www.nuget.org/packages/MarkdownSnippets/)
 
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 

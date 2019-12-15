@@ -6,7 +6,7 @@ public static class GlobalSetup
 {
     public static void Setup()
     {
-        Global.ModifySerialization(settings =>
+        SharedVerifySettings.ModifySerialization(settings =>
         {
             settings.AddExtraSettings(serializerSettings =>
             {
@@ -15,6 +15,6 @@ public static class GlobalSetup
                 converters.Add(new SnippetConverter());
             });
         });
-        Global.AddScrubber(Scrubber.Scrub);
+        SharedVerifySettings.AddScrubber(Scrubber.Scrub);
     }
 }

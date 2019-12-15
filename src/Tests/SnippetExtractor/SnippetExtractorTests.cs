@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -28,14 +29,15 @@ public class SnippetExtractorTests :
             File.WriteAllText(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
-            AddScrubber(x =>
+            var settings = new VerifySettings();
+            settings.AddScrubber(x =>
             {
                 var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
                 return x
                     .Replace(temp, "FilePath.txt")
                     .Replace(nameWithoutExtension, "File", StringComparison.OrdinalIgnoreCase);
             });
-            await Verify(snippets);
+            await Verify(snippets, settings);
         }
         finally
         {

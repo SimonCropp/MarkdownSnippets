@@ -8,6 +8,6 @@
     <PackageReference Include="Fody" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

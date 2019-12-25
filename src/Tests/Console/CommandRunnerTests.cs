@@ -80,6 +80,13 @@ public class CommandRunnerTests :
     }
 
     [Fact]
+    public Task MaxWidthLong()
+    {
+        CommandRunner.RunCommand(Capture, "--max-width", "5");
+        return VerifyResult();
+    }
+
+    [Fact]
     public Task TocLevelLong()
     {
         CommandRunner.RunCommand(Capture, "--toc-level", "5");

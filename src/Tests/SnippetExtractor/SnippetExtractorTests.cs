@@ -177,10 +177,10 @@ public class SnippetExtractorTests :
         return Verify(snippets);
     }
 
-    public List<Snippet> FromText(string contents)
+    List<Snippet> FromText(string contents)
     {
         using var stringReader = new StringReader(contents);
-        return FileSnippetExtractor.Read(stringReader, "path.cs").ToList();
+        return FileSnippetExtractor.Read(stringReader, "path.cs", 80).ToList();
     }
 
     [Fact]
@@ -199,6 +199,17 @@ public class SnippetExtractorTests :
         var input = @"
   #region CodeKey
   <configSections/>";
+        var snippets = FromText(input);
+        return Verify(snippets);
+    }
+
+    [Fact]
+    public Task TooWide()
+    {
+        var input = @"
+  #region CodeKey
+  caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+  #endregion";
         var snippets = FromText(input);
         return Verify(snippets);
     }

@@ -52,4 +52,9 @@ public class Options
         Required = false,
         HelpText = "Controls how many header levels to write in the table of contents. Optional. Defaults to 2. Must be positive.")]
     public int? TocLevel { get; set; }
+
+    [Option("max-width",
+        Required = false,
+        HelpText = "Controls the maximum character width for snippets. Optional. Defaults to ignore. Must be positive.")]
+    public int? MaxWidth { get; set; }
 }

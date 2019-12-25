@@ -35,7 +35,8 @@ class Program
             linkFormat: configResult.LinkFormat,
             tocExcludes: configResult.TocExcludes,
             tocLevel: configResult.TocLevel,
-            treatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings);
+            treatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings,
+            maxWidth: configResult.MaxWidth);
 
         var snippets = new List<Snippet>();
         snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();

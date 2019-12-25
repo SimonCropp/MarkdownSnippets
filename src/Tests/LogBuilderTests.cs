@@ -20,7 +20,8 @@ line2",
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
             UrlsAsSnippets = new List<string> {"Url1", "Url2"},
-            TocLevel = 5
+            TocLevel = 5,
+            MaxWidth = 80
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         return Verify(message);

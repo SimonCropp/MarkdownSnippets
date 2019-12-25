@@ -18,6 +18,7 @@ public static class ConfigDefaults
                 TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
+                MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
                 TreatMissingSnippetsAsWarnings = otherConfig.TreatMissingSnippetsAsWarnings.GetValueOrDefault()
             };
         }
@@ -28,6 +29,7 @@ public static class ConfigDefaults
             WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),
+            MaxWidth = GetValueOrDefault("MaxWidth", otherConfig.MaxWidth, fileConfig.MaxWidth, int.MaxValue),
             Header = GetValueOrDefault("Header", otherConfig.Header, fileConfig.Header),
             Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
             TocExcludes = JoinLists(fileConfig.TocExcludes, otherConfig.TocExcludes),
@@ -67,6 +69,27 @@ public static class ConfigDefaults
         }
 
         return defaultValue;
+    }
+
+    static T? GetValueOrNull<T>(string name, T? input, T? config)
+        where T : struct
+    {
+        if (input != null && config != null)
+        {
+            throw new ConfigurationException($"'{name}' cannot be defined in both mdsnippets.json and input");
+        }
+
+        if (input != null)
+        {
+            return input.Value;
+        }
+
+        if (config != null)
+        {
+            return config.Value;
+        }
+
+        return null;
     }
 
     static string? GetValueOrDefault(string name, string? input, string? config)

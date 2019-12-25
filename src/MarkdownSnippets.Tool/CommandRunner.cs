@@ -31,6 +31,7 @@ static class CommandRunner
                         Header = options.Header,
                         LinkFormat = options.LinkFormat,
                         TocLevel = options.TocLevel,
+                        MaxWidth = options.MaxWidth,
                         Exclude = options.Exclude.ToList(),
                         TocExcludes = options.TocExcludes.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList()
@@ -66,6 +67,11 @@ static class CommandRunner
         if (options.TocLevel <= 0)
         {
             throw new CommandLineException("toc-level must be positive.");
+        }
+
+        if (options.MaxWidth <= 0)
+        {
+            throw new CommandLineException("max-width must be positive.");
         }
 
         ValidateItems("exclude", options.Exclude);

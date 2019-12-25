@@ -5,4 +5,5 @@ Config:
     Header:
     LinkFormat: GitHub
     TocLevel: 0
+    MaxWidth: 0
     FileConfigPath: theConfigFilePath (exists:False)

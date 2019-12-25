@@ -13,6 +13,7 @@ namespace MarkdownSnippets
         DirectoryFilter? directoryFilter;
         bool readOnly;
         int tocLevel;
+        int maxWidth;
         IEnumerable<string>? tocExcludes;
         Action<string> log;
         string targetDirectory;
@@ -36,7 +37,8 @@ namespace MarkdownSnippets
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
-            bool treatMissingSnippetsAsWarnings = false)
+            bool treatMissingSnippetsAsWarnings = false,
+            int maxWidth = int.MaxValue)
         {
             this.writeHeader = writeHeader;
             this.header = header;
@@ -44,6 +46,7 @@ namespace MarkdownSnippets
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
+            this.maxWidth = maxWidth;
             this.treatMissingSnippetsAsWarnings = treatMissingSnippetsAsWarnings;
 
             this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
@@ -91,7 +94,7 @@ namespace MarkdownSnippets
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
-            var read = FileSnippetExtractor.Read(files).ToList();
+            var read = FileSnippetExtractor.Read(files,maxWidth).ToList();
             snippets.AddRange(read);
             log($"Added {read.Count} snippets");
         }

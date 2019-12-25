@@ -57,6 +57,7 @@ public static class ConfigReader
             Header = configSerialization.Header,
             TocExcludes = configSerialization.TocExcludes,
             TocLevel = configSerialization.TocLevel,
+            MaxWidth = configSerialization.MaxWidth,
             LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
             TreatMissingSnippetsAsWarnings = configSerialization.TreatMissingSnippetsAsWarnings
         };

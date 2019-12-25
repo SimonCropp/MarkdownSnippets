@@ -49,7 +49,12 @@ class LoopState
         }
         var paddingToRemove = line.LastIndexOfSequence(paddingChar, paddingLength);
 
-        builder.Append(line, paddingToRemove, line.Length - paddingToRemove);
+        var lineLength = line.Length - paddingToRemove;
+        if (lineLength > maxWidth)
+        {
+            throw new LineTooLongException(line.Substring(paddingToRemove,lineLength));
+        }
+        builder.Append(line, paddingToRemove, lineLength);
         if (line.Length == 0)
         {
             newlineCount++;
@@ -87,9 +92,11 @@ class LoopState
     public Func<string, bool> EndFunc { get; }
     public int StartLine { get; }
     int newlineCount;
+    int maxWidth;
 
-    public LoopState(string key, Func<string, bool> endFunc, int startLine)
+    public LoopState(string key, Func<string, bool> endFunc, int startLine, int maxWidth)
     {
+        this.maxWidth = maxWidth;
         Key = key;
         EndFunc = endFunc;
         StartLine = startLine;

@@ -15,6 +15,7 @@ static class LogBuilder
     Header:{header}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
+    MaxWidth: {config.MaxWidth}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 ");
 

@@ -67,20 +67,22 @@ namespace MarkdownSnippets
         /// Read from a paths.
         /// </summary>
         /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
-        public static IEnumerable<Snippet> Read(IEnumerable<string> paths)
+        public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue)
         {
             Guard.AgainstNull(paths, nameof(paths));
             return paths
                 .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
-                .SelectMany(Read);
+                .SelectMany(s => Read(s, maxWidth));
         }
 
         /// <summary>
         /// Read from a path.
         /// </summary>
         /// <param name="path">The current path to extract <see cref="Snippet"/>s from.</param>
-        public static IEnumerable<Snippet> Read(string path)
+        /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
+        public static IEnumerable<Snippet> Read(string path, int maxWidth = int.MaxValue)
         {
+            Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
             Guard.AgainstNullAndEmpty(path, nameof(path));
             if (!File.Exists(path))
             {
@@ -88,7 +90,7 @@ namespace MarkdownSnippets
             }
 
             using var reader = File.OpenText(path);
-            return Read(reader, path).ToList();
+            return Read(reader, path, maxWidth).ToList();
         }
 
         /// <summary>
@@ -96,11 +98,13 @@ namespace MarkdownSnippets
         /// </summary>
         /// <param name="textReader">The <see cref="TextReader"/> to read from.</param>
         /// <param name="path">The current path being used to extract <see cref="Snippet"/>s from. Only used for logging purposes in this overload.</param>
-        public static IEnumerable<Snippet> Read(TextReader textReader, string path)
+        /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
+        public static IEnumerable<Snippet> Read(TextReader textReader, string path, int maxWidth = int.MaxValue)
         {
+            Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNullAndEmpty(path, nameof(path));
-            return GetSnippets(textReader, path);
+            return GetSnippets(textReader, path, maxWidth);
         }
 
         static string GetLanguageFromPath(string path)
@@ -110,7 +114,7 @@ namespace MarkdownSnippets
             return s ?? string.Empty;
         }
 
-        static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path)
+        static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth)
         {
             var language = GetLanguageFromPath(path);
             var loopStack = new LoopStack();
@@ -138,7 +142,7 @@ namespace MarkdownSnippets
 
                 if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
                 {
-                    loopStack.Push(endFunc, key, index);
+                    loopStack.Push(endFunc, key, index, maxWidth);
                     continue;
                 }
 
@@ -149,7 +153,27 @@ namespace MarkdownSnippets
 
                 if (!loopStack.Current.EndFunc(trimmedLine))
                 {
-                    loopStack.AppendLine(line);
+                    Snippet? error = null;
+                    try
+                    {
+                        loopStack.AppendLine(line);
+                    }
+                    catch (LineTooLongException exception)
+                    {
+                        var current = loopStack.Current;
+                        error = Snippet.BuildError(
+                            error: "Line too long: " + exception.Line,
+                            path: path,
+                            lineNumberInError: current.StartLine + 1,
+                            key: current.Key);
+                    }
+
+                    if (error != null)
+                    {
+                        yield return error;
+                        break;
+                    }
+
                     continue;
                 }
 

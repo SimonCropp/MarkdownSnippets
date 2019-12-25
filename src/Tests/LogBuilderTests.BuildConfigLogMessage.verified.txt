@@ -7,6 +7,7 @@ Config:
         line2
     LinkFormat: Tfs
     TocLevel: 5
+    MaxWidth: 80
     FileConfigPath: theConfigFilePath (exists:False)
     Exclude:
         Dir1

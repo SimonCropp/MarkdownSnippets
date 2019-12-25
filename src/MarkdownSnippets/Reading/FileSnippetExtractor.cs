@@ -67,12 +67,13 @@ namespace MarkdownSnippets
         /// Read from a paths.
         /// </summary>
         /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
+        /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
         public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue)
         {
             Guard.AgainstNull(paths, nameof(paths));
             return paths
                 .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
-                .SelectMany(s => Read(s, maxWidth));
+                .SelectMany(path => Read(path, maxWidth));
         }
 
         /// <summary>

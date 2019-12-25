@@ -75,7 +75,6 @@ static class CommandRunner
 
     static void ValidateItems(string name, IList<string> items)
     {
-
         if (items.Distinct().Count() != items.Count)
         {
             throw new CommandLineException($"duplicates found in {name}.");

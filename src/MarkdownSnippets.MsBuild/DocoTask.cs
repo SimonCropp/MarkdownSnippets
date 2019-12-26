@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -65,8 +66,19 @@ namespace MarkdownSnippets
 
             try
             {
+                var snippetsInError = processor.Snippets.Where(x => x.IsInError).ToList();
+                if (snippetsInError.Any())
+                {
+                    foreach (var snippet in snippetsInError)
+                    {
+                        Log.LogFileError($"Snippet error: {snippet.Error}. Key: {snippet.Key}", snippet.Path, snippet.StartLine);
+                    }
+
+                    return false;
+                }
+
                 processor.Run();
-                Log.LogMessageFromText($"Finished MarkdownSnippets {stopwatch.ElapsedMilliseconds}ms", MessageImportance.Normal);
+                return true;
             }
             catch (MissingSnippetsException exception)
             {
@@ -94,8 +106,10 @@ namespace MarkdownSnippets
                 Log.LogError($"MarkdownSnippets: {exception}");
                 return false;
             }
-
-            return true;
+            finally
+            {
+                Log.LogMessageFromText($"Finished MarkdownSnippets {stopwatch.ElapsedMilliseconds}ms", MessageImportance.Normal);
+            }
         }
 
         public void Cancel()

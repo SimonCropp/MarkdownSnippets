@@ -6,6 +6,7 @@
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
   "WriteHeader": true,
+  "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "TreatMissingSnippetsAsWarnings": true
 }

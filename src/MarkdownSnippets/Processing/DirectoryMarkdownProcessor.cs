@@ -20,6 +20,7 @@ namespace MarkdownSnippets
         List<string> sourceMdFiles = new List<string>();
         List<Include> includes = new List<Include>();
         List<Snippet> snippets = new List<Snippet>();
+        public IReadOnlyList<Snippet> Snippets => snippets;
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool treatMissingSnippetsAsWarnings;
@@ -137,10 +138,10 @@ namespace MarkdownSnippets
 
         public void Run()
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
+            Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var processor = new MarkdownProcessor(
-                snippets.ToDictionary(),
+                Snippets.ToDictionary(),
                 includes,
                 appendSnippetGroup,
                 snippetSourceFiles,

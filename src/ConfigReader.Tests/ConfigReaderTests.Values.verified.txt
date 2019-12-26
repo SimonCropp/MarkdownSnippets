@@ -2,6 +2,7 @@
   ReadOnly: false,
   LinkFormat: 'Tfs',
   TocLevel: 3,
+  MaxWidth: 80,
   UrlsAsSnippets: [
     'Url1',
     'Url2'

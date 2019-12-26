@@ -64,7 +64,7 @@ namespace MarkdownSnippets
         }
 
         /// <summary>
-        /// Read from a paths.
+        /// Read from paths.
         /// </summary>
         /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
         /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>

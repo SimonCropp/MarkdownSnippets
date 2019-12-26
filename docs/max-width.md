@@ -7,10 +7,13 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Max Width
 
-The Max Width setting is used to control the maximum characters per line of a snippet.
+The Max Width setting is used to control the maximum characters per line of a snippet. If any snippet has a line that exceeds the maximum an error will be thrown.
 
 
-## Config File
+## Usage
+
+
+### Config File
 
 ```
 {
@@ -19,14 +22,14 @@ The Max Width setting is used to control the maximum characters per line of a sn
 ```
 
 
-## Command Line
+### Command Line
 
 ```
 --max-width 80
 ```
 
 
-## Code Api
+### Code Api
 
 <!-- snippet: DirectoryMarkdownProcessorRunMaxWidth -->
 <a id='snippet-directorymarkdownprocessorrunmaxwidth'/></a>

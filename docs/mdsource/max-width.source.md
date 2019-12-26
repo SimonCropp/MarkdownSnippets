@@ -12,6 +12,18 @@ The Max Width setting is used to control the maximum characters per line of a sn
 ```
 
 
+## Command Line
+
+```
+--max-width 80
+```
+
+
+## Code Api
+
+snippet: DirectoryMarkdownProcessorRunMaxWidth
+
+
 ## References
 
 https://en.wikipedia.org/wiki/Line_length#Electronic_text

@@ -13,6 +13,7 @@ toc
   * [MsBuild Task](/docs/msbuild.md)
   * [Config file convention](/docs/config-file.md)
   * [Indentation](/docs/indentation.md)
+  * [Max Width](/docs/max-width.md)
 
 
 ## Installation

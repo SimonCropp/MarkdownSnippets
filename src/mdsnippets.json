@@ -1,4 +1,5 @@
 ﻿{
   "TocLevel": 1,
-  "TocExcludes": [ "Credits", "Release Notes", "Icon" ]
+  "TocExcludes": [ "Credits", "Release Notes", "Icon" ],
+  "MaxWidth": 80
 }

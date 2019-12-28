@@ -29,7 +29,9 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRunMaxWidth
 
-        var processor = new DirectoryMarkdownProcessor("targetDirectory", maxWidth: 80);
+        var processor = new DirectoryMarkdownProcessor(
+            "targetDirectory",
+            maxWidth: 80);
         processor.Run();
 
         #endregion

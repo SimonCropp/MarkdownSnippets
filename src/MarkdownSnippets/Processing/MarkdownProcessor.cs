@@ -12,14 +12,13 @@ namespace MarkdownSnippets
     public class MarkdownProcessor
     {
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
-        IReadOnlyList<Include> includes;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
         string? header;
         int tocLevel;
         List<string> tocExcludes;
         List<string> snippetSourceFiles;
-        string rootDirectory;
+        IncludeProcessor includeProcessor;
 
         public MarkdownProcessor(
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -40,9 +39,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
             rootDirectory = Path.GetFullPath(rootDirectory);
-            this.rootDirectory = rootDirectory.Replace(@"\", "/");
             this.snippets = snippets;
-            this.includes = includes;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
             this.header = header;
@@ -59,6 +56,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
+            includeProcessor = new IncludeProcessor(includes, rootDirectory);
         }
 
         public string Apply(string input, string? file = null)
@@ -117,7 +115,7 @@ namespace MarkdownSnippets
             {
                 var line = lines[index];
 
-                if (TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
+                if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
                 {
                     continue;
                 }
@@ -169,55 +167,6 @@ namespace MarkdownSnippets
                 usedSnippets: usedSnippets.Distinct().ToList(),
                 usedIncludes: usedIncludes.Distinct().ToList(),
                 missingIncludes: missingIncludes);
-        }
-
-        bool TryProcessInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, List<MissingInclude> missingIncludes)
-        {
-            if (!line.Current.StartsWith("include: "))
-            {
-                return false;
-            }
-
-            var includeKey = line.Current.Substring(9);
-            var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
-            if (include == null)
-            {
-                missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
-                line.Current = $"** Could not find include '{includeKey}.include.md' **";
-            }
-            else
-            {
-                usedIncludes.Add(include);
-                var path = GetPath(include);
-                line.Current = $@"<!--
-{line.Current}
-path: {path}
--->";
-                for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
-                {
-                    var includeLine = include.Lines[includeIndex];
-                    //todo: path of include
-                    lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
-                }
-            }
-
-            return true;
-        }
-
-        string? GetPath(Include include)
-        {
-            if (include.Path == null)
-            {
-                return null;
-            }
-
-            var path = include.Path.Replace(@"\", "/");
-            if (path.StartsWith(rootDirectory))
-            {
-                path = path.Substring(rootDirectory.Length);
-            }
-
-            return path;
         }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)

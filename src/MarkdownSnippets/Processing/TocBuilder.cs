@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +38,7 @@ static class TocBuilder
             }
 
             var title = GetTitle(trimmedHash);
-            if (tocExcludes.Contains(title))
+            if (tocExcludes.Any(x => string.Equals(x, title, StringComparison.OrdinalIgnoreCase)))
             {
                 continue;
             }

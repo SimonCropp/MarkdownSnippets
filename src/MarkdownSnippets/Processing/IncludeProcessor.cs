@@ -23,30 +23,35 @@ class IncludeProcessor
             return false;
         }
 
+        Inner(lines, line, usedIncludes, index, missingIncludes);
+
+        return true;
+    }
+
+    void Inner(List<Line> lines, Line line, List<Include> usedIncludes, int index, List<MissingInclude> missingIncludes)
+    {
         var includeKey = line.Current.Substring(9);
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include == null)
         {
             missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
             line.Current = $"** Could not find include '{includeKey}.include.md' **";
+            return;
         }
-        else
-        {
-            usedIncludes.Add(include);
-            var path = GetPath(include);
-            line.Current = $@"<!--
+
+        usedIncludes.Add(include);
+        var path = GetPath(include);
+        line.Current = $@"<!--
 {line.Current}
 path: {path}
 -->";
-            for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
-            {
-                var includeLine = include.Lines[includeIndex];
-                //todo: path of include
-                lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
-            }
-        }
+        for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
+        {
+            var includeLine = include.Lines[includeIndex];
 
-        return true;
+            //todo: path of include
+            lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
+        }
     }
 
     string? GetPath(Include include)

@@ -41,16 +41,53 @@ class IncludeProcessor
 
         usedIncludes.Add(include);
         var path = GetPath(include);
-        line.Current = $@"<!--
-{line.Current}
-path: {path}
--->";
-        for (var includeIndex = 0; includeIndex < include.Lines.Count; includeIndex++)
+        if (!include.Lines.Any())
+        {
+            line.Current = $@"<!-- include: {include.Key}. path: {path} -->";
+            return;
+        }
+
+        var firstLine = include.Lines.First();
+
+        var linesCount = include.Lines.Count;
+        if (SnippetKeyReader.IsSnippetLine(firstLine))
+        {
+            line.Current = $@"<!-- include: {include.Key}. path: {path} -->";
+            lines.Insert(index + 1, new Line(firstLine, include.Path, 1));
+            lines.Insert(index + 2, new Line($@"<!-- end include: {include.Key}. path: {path} -->", include.Path, 1));
+
+            if (linesCount == 1)
+            {
+                return;
+            }
+        }
+        else
+        {
+            line.Current = $@"{firstLine} <!-- include: {include.Key}. path: {path} -->";
+
+            if (linesCount == 1)
+            {
+                return;
+            }
+        }
+
+        for (var includeIndex = 1; includeIndex < linesCount - 1; includeIndex++)
         {
             var includeLine = include.Lines[includeIndex];
 
             //todo: path of include
-            lines.Insert(index + includeIndex + 1, new Line(includeLine, include.Path, includeIndex));
+            lines.Insert(index + includeIndex, new Line(includeLine, include.Path, includeIndex));
+        }
+
+        var lastLine = include.Lines.Last();
+        if (SnippetKeyReader.IsSnippetLine(lastLine))
+        {
+            lines.Insert(index + linesCount - 1, new Line(lastLine, include.Path, linesCount));
+            lines.Insert(index + linesCount, new Line($@"<!-- end include: {include.Key}. path: {path} -->", include.Path, linesCount));
+        }
+        else
+        {
+            lines.Insert(index + linesCount - 1, new Line($@"{lastLine} <!-- end include: {include.Key}. path: {path} -->", include.Path, linesCount));
         }
     }
 

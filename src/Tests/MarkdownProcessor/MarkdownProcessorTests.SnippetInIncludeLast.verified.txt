@@ -19,7 +19,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 some text
 
-<!-- include: theKey. path: thePath -->
+line1 <!-- include: theKey. path: thePath -->
 <!-- snippet: snippet1 -->
 ```cs
 Snippet

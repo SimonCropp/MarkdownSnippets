@@ -10,7 +10,7 @@ public class MarkdownProcessorTests :
     VerifyBase
 {
     [Fact]
-    public Task WithInclude()
+    public Task WithSingleInclude()
     {
         var content = @"
 before
@@ -19,11 +19,48 @@ include: theKey
 
 after
 ";
-       return this.VerifySnippets(
+        var lines = new List<string> {"theValue1"};
+        return this.VerifySnippets(
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
-            includes: new []{ Include.Build("theKey", new List<string> {"theValue"}, "c:/root/thePath")});
+            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+    }
+
+    [Fact]
+    public Task WithDoubleInclude()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        var lines = new List<string> {"theValue1", "theValue2"};
+        return this.VerifySnippets(
+            content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+    }
+
+    [Fact]
+    public Task WithMultipleInclude()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
+        return this.VerifySnippets(
+            content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
     }
 
     [Fact]
@@ -36,7 +73,7 @@ include: theKey
 
 after
 ";
-       return this.VerifySnippets(content,
+        return this.VerifySnippets(content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
             includes: new List<Include>());
@@ -77,7 +114,7 @@ Text1
 Text2
 
 ";
-       return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
@@ -136,11 +173,36 @@ include: theKey
 
 some other text
 ";
+        var lines = new List<string> {"snippet: snippet1"};
         return this.VerifySnippets(
             content,
             availableSnippets,
             new List<string>(),
-            includes: new []{ Include.Build("theKey", new List<string> {"snippet: snippet1"}, "thePath")});
+            includes: new[] {Include.Build("theKey", lines, "thePath")});
+    }
+    [Fact]
+    public Task SnippetInIncludeLast()
+    {
+        var availableSnippets = new List<Snippet>
+        {
+            SnippetBuild(
+                language: "cs",
+                key: "snippet1"
+            )
+        };
+        var content = @"
+some text
+
+include: theKey
+
+some other text
+";
+        var lines = new List<string> {"line1","snippet: snippet1"};
+        return this.VerifySnippets(
+            content,
+            availableSnippets,
+            new List<string>(),
+            includes: new[] {Include.Build("theKey", lines, "thePath")});
     }
 
     static Snippet SnippetBuild(string language, string key)

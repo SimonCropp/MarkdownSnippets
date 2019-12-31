@@ -6,7 +6,7 @@ static class SnippetKeyReader
 {
     public static bool TryExtractKeyFromLine(Line line, [NotNullWhen(true)] out string? key)
     {
-        if (!line.Current.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase))
+        if (!IsSnippetLine(line))
         {
             key = null;
             return false;
@@ -21,5 +21,16 @@ static class SnippetKeyReader
 
         key = key.Trim();
         return true;
+    }
+
+    public static bool IsSnippetLine(Line line)
+    {
+        var lineCurrent = line.Current;
+        return IsSnippetLine(lineCurrent);
+    }
+
+    public static bool IsSnippetLine(string lineCurrent)
+    {
+        return lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
     }
 }

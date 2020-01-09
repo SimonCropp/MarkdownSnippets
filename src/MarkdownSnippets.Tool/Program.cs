@@ -32,6 +32,7 @@ class Program
             readOnly: configResult.ReadOnly,
             writeHeader: configResult.WriteHeader,
             header: configResult.Header,
+            urlPrefix: configResult.UrlPrefix,
             linkFormat: configResult.LinkFormat,
             tocExcludes: configResult.TocExcludes,
             tocLevel: configResult.TocLevel,

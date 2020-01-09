@@ -29,6 +29,7 @@ static class CommandRunner
                         ReadOnly = options.ReadOnly,
                         WriteHeader = options.WriteHeader,
                         Header = options.Header,
+                        UrlPrefix = options.UrlPrefix,
                         LinkFormat = options.LinkFormat,
                         TocLevel = options.TocLevel,
                         MaxWidth = options.MaxWidth,
@@ -45,6 +46,11 @@ static class CommandRunner
         if (options.Header != null && string.IsNullOrWhiteSpace(options.Header))
         {
             throw new CommandLineException("Empty Header is not allowed.");
+        }
+
+        if (options.UrlPrefix != null && string.IsNullOrWhiteSpace(options.UrlPrefix))
+        {
+            throw new CommandLineException("Empty UrlPrefix is not allowed.");
         }
 
         if (options.TargetDirectory == null)

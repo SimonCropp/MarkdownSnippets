@@ -11,6 +11,7 @@ public class ConfigResult
     public List<string> Exclude = new List<string>();
     public bool WriteHeader;
     public string? Header;
+    public string? UrlPrefix;
     public List<string> TocExcludes = new List<string>();
     public bool TreatMissingSnippetsAsWarnings;
 }

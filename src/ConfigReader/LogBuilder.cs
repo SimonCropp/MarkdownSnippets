@@ -13,6 +13,7 @@ static class LogBuilder
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
     Header:{header}
+    UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
     MaxWidth: {config.MaxWidth}

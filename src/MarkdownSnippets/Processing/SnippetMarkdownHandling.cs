@@ -11,11 +11,13 @@ namespace MarkdownSnippets
     public class SnippetMarkdownHandling
     {
         LinkFormat linkFormat;
+        string? urlPrefix;
         string rootDirectory;
 
-        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat)
+        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat, string? urlPrefix = null)
         {
             this.linkFormat = linkFormat;
+            this.urlPrefix = urlPrefix;
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
             rootDirectory = Path.GetFullPath(rootDirectory);
             this.rootDirectory = rootDirectory.Replace(@"\", "/");
@@ -77,7 +79,7 @@ namespace MarkdownSnippets
 
             var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
             var sourceLink = BuildLink(snippet, path);
-            var linkForSource = $"<a href='{sourceLink}' title='File snippet `{snippet.Key}` was extracted from'>snippet source</a>";
+            var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='File snippet `{snippet.Key}` was extracted from'>snippet source</a>";
             if (linkFormat == LinkFormat.Tfs)
             {
                 supText = linkForSource;

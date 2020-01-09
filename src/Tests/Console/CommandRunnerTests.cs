@@ -31,6 +31,13 @@ public class CommandRunnerTests :
     }
 
     [Fact]
+    public Task UrlPrefix()
+    {
+        CommandRunner.RunCommand(Capture, "--urlPrefix", "the prefix");
+        return VerifyResult();
+    }
+
+    [Fact]
     public Task WriteHeader()
     {
         CommandRunner.RunCommand(Capture, "--write-header", "false");
@@ -174,7 +181,6 @@ public class CommandRunnerTests :
                 configInput
             });
     }
-
 
     public CommandRunnerTests(ITestOutputHelper output) :
         base(output)

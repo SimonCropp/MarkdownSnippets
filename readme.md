@@ -27,7 +27,8 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Table of contents](#table-of-contents)
   * [Header](#header)
   * [Markdown includes](#markdown-includes)
-  * [LinkFormat](#linkformat)<!-- endtoc -->
+  * [LinkFormat](#linkformat)
+  * [UrlPrefix](#urlprefix)<!-- endtoc -->
   * [.net API](/docs/api.md)
   * [MsBuild Task](/docs/msbuild.md)
   * [Config file convention](/docs/config-file.md)
@@ -325,8 +326,13 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L102-L122' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L104-L124' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## UrlPrefix
+
+UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
 
 
 ## Release Notes

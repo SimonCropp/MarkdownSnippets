@@ -55,6 +55,7 @@ public static class ConfigReader
             UrlsAsSnippets = configSerialization.UrlsAsSnippets,
             Exclude = configSerialization.Exclude,
             Header = configSerialization.Header,
+            UrlPrefix = configSerialization.UrlPrefix,
             TocExcludes = configSerialization.TocExcludes,
             TocLevel = configSerialization.TocLevel,
             MaxWidth = configSerialization.MaxWidth,

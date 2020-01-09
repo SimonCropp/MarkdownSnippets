@@ -43,6 +43,11 @@ public class Options
 " + HeaderWriter.DefaultHeader)]
     public string? Header { get; set; }
 
+    [Option("urlPrefix",
+        Required = false,
+        HelpText = @"The prefix to add to all the snippet URLs. Optional. Defaults to: null")]
+    public string? UrlPrefix { get; set; }
+
     [Option('l', "link-format",
         Required = false,
         HelpText = "Controls the format of the link under each snippet. Optional. Supported values: GitHub, Tfs. Defaults to GitHub.")]

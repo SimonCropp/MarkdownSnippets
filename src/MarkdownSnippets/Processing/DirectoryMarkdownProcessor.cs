@@ -10,6 +10,7 @@ namespace MarkdownSnippets
     {
         bool writeHeader;
         string? header;
+        string? urlPrefix;
         DirectoryFilter? directoryFilter;
         bool readOnly;
         int tocLevel;
@@ -39,10 +40,12 @@ namespace MarkdownSnippets
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             bool treatMissingSnippetsAsWarnings = false,
-            int maxWidth = int.MaxValue)
+            int maxWidth = int.MaxValue,
+            string? urlPrefix = null)
         {
             this.writeHeader = writeHeader;
             this.header = header;
+            this.urlPrefix = urlPrefix;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
@@ -50,7 +53,7 @@ namespace MarkdownSnippets
             this.maxWidth = maxWidth;
             this.treatMissingSnippetsAsWarnings = treatMissingSnippetsAsWarnings;
 
-            this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat).AppendGroup;
+            this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
 

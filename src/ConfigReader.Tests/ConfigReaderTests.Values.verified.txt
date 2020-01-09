@@ -13,6 +13,7 @@
   ],
   WriteHeader: true,
   Header: 'GENERATED FILE - Source File: {relativePath}',
+  UrlPrefix: 'TheUrlPrefix',
   TocExcludes: [
     'Exclude Heading1',
     'Exclude Heading2'

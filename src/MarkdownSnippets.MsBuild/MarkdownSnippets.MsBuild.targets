@@ -16,7 +16,7 @@
   <Target
       Name="MarkdownSnippetsTarget"
       AfterTargets="AfterCompile"
-      Condition="$(DesignTimeBuild) != true"
+      Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1'"
       >
      <Error
         Text="No '.git' directory found. Define a `MdTargetDir`."

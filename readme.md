@@ -28,7 +28,8 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Header](#header)
   * [Markdown includes](#markdown-includes)
   * [LinkFormat](#linkformat)
-  * [UrlPrefix](#urlprefix)<!-- endtoc -->
+  * [UrlPrefix](#urlprefix)
+  * [Security contact information](#security-contact-information)<!-- endtoc -->
   * [.net API](/docs/api.md)
   * [MsBuild Task](/docs/msbuild.md)
   * [Config file convention](/docs/config-file.md)
@@ -333,6 +334,11 @@ if (linkFormat == LinkFormat.GitLab)
 ## UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
+
+
+## Security contact information
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Release Notes

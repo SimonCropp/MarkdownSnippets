@@ -14,13 +14,12 @@
     AssemblyFile="$(MarkdownSnippetsAssembly)" />
 
   <Target
-      Name="MarkdownSnippetsTarget"
-      AfterTargets="AfterCompile"
-      Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1'"
-      >
-     <Error
-        Text="No '.git' directory found. Define a `MdTargetDir`."
-        Condition="'$(MdTargetDir)' == ''" />
+    Name="MarkdownSnippetsTarget"
+    AfterTargets="AfterCompile"
+    Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1' AND ('$(TargetFrameworks)' == '' OR $(TargetFrameworks.EndsWith($(TargetFramework))))" >
+    <Error
+      Text="No '.git' directory found. Define a `MdTargetDir`."
+      Condition="'$(MdTargetDir)' == ''" />
     <MarkdownSnippets.DocoTask
       ProjectDirectory="$(MSBuildProjectDirectory)"
       ReadOnly="$(MarkdownSnippetsReadOnly)"

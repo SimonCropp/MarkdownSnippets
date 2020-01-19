@@ -22,9 +22,9 @@ public class Options
     public IList<string> TocExcludes { get; set; } = null!;
 
     [Option('u', "urls-as-snippets",
-        Separator = ':',
+        Separator = ' ',
         Required = false,
-        HelpText = "Urls to files to be included as snippets. Optional. Colon ':' separated for multiple values.")]
+        HelpText = "Urls to files to be included as snippets. Optional. Space ' ' separated for multiple values.")]
     public IList<string> UrlsAsSnippets { get; set; } = null!;
 
     [Option('r', "readonly",

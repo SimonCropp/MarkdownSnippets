@@ -349,7 +349,7 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
 
 ## UrlsAsSnippets
 
-Urls to files to be included as snippets. Colon `:` separated for multiple values.
+Urls to files to be included as snippets. Space ` ` separated for multiple values.
 
 ```ps
 mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"

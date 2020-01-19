@@ -24,7 +24,7 @@ namespace MarkdownSnippets
         public IReadOnlyList<Snippet> Snippets => snippets;
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
-        bool treatMissingSnippetsAsWarnings;
+        bool treatMissingSnippetAsWarning;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -39,7 +39,7 @@ namespace MarkdownSnippets
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
-            bool treatMissingSnippetsAsWarnings = false,
+            bool treatMissingSnippetAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null)
         {
@@ -51,7 +51,7 @@ namespace MarkdownSnippets
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.maxWidth = maxWidth;
-            this.treatMissingSnippetsAsWarnings = treatMissingSnippetsAsWarnings;
+            this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
 
             this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup;
 
@@ -176,7 +176,7 @@ namespace MarkdownSnippets
             if (missing.Any())
             {
                 // If the config value is set to treat missing snippets as warnings, then don't throw
-                if (treatMissingSnippetsAsWarnings)
+                if (treatMissingSnippetAsWarning)
                 {
                     foreach (var missingSnippet in missing)
                     {

@@ -18,5 +18,5 @@
     'Exclude Heading1',
     'Exclude Heading2'
   ],
-  TreatMissingSnippetsAsWarnings: true
+  TreatMissingSnippetAsWarning: true
 }

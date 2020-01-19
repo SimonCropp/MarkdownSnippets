@@ -60,7 +60,7 @@ public static class ConfigReader
             TocLevel = configSerialization.TocLevel,
             MaxWidth = configSerialization.MaxWidth,
             LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
-            TreatMissingSnippetsAsWarnings = configSerialization.TreatMissingSnippetsAsWarnings
+            TreatMissingSnippetAsWarning = configSerialization.TreatMissingSnippetAsWarning
         };
     }
 

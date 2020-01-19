@@ -21,7 +21,7 @@ namespace MarkdownSnippets
         public List<string> Exclude { get; set; } = new List<string>();
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
-        public bool? TreatMissingSnippetsAsWarnings { get; set; }
+        public bool? TreatMissingSnippetAsWarning { get; set; }
 
         public override bool Execute()
         {
@@ -43,7 +43,7 @@ namespace MarkdownSnippets
                     TocLevel = TocLevel,
                     MaxWidth = MaxWidth,
                     UrlsAsSnippets = UrlsAsSnippets,
-                    TreatMissingSnippetsAsWarnings = TreatMissingSnippetsAsWarnings
+                    TreatMissingSnippetAsWarning = TreatMissingSnippetAsWarning
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
@@ -60,7 +60,7 @@ namespace MarkdownSnippets
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
-                treatMissingSnippetsAsWarnings: configResult.TreatMissingSnippetsAsWarnings,
+                treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
                 maxWidth: configResult.MaxWidth);
 
             var snippets = new List<Snippet>();
@@ -87,7 +87,7 @@ namespace MarkdownSnippets
             {
                 foreach (var missing in exception.Missing)
                 {
-                    if (configResult.TreatMissingSnippetsAsWarnings)
+                    if (configResult.TreatMissingSnippetAsWarning)
                     {
                         Log.LogWarning($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
                     }
@@ -97,7 +97,7 @@ namespace MarkdownSnippets
                     }
                 }
 
-                return configResult.TreatMissingSnippetsAsWarnings;
+                return configResult.TreatMissingSnippetAsWarning;
             }
             catch (MarkdownProcessingException exception)
             {

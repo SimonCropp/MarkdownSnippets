@@ -13,5 +13,5 @@ public class ConfigInput
     public string? Header { get; set; }
     public string? UrlPrefix { get; set; }
     public List<string> TocExcludes { get; set; } = new List<string>();
-    public bool? TreatMissingSnippetsAsWarnings { get; set; }
+    public bool? TreatMissingSnippetAsWarning { get; set; }
 }

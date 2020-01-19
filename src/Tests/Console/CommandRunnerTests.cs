@@ -143,14 +143,14 @@ public class CommandRunnerTests :
     [Fact]
     public void UrlsAsSnippetsMultiple()
     {
-        CommandRunner.RunCommand(Capture, "-u", "url1:url2");
+        CommandRunner.RunCommand(Capture, "-u", "url1 url2");
         VerifyResult();
     }
 
     [Fact]
     public void UrlsAsSnippetsDuplicates()
     {
-        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url:url"));
+        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url url"));
     }
 
     [Fact]

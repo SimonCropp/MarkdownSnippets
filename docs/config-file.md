@@ -30,3 +30,14 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ```
 <sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L13' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## More Info
+
+ * [ReadOnly: Mark resulting files as read only](/#mark-resulting-files-as-read-only)
+ * [LinkFormat](/#linkformat)
+ * [TocLevel: Heading level](/#heading-level)
+ * [TocExcludes: Ignore headings](/#ignore-headings)
+ * [Exclude: Exclude directories from snippet discovery](/#exclude-directories-from-snippet-discovery)
+ * [WriteHeader: Disable Header](/#disable-header)
+ * [UrlPrefix](/#urlprefix)

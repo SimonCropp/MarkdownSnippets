@@ -230,6 +230,7 @@ To exclude headings use the `--toc-excludes` argument. So for example to exclude
 mdsnippets --toc-excludes heading1:heading2
 ```
 
+
 ## Header
 
 When a .md file is written, a header is include. The default header is:
@@ -245,17 +246,26 @@ To change this file edit the source file and then run MarkdownSnippets.
 <sup><a href='/src/Tests/HeaderWriterTests.DefaultHeader.verified.txt#L1-L4' title='File snippet `HeaderWriterTests.DefaultHeader.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-HeaderWriterTests.DefaultHeader.verified.txt' title='Navigate to start of snippet `HeaderWriterTests.DefaultHeader.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
+
+### Disable Header
+
 To disable the header use `--write-header`
 
 ```ps
 mdsnippets --write-header false
 ```
 
+
+### Custom Header
+
 To apply a custom header use `--header`. `{relativePath}` will be replaced with the relative path of the `.source.md` file.
 
 ```ps
 mdsnippets --header "GENERATED FILE - Source File: {relativePath}"
 ```
+
+
+### Newlines in Header
 
 To insert a newline use `\n`
 

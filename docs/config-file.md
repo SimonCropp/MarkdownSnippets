@@ -41,3 +41,4 @@ Add a file named `mdsnippets.json` at the target directory with the following co
  * [Exclude: Exclude directories from snippet discovery](/#exclude-directories-from-snippet-discovery)
  * [WriteHeader: Disable Header](/#disable-header)
  * [UrlPrefix](/#urlprefix)
+ * [UrlsAsSnippets: Urls to files to be included as snippets](/#urlsassnippets)

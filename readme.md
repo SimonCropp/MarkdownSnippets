@@ -29,6 +29,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Markdown includes](#markdown-includes)
   * [LinkFormat](#linkformat)
   * [UrlPrefix](#urlprefix)
+  * [UrlsAsSnippets](#urlsassnippets)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
   * [.net API](/docs/api.md)
   * [MsBuild Task](/docs/msbuild.md)
@@ -344,6 +345,15 @@ if (linkFormat == LinkFormat.GitLab)
 ## UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
+
+
+## UrlsAsSnippets
+
+Urls to files to be included as snippets. Colon `:` separated for multiple values.
+
+```ps
+mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
+```
 
 
 ## Security contact information

@@ -24,7 +24,7 @@ public class Options
     [Option('u', "urls-as-snippets",
         Separator = ':',
         Required = false,
-        HelpText = "UrlsAsSnippets to be included as snippets. Optional. Colon ':' separated for multiple values.")]
+        HelpText = "Urls to files to be included as snippets. Optional. Colon ':' separated for multiple values.")]
     public IList<string> UrlsAsSnippets { get; set; } = null!;
 
     [Option('r', "readonly",

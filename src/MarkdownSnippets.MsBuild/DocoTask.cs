@@ -92,11 +92,11 @@ namespace MarkdownSnippets
                 {
                     if (configResult.TreatMissingSnippetAsWarning)
                     {
-                        Log.LogWarning($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogWarning($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber);
                     }
                     else
                     {
-                        Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogFileError($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber);
                     }
                 }
 
@@ -108,11 +108,11 @@ namespace MarkdownSnippets
                 {
                     if (configResult.TreatMissingIncludeAsWarning)
                     {
-                        Log.LogWarning($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogWarning($"MarkdownSnippets: Missing include: {missing.Key}", missing.File, missing.LineNumber);
                     }
                     else
                     {
-                        Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogFileError($"MarkdownSnippets: Missing include: {missing.Key}", missing.File, missing.LineNumber);
                     }
                 }
 

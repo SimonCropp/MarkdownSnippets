@@ -20,7 +20,8 @@ public static class ConfigDefaults
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
-                TreatMissingSnippetAsWarning = otherConfig.TreatMissingSnippetAsWarning.GetValueOrDefault()
+                TreatMissingSnippetAsWarning = otherConfig.TreatMissingSnippetAsWarning.GetValueOrDefault(),
+                TreatMissingIncludeAsWarning = otherConfig.TreatMissingIncludeAsWarning.GetValueOrDefault()
             };
         }
 
@@ -40,6 +41,11 @@ public static class ConfigDefaults
                 "TreatMissingSnippetAsWarning",
                 otherConfig.TreatMissingSnippetAsWarning,
                 fileConfig.TreatMissingSnippetAsWarning,
+                false),
+            TreatMissingIncludeAsWarning = GetValueOrDefault(
+                "TreatMissingIncludeAsWarning",
+                otherConfig.TreatMissingIncludeAsWarning,
+                fileConfig.TreatMissingIncludeAsWarning,
                 false)
         };
     }

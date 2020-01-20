@@ -24,7 +24,9 @@ public class DirectoryMarkdownProcessorTests :
                 "Credits",
                 "Release Notes"
             },
-            directoryFilter: path => !path.Contains("IncludeFileFinder"));
+            directoryFilter: path =>
+                !path.Contains("IncludeFileFinder") &&
+                !path.Contains("MissingInclude"));
         processor.Run();
     }
 
@@ -80,10 +82,36 @@ public class DirectoryMarkdownProcessorTests :
     }
 
     [Fact]
+    public void MustErrorByDefaultWhenIncludesAreMissing()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            scanForIncludes: false,
+            writeHeader: false);
+        Assert.Throws<MissingIncludesException>(() => processor.Run());
+    }
+
+    [Fact]
+    public void MustNotErrorForMissingIncludesIfConfigured()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            scanForIncludes: false,
+            writeHeader: false,
+            treatMissingIncludeAsWarning: true);
+        processor.Run();
+    }
+
+    [Fact]
     public void MustErrorByDefaultWhenSnippetsAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            scanForSnippets: false,
+            writeHeader: false);
         Assert.Throws<MissingSnippetsException>(() => processor.Run());
     }
 
@@ -91,7 +119,11 @@ public class DirectoryMarkdownProcessorTests :
     public void MustNotErrorForMissingSnippetsIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        var processor = new DirectoryMarkdownProcessor(root, scanForSnippets: false, writeHeader: false, treatMissingSnippetAsWarning: true);
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            scanForSnippets: false,
+            writeHeader: false,
+            treatMissingSnippetAsWarning: true);
         processor.Run();
     }
 

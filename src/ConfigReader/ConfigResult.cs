@@ -14,4 +14,5 @@ public class ConfigResult
     public string? UrlPrefix;
     public List<string> TocExcludes = new List<string>();
     public bool TreatMissingSnippetAsWarning;
+    public bool TreatMissingIncludeAsWarning;
 }

@@ -46,6 +46,11 @@ namespace MarkdownSnippets
                 throw new MissingSnippetsException(MissingSnippets);
             }
 
+            if (MissingIncludes.Any())
+            {
+                throw new MissingIncludesException(MissingIncludes);
+            }
+
             return UsedSnippets.GetEnumerator();
         }
 

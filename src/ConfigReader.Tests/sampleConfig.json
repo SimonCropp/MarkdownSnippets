@@ -9,5 +9,6 @@
   "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
-  "TreatMissingSnippetAsWarning": true
+  "TreatMissingSnippetAsWarning": true,
+  "TreatMissingIncludeAsWarning": true
 }

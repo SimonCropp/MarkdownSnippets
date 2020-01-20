@@ -25,11 +25,13 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool treatMissingSnippetAsWarning;
+        bool treatMissingIncludeAsWarning;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
+            bool scanForIncludes = true,
             Action<string>? log = null,
             AppendSnippetGroupToMarkdown? appendSnippetGroup = null,
             bool writeHeader = true,
@@ -40,6 +42,7 @@ namespace MarkdownSnippets
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             bool treatMissingSnippetAsWarning = false,
+            bool treatMissingIncludeAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null)
         {
@@ -52,6 +55,7 @@ namespace MarkdownSnippets
             this.tocExcludes = tocExcludes;
             this.maxWidth = maxWidth;
             this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
+            this.treatMissingIncludeAsWarning = treatMissingIncludeAsWarning;
 
             this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup;
 
@@ -68,7 +72,11 @@ namespace MarkdownSnippets
             {
                 AddSnippetsFrom(targetDirectory);
             }
-            AddIncludeFilesFrom(targetDirectory);
+
+            if (scanForIncludes)
+            {
+                AddIncludeFilesFrom(targetDirectory);
+            }
         }
 
         public void AddSnippets(List<Snippet> snippets)
@@ -171,21 +179,38 @@ namespace MarkdownSnippets
                 .Substring(targetDirectory.Length)
                 .Replace('\\', '/');
             var result = markdownProcessor.Apply(lines, newLine, relativeSource);
-            var missing = result.MissingSnippets;
 
-            if (missing.Any())
+            var missingSnippets = result.MissingSnippets;
+            if (missingSnippets.Any())
             {
                 // If the config value is set to treat missing snippets as warnings, then don't throw
                 if (treatMissingSnippetAsWarning)
                 {
-                    foreach (var missingSnippet in missing)
+                    foreach (var missing in missingSnippets)
                     {
-                        log($"WARN: The source file:{missingSnippet.File} includes a key {missingSnippet.Key}, however the snippet is missing. Make sure that the snippet is defined.");
+                        log($"WARN: The source file:{missing.File} includes a key {missing.Key}, however the snippet is missing. Make sure that the snippet is defined.");
                     }
                 }
                 else
                 {
-                    throw new MissingSnippetsException(missing);
+                    throw new MissingSnippetsException(missingSnippets);
+                }
+            }
+
+            var missingIncludes = result.MissingIncludes;
+            if (missingIncludes.Any())
+            {
+                // If the config value is set to treat missing include as warnings, then don't throw
+                if (treatMissingIncludeAsWarning)
+                {
+                    foreach (var missing in missingIncludes)
+                    {
+                        log($"WARN: The source file:{missing.File} includes a key {missing.Key}, however the include is missing. Make sure that the include is defined.");
+                    }
+                }
+                else
+                {
+                    throw new MissingIncludesException(missingIncludes);
                 }
             }
 

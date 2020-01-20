@@ -22,6 +22,7 @@ namespace MarkdownSnippets
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
         public bool? TreatMissingSnippetAsWarning { get; set; }
+        public bool? TreatMissingIncludeAsWarning { get; set; }
 
         public override bool Execute()
         {
@@ -43,7 +44,8 @@ namespace MarkdownSnippets
                     TocLevel = TocLevel,
                     MaxWidth = MaxWidth,
                     UrlsAsSnippets = UrlsAsSnippets,
-                    TreatMissingSnippetAsWarning = TreatMissingSnippetAsWarning
+                    TreatMissingSnippetAsWarning = TreatMissingSnippetAsWarning,
+                    TreatMissingIncludeAsWarning = TreatMissingIncludeAsWarning
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
@@ -61,6 +63,7 @@ namespace MarkdownSnippets
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
                 treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
+                treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
                 maxWidth: configResult.MaxWidth);
 
             var snippets = new List<Snippet>();
@@ -98,6 +101,22 @@ namespace MarkdownSnippets
                 }
 
                 return configResult.TreatMissingSnippetAsWarning;
+            }
+            catch (MissingIncludesException exception)
+            {
+                foreach (var missing in exception.Missing)
+                {
+                    if (configResult.TreatMissingIncludeAsWarning)
+                    {
+                        Log.LogWarning($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                    }
+                    else
+                    {
+                        Log.LogFileError($"MarkdownSnippet: Missing: {missing.Key}", missing.File, missing.LineNumber);
+                    }
+                }
+
+                return configResult.TreatMissingIncludeAsWarning;
             }
             catch (MarkdownProcessingException exception)
             {

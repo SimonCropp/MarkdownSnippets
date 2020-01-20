@@ -25,10 +25,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
-  "TreatMissingSnippetAsWarning": true
+  "TreatMissingSnippetAsWarning": true,
+  "TreatMissingIncludeAsWarning": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L13' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L14' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

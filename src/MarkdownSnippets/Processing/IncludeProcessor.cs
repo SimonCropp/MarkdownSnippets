@@ -34,7 +34,7 @@ class IncludeProcessor
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include == null)
         {
-            missingIncludes.Add(new MissingInclude(includeKey, index, line.Path));
+            missingIncludes.Add(new MissingInclude(includeKey, index+1, line.Path));
             line.Current = $"** Could not find include '{includeKey}.include.md' **";
             return;
         }

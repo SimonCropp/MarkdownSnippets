@@ -37,6 +37,7 @@ class Program
             tocExcludes: configResult.TocExcludes,
             tocLevel: configResult.TocLevel,
             treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
+            treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
             maxWidth: configResult.MaxWidth);
 
         var snippets = new List<Snippet>();

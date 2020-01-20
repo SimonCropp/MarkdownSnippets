@@ -24,7 +24,7 @@ static class Guard
     {
         if (value <= 0)
         {
-            throw new ArgumentOutOfRangeException(argumentName,value, "Less than zero");
+            throw new ArgumentOutOfRangeException(argumentName,value, "Zero of less");
         }
     }
 

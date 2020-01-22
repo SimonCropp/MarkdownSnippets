@@ -44,12 +44,12 @@ static class Downloader
         Timestamp webTimeStamp;
         using (var headResponse = await httpClient.SendAsync(request))
         {
-            webTimeStamp = Timestamp.GetTimestamp(headResponse);
-
             if (headResponse.StatusCode != HttpStatusCode.OK)
             {
                 return (false, null);
             }
+
+            webTimeStamp = Timestamp.GetTimestamp(headResponse);
 
             if (File.Exists(tempPath))
             {

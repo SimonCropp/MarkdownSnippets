@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.0.7" PrivateAssets="all" />
+    <PackageReference Include="Fody" Version="6.0.8" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.40" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />

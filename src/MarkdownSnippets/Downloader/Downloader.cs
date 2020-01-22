@@ -79,7 +79,7 @@ static class Downloader
         return (true, tempPath);
     }
 
-    public static async Task<(bool success, string? content)> DownloadFileContent(string requestUri)
+    public static async Task<(bool success, string? content)> DownloadContent(string requestUri)
     {
         var (success, path) = await DownloadFile(requestUri);
         if (success)

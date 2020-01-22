@@ -34,7 +34,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNullAndEmpty(url, nameof(url));
-            var (success, content) = await Downloader.DownloadFileContent(url);
+            var (success, content) = await Downloader.DownloadContent(url);
             if (!success)
             {
                 throw new SnippetException($"Unable to get UrlAsSnippet: {url}");

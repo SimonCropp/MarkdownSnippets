@@ -9,14 +9,14 @@ public class DownloaderTests :
     [Fact]
     public async Task Valid()
     {
-        var content = await Downloader.DownloadFileContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt");
+        var content = await Downloader.DownloadContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt");
         await Verify(new {content.success, content.content});
     }
 
     [Fact]
     public async Task Missing()
     {
-        var content = await Downloader.DownloadFileContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt");
+        var content = await Downloader.DownloadContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt");
         Assert.False(content.success);
         Assert.Null(content.content);
     }

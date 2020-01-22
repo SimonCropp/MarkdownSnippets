@@ -35,7 +35,11 @@ namespace MarkdownSnippets
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNullAndEmpty(url, nameof(url));
             var (success, content) = await Downloader.DownloadFileContent(url);
-            //TODO: handle failure
+            if (!success)
+            {
+                throw new SnippetException($"Unable to get UrlAsSnippet: {url}");
+            }
+
             var snippet = Snippet.Build(1, content!.LineCount(), content!, key, GetLanguageFromPath(url), null);
             snippets.Add(snippet);
         }

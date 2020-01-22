@@ -1,0 +1,1 @@
+snippet: https://github.com/SimonCropp/MarkdownSnippets/blob/master/license.txt

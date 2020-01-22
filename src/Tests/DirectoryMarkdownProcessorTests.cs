@@ -60,6 +60,20 @@ public class DirectoryMarkdownProcessorTests :
     }
 
     [Fact]
+    public Task UrlSnippet()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippet");
+        var processor = new DirectoryMarkdownProcessor(root,
+            scanForSnippets: false,
+            writeHeader: false);
+        processor.Run();
+
+        var result = Path.Combine(root,"one.md");
+
+        return Verify(File.ReadAllText(result));
+    }
+
+    [Fact]
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");

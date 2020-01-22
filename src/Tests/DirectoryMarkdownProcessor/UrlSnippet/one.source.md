@@ -1,1 +1,1 @@
-snippet: https://github.com/SimonCropp/MarkdownSnippets/blob/master/license.txt
+snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt

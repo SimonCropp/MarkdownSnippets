@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -17,7 +18,6 @@ static class Downloader
             .OrderByDescending(x => x.LastWriteTime)
             .Skip(100))
         {
-            file.Delete();
         }
     }
 
@@ -26,51 +26,66 @@ static class Downloader
         Timeout = TimeSpan.FromSeconds(30)
     };
 
-    public static async Task<string> DownloadFile(string requestUri)
+    public static async Task<(bool success, string? path)> DownloadFile(string requestUri)
     {
-        var path = Path.Combine(cache, FileNameFromUrl.ConvertToFileName(requestUri));
+        var tempPath = Path.Combine(cache, FileNameFromUrl.ConvertToFileName(requestUri));
 
-        if (File.Exists(path))
+        if (File.Exists(tempPath))
         {
-            var fileTimestamp = Timestamp.GetTimestamp(path);
+            var fileTimestamp = Timestamp.GetTimestamp(tempPath);
             if (fileTimestamp.Expiry > DateTime.UtcNow)
             {
-                return File.ReadAllText(path);
+                return (true, tempPath);
             }
         }
 
-        var requestMessage = new HttpRequestMessage(HttpMethod.Head, requestUri);
+        var request = new HttpRequestMessage(HttpMethod.Head, requestUri);
 
         Timestamp webTimeStamp;
-        using (var headResponse = await httpClient.SendAsync(requestMessage))
+        using (var headResponse = await httpClient.SendAsync(request))
         {
             webTimeStamp = Timestamp.GetTimestamp(headResponse);
 
-            if (File.Exists(path))
+            if (headResponse.StatusCode != HttpStatusCode.OK)
             {
-                var fileTimestamp = Timestamp.GetTimestamp(path);
+                return (false, null);
+            }
+
+            if (File.Exists(tempPath))
+            {
+                var fileTimestamp = Timestamp.GetTimestamp(tempPath);
                 if (fileTimestamp.LastModified == webTimeStamp.LastModified)
                 {
-                    return File.ReadAllText(path);
+                    return (true, tempPath);
                 }
 
-                File.Delete(path);
+                File.Delete(tempPath);
             }
         }
 
         using (var response = await httpClient.GetAsync(requestUri))
         {
             using var httpStream = await response.Content.ReadAsStreamAsync();
-            using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var fileStream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 await httpStream.CopyToAsync(fileStream);
             }
 
             webTimeStamp = Timestamp.GetTimestamp(response);
 
-            Timestamp.SetTimestamp(path, webTimeStamp);
+            Timestamp.SetTimestamp(tempPath, webTimeStamp);
         }
 
-        return File.ReadAllText(path);
+        return (true, tempPath);
+    }
+
+    public static async Task<(bool success, string? content)> DownloadFileContent(string requestUri)
+    {
+        var (success, path) = await DownloadFile(requestUri);
+        if (success)
+        {
+            return (true, File.ReadAllText(path));
+        }
+        return (false, null);
     }
 }

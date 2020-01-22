@@ -26,7 +26,7 @@ public class DirectoryMarkdownProcessorTests :
             },
             directoryFilter: path =>
                 !path.Contains("IncludeFileFinder") &&
-                !path.Contains("MissingInclude"));
+                !path.Contains("DirectoryMarkdownProcessor"));
         processor.Run();
     }
 
@@ -57,6 +57,22 @@ public class DirectoryMarkdownProcessorTests :
                 FileEx.ClearReadOnly(file);
             }
         }
+    }
+
+    [Fact]
+    public Task UrlSnippetMissing()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
+        var processor = new DirectoryMarkdownProcessor(root,
+            scanForSnippets: false,
+            writeHeader: false);
+        var exception = Assert.Throws<MissingSnippetsException>(() => processor.Run());
+        return Verify(
+            new
+            {
+                exception.Missing,
+                exception.Message
+            });
     }
 
     [Fact]

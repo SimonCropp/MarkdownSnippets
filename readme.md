@@ -128,6 +128,14 @@ snippet&#58; directory/FileToInclude.txt
 The path syntax uses forward slashes `/`.
 
 
+### Including urls
+
+
+<pre>
+snippet&#58; http://myurl
+</pre>
+
+
 ## Snippet Exclusions
 
 
@@ -292,6 +300,13 @@ Add the following to the markdown:
    ```
    include: theKey
    ```
+
+
+### Including urls
+
+<pre>
+include&#58; http://myurl
+</pre>
 
 
 ## LinkFormat

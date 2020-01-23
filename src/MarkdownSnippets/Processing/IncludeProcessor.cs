@@ -32,13 +32,30 @@ class IncludeProcessor
     {
         var includeKey = line.Current.Substring(9);
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
-        if (include == null)
+        if (include != null)
         {
-            missingIncludes.Add(new MissingInclude(includeKey, index+1, line.Path));
-            line.Current = $"** Could not find include '{includeKey}.include.md' **";
+            AddInclude(lines, line, usedIncludes, index, include);
             return;
         }
 
+        if (includeKey.StartsWith("http"))
+        {
+            var (success, path) = Downloader.DownloadFile(includeKey).GetAwaiter().GetResult();
+            if (success)
+            {
+                include = Include.Build(includeKey, File.ReadAllLines(path), null);
+                AddInclude(lines, line, usedIncludes, index, include);
+                return;
+            }
+        }
+
+        missingIncludes.Add(new MissingInclude(includeKey, index + 1, line.Path));
+        line.Current = $"** Could not find include '{includeKey}.include.md' **";
+        return;
+    }
+
+    void AddInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, Include include)
+    {
         usedIncludes.Add(include);
         var path = GetPath(include);
         if (!include.Lines.Any())

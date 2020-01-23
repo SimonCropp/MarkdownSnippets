@@ -5,7 +5,7 @@ namespace MarkdownSnippets
     public class SnippetException :
         Exception
     {
-        protected SnippetException(string message) :
+        public SnippetException(string message) :
             base(message)
         {
         }

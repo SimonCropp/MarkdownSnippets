@@ -45,3 +45,7 @@ NugetBuild
 src/Tests/DirectoryMarkdownProcessor/Convention/one.md
 src/Tests/DirectoryMarkdownProcessor/Convention/two.md
 src/Tests/DirectoryMarkdownProcessor/ReadOnly/one.md
+src/Tests/DirectoryMarkdownProcessor/UrlSnippetMissing/one.md
+src/Tests/DirectoryMarkdownProcessor/UrlSnippet/one.md
+src/Tests/DirectoryMarkdownProcessor/UrlIncludeMissing/one.md
+src/Tests/DirectoryMarkdownProcessor/UrlInclude/one.md

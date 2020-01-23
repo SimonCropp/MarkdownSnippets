@@ -67,11 +67,11 @@ namespace MarkdownSnippets
                 maxWidth: configResult.MaxWidth);
 
             var snippets = new List<Snippet>();
-            snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
-            processor.AddSnippets(snippets);
 
             try
             {
+                snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
+                processor.AddSnippets(snippets);
                 var snippetsInError = processor.Snippets.Where(x => x.IsInError).ToList();
                 if (snippetsInError.Any())
                 {

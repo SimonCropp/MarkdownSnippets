@@ -193,6 +193,21 @@ namespace MarkdownSnippets
                 return true;
             }
 
+            if (key.StartsWith("http"))
+            {
+                var (success, path) = Downloader.DownloadFile(key).GetAwaiter().GetResult();
+                if (!success)
+                {
+                    return false;
+                }
+
+                snippetsForKey = new List<Snippet>
+                {
+                    FileToSnippet(key, path!, null)
+                };
+                return true;
+            }
+
             snippetsForKey = FilesToSnippets(key);
             return snippetsForKey.Any();
         }
@@ -211,23 +226,26 @@ namespace MarkdownSnippets
 
             return snippetSourceFiles
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
-                .Select(file =>
-                {
-                    var (text, lineCount) = ReadNonStartEndLines(file);
-
-                    if (lineCount == 0)
-                    {
-                        lineCount++;
-                    }
-                    return Snippet.Build(
-                        startLine: 1,
-                        endLine: lineCount,
-                        value: text,
-                        key: key,
-                        language: Path.GetExtension(file).Substring(1),
-                        path: file);
-                })
+                .Select(file => FileToSnippet(key, file, file))
                 .ToList();
+        }
+
+        static Snippet FileToSnippet(string key, string file, string? path)
+        {
+            var (text, lineCount) = ReadNonStartEndLines(file);
+
+            if (lineCount == 0)
+            {
+                lineCount++;
+            }
+
+            return Snippet.Build(
+                startLine: 1,
+                endLine: lineCount,
+                value: text,
+                key: key,
+                language: Path.GetExtension(file).Substring(1),
+                path: path);
         }
 
         static (string text, int lineCount) ReadNonStartEndLines(string file)

@@ -41,7 +41,6 @@ namespace MarkdownSnippets
             var anchor = GetAnchorText(snippet, index);
 
             appendLine($"<a id='{anchor}'/></a>");
-            var linkForAnchor = $"[anchor](#{anchor})";
             WriteSnippetValueAndLanguage(appendLine, snippet);
 
             if (TryGetSupText(snippet,anchor, out var supText))

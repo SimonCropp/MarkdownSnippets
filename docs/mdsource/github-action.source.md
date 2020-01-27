@@ -2,7 +2,7 @@
 
 Markdown snippets can be run inside a [GitHub Action](https://help.github.com/en/actions) but installing and using [MarkdownSnippets.Tool](#installation).
 
-Add the following to `.github\workflows\on-push-do-doco.yml` in target repository.
+Add the following to `.github\workflows\on-push-do-doco.yml` in the target repository.
 
 snippet: on-push-do-doco.yml
 

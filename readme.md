@@ -33,6 +33,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
   * [.net API](/docs/api.md)
   * [MsBuild Task](/docs/msbuild.md)
+  * [Github Action](/docs/github-action.md)
   * [Config file convention](/docs/config-file.md)
   * [Indentation](/docs/indentation.md)
   * [Max Width](/docs/max-width.md)
@@ -353,7 +354,7 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L104-L124' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L103-L123' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -373,12 +374,7 @@ mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/sn
 
 ## Security contact information
 
-To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
-
-
-## Release Notes
-
-See [closed milestones](../../milestones?state=closed).
+To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Credits

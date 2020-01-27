@@ -11,6 +11,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 toc
   * [.net API](/docs/api.md)
   * [MsBuild Task](/docs/msbuild.md)
+  * [Github Action](/docs/github-action.md)
   * [Config file convention](/docs/config-file.md)
   * [Indentation](/docs/indentation.md)
   * [Max Width](/docs/max-width.md)

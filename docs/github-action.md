@@ -42,7 +42,7 @@ jobs:
 
 This action performs the following tasks:
 
- * Use the [Checkout Actions](https://github.com/marketplace/actions/checkout) to pull down the source
+ * Use the [Checkout Action](https://github.com/marketplace/actions/checkout) to pull down the source
  * Install the MarkdownSnippets dotnet tool
  * Run MarkdownSnippets against the current directory
  * Push any changes back to GitHub

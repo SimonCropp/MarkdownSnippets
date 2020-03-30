@@ -19,6 +19,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 <!-- toc -->
 ## Contents
 
+  * [Value Proposition](#value-proposition)
   * [Installation](#installation)
   * [Usage](#usage)
   * [Defining Snippets](#defining-snippets)
@@ -38,6 +39,17 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Config file convention](/docs/config-file.md)
   * [Indentation](/docs/indentation.md)
   * [Max Width](/docs/max-width.md)
+
+
+## Value Proposition
+
+Automatically extract snippets from code and injecting them into markdown documents has several benefits:
+
+ * Snippets can be verified by a compiler or parser.
+ * Tests can be run on snippets, or snippets can be pulled from existing tests.
+ * Changes in code are automatically reflected in documentation.
+ * Snippets are less likely to get out of sync with the main code-base.
+ * Snippets in markdown is easier to create and maintain since any preferred editor can be used to edit them.
 
 
 ## Installation

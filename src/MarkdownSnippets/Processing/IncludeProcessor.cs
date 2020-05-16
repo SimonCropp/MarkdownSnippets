@@ -51,7 +51,6 @@ class IncludeProcessor
 
         missingIncludes.Add(new MissingInclude(includeKey, index + 1, line.Path));
         line.Current = $"** Could not find include '{includeKey}.include.md' **";
-        return;
     }
 
     void AddInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, Include include)

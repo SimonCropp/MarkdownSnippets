@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,9 +32,8 @@ public class SnippetExtractorTests :
             settings.AddScrubber(x =>
             {
                 var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
-                return x
-                    .Replace(temp, "FilePath.txt")
-                    .Replace(nameWithoutExtension, "File", StringComparison.OrdinalIgnoreCase);
+                x.Replace(temp, "FilePath.txt");
+                x.Replace(nameWithoutExtension, "File");
             });
             await Verify(snippets, settings);
         }

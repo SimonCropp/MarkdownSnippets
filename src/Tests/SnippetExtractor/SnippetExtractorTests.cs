@@ -22,7 +22,7 @@ public class SnippetExtractorTests :
     [Fact]
     public async Task AppendFileAsSnippet()
     {
-        var temp = Path.GetTempFileName();
+        var temp = Path.GetTempFileName().ToLowerInvariant();
         try
         {
             File.WriteAllText(temp, "Foo");

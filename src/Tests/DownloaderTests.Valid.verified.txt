@@ -1,4 +1,25 @@
 {
   success: true,
-  content: '# Auto detect text files and perform LF normalization\n* text=auto eol=crlf\n*.xml     -text \n*.targets -text\n*.txt -text\n\n# Custom for Visual Studio\n*.cs     diff=csharp\n*.sln    merge=union\n*.csproj merge=union\n*.vbproj merge=union\n*.fsproj merge=union\n*.dbproj merge=union\n\n# Denote all files that are truly binary and should not be modified.\n*.dll binary\n*.exe binary\n*.png binary\n*.ico binary\n*.snk binary\n*.pdb binary\n*.svg binary'
+  content: '# Auto detect text files and perform LF normalization
+* text=auto eol=crlf
+*.xml     -text 
+*.targets -text
+*.txt -text
+
+# Custom for Visual Studio
+*.cs     diff=csharp
+*.sln    merge=union
+*.csproj merge=union
+*.vbproj merge=union
+*.fsproj merge=union
+*.dbproj merge=union
+
+# Denote all files that are truly binary and should not be modified.
+*.dll binary
+*.exe binary
+*.png binary
+*.ico binary
+*.snk binary
+*.pdb binary
+*.svg binary'
 }

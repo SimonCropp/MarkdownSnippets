@@ -2,9 +2,10 @@ Config:
     RootDir: theRoot
     ReadOnly: False
     WriteHeader: False
-    Header:
+    Header: 
     UrlPrefix: 
     LinkFormat: GitHub
     TocLevel: 0
     MaxWidth: 0
+    ValidateContent: False
     FileConfigPath: theConfigFilePath (exists:False)

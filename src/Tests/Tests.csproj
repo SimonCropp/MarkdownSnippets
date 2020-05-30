@@ -37,6 +37,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
+    <None Update="ContentValidationTest.Missing.received.txt">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <DependentUpon>ContentValidationTest.cs</DependentUpon>
+    </None>
+    <None Update="ContentValidationTest.Missing.verified.txt">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <DependentUpon>ContentValidationTest.cs</DependentUpon>
+    </None>
+    <None Update="ContentValidationTest.Valid.verified.txt">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <DependentUpon>ContentValidationTest.cs</DependentUpon>
+    </None>
     <None Update="IncludeFinder\file.include.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

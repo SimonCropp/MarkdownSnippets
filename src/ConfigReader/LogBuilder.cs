@@ -12,11 +12,12 @@ static class LogBuilder
     RootDir: {root}
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}
-    Header:{header}
+    Header: {header}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
     TocLevel: {config.TocLevel}
     MaxWidth: {config.MaxWidth}
+    ValidateContent: {config.ValidateContent}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 ");
 

@@ -1,5 +1,6 @@
 {
   ReadOnly: false,
+  ValidateContent: true,
   LinkFormat: 'Tfs',
   TocLevel: 3,
   MaxWidth: 80,

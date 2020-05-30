@@ -52,6 +52,7 @@ public static class ConfigReader
         {
             WriteHeader = configSerialization.WriteHeader,
             ReadOnly = configSerialization.ReadOnly,
+            ValidateContent = configSerialization.ValidateContent,
             UrlsAsSnippets = configSerialization.UrlsAsSnippets,
             Exclude = configSerialization.Exclude,
             Header = configSerialization.Header,

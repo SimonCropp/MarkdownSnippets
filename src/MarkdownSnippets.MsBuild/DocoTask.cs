@@ -12,6 +12,7 @@ namespace MarkdownSnippets
     {
         [Required] public string ProjectDirectory { get; set; } = null!;
         public bool? ReadOnly { get; set; }
+        public bool? ValidateContent { get; set; }
         public bool? WriteHeader { get; set; }
         public string? Header { get; set; }
         public string? UrlPrefix { get; set; }
@@ -35,6 +36,7 @@ namespace MarkdownSnippets
                 new ConfigInput
                 {
                     ReadOnly = ReadOnly,
+                    ValidateContent = ValidateContent,
                     WriteHeader = WriteHeader,
                     Header = Header,
                     UrlPrefix = UrlPrefix,
@@ -64,7 +66,8 @@ namespace MarkdownSnippets
                 tocExcludes: configResult.TocExcludes,
                 treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
                 treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
-                maxWidth: configResult.MaxWidth);
+                maxWidth: configResult.MaxWidth,
+                validateContent: configResult.ValidateContent);
 
             var snippets = new List<Snippet>();
 

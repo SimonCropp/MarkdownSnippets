@@ -4,6 +4,7 @@ using MarkdownSnippets;
 public class ConfigResult
 {
     public bool ReadOnly;
+    public bool ValidateContent;
     public LinkFormat LinkFormat;
     public int TocLevel;
     public int MaxWidth;

@@ -86,7 +86,6 @@ static class ContentValidation
             {
                 continue;
             }
-            yield return (message,exclamationIndex1);
             yield return ($"Invalid word detected: {invalidString}", indexOf);
         }
     }

@@ -1,0 +1,14 @@
+[
+  {
+    Item1: 'No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ',
+    Item2: 20
+  },
+  {
+    Item1: 'Invalid word detected:  you ',
+    Item2: 1
+  },
+  {
+    Item1: 'Invalid word detected:  yourself ',
+    Item2: 27
+  }
+]

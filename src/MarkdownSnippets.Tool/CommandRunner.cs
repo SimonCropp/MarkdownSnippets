@@ -27,6 +27,7 @@ static class CommandRunner
                     var configInput = new ConfigInput
                     {
                         ReadOnly = options.ReadOnly,
+                        ValidateContent = options.ValidateContent,
                         WriteHeader = options.WriteHeader,
                         Header = options.Header,
                         UrlPrefix = options.UrlPrefix,

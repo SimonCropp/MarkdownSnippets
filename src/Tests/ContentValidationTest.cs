@@ -10,78 +10,70 @@ public class ContentValidationTest :
     [Fact]
     public Task CheckInvalidWord()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you, and you again! Still yourself? "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
     }
 
     [Fact]
     public Task CheckInvalidWordWithQuestionMark()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you? "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you? "));
     }
 
     [Fact]
     public Task CheckInvalidWordWithComma()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you, "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you, "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceEnd()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify(" you. "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify(" you. "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceStart()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify("you "));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify("you "));
     }
 
     [Fact]
     public Task CheckInvalidWordStringEnd()
     {
-        var exception = Assert.Throws<MarkdownProcessingException>(() => ContentValidation.Verify("the you"));
-        return Verify(exception.Message);
+        return Verify(ContentValidation.Verify("the you"));
     }
 
     [Fact]
     public void CheckInvalidWordDoesNotThrowWhenNoMatch()
     {
-        ContentValidation.Verify(" some random content which doesn't contain invalid words. ");
+        Assert.Empty(ContentValidation.Verify(" some random content which doesn't contain invalid words. "));
     }
 
     [Fact]
     public void CheckInvalidWordDoesNotThrowWhenIsQuote()
     {
-        ContentValidation.Verify("> you ");
+        Assert.Empty(ContentValidation.Verify("> you "));
     }
 
     [Fact]
     public void CheckInvalidWordInUrl()
     {
-       ContentValidation.Verify("some random content containing links /us/allowed/");
-       ContentValidation.Verify("some random content containing links /yourself/us/");
-       ContentValidation.Verify(" /us/ ");
-       ContentValidation.Verify("/us-");
+        Assert.Empty(ContentValidation.Verify("some random content containing links /us/allowed/"));
+        Assert.Empty(ContentValidation.Verify("some random content containing links /yourself/us/"));
+        Assert.Empty(ContentValidation.Verify(" /us/ "));
+        Assert.Empty(ContentValidation.Verify("/us-"));
     }
 
     public ContentValidationTest(ITestOutputHelper output) :

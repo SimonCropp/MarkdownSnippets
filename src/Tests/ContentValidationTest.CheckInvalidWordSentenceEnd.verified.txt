@@ -1,0 +1,6 @@
+[
+  {
+    Item1: 'Invalid word detected:  you ',
+    Item2: 1
+  }
+]

@@ -14,16 +14,18 @@ namespace MarkdownSnippets
             IReadOnlyList<Snippet> usedSnippets,
             IReadOnlyList<MissingSnippet> missingSnippets,
             IReadOnlyList<Include> usedIncludes,
-            IReadOnlyList<MissingInclude> missingIncludes)
+            IReadOnlyList<MissingInclude> missingIncludes,
+            IReadOnlyList<ValidationError> validationErrors)
         {
             Guard.AgainstNull(usedSnippets, nameof(usedSnippets));
             Guard.AgainstNull(missingSnippets, nameof(missingSnippets));
             Guard.AgainstNull(usedIncludes, nameof(usedIncludes));
+            Guard.AgainstNull(validationErrors, nameof(validationErrors));
             UsedSnippets = usedSnippets;
             UsedIncludes = usedIncludes;
             MissingIncludes = missingIncludes;
             MissingSnippets = missingSnippets;
-            MissingSnippets = missingSnippets;
+            ValidationErrors = validationErrors;
         }
 
         /// <summary>
@@ -60,6 +62,11 @@ namespace MarkdownSnippets
         /// List of all snippets that the markdown file expected but did not exist in the input snippets.
         /// </summary>
         public IReadOnlyList<MissingSnippet> MissingSnippets { get; }
+
+        /// <summary>
+        /// List of all validation errors that the markdown file.
+        /// </summary>
+        public IReadOnlyList<ValidationError> ValidationErrors { get; }
 
         /// <summary>
         /// List of all includes that the markdown file expected but did not exist in the input includes.

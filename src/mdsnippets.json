@@ -1,5 +1,6 @@
 ﻿{
   "TocLevel": 1,
   "TocExcludes": [ "Credits", "Release Notes", "Icon" ],
-  "MaxWidth": 80
+  "MaxWidth": 80,
+  "ValidateContent": true
 }

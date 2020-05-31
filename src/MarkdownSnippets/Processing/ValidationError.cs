@@ -5,7 +5,7 @@ namespace MarkdownSnippets
     /// <summary>
     /// Part of <see cref="ProcessResult"/>.
     /// </summary>
-    [DebuggerDisplay("Error={Error}, Line={LineNumber:Column}")]
+    [DebuggerDisplay("Error={Error}, Line={LineNumber}:{Column}")]
     public class ValidationError
     {
         /// <summary>
@@ -15,9 +15,9 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNullAndEmpty(error, nameof(error));
             Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
-            Guard.AgainstNegativeAndZero(column, nameof(column));
+            Guard.AgainstNegative(column, nameof(column));
             Guard.AgainstEmpty(file, nameof(file));
-            Error = Error;
+            Error = error;
             LineNumber = lineNumber;
             Column = column;
             File = file;

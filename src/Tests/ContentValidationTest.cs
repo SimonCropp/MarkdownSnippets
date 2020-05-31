@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MarkdownSnippets;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;

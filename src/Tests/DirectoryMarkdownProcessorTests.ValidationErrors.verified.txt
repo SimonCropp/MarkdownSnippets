@@ -1,0 +1,38 @@
+{
+  Errors: [
+    {
+      Error: 'Invalid word detected: \'you\'',
+      LineNumber: 1,
+      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+    },
+    {
+      Error: 'Invalid word detected: \'we\'',
+      LineNumber: 2,
+      Column: 1,
+      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+    },
+    {
+      Error: 'No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ',
+      LineNumber: 3,
+      Column: 2,
+      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+    }
+  ],
+  Message: 'Content validation errors:
+Invalid word detected: \'you\'
+  File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
+  LineNumber: 1
+  Column: 0
+  Error: Invalid word detected: \'you\'
+Invalid word detected: \'we\'
+  File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
+  LineNumber: 2
+  Column: 1
+  Error: Invalid word detected: \'we\'
+No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
+  File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
+  LineNumber: 3
+  Column: 2
+  Error: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
+'
+}

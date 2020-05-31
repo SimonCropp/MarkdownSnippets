@@ -53,6 +53,11 @@ namespace MarkdownSnippets
                 throw new MissingIncludesException(MissingIncludes);
             }
 
+            if (ValidationErrors.Any())
+            {
+                throw new ContentValidationException(ValidationErrors);
+            }
+
             return UsedSnippets.GetEnumerator();
         }
 

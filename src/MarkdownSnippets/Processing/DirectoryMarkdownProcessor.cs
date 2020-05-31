@@ -216,6 +216,11 @@ namespace MarkdownSnippets
                     throw new MissingIncludesException(missingIncludes);
                 }
             }
+            var ValidationErrors = result.ValidationErrors;
+            if (ValidationErrors.Any())
+            {
+                throw new ContentValidationException(ValidationErrors);
+            }
 
             WriteLines(target, lines);
 

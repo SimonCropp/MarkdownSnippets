@@ -121,6 +121,16 @@ namespace MarkdownSnippets
 
                 return configResult.TreatMissingIncludeAsWarning;
             }
+            catch (ContentValidationException exception)
+            {
+                foreach (var error in exception.Errors)
+                {
+                    //TODO: add column
+                    Log.LogFileError($"MarkdownSnippets: Content validation: {error.Error}", error.File, error.LineNumber);
+                }
+
+                return configResult.TreatMissingIncludeAsWarning;
+            }
             catch (MarkdownProcessingException exception)
             {
                 Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.LineNumber);

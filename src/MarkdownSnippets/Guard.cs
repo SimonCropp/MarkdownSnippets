@@ -24,7 +24,15 @@ static class Guard
     {
         if (value <= 0)
         {
-            throw new ArgumentOutOfRangeException(argumentName,value, "Zero of less");
+            throw new ArgumentOutOfRangeException(argumentName,value, "Zero or less");
+        }
+    }
+
+    public static void AgainstNegative(int value, string argumentName)
+    {
+        if (value < 0)
+        {
+            throw new ArgumentOutOfRangeException(argumentName, value, "negative");
         }
     }
 

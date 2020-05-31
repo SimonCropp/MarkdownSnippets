@@ -28,11 +28,11 @@ static class ContentValidation
             {"on a daily basis", "daily"},
             {"on the grounds that", "because"},
             {"prior to", "before"},
-            {"relative to ", "regarding or about"},
+            {"relative to", "regarding or about"},
             {"so as to", "to"},
             {"subsequent to", "after"},
             {"take into consideration", "consider"},
-            {"until such time as", "until"},
+            {"until such time as", "until"}
         };
 
     static List<string> invalidStrings;
@@ -45,7 +45,11 @@ static class ContentValidation
             "your",
             "us",
             "please",
-            "yourself"
+            "yourself",
+            "just",
+            "simply",
+            "simple",
+            "easy"
         };
 
     static string invalidWordsJoined;
@@ -70,13 +74,14 @@ static class ContentValidation
         {
             yield break;
         }
+
         var cleanedLine = Clean(line);
 
         var message = "No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ";
         var exclamationIndex1 = cleanedLine.IndexOf("! ");
         if (exclamationIndex1 != -1)
         {
-            yield return (message,exclamationIndex1);
+            yield return (message, exclamationIndex1);
         }
 
         foreach (var invalidString in invalidStrings)
@@ -86,7 +91,8 @@ static class ContentValidation
             {
                 continue;
             }
-            yield return ($"Invalid word detected: {invalidString}", indexOf);
+
+            yield return ($"Invalid word detected: '{invalidString.Trim()}'", indexOf);
         }
     }
 

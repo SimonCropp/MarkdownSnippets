@@ -34,17 +34,18 @@ namespace MarkdownSnippets
         public static string ErrorsAsMarkdown(this ProcessResult processResult)
         {
             Guard.AgainstNull(processResult, nameof(processResult));
+                var builder = StringBuilderCache.Acquire();
             var missingSnippets = processResult.MissingSnippets.ToList();
-            if (!missingSnippets.Any())
+            if (missingSnippets.Any())
             {
-                return "";
+                builder.AppendLine("## Missing snippets\r\n");
+                foreach (var error in missingSnippets)
+                {
+                    builder.AppendLine($" * Key:'{error.Key}' Line:'{error.LineNumber}'");
+                }
             }
-            var builder = StringBuilderCache.Acquire();
-            builder.AppendLine("## Missing snippets\r\n");
-            foreach (var error in missingSnippets)
-            {
-                builder.AppendLine($" * Key:'{error.Key}' Line:'{error.LineNumber}'");
-            }
+            //TODO: handle other errors
+
             builder.AppendLine();
             return StringBuilderCache.GetStringAndRelease(builder);
         }

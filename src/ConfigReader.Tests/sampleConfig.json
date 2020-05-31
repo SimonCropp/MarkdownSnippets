@@ -10,5 +10,6 @@
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingSnippetAsWarning": true,
-  "TreatMissingIncludeAsWarning": true
+  "TreatMissingIncludeAsWarning": true,
+  "ValidateContent":  true
 }

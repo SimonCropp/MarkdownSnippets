@@ -105,6 +105,7 @@ namespace MarkdownSnippets
         internal ProcessResult Apply(List<Line> lines, string newLine, string? relativePath)
         {
             var missingSnippets = new List<MissingSnippet>();
+            var validationErrors = new List<ValidationError>();
             var missingIncludes = new List<MissingInclude>();
             var usedSnippets = new List<Snippet>();
             var usedIncludes = new List<Include>();
@@ -115,6 +116,12 @@ namespace MarkdownSnippets
             {
                 var line = lines[index];
 
+                var errors = ContentValidation.Verify(line.Original).ToList();
+                if (errors.Any())
+                {
+                    validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
+                    continue;
+                }
                 if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
                 {
                     continue;
@@ -166,7 +173,8 @@ namespace MarkdownSnippets
                 missingSnippets: missingSnippets,
                 usedSnippets: usedSnippets.Distinct().ToList(),
                 usedIncludes: usedIncludes.Distinct().ToList(),
-                missingIncludes: missingIncludes);
+                missingIncludes: missingIncludes,
+                validationErrors: validationErrors);
         }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)

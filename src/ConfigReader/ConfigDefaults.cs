@@ -10,6 +10,7 @@ public static class ConfigDefaults
         {
             return new ConfigResult
             {
+                ValidateContent = otherConfig.ValidateContent.GetValueOrDefault(),
                 ReadOnly = otherConfig.ReadOnly.GetValueOrDefault(),
                 WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
@@ -27,6 +28,7 @@ public static class ConfigDefaults
 
         return new ConfigResult
         {
+            ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
             ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
             WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),

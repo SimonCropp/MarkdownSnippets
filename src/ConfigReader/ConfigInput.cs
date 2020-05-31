@@ -4,6 +4,7 @@ using MarkdownSnippets;
 public class ConfigInput
 {
     public bool? ReadOnly { get; set; }
+    public bool? ValidateContent { get; set; }
     public LinkFormat? LinkFormat { get; set; }
     public int? TocLevel { get; set; }
     public int? MaxWidth { get; set; }

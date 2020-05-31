@@ -3,6 +3,7 @@
 public class ConfigSerialization
 {
     public bool? ReadOnly { get; set; }
+    public bool? ValidateContent { get; set; }
     public string? LinkFormat { get; set; }
     public bool? WriteHeader { get; set; }
     public string? Header { get; set; }

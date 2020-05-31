@@ -32,6 +32,11 @@ public class Options
         HelpText = "Set resultant md files as read-only. Optional. Defaults to false.")]
     public bool? ReadOnly { get; set; }
 
+    [Option('v', "validate-content",
+        Required = false,
+        HelpText = "Validate the content. Optional. Defaults to false.")]
+    public bool? ValidateContent { get; set; }
+
     [Option("write-header",
         Required = false,
         HelpText = "Write a header at the top of each resultant md file. Optional. Defaults to true")]

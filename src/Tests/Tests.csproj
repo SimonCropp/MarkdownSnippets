@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="DirectoryMarkdownProcessor\MissingInclude - Copy\**" />
+    <EmbeddedResource Remove="DirectoryMarkdownProcessor\MissingInclude - Copy\**" />
+    <None Remove="DirectoryMarkdownProcessor\MissingInclude - Copy\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
     <PackageReference Include="Verify.Xunit" Version="4.0.2" />

@@ -73,6 +73,20 @@ public class DirectoryMarkdownProcessorTests :
     }
 
     [Fact]
+    public Task ValidationErrors()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/ValidationErrors");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var exception = Assert.Throws<ContentValidationException>(() => processor.Run());
+        return Verify(
+            new
+            {
+                exception.Errors,
+                exception.Message
+            });
+    }
+
+    [Fact]
     public Task UrlIncludeMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");

@@ -1,6 +1,6 @@
 {
   targetDirectory: 'CurrentDirectory',
   configInput: {
-    ReadOnly: false
+    ValidateContent: false
   }
 }

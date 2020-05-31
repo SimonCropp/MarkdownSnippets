@@ -45,16 +45,30 @@ public class CommandRunnerTests :
     }
 
     [Fact]
+    public async Task ValidateContentShort()
+    {
+        await CommandRunner.RunCommand(Capture, "-v", "false");
+        await VerifyResult();
+    }
+
+    [Fact]
+    public async Task ValidateContentLong()
+    {
+        await CommandRunner.RunCommand(Capture, "--validate-content", "false");
+        await VerifyResult();
+    }
+
+    [Fact]
     public async Task ReadOnlyShort()
     {
-        await CommandRunner.RunCommand(Capture, "-r");
+        await CommandRunner.RunCommand(Capture, "-r", "false");
         await VerifyResult();
     }
 
     [Fact]
     public async Task ReadOnlyLong()
     {
-        await CommandRunner.RunCommand(Capture, "--readonly");
+        await CommandRunner.RunCommand(Capture, "--readonly", "false");
         await VerifyResult();
     }
 

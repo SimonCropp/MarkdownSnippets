@@ -1,1 +1,6 @@
-{}
+{
+  targetDirectory: 'CurrentDirectory',
+  configInput: {
+    ReadOnly: false
+  }
+}

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MarkdownSnippets;
 
-class Program
+static class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         try
         {
-            CommandRunner.RunCommand(Inner, args);
+            await CommandRunner.RunCommand(Inner, args);
         }
         catch (CommandLineException exception)
         {
@@ -17,7 +18,7 @@ class Program
         }
     }
 
-    static void Inner(string targetDirectory, ConfigInput configInput)
+    static async Task Inner(string targetDirectory, ConfigInput configInput)
     {
         var (fileConfig, configFilePath) = ConfigReader.Read(targetDirectory);
         var configResult = ConfigDefaults.Convert(fileConfig, configInput);
@@ -42,7 +43,7 @@ class Program
             validateContent: configResult.ValidateContent);
 
         var snippets = new List<Snippet>();
-        snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
+        await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
         processor.AddSnippets(snippets);
 
         try

@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using CommandLine;
 using MarkdownSnippets;
 
 static class CommandRunner
 {
-    public static void RunCommand(Invoke invoke, params string[] args)
+    public static Task RunCommand(Invoke invoke, params string[] args)
     {
         if (args.Length == 1)
         {
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                invoke(firstArg, new ConfigInput());
-                return;
+                return invoke(firstArg, new ConfigInput());
             }
         }
 
-        Parser.Default.ParseArguments<Options>(args)
-            .WithParsed(
+        return Parser.Default.ParseArguments<Options>(args)
+            .WithParsedAsync(
                 options =>
                 {
                     ValidateAndApplyDefaults(options);
@@ -38,7 +38,7 @@ static class CommandRunner
                         TocExcludes = options.TocExcludes.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList()
                     };
-                    invoke(options.TargetDirectory!, configInput);
+                    return invoke(options.TargetDirectory!, configInput);
                 });
     }
 

@@ -10,166 +10,167 @@ public class CommandRunnerTests :
     ConfigInput? configInput;
 
     [Fact]
-    public Task Empty()
+    public async Task Empty()
     {
-        CommandRunner.RunCommand(Capture);
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture);
+        await VerifyResult();
     }
 
     [Fact]
-    public Task SingleUnNamedArg()
+    public async Task SingleUnNamedArg()
     {
-        CommandRunner.RunCommand(Capture, "dir");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "dir");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task Header()
+    public async Task Header()
     {
-        CommandRunner.RunCommand(Capture, "--header", "the header");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--header", "the header");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task UrlPrefix()
+    public async Task UrlPrefix()
     {
-        CommandRunner.RunCommand(Capture, "--urlPrefix", "the prefix");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--urlPrefix", "the prefix");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task WriteHeader()
+    public async Task WriteHeader()
     {
-        CommandRunner.RunCommand(Capture, "--write-header", "false");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--write-header", "false");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task ReadOnlyShort()
+    public async Task ReadOnlyShort()
     {
-        CommandRunner.RunCommand(Capture, "-r");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-r");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task ReadOnlyLong()
+    public async Task ReadOnlyLong()
     {
-        CommandRunner.RunCommand(Capture, "--readonly");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--readonly");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task LinkFormatShort()
+    public async Task LinkFormatShort()
     {
-        CommandRunner.RunCommand(Capture, "-l", "tfs");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-l", "tfs");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task LinkFormatLong()
+    public async Task LinkFormatLong()
     {
-        CommandRunner.RunCommand(Capture, "--link-format", "tfs");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--link-format", "tfs");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task TargetDirectoryShort()
+    public async Task TargetDirectoryShort()
     {
-        CommandRunner.RunCommand(Capture, "-t", "../");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-t", "../");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task TargetDirectoryLong()
+    public async Task TargetDirectoryLong()
     {
-        CommandRunner.RunCommand(Capture, "--target-directory", "../");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--target-directory", "../");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task MaxWidthLong()
+    public async Task MaxWidthLong()
     {
-        CommandRunner.RunCommand(Capture, "--max-width", "5");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--max-width", "5");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task TocLevelLong()
+    public async Task TocLevelLong()
     {
-        CommandRunner.RunCommand(Capture, "--toc-level", "5");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--toc-level", "5");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task ExcludeShort()
+    public async Task ExcludeShort()
     {
-        CommandRunner.RunCommand(Capture, "-e", "dir");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-e", "dir");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task ExcludeMultiple()
+    public async Task ExcludeMultiple()
     {
-        CommandRunner.RunCommand(Capture, "-e", "dir1:dir2");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-e", "dir1:dir2");
+        await VerifyResult();
     }
 
     [Fact]
-    public void ExcludeDuplicates()
+    public Task ExcludeDuplicates()
     {
-        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", "dir:dir"));
+        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", "dir:dir"));
     }
 
     [Fact]
-    public void ExcludeWhitespace()
+    public Task ExcludeWhitespace()
     {
-        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", ": :"));
+        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", ": :"));
     }
 
     [Fact]
-    public Task ExcludeLong()
+    public async Task ExcludeLong()
     {
-        CommandRunner.RunCommand(Capture, "--exclude", "dir");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--exclude", "dir");
+        await VerifyResult();
     }
 
     [Fact]
-    public Task UrlsAsSnippetsShort()
+    public async Task UrlsAsSnippetsShort()
     {
-        CommandRunner.RunCommand(Capture, "-u", "url");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-u", "url");
+        await VerifyResult();
     }
 
     [Fact]
-    public void UrlsAsSnippetsMultiple()
+    public async Task UrlsAsSnippetsMultiple()
     {
-        CommandRunner.RunCommand(Capture, "-u", "url1 url2");
-        VerifyResult();
+        await CommandRunner.RunCommand(Capture, "-u", "url1 url2");
+        await VerifyResult();
     }
 
     [Fact]
-    public void UrlsAsSnippetsDuplicates()
+    public Task UrlsAsSnippetsDuplicates()
     {
-        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url url"));
+        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url url"));
     }
 
     [Fact]
-    public void UrlsAsSnippetsWhitespace()
+    public Task UrlsAsSnippetsWhitespace()
     {
-        Assert.Throws<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", ": :"));
+        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", ": :"));
     }
 
     [Fact]
-    public Task UrlsAsSnippetsLong()
+    public async Task UrlsAsSnippetsLong()
     {
-        CommandRunner.RunCommand(Capture, "--urls-as-snippets", "url");
-        return VerifyResult();
+        await CommandRunner.RunCommand(Capture, "--urls-as-snippets", "url");
+        await VerifyResult();
     }
 
-    void Capture(string targetDirectory, ConfigInput configInput)
+    Task Capture(string targetDirectory, ConfigInput configInput)
     {
         this.targetDirectory = targetDirectory;
         this.configInput = configInput;
+        return Task.CompletedTask;
     }
 
     Task VerifyResult()

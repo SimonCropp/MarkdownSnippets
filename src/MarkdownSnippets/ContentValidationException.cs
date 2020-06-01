@@ -23,14 +23,14 @@ namespace MarkdownSnippets
                 if (error.File == null)
                 {
                     builder.AppendLine($@"{error.Error}
-  LineNumber: {error.LineNumber}
+  Line: {error.Line}
   Column: {error.Column}
   Error: {error.Error}");
                 }
 
                 builder.AppendLine($@"{error.Error}
   File: {error.File}
-  LineNumber: {error.LineNumber}
+  Line: {error.Line}
   Column: {error.Column}
   Error: {error.Error}");
             }

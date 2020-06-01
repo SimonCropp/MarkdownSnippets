@@ -80,7 +80,7 @@ namespace MarkdownSnippets
                 {
                     foreach (var snippet in snippetsInError)
                     {
-                        Log.LogFileError($"Snippet error: {snippet.Error}. Key: {snippet.Key}", snippet.Path, snippet.StartLine);
+                        Log.LogFileError($"Snippet error: {snippet.Error}. Key: {snippet.Key}", snippet.Path, snippet.StartLine, 0);
                     }
 
                     return false;
@@ -95,11 +95,11 @@ namespace MarkdownSnippets
                 {
                     if (configResult.TreatMissingSnippetAsWarning)
                     {
-                        Log.LogWarning($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogWarning($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber, 0);
                     }
                     else
                     {
-                        Log.LogFileError($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogFileError($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber, 0);
                     }
                 }
 
@@ -115,7 +115,7 @@ namespace MarkdownSnippets
                     }
                     else
                     {
-                        Log.LogFileError($"MarkdownSnippets: Missing include: {missing.Key}", missing.File, missing.LineNumber);
+                        Log.LogFileError($"MarkdownSnippets: Missing include: {missing.Key}", missing.File, missing.LineNumber, 0);
                     }
                 }
 
@@ -126,14 +126,14 @@ namespace MarkdownSnippets
                 foreach (var error in exception.Errors)
                 {
                     //TODO: add column
-                    Log.LogFileError($"MarkdownSnippets: Content validation: {error.Error}", error.File, error.LineNumber);
+                    Log.LogFileError($"MarkdownSnippets: Content validation: {error.Error}", error.File, error.Line, error.Column);
                 }
 
                 return configResult.TreatMissingIncludeAsWarning;
             }
             catch (MarkdownProcessingException exception)
             {
-                Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.LineNumber);
+                Log.LogFileError($"MarkdownSnippets: {exception.Message}", exception.File, exception.LineNumber, 0);
                 return false;
             }
             catch (SnippetException exception)

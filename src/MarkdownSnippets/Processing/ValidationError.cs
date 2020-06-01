@@ -5,20 +5,20 @@ namespace MarkdownSnippets
     /// <summary>
     /// Part of <see cref="ProcessResult"/>.
     /// </summary>
-    [DebuggerDisplay("Error={Error}, Line={LineNumber}:{Column}")]
+    [DebuggerDisplay("Error={Error}, Line={Line}:{Column}")]
     public class ValidationError
     {
         /// <summary>
         /// Initialise a new instance of <see cref="ValidationError"/>.
         /// </summary>
-        public ValidationError(string error, int lineNumber, int column, string? file)
+        public ValidationError(string error, int line, int column, string? file)
         {
             Guard.AgainstNullAndEmpty(error, nameof(error));
-            Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
+            Guard.AgainstNegativeAndZero(line, nameof(line));
             Guard.AgainstNegative(column, nameof(column));
             Guard.AgainstEmpty(file, nameof(file));
             Error = error;
-            LineNumber = lineNumber;
+            Line = line;
             Column = column;
             File = file;
         }
@@ -31,7 +31,8 @@ namespace MarkdownSnippets
         /// <summary>
         /// The line number in the input text.
         /// </summary>
-        public int LineNumber { get; }
+        public int Line { get; }
+
         /// <summary>
         /// The column number in the line.
         /// </summary>
@@ -47,14 +48,14 @@ namespace MarkdownSnippets
             if (File == null)
             {
                 return $@"ContentError.
-  LineNumber: {LineNumber}
+  Line: {Line}
   Column: {Column}
   Error: {Error}";
             }
 
             return $@"ContentError.
   File: {File}
-  LineNumber: {LineNumber}
+  Line: {Line}
   Column: {Column}
   Error: {Error}";
         }

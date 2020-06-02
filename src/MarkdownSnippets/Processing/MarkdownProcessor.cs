@@ -14,6 +14,7 @@ namespace MarkdownSnippets
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
+        bool validateContent;
         string? header;
         int tocLevel;
         List<string> tocExcludes;
@@ -28,6 +29,7 @@ namespace MarkdownSnippets
             int tocLevel,
             bool writeHeader,
             string rootDirectory,
+            bool validateContent,
             string? header = null,
             IEnumerable<string>? tocExcludes = null)
         {
@@ -42,6 +44,7 @@ namespace MarkdownSnippets
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
+            this.validateContent = validateContent;
             this.header = header;
             this.tocLevel = tocLevel;
             if (tocExcludes == null)
@@ -116,12 +119,16 @@ namespace MarkdownSnippets
             {
                 var line = lines[index];
 
-                var errors = ContentValidation.Verify(line.Original).ToList();
-                if (errors.Any())
+                if (validateContent)
                 {
-                    validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
-                    continue;
+                    var errors = ContentValidation.Verify(line.Original).ToList();
+                    if (errors.Any())
+                    {
+                        validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
+                        continue;
+                    }
                 }
+
                 if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
                 {
                     continue;

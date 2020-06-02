@@ -72,6 +72,7 @@ class Usage
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: new List<string>(),
             tocLevel: 2,
+            validateContent: true,
             writeHeader: true,
             rootDirectory: directory);
 

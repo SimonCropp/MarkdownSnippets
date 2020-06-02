@@ -26,6 +26,7 @@ static class SnippetVerifier
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: true,
+            validateContent: true,
             includes: includes,
             rootDirectory: "c:/root");
         var stringBuilder = new StringBuilder();

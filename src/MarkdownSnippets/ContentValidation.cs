@@ -81,10 +81,7 @@ static class ContentValidation
 
     static IEnumerable<string> BuildInvalidStrings()
     {
-        foreach (var word in invalidWords)
-        {
-            yield return $" {word} ";
-        }
+        return invalidWords.Select(word => $" {word} ");
     }
 
     public static IEnumerable<(string error, int column)> Verify(string line)

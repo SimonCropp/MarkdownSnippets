@@ -76,7 +76,10 @@ public class DirectoryMarkdownProcessorTests :
     public Task ValidationErrors()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ValidationErrors");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            validateContent: true);
         var exception = Assert.Throws<ContentValidationException>(() => processor.Run());
         return Verify(
             new

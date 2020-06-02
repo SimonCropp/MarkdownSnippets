@@ -64,6 +64,7 @@ var markdownProcessor = new MarkdownProcessor(
     appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
     snippetSourceFiles: new List<string>(),
     tocLevel: 2,
+    validateContent: true,
     writeHeader: true,
     rootDirectory: directory);
 
@@ -77,7 +78,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L56-L88' title='File snippet `markdownprocessingsimple` was extracted from'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Navigate to start of snippet `markdownprocessingsimple`'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L56-L89' title='File snippet `markdownprocessingsimple` was extracted from'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Navigate to start of snippet `markdownprocessingsimple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

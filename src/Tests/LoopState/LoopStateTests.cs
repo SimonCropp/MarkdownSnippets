@@ -4,8 +4,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class LoopStateTests :
-    VerifyBase
+[UsesVerify]
+public class LoopStateTests
 {
     [Fact]
     public Task TrimIndentation()
@@ -14,7 +14,7 @@ public class LoopStateTests :
         loopState.AppendLine("   Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verify(loopState.GetLines());
+        return Verifier.Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class LoopStateTests :
         loopState.AppendLine("   ");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   ");
-        return Verify(loopState.GetLines());
+        return Verifier.Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class LoopStateTests :
         loopState.AppendLine("      Line2");
         loopState.AppendLine("   ");
         loopState.AppendLine("     Line4");
-        return Verify(loopState.GetLines());
+        return Verifier.Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -60,11 +60,6 @@ public class LoopStateTests :
         loopState.AppendLine("Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verify(loopState.GetLines());
-    }
-
-    public LoopStateTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(loopState.GetLines());
     }
 }

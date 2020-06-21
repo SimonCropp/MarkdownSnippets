@@ -3,8 +3,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class CommandRunnerTests :
-    VerifyBase
+[UsesVerify]
+public class CommandRunnerTests
 {
     string? targetDirectory;
     ConfigInput? configInput;
@@ -189,16 +189,11 @@ public class CommandRunnerTests :
 
     Task VerifyResult()
     {
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 targetDirectory,
                 configInput
             });
-    }
-
-    public CommandRunnerTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

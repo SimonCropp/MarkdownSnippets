@@ -5,8 +5,8 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class LogBuilderTests :
-    VerifyBase
+[UsesVerify]
+public class LogBuilderTests
 {
     [Fact]
     public Task BuildConfigLogMessage()
@@ -24,7 +24,7 @@ line2",
             MaxWidth = 80
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verify(message);
+        return Verifier.Verify(message);
     }
 
     [Fact]
@@ -32,11 +32,6 @@ line2",
     {
         var config = new ConfigResult();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verify(message);
-    }
-
-    public LogBuilderTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(message);
     }
 }

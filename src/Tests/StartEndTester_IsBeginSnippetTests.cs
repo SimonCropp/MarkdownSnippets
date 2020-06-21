@@ -4,8 +4,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class StartEndTester_IsBeginSnippetTests :
-    VerifyBase
+public class StartEndTester_IsBeginSnippetTests
 {
     [Fact]
     public void CanExtractFromXml()
@@ -19,7 +18,7 @@ public class StartEndTester_IsBeginSnippetTests :
     public Task ShouldThrowForNoKey()
     {
         var exception = Assert.Throws<SnippetReadingException>(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -74,7 +73,7 @@ public class StartEndTester_IsBeginSnippetTests :
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _));
 
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -82,7 +81,7 @@ public class StartEndTester_IsBeginSnippetTests :
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _));
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -99,10 +98,5 @@ public class StartEndTester_IsBeginSnippetTests :
         var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key);
         Assert.True(isBeginSnippet);
         Assert.Equal("codekey", key);
-    }
-
-    public StartEndTester_IsBeginSnippetTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

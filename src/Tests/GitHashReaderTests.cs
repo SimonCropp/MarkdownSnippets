@@ -5,8 +5,8 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class GitHashReaderTests :
-    VerifyBase
+[UsesVerify]
+public class GitHashReaderTests
 {
     [Fact]
     public void GetHash()
@@ -33,11 +33,6 @@ public class GitHashReaderTests :
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, path);
         var hash = GitHashReader.GetHashForGitDirectory(directory);
-        return Verify(hash);
-    }
-
-    public GitHashReaderTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(hash);
     }
 }

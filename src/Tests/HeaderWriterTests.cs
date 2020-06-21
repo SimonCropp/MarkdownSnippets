@@ -3,29 +3,24 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class HeaderWriterTests :
-    VerifyBase
+[UsesVerify]
+public class HeaderWriterTests
 {
     [Fact]
     public Task DefaultHeader()
     {
-        return Verify(HeaderWriter.DefaultHeader);
+        return Verifier.Verify(HeaderWriter.DefaultHeader);
     }
 
     [Fact]
     public Task WriteHeaderDefaultHeader()
     {
-        return Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
+        return Verifier.Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
     }
 
     [Fact]
     public Task WriteHeaderHeaderCustom()
     {
-        return Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
-    }
-
-    public HeaderWriterTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
     }
 }

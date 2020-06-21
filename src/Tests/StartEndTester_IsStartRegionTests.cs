@@ -4,8 +4,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class StartEndTester_IsStartRegionTests :
-    VerifyBase
+[UsesVerify]
+public class StartEndTester_IsStartRegionTests
 {
     [Fact]
     public void CanExtractFromXml()
@@ -19,7 +19,7 @@ public class StartEndTester_IsStartRegionTests :
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region _key", "file", out _));
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class StartEndTester_IsStartRegionTests :
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region key_ ", "file", out _));
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class StartEndTester_IsStartRegionTests :
     {
         var exception = Assert.Throws<SnippetReadingException>(() =>
             StartEndTester.IsStartRegion("#region ", "file", out _));
-        return Verify(exception.Message);
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]
@@ -64,10 +64,5 @@ public class StartEndTester_IsStartRegionTests :
     {
         StartEndTester.IsStartRegion("#region Code-Key", "file", out var key);
         Assert.Equal("code-key", key);
-    }
-
-    public StartEndTester_IsStartRegionTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

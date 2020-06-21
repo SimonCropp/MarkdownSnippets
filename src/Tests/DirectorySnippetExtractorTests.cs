@@ -8,8 +8,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class DirectorySnippetExtractorTests :
-    VerifyBase
+[UsesVerify]
+public class DirectorySnippetExtractorTests
 {
     [Fact]
     public Task Case()
@@ -19,7 +19,7 @@ public class DirectorySnippetExtractorTests :
         var snippets = extractor.ReadSnippets(directory);
         AssertCaseInsensitive(snippets.Lookup);
 
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     static void AssertCaseInsensitive(IReadOnlyDictionary<string, IReadOnlyList<Snippet>> dictionary)
@@ -34,7 +34,7 @@ public class DirectorySnippetExtractorTests :
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class DirectorySnippetExtractorTests :
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
         var extractor = new DirectorySnippetExtractor();
         var snippets = extractor.ReadSnippets(directory);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -60,11 +60,6 @@ public class DirectorySnippetExtractorTests :
             }
         );
         extractor.ReadSnippets(targetDirectory);
-        return Verify(directories.OrderBy(file => file));
-    }
-
-    public DirectorySnippetExtractorTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(directories.OrderBy(file => file));
     }
 }

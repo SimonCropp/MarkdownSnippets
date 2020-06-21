@@ -7,8 +7,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class SnippetFileFinderTests :
-    VerifyBase
+[UsesVerify]
+public class SnippetFileFinderTests
 {
     [Fact]
     public Task Nested()
@@ -16,7 +16,7 @@ public class SnippetFileFinderTests :
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Nested");
         var finder = new SnippetFileFinder();
         var files = finder.FindFiles(directory);
-        return Verify(files);
+        return Verifier.Verify(files);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class SnippetFileFinderTests :
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Simple");
         var finder = new SnippetFileFinder();
         var files = finder.FindFiles(directory);
-        return Verify(files);
+        return Verifier.Verify(files);
     }
 
     [Fact]
@@ -42,11 +42,6 @@ public class SnippetFileFinderTests :
             }
         );
         finder.FindFiles(targetDirectory);
-        return Verify(directories.OrderBy(file => file));
-    }
-
-    public SnippetFileFinderTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(directories.OrderBy(file => file));
     }
 }

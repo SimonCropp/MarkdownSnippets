@@ -7,8 +7,8 @@ using MarkdownSnippets;
 using Xunit;
 using Xunit.Abstractions;
 
-public class SimpleSnippetMarkdownHandlingTests :
-    VerifyBase
+[UsesVerify]
+public class SimpleSnippetMarkdownHandlingTests
 {
     [Fact]
     public Task AppendGroup()
@@ -20,11 +20,6 @@ public class SimpleSnippetMarkdownHandlingTests :
             SimpleSnippetMarkdownHandling.AppendGroup("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
-    }
-
-    public SimpleSnippetMarkdownHandlingTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(builder.ToString());
     }
 }

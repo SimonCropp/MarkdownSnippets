@@ -3,8 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class MarkdownProcessor_TryExtractKeyFromTests :
-    VerifyBase
+public class MarkdownProcessor_TryExtractKeyFromTests
 {
     [Fact]
     public void MissingSpaces()
@@ -32,10 +31,5 @@ public class MarkdownProcessor_TryExtractKeyFromTests :
     {
         SnippetKeyReader.TryExtractKeyFromLine(new Line("snippet:  snippet   ","path",1), out var key);
         Assert.Equal("snippet", key);
-    }
-
-    public MarkdownProcessor_TryExtractKeyFromTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

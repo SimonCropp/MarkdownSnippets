@@ -3,8 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class IndexReaderTests :
-    VerifyBase
+public class IndexReaderTests
 {
     [Theory]
     [InlineData("a\r", "\r")]
@@ -29,10 +28,5 @@ public class IndexReaderTests :
         {
             File.Delete(fileName);
         }
-    }
-
-    public IndexReaderTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

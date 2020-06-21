@@ -4,18 +4,13 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class GirRepoDirectoryFinderTests :
-    VerifyBase
+[UsesVerify]
+public class GirRepoDirectoryFinderTests
 {
     [Fact]
     public void CanFindGirRepoDir()
     {
         var path = GitRepoDirectoryFinder.FindForFilePath();
         Assert.True(Directory.Exists(path));
-    }
-
-    public GirRepoDirectoryFinderTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

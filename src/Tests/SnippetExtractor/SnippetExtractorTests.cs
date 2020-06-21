@@ -3,20 +3,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
-using Verify;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class SnippetExtractorTests :
-    VerifyBase
+[UsesVerify]
+public class SnippetExtractorTests
 {
     [Fact]
     public async Task AppendUrlAsSnippet()
     {
         var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
-        await Verify(snippets);
+        await Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class SnippetExtractorTests :
                 x.Replace(temp, "FilePath.txt");
                 x.Replace(nameWithoutExtension, "File");
             });
-            await Verify(snippets, settings);
+            await Verifier.Verify(snippets, settings);
         }
         finally
         {
@@ -55,7 +55,7 @@ public class SnippetExtractorTests :
 
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -84,7 +84,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class SnippetExtractorTests :
   c
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -131,7 +131,7 @@ public class SnippetExtractorTests :
 
 ";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -146,7 +146,7 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -161,7 +161,7 @@ public class SnippetExtractorTests :
   c
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -172,7 +172,7 @@ public class SnippetExtractorTests :
   <configSections/>
   <!-- end-snippet -->";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     List<Snippet> FromText(string contents)
@@ -188,7 +188,7 @@ public class SnippetExtractorTests :
   <!-- begin-snippet: CodeKey -->
   <configSections/>";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -198,7 +198,7 @@ public class SnippetExtractorTests :
   #region CodeKey
   <configSections/>";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -209,7 +209,7 @@ public class SnippetExtractorTests :
   caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -220,7 +220,7 @@ public class SnippetExtractorTests :
   The Code
   #endregion";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class SnippetExtractorTests :
   the code
   // end-snippet ";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -242,7 +242,7 @@ public class SnippetExtractorTests :
   <configSections/>
   <!--end-snippet-->";
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verifier.Verify(snippets);
     }
 
     [Fact]
@@ -253,11 +253,6 @@ public class SnippetExtractorTests :
   the code
   // end-snippet   ";
         var snippets = FromText(input);
-        return Verify(snippets);
-    }
-
-    public SnippetExtractorTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(snippets);
     }
 }

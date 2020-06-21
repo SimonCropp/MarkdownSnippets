@@ -3,55 +3,55 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class ContentValidationTest :
-    VerifyBase
+[UsesVerify]
+public class ContentValidationTest
 {
     [Fact]
     public Task CheckInvalidWord()
     {
-        return Verify(ContentValidation.Verify(" you "));
+        return Verifier.Verify(ContentValidation.Verify(" you "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage()
     {
-        return Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
+        return Verifier.Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase()
     {
-        return Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
+        return Verifier.Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
     }
 
     [Fact]
     public Task CheckInvalidWordWithQuestionMark()
     {
-        return Verify(ContentValidation.Verify(" you? "));
+        return Verifier.Verify(ContentValidation.Verify(" you? "));
     }
 
     [Fact]
     public Task CheckInvalidWordWithComma()
     {
-        return Verify(ContentValidation.Verify(" you, "));
+        return Verifier.Verify(ContentValidation.Verify(" you, "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceEnd()
     {
-        return Verify(ContentValidation.Verify(" you. "));
+        return Verifier.Verify(ContentValidation.Verify(" you. "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceStart()
     {
-        return Verify(ContentValidation.Verify("you "));
+        return Verifier.Verify(ContentValidation.Verify("you "));
     }
 
     [Fact]
     public Task CheckInvalidWordStringEnd()
     {
-        return Verify(ContentValidation.Verify("the you"));
+        return Verifier.Verify(ContentValidation.Verify("the you"));
     }
 
     [Fact]
@@ -73,10 +73,5 @@ public class ContentValidationTest :
         Assert.Empty(ContentValidation.Verify("some random content containing links /yourself/us/"));
         Assert.Empty(ContentValidation.Verify(" /us/ "));
         Assert.Empty(ContentValidation.Verify("/us-"));
-    }
-
-    public ContentValidationTest(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

@@ -7,8 +7,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class DirectoryMarkdownProcessorTests :
-    VerifyBase
+[UsesVerify]
+public class DirectoryMarkdownProcessorTests
 {
     [Fact]
     public void Run()
@@ -64,7 +64,7 @@ public class DirectoryMarkdownProcessorTests :
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         var exception = Assert.Throws<MissingSnippetsException>(() => processor.Run());
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 exception.Missing,
@@ -81,7 +81,7 @@ public class DirectoryMarkdownProcessorTests :
             writeHeader: false,
             validateContent: true);
         var exception = Assert.Throws<ContentValidationException>(() => processor.Run());
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 exception.Errors,
@@ -95,7 +95,7 @@ public class DirectoryMarkdownProcessorTests :
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         var exception = Assert.Throws<MissingIncludesException>(() => processor.Run());
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 exception.Missing,
@@ -112,7 +112,7 @@ public class DirectoryMarkdownProcessorTests :
 
         var result = Path.Combine(root,"one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verifier.Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -124,7 +124,7 @@ public class DirectoryMarkdownProcessorTests :
 
         var result = Path.Combine(root,"one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verifier.Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -146,7 +146,7 @@ public class DirectoryMarkdownProcessorTests :
             builder.AppendLine();
         }
 
-        return Verify(builder.ToString());
+        return Verifier.Verify(builder.ToString());
     }
 
     [Fact]
@@ -196,10 +196,5 @@ public class DirectoryMarkdownProcessorTests :
             value: "the code from " + key,
             key: key,
             path: null);
-    }
-
-    public DirectoryMarkdownProcessorTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

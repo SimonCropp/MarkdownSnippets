@@ -6,8 +6,8 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class MarkdownProcessorTests :
-    VerifyBase
+[UsesVerify]
+public class MarkdownProcessorTests
 {
     [Fact]
     public Task WithSingleInclude()
@@ -214,10 +214,5 @@ some other text
             value: "Snippet",
             key: key,
             path: "thePath");
-    }
-
-    public MarkdownProcessorTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MarkdownSnippets;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 [UsesVerify]
 public class MarkdownProcessorTests
@@ -20,7 +19,7 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1"};
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -38,7 +37,7 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2"};
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -56,7 +55,7 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -73,7 +72,7 @@ include: theKey
 
 after
 ";
-        return this.VerifySnippets(content,
+        return SnippetVerifier.VerifySnippets(content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
             includes: new List<Include>());
@@ -94,7 +93,7 @@ Text1
 Text2
 
 ";
-        return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
@@ -114,7 +113,7 @@ Text1
 Text2
 
 ";
-        return this.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
     }
 
     [Fact]
@@ -147,7 +146,7 @@ some other text
 snippet: /FileToUseAsSnippet.txt
 
 ";
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets,
             new List<string>
@@ -174,7 +173,7 @@ include: theKey
 some other text
 ";
         var lines = new List<string> {"snippet: snippet1"};
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets,
             new List<string>(),
@@ -198,7 +197,7 @@ include: theKey
 some other text
 ";
         var lines = new List<string> {"line1","snippet: snippet1"};
-        return this.VerifySnippets(
+        return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets,
             new List<string>(),

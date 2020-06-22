@@ -6,7 +6,6 @@ using MarkdownSnippets;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 [UsesVerify]
 public class SnippetExtractorTests

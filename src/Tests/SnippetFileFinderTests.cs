@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MarkdownSnippets;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 [UsesVerify]
 public class SnippetFileFinderTests

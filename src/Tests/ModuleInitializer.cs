@@ -1,13 +1,11 @@
 ﻿using VerifyTests;
-using Xunit;
 
-[GlobalSetUp]
-public static class GlobalSetup
+public static class ModuleInitializer
 {
-    public static void Setup()
+    public static void Initialize()
     {
-        SharedVerifySettings.DisableNewLineEscaping();
-        SharedVerifySettings.ModifySerialization(settings =>
+        VerifierSettings.DisableNewLineEscaping();
+        VerifierSettings.ModifySerialization(settings =>
         {
             settings.AddExtraSettings(serializerSettings =>
             {
@@ -16,6 +14,6 @@ public static class GlobalSetup
                 converters.Add(new SnippetConverter());
             });
         });
-        SharedVerifySettings.AddScrubber(Scrubber.Scrub);
+        VerifierSettings.AddScrubber(Scrubber.Scrub);
     }
 }

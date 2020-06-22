@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using MarkdownSnippets;
@@ -9,11 +10,11 @@ using VerifyXunit;
 static class SnippetVerifier
 {
     public static Task VerifySnippets(
-        this VerifyBase verifyBase,
         string markdownContent,
         List<Snippet> availableSnippets,
         List<string> snippetSourceFiles,
-        IReadOnlyList<Include>? includes = null)
+        IReadOnlyList<Include>? includes = null,
+        [CallerFilePath] string sourceFile = "")
     {
         if (includes == null)
         {
@@ -39,6 +40,6 @@ static class SnippetVerifier
             processResult.UsedSnippets,
             content = stringBuilder.ToString()
         };
-        return verifyBase.Verify(output);
+        return Verifier.Verify(output, null, sourceFile);
     }
 }

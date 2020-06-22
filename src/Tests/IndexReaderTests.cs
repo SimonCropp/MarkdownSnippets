@@ -1,7 +1,5 @@
 ﻿using System.IO;
-using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 public class IndexReaderTests
 {

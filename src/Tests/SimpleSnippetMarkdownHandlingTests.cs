@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using VerifyXunit;
 using MarkdownSnippets;
 using Xunit;
-using Xunit.Abstractions;
 
 [UsesVerify]
 public class SimpleSnippetMarkdownHandlingTests

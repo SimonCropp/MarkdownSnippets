@@ -13,7 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Config file convention](/docs/config-file.md)
   * [Indentation](/docs/indentation.md)
   * [Max Width](/docs/max-width.md)
-  * [iIncludes](/docs/includes.md)
+  * [Includes](/docs/includes.md)
   * [Snippet Exclusion](/docs/snippet-exclusion.md)
   * [Header](/docs/header.md)
   * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->

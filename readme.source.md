@@ -10,12 +10,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-markdownsnippets?utm_source=nuget-markdownsnippets&utm_medium=referral&utm_campaign=enterprise).
 
 toc
-  * [.net API](/docs/api.md)
-  * [MsBuild Task](/docs/msbuild.md)
-  * [Github Action](/docs/github-action.md)
-  * [Config file convention](/docs/config-file.md)
-  * [Indentation](/docs/indentation.md)
-  * [Max Width](/docs/max-width.md)
 
 
 ## Value Proposition
@@ -63,6 +57,18 @@ There is a secondary convention that leverages the use of a directory named `mds
 When using the `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
+### Mark resulting files as read only
+
+To mark the resulting `.md` files as read only use `-r` or `--readonly`.
+
+This can be helpful in preventing incorrectly editing the `.md` file instead of the `.source.md` file.
+
+```ps
+mdsnippets -r true
+```
+
+
+
 ## Defining Snippets
 
 Any code wrapped in a convention based comment will be picked up. The comment needs to start with `begin-snippet:` which is followed by the key. The snippet is then terminated by `end-snippet`.
@@ -76,6 +82,15 @@ My Snippet Code
 Named [C# regions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) will also be picked up, with the name of the region used as the key.
 
 To stop regions collapsing in Visual Studio [disable 'enter outlining mode when files open'](/docs/stop-regions-collapsing.png). See [Visual Studio outlining](https://docs.microsoft.com/en-us/visualstudio/ide/outlining).
+
+
+### UrlsAsSnippets
+
+Urls to files to be included as snippets. Space ` ` separated for multiple values.
+
+```ps
+mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
+```
 
 
 ## Using Snippets
@@ -108,153 +123,7 @@ Notes:
  * [H33: Supplementing link text with the title attribute](https://www.w3.org/TR/WCAG20-TECHS/H33.html)
 
 
-### Including full files
-
-When snippets are read all source files are stored in a list. When searching for a snippet with a specified key, and that key is not found, the list of files are used as a secondary lookup. The lookup is done by finding all files that have a suffix matching the key. This results in the ability to include full files as snippets using the following syntax:
-
-<pre>
-snippet&#58; directory/FileToInclude.txt
-</pre>
-
-The path syntax uses forward slashes `/`.
-
-
-### Including urls
-
-
-<pre>
-snippet&#58; http://myurl
-</pre>
-
-
-## Snippet Exclusions
-
-
-### Exclude directories from snippet discovery
-
-To exclude directories use `-e` or `--exclude`.
-
-For example the following will exclude any directory containing 'foo' or 'bar'
-
-```ps
-mdsnippets -e foo:bar
-```
-
-
-### Ignored paths
-
-When scanning for snippets the following are ignored:
-
- * All directories and files starting with a period `.`
- * All binary files as defined by https://github.com/sindresorhus/binary-extensions/
- * Any of the following directory names: `bin`, `obj`
-
-
-## Mark resulting files as read only
-
-To mark the resulting `.md` files as read only use `-r` or `--readonly`.
-
-This can be helpful in preventing incorrectly editing the `.md` file instead of the `.source.md` file.
-
-```ps
-mdsnippets -r true
-```
-
-
-## Table of contents
-
-If a line is `toc` it will be replaced with a table of contents
-
-So if a markdown document contains the following:
-
-snippet: tocBefore.txt
-
-The result will be rendered:
-
-snippet: tocAfter.txt
-
-
-### Heading Level
-
-Headings with level 2 (`##`) or greater can be rendered. By default all level 2 and level 3 headings are included.
-
-To include more levels use the `--toc-level` argument. So for example to include headings levels 2 though level 6 use:
-
-```ps
-mdsnippets --toc-level 5
-```
-
-
-### Ignore Headings
-
-To exclude headings use the `--toc-excludes` argument. So for example to exclude `heading1` and `heading2` use:
-
-```ps
-mdsnippets --toc-excludes heading1:heading2
-```
-
-
-## Header
-
-When a .md file is written, a header is include. The default header is:
-
-snippet: HeaderWriterTests.DefaultHeader.verified.txt
-
-
-### Disable Header
-
-To disable the header use `--write-header`
-
-```ps
-mdsnippets --write-header false
-```
-
-
-### Custom Header
-
-To apply a custom header use `--header`. `{relativePath}` will be replaced with the relative path of the `.source.md` file.
-
-```ps
-mdsnippets --header "GENERATED FILE - Source File: {relativePath}"
-```
-
-
-### Newlines in Header
-
-To insert a newline use `\n`
-
-```ps
-mdsnippets --header "GENERATED FILE\nSource File: {relativePath}"
-```
-
-
-## Markdown includes
-
-Markdown includes are pulled into the document before passing the content through the snippet insertion.
-
-
-### Defining an include
-
-Add a file anywhere in the target directory that is suffixed with `.include.md`. For example, the file might be named `theKey.include.md`.
-
-
-### Using an include
-
-Add the following to the markdown:
-
-   ```
-   include: theKey
-   ```
-
-
-### Including urls
-
-<pre>
-include&#58; http://myurl
-</pre>
-
-
-## LinkFormat
+### LinkFormat
 
 Defines the format of `snippet source` links that appear under each snippet.
 
@@ -263,18 +132,14 @@ snippet: LinkFormat.cs
 snippet: BuildLink
 
 
-## UrlPrefix
+### UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
 
 
-## UrlsAsSnippets
+## More Documentation
 
-Urls to files to be included as snippets. Space ` ` separated for multiple values.
-
-```ps
-mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
-```
+include: doc-index
 
 
 ## Security contact information

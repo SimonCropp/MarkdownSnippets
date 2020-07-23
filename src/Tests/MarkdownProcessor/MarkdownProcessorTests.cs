@@ -97,6 +97,26 @@ Text2
     }
 
     [Fact]
+    public Task Toc1()
+    {
+        var content = @"
+# Title
+
+toc1
+
+## Heading 1
+
+Text1
+
+## Heading 2
+
+Text2
+
+";
+        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+    }
+
+    [Fact]
     public Task Toc()
     {
         var content = @"

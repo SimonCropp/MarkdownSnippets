@@ -17,5 +17,6 @@ To change this file edit the source file and then run MarkdownSnippets.
     * [Includes](/docs/includes.md)
     * [Snippet Exclusion](/docs/snippet-exclusion.md)
     * [Header](/docs/header.md)
-  * [Indentation](/docs/indentation.md)
-  * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * Writing Documentation
+    * [Indentation](/docs/indentation.md)
+    * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->

@@ -194,16 +194,19 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
 
 ## More Documentation
 
-  * [.net API](/docs/api.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
-  * [MsBuild Task](/docs/msbuild.md)
-  * [Github Action](/docs/github-action.md)
-  * [Config file convention](/docs/config-file.md)
-  * [Indentation](/docs/indentation.md)
-  * [Max Width](/docs/max-width.md)
-  * [Includes](/docs/includes.md)
-  * [Snippet Exclusion](/docs/snippet-exclusion.md)
-  * [Header](/docs/header.md)
-  * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * Developer Information <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+    * [.net API](/docs/api.md)
+    * [MsBuild Task](/docs/msbuild.md)
+    * [Github Action](/docs/github-action.md)
+  * Customisation
+    * [Config file convention](/docs/config-file.md)
+    * [Max Width](/docs/max-width.md)
+    * [Includes](/docs/includes.md)
+    * [Snippet Exclusion](/docs/snippet-exclusion.md)
+    * [Header](/docs/header.md)
+  * Writing Documentation
+    * [Indentation](/docs/indentation.md)
+    * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
 
 
 ## Security contact information

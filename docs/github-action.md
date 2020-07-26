@@ -11,10 +11,10 @@ Markdown snippets can be run inside a [GitHub Action](https://help.github.com/en
 
 Add the following to `.github\workflows\on-push-do-doco.yml` in the target repository.
 
-<!-- snippet: on-push-do-doco.yml -->
-<a id='snippet-on-push-do-doco.yml'/></a>
+<!-- snippet: on-push-do-docs.yml -->
+<a id='snippet-on-push-do-docs.yml'/></a>
 ```yml
-name: on-push-do-doco
+name: on-push-do-docs
 on:
   push:
 jobs:
@@ -31,13 +31,13 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Doco changes" -a  || echo "nothing to commit"
+        git commit -m "Docs changes" -a  || echo "nothing to commit"
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
         branch="${GITHUB_REF:11}"
         git push "${remote}" ${branch} || echo "nothing to push"
       shell: bash
 ```
-<sup><a href='/docs/on-push-do-doco.yml#L1-L22' title='File snippet `on-push-do-doco.yml` was extracted from'>snippet source</a> | <a href='#snippet-on-push-do-doco.yml' title='Navigate to start of snippet `on-push-do-doco.yml`'>anchor</a></sup>
+<sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='File snippet `on-push-do-docs.yml` was extracted from'>snippet source</a> | <a href='#snippet-on-push-do-docs.yml' title='Navigate to start of snippet `on-push-do-docs.yml`'>anchor</a></sup>
 <!-- endsnippet -->
 
 This action performs the following tasks:

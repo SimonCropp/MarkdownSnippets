@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,12 +12,6 @@ static class Downloader
     {
         cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
         Directory.CreateDirectory(cache);
-        foreach (var file in new DirectoryInfo(cache)
-            .GetFiles()
-            .OrderByDescending(x => x.LastWriteTime)
-            .Skip(100))
-        {
-        }
     }
 
     static HttpClient httpClient = new HttpClient

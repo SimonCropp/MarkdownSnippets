@@ -11,9 +11,9 @@ snippet: sampleConfig.json
 
  * [ReadOnly: Mark resulting files as read only](/readme.md#mark-resulting-files-as-read-only)
  * [LinkFormat](/readme.md#linkformat)
- * [TocLevel: Heading level](/readme.md#heading-level)
- * [TocExcludes: Ignore headings](/readme.md#ignore-headings)
- * [Exclude: Exclude directories from snippet discovery](/readme.md#exclude-directories-from-snippet-discovery)
+ * [TocLevel: Heading level](/docs/toc.md#heading-level)
+ * [TocExcludes: Ignore headings](/docs/toc.md#ignore-headings)
+ * [Exclude: Exclude directories from snippet discovery](/docs/snippet-exclusion.md)
  * [WriteHeader: Disable Header](/readme.md#disable-header)
  * [UrlPrefix](/readme.md#urlprefix)
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets)

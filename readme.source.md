@@ -45,7 +45,7 @@ If no directory is passed the current directory will be used, but only if it exi
 
 ### Behavior
 
- * Recursively scan the target directory for all non [ignored files](#ignore-paths) for snippets.
+ * Recursively scan the target directory for all non [ignored files](/docs/snippet-exclusion) for snippets.
  * Recursively scan the target directory for all `*.source.md` files.
  * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
 
@@ -66,7 +66,6 @@ This can be helpful in preventing incorrectly editing the `.md` file instead of 
 ```ps
 mdsnippets -r true
 ```
-
 
 
 ## Defining Snippets

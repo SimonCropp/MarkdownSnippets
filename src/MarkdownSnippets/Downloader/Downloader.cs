@@ -18,6 +18,7 @@ static class Downloader
             .OrderByDescending(x => x.LastWriteTime)
             .Skip(100))
         {
+            file.Delete();
         }
     }
 

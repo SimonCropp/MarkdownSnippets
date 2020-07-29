@@ -21,10 +21,11 @@ static class SnippetKeyReader
         }
 
         key = key.Trim();
-        if (KeyValidator.IsInValidKey(key))
-        {
-            throw new MarkdownProcessingException($@"Invalid syntax for the snippet '{key}': Cannot contain whitespace or start/end with symbols.", line.Path, line.LineNumber);
-        }
+        //TODO: better validation
+        //if (KeyValidator.IsInValidKey(key))
+        //{
+        //    throw new MarkdownProcessingException($@"Invalid syntax for the snippet '{key}': Cannot contain whitespace or start/end with symbols.", line.Path, line.LineNumber);
+        //}
         return true;
     }
 

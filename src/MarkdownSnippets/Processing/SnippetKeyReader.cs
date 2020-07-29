@@ -6,7 +6,8 @@ static class SnippetKeyReader
 {
     public static bool TryExtractKeyFromLine(Line line, [NotNullWhen(true)] out string? key)
     {
-        if (!IsSnippetLine(line))
+        var lineCurrent = line.Current;
+        if (!IsSnippetLine(lineCurrent))
         {
             key = null;
             return false;
@@ -20,13 +21,11 @@ static class SnippetKeyReader
         }
 
         key = key.Trim();
+        if (KeyValidator.IsInValidKey(key))
+        {
+            throw new MarkdownProcessingException($@"Invalid syntax for the snippet '{key}': Cannot contain whitespace or start/end with symbols.", line.Path, line.LineNumber);
+        }
         return true;
-    }
-
-    public static bool IsSnippetLine(Line line)
-    {
-        var lineCurrent = line.Current;
-        return IsSnippetLine(lineCurrent);
     }
 
     public static bool IsSnippetLine(string lineCurrent)

@@ -5,11 +5,12 @@
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
+  "DocumentExtensions": [ "md", "html" ],
   "WriteHeader": true,
   "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingSnippetAsWarning": true,
   "TreatMissingIncludeAsWarning": true,
-  "ValidateContent":  true
+  "ValidateContent": true
 }

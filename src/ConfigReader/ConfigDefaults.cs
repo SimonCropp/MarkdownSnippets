@@ -19,6 +19,7 @@ public static class ConfigDefaults
                 UrlPrefix = otherConfig.UrlPrefix,
                 TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
+                DocumentExtensions = otherConfig.DocumentExtensions,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
                 TreatMissingSnippetAsWarning = otherConfig.TreatMissingSnippetAsWarning.GetValueOrDefault(),
@@ -26,7 +27,7 @@ public static class ConfigDefaults
             };
         }
 
-        return new ConfigResult
+        var result = new ConfigResult
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
             ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
@@ -50,6 +51,13 @@ public static class ConfigDefaults
                 fileConfig.TreatMissingIncludeAsWarning,
                 false)
         };
+        result.DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions);
+        if (!result.DocumentExtensions.Any())
+        {
+            result.DocumentExtensions = new List<string> {"md"};
+        }
+
+        return result;
     }
 
     static List<string> JoinLists(List<string> list1, List<string> list2)
@@ -84,7 +92,8 @@ public static class ConfigDefaults
     static T? GetValueOrNull<T>(string name, T? input, T? config)
         where T : struct
     {
-        if (input != null && config != null)
+        if (input != null &&
+            config != null)
         {
             throw new ConfigurationException($"'{name}' cannot be defined in both mdsnippets.json and input");
         }

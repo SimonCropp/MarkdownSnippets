@@ -17,6 +17,7 @@ namespace MarkdownSnippets
         int tocLevel;
         int maxWidth;
         IEnumerable<string>? tocExcludes;
+        IEnumerable<string>? documentExtensions;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -42,6 +43,7 @@ namespace MarkdownSnippets
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
+            IEnumerable<string>? documentExtensions = null,
             bool treatMissingSnippetAsWarning = false,
             bool treatMissingIncludeAsWarning = false,
             int maxWidth = int.MaxValue,
@@ -56,6 +58,7 @@ namespace MarkdownSnippets
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
+            this.documentExtensions = documentExtensions;
             this.maxWidth = maxWidth;
             this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
             this.treatMissingIncludeAsWarning = treatMissingIncludeAsWarning;
@@ -126,10 +129,10 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            var finder = new MdFileFinder(directoryFilter);
+            var finder = new MdFileFinder(directoryFilter, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
-            log($"Added {files.Count} .source.md files");
+            log($"Added {files.Count} .source files");
         }
 
         public void AddIncludeFilesFrom(string directory)

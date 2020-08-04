@@ -14,6 +14,7 @@ public class ConfigResult
     public string? Header;
     public string? UrlPrefix;
     public List<string> TocExcludes = new List<string>();
+    public List<string> DocumentExtensions = new List<string>();
     public bool TreatMissingSnippetAsWarning;
     public bool TreatMissingIncludeAsWarning;
 }

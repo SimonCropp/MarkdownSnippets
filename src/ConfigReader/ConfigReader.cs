@@ -58,6 +58,7 @@ public static class ConfigReader
             Header = configSerialization.Header,
             UrlPrefix = configSerialization.UrlPrefix,
             TocExcludes = configSerialization.TocExcludes,
+            DocumentExtensions = configSerialization.DocumentExtensions,
             TocLevel = configSerialization.TocLevel,
             MaxWidth = configSerialization.MaxWidth,
             LinkFormat = GetLinkFormat(configSerialization.LinkFormat),

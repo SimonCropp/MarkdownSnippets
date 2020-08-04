@@ -22,6 +22,7 @@ namespace MarkdownSnippets
         public List<string> Exclude { get; set; } = new List<string>();
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
+        public List<string> DocumentExtensions { get; set; } = new List<string>();
         public bool? TreatMissingSnippetAsWarning { get; set; }
         public bool? TreatMissingIncludeAsWarning { get; set; }
 
@@ -46,6 +47,7 @@ namespace MarkdownSnippets
                     TocLevel = TocLevel,
                     MaxWidth = MaxWidth,
                     UrlsAsSnippets = UrlsAsSnippets,
+                    DocumentExtensions = DocumentExtensions,
                     TreatMissingSnippetAsWarning = TreatMissingSnippetAsWarning,
                     TreatMissingIncludeAsWarning = TreatMissingIncludeAsWarning
                 });
@@ -64,6 +66,7 @@ namespace MarkdownSnippets
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
+                documentExtensions: configResult.DocumentExtensions,
                 treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
                 treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
                 maxWidth: configResult.MaxWidth,

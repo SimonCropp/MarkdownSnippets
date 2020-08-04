@@ -7,10 +7,19 @@ namespace MarkdownSnippets
     public class MdFileFinder
     {
         DirectoryFilter? directoryFilter;
+        List<string> documentExtensions;
 
-        public MdFileFinder(DirectoryFilter? directoryFilter = null)
+        public MdFileFinder(DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)
         {
             this.directoryFilter = directoryFilter;
+            if (documentExtensions == null)
+            {
+                this.documentExtensions = new List<string> {"md"};
+            }
+            else
+            {
+                this.documentExtensions = documentExtensions.ToList();
+            }
         }
 
         public bool IncludeDirectory(string directoryPath)
@@ -50,7 +59,10 @@ namespace MarkdownSnippets
 
         void FindFiles(string directoryPath, List<string> files)
         {
-            files.AddRange(FileEx.FindFiles(directoryPath, "*.source.md"));
+            foreach (var extension in documentExtensions)
+            {
+                files.AddRange(FileEx.FindFiles(directoryPath, $"*.source.{extension}"));
+            }
 
             foreach (var subDirectory in Directory.EnumerateDirectories(directoryPath)
                 .Where(IncludeDirectory))

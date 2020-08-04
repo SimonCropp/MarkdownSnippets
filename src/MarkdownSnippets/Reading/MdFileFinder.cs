@@ -20,10 +20,12 @@ namespace MarkdownSnippets
             }
 
             var list = documentExtensions.ToList();
-            if (list.Any()) return list;
+            if (list.Any())
             {
-                throw new ArgumentException("Empty documentExtensions list passed in");
+                return list;
             }
+
+            throw new ArgumentException("Empty documentExtensions list passed in");
         }
 
         public MdFileFinder(DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)

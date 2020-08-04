@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -25,7 +24,7 @@ namespace MarkdownSnippets
                 return list;
             }
 
-            throw new ArgumentException("Empty documentExtensions.");
+            return defaultExtensions;
         }
 
         public MdFileFinder(DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)

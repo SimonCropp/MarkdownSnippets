@@ -127,6 +127,30 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task NonMd()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/NonMd");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            documentExtensions:new List<string> {"txt"} );
+        processor.AddSnippets(
+            SnippetBuild("snippet1"),
+            SnippetBuild("snippet2")
+        );
+        processor.Run();
+
+        var builder = new StringBuilder();
+        foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories))
+        {
+            builder.AppendLine(file.Replace(root, ""));
+            builder.AppendLine(File.ReadAllText(file));
+            builder.AppendLine();
+        }
+
+        return Verifier.Verify(builder.ToString());
+    }
+    [Fact]
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");

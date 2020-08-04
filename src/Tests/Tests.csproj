@@ -26,6 +26,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
+    <None Update="DirectoryMarkdownProcessor\**\*.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
     <None Update="GitDirs\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>

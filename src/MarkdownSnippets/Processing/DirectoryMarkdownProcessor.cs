@@ -259,7 +259,7 @@ namespace MarkdownSnippets
             var sourceTrimmed = Path.Combine(filtered);
             var targetFile = Path.Combine(rootDirectory, sourceTrimmed);
             // remove ".md" from ".source.md" then change ".source" to ".md"
-            targetFile = Path.ChangeExtension(Path.ChangeExtension(targetFile, null), ".md");
+            targetFile = targetFile.Replace(".source.",".");
             return targetFile;
         }
     }

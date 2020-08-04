@@ -25,10 +25,7 @@ class LoopState
 
     public void AppendLine(string line)
     {
-        if (builder == null)
-        {
-            builder = StringBuilderCache.Acquire();
-        }
+        builder ??= StringBuilderCache.Acquire();
 
         if (builder.Length == 0)
         {

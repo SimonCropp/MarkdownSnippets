@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -9,17 +10,26 @@ namespace MarkdownSnippets
         DirectoryFilter? directoryFilter;
         List<string> documentExtensions;
 
+        static List<string> defaultExtensions = new List<string> {"md"};
+
+        internal static List<string> BuildDefaultExtensions(IEnumerable<string>? documentExtensions = null)
+        {
+            if (documentExtensions == null)
+            {
+                return defaultExtensions;
+            }
+
+            var list = documentExtensions.ToList();
+            if (list.Any()) return list;
+            {
+                throw new ArgumentException("Empty documentExtensions list passed in");
+            }
+        }
+
         public MdFileFinder(DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)
         {
             this.directoryFilter = directoryFilter;
-            if (documentExtensions == null)
-            {
-                this.documentExtensions = new List<string> {"md"};
-            }
-            else
-            {
-                this.documentExtensions = documentExtensions.ToList();
-            }
+            this.documentExtensions = BuildDefaultExtensions(documentExtensions);
         }
 
         public bool IncludeDirectory(string directoryPath)

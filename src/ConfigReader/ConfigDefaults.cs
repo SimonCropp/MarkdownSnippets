@@ -27,7 +27,7 @@ public static class ConfigDefaults
             };
         }
 
-        var result = new ConfigResult
+        return new ConfigResult
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
             ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
@@ -49,15 +49,9 @@ public static class ConfigDefaults
                 "TreatMissingIncludeAsWarning",
                 otherConfig.TreatMissingIncludeAsWarning,
                 fileConfig.TreatMissingIncludeAsWarning,
-                false)
+                false),
+            DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions)
         };
-        result.DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions);
-        if (!result.DocumentExtensions.Any())
-        {
-            result.DocumentExtensions = new List<string> {"md"};
-        }
-
-        return result;
     }
 
     static List<string> JoinLists(List<string> list1, List<string> list2)

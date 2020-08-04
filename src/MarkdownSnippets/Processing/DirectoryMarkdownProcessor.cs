@@ -17,7 +17,7 @@ namespace MarkdownSnippets
         int tocLevel;
         int maxWidth;
         IEnumerable<string>? tocExcludes;
-        IEnumerable<string>? documentExtensions;
+        List<string> documentExtensions;
         Action<string> log;
         string targetDirectory;
         List<string> sourceMdFiles = new List<string>();
@@ -58,7 +58,7 @@ namespace MarkdownSnippets
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
-            this.documentExtensions = documentExtensions;
+            this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
             this.maxWidth = maxWidth;
             this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
             this.treatMissingIncludeAsWarning = treatMissingIncludeAsWarning;

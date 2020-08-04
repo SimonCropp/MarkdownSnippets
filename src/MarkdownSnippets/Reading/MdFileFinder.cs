@@ -25,7 +25,7 @@ namespace MarkdownSnippets
                 return list;
             }
 
-            throw new ArgumentException("Empty documentExtensions list passed in");
+            throw new ArgumentException("Empty documentExtensions.");
         }
 
         public MdFileFinder(DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)

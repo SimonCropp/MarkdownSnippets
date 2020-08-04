@@ -36,6 +36,7 @@ static class Program
             urlPrefix: configResult.UrlPrefix,
             linkFormat: configResult.LinkFormat,
             tocExcludes: configResult.TocExcludes,
+            documentExtensions: configResult.DocumentExtensions,
             tocLevel: configResult.TocLevel,
             treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
             treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,

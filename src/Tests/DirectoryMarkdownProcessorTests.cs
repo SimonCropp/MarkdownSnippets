@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -150,6 +151,7 @@ public class DirectoryMarkdownProcessorTests
 
         return Verifier.Verify(builder.ToString());
     }
+
     [Fact]
     public Task Convention()
     {
@@ -170,6 +172,14 @@ public class DirectoryMarkdownProcessorTests
         }
 
         return Verifier.Verify(builder.ToString());
+    }
+
+    [Fact]
+    public Task EmptyDocumentExtensions()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
+        var exception = Assert.Throws<ArgumentException>(() => new DirectoryMarkdownProcessor(root, documentExtensions: new List<string>()));
+        return Verifier.Verify(exception.Message);
     }
 
     [Fact]

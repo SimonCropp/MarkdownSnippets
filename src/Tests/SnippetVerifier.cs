@@ -16,10 +16,7 @@ static class SnippetVerifier
         IReadOnlyList<Include>? includes = null,
         [CallerFilePath] string sourceFile = "")
     {
-        if (includes == null)
-        {
-            includes = Array.Empty<Include>();
-        }
+        includes ??= Array.Empty<Include>();
 
         var markdownProcessor = new MarkdownProcessor(
             snippets: availableSnippets.ToDictionary(),

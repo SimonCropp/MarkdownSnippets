@@ -109,7 +109,7 @@ The resulting markdown will be:
 
     <!-- snippet: MySnippetName -->
     Some blurb about the below snippet
-    <a id='snippet-MySnippetName'/></a>
+    <a id='snippet-MySnippetName'></a>
     ```
     My Snippet Code
     ```

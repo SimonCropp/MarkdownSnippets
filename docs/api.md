@@ -16,7 +16,7 @@ https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](https://img.shield
 ## Reading snippets from files
 
 <!-- snippet: ReadingFilesSimple -->
-<a id='snippet-readingfilessimple'/></a>
+<a id='snippet-readingfilessimple'></a>
 ```cs
 var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
 
@@ -29,7 +29,7 @@ var snippets = FileSnippetExtractor.Read(files);
 ## Reading snippets from a directory structure
 
 <!-- snippet: ReadingDirectorySimple -->
-<a id='snippet-readingdirectorysimple'/></a>
+<a id='snippet-readingdirectorysimple'></a>
 ```cs
 // extract snippets from files
 var snippetExtractor = new DirectorySnippetExtractor(
@@ -45,7 +45,7 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ## Full Usage
 
 <!-- snippet: markdownProcessingSimple -->
-<a id='snippet-markdownprocessingsimple'/></a>
+<a id='snippet-markdownprocessingsimple'></a>
 ```cs
 var directory = @"C:\path";
 

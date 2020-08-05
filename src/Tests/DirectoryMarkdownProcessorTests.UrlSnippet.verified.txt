@@ -1,5 +1,5 @@
 <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt -->
-<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt'/></a>
+<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt'></a>
 ```txt
 The MIT License (MIT)
 

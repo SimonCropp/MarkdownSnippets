@@ -12,7 +12,7 @@ The [dotnet tool](/readme.md#installation) and the [MSBuild Task](msbuild.md) su
 Add a file named `mdsnippets.json` at the target directory with the following content:
 
 <!-- snippet: sampleConfig.json -->
-<a id='snippet-sampleConfig.json'/></a>
+<a id='snippet-sampleConfig.json'></a>
 ```json
 {
   "ReadOnly": false,

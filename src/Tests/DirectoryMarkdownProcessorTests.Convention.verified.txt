@@ -1,6 +1,6 @@
 \one.md
 <!-- snippet: snippet1 -->
-<a id='snippet-snippet1'/></a>
+<a id='snippet-snippet1'></a>
 ```.cs
 the code from snippet1
 ```
@@ -13,7 +13,7 @@ snippet: snippet1
 
 \two.md
 <!-- snippet: snippet2 -->
-<a id='snippet-snippet2'/></a>
+<a id='snippet-snippet2'></a>
 ```.cs
 the code from snippet2
 ```

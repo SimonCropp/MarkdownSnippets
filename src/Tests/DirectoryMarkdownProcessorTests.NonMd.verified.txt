@@ -3,7 +3,7 @@ snippet: snippet1
 
 \one.txt
 <!-- snippet: snippet1 -->
-<a id='snippet-snippet1'/></a>
+<a id='snippet-snippet1'></a>
 ```.cs
 the code from snippet1
 ```
@@ -13,7 +13,7 @@ the code from snippet1
 
 \two.txt
 <!-- snippet: snippet2 -->
-<a id='snippet-snippet2'/></a>
+<a id='snippet-snippet2'></a>
 ```.cs
 the code from snippet2
 ```

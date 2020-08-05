@@ -125,7 +125,7 @@ The resulting markdown will be:
 
     <!-- snippet: MySnippetName -->
     Some blurb about the below snippet
-    <a id='snippet-MySnippetName'/></a>
+    <a id='snippet-MySnippetName'></a>
     ```
     My Snippet Code
     ```
@@ -143,7 +143,7 @@ Notes:
 Defines the format of `snippet source` links that appear under each snippet.
 
 <!-- snippet: LinkFormat.cs -->
-<a id='snippet-LinkFormat.cs'/></a>
+<a id='snippet-LinkFormat.cs'></a>
 ```cs
 namespace MarkdownSnippets
 {
@@ -160,7 +160,7 @@ namespace MarkdownSnippets
 <!-- endsnippet -->
 
 <!-- snippet: BuildLink -->
-<a id='snippet-buildlink'/></a>
+<a id='snippet-buildlink'></a>
 ```cs
 if (linkFormat == LinkFormat.GitHub)
 {

@@ -12,7 +12,7 @@ If a line is `toc` it will be replaced with a table of contents
 So if a markdown document contains the following:
 
 <!-- snippet: tocBefore.txt -->
-<a id='snippet-tocBefore.txt'/></a>
+<a id='snippet-tocBefore.txt'></a>
 ```txt
 # Title
 
@@ -32,7 +32,7 @@ Text2
 The result will be rendered:
 
 <!-- snippet: tocAfter.txt -->
-<a id='snippet-tocAfter.txt'/></a>
+<a id='snippet-tocAfter.txt'></a>
 ```txt
 # Title
 

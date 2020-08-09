@@ -220,10 +220,10 @@ namespace MarkdownSnippets
                     throw new MissingIncludesException(missingIncludes);
                 }
             }
-            var ValidationErrors = result.ValidationErrors;
-            if (ValidationErrors.Any())
+            var errors = result.ValidationErrors;
+            if (errors.Any())
             {
-                throw new ContentValidationException(ValidationErrors);
+                throw new ContentValidationException(errors);
             }
 
             WriteLines(target, lines);

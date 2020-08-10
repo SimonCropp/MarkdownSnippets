@@ -83,9 +83,13 @@ There is a secondary convention that leverages the use of a directory named `mds
 When using the `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
-### Document extensions
+### DocumentExtensions
 
-By default markdown files are scanned for processing. 
+By default markdown files are scanned for processing. In some circumstances it is helpful to process non-markdown files. 
+
+```ps
+mdsnippets --document-extensions "txt"
+```
 
 
 ### Mark resulting files as read only

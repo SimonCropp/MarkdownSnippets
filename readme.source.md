@@ -23,6 +23,13 @@ Automatically extract snippets from code and injecting them into markdown docume
  * Snippets in markdown is easier to create and maintain since any preferred editor can be used to edit them.
 
 
+## Behavior
+
+ * Recursively scan the target directory for all non [ignored files](/docs/snippet-exclusion) for snippets.
+ * Recursively scan the target directory for all `*.source.md` files.
+ * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
+
+
 ## Installation
 
 Ensure [dotnet CLI is installed](https://docs.microsoft.com/en-us/dotnet/core/tools/).
@@ -43,11 +50,12 @@ mdsnippets C:\Code\TargetDirectory
 If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
 
 
-### Behavior
+## Document Scanning
 
- * Recursively scan the target directory for all non [ignored files](/docs/snippet-exclusion) for snippets.
- * Recursively scan the target directory for all `*.source.md` files.
- * Merge the snippets with the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
+
+### source.md file convention
+
+The file convention recursively scans the target directory for all `*.source.md` files. Once snippets are merged the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
 
 
 ### mdsource directory convention
@@ -57,11 +65,20 @@ There is a secondary convention that leverages the use of a directory named `mds
 When using the `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
+### DocumentExtensions
+
+By default markdown files are scanned for processing. In some circumstances it is helpful to process non-markdown files. 
+
+```ps
+mdsnippets --document-extensions "txt"
+```
+
+
 ### Mark resulting files as read only
 
-To mark the resulting `.md` files as read only use `-r` or `--readonly`.
+To mark the resulting documents files as read only use `-r` or `--readonly`.
 
-This can be helpful in preventing incorrectly editing the `.md` file instead of the `.source.md` file.
+This can be helpful in preventing incorrectly editing the documents file instead of the `.source.` file conventions.
 
 ```ps
 mdsnippets -r true
@@ -134,6 +151,8 @@ snippet: BuildLink
 ### UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
+
+
 
 
 ## More Documentation

@@ -100,6 +100,13 @@ public class CommandRunnerTests
     }
 
     [Fact]
+    public async Task DocumentExtensions()
+    {
+        await CommandRunner.RunCommand(Capture, "--document-extensions", "txt");
+        await VerifyResult();
+    }
+
+    [Fact]
     public async Task MaxWidthLong()
     {
         await CommandRunner.RunCommand(Capture, "--max-width", "5");

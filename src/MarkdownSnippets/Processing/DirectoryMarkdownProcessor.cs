@@ -11,7 +11,6 @@ namespace MarkdownSnippets
         bool writeHeader;
         private bool validateContent;
         string? header;
-        string? urlPrefix;
         DirectoryFilter? directoryFilter;
         bool readOnly;
         int tocLevel;
@@ -53,7 +52,6 @@ namespace MarkdownSnippets
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
             this.header = header;
-            this.urlPrefix = urlPrefix;
             this.directoryFilter = directoryFilter;
             this.readOnly = readOnly;
             this.tocLevel = tocLevel;

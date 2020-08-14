@@ -71,11 +71,11 @@ namespace MarkdownSnippets
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
-            bool scanForMdFiles= true,
-            bool scanForSnippets= true,
-            bool scanForIncludes= true,
+            bool scanForMdFiles = true,
+            bool scanForSnippets = true,
+            bool scanForIncludes = true,
             Action<string>? log = null,
-            bool writeHeader=true,
+            bool writeHeader = true,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
             bool readOnly = false,
@@ -84,8 +84,8 @@ namespace MarkdownSnippets
             IEnumerable<string>? documentExtensions = null,
             bool treatMissingSnippetAsWarning = false,
             bool treatMissingIncludeAsWarning = false,
-            int maxWidth= int.MaxValue,
-            bool validateContent= false)
+            int maxWidth = int.MaxValue,
+            bool validateContent = false)
         {
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
@@ -147,7 +147,7 @@ namespace MarkdownSnippets
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
-            var read = FileSnippetExtractor.Read(files,maxWidth).ToList();
+            var read = FileSnippetExtractor.Read(files, maxWidth).ToList();
             snippets.AddRange(read);
             log($"Added {read.Count} snippets");
         }
@@ -255,6 +255,7 @@ namespace MarkdownSnippets
                     throw new MissingIncludesException(missingIncludes);
                 }
             }
+
             var errors = result.ValidationErrors;
             if (errors.Any())
             {
@@ -294,7 +295,7 @@ namespace MarkdownSnippets
             var sourceTrimmed = Path.Combine(filtered);
             var targetFile = Path.Combine(rootDirectory, sourceTrimmed);
             // remove ".md" from ".source.md" then change ".source" to ".md"
-            targetFile = targetFile.Replace(".source.",".");
+            targetFile = targetFile.Replace(".source.", ".");
             return targetFile;
         }
     }

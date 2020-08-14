@@ -9,7 +9,8 @@ namespace MarkdownSnippets
     public class DirectoryMarkdownProcessor
     {
         bool writeHeader;
-        private bool validateContent;
+        bool validateContent;
+        Mode mode;
         string? header;
         string? urlPrefix;
         DirectoryFilter? directoryFilter;
@@ -48,10 +49,12 @@ namespace MarkdownSnippets
             bool treatMissingIncludeAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
-            bool validateContent = false)
+            bool validateContent = false,
+            Mode mode = Mode.SourceTransform)
         {
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
+            this.mode = mode;
             this.header = header;
             this.urlPrefix = urlPrefix;
             this.directoryFilter = directoryFilter;

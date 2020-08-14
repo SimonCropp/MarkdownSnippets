@@ -19,6 +19,7 @@ namespace MarkdownSnippets
         public int? TocLevel { get; set; }
         public int? MaxWidth { get; set; }
         public LinkFormat? LinkFormat { get; set; }
+        public Mode? Mode { get; set; }
         public List<string> Exclude { get; set; } = new List<string>();
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
@@ -42,6 +43,7 @@ namespace MarkdownSnippets
                     Header = Header,
                     UrlPrefix = UrlPrefix,
                     LinkFormat = LinkFormat,
+                    Mode = Mode,
                     Exclude = Exclude,
                     TocExcludes = TocExcludes,
                     TocLevel = TocLevel,
@@ -64,6 +66,7 @@ namespace MarkdownSnippets
                 header: configResult.Header,
                 urlPrefix: configResult.UrlPrefix,
                 linkFormat: configResult.LinkFormat,
+                mode: configResult.Mode,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
                 documentExtensions: configResult.DocumentExtensions,

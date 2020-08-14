@@ -6,6 +6,7 @@ public class ConfigResult
     public bool ReadOnly;
     public bool ValidateContent;
     public LinkFormat LinkFormat;
+    public Mode Mode;
     public int TocLevel;
     public int MaxWidth;
     public List<string> UrlsAsSnippets = new List<string>();

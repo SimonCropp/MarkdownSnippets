@@ -64,6 +64,11 @@ public class Options
         HelpText = "Controls the format of the link under each snippet. Optional. Supported values: GitHub, Tfs. Defaults to GitHub.")]
     public LinkFormat? LinkFormat { get; set; }
 
+    [Option('m', "mode",
+        Required = false,
+        HelpText = "Controls the target document mode. Optional. Supported values: SourceTransform, InPlaceOverwrite. Defaults to SourceTransform.")]
+    public Mode? Mode { get; set; }
+
     [Option("toc-level",
         Required = false,
         HelpText = "Controls how many header levels to write in the table of contents. Optional. Defaults to 2. Must be positive.")]

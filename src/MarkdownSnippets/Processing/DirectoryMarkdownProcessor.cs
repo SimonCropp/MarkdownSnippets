@@ -34,7 +34,6 @@ namespace MarkdownSnippets
             bool scanForSnippets = true,
             bool scanForIncludes = true,
             Action<string>? log = null,
-            AppendSnippetGroupToMarkdown? appendSnippetGroup = null,
             bool writeHeader = true,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
@@ -47,8 +46,48 @@ namespace MarkdownSnippets
             bool treatMissingIncludeAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
-            bool validateContent = false)
+            bool validateContent = false) :
+            this(
+                targetDirectory,
+                new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup,
+                scanForMdFiles,
+                scanForSnippets,
+                scanForIncludes,
+                log,
+                writeHeader,
+                header,
+                directoryFilter,
+                readOnly,
+                tocLevel,
+                tocExcludes,
+                documentExtensions,
+                treatMissingSnippetAsWarning,
+                treatMissingIncludeAsWarning,
+                maxWidth,
+                validateContent)
         {
+        }
+
+        public DirectoryMarkdownProcessor(
+            string targetDirectory,
+            AppendSnippetGroupToMarkdown appendSnippetGroup,
+            bool scanForMdFiles= true,
+            bool scanForSnippets= true,
+            bool scanForIncludes= true,
+            Action<string>? log = null,
+            bool writeHeader=true,
+            string? header = null,
+            DirectoryFilter? directoryFilter = null,
+            bool readOnly = false,
+            int tocLevel = 2,
+            IEnumerable<string>? tocExcludes = null,
+            IEnumerable<string>? documentExtensions = null,
+            bool treatMissingSnippetAsWarning = false,
+            bool treatMissingIncludeAsWarning = false,
+            int maxWidth= int.MaxValue,
+            bool validateContent= false)
+        {
+            this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
             this.header = header;
@@ -60,8 +99,6 @@ namespace MarkdownSnippets
             this.maxWidth = maxWidth;
             this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
             this.treatMissingIncludeAsWarning = treatMissingIncludeAsWarning;
-
-            this.appendSnippetGroup = appendSnippetGroup ?? new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
 

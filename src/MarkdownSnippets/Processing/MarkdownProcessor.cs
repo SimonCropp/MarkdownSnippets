@@ -22,6 +22,7 @@ namespace MarkdownSnippets
         IncludeProcessor includeProcessor;
 
         public MarkdownProcessor(
+            Mode mode,
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             IReadOnlyList<Include> includes,
             AppendSnippetGroupToMarkdown appendSnippetGroup,

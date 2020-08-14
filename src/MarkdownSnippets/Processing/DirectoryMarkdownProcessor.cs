@@ -169,10 +169,10 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            var finder = new MdFileFinder(directoryFilter, documentExtensions);
+            var finder = new MdFileFinder(mode, directoryFilter, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
-            log($"Added {files.Count} .source files");
+            log($"Added {files.Count} markdown files");
         }
 
         public void AddIncludeFilesFrom(string directory)
@@ -198,6 +198,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var processor = new MarkdownProcessor(
+                mode,
                 Snippets.ToDictionary(),
                 includes,
                 appendSnippetGroup,

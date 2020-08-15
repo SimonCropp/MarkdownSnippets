@@ -1,1 +1,1 @@
-<!-- snippet: snippet1 -->
+snippet: snippet1

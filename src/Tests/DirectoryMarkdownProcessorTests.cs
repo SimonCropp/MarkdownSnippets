@@ -51,7 +51,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            readOnly: true,
+            readOnly: false,
             mode:Mode.InPlaceOverwrite);
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();

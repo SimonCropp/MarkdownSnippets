@@ -115,6 +115,13 @@ namespace MarkdownSnippets
             var usedIncludes = new List<Include>();
             var builder = new StringBuilder();
             Line? tocLine = null;
+
+            void AppendLine(string s)
+            {
+                builder.Append(s);
+                builder.Append(newLine);
+            }
+
             var headerLines = new List<Line>();
             for (var index = 0; index < lines.Count; index++)
             {
@@ -154,12 +161,6 @@ namespace MarkdownSnippets
                 if (SnippetKey.ExtractSnippet(line, out var key))
                 {
                     builder.Clear();
-
-                    void AppendLine(string s)
-                    {
-                        builder.Append(s);
-                        builder.Append(newLine);
-                    }
 
                     ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
                     builder.TrimEnd();

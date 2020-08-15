@@ -66,7 +66,7 @@ class IncludeProcessor
         var firstLine = include.Lines.First();
 
         var linesCount = include.Lines.Count;
-        if (SnippetKeyReader.IsSnippetLine(firstLine))
+        if (SnippetKey.IsSnippetLine(firstLine))
         {
             line.Current = $@"<!-- include: {include.Key}. path: {path} -->";
             lines.Insert(index + 1, new Line(firstLine, include.Path, 1));
@@ -96,7 +96,7 @@ class IncludeProcessor
         }
 
         var lastLine = include.Lines.Last();
-        if (SnippetKeyReader.IsSnippetLine(lastLine))
+        if (SnippetKey.IsSnippetLine(lastLine))
         {
             lines.Insert(index + linesCount - 1, new Line(lastLine, include.Path, linesCount));
             lines.Insert(index + linesCount, new Line($@"<!-- end include: {include.Key}. path: {path} -->", include.Path, linesCount));

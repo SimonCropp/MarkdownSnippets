@@ -151,7 +151,7 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
+                if (SnippetKey.ExtractTransform(line, out var key))
                 {
                     builder.Clear();
 

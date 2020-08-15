@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using MarkdownSnippets;
 
-static class SnippetKeyReader
+static class SnippetKey
 {
-    public static bool TryExtractKeyFromLine(Line line, [NotNullWhen(true)] out string? key)
+    public static bool ExtractTransform(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
         if (!IsSnippetLine(lineCurrent))

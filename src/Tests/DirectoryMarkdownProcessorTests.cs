@@ -31,6 +31,37 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteExists()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExists");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            mode:Mode.InPlaceOverwrite);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+    [Fact]
+    public Task InPlaceOverwriteNotExists()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteNotExists");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            readOnly: true,
+            mode:Mode.InPlaceOverwrite);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+    [Fact]
     public void ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");
@@ -220,9 +251,9 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    static Snippet SnippetBuild(string key)
+    static MarkdownSnippets.Snippet SnippetBuild(string key)
     {
-        return Snippet.Build(
+        return MarkdownSnippets.Snippet.Build(
             language: ".cs",
             startLine: 1,
             endLine: 2,

@@ -36,7 +36,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            mode:Mode.InPlaceOverwrite);
+            mode: Mode.InPlaceOverwrite);
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 
@@ -52,7 +52,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             readOnly: false,
-            mode:Mode.InPlaceOverwrite);
+            mode: Mode.InPlaceOverwrite);
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 
@@ -140,7 +140,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         processor.Run();
 
-        var result = Path.Combine(root,"one.md");
+        var result = Path.Combine(root, "one.md");
 
         return Verifier.Verify(File.ReadAllText(result));
     }
@@ -152,7 +152,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         processor.Run();
 
-        var result = Path.Combine(root,"one.md");
+        var result = Path.Combine(root, "one.md");
 
         return Verifier.Verify(File.ReadAllText(result));
     }
@@ -164,7 +164,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            documentExtensions:new List<string> {"txt"} );
+            documentExtensions: new List<string> {"txt"});
         processor.AddSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")
@@ -250,9 +250,9 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    static MarkdownSnippets.Snippet SnippetBuild(string key)
+    static Snippet SnippetBuild(string key)
     {
-        return MarkdownSnippets.Snippet.Build(
+        return Snippet.Build(
             language: ".cs",
             startLine: 1,
             endLine: 2,

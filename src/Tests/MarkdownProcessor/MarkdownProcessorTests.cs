@@ -137,6 +137,60 @@ Text2
     }
 
     [Fact]
+    public Task Simple_Overwrite()
+    {
+        var availableSnippets = new List<Snippet>
+        {
+            SnippetBuild(
+                language: "cs",
+                key: "snippet1"
+            ),
+            SnippetBuild(
+                language: "cs",
+                key: "snippet2"
+            )
+        };
+        var content = @"
+<!-- snippet: snippet1 -->
+```cs
+BAD
+```
+<!-- endsnippet -->
+
+some text
+
+<!-- snippet: snippet2 -->
+```cs
+BAD
+```
+<!-- endsnippet -->
+
+some other text
+
+<!-- snippet: FileToUseAsSnippet.txt -->
+```txt
+BAD
+```
+<!-- endsnippet -->
+
+some other text
+
+<!-- snippet: /FileToUseAsSnippet.txt -->
+```txt
+BAD
+```
+<!-- endsnippet -->
+
+";
+        return SnippetVerifier.VerifySnippets(
+            content,
+            availableSnippets,
+            new List<string>
+            {
+                Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
+            });
+    }
+    [Fact]
     public Task Simple()
     {
         var availableSnippets = new List<Snippet>

@@ -160,7 +160,23 @@ namespace MarkdownSnippets
 
                 if (SnippetKey.ExtractStartCommentSnippet(line, out var key))
                 {
+                    builder.Clear();
+                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
+                    builder.TrimEnd();
+                    line.Current = builder.ToString();
+                    index++;
 
+                    while (true)
+                    {
+                        var lineCurrent = lines[index].Current;
+                        if (SnippetKey.IsEndCommentSnippetLine(lineCurrent))
+                        {
+                            lines.RemoveAt(index);
+                            break;
+                        }
+
+                        lines.RemoveAt(index);
+                    }
                 }
                 else if (SnippetKey.ExtractSnippet(line, out key))
                 {

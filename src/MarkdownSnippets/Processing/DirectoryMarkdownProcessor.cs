@@ -288,7 +288,7 @@ namespace MarkdownSnippets
         static (List<Line> lines, string newLine) ReadLines(string sourceFile)
         {
             using var reader = File.OpenText(sourceFile);
-            return LineReader.ReadAllLines(reader, sourceFile);
+            return Lines.ReadAllLines(reader, sourceFile);
         }
 
         static string GetTargetFile(string sourceFile, string rootDirectory)

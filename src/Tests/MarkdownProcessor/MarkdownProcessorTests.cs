@@ -8,6 +8,25 @@ using Xunit;
 [UsesVerify]
 public class MarkdownProcessorTests
 {
+    Task WithSingleInclude_Overwrite()
+    {
+        var content = @"
+before
+
+theValue1 <!-- singleLineInclude: theKey. path: /thePath -->
+
+after
+";
+        var lines = new List<string> {"theValue1"};
+        return SnippetVerifier.VerifySnippets(
+            content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
     [Fact]
     public Task WithSingleInclude()
     {

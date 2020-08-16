@@ -3,8 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-static class LineReader
+static class Lines
 {
+    public static void RemoveUntil(this List<Line> lines, int index, Func<string, bool> func)
+    {
+        while (true)
+        {
+            var lineCurrent = lines[index].Current;
+            var shouldExit = func(lineCurrent);
+            if (shouldExit)
+            {
+                lines.RemoveAt(index);
+                break;
+            }
+
+            lines.RemoveAt(index);
+        }
+    }
+
     public static (List<Line> lines, string newLine) ReadAllLines(TextReader textReader, string? path)
     {
         var lines = new List<Line>();

@@ -95,7 +95,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
-            var (lines, newLine) = LineReader.ReadAllLines(textReader, null);
+            var (lines, newLine) = Lines.ReadAllLines(textReader, null);
             writer.NewLine = newLine;
             var result = Apply(lines, newLine, file);
             foreach (var line in lines)
@@ -164,7 +164,7 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    EatWhile(lines, index, x => x.EndsWith("<!-- endToc -->"));
+                    lines.RemoveUntil(index, x => x.EndsWith("<!-- endToc -->"));
 
                     continue;
                 }
@@ -183,7 +183,7 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    EatWhile(lines, index, SnippetKey.IsEndCommentSnippetLine);
+                    lines.RemoveUntil(index, SnippetKey.IsEndCommentSnippetLine);
                 }
                 else if (SnippetKey.ExtractSnippet(line, out key))
                 {
@@ -209,19 +209,6 @@ namespace MarkdownSnippets
                 validationErrors: validationErrors);
         }
 
-        static void EatWhile(List<Line> lines, int index, Func<string, bool> func)
-        {
-            while (true)
-            {
-                var lineCurrent = lines[index].Current;
-                lines.RemoveAt(index);
-                var shouldExit = func(lineCurrent);
-                if (shouldExit)
-                {
-                    break;
-                }
-            }
-        }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {

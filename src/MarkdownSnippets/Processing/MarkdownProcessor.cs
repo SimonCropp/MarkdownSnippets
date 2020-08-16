@@ -215,7 +215,8 @@ namespace MarkdownSnippets
             {
                 var lineCurrent = lines[index].Current;
                 lines.RemoveAt(index);
-                if (func(lineCurrent))
+                var shouldExit = func(lineCurrent);
+                if (shouldExit)
                 {
                     break;
                 }

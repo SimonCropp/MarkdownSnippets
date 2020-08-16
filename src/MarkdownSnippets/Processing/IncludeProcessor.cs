@@ -43,14 +43,14 @@ class IncludeProcessor
             var (success, path) = Downloader.DownloadFile(includeKey).GetAwaiter().GetResult();
             if (success)
             {
-                include = Include.Build(includeKey, File.ReadAllLines(path), null);
+                include = Include.Build(includeKey, File.ReadAllLines(path!), null);
                 AddInclude(lines, line, usedIncludes, index, include);
                 return;
             }
         }
 
         missingIncludes.Add(new MissingInclude(includeKey, index + 1, line.Path));
-        line.Current = $"** Could not find include '{includeKey}.include.md' **";
+        line.Current = $"** Could not find include '{includeKey}' **";
     }
 
     void AddInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, Include include)
@@ -91,8 +91,6 @@ class IncludeProcessor
         for (var includeIndex = 1; includeIndex < linesCount - 1; includeIndex++)
         {
             var includeLine = include.Lines[includeIndex];
-
-            //todo: path of include
             lines.Insert(index + includeIndex, new Line(includeLine, include.Path, includeIndex));
         }
 

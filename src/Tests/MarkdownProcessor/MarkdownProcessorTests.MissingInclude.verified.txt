@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 before
 
-** Could not find include \'theKey.include.md\' **
+** Could not find include \'theKey\' **
 
 after
 '

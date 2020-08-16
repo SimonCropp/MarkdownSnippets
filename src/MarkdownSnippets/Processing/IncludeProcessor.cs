@@ -16,25 +16,25 @@ class IncludeProcessor
         this.includes = includes;
     }
 
-    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, List<MissingInclude> missingIncludes)
+    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
     {
         if (!line.Current.StartsWith("include: "))
         {
             return false;
         }
 
-        Inner(lines, line, usedIncludes, index, missingIncludes);
+        Inner(lines, line, used, index, missing);
 
         return true;
     }
 
-    void Inner(List<Line> lines, Line line, List<Include> usedIncludes, int index, List<MissingInclude> missingIncludes)
+    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
     {
         var includeKey = line.Current.Substring(9);
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include != null)
         {
-            AddInclude(lines, line, usedIncludes, index, include);
+            AddInclude(lines, line, used, index, include);
             return;
         }
 
@@ -44,18 +44,18 @@ class IncludeProcessor
             if (success)
             {
                 include = Include.Build(includeKey, File.ReadAllLines(path!), null);
-                AddInclude(lines, line, usedIncludes, index, include);
+                AddInclude(lines, line, used, index, include);
                 return;
             }
         }
 
-        missingIncludes.Add(new MissingInclude(includeKey, index + 1, line.Path));
+        missing.Add(new MissingInclude(includeKey, index + 1, line.Path));
         line.Current = $@"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
     }
 
-    void AddInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, Include include)
+    void AddInclude(List<Line> lines, Line line, List<Include> used, int index, Include include)
     {
-        usedIncludes.Add(include);
+        used.Add(include);
         var linesToInject = BuildIncludes(line, include).ToList();
         var first = linesToInject.First();
         lines[index] = first;

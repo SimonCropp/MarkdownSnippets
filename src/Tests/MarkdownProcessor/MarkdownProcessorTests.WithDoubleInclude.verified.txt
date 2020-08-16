@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 before
 
 theValue1 <!-- include: theKey. path: /thePath -->
-theValue2 <!-- end include: theKey. path: /thePath -->
+theValue2 <!-- endInclude: theKey. path: /thePath -->
 
 after
 '

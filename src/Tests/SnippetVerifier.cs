@@ -24,7 +24,7 @@ static class SnippetVerifier
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
-            writeHeader: true,
+            writeHeader: false,
             validateContent: true,
             includes: includes,
             rootDirectory: "c:/root");

@@ -157,13 +157,14 @@ namespace MarkdownSnippets
                     tocLine = line;
                     continue;
                 }
+
                 if (line.Current == "<!-- toc -->")
                 {
                     tocLine = line;
 
                     index++;
 
-                    EatWhile(lines, index, x=>x.EndsWith("<!-- endToc -->"));
+                    EatWhile(lines, index, x => x.EndsWith("<!-- endToc -->"));
 
                     continue;
                 }

@@ -226,7 +226,7 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
     * [Header](/docs/header.md)
   * Writing Documentation
     * [Indentation](/docs/indentation.md)
-    * [Table of contents](/docs/toc.md) <!-- endInclude: doc-index. path: /docs/mdsource/doc-index.include.md -->
+    * [Table of contents](/docs/toc.md) <!-- endInclude -->
 
 
 ## Security contact information

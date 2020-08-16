@@ -117,11 +117,11 @@ class IncludeProcessor
         if (SnippetKey.IsSnippetLine(last))
         {
             yield return new Line(last, path, count);
-            yield return new Line($@"<!-- endInclude: {key}. path: {path} -->", path, count);
+            yield return new Line($@"<!-- endInclude -->", path, count);
         }
         else
         {
-            yield return new Line($@"{last} <!-- endInclude: {key}. path: {path} -->", path, count);
+            yield return new Line($@"{last} <!-- endInclude -->", path, count);
         }
     }
 
@@ -138,7 +138,7 @@ class IncludeProcessor
         {
             yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);
-            yield return new Line($@"<!-- endInclude: {key}. path: {path} -->", path, 1);
+            yield return new Line($@"<!-- endInclude -->", path, 1);
         }
         else
         {

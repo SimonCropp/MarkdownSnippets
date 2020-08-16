@@ -18,7 +18,7 @@ some text
 Snippet
 ```
 <!-- endSnippet -->
-<!-- endInclude: theKey. path: thePath -->
+<!-- endInclude -->
 
 some other text
 '

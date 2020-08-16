@@ -3,7 +3,7 @@
 before
 
 theValue1 <!-- include: theKey. path: /thePath -->
-theValue2 <!-- endInclude: theKey. path: /thePath -->
+theValue2 <!-- endInclude -->
 
 after
 '

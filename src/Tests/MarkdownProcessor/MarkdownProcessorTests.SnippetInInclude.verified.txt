@@ -25,7 +25,7 @@ some text
 Snippet
 ```
 <!-- endsnippet -->
-<!-- end include -->
+<!-- end include: theKey. path: thePath -->
 
 some other text
 '

@@ -144,7 +144,7 @@ Text2
 # Title
 
 <!-- toc -->
-Bad<!-- endtoc -->
+Bad<!-- endToc -->
 
 ## Heading 1
 
@@ -177,7 +177,7 @@ Text2
 ```cs
 BAD
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some text
 
@@ -185,7 +185,7 @@ some text
 ```cs
 BAD
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some other text
 
@@ -193,7 +193,7 @@ some other text
 ```txt
 BAD
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some other text
 
@@ -201,7 +201,7 @@ some other text
 ```txt
 BAD
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 ";
         return SnippetVerifier.VerifySnippets(

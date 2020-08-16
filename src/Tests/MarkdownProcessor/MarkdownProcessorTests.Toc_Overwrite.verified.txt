@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Contents
 
   * [Heading 1](#heading-1)
-  * [Heading 2](#heading-2)<!-- endtoc -->
+  * [Heading 2](#heading-2)<!-- endToc -->
 
 ## Heading 1
 

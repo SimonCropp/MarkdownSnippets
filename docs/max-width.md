@@ -40,7 +40,7 @@ var processor = new DirectoryMarkdownProcessor(
 processor.Run();
 ```
 <sup><a href='/src/Tests/Snippets/Usage.cs#L30-L37' title='File snippet `directorymarkdownprocessorrunmaxwidth` was extracted from'>snippet source</a> | <a href='#snippet-directorymarkdownprocessorrunmaxwidth' title='Navigate to start of snippet `directorymarkdownprocessorrunmaxwidth`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## References

@@ -27,7 +27,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Defining Snippets](#defining-snippets)
   * [Using Snippets](#using-snippets)
   * [More Documentation](#more-documentation)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## Value Proposition
@@ -149,7 +149,7 @@ The resulting markdown will be:
     My Snippet Code
     ```
     <sup><a href='/relativeUrlToFile#L1-L11' title='File snippet `MySnippetName` was extracted from'>snippet source</a> | <a href='#snippet-MySnippetName' title='Navigate to start of snippet `MySnippetName`'>anchor</a></sup>
-    <!-- endsnippet -->
+    <!-- endSnippet -->
 
 Notes:
 
@@ -176,7 +176,7 @@ namespace MarkdownSnippets
 }
 ```
 <sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='File snippet `LinkFormat.cs` was extracted from'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Navigate to start of snippet `LinkFormat.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 <!-- snippet: BuildLink -->
 <a id='snippet-buildlink'></a>
@@ -202,7 +202,7 @@ if (linkFormat == LinkFormat.GitLab)
 }
 ```
 <sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L103-L123' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### UrlPrefix

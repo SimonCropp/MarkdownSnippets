@@ -27,7 +27,7 @@ Text1
 Text2
 ```
 <sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='File snippet `tocBefore.txt` was extracted from'>snippet source</a> | <a href='#snippet-tocBefore.txt' title='Navigate to start of snippet `tocBefore.txt`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 The result will be rendered:
 
@@ -41,7 +41,7 @@ The result will be rendered:
 
  * [Heading 1](#heading-1)
  * [Heading 2](#heading-2)
-<!-- endtoc -->
+<!-- endToc -->
 
 ## Heading 1
 
@@ -52,7 +52,7 @@ Text1
 Text2
 ```
 <sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='File snippet `tocAfter.txt` was extracted from'>snippet source</a> | <a href='#snippet-tocAfter.txt' title='Navigate to start of snippet `tocAfter.txt`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Heading Level

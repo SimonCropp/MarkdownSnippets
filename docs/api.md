@@ -23,7 +23,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 var snippets = FileSnippetExtractor.Read(files);
 ```
 <sup><a href='/src/Tests/Snippets/Usage.cs#L9-L15' title='File snippet `readingfilessimple` was extracted from'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Navigate to start of snippet `readingfilessimple`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Reading snippets from a directory structure
@@ -39,7 +39,7 @@ var snippetExtractor = new DirectorySnippetExtractor(
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
 <sup><a href='/src/Tests/Snippets/Usage.cs#L42-L51' title='File snippet `readingdirectorysimple` was extracted from'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Navigate to start of snippet `readingdirectorysimple`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Full Usage
@@ -80,7 +80,7 @@ var missingSnippets = result.MissingSnippets;
 var usedSnippets = result.UsedSnippets;
 ```
 <sup><a href='/src/Tests/Snippets/Usage.cs#L56-L90' title='File snippet `markdownprocessingsimple` was extracted from'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Navigate to start of snippet `markdownprocessingsimple`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Ignored paths

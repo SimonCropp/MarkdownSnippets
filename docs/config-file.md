@@ -32,7 +32,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 }
 ```
 <sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L16' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## More Info

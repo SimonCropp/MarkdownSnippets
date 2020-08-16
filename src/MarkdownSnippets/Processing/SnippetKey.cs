@@ -47,6 +47,6 @@ static class SnippetKey
 
     public static bool IsEndCommentSnippetLine(string lineCurrent)
     {
-        return lineCurrent == "<!-- endsnippet -->";
+        return lineCurrent == "<!-- endSnippet -->";
     }
 }

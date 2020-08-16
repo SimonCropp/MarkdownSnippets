@@ -51,7 +51,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 ```cs
 Snippet
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some text
 
@@ -59,7 +59,7 @@ some text
 ```cs
 Snippet
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some other text
 
@@ -70,7 +70,7 @@ Content
 From
 File
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 some other text
 
@@ -81,7 +81,7 @@ Content
 From
 File
 ```
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 '
 }

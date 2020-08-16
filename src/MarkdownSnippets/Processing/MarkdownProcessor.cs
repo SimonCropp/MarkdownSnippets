@@ -163,7 +163,7 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    EatWhile(lines, index, x=>x.EndsWith("<!-- endtoc -->"));
+                    EatWhile(lines, index, x=>x.EndsWith("<!-- endToc -->"));
 
                     continue;
                 }
@@ -228,7 +228,7 @@ namespace MarkdownSnippets
             if (TryGetSnippets(key, out var snippetsForKey))
             {
                 appendSnippetGroup(key, snippetsForKey, appendLine);
-                appendLine("<!-- endsnippet -->");
+                appendLine("<!-- endSnippet -->");
                 used.AddRange(snippetsForKey);
                 return;
             }

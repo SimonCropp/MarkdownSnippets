@@ -5,7 +5,7 @@
 
  * [Heading 1](#heading-1)
  * [Heading 2](#heading-2)
-<!-- endtoc -->
+<!-- endToc -->
 
 ## Heading 1
 

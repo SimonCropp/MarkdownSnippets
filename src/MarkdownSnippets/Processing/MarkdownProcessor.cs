@@ -163,43 +163,30 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    while (true)
-                    {
-                        var lineCurrent = lines[index].Current;
-                        lines.RemoveAt(index);
-                        if (lineCurrent.EndsWith("<!-- endtoc -->"))
-                        {
-                            break;
-                        }
-                    }
+                    EatWhile(lines, index, x=>x.EndsWith("<!-- endtoc -->"));
 
                     continue;
                 }
 
-                if (SnippetKey.ExtractStartCommentSnippet(line, out var key))
+                void AppendSnippet(string key1)
                 {
                     builder.Clear();
-                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
+                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, line);
                     builder.TrimEnd();
                     line.Current = builder.ToString();
+                }
+
+                if (SnippetKey.ExtractStartCommentSnippet(line, out var key))
+                {
+                    AppendSnippet(key);
+
                     index++;
 
-                    while (true)
-                    {
-                        var lineCurrent = lines[index].Current;
-                        lines.RemoveAt(index);
-                        if (SnippetKey.IsEndCommentSnippetLine(lineCurrent))
-                        {
-                            break;
-                        }
-                    }
+                    EatWhile(lines, index, SnippetKey.IsEndCommentSnippetLine);
                 }
                 else if (SnippetKey.ExtractSnippet(line, out key))
                 {
-                    builder.Clear();
-                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
-                    builder.TrimEnd();
-                    line.Current = builder.ToString();
+                    AppendSnippet(key);
                 }
             }
 
@@ -219,6 +206,19 @@ namespace MarkdownSnippets
                 usedIncludes: usedIncludes.Distinct().ToList(),
                 missingIncludes: missingIncludes,
                 validationErrors: validationErrors);
+        }
+
+        static void EatWhile(List<Line> lines, int index, Func<string, bool> func)
+        {
+            while (true)
+            {
+                var lineCurrent = lines[index].Current;
+                lines.RemoveAt(index);
+                if (func(lineCurrent))
+                {
+                    break;
+                }
+            }
         }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)

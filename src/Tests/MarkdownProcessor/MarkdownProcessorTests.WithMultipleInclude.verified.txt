@@ -11,7 +11,7 @@ before
 
 theValue1 <!-- include: theKey. path: /thePath -->
 theValue2
-theValue3 <!-- end include: theKey. path: /thePath -->
+theValue3 <!-- end include -->
 
 after
 '

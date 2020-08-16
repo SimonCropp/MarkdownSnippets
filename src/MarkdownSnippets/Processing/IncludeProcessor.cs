@@ -70,7 +70,7 @@ class IncludeProcessor
         {
             line.Current = $@"<!-- include: {include.Key}. path: {path} -->";
             lines.Insert(index + 1, new Line(firstLine, include.Path, 1));
-            lines.Insert(index + 2, new Line($@"<!-- end include: {include.Key}. path: {path} -->", include.Path, 1));
+            lines.Insert(index + 2, new Line(@"<!-- end include -->", include.Path, 1));
 
             if (linesCount == 1)
             {
@@ -99,11 +99,11 @@ class IncludeProcessor
         if (SnippetKey.IsSnippetLine(lastLine))
         {
             lines.Insert(index + linesCount - 1, new Line(lastLine, include.Path, linesCount));
-            lines.Insert(index + linesCount, new Line($@"<!-- end include: {include.Key}. path: {path} -->", include.Path, linesCount));
+            lines.Insert(index + linesCount, new Line(@"<!-- end include -->", include.Path, linesCount));
         }
         else
         {
-            lines.Insert(index + linesCount - 1, new Line($@"{lastLine} <!-- end include: {include.Key}. path: {path} -->", include.Path, linesCount));
+            lines.Insert(index + linesCount - 1, new Line($@"{lastLine} <!-- end include -->", include.Path, linesCount));
         }
     }
 

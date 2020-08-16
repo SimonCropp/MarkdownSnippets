@@ -56,7 +56,6 @@ class IncludeProcessor
     void AddInclude(List<Line> lines, Line line, List<Include> usedIncludes, int index, Include include)
     {
         usedIncludes.Add(include);
-        var path = GetPath(include);
         var linesToInject = BuildIncludes(line, include).ToList();
         var first = linesToInject.First();
         lines[index] = first;

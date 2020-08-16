@@ -23,7 +23,10 @@ after
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -41,7 +44,10 @@ after
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -59,7 +65,10 @@ after
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -212,6 +221,7 @@ BAD
                 Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
             });
     }
+
     [Fact]
     public Task Simple()
     {
@@ -273,8 +283,12 @@ some other text
             content,
             availableSnippets,
             new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "thePath")
+            });
     }
+
     [Fact]
     public Task SnippetInIncludeLast()
     {
@@ -292,12 +306,15 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"line1","snippet: snippet1"};
+        var lines = new List<string> {"line1", "snippet: snippet1"};
         return SnippetVerifier.VerifySnippets(
             content,
             availableSnippets,
             new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "thePath")
+            });
     }
 
     static Snippet SnippetBuild(string language, string key)

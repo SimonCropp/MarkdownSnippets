@@ -57,7 +57,7 @@ class IncludeProcessor
     {
         usedIncludes.Add(include);
         var path = GetPath(include);
-        var linesToInject = AddInclude2(line, include,path).ToList();
+        var linesToInject = BuildIncludes(line, include).ToList();
         var first = linesToInject.First();
         lines[index] = first;
 
@@ -68,8 +68,9 @@ class IncludeProcessor
         }
     }
 
-    IEnumerable<Line> AddInclude2(Line line, Include include, string? path)
+    IEnumerable<Line> BuildIncludes(Line line, Include include)
     {
+        var path = GetPath(include);
         var key = include.Key;
         if (!include.Lines.Any())
         {

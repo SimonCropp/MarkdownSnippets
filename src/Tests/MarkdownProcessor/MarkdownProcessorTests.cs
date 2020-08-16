@@ -8,12 +8,13 @@ using Xunit;
 [UsesVerify]
 public class MarkdownProcessorTests
 {
-    Task WithSingleInclude_Overwrite()
+    [Fact]
+    public Task WithSingleInclude_Overwrite()
     {
         var content = @"
 before
 
-theValue1 <!-- singleLineInclude: theKey. path: /thePath -->
+theValue1 <!-- singleLineInclude: theKey path: /thePath -->
 
 after
 ";
@@ -27,6 +28,7 @@ after
                 Include.Build("theKey", lines, "c:/root/thePath")
             });
     }
+
     [Fact]
     public Task WithSingleInclude()
     {

@@ -18,19 +18,26 @@ class IncludeProcessor
 
     public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
     {
-        if (!line.Current.StartsWith("include: "))
+        var current = line.Current;
+        if (current.Contains("singleLineInclude: "))
         {
-            return false;
+            var includeKey = current.Split(new[] {"singleLineInclude: "}, StringSplitOptions.None)[1].Split(' ')[0];
+            Inner(lines, line, used, index, missing, includeKey);
+            return true;
         }
 
-        Inner(lines, line, used, index, missing);
+        if (current.StartsWith("include: "))
+        {
+            var includeKey = line.Current.Substring(9);
+            Inner(lines, line, used, index, missing, includeKey);
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
-    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
+    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey)
     {
-        var includeKey = line.Current.Substring(9);
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include != null)
         {
@@ -135,7 +142,7 @@ class IncludeProcessor
         }
         else
         {
-            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key}. path: {path} -->");
+            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key} path: {path} -->");
         }
     }
 

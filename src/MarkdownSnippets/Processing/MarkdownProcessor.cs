@@ -157,6 +157,24 @@ namespace MarkdownSnippets
                     tocLine = line;
                     continue;
                 }
+                if (line.Current == "<!-- toc -->")
+                {
+                    tocLine = line;
+
+                    index++;
+
+                    while (true)
+                    {
+                        var lineCurrent = lines[index].Current;
+                        lines.RemoveAt(index);
+                        if (lineCurrent.EndsWith("<!-- endtoc -->"))
+                        {
+                            break;
+                        }
+                    }
+
+                    continue;
+                }
 
                 if (SnippetKey.ExtractStartCommentSnippet(line, out var key))
                 {
@@ -169,13 +187,11 @@ namespace MarkdownSnippets
                     while (true)
                     {
                         var lineCurrent = lines[index].Current;
+                        lines.RemoveAt(index);
                         if (SnippetKey.IsEndCommentSnippetLine(lineCurrent))
                         {
-                            lines.RemoveAt(index);
                             break;
                         }
-
-                        lines.RemoveAt(index);
                     }
                 }
                 else if (SnippetKey.ExtractSnippet(line, out key))

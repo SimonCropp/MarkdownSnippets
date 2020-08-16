@@ -137,6 +137,28 @@ Text2
     }
 
     [Fact]
+    public Task Toc_Overwrite()
+    {
+        var content = @"
+
+# Title
+
+<!-- toc -->
+Bad<!-- endtoc -->
+
+## Heading 1
+
+Text1
+
+## Heading 2
+
+Text2
+
+";
+        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+    }
+
+    [Fact]
     public Task Simple_Overwrite()
     {
         var availableSnippets = new List<Snippet>

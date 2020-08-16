@@ -82,11 +82,12 @@ class IncludeProcessor
             return BuildSingle(line, path, include);
         }
 
-        return BuildMultiple(line, include, path, count);
+        return BuildMultiple(line, path, include);
     }
 
-    static IEnumerable<Line> BuildMultiple(Line line, Include include, string? path, int count)
+    static IEnumerable<Line> BuildMultiple(Line line, string? path, Include include)
     {
+        var count = include.Lines.Count;
         var first = include.Lines.First();
         var key = include.Key;
         if (SnippetKey.IsSnippetLine(first))
@@ -99,7 +100,7 @@ class IncludeProcessor
             yield return line.WithCurrent($@"{first} <!-- include: {key}. path: {path} -->");
         }
 
-        for (var index = 1; index < count - 1; index++)
+        for (var index = 1; index < include.Lines.Count - 1; index++)
         {
             var includeLine = include.Lines[index];
             yield return new Line(includeLine, path, index);

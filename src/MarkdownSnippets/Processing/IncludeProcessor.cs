@@ -147,11 +147,11 @@ class IncludeProcessor
         }
 
         var path = include.Path.Replace(@"\", "/");
-        if (path.StartsWith(rootDirectory))
+        if (!path.StartsWith(rootDirectory))
         {
-            path = path.Substring(rootDirectory.Length);
+            return path;
         }
 
-        return path;
+        return path.Substring(rootDirectory.Length);
     }
 }

@@ -76,28 +76,33 @@ class IncludeProcessor
             yield break;
         }
 
-        var firstLine = include.Lines.First();
 
         var linesCount = include.Lines.Count;
+        var firstLine = include.Lines.First();
+        if (linesCount == 1)
+        {
+            if (SnippetKey.IsSnippetLine(firstLine))
+            {
+                yield return line.WithCurrent($@"<!-- include: {include.Key}. path: {path} -->");
+                yield return new Line(firstLine, include.Path, 1);
+                yield return new Line($@"<!-- endInclude: {include.Key}. path: {path} -->", include.Path, 1);
+            }
+            else
+            {
+                yield return line.WithCurrent($@"{firstLine} <!-- singleLineInclude: {include.Key}. path: {path} -->");
+            }
+
+            yield break;
+        }
+
+
         if (SnippetKey.IsSnippetLine(firstLine))
         {
             yield return line.WithCurrent($@"<!-- include: {include.Key}. path: {path} -->");
             yield return new Line(firstLine, include.Path, 1);
-            yield return new Line($@"<!-- endInclude: {include.Key}. path: {path} -->", include.Path, 1);
-
-            if (linesCount == 1)
-            {
-                yield break;
-            }
         }
         else
         {
-            if (linesCount == 1)
-            {
-                yield return line.WithCurrent($@"{firstLine} <!-- singleLineInclude: {include.Key}. path: {path} -->");
-                yield break;
-            }
-
             yield return line.WithCurrent($@"{firstLine} <!-- include: {include.Key}. path: {path} -->");
         }
 

@@ -70,42 +70,33 @@ class IncludeProcessor
     IEnumerable<Line> BuildIncludes(Line line, Include include)
     {
         var path = GetPath(include);
-        var key = include.Key;
-        if (!include.Lines.Any())
-        {
-            yield return line.WithCurrent($@"<!-- emptyInclude: {key}. path: {path} -->");
-            yield break;
-        }
 
         var count = include.Lines.Count;
-        var first = include.Lines.First();
-        var end = $@"<!-- endInclude: {key}. path: {path} -->";
-        var start = $@"<!-- include: {key}. path: {path} -->";
-        if (count == 1)
+        if (count == 0)
         {
-            if (SnippetKey.IsSnippetLine(first))
-            {
-                yield return line.WithCurrent(start);
-                yield return new Line(first, path, 1);
-                yield return new Line(end, path, 1);
-            }
-            else
-            {
-                yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key}. path: {path} -->");
-            }
-
-            yield break;
+            return BuildEmpty(line, path, include);
         }
 
+        if (count == 1)
+        {
+            return BuildSingle(line, path, include);
+        }
 
+        return BuildMultiple(line, include, path, count);
+    }
+
+    static IEnumerable<Line> BuildMultiple(Line line, Include include, string? path, int count)
+    {
+        var first = include.Lines.First();
+        var key = include.Key;
         if (SnippetKey.IsSnippetLine(first))
         {
-            yield return line.WithCurrent(start);
+            yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);
         }
         else
         {
-            yield return line.WithCurrent($@"{first} {start}");
+            yield return line.WithCurrent($@"{first} <!-- include: {key}. path: {path} -->");
         }
 
         for (var index = 1; index < count - 1; index++)
@@ -118,11 +109,32 @@ class IncludeProcessor
         if (SnippetKey.IsSnippetLine(last))
         {
             yield return new Line(last, path, count);
-            yield return new Line(end, path, count);
+            yield return new Line($@"<!-- endInclude: {key}. path: {path} -->", path, count);
         }
         else
         {
-            yield return new Line($@"{last} {end}", path, count);
+            yield return new Line($@"{last} <!-- endInclude: {key}. path: {path} -->", path, count);
+        }
+    }
+
+    static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include)
+    {
+        yield return line.WithCurrent($@"<!-- emptyInclude: {include.Key}. path: {path} -->");
+    }
+
+    static IEnumerable<Line> BuildSingle(Line line, string? path, Include include)
+    {
+        var first = include.Lines.First();
+        var key = include.Key;
+        if (SnippetKey.IsSnippetLine(first))
+        {
+            yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
+            yield return new Line(first, path, 1);
+            yield return new Line($@"<!-- endInclude: {key}. path: {path} -->", path, 1);
+        }
+        else
+        {
+            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key}. path: {path} -->");
         }
     }
 

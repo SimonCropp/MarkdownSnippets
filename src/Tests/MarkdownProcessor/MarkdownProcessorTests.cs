@@ -241,13 +241,8 @@ Text2
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            ),
-            SnippetBuild(
-                language: "cs",
-                key: "snippet2"
+            SnippetBuild("cs", "snippet1"),
+            SnippetBuild("cs", "snippet2"
             )
         };
         var content = @"
@@ -296,14 +291,8 @@ BAD
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            ),
-            SnippetBuild(
-                language: "cs",
-                key: "snippet2"
-            )
+            SnippetBuild("cs", "snippet1"),
+            SnippetBuild("cs", "snippet2")
         };
         var content = @"
 snippet: snippet1
@@ -335,10 +324,7 @@ snippet: /FileToUseAsSnippet.txt
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            )
+            SnippetBuild("cs", "snippet1")
         };
         var content = @"
 some text
@@ -363,10 +349,7 @@ some other text
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            )
+            SnippetBuild("cs", "snippet1")
         };
         var content = @"
 some text

@@ -22,6 +22,7 @@ after
 ";
         var lines = new List<string> { "theValue1","theValue2" };
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.InPlaceOverwrite,
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -43,6 +44,7 @@ after
 ";
         var lines = new List<string> {"theValue1"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.InPlaceOverwrite,
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -64,6 +66,7 @@ after
 ";
         var lines = new List<string> {"theValue1"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -85,6 +88,7 @@ after
 ";
         var lines = new List<string> {"theValue1", "theValue2"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -106,6 +110,7 @@ after
 ";
         var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
@@ -125,7 +130,9 @@ include: theKey
 
 after
 ";
-        return SnippetVerifier.VerifySnippets(content,
+        return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
+            content,
             availableSnippets: new List<Snippet>(),
             snippetSourceFiles: new List<string>(),
             includes: new List<Include>());
@@ -146,7 +153,11 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
+            content,
+            new List<Snippet>(),
+            new List<string>());
     }
 
     [Fact]
@@ -166,7 +177,11 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
+            content,
+            new List<Snippet>(),
+            new List<string>());
     }
 
     [Fact]
@@ -186,7 +201,11 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
+            content,
+            new List<Snippet>(),
+            new List<string>());
     }
 
     [Fact]
@@ -208,7 +227,11 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.VerifySnippets(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            new List<Snippet>(),
+            new List<string>());
     }
 
     [Fact]
@@ -258,6 +281,7 @@ BAD
 
 ";
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.InPlaceOverwrite,
             content,
             availableSnippets,
             new List<string>
@@ -297,6 +321,7 @@ snippet: /FileToUseAsSnippet.txt
 
 ";
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
             new List<string>
@@ -324,6 +349,7 @@ some other text
 ";
         var lines = new List<string> {"snippet: snippet1"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
             new List<string>(),
@@ -352,6 +378,7 @@ some other text
 ";
         var lines = new List<string> {"line1", "snippet: snippet1"};
         return SnippetVerifier.VerifySnippets(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
             new List<string>(),

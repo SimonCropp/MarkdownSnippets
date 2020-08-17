@@ -6,13 +6,18 @@ using MarkdownSnippets;
 
 class IncludeProcessor
 {
+    DocumentConvention convention;
     IReadOnlyList<Include> includes;
     string rootDirectory;
 
-    public IncludeProcessor(IReadOnlyList<Include> includes, string rootDirectory)
+    public IncludeProcessor(
+        DocumentConvention convention,
+        IReadOnlyList<Include> includes,
+        string rootDirectory)
     {
         rootDirectory = Path.GetFullPath(rootDirectory);
         this.rootDirectory = rootDirectory.Replace(@"\", "/");
+        this.convention = convention;
         this.includes = includes;
     }
 
@@ -25,6 +30,11 @@ class IncludeProcessor
             var includeKey = line.Current.Substring(9);
             Inner(lines, line, used, index, missing, includeKey);
             return true;
+        }
+
+        if (convention == DocumentConvention.SourceTransform)
+        {
+            return false;
         }
 
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);

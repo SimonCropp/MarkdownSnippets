@@ -10,6 +10,7 @@ using VerifyXunit;
 static class SnippetVerifier
 {
     public static Task VerifySnippets(
+        DocumentConvention convention,
         string markdownContent,
         List<Snippet> availableSnippets,
         List<string> snippetSourceFiles,
@@ -19,7 +20,7 @@ static class SnippetVerifier
         includes ??= Array.Empty<Include>();
 
         var markdownProcessor = new MarkdownProcessor(
-            convention: DocumentConvention.SourceTransform,
+            convention: convention,
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,

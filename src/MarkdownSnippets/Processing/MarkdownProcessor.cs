@@ -11,6 +11,7 @@ namespace MarkdownSnippets
     /// </summary>
     public class MarkdownProcessor
     {
+        DocumentConvention convention;
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
@@ -42,6 +43,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
             rootDirectory = Path.GetFullPath(rootDirectory);
+            this.convention = convention;
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
@@ -60,7 +62,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new IncludeProcessor(includes, rootDirectory);
+            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory);
         }
 
         public string Apply(string input, string? file = null)
@@ -158,16 +160,6 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (line.Current == "<!-- toc -->")
-                {
-                    tocLine = line;
-
-                    index++;
-
-                    lines.RemoveUntil(index, x => x.EndsWith("<!-- endToc -->"));
-
-                    continue;
-                }
 
                 void AppendSnippet(string key1)
                 {
@@ -177,17 +169,36 @@ namespace MarkdownSnippets
                     line.Current = builder.ToString();
                 }
 
-                if (SnippetKey.ExtractStartCommentSnippet(line, out var key))
+                if (SnippetKey.ExtractSnippet(line, out var key))
+                {
+                    AppendSnippet(key);
+                    continue;
+                }
+
+                if (convention == DocumentConvention.SourceTransform)
+                {
+                    continue;
+                }
+
+                if (SnippetKey.ExtractStartCommentSnippet(line, out key))
                 {
                     AppendSnippet(key);
 
                     index++;
 
                     lines.RemoveUntil(index, SnippetKey.IsEndCommentSnippetLine);
+                    continue;
                 }
-                else if (SnippetKey.ExtractSnippet(line, out key))
+
+                if (line.Current == "<!-- toc -->")
                 {
-                    AppendSnippet(key);
+                    tocLine = line;
+
+                    index++;
+
+                    lines.RemoveUntil(index, x => x.EndsWith("<!-- endToc -->"));
+
+                    continue;
                 }
             }
 

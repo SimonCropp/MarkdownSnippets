@@ -227,7 +227,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            treatMissingIncludeAsWarning: true);
+            treatMissingAsWarning: true);
         processor.Run();
     }
 
@@ -246,7 +246,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            treatMissingSnippetAsWarning: true);
+            treatMissingAsWarning: true);
         processor.Run();
     }
 

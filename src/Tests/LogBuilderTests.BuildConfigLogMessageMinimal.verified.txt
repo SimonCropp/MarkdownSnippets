@@ -1,6 +1,6 @@
 Config:
     RootDir: theRoot
-    ReadOnly: False
+    ReadOnly: 
     WriteHeader: 
     Header: 
     UrlPrefix: 

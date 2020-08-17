@@ -35,7 +35,7 @@ namespace MarkdownSnippets
             bool scanForSnippets = true,
             bool scanForIncludes = true,
             Action<string>? log = null,
-            bool writeHeader = true,
+            bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
             bool readOnly = false,
@@ -76,7 +76,7 @@ namespace MarkdownSnippets
             bool scanForSnippets = true,
             bool scanForIncludes = true,
             Action<string>? log = null,
-            bool writeHeader = true,
+            bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
             bool readOnly = false,
@@ -89,7 +89,7 @@ namespace MarkdownSnippets
         {
             this.appendSnippetGroup = appendSnippetGroup;
             this.convention = convention;
-            this.writeHeader = writeHeader;
+            this.writeHeader = writeHeader.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
             this.validateContent = validateContent;
             this.header = header;
             this.directoryFilter = directoryFilter;

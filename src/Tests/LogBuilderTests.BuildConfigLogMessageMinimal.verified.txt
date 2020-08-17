@@ -1,7 +1,7 @@
 Config:
     RootDir: theRoot
     ReadOnly: False
-    WriteHeader: False
+    WriteHeader: 
     Header: 
     UrlPrefix: 
     LinkFormat: GitHub

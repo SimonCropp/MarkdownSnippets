@@ -11,7 +11,7 @@ public class ConfigResult
     public int MaxWidth;
     public List<string> UrlsAsSnippets = new List<string>();
     public List<string> Exclude = new List<string>();
-    public bool WriteHeader;
+    public bool? WriteHeader;
     public string? Header;
     public string? UrlPrefix;
     public List<string> TocExcludes = new List<string>();

@@ -12,7 +12,7 @@ public static class ConfigDefaults
             {
                 ValidateContent = otherConfig.ValidateContent.GetValueOrDefault(),
                 ReadOnly = otherConfig.ReadOnly.GetValueOrDefault(),
-                WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
+                WriteHeader = otherConfig.WriteHeader,
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
                 Convention = otherConfig.Convention.GetValueOrDefault(DocumentConvention.SourceTransform),
                 Exclude = otherConfig.Exclude,
@@ -31,7 +31,7 @@ public static class ConfigDefaults
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
             ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
-            WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
+            WriteHeader = GetValueOrNull("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
             Convention = GetValueOrDefault("Mode", otherConfig.Convention, fileConfig.Convention, DocumentConvention.SourceTransform),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),

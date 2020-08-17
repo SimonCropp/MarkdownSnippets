@@ -19,12 +19,6 @@ class IncludeProcessor
     public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
     {
         var current = line.Current;
-        if (current.Contains("singleLineInclude: "))
-        {
-            var includeKey = current.Split(new[] {"singleLineInclude: "}, StringSplitOptions.None)[1].Split(' ')[0];
-            Inner(lines, line, used, index, missing, includeKey);
-            return true;
-        }
 
         if (current.StartsWith("include: "))
         {
@@ -33,9 +27,19 @@ class IncludeProcessor
             return true;
         }
 
-        if (current.Contains("<!-- include: "))
+        var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);
+        if (indexSingleLineInclude > 0)
         {
-            var includeKey = current.Split(new[] {"<!-- include: "}, StringSplitOptions.None)[1]
+            var includeKey = current.Substring(indexSingleLineInclude + 24)
+                .SplitBySpace()[0];
+            Inner(lines, line, used, index, missing, includeKey);
+            return true;
+        }
+
+        var indexOfInclude = current.IndexOf("<!-- include: ", StringComparison.Ordinal);
+        if (indexOfInclude > 0)
+        {
+            var includeKey = current.Substring(indexOfInclude + 14)
                 .SplitBySpace()[0];
             lines.RemoveUntil(index+1, x => x.EndsWith("<!-- endInclude -->"));
             Inner(lines, line, used, index, missing, includeKey);

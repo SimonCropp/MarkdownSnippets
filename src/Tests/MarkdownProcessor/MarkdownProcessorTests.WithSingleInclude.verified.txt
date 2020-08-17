@@ -2,7 +2,7 @@
   content: '
 before
 
-theValue1 <!-- singleLineInclude: theKey path: /thePath -->
+theValue1 <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
 '

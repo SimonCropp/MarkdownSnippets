@@ -155,7 +155,7 @@ class IncludeProcessor
         }
         else
         {
-            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key} path: {path} -->");
+            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key}. path: {path} -->");
         }
     }
 

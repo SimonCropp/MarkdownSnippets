@@ -10,7 +10,7 @@ namespace MarkdownSnippets
     {
         DocumentConvention convention;
         bool writeHeader;
-        private bool validateContent;
+        bool validateContent;
         string? header;
         DirectoryFilter? directoryFilter;
         bool readOnly;
@@ -38,7 +38,7 @@ namespace MarkdownSnippets
             bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
-            bool readOnly = false,
+            bool? readOnly = null,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
@@ -79,7 +79,7 @@ namespace MarkdownSnippets
             bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
-            bool readOnly = false,
+            bool? readOnly = null,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             IEnumerable<string>? documentExtensions = null,
@@ -90,10 +90,10 @@ namespace MarkdownSnippets
             this.appendSnippetGroup = appendSnippetGroup;
             this.convention = convention;
             this.writeHeader = writeHeader.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
+            this.readOnly = readOnly.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
             this.validateContent = validateContent;
             this.header = header;
             this.directoryFilter = directoryFilter;
-            this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);

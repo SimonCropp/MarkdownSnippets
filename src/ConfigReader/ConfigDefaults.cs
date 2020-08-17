@@ -22,8 +22,7 @@ public static class ConfigDefaults
                 DocumentExtensions = otherConfig.DocumentExtensions,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
-                TreatMissingSnippetAsWarning = otherConfig.TreatMissingSnippetAsWarning.GetValueOrDefault(),
-                TreatMissingIncludeAsWarning = otherConfig.TreatMissingIncludeAsWarning.GetValueOrDefault()
+                TreatMissingAsWarning = otherConfig.TreatMissingAsWarning.GetValueOrDefault()
             };
         }
 
@@ -40,15 +39,10 @@ public static class ConfigDefaults
             Exclude = JoinLists(fileConfig.Exclude, otherConfig.Exclude),
             TocExcludes = JoinLists(fileConfig.TocExcludes, otherConfig.TocExcludes),
             UrlsAsSnippets = JoinLists(fileConfig.UrlsAsSnippets, otherConfig.UrlsAsSnippets),
-            TreatMissingSnippetAsWarning = GetValueOrDefault(
-                "TreatMissingSnippetAsWarning",
-                otherConfig.TreatMissingSnippetAsWarning,
-                fileConfig.TreatMissingSnippetAsWarning,
-                false),
-            TreatMissingIncludeAsWarning = GetValueOrDefault(
-                "TreatMissingIncludeAsWarning",
-                otherConfig.TreatMissingIncludeAsWarning,
-                fileConfig.TreatMissingIncludeAsWarning,
+            TreatMissingAsWarning = GetValueOrDefault(
+                "TreatMissingAsWarning",
+                otherConfig.TreatMissingAsWarning,
+                fileConfig.TreatMissingAsWarning,
                 false),
             DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions)
         };

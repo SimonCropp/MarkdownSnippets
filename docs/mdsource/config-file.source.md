@@ -18,5 +18,4 @@ snippet: sampleConfig.json
  * [UrlPrefix](/readme.md#urlprefix).
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).
  * [DocumentExtensions: Documents extensions to process. Defaults to `md`](/readme.md#documentextensions).
- * TreatMissingSnippetAsWarning: The default behavior for a missing snippet is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingSnippetAsWarning to true.
- * TreatMissingIncludeAsWarning: The default behavior for a missing Include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingIncludeAsWarning to true.
+ * TreatMissingAsWarning: The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true.

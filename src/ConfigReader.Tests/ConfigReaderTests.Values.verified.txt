@@ -23,6 +23,5 @@
     'md',
     'html'
   ],
-  TreatMissingSnippetAsWarning: true,
-  TreatMissingIncludeAsWarning: true
+  TreatMissingAsWarning: true
 }

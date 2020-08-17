@@ -26,12 +26,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
-  "TreatMissingSnippetAsWarning": true,
-  "TreatMissingIncludeAsWarning": true,
+  "TreatMissingAsWarning": true,
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L16' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L15' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -46,5 +45,4 @@ Add a file named `mdsnippets.json` at the target directory with the following co
  * [UrlPrefix](/readme.md#urlprefix).
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).
  * [DocumentExtensions: Documents extensions to process. Defaults to `md`](/readme.md#documentextensions).
- * TreatMissingSnippetAsWarning: The default behavior for a missing snippet is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingSnippetAsWarning to true.
- * TreatMissingIncludeAsWarning: The default behavior for a missing Include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingIncludeAsWarning to true.
+ * TreatMissingAsWarning: The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true.

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -197,7 +196,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            treatMissingIncludeAsWarning: true);
+            treatMissingAsWarning: true);
         processor.Run();
     }
 
@@ -216,7 +215,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            treatMissingSnippetAsWarning: true);
+            treatMissingAsWarning: true);
         processor.Run();
     }
 

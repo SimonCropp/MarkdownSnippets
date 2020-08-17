@@ -14,6 +14,5 @@ public class ConfigSerialization
     public List<string> Exclude { get; set; } = new List<string>();
     public List<string> TocExcludes { get; set; } = new List<string>();
     public List<string> DocumentExtensions { get; set; } = new List<string>();
-    public bool? TreatMissingSnippetAsWarning { get; set; }
-    public bool? TreatMissingIncludeAsWarning { get; set; }
+    public bool? TreatMissingAsWarning { get; set; }
 }

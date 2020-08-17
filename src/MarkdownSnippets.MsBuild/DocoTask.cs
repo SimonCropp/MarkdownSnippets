@@ -23,8 +23,7 @@ namespace MarkdownSnippets
         public List<string> TocExcludes { get; set; } = new List<string>();
         public List<string> UrlsAsSnippets { get; set; } = new List<string>();
         public List<string> DocumentExtensions { get; set; } = new List<string>();
-        public bool? TreatMissingSnippetAsWarning { get; set; }
-        public bool? TreatMissingIncludeAsWarning { get; set; }
+        public bool? TreatMissingAsWarning { get; set; }
 
         public override bool Execute()
         {
@@ -48,8 +47,7 @@ namespace MarkdownSnippets
                     MaxWidth = MaxWidth,
                     UrlsAsSnippets = UrlsAsSnippets,
                     DocumentExtensions = DocumentExtensions,
-                    TreatMissingSnippetAsWarning = TreatMissingSnippetAsWarning,
-                    TreatMissingIncludeAsWarning = TreatMissingIncludeAsWarning
+                    TreatMissingAsWarning = TreatMissingAsWarning
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
@@ -67,8 +65,7 @@ namespace MarkdownSnippets
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
                 documentExtensions: configResult.DocumentExtensions,
-                treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
-                treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
+                treatMissingAsWarning: configResult.TreatMissingAsWarning,
                 maxWidth: configResult.MaxWidth,
                 validateContent: configResult.ValidateContent);
 
@@ -96,7 +93,7 @@ namespace MarkdownSnippets
             {
                 foreach (var missing in exception.Missing)
                 {
-                    if (configResult.TreatMissingSnippetAsWarning)
+                    if (configResult.TreatMissingAsWarning)
                     {
                         Log.LogWarning($"MarkdownSnippets: Missing snippet: {missing.Key}", missing.File, missing.LineNumber, 0);
                     }
@@ -106,13 +103,13 @@ namespace MarkdownSnippets
                     }
                 }
 
-                return configResult.TreatMissingSnippetAsWarning;
+                return configResult.TreatMissingAsWarning;
             }
             catch (MissingIncludesException exception)
             {
                 foreach (var missing in exception.Missing)
                 {
-                    if (configResult.TreatMissingIncludeAsWarning)
+                    if (configResult.TreatMissingAsWarning)
                     {
                         Log.LogWarning($"MarkdownSnippets: Missing include: {missing.Key}", missing.File, missing.LineNumber);
                     }
@@ -122,7 +119,7 @@ namespace MarkdownSnippets
                     }
                 }
 
-                return configResult.TreatMissingIncludeAsWarning;
+                return configResult.TreatMissingAsWarning;
             }
             catch (ContentValidationException exception)
             {
@@ -132,7 +129,7 @@ namespace MarkdownSnippets
                     Log.LogFileError($"MarkdownSnippets: Content validation: {error.Error}", error.File, error.Line, error.Column);
                 }
 
-                return configResult.TreatMissingIncludeAsWarning;
+                return configResult.TreatMissingAsWarning;
             }
             catch (MarkdownProcessingException exception)
             {

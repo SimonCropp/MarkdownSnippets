@@ -25,8 +25,7 @@ namespace MarkdownSnippets
         public IReadOnlyList<Snippet> Snippets => snippets;
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetGroupToMarkdown appendSnippetGroup;
-        bool treatMissingSnippetAsWarning;
-        bool treatMissingIncludeAsWarning;
+        bool treatMissingAsWarning;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -42,8 +41,7 @@ namespace MarkdownSnippets
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             IEnumerable<string>? documentExtensions = null,
-            bool treatMissingSnippetAsWarning = false,
-            bool treatMissingIncludeAsWarning = false,
+            bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
             bool validateContent = false) :
@@ -61,8 +59,7 @@ namespace MarkdownSnippets
                 tocLevel,
                 tocExcludes,
                 documentExtensions,
-                treatMissingSnippetAsWarning,
-                treatMissingIncludeAsWarning,
+                treatMissingAsWarning,
                 maxWidth,
                 validateContent)
         {
@@ -82,8 +79,7 @@ namespace MarkdownSnippets
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             IEnumerable<string>? documentExtensions = null,
-            bool treatMissingSnippetAsWarning = false,
-            bool treatMissingIncludeAsWarning = false,
+            bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false)
         {
@@ -97,8 +93,7 @@ namespace MarkdownSnippets
             this.tocExcludes = tocExcludes;
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
             this.maxWidth = maxWidth;
-            this.treatMissingSnippetAsWarning = treatMissingSnippetAsWarning;
-            this.treatMissingIncludeAsWarning = treatMissingIncludeAsWarning;
+            this.treatMissingAsWarning = treatMissingAsWarning;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
 
@@ -226,7 +221,7 @@ namespace MarkdownSnippets
             if (missingSnippets.Any())
             {
                 // If the config value is set to treat missing snippets as warnings, then don't throw
-                if (treatMissingSnippetAsWarning)
+                if (treatMissingAsWarning)
                 {
                     foreach (var missing in missingSnippets)
                     {
@@ -243,7 +238,7 @@ namespace MarkdownSnippets
             if (missingIncludes.Any())
             {
                 // If the config value is set to treat missing include as warnings, then don't throw
-                if (treatMissingIncludeAsWarning)
+                if (treatMissingAsWarning)
                 {
                     foreach (var missing in missingIncludes)
                     {

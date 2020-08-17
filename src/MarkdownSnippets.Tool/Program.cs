@@ -38,8 +38,7 @@ static class Program
             tocExcludes: configResult.TocExcludes,
             documentExtensions: configResult.DocumentExtensions,
             tocLevel: configResult.TocLevel,
-            treatMissingSnippetAsWarning: configResult.TreatMissingSnippetAsWarning,
-            treatMissingIncludeAsWarning: configResult.TreatMissingIncludeAsWarning,
+            treatMissingAsWarning: configResult.TreatMissingAsWarning,
             maxWidth: configResult.MaxWidth,
             validateContent: configResult.ValidateContent);
 

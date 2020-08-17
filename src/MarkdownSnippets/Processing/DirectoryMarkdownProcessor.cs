@@ -213,10 +213,19 @@ namespace MarkdownSnippets
         void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor)
         {
             log($"Processing {sourceFile}");
-            var target = GetTargetFile(sourceFile, targetDirectory);
-            FileEx.ClearReadOnly(target);
+            string targetFile;
+            if (convention == DocumentConvention.SourceTransform)
+            {
+                targetFile = TargetFileForSourceTransform(sourceFile, targetDirectory);
+            }
+            else
+            {
+                targetFile = sourceFile;
+            }
 
             var (lines, newLine) = ReadLines(sourceFile);
+
+            FileEx.ClearReadOnly(targetFile);
 
             var relativeSource = sourceFile
                 .Substring(targetDirectory.Length)
@@ -263,11 +272,11 @@ namespace MarkdownSnippets
                 throw new ContentValidationException(errors);
             }
 
-            WriteLines(target, lines);
+            WriteLines(targetFile, lines);
 
             if (readOnly)
             {
-                FileEx.MakeReadOnly(target);
+                FileEx.MakeReadOnly(targetFile);
             }
         }
 
@@ -286,7 +295,7 @@ namespace MarkdownSnippets
             return Lines.ReadAllLines(reader, sourceFile);
         }
 
-        static string GetTargetFile(string sourceFile, string rootDirectory)
+        static string TargetFileForSourceTransform(string sourceFile, string rootDirectory)
         {
             var relativePath = FileEx.GetRelativePath(sourceFile, rootDirectory);
 

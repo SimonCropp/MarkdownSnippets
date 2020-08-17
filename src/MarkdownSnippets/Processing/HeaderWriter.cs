@@ -1,4 +1,5 @@
 ﻿using System;
+using MarkdownSnippets;
 
 static class HeaderWriter
 {
@@ -24,11 +25,18 @@ To change this file edit the source file and then run MarkdownSnippets.";
     }
 
     static string[] separator = {"\r\n", "\r", "\n", @"\n"};
+
     static string[] Header(string? header)
     {
         if (header == null)
         {
             return defaultHeaderLines;
+        }
+
+        if (header.Contains("<!--") ||
+            header.Contains("-->"))
+        {
+            throw new SnippetException("Header cannot contain `<!--` or `-->`.");
         }
 
         return header.Split(separator, StringSplitOptions.None);

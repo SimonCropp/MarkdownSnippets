@@ -90,7 +90,7 @@ namespace MarkdownSnippets
             this.appendSnippetGroup = appendSnippetGroup;
             this.convention = convention;
             this.writeHeader = writeHeader.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
-            this.readOnly = readOnly.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
+            this.readOnly = readOnly.GetValueOrDefault(false);
             this.validateContent = validateContent;
             this.header = header;
             this.directoryFilter = directoryFilter;

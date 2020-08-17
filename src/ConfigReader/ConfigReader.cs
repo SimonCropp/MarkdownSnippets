@@ -75,12 +75,12 @@ public static class ConfigReader
             return null;
         }
 
-        if (!Enum.TryParse<DocumentConvention>(value, out var convention))
+        if (Enum.TryParse<DocumentConvention>(value, out var convention))
         {
-            throw new ConfigurationException($"Failed to parse DocumentConvention: {convention}");
+            return convention;
         }
 
-        return convention;
+        throw new ConfigurationException($"Failed to parse DocumentConvention: {convention}");
     }
 
     static LinkFormat? GetLinkFormat(string? value)

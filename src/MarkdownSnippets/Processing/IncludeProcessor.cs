@@ -30,9 +30,18 @@ class IncludeProcessor
         {
             var includeKey = line.Current.Substring(9);
             Inner(lines, line, used, index, missing, includeKey);
-
             return true;
         }
+
+        if (current.Contains("<!-- include: "))
+        {
+            var includeKey = current.Split(new[] {"<!-- include: "}, StringSplitOptions.None)[1]
+                .SplitBySpace()[0];
+            lines.RemoveUntil(index+1, x => x.EndsWith("<!-- endInclude -->"));
+            Inner(lines, line, used, index, missing, includeKey);
+            return true;
+        }
+
         return false;
     }
 

@@ -8,28 +8,28 @@ using Xunit;
 [UsesVerify]
 public class MarkdownProcessorTests
 {
-//    [Fact]
-//    public Task WithMultiLineInclude_Overwrite()
-//    {
-//        var content = @"
-//before
+    [Fact]
+    public Task WithMultiLineInclude_Overwrite()
+    {
+        var content = @"
+before
 
-//BAD <!-- include: theKey path: /thePath -->
-//BAD <!-- singleLineInclude: theKey path: /thePath -->
-//BAD <!-- singleLineInclude: theKey path: /thePath -->
+BAD <!-- include: theKey path: /thePath -->
+BAD
+BAD <!-- endInclude -->
 
-//after
-//";
-//        var lines = new List<string> {"theValue1"};
-//        return SnippetVerifier.VerifySnippets(
-//            content,
-//            availableSnippets: new List<Snippet>(),
-//            snippetSourceFiles: new List<string>(),
-//            includes: new[]
-//            {
-//                Include.Build("theKey", lines, "c:/root/thePath")
-//            });
-//    }
+after
+";
+        var lines = new List<string> { "theValue1","theValue2" };
+        return SnippetVerifier.VerifySnippets(
+            content,
+            availableSnippets: new List<Snippet>(),
+            snippetSourceFiles: new List<string>(),
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
 
     [Fact]
     public Task WithSingleInclude_Overwrite()

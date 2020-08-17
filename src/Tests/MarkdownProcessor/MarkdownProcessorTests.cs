@@ -154,7 +154,6 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,

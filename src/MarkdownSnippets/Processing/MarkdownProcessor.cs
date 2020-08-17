@@ -42,6 +42,11 @@ namespace MarkdownSnippets
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
+
+            if (convention == DocumentConvention.InPlaceOverwrite && writeHeader)
+            {
+                throw new SnippetException("WriteHeader is not allowed with InPlaceOverwrite convention.");
+            }
             rootDirectory = Path.GetFullPath(rootDirectory);
             this.convention = convention;
             this.snippets = snippets;

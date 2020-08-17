@@ -5,7 +5,7 @@ Config:
     Header: 
     UrlPrefix: 
     LinkFormat: GitHub
-    Mode: SourceTransform
+    Convention: SourceTransform
     TocLevel: 0
     MaxWidth: 0
     ValidateContent: False

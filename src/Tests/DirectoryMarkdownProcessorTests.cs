@@ -36,7 +36,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            mode: Mode.InPlaceOverwrite);
+            convention: DocumentConvention.InPlaceOverwrite);
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 
@@ -52,7 +52,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             readOnly: false,
-            mode: Mode.InPlaceOverwrite);
+            convention: DocumentConvention.InPlaceOverwrite);
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 

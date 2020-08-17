@@ -1,6 +1,6 @@
 namespace MarkdownSnippets
 {
-    public enum Mode
+    public enum DocumentConvention
     {
         SourceTransform,
         InPlaceOverwrite

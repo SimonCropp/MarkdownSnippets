@@ -6,7 +6,7 @@ namespace MarkdownSnippets
 {
     public class MdFileFinder
     {
-        private readonly Mode mode;
+        DocumentConvention convention;
         DirectoryFilter? directoryFilter;
         List<string> documentExtensions;
 
@@ -28,9 +28,9 @@ namespace MarkdownSnippets
             return defaultExtensions;
         }
 
-        public MdFileFinder(Mode mode, DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)
+        public MdFileFinder(DocumentConvention convention, DirectoryFilter? directoryFilter = null, IEnumerable<string>? documentExtensions = null)
         {
-            this.mode = mode;
+            this.convention = convention;
             this.directoryFilter = directoryFilter;
             this.documentExtensions = BuildDefaultExtensions(documentExtensions);
         }
@@ -74,9 +74,8 @@ namespace MarkdownSnippets
         {
             foreach (var extension in documentExtensions)
             {
-
                 IEnumerable<string> findFiles;
-                if (mode == Mode.SourceTransform)
+                if (convention == DocumentConvention.SourceTransform)
                 {
                     findFiles = FileEx.FindFiles(directoryPath, $"*.source.{extension}");
                 }

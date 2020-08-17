@@ -8,7 +8,7 @@ namespace MarkdownSnippets
 {
     public class DirectoryMarkdownProcessor
     {
-        Mode mode;
+        DocumentConvention convention;
         bool writeHeader;
         private bool validateContent;
         string? header;
@@ -31,7 +31,7 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
-            Mode mode = Mode.SourceTransform,
+            DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
             bool scanForIncludes = true,
@@ -52,7 +52,7 @@ namespace MarkdownSnippets
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup,
-                mode,
+                convention,
                 scanForMdFiles,
                 scanForSnippets,
                 scanForIncludes,
@@ -74,7 +74,7 @@ namespace MarkdownSnippets
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
-            Mode mode = Mode.SourceTransform,
+            DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
             bool scanForIncludes = true,
@@ -92,7 +92,7 @@ namespace MarkdownSnippets
             bool validateContent = false)
         {
             this.appendSnippetGroup = appendSnippetGroup;
-            this.mode = mode;
+            this.convention = convention;
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
             this.header = header;
@@ -169,7 +169,7 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            var finder = new MdFileFinder(mode, directoryFilter, documentExtensions);
+            var finder = new MdFileFinder(convention, directoryFilter, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
             log($"Added {files.Count} markdown files");
@@ -198,7 +198,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var processor = new MarkdownProcessor(
-                mode,
+                convention,
                 Snippets.ToDictionary(),
                 includes,
                 appendSnippetGroup,

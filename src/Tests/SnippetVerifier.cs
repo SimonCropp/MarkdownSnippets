@@ -19,7 +19,7 @@ static class SnippetVerifier
         includes ??= Array.Empty<Include>();
 
         var markdownProcessor = new MarkdownProcessor(
-            mode: Mode.SourceTransform,
+            convention: DocumentConvention.SourceTransform,
             snippets: availableSnippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,

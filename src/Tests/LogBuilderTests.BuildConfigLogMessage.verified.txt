@@ -7,7 +7,7 @@ Config:
         line2
     UrlPrefix: 
     LinkFormat: Tfs
-    Mode: SourceTransform
+    Convention: SourceTransform
     TocLevel: 5
     MaxWidth: 80
     ValidateContent: False

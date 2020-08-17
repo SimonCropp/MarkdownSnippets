@@ -62,25 +62,25 @@ public static class ConfigReader
             TocLevel = configSerialization.TocLevel,
             MaxWidth = configSerialization.MaxWidth,
             LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
-            Mode = GetMode(configSerialization.Mode),
+            Convention = GetConvention(configSerialization.Convention),
             TreatMissingSnippetAsWarning = configSerialization.TreatMissingSnippetAsWarning,
             TreatMissingIncludeAsWarning = configSerialization.TreatMissingIncludeAsWarning
         };
     }
 
-    static Mode? GetMode(string? value)
+    static DocumentConvention? GetConvention(string? value)
     {
         if (value == null)
         {
             return null;
         }
 
-        if (!Enum.TryParse<Mode>(value, out var mode))
+        if (!Enum.TryParse<DocumentConvention>(value, out var convention))
         {
-            throw new ConfigurationException("Failed to parse Mode:" + mode);
+            throw new ConfigurationException($"Failed to parse DocumentConvention: {convention}");
         }
 
-        return mode;
+        return convention;
     }
 
     static LinkFormat? GetLinkFormat(string? value)

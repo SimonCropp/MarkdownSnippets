@@ -15,7 +15,7 @@ static class LogBuilder
     Header: {header}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
-    Mode: {config.Mode}
+    Convention: {config.Convention}
     TocLevel: {config.TocLevel}
     MaxWidth: {config.MaxWidth}
     ValidateContent: {config.ValidateContent}

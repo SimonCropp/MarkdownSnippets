@@ -64,10 +64,10 @@ public class Options
         HelpText = "Controls the format of the link under each snippet. Optional. Supported values: GitHub, Tfs. Defaults to GitHub.")]
     public LinkFormat? LinkFormat { get; set; }
 
-    [Option('m', "mode",
+    [Option('c', "convention",
         Required = false,
-        HelpText = "Controls the target document mode. Optional. Supported values: SourceTransform, InPlaceOverwrite. Defaults to SourceTransform.")]
-    public Mode? Mode { get; set; }
+        HelpText = "Controls the target document convention. Optional. Supported values: SourceTransform, InPlaceOverwrite. Defaults to SourceTransform.")]
+    public DocumentConvention? Convention { get; set; }
 
     [Option("toc-level",
         Required = false,

@@ -6,7 +6,7 @@ public class ConfigInput
     public bool? ReadOnly { get; set; }
     public bool? ValidateContent { get; set; }
     public LinkFormat? LinkFormat { get; set; }
-    public Mode? Mode { get; set; }
+    public DocumentConvention? Convention { get; set; }
     public int? TocLevel { get; set; }
     public int? MaxWidth { get; set; }
     public List<string> UrlsAsSnippets { get; set; } = new List<string>();

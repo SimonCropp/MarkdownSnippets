@@ -6,22 +6,39 @@ using System.Text;
 using System.Threading.Tasks;
 using MarkdownSnippets;
 using VerifyXunit;
+using Xunit;
 
 static class SnippetVerifier
 {
-    public static Task VerifySnippets(
+    public static Task VerifyThrows<T>(
         DocumentConvention convention,
         string markdownContent,
-        List<Snippet> availableSnippets,
-        List<string> snippetSourceFiles,
+        IReadOnlyList<Snippet>? snippets = null,
+        IReadOnlyList<string>? snippetSourceFiles = null,
         IReadOnlyList<Include>? includes = null,
         [CallerFilePath] string sourceFile = "")
+    where T: Exception
+    {
+        var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
+        var stringBuilder = new StringBuilder();
+        using var reader = new StringReader(markdownContent);
+        using var writer = new StringWriter(stringBuilder);
+        var exception = Assert.Throws<T>(() => markdownProcessor.Apply(reader, writer, "sourceFile"));
+        return Verifier.Verify(exception, null, sourceFile);
+    }
+
+    static MarkdownProcessor BuildProcessor(
+        DocumentConvention convention,
+        IReadOnlyList<Snippet>? snippets,
+        IReadOnlyList<string>? snippetSourceFiles,
+        IReadOnlyList<Include>? includes)
     {
         includes ??= Array.Empty<Include>();
-
-        var markdownProcessor = new MarkdownProcessor(
+        snippets ??= Array.Empty<Snippet>();
+        snippetSourceFiles ??= Array.Empty<string>();
+        return new MarkdownProcessor(
             convention: convention,
-            snippets: availableSnippets.ToDictionary(),
+            snippets: snippets.ToDictionary(),
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
@@ -29,6 +46,18 @@ static class SnippetVerifier
             validateContent: true,
             includes: includes,
             rootDirectory: "c:/root");
+    }
+
+    public static Task Verify(
+        DocumentConvention convention,
+        string markdownContent,
+        List<Snippet>? snippets = null,
+        IReadOnlyList<string>? snippetSourceFiles = null,
+        IReadOnlyList<Include>? includes = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+
+        var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);

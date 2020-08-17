@@ -44,9 +44,4 @@ static class SnippetKey
     {
         return lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
     }
-
-    public static bool IsEndCommentSnippetLine(string lineCurrent)
-    {
-        return lineCurrent == "<!-- endSnippet -->";
-    }
 }

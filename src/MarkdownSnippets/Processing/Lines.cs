@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MarkdownSnippets;
 
 static class Lines
 {
-    public static void RemoveUntil(this List<Line> lines, int index, Func<string, bool> func)
+    public static void RemoveUntil(
+        this List<Line> lines,
+        int index,
+        string match,
+        string? path)
     {
         while (true)
         {
+            if (index == lines.Count)
+            {
+                throw new MarkdownProcessingException($"Expected to find `{match}`.", path, 1);
+            }
+
             var lineCurrent = lines[index].Current;
-            var shouldExit = func(lineCurrent);
+            var shouldExit = lineCurrent.Contains(match);
             if (shouldExit)
             {
                 lines.RemoveAt(index);

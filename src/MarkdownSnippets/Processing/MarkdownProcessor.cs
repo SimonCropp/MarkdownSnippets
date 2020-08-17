@@ -186,7 +186,10 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    lines.RemoveUntil(index, SnippetKey.IsEndCommentSnippetLine);
+                    lines.RemoveUntil(
+                        index,
+                        "<!-- endSnippet -->",
+                        relativePath);
                     continue;
                 }
 
@@ -196,7 +199,7 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    lines.RemoveUntil(index, x => x.EndsWith("<!-- endToc -->"));
+                    lines.RemoveUntil(index, "<!-- endToc -->", relativePath);
 
                     continue;
                 }

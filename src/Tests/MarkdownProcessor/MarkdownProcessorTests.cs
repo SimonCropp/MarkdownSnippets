@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using MarkdownSnippets;
@@ -8,6 +9,22 @@ using Xunit;
 [UsesVerify]
 public class MarkdownProcessorTests
 {
+    [Fact]
+    public Task Missing_endInclude()
+    {
+        var content = @"
+BAD <!-- include: theKey path: /thePath -->
+BAD
+";
+        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", Array.Empty<string>(), "c:/root/thePath")
+            });
+    }
+
     [Fact]
     public Task WithMultiLineInclude_Overwrite()
     {
@@ -20,12 +37,10 @@ BAD <!-- endInclude -->
 
 after
 ";
-        var lines = new List<string> { "theValue1","theValue2" };
-        return SnippetVerifier.VerifySnippets(
+        var lines = new List<string> {"theValue1", "theValue2"};
+        return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "c:/root/thePath")
@@ -43,11 +58,9 @@ BAD <!-- singleLineInclude: theKey path: /thePath -->
 after
 ";
         var lines = new List<string> {"theValue1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "c:/root/thePath")
@@ -65,11 +78,9 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "c:/root/thePath")
@@ -87,11 +98,9 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "c:/root/thePath")
@@ -109,11 +118,9 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "c:/root/thePath")
@@ -130,12 +137,9 @@ include: theKey
 
 after
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
-            content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
-            includes: new List<Include>());
+            content);
     }
 
     [Fact]
@@ -153,11 +157,9 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
-            content,
-            new List<Snippet>(),
-            new List<string>());
+            content);
     }
 
     [Fact]
@@ -177,11 +179,9 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
-            content,
-            new List<Snippet>(),
-            new List<string>());
+            content);
     }
 
     [Fact]
@@ -201,11 +201,9 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
-            content,
-            new List<Snippet>(),
-            new List<string>());
+            content);
     }
 
     [Fact]
@@ -227,11 +225,9 @@ Text1
 Text2
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
-            content,
-            new List<Snippet>(),
-            new List<string>());
+            content);
     }
 
     [Fact]
@@ -280,7 +276,7 @@ BAD
 <!-- endSnippet -->
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
             availableSnippets,
@@ -320,7 +316,7 @@ some other text
 snippet: /FileToUseAsSnippet.txt
 
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
@@ -348,11 +344,10 @@ include: theKey
 some other text
 ";
         var lines = new List<string> {"snippet: snippet1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "thePath")
@@ -377,11 +372,10 @@ include: theKey
 some other text
 ";
         var lines = new List<string> {"line1", "snippet: snippet1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            new List<string>(),
             includes: new[]
             {
                 Include.Build("theKey", lines, "thePath")

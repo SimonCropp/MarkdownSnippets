@@ -1,10 +1,11 @@
 Config:
     RootDir: theRoot
-    ReadOnly: False
-    WriteHeader: False
+    ReadOnly: 
+    WriteHeader: 
     Header: 
     UrlPrefix: 
     LinkFormat: GitHub
+    Convention: SourceTransform
     TocLevel: 0
     MaxWidth: 0
     ValidateContent: False

@@ -8,8 +8,9 @@ namespace MarkdownSnippets
 {
     public class DirectoryMarkdownProcessor
     {
+        DocumentConvention convention;
         bool writeHeader;
-        private bool validateContent;
+        bool validateContent;
         string? header;
         DirectoryFilter? directoryFilter;
         bool readOnly;
@@ -29,14 +30,15 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
+            DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
             bool scanForIncludes = true,
             Action<string>? log = null,
-            bool writeHeader = true,
+            bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
-            bool readOnly = false,
+            bool? readOnly = null,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
@@ -48,6 +50,7 @@ namespace MarkdownSnippets
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup,
+                convention,
                 scanForMdFiles,
                 scanForSnippets,
                 scanForIncludes,
@@ -68,14 +71,15 @@ namespace MarkdownSnippets
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
+            DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
             bool scanForIncludes = true,
             Action<string>? log = null,
-            bool writeHeader = true,
+            bool? writeHeader = null,
             string? header = null,
             DirectoryFilter? directoryFilter = null,
-            bool readOnly = false,
+            bool? readOnly = null,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
             IEnumerable<string>? documentExtensions = null,
@@ -84,11 +88,12 @@ namespace MarkdownSnippets
             bool validateContent = false)
         {
             this.appendSnippetGroup = appendSnippetGroup;
-            this.writeHeader = writeHeader;
+            this.convention = convention;
+            this.writeHeader = writeHeader.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
+            this.readOnly = readOnly.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
             this.validateContent = validateContent;
             this.header = header;
             this.directoryFilter = directoryFilter;
-            this.readOnly = readOnly;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
@@ -159,10 +164,10 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            var finder = new MdFileFinder(directoryFilter, documentExtensions);
+            var finder = new MdFileFinder(convention, directoryFilter, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
             sourceMdFiles.AddRange(files);
-            log($"Added {files.Count} .source files");
+            log($"Added {files.Count} markdown files");
         }
 
         public void AddIncludeFilesFrom(string directory)
@@ -188,6 +193,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             var processor = new MarkdownProcessor(
+                convention,
                 Snippets.ToDictionary(),
                 includes,
                 appendSnippetGroup,
@@ -277,7 +283,7 @@ namespace MarkdownSnippets
         static (List<Line> lines, string newLine) ReadLines(string sourceFile)
         {
             using var reader = File.OpenText(sourceFile);
-            return LineReader.ReadAllLines(reader, sourceFile);
+            return Lines.ReadAllLines(reader, sourceFile);
         }
 
         static string GetTargetFile(string sourceFile, string rootDirectory)

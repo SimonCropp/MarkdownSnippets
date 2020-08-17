@@ -39,7 +39,7 @@ run-git.cmd
 
 *.jtconfig
 NugetBuild
-*.received.txt
+*.received.*
 
 .vs/
 src/Tests/DirectoryMarkdownProcessor/Convention/one.md

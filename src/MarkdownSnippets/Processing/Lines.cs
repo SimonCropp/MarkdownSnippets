@@ -2,9 +2,35 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MarkdownSnippets;
 
-static class LineReader
+static class Lines
 {
+    public static void RemoveUntil(
+        this List<Line> lines,
+        int index,
+        string match,
+        string? path)
+    {
+        while (true)
+        {
+            if (index == lines.Count)
+            {
+                throw new MarkdownProcessingException($"Expected to find `{match}`.", path, 1);
+            }
+
+            var lineCurrent = lines[index].Current;
+            var shouldExit = lineCurrent.Contains(match);
+            if (shouldExit)
+            {
+                lines.RemoveAt(index);
+                break;
+            }
+
+            lines.RemoveAt(index);
+        }
+    }
+
     public static (List<Line> lines, string newLine) ReadAllLines(TextReader textReader, string? path)
     {
         var lines = new List<Line>();

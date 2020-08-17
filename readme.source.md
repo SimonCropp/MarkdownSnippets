@@ -131,7 +131,7 @@ The resulting markdown will be:
     My Snippet Code
     ```
     <sup><a href='/relativeUrlToFile#L1-L11' title='File snippet `MySnippetName` was extracted from'>snippet source</a> | <a href='#snippet-MySnippetName' title='Navigate to start of snippet `MySnippetName`'>anchor</a></sup>
-    <!-- endsnippet -->
+    <!-- endSnippet -->
 
 Notes:
 

@@ -46,4 +46,4 @@ Some code
 Some code
 ```
 <sup><a href='/src/Tests/SnippetFileFinder/VerifyLambdasAreCalled/subpath/code4.txt#L1-L3' title='File snippet `snippet1` was extracted from'>snippet source</a> | <a href='#snippet-snippet1-7' title='Navigate to start of snippet `snippet1`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

@@ -35,6 +35,7 @@ static class Program
             header: configResult.Header,
             urlPrefix: configResult.UrlPrefix,
             linkFormat: configResult.LinkFormat,
+            convention: configResult.Convention,
             tocExcludes: configResult.TocExcludes,
             documentExtensions: configResult.DocumentExtensions,
             tocLevel: configResult.TocLevel,

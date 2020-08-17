@@ -12,8 +12,9 @@ public static class ConfigDefaults
             {
                 ValidateContent = otherConfig.ValidateContent.GetValueOrDefault(),
                 ReadOnly = otherConfig.ReadOnly.GetValueOrDefault(),
-                WriteHeader = otherConfig.WriteHeader.GetValueOrDefault(true),
+                WriteHeader = otherConfig.WriteHeader,
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
+                Convention = otherConfig.Convention.GetValueOrDefault(DocumentConvention.SourceTransform),
                 Exclude = otherConfig.Exclude,
                 Header = otherConfig.Header,
                 UrlPrefix = otherConfig.UrlPrefix,
@@ -29,9 +30,10 @@ public static class ConfigDefaults
         return new ConfigResult
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
-            ReadOnly = GetValueOrDefault("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly, false),
-            WriteHeader = GetValueOrDefault("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader, true),
+            ReadOnly = GetValueOrNull("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly),
+            WriteHeader = GetValueOrNull("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
+            Convention = GetValueOrDefault("Mode", otherConfig.Convention, fileConfig.Convention, DocumentConvention.SourceTransform),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),
             MaxWidth = GetValueOrDefault("MaxWidth", otherConfig.MaxWidth, fileConfig.MaxWidth, int.MaxValue),
             Header = GetValueOrDefault("Header", otherConfig.Header, fileConfig.Header),

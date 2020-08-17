@@ -18,7 +18,7 @@ Source File: {relativePath}
 To change this file edit the source file and then run MarkdownSnippets.
 ```
 <sup><a href='/src/Tests/HeaderWriterTests.DefaultHeader.verified.txt#L1-L4' title='File snippet `HeaderWriterTests.DefaultHeader.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-HeaderWriterTests.DefaultHeader.verified.txt' title='Navigate to start of snippet `HeaderWriterTests.DefaultHeader.verified.txt`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Disable Header

@@ -38,7 +38,7 @@ jobs:
       shell: bash
 ```
 <sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='File snippet `on-push-do-docs.yml` was extracted from'>snippet source</a> | <a href='#snippet-on-push-do-docs.yml' title='Navigate to start of snippet `on-push-do-docs.yml`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 This action performs the following tasks:
 

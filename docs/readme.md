@@ -19,4 +19,4 @@ To change this file edit the source file and then run MarkdownSnippets.
     * [Header](/docs/header.md)
   * Writing Documentation
     * [Indentation](/docs/indentation.md)
-    * [Table of contents](/docs/toc.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+    * [Table of contents](/docs/toc.md) <!-- endInclude -->

@@ -57,7 +57,7 @@ static class TocBuilder
         }
 
         builder.TrimEnd();
-        builder.Append("<!-- endtoc -->");
+        builder.Append("<!-- endToc -->");
 
         return builder.ToString();
     }

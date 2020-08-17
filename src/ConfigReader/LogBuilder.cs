@@ -15,6 +15,7 @@ static class LogBuilder
     Header: {header}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
+    Convention: {config.Convention}
     TocLevel: {config.TocLevel}
     MaxWidth: {config.MaxWidth}
     ValidateContent: {config.ValidateContent}
@@ -26,6 +27,7 @@ static class LogBuilder
             builder.AppendLine($@"    Exclude:
         {string.Join("\r\n        ", config.Exclude)}");
         }
+
         if (config.TocExcludes.Any())
         {
             builder.AppendLine($@"    TocExcludes:

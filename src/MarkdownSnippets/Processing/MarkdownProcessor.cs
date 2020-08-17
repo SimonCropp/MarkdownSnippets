@@ -11,6 +11,7 @@ namespace MarkdownSnippets
     /// </summary>
     public class MarkdownProcessor
     {
+        DocumentConvention convention;
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
         AppendSnippetGroupToMarkdown appendSnippetGroup;
         bool writeHeader;
@@ -22,6 +23,7 @@ namespace MarkdownSnippets
         IncludeProcessor includeProcessor;
 
         public MarkdownProcessor(
+            DocumentConvention convention,
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             IReadOnlyList<Include> includes,
             AppendSnippetGroupToMarkdown appendSnippetGroup,
@@ -40,7 +42,13 @@ namespace MarkdownSnippets
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
+
+            if (convention == DocumentConvention.InPlaceOverwrite && writeHeader)
+            {
+                throw new SnippetException("WriteHeader is not allowed with InPlaceOverwrite convention.");
+            }
             rootDirectory = Path.GetFullPath(rootDirectory);
+            this.convention = convention;
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
             this.writeHeader = writeHeader;
@@ -59,7 +67,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new IncludeProcessor(includes, rootDirectory);
+            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory);
         }
 
         public string Apply(string input, string? file = null)
@@ -94,7 +102,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
-            var (lines, newLine) = LineReader.ReadAllLines(textReader, null);
+            var (lines, newLine) = Lines.ReadAllLines(textReader, null);
             writer.NewLine = newLine;
             var result = Apply(lines, newLine, file);
             foreach (var line in lines)
@@ -114,6 +122,13 @@ namespace MarkdownSnippets
             var usedIncludes = new List<Include>();
             var builder = new StringBuilder();
             Line? tocLine = null;
+
+            void AppendLine(string s)
+            {
+                builder.Append(s);
+                builder.Append(newLine);
+            }
+
             var headerLines = new List<Line>();
             for (var index = 0; index < lines.Count; index++)
             {
@@ -150,19 +165,48 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (SnippetKeyReader.TryExtractKeyFromLine(line, out var key))
+
+                void AppendSnippet(string key1)
                 {
                     builder.Clear();
-
-                    void AppendLine(string s)
-                    {
-                        builder.Append(s);
-                        builder.Append(newLine);
-                    }
-
-                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key, line);
+                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, line);
                     builder.TrimEnd();
                     line.Current = builder.ToString();
+                }
+
+                if (SnippetKey.ExtractSnippet(line, out var key))
+                {
+                    AppendSnippet(key);
+                    continue;
+                }
+
+                if (convention == DocumentConvention.SourceTransform)
+                {
+                    continue;
+                }
+
+                if (SnippetKey.ExtractStartCommentSnippet(line, out key))
+                {
+                    AppendSnippet(key);
+
+                    index++;
+
+                    lines.RemoveUntil(
+                        index,
+                        "<!-- endSnippet -->",
+                        relativePath);
+                    continue;
+                }
+
+                if (line.Current == "<!-- toc -->")
+                {
+                    tocLine = line;
+
+                    index++;
+
+                    lines.RemoveUntil(index, "<!-- endToc -->", relativePath);
+
+                    continue;
                 }
             }
 
@@ -184,6 +228,7 @@ namespace MarkdownSnippets
                 validationErrors: validationErrors);
         }
 
+
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {
             appendLine($"<!-- snippet: {key} -->");
@@ -191,7 +236,7 @@ namespace MarkdownSnippets
             if (TryGetSnippets(key, out var snippetsForKey))
             {
                 appendSnippetGroup(key, snippetsForKey, appendLine);
-                appendLine("<!-- endsnippet -->");
+                appendLine("<!-- endSnippet -->");
                 used.AddRange(snippetsForKey);
                 return;
             }

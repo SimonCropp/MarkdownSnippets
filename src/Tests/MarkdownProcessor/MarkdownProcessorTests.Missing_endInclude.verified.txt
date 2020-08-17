@@ -1,0 +1,6 @@
+{
+  LineNumber: 1,
+  Message: 'Expected to find `<!-- endInclude -->`.',
+  Data: {},
+  Source: 'MarkdownSnippets'
+}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using MarkdownSnippets;
@@ -8,6 +9,63 @@ using Xunit;
 [UsesVerify]
 public class MarkdownProcessorTests
 {
+    [Fact]
+    public Task Missing_endInclude()
+    {
+        var content = @"
+BAD <!-- include: theKey path: /thePath -->
+";
+        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", Array.Empty<string>(), "c:/root/thePath")
+            });
+    }
+
+    [Fact]
+    public Task WithMultiLineInclude_Overwrite()
+    {
+        var content = @"
+before
+
+BAD <!-- include: theKey path: /thePath -->
+BAD
+BAD <!-- endInclude -->
+
+after
+";
+        var lines = new List<string> {"theValue1", "theValue2"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
+
+    [Fact]
+    public Task WithSingleInclude_Overwrite()
+    {
+        var content = @"
+before
+
+BAD <!-- singleLineInclude: theKey path: /thePath -->
+
+after
+";
+        var lines = new List<string> {"theValue1"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
+
     [Fact]
     public Task WithSingleInclude()
     {
@@ -19,11 +77,13 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -37,11 +97,13 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -55,11 +117,13 @@ include: theKey
 after
 ";
         var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "c:/root/thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
     }
 
     [Fact]
@@ -72,10 +136,9 @@ include: theKey
 
 after
 ";
-        return SnippetVerifier.VerifySnippets(content,
-            availableSnippets: new List<Snippet>(),
-            snippetSourceFiles: new List<string>(),
-            includes: new List<Include>());
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
     }
 
     [Fact]
@@ -91,9 +154,10 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
     }
 
     [Fact]
@@ -111,9 +175,10 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
     }
 
     [Fact]
@@ -131,9 +196,93 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
-        return SnippetVerifier.VerifySnippets(content, new List<Snippet>(), new List<string>());
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
+    }
+
+    [Fact]
+    public Task Missing_endToc()
+    {
+        var content = @"
+<!-- toc -->
+Bad
+";
+        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
+            DocumentConvention.InPlaceOverwrite,
+            content);
+    }
+    [Fact]
+    public Task Toc_Overwrite()
+    {
+        var content = @"
+# Title
+
+<!-- toc -->
+Bad<!-- endToc -->
+
+## Heading 1
+
+Text1
+
+## Heading 2
+
+Text2
+";
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content);
+    }
+
+    [Fact]
+    public Task Simple_Overwrite()
+    {
+        var availableSnippets = new List<Snippet>
+        {
+            SnippetBuild("cs", "snippet1"),
+            SnippetBuild("cs", "snippet2"
+            )
+        };
+        var content = @"
+<!-- snippet: snippet1 -->
+```cs
+BAD
+```
+<!-- endSnippet -->
+
+some text
+
+<!-- snippet: snippet2 -->
+```cs
+BAD
+```
+<!-- endSnippet -->
+
+some other text
+
+<!-- snippet: FileToUseAsSnippet.txt -->
+```txt
+BAD
+```
+<!-- endSnippet -->
+
+some other text
+
+<!-- snippet: /FileToUseAsSnippet.txt -->
+```txt
+BAD
+```
+<!-- endSnippet -->
+";
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            availableSnippets,
+            new List<string>
+            {
+                Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
+            });
     }
 
     [Fact]
@@ -141,14 +290,8 @@ Text2
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            ),
-            SnippetBuild(
-                language: "cs",
-                key: "snippet2"
-            )
+            SnippetBuild("cs", "snippet1"),
+            SnippetBuild("cs", "snippet2")
         };
         var content = @"
 snippet: snippet1
@@ -164,9 +307,9 @@ snippet: FileToUseAsSnippet.txt
 some other text
 
 snippet: /FileToUseAsSnippet.txt
-
 ";
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
             new List<string>
@@ -180,10 +323,7 @@ snippet: /FileToUseAsSnippet.txt
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            )
+            SnippetBuild("cs", "snippet1")
         };
         var content = @"
 some text
@@ -193,21 +333,22 @@ include: theKey
 some other text
 ";
         var lines = new List<string> {"snippet: snippet1"};
-        return SnippetVerifier.VerifySnippets(
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "thePath")
+            });
     }
+
     [Fact]
     public Task SnippetInIncludeLast()
     {
         var availableSnippets = new List<Snippet>
         {
-            SnippetBuild(
-                language: "cs",
-                key: "snippet1"
-            )
+            SnippetBuild("cs", "snippet1")
         };
         var content = @"
 some text
@@ -216,12 +357,15 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"line1","snippet: snippet1"};
-        return SnippetVerifier.VerifySnippets(
+        var lines = new List<string> {"line1", "snippet: snippet1"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            new List<string>(),
-            includes: new[] {Include.Build("theKey", lines, "thePath")});
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "thePath")
+            });
     }
 
     static Snippet SnippetBuild(string language, string key)

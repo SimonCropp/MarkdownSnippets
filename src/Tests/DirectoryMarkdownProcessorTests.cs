@@ -30,6 +30,37 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteExists()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExists");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            convention: DocumentConvention.InPlaceOverwrite);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+    [Fact]
+    public Task InPlaceOverwriteNotExists()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteNotExists");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            readOnly: false,
+            convention: DocumentConvention.InPlaceOverwrite);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+    [Fact]
     public void ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");
@@ -109,7 +140,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         processor.Run();
 
-        var result = Path.Combine(root,"one.md");
+        var result = Path.Combine(root, "one.md");
 
         return Verifier.Verify(File.ReadAllText(result));
     }
@@ -121,7 +152,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         processor.Run();
 
-        var result = Path.Combine(root,"one.md");
+        var result = Path.Combine(root, "one.md");
 
         return Verifier.Verify(File.ReadAllText(result));
     }
@@ -133,7 +164,7 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            documentExtensions:new List<string> {"txt"} );
+            documentExtensions: new List<string> {"txt"});
         processor.AddSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")

@@ -67,6 +67,7 @@ class Usage
 
         // Merge with some markdown text
         var markdownProcessor = new MarkdownProcessor(
+            convention: DocumentConvention.SourceTransform,
             snippets: snippets.Lookup,
             includes: includes,
             appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,

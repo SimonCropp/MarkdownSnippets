@@ -47,24 +47,24 @@ public static class ConfigReader
             Position = 0
         };
         var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
-        var configSerialization = (ConfigSerialization) serializer.ReadObject(stream);
+        var config = (ConfigSerialization) serializer.ReadObject(stream);
         return new ConfigInput
         {
-            WriteHeader = configSerialization.WriteHeader,
-            ReadOnly = configSerialization.ReadOnly,
-            ValidateContent = configSerialization.ValidateContent,
-            UrlsAsSnippets = configSerialization.UrlsAsSnippets,
-            Exclude = configSerialization.Exclude,
-            Header = configSerialization.Header,
-            UrlPrefix = configSerialization.UrlPrefix,
-            TocExcludes = configSerialization.TocExcludes,
-            DocumentExtensions = configSerialization.DocumentExtensions,
-            TocLevel = configSerialization.TocLevel,
-            MaxWidth = configSerialization.MaxWidth,
-            LinkFormat = GetLinkFormat(configSerialization.LinkFormat),
-            Convention = GetConvention(configSerialization.Convention),
-            TreatMissingSnippetAsWarning = configSerialization.TreatMissingSnippetAsWarning,
-            TreatMissingIncludeAsWarning = configSerialization.TreatMissingIncludeAsWarning
+            WriteHeader = config.WriteHeader,
+            ReadOnly = config.ReadOnly,
+            ValidateContent = config.ValidateContent,
+            UrlsAsSnippets = config.UrlsAsSnippets,
+            Exclude = config.Exclude,
+            Header = config.Header,
+            UrlPrefix = config.UrlPrefix,
+            TocExcludes = config.TocExcludes,
+            DocumentExtensions = config.DocumentExtensions,
+            TocLevel = config.TocLevel,
+            MaxWidth = config.MaxWidth,
+            LinkFormat = GetLinkFormat(config.LinkFormat),
+            Convention = GetConvention(config.Convention),
+            TreatMissingSnippetAsWarning = config.TreatMissingSnippetAsWarning,
+            TreatMissingIncludeAsWarning = config.TreatMissingIncludeAsWarning
         };
     }
 

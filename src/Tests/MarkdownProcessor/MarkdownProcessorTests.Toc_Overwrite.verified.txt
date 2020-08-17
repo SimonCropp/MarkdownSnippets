@@ -1,6 +1,5 @@
 {
   content: '
-
 # Title
 
 <!-- toc -->
@@ -16,6 +15,5 @@ Text1
 ## Heading 2
 
 Text2
-
 '
 }

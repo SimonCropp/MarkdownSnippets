@@ -14,7 +14,6 @@ public class MarkdownProcessorTests
     {
         var content = @"
 BAD <!-- include: theKey path: /thePath -->
-BAD
 ";
         return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
             DocumentConvention.InPlaceOverwrite,
@@ -177,7 +176,6 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -199,7 +197,6 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -207,10 +204,20 @@ Text2
     }
 
     [Fact]
+    public Task Missing_endToc()
+    {
+        var content = @"
+<!-- toc -->
+Bad
+";
+        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
+            DocumentConvention.InPlaceOverwrite,
+            content);
+    }
+    [Fact]
     public Task Toc_Overwrite()
     {
         var content = @"
-
 # Title
 
 <!-- toc -->
@@ -223,7 +230,6 @@ Text1
 ## Heading 2
 
 Text2
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
@@ -274,7 +280,6 @@ some other text
 BAD
 ```
 <!-- endSnippet -->
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
@@ -314,7 +319,6 @@ snippet: FileToUseAsSnippet.txt
 some other text
 
 snippet: /FileToUseAsSnippet.txt
-
 ";
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,

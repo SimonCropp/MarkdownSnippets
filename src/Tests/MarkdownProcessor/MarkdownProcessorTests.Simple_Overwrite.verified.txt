@@ -75,6 +75,5 @@ From
 File
 ```
 <!-- endSnippet -->
-
 '
 }

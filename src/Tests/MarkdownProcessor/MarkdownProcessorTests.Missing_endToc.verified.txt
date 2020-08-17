@@ -1,0 +1,7 @@
+{
+  File: 'sourceFile',
+  LineNumber: 1,
+  Message: 'Expected to find `<!-- endToc -->`.',
+  Data: {},
+  Source: 'MarkdownSnippets'
+}

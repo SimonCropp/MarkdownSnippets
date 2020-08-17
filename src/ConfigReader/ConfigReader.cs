@@ -63,7 +63,7 @@ public static class ConfigReader
             MaxWidth = config.MaxWidth,
             LinkFormat = GetLinkFormat(config.LinkFormat),
             Convention = GetConvention(config.Convention),
-            TreatMissingAsWarning = configSerialization.TreatMissingAsWarning,
+            TreatMissingAsWarning = config.TreatMissingAsWarning,
         };
     }
 

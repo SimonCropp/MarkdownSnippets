@@ -39,6 +39,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 
  * [ReadOnly: Mark resulting files as read only](/readme.md#mark-resulting-files-as-read-only)
  * [LinkFormat](/readme.md#linkformat).
+ * [Convention](/readme.md#document-convention).
  * [TocLevel: Heading level](/docs/toc.md#heading-level).
  * [TocExcludes: Ignore headings](/docs/toc.md#ignore-headings).
  * [Exclude: Exclude directories from snippet discovery](/docs/snippet-exclusion.md).

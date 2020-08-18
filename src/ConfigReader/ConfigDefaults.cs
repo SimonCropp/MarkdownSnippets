@@ -33,7 +33,7 @@ public static class ConfigDefaults
             ReadOnly = GetValueOrNull("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly),
             WriteHeader = GetValueOrNull("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),
-            Convention = GetValueOrDefault("Mode", otherConfig.Convention, fileConfig.Convention, DocumentConvention.SourceTransform),
+            Convention = GetValueOrDefault("Convention", otherConfig.Convention, fileConfig.Convention, DocumentConvention.SourceTransform),
             TocLevel = GetValueOrDefault("TocLevel", otherConfig.TocLevel, fileConfig.TocLevel, 2),
             MaxWidth = GetValueOrDefault("MaxWidth", otherConfig.MaxWidth, fileConfig.MaxWidth, int.MaxValue),
             Header = GetValueOrDefault("Header", otherConfig.Header, fileConfig.Header),

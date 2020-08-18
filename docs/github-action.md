@@ -24,7 +24,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run MarkdownSnippets
       run: |
-        dotnet tool install --global MarkdownSnippets.Tool
+        dotnet tool install --global MarkdownSnippets.Tool --version 20.0.0-beta.1
         mdsnippets ${GITHUB_WORKSPACE}
       shell: bash
     - name: Push changes

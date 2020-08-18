@@ -22,6 +22,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
   "DocumentExtensions": [ "md", "html" ],
+  "Convention": "InPlaceOverwrite",
   "WriteHeader": true,
   "MaxWidth": 80,
   "Header": "GENERATED FILE - Source File: {relativePath}",
@@ -30,7 +31,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L15' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L16' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
 <!-- endSnippet -->
 
 

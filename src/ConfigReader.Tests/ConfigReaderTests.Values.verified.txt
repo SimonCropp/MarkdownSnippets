@@ -2,6 +2,7 @@
   ReadOnly: false,
   ValidateContent: true,
   LinkFormat: 'Tfs',
+  Convention: 'InPlaceOverwrite',
   TocLevel: 3,
   MaxWidth: 80,
   UrlsAsSnippets: [

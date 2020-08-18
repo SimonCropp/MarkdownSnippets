@@ -22,6 +22,13 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles;
         IncludeProcessor includeProcessor;
 
+        static List<string> validationExcludes = new List<string>
+        {
+            "code_of_conduct",
+            ".github",
+            "license"
+        };
+
         public MarkdownProcessor(
             DocumentConvention convention,
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -134,14 +141,9 @@ namespace MarkdownSnippets
             {
                 var line = lines[index];
 
-                if (validateContent)
+                if (ValidateContent(relativePath, line, validationErrors))
                 {
-                    var errors = ContentValidation.Verify(line.Original).ToList();
-                    if (errors.Any())
-                    {
-                        validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
-                        continue;
-                    }
+                    continue;
                 }
 
                 if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
@@ -228,6 +230,28 @@ namespace MarkdownSnippets
                 validationErrors: validationErrors);
         }
 
+        bool ValidateContent(string? relativePath, Line line, List<ValidationError> validationErrors)
+        {
+            if (!validateContent)
+            {
+                return false;
+            }
+
+            if (relativePath != null &&
+                validationExcludes.Any(relativePath.Contains))
+            {
+                return false;
+            }
+
+            var errors = ContentValidation.Verify(line.Original).ToList();
+            if (!errors.Any())
+            {
+                return false;
+            }
+
+            validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
+            return true;
+        }
 
         void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
         {

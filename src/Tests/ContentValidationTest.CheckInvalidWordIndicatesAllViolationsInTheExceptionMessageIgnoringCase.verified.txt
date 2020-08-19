@@ -4,15 +4,15 @@
     Item2: 20
   },
   {
-    Item1: 'Invalid word detected: \'you\'',
+    Item1: "Invalid word detected: 'you'",
     Item2: 1
   },
   {
-    Item1: 'Invalid word detected: \'us\'',
+    Item1: "Invalid word detected: 'us'",
     Item2: 37
   },
   {
-    Item1: 'Invalid word detected: \'yourself\'',
+    Item1: "Invalid word detected: 'yourself'",
     Item2: 27
   }
 ]

@@ -61,6 +61,20 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteUrlSnippet()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteUrlSnippet");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            convention: DocumentConvention.InPlaceOverwrite);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllText(result));
+    }
+
+    [Fact]
     public void ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");

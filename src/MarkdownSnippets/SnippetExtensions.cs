@@ -11,7 +11,7 @@ static class SnippetExtensions
             .GroupBy(_ => _.Key.ToLowerInvariant(), StringComparer.OrdinalIgnoreCase)
             .ToDictionary(
                 keySelector: _ => _.Key.ToLowerInvariant(),
-                elementSelector: _ => _.ToReadonlyList(),
+                elementSelector: _ => _.OrderBy(x => x.Path).ToReadonlyList(),
                 comparer: StringComparer.OrdinalIgnoreCase);
     }
 }

@@ -1,0 +1,22 @@
+{
+  snippet1: [
+    {
+      Key: 'snippet1',
+      Language: 'language',
+      Value: 'Snippet',
+      Error: '',
+      FileLocation: 'thePath(1-2)',
+      IsInError: false
+    }
+  ],
+  snippet2: [
+    {
+      Key: 'snippet2',
+      Language: 'language',
+      Value: 'Snippet',
+      Error: '',
+      FileLocation: 'thePath(1-2)',
+      IsInError: false
+    }
+  ]
+}

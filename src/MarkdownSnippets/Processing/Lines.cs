@@ -10,13 +10,14 @@ static class Lines
         this List<Line> lines,
         int index,
         string match,
-        string? path)
+        string? path,
+        Line startLine)
     {
         while (true)
         {
             if (index == lines.Count)
             {
-                throw new MarkdownProcessingException($"Expected to find `{match}`.", path, 1);
+                throw new MarkdownProcessingException($"Expected to find `{match}`.", path, startLine.LineNumber);
             }
 
             var lineCurrent = lines[index].Current;

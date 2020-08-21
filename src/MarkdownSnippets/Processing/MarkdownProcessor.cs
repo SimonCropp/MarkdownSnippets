@@ -196,7 +196,8 @@ namespace MarkdownSnippets
                     lines.RemoveUntil(
                         index,
                         "<!-- endSnippet -->",
-                        relativePath);
+                        relativePath,
+                        line);
                     continue;
                 }
 
@@ -206,7 +207,7 @@ namespace MarkdownSnippets
 
                     index++;
 
-                    lines.RemoveUntil(index, "<!-- endToc -->", relativePath);
+                    lines.RemoveUntil(index, "<!-- endToc -->", relativePath, line);
 
                     continue;
                 }

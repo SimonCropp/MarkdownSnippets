@@ -51,7 +51,7 @@ class IncludeProcessor
         {
             var substring = current.Substring(indexOfInclude + 14);
             var includeKey = substring.Substring(0, substring.IndexOf(". "));
-            lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path);
+            lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey);
             return true;
         }

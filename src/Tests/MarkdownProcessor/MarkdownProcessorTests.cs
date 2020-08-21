@@ -13,7 +13,7 @@ public class MarkdownProcessorTests
     public Task Missing_endInclude()
     {
         var content = @"
-BAD <!-- include: theKey path: /thePath -->
+BAD <!-- include: theKey. path: /thePath -->
 ";
         return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
             DocumentConvention.InPlaceOverwrite,
@@ -25,12 +25,33 @@ BAD <!-- include: theKey path: /thePath -->
     }
 
     [Fact]
+    public Task WithEmptyMultiLineInclude_Overwrite()
+    {
+        var content = @"
+before
+
+ <!-- include: theKey. path: /thePath -->
+
+ <!-- endInclude -->
+
+after
+";
+        var lines = new List<string> {"one", "two"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
+    [Fact]
     public Task WithMultiLineInclude_Overwrite()
     {
         var content = @"
 before
 
-BAD <!-- include: theKey path: /thePath -->
+BAD <!-- include: theKey. path: /thePath -->
 BAD
 BAD <!-- endInclude -->
 
@@ -52,7 +73,7 @@ after
         var content = @"
 before
 
-BAD <!-- singleLineInclude: theKey path: /thePath -->
+BAD <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
 ";
@@ -106,6 +127,25 @@ after
             });
     }
 
+    [Fact]
+    public Task WithEmptyMultipleInclude()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        var lines = new List<string> {"", "", ""};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "c:/root/thePath")
+            });
+    }
     [Fact]
     public Task WithMultipleInclude()
     {

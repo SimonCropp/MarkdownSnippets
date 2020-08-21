@@ -89,9 +89,10 @@ static class Extensions
     {
         return substring
             .Split(new[]
-            {
-                ' '
-            }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    ' '
+                },
+                StringSplitOptions.RemoveEmptyEntries);
     }
 
     public static string[] Lines(this string value)

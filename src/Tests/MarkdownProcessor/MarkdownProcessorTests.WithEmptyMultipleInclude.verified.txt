@@ -1,0 +1,11 @@
+{
+  content: '
+before
+
+ <!-- include: theKey. path: /thePath -->
+
+ <!-- endInclude -->
+
+after
+'
+}

@@ -40,8 +40,8 @@ class IncludeProcessor
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);
         if (indexSingleLineInclude > 0)
         {
-            var includeKey = current.Substring(indexSingleLineInclude + 24)
-                .SplitBySpace()[0];
+            var substring = current.Substring(indexSingleLineInclude + 24);
+            var includeKey = substring.Substring(0, substring.IndexOf(". "));
             Inner(lines, line, used, index, missing, includeKey);
             return true;
         }
@@ -49,8 +49,8 @@ class IncludeProcessor
         var indexOfInclude = current.IndexOf("<!-- include: ", StringComparison.Ordinal);
         if (indexOfInclude > 0)
         {
-            var includeKey = current.Substring(indexOfInclude + 14)
-                .SplitBySpace()[0];
+            var substring = current.Substring(indexOfInclude + 14);
+            var includeKey = substring.Substring(0, substring.IndexOf(". "));
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path);
             Inner(lines, line, used, index, missing, includeKey);
             return true;

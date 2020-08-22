@@ -50,17 +50,17 @@ mdsnippets C:\Code\TargetDirectory
 If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.
 
 
-## Document Convention
+### Document Convention
 
 There are two approaches scanning and modifying markdown files.
 
 
-### SourceTransform
+#### SourceTransform
 
 This is the default.
 
 
-#### source.md file
+##### source.md file
 
 The file convention recursively scans the target directory for all `*.source.md` files. Once snippets are merged the `.source.md` to produce `.md` files. So for example `readme.source.md` would be merged with snippets to produce `readme.md`. Note that this process will overwrite any existing `.md` files that have matching `.source.md` files.
 
@@ -72,7 +72,7 @@ There is a secondary convention that leverages the use of a directory named `mds
 When using the `mdsource` convention, all references to other files, such as links and images, should specify the full path from the root of the repository. This will allow those links to work correctly in both the source and generated markdown files. Relative paths cannot work for both the source and the target file.
 
 
-### InPlaceOverwrite
+#### InPlaceOverwrite
 
 Recursively scans the target directory for all `*.md` files and merges snippets into those files.
 
@@ -83,6 +83,15 @@ Can be enabled in [mdsnippets.json config file](/docs/config-file.md).
   "Convention": "InPlaceOverwrite"
 }
 ```
+
+#### Moving from SourceTransform to InPlaceOverwrite
+
+ * Ensure `"WriteHeader": false` is used in `mdsnippets.json`.
+ * Ensure `"ReadOnly": false` is used in `mdsnippets.json`.
+ * Ensure using the current stable version and a docs generation has run.
+ * Delete all `.source.md` files.
+ * Modify `mdsnippets.json` to add `"Convention": "InPlaceOverwrite"`.
+ * Run the docs generation.
 
 
 ### DocumentExtensions

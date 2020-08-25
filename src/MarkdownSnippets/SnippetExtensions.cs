@@ -11,7 +11,14 @@ static class SnippetExtensions
             .GroupBy(_ => _.Key.ToLowerInvariant(), StringComparer.OrdinalIgnoreCase)
             .ToDictionary(
                 keySelector: _ => _.Key.ToLowerInvariant(),
-                elementSelector: _ => _.OrderBy(x => x.Path).ToReadonlyList(),
+                elementSelector: _ => _.OrderBy(ScrubPath).ToReadonlyList(),
                 comparer: StringComparer.OrdinalIgnoreCase);
+    }
+
+    static string? ScrubPath(Snippet snippet)
+    {
+        return snippet.Path?
+            .Replace("/","")
+            .Replace("\\","");
     }
 }

@@ -19,13 +19,18 @@ namespace MarkdownSnippets
         public static List<string> NoAcceptCommentsExtensions { get; set; } = new List<string>
         {
             //files that dont accept comments hence cant contain snippets
+
+            #region NoAcceptCommentsExtensions
             "csv",
             "json",
             "geojson"
+            #endregion
         };
 
         public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
         {
+            #region ExcludedFileExtensions
+
             "md",
             // extra binary
             "mdb",
@@ -291,6 +296,8 @@ namespace MarkdownSnippets
             "z",
             "zip",
             "zipx"
+
+            #endregion
         };
     }
 }

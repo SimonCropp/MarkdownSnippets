@@ -1,0 +1,7 @@
+<!-- snippet: sourceFile.dot -->
+<a id='snippet-sourceFile.dot'></a>
+```dot
+From Source File
+```
+<sup><a href='#snippet-sourceFile.dot' title='Navigate to start of snippet `sourceFile.dot`'>anchor</a></sup>
+<!-- endSnippet -->

@@ -29,6 +29,8 @@ namespace MarkdownSnippets
             "license"
         };
 
+        string rootDirectory;
+
         public MarkdownProcessor(
             DocumentConvention convention,
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
@@ -54,7 +56,8 @@ namespace MarkdownSnippets
             {
                 throw new SnippetException("WriteHeader is not allowed with InPlaceOverwrite convention.");
             }
-            rootDirectory = Path.GetFullPath(rootDirectory);
+
+            this.rootDirectory = Path.GetFullPath(rootDirectory);
             this.convention = convention;
             this.snippets = snippets;
             this.appendSnippetGroup = appendSnippetGroup;
@@ -171,7 +174,7 @@ namespace MarkdownSnippets
                 void AppendSnippet(string key1)
                 {
                     builder.Clear();
-                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, line);
+                    ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
                     builder.TrimEnd();
                     line.Current = builder.ToString();
                 }
@@ -254,11 +257,11 @@ namespace MarkdownSnippets
             return true;
         }
 
-        void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, Line line)
+        void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
         {
             appendLine($"<!-- snippet: {key} -->");
 
-            if (TryGetSnippets(key, out var snippetsForKey))
+            if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
             {
                 appendSnippetGroup(key, snippetsForKey, appendLine);
                 appendLine("<!-- endSnippet -->");
@@ -271,7 +274,7 @@ namespace MarkdownSnippets
             appendLine($"** Could not find snippet '{key}' **");
         }
 
-        bool TryGetSnippets(string key, out IReadOnlyList<Snippet> snippetsForKey)
+        bool TryGetSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
         {
             if (snippets.TryGetValue(key, out snippetsForKey))
             {
@@ -283,10 +286,10 @@ namespace MarkdownSnippets
                 return GetForHttp(key, out snippetsForKey);
             }
 
-            return FilesToSnippets(key, out snippetsForKey);
+            return FilesToSnippets(key, relativePath, linePath, out snippetsForKey);
         }
 
-        bool FilesToSnippets(string key, out IReadOnlyList<Snippet> snippetsForKey)
+        bool FilesToSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
         {
             if (!key.Contains("."))
             {
@@ -308,7 +311,49 @@ namespace MarkdownSnippets
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file => FileToSnippet(key, file, file))
                 .ToList();
-            return snippetsForKey.Any();
+            if (snippetsForKey.Any())
+            {
+                return true;
+            }
+
+            var relativeToRoot = Path.Combine(rootDirectory, key);
+            if (File.Exists(relativeToRoot))
+            {
+                snippetsForKey = SnippetsForFile(key, relativeToRoot);
+                return true;
+            }
+
+            var documentDirectory = Path.GetDirectoryName(relativePath);
+            if (documentDirectory != null)
+            {
+                var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
+                if (File.Exists(relativeToDocument))
+                {
+                    snippetsForKey = SnippetsForFile(key, relativeToDocument);
+                    return true;
+                }
+            }
+
+            var lineDirectory = Path.GetDirectoryName(linePath);
+            if (lineDirectory != null)
+            {
+                var relativeToLine = Path.Combine(lineDirectory, key);
+                if (File.Exists(relativeToLine))
+                {
+                    snippetsForKey = SnippetsForFile(key, relativeToLine);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        static List<Snippet> SnippetsForFile(string key, string relativeToRoot)
+        {
+            return new List<Snippet>
+            {
+                FileToSnippet(key, relativeToRoot, null)
+            };
         }
 
         static bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
@@ -320,10 +365,7 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            snippetsForKey = new List<Snippet>
-            {
-                FileToSnippet(key, path!, null)
-            };
+            snippetsForKey = SnippetsForFile(key, path!);
             return true;
         }
 

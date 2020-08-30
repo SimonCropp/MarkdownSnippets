@@ -1,0 +1,10 @@
+{
+  Missing: [
+    {
+      Key: 'missing.txt',
+      LineNumber: 1,
+      File: 'CurrentDirectory\DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md'
+    }
+  ],
+  Message: 'Missing snippets: missing.txt'
+}

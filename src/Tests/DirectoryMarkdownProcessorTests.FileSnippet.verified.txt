@@ -1,0 +1,7 @@
+<!-- snippet: sourceFile.txt -->
+<a id='snippet-sourceFile.txt'></a>
+```txt
+From Source File
+```
+<sup><a href='/sourceFile.txt#L1-L1' title='File snippet `sourceFile.txt` was extracted from'>snippet source</a> | <a href='#snippet-sourceFile.txt' title='Navigate to start of snippet `sourceFile.txt`'>anchor</a></sup>
+<!-- endSnippet -->

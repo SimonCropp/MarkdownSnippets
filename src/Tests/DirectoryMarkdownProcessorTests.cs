@@ -116,6 +116,19 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task FileSnippetMissing()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetMissing");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var exception = Assert.Throws<MissingSnippetsException>(() => processor.Run());
+        return Verifier.Verify(
+            new
+            {
+                exception.Missing,
+                exception.Message
+            });
+    }
+    [Fact]
     public Task UrlSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
@@ -164,6 +177,31 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippet");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllText(result));
+    }
+
+    [Fact]
+    public Task BinaryFileSnippet()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/BinaryFileSnippet");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllText(result));
+    }
+
+
+    [Fact]
+    public Task FileSnippet()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
         processor.Run();
 

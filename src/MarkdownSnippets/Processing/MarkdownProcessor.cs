@@ -280,17 +280,7 @@ namespace MarkdownSnippets
 
             if (key.StartsWith("http"))
             {
-                var (success, path) = Downloader.DownloadFile(key).GetAwaiter().GetResult();
-                if (!success)
-                {
-                    return false;
-                }
-
-                snippetsForKey = new List<Snippet>
-                {
-                    FileToSnippet(key, path!, null)
-                };
-                return true;
+                return GetForHttp(key, out snippetsForKey);
             }
 
             snippetsForKey = FilesToSnippets(key);
@@ -313,6 +303,22 @@ namespace MarkdownSnippets
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file => FileToSnippet(key, file, file))
                 .ToList();
+        }
+
+        static bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
+        {
+            var (success, path) = Downloader.DownloadFile(key).GetAwaiter().GetResult();
+            if (!success)
+            {
+                snippetsForKey = null!;
+                return false;
+            }
+
+            snippetsForKey = new List<Snippet>
+            {
+                FileToSnippet(key, path!, null)
+            };
+            return true;
         }
 
         static Snippet FileToSnippet(string key, string file, string? path)

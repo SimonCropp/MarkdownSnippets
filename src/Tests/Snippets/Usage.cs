@@ -70,7 +70,7 @@ class Usage
             convention: DocumentConvention.SourceTransform,
             snippets: snippets.Lookup,
             includes: includes,
-            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
+            appendSnippets: SimpleSnippetMarkdownHandling.Append,
             snippetSourceFiles: new List<string>(),
             tocLevel: 2,
             validateContent: true,

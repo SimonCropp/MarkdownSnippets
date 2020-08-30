@@ -25,7 +25,7 @@ namespace MarkdownSnippets
         List<Snippet> snippets = new List<Snippet>();
         public IReadOnlyList<Snippet> Snippets => snippets;
         List<string> snippetSourceFiles = new List<string>();
-        AppendSnippetGroupToMarkdown appendSnippetGroup;
+        AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
 
         public DirectoryMarkdownProcessor(
@@ -49,7 +49,7 @@ namespace MarkdownSnippets
             bool validateContent = false) :
             this(
                 targetDirectory,
-                new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).AppendGroup,
+                new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).Append,
                 convention,
                 scanForMdFiles,
                 scanForSnippets,
@@ -70,7 +70,7 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
-            AppendSnippetGroupToMarkdown appendSnippetGroup,
+            AppendSnippetsToMarkdown appendSnippets,
             DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
@@ -87,7 +87,7 @@ namespace MarkdownSnippets
             int maxWidth = int.MaxValue,
             bool validateContent = false)
         {
-            this.appendSnippetGroup = appendSnippetGroup;
+            this.appendSnippets = appendSnippets;
             this.convention = convention;
             this.writeHeader = writeHeader.GetValueOrDefault(convention == DocumentConvention.SourceTransform);
             this.readOnly = readOnly.GetValueOrDefault(false);
@@ -196,7 +196,7 @@ namespace MarkdownSnippets
                 convention,
                 Snippets.ToDictionary(),
                 includes,
-                appendSnippetGroup,
+                appendSnippets,
                 snippetSourceFiles,
                 tocLevel,
                 writeHeader,

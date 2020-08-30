@@ -8,7 +8,7 @@ namespace MarkdownSnippets
     /// </summary>
     public static class SimpleSnippetMarkdownHandling
     {
-        public static void AppendGroup(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+        public static void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendLine, nameof(appendLine));

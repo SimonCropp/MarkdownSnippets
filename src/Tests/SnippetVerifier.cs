@@ -39,7 +39,7 @@ static class SnippetVerifier
         return new MarkdownProcessor(
             convention: convention,
             snippets: snippets.ToDictionary(),
-            appendSnippetGroup: SimpleSnippetMarkdownHandling.AppendGroup,
+            appendSnippets: SimpleSnippetMarkdownHandling.Append,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: false,

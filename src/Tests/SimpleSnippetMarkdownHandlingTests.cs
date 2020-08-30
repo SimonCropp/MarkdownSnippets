@@ -10,13 +10,13 @@ using Xunit;
 public class SimpleSnippetMarkdownHandlingTests
 {
     [Fact]
-    public Task AppendGroup()
+    public Task Append()
     {
         var builder = new StringBuilder();
         var snippets = new List<Snippet> {Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", "thePath")};
         using (var writer = new StringWriter(builder))
         {
-            SimpleSnippetMarkdownHandling.AppendGroup("key1", snippets, writer.WriteLine);
+            SimpleSnippetMarkdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
         return Verifier.Verify(builder.ToString());

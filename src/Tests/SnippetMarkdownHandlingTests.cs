@@ -10,7 +10,7 @@ using Xunit;
 public class SnippetMarkdownHandlingTests
 {
     [Fact]
-    public Task AppendGroup()
+    public Task Append()
     {
         var builder = new StringBuilder();
         var snippets = new List<Snippet>
@@ -20,7 +20,7 @@ public class SnippetMarkdownHandlingTests
         var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub);
         using (var writer = new StringWriter(builder))
         {
-            markdownHandling.AppendGroup("key1", snippets, writer.WriteLine);
+            markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
         return Verifier.Verify(builder.ToString());

@@ -13,7 +13,7 @@ namespace MarkdownSnippets
     {
         DocumentConvention convention;
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
-        AppendSnippetGroupToMarkdown appendSnippetGroup;
+        AppendSnippetsToMarkdown appendSnippets;
         bool writeHeader;
         bool validateContent;
         string? header;
@@ -35,7 +35,7 @@ namespace MarkdownSnippets
             DocumentConvention convention,
             IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
             IReadOnlyList<Include> includes,
-            AppendSnippetGroupToMarkdown appendSnippetGroup,
+            AppendSnippetsToMarkdown appendSnippets,
             IReadOnlyList<string> snippetSourceFiles,
             int tocLevel,
             bool writeHeader,
@@ -45,7 +45,7 @@ namespace MarkdownSnippets
             IEnumerable<string>? tocExcludes = null)
         {
             Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendSnippetGroup, nameof(appendSnippetGroup));
+            Guard.AgainstNull(appendSnippets, nameof(appendSnippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             Guard.AgainstNull(includes, nameof(includes));
             Guard.AgainstEmpty(header, nameof(header));
@@ -60,7 +60,7 @@ namespace MarkdownSnippets
             this.rootDirectory = Path.GetFullPath(rootDirectory);
             this.convention = convention;
             this.snippets = snippets;
-            this.appendSnippetGroup = appendSnippetGroup;
+            this.appendSnippets = appendSnippets;
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
             this.header = header;
@@ -263,7 +263,7 @@ namespace MarkdownSnippets
 
             if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
             {
-                appendSnippetGroup(key, snippetsForKey, appendLine);
+                appendSnippets(key, snippetsForKey, appendLine);
                 appendLine("<!-- endSnippet -->");
                 used.AddRange(snippetsForKey);
                 return;
@@ -345,6 +345,11 @@ namespace MarkdownSnippets
                 }
             }
 
+            if (File.Exists(key))
+            {
+                snippetsForKey = SnippetsForFile(key, key);
+                return true;
+            }
             return false;
         }
 

@@ -23,7 +23,7 @@ namespace MarkdownSnippets
             this.rootDirectory = rootDirectory.Replace(@"\", "/");
         }
 
-        public void AppendGroup(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+        public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNull(snippets, nameof(snippets));

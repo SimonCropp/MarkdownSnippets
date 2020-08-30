@@ -283,12 +283,17 @@ namespace MarkdownSnippets
                 return GetForHttp(key, out snippetsForKey);
             }
 
-            snippetsForKey = FilesToSnippets(key);
-            return snippetsForKey.Any();
+            return FilesToSnippets(key, out snippetsForKey);
         }
 
-        List<Snippet> FilesToSnippets(string key)
+        bool FilesToSnippets(string key, out IReadOnlyList<Snippet> snippetsForKey)
         {
+            if (!key.Contains("."))
+            {
+                snippetsForKey = null!;
+                return false;
+            }
+
             string keyWithDirChar;
             if (key.StartsWith("/"))
             {
@@ -299,10 +304,11 @@ namespace MarkdownSnippets
                 keyWithDirChar = "/" + key;
             }
 
-            return snippetSourceFiles
+            snippetsForKey = snippetSourceFiles
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
                 .Select(file => FileToSnippet(key, file, file))
                 .ToList();
+            return snippetsForKey.Any();
         }
 
         static bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)

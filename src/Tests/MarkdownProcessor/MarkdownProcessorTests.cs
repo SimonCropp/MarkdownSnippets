@@ -243,6 +243,24 @@ Text2
     }
 
     [Fact]
+    public Task TocRetainedIfNoHeadingsInFile()
+    {
+        var content = @"
+# Title
+
+toc
+
+This document has no headings.
+
+An empty toc section should be generated, in case
+any headings are added in future.
+";
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
+    }
+
+    [Fact]
     public Task Missing_endToc()
     {
         var content = @"

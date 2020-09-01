@@ -8,14 +8,14 @@ using Xunit;
 public class TocBuilderTests
 {
     [Fact]
-    public void EmptyHeading()
+    public Task EmptyHeading()
     {
         var lines = new List<Line>
         {
             new Line("##", "", 0)
         };
 
-        Assert.Empty(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]

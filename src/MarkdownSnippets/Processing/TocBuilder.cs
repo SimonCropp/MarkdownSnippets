@@ -53,7 +53,8 @@ static class TocBuilder
 
         if (headingCount == 0)
         {
-            return string.Empty;
+            return @"<!-- toc -->
+<!-- endToc -->";
         }
 
         builder.TrimEnd();

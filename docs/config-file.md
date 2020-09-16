@@ -11,8 +11,37 @@ The [dotnet tool](/readme.md#installation) and the [MSBuild Task](msbuild.md) su
 
 Add a file named `mdsnippets.json` at the target directory with the following content:
 
-<!-- snippet: sampleConfig.json -->
-<a id='snippet-sampleConfig.json'></a>
+
+## For [InPlaceOverwrite](https://github.com/SimonCropp/MarkdownSnippets#inplaceoverwrite)
+
+<!-- snippet: InPlaceOverwrite.json -->
+<a id='snippet-InPlaceOverwrite.json'></a>
+```json
+{
+  "Convention": "InPlaceOverwrite"
+}
+```
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='File snippet `InPlaceOverwrite.json` was extracted from'>snippet source</a> | <a href='#snippet-InPlaceOverwrite.json' title='Navigate to start of snippet `InPlaceOverwrite.json`'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
+
+<!-- snippet: SourceTransform.json -->
+<a id='snippet-SourceTransform.json'></a>
+```json
+{
+  "Convention": "SourceTransform"
+}
+```
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='File snippet `SourceTransform.json` was extracted from'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Navigate to start of snippet `SourceTransform.json`'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## All Settings
+
+<!-- snippet: allConfig.json -->
+<a id='snippet-allConfig.json'></a>
 ```json
 {
   "ReadOnly": false,
@@ -31,7 +60,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/sampleConfig.json#L1-L16' title='File snippet `sampleConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-sampleConfig.json' title='Navigate to start of snippet `sampleConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='File snippet `allConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-allConfig.json' title='Navigate to start of snippet `allConfig.json`'>anchor</a></sup>
 <!-- endSnippet -->
 
 

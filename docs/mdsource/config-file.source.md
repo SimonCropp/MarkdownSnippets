@@ -4,7 +4,20 @@ The [dotnet tool](/readme.md#installation) and the [MSBuild Task](msbuild.md) su
 
 Add a file named `mdsnippets.json` at the target directory with the following content:
 
-snippet: sampleConfig.json
+
+## For [InPlaceOverwrite](https://github.com/SimonCropp/MarkdownSnippets#inplaceoverwrite)
+
+snippet: InPlaceOverwrite.json
+
+
+## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
+
+snippet: SourceTransform.json
+
+
+## All Settings
+
+snippet: allConfig.json
 
 
 ## More Info

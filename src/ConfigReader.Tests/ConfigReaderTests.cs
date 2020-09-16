@@ -17,7 +17,7 @@ public class ConfigReaderTests
     [Fact]
     public Task Values()
     {
-        var stream = File.ReadAllText("sampleConfig.json");
+        var stream = File.ReadAllText("allConfig.json");
         var config = ConfigReader.Parse(stream);
         return Verifier.Verify(config);
     }

@@ -54,7 +54,8 @@ static class RelativeFile
         }
 
         var suffix = FileEx.PrependSlash(key);
-        var endWith = Directory.EnumerateFiles(rootDirectory).FirstOrDefault(x => x.EndsWith(suffix));
+        var endWith = Directory.EnumerateFiles(rootDirectory, "*.*", SearchOption.AllDirectories)
+            .FirstOrDefault(x => x.EndsWith(suffix));
         if (endWith != null)
         {
             path = endWith;

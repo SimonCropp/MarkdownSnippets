@@ -297,15 +297,7 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            string keyWithDirChar;
-            if (key.StartsWith("/"))
-            {
-                keyWithDirChar = key;
-            }
-            else
-            {
-                keyWithDirChar = "/" + key;
-            }
+            var keyWithDirChar = PrependSlash(key);
 
             snippetsForKey = snippetSourceFiles
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
@@ -351,6 +343,16 @@ namespace MarkdownSnippets
                 return true;
             }
             return false;
+        }
+
+        static string PrependSlash(string key)
+        {
+            if (key.StartsWith("/"))
+            {
+                return key;
+            }
+
+            return "/" + key;
         }
 
         static List<Snippet> SnippetsForFile(string key, string relativeToRoot)

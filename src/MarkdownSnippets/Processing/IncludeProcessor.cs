@@ -21,14 +21,14 @@ class IncludeProcessor
         this.includes = includes;
     }
 
-    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing)
+    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
     {
         var current = line.Current;
 
         if (current.StartsWith("include: "))
         {
             var includeKey = line.Current.Substring(9);
-            Inner(lines, line, used, index, missing, includeKey);
+            Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
         }
 
@@ -42,7 +42,7 @@ class IncludeProcessor
         {
             var substring = current.Substring(indexSingleLineInclude + 24);
             var includeKey = substring.Substring(0, substring.IndexOf(". "));
-            Inner(lines, line, used, index, missing, includeKey);
+            Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
         }
 
@@ -52,14 +52,14 @@ class IncludeProcessor
             var substring = current.Substring(indexOfInclude + 14);
             var includeKey = substring.Substring(0, substring.IndexOf(". "));
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
-            Inner(lines, line, used, index, missing, includeKey);
+            Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
         }
 
         return false;
     }
 
-    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey)
+    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
     {
         var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include != null)
@@ -70,13 +70,20 @@ class IncludeProcessor
 
         if (includeKey.StartsWith("http"))
         {
-            var (success, path) = Downloader.DownloadFile(includeKey).GetAwaiter().GetResult();
+            var (success, httpPath) = Downloader.DownloadFile(includeKey).GetAwaiter().GetResult();
             if (success)
             {
-                include = Include.Build(includeKey, File.ReadAllLines(path!), null);
+                include = Include.Build(includeKey, File.ReadAllLines(httpPath!), null);
                 AddInclude(lines, line, used, index, include);
                 return;
             }
+        }
+
+        if (RelativeFile.Find(rootDirectory, includeKey, relativePath, line.Path, out var path))
+        {
+            include = Include.Build(includeKey, File.ReadAllLines(path!), null);
+            AddInclude(lines, line, used, index, include);
+            return;
         }
 
         missing.Add(new MissingInclude(includeKey, index + 1, line.Path));

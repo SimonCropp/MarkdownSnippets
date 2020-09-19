@@ -149,7 +149,7 @@ namespace MarkdownSnippets
                     continue;
                 }
 
-                if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes))
+                if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes, relativePath))
                 {
                     continue;
                 }

@@ -17,25 +17,31 @@ static class RelativeFile
             return true;
         }
 
-        var documentDirectory = Path.GetDirectoryName(relativePath);
-        if (documentDirectory != null)
+        if (relativePath != null)
         {
-            var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
-            if (File.Exists(relativeToDocument))
+            var documentDirectory = Path.GetDirectoryName(relativePath);
+            if (documentDirectory != null)
             {
-                path = relativeToDocument;
-                return true;
+                var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
+                if (File.Exists(relativeToDocument))
+                {
+                    path = relativeToDocument;
+                    return true;
+                }
             }
         }
 
-        var lineDirectory = Path.GetDirectoryName(linePath);
-        if (lineDirectory != null)
+        if (linePath != null)
         {
-            var relativeToLine = Path.Combine(lineDirectory, key);
-            if (File.Exists(relativeToLine))
+            var lineDirectory = Path.GetDirectoryName(linePath);
+            if (lineDirectory != null)
             {
-                path =relativeToLine;
-                return true;
+                var relativeToLine = Path.Combine(lineDirectory, key);
+                if (File.Exists(relativeToLine))
+                {
+                    path =relativeToLine;
+                    return true;
+                }
             }
         }
 

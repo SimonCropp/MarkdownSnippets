@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # GitHub Actions
 
-Markdown snippets can be run inside a [GitHub Action](https://help.github.com/en/actions) by installing and using [MarkdownSnippets.Tool](/readme.md#installation). This can be useful to ensure md docs are in sync when .source files are edited online, and without needing to re-generate d docs locally.
+Markdown snippets can be run inside a [GitHub Action](https://help.github.com/en/actions) by installing and using [MarkdownSnippets.Tool](/readme.md#installation). This can be useful to ensure md docs are in sync when .source files are edited online, and without needing to re-generate the docs locally.
 
 Add the following to `.github\workflows\on-push-do-doco.yml` in the target repository.
 

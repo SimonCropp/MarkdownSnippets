@@ -291,12 +291,6 @@ namespace MarkdownSnippets
 
         bool FilesToSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
         {
-            if (!key.Contains("."))
-            {
-                snippetsForKey = null!;
-                return false;
-            }
-
             var keyWithDirChar = PrependSlash(key);
 
             snippetsForKey = snippetSourceFiles
@@ -308,10 +302,28 @@ namespace MarkdownSnippets
                 return true;
             }
 
+            if (FindPath(rootDirectory, key, relativePath, linePath, out var path))
+            {
+                snippetsForKey = SnippetsForFile(key, path);
+                return true;
+            }
+
+            snippetsForKey = null!;
+            return false;
+        }
+
+        static bool FindPath(string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+        {
+            if (!key.Contains("."))
+            {
+                path = null!;
+                return false;
+            }
+
             var relativeToRoot = Path.Combine(rootDirectory, key);
             if (File.Exists(relativeToRoot))
             {
-                snippetsForKey = SnippetsForFile(key, relativeToRoot);
+                path= relativeToRoot;
                 return true;
             }
 
@@ -321,7 +333,7 @@ namespace MarkdownSnippets
                 var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
                 if (File.Exists(relativeToDocument))
                 {
-                    snippetsForKey = SnippetsForFile(key, relativeToDocument);
+                    path = relativeToDocument;
                     return true;
                 }
             }
@@ -332,16 +344,18 @@ namespace MarkdownSnippets
                 var relativeToLine = Path.Combine(lineDirectory, key);
                 if (File.Exists(relativeToLine))
                 {
-                    snippetsForKey = SnippetsForFile(key, relativeToLine);
+                    path =relativeToLine;
                     return true;
                 }
             }
 
             if (File.Exists(key))
             {
-                snippetsForKey = SnippetsForFile(key, key);
+                path = key;
                 return true;
             }
+
+            path = null!;
             return false;
         }
 

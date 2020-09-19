@@ -311,6 +311,7 @@ namespace MarkdownSnippets
             snippetsForKey = null!;
             return false;
         }
+
         static string PrependSlash(string key)
         {
             if (key.StartsWith("/"))

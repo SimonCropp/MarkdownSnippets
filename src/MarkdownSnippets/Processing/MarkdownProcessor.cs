@@ -291,7 +291,7 @@ namespace MarkdownSnippets
 
         bool FilesToSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
         {
-            var keyWithDirChar = PrependSlash(key);
+            var keyWithDirChar = FileEx.PrependSlash(key);
 
             snippetsForKey = snippetSourceFiles
                 .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
@@ -312,15 +312,6 @@ namespace MarkdownSnippets
             return false;
         }
 
-        static string PrependSlash(string key)
-        {
-            if (key.StartsWith("/"))
-            {
-                return key;
-            }
-
-            return "/" + key;
-        }
 
         static List<Snippet> SnippetsForFile(string key, string relativeToRoot)
         {

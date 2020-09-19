@@ -19,7 +19,17 @@ static class FileEx
         var directoryUri = new Uri(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
-    
+
+    public static string PrependSlash(string path)
+    {
+        if (path.StartsWith("/"))
+        {
+            return path;
+        }
+
+        return $"/{path}";
+    }
+
     public static IEnumerable<string> FindFiles(string directory, string pattern)
     {
         var files = new List<string>();

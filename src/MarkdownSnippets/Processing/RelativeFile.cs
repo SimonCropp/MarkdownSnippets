@@ -1,4 +1,6 @@
 using System.IO;
+using System.Linq;
+using System.Text;
 
 static class RelativeFile
 {
@@ -13,7 +15,7 @@ static class RelativeFile
         var relativeToRoot = Path.Combine(rootDirectory, key);
         if (File.Exists(relativeToRoot))
         {
-            path= relativeToRoot;
+            path = relativeToRoot;
             return true;
         }
 
@@ -39,7 +41,7 @@ static class RelativeFile
                 var relativeToLine = Path.Combine(lineDirectory, key);
                 if (File.Exists(relativeToLine))
                 {
-                    path =relativeToLine;
+                    path = relativeToLine;
                     return true;
                 }
             }
@@ -48,6 +50,14 @@ static class RelativeFile
         if (File.Exists(key))
         {
             path = key;
+            return true;
+        }
+
+        var suffix = FileEx.PrependSlash(key);
+        var endWith = Directory.EnumerateFiles(rootDirectory).FirstOrDefault(x => x.EndsWith(suffix));
+        if (endWith != null)
+        {
+            path = endWith;
             return true;
         }
 

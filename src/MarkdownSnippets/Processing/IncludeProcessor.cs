@@ -130,7 +130,7 @@ class IncludeProcessor
         var count = include.Lines.Count;
         var first = include.Lines.First();
         var key = include.Key;
-        if (SnippetKey.IsSnippetLine(first))
+        if (IsSnippetLineOrEndsWithTicks(first))
         {
             yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);
@@ -147,7 +147,7 @@ class IncludeProcessor
         }
 
         var last = include.Lines.Last();
-        if (SnippetKey.IsSnippetLine(last))
+        if (IsSnippetLineOrEndsWithTicks(last))
         {
             yield return new Line(last, path, count);
             yield return new Line(@"<!-- endInclude -->", path, count);
@@ -156,6 +156,12 @@ class IncludeProcessor
         {
             yield return new Line($@"{last} <!-- endInclude -->", path, count);
         }
+    }
+
+    static bool IsSnippetLineOrEndsWithTicks(string line)
+    {
+        return SnippetKey.IsSnippetLine(line) ||
+               line.EndsWith("```");
     }
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include)
@@ -167,7 +173,7 @@ class IncludeProcessor
     {
         var first = include.Lines.First();
         var key = include.Key;
-        if (SnippetKey.IsSnippetLine(first))
+        if (IsSnippetLineOrEndsWithTicks(first))
         {
             yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);

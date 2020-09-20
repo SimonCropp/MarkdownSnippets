@@ -18,7 +18,7 @@ static class SnippetExtensions
     static string? ScrubPath(Snippet snippet)
     {
         return snippet.Path?
-            .Replace("/","")
-            .Replace("\\","");
+            .Replace("/", "")
+            .Replace("\\", "");
     }
 }

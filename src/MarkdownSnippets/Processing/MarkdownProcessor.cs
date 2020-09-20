@@ -58,7 +58,7 @@ namespace MarkdownSnippets
                 throw new SnippetException("WriteHeader is not allowed with InPlaceOverwrite convention.");
             }
 
-            this.rootDirectory = Path.GetFullPath(rootDirectory);
+            this.rootDirectory = Path.GetFullPath(rootDirectory).Replace('\\', '/');
             if (Directory.Exists(rootDirectory))
             {
                 allFiles = Directory.EnumerateFiles(rootDirectory, "*.*", SearchOption.AllDirectories)

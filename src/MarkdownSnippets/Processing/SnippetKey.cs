@@ -35,14 +35,13 @@ static class SnippetKey
         return true;
     }
 
-    public static bool IsSnippetLine(string line)
+    public static bool IsSnippetLine(string lineCurrent)
     {
-        return line.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase) ||
-               line.EndsWith("```");
+        return lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
     }
 
-    public static bool IsStartCommentSnippetLine(string line)
+    public static bool IsStartCommentSnippetLine(string lineCurrent)
     {
-        return line.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
+        return lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
     }
 }

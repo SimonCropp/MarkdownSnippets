@@ -84,7 +84,7 @@ class IncludeProcessor
 
         if (RelativeFile.Find(allFiles, rootDirectory, includeKey, relativePath, line.Path, out var path))
         {
-            include = Include.Build(includeKey, File.ReadAllLines(path!), null);
+            include = Include.Build(includeKey, File.ReadAllLines(path!), path);
             AddInclude(lines, line, used, index, include);
             return;
         }

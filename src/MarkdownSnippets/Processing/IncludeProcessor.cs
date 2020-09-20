@@ -8,17 +8,20 @@ class IncludeProcessor
 {
     DocumentConvention convention;
     IReadOnlyList<Include> includes;
+    List<string> allFiles;
     string rootDirectory;
 
     public IncludeProcessor(
         DocumentConvention convention,
         IReadOnlyList<Include> includes,
-        string rootDirectory)
+        string rootDirectory,
+        List<string> allFiles)
     {
         rootDirectory = Path.GetFullPath(rootDirectory);
         this.rootDirectory = rootDirectory.Replace(@"\", "/");
         this.convention = convention;
         this.includes = includes;
+        this.allFiles = allFiles;
     }
 
     public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
@@ -79,7 +82,7 @@ class IncludeProcessor
             }
         }
 
-        if (RelativeFile.Find(rootDirectory, includeKey, relativePath, line.Path, out var path))
+        if (RelativeFile.Find(allFiles, rootDirectory, includeKey, relativePath, line.Path, out var path))
         {
             include = Include.Build(includeKey, File.ReadAllLines(path!), null);
             AddInclude(lines, line, used, index, include);

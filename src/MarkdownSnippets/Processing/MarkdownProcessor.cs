@@ -30,6 +30,7 @@ namespace MarkdownSnippets
         };
 
         string rootDirectory;
+        List<string> allFiles;
 
         public MarkdownProcessor(
             DocumentConvention convention,
@@ -58,6 +59,17 @@ namespace MarkdownSnippets
             }
 
             this.rootDirectory = Path.GetFullPath(rootDirectory);
+            if (Directory.Exists(rootDirectory))
+            {
+                allFiles = Directory.EnumerateFiles(rootDirectory, "*.*", SearchOption.AllDirectories)
+                    .Select(x => x.Replace('\\', '/'))
+                    .ToList();
+            }
+            else
+            {
+                allFiles = new List<string>();
+            }
+
             this.convention = convention;
             this.snippets = snippets;
             this.appendSnippets = appendSnippets;
@@ -77,7 +89,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory);
+            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory, allFiles);
         }
 
         public string Apply(string input, string? file = null)
@@ -302,7 +314,7 @@ namespace MarkdownSnippets
                 return true;
             }
 
-            if (RelativeFile.Find(rootDirectory, key, relativePath, linePath, out var path))
+            if (RelativeFile.Find(allFiles, rootDirectory, key, relativePath, linePath, out var path))
             {
                 snippetsForKey = SnippetsForFile(key, path);
                 return true;

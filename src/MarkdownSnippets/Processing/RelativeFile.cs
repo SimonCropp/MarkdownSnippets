@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 static class RelativeFile
 {
-    public static bool Find(string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    public static bool Find(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
     {
         if (!key.Contains("."))
         {
@@ -54,8 +55,8 @@ static class RelativeFile
         }
 
         var suffix = FileEx.PrependSlash(key);
-        var endWith = Directory.EnumerateFiles(rootDirectory, "*.*", SearchOption.AllDirectories)
-            .FirstOrDefault(x => x.EndsWith(suffix));
+        var endWith = allFiles
+            .FirstOrDefault(x => x.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
         if (endWith != null)
         {
             path = endWith;

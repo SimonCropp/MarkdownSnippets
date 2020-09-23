@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MarkdownSnippets;
 using VerifyXunit;
-using Xunit;
 
 static class SnippetVerifier
 {
@@ -23,8 +22,7 @@ static class SnippetVerifier
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(stringBuilder);
-        var exception = Assert.Throws<T>(() => markdownProcessor.Apply(reader, writer, "sourceFile"));
-        return Verifier.Verify(exception, null, sourceFile);
+        return Verifier.Throws(() => markdownProcessor.Apply(reader, writer, "sourceFile"), null, sourceFile);
     }
 
     static MarkdownProcessor BuildProcessor(

@@ -1,4 +1,7 @@
-Key cannot contain whitespace or start/end with symbols.
+{
+  Type: 'SnippetReadingException',
+  Message: 'Key cannot contain whitespace or start/end with symbols.
 Key: _key
 Path: file
-Line: <!-- begin-snippet: _key-->
+Line: <!-- begin-snippet: _key-->'
+}

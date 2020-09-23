@@ -1,4 +1,5 @@
 {
+  Type: 'MissingSnippetsException',
   Missing: [
     {
       Key: 'missing.txt',

@@ -1,7 +1,6 @@
 {
+  Type: 'MarkdownProcessingException',
   File: 'sourceFile',
   LineNumber: 2,
-  Message: 'Expected to find `<!-- endToc -->`.',
-  Data: {},
-  Source: 'MarkdownSnippets'
+  Message: 'Expected to find `<!-- endToc -->`.'
 }

@@ -1,3 +1,6 @@
-No Key could be derived.
+{
+  Type: 'SnippetReadingException',
+  Message: "No Key could be derived.
 Path: file
-Line: '<!-- begin-snippet: -->'
+Line: '<!-- begin-snippet: -->'"
+}

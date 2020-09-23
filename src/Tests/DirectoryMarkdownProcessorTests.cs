@@ -120,26 +120,14 @@ public class DirectoryMarkdownProcessorTests
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetMissing");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
-        var exception = Assert.Throws<MissingSnippetsException>(() => processor.Run());
-        return Verifier.Verify(
-            new
-            {
-                exception.Missing,
-                exception.Message
-            });
+        return Verifier.Throws(() => processor.Run());
     }
     [Fact]
     public Task UrlSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
-        var exception = Assert.Throws<MissingSnippetsException>(() => processor.Run());
-        return Verifier.Verify(
-            new
-            {
-                exception.Missing,
-                exception.Message
-            });
+        return Verifier.Throws(() => processor.Run());
     }
 
     [Fact]
@@ -150,13 +138,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             validateContent: true);
-        var exception = Assert.Throws<ContentValidationException>(() => processor.Run());
-        return Verifier.Verify(
-            new
-            {
-                exception.Errors,
-                exception.Message
-            });
+        return Verifier.Throws(() => processor.Run());
     }
 
     [Fact]
@@ -164,13 +146,7 @@ public class DirectoryMarkdownProcessorTests
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");
         var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
-        var exception = Assert.Throws<MissingIncludesException>(() => processor.Run());
-        return Verifier.Verify(
-            new
-            {
-                exception.Missing,
-                exception.Message
-            });
+        return Verifier.Throws(() => processor.Run());
     }
 
     [Fact]

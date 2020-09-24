@@ -185,6 +185,46 @@ Notes:
  * [H33: Supplementing link text with the title attribute](https://www.w3.org/TR/WCAG20-TECHS/H33.html)
 
 
+### Including a snippet from the web
+
+Snippets that start with `http` will be downloaded and the contents rendered. For example:
+
+    snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt
+
+Will render:
+
+	<!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt -->
+	<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt'></a>
+	```txt
+	The MIT License (MIT)
+    ...
+	```
+	<sup><a href='#snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt' title='Navigate to start of snippet `https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt`'>anchor</a></sup>
+	<!-- endSnippet -->
+
+Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
+
+
+### Including a full file
+
+If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. For example:
+
+    snippet: license.txt
+
+Will render:
+
+	<!-- snippet: license.txt -->
+	<a id='snippet-license.txt'></a>
+	```txt
+	The MIT License (MIT)
+    ...
+	```
+	<sup><a href='#snippet-license.txt' title='Navigate to start of snippet `license.txt`'>anchor</a></sup>
+	<!-- endSnippet -->
+
+Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
+
+
 ### LinkFormat
 
 Defines the format of `snippet source` links that appear under each snippet.
@@ -236,8 +276,6 @@ if (linkFormat == LinkFormat.GitLab)
 ### UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
-
-
 
 
 ## More Documentation

@@ -1,0 +1,4 @@
+{
+  Type: 'SnippetException',
+  Message: 'Failed to deserialize configuration. Error: There was an error deserializing the object of type ConfigSerialization. Encountered unexpected character \'"\'..\nContent:\n{\n  "ValidateContent": true\n  "Convention": "InPlaceOverwrite"\n}'
+}

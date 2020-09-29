@@ -15,6 +15,15 @@ public class ConfigReaderTests
     }
 
     [Fact]
+    public Task BadJson()
+    {
+        return Verifier.Throws(()=>ConfigReader.Parse(@"{
+  ""ValidateContent"": true
+  ""Convention"": ""InPlaceOverwrite""
+}"));
+    }
+
+    [Fact]
     public Task Values()
     {
         var stream = File.ReadAllText("allConfig.json");

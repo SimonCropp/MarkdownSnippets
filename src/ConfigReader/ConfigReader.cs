@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using MarkdownSnippets;
@@ -42,12 +43,7 @@ public static class ConfigReader
 
     public static ConfigInput Parse(string contents)
     {
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents))
-        {
-            Position = 0
-        };
-        var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
-        var config = (ConfigSerialization) serializer.ReadObject(stream);
+        var config = DeSerialize(contents);
         return new ConfigInput
         {
             WriteHeader = config.WriteHeader,
@@ -65,6 +61,25 @@ public static class ConfigReader
             Convention = GetConvention(config.Convention),
             TreatMissingAsWarning = config.TreatMissingAsWarning,
         };
+    }
+
+    static ConfigSerialization DeSerialize(string contents)
+    {
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents))
+        {
+            Position = 0
+        };
+        var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
+        try
+        {
+            return (ConfigSerialization) serializer.ReadObject(stream);
+        }
+        catch (SerializationException exception)
+        {
+            throw new SnippetException($@"Failed to deserialize configuration. Error: {exception.Message}.
+Content:
+{contents}");
+        }
     }
 
     static DocumentConvention? GetConvention(string? value)

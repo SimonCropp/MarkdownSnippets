@@ -21,7 +21,7 @@ To change this file edit the source file and then run MarkdownSnippets.";
         var inner = string.Join(newline, lines)
             .Replace("{relativePath}", relativePath)
             .Replace(@"\n", newline);
-        return $@"<!--{newline}{inner}{newline}-->{newline}";
+        return $"<!--{newline}{inner}{newline}-->{newline}";
     }
 
     static string[] separator = {"\r\n", "\r", "\n", @"\n"};

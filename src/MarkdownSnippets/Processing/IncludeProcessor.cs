@@ -90,7 +90,7 @@ class IncludeProcessor
         }
 
         missing.Add(new MissingInclude(includeKey, index + 1, line.Path));
-        line.Current = $@"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
+        line.Current = $"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
     }
 
     void AddInclude(List<Line> lines, Line line, List<Include> used, int index, Include include)
@@ -132,12 +132,12 @@ class IncludeProcessor
         var key = include.Key;
         if (IsSnippetLineOrEndsWithTicks(first))
         {
-            yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
+            yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);
         }
         else
         {
-            yield return line.WithCurrent($@"{first} <!-- include: {key}. path: {path} -->");
+            yield return line.WithCurrent($"{first} <!-- include: {key}. path: {path} -->");
         }
 
         for (var index = 1; index < include.Lines.Count - 1; index++)
@@ -150,11 +150,11 @@ class IncludeProcessor
         if (IsSnippetLineOrEndsWithTicks(last))
         {
             yield return new Line(last, path, count);
-            yield return new Line(@"<!-- endInclude -->", path, count);
+            yield return new Line("<!-- endInclude -->", path, count);
         }
         else
         {
-            yield return new Line($@"{last} <!-- endInclude -->", path, count);
+            yield return new Line($"{last} <!-- endInclude -->", path, count);
         }
     }
 
@@ -166,7 +166,7 @@ class IncludeProcessor
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include)
     {
-        yield return line.WithCurrent($@"<!-- emptyInclude: {include.Key}. path: {path} -->");
+        yield return line.WithCurrent($"<!-- emptyInclude: {include.Key}. path: {path} -->");
     }
 
     static IEnumerable<Line> BuildSingle(Line line, string? path, Include include)
@@ -175,13 +175,13 @@ class IncludeProcessor
         var key = include.Key;
         if (IsSnippetLineOrEndsWithTicks(first))
         {
-            yield return line.WithCurrent($@"<!-- include: {key}. path: {path} -->");
+            yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
             yield return new Line(first, path, 1);
-            yield return new Line(@"<!-- endInclude -->", path, 1);
+            yield return new Line("<!-- endInclude -->", path, 1);
         }
         else
         {
-            yield return line.WithCurrent($@"{first} <!-- singleLineInclude: {key}. path: {path} -->");
+            yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key}. path: {path} -->");
         }
     }
 

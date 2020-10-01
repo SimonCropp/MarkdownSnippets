@@ -21,9 +21,9 @@ namespace MarkdownSnippets
 
         static void WriteSnippet(Action<string> appendLine, Snippet snippet)
         {
-            appendLine($@"```{snippet.Language}");
+            appendLine($"```{snippet.Language}");
             appendLine(snippet.Value);
-            appendLine(@"```");
+            appendLine("```");
         }
     }
 }

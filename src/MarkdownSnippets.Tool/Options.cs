@@ -6,7 +6,7 @@ public class Options
 {
     [Option('t', "target-directory",
         Required = false,
-        HelpText = @"The target directory to run against. Optional. If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.")]
+        HelpText = "The target directory to run against. Optional. If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.")]
     public string? TargetDirectory { get; set; }
 
     [Option('e', "exclude",
@@ -56,7 +56,7 @@ public class Options
 
     [Option("urlPrefix",
         Required = false,
-        HelpText = @"The prefix to add to all the snippet URLs. Optional. Defaults to: null")]
+        HelpText = "The prefix to add to all the snippet URLs. Optional. Defaults to: null")]
     public string? UrlPrefix { get; set; }
 
     [Option('l', "link-format",

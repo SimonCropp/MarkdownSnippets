@@ -52,7 +52,8 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             readOnly: false,
-            convention: DocumentConvention.InPlaceOverwrite);
+            convention: DocumentConvention.InPlaceOverwrite,
+            newLine:"\r");
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 
@@ -96,7 +97,8 @@ public class DirectoryMarkdownProcessorTests
             var processor = new DirectoryMarkdownProcessor(
                 root,
                 writeHeader: false,
-                readOnly: true);
+                readOnly: true,
+                newLine:"\r");
             processor.AddSnippets(
                 SnippetBuild("snippet1"),
                 SnippetBuild("snippet2")
@@ -154,7 +156,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippet");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine:"\r");
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -166,7 +168,7 @@ public class DirectoryMarkdownProcessorTests
     public Task BinaryFileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/BinaryFileSnippet");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine:"\r");
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -203,7 +205,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlInclude");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine:"\r");
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -241,7 +243,7 @@ public class DirectoryMarkdownProcessorTests
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine:"\r");
         processor.AddSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")

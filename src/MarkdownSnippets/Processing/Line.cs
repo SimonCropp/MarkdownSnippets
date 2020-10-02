@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 
+[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
 class Line
 {
     public Line(string original, string? path, int lineNumber)
@@ -12,8 +14,12 @@ class Line
 
     public Line WithCurrent(string current)
     {
-      return  new Line(Original, Path, LineNumber) {Current = current};
+        return new Line(Original, Path, LineNumber)
+        {
+            Current = current
+        };
     }
+
     public readonly string Original;
 
     public override string ToString()

@@ -202,6 +202,19 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task ExplicitFileIncludeWithSnippetAtEnd()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithSnippetAtEnd");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllTextAsync(result));
+    }
+
+    [Fact]
     public Task UrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlInclude");

@@ -205,7 +205,7 @@ public class DirectoryMarkdownProcessorTests
     public Task ExplicitFileIncludeWithMergedSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithMergedSnippet");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine:"\r");
         processor.AddSnippets(SnippetBuild("snippet1"));
         processor.Run();
 

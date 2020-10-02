@@ -161,6 +161,7 @@ class IncludeProcessor
     static bool IsSnippetLineOrEndsWithTicks(string line)
     {
         return SnippetKey.IsSnippetLine(line) ||
+               line.StartsWith("<!-- endSnippet -->") ||
                line.EndsWith("```");
     }
 

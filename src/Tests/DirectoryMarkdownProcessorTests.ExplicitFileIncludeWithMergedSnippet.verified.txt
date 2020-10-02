@@ -1,3 +1,5 @@
+some content
+
 The include text <!-- include: fileToInclude.txt. path: /fileToInclude.txt -->
 
 <!-- snippet: snippet1 -->

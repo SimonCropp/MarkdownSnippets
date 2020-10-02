@@ -56,8 +56,7 @@ public class DirectorySnippetExtractorTests
             {
                 directories.Add(path);
                 return true;
-            }
-        );
+            });
         extractor.ReadSnippets(targetDirectory);
         return Verifier.Verify(directories.OrderBy(file => file));
     }

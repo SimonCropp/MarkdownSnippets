@@ -174,10 +174,10 @@ public class SnippetExtractorTests
         return Verifier.Verify(snippets);
     }
 
-    List<Snippet> FromText(string contents)
+    static List<Snippet> FromText(string contents)
     {
-        using var stringReader = new StringReader(contents);
-        return FileSnippetExtractor.Read(stringReader, "path.cs", 80).ToList();
+        using var reader = new StringReader(contents);
+        return FileSnippetExtractor.Read(reader, "path.cs", 80).ToList();
     }
 
     [Fact]
@@ -209,6 +209,18 @@ public class SnippetExtractorTests
   #endregion";
         var snippets = FromText(input);
         return Verifier.Verify(snippets);
+    }
+
+    [Fact]
+    public Task MixedNewLines()
+    {
+        var input = "#region CodeKey\r  A\r\n  B\r  C\n  D\n  #endregion";
+        var snippets = FromText(input);
+        var single = snippets.Single();
+        var value = single.Value;
+        Assert.DoesNotContain("\r\n", value);
+        Assert.DoesNotContain("\r", value);
+        return Verifier.Verify(single);
     }
 
     [Fact]

@@ -9,7 +9,7 @@
       IsInError: false
     }
   ],
-  content: '
+  result: '
 some text
 
 <!-- include: theKey. path: thePath -->

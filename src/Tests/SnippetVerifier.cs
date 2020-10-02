@@ -37,16 +37,16 @@ static class SnippetVerifier
         return new MarkdownProcessor(
             convention: convention,
             snippets: snippets.ToDictionary(),
+            includes: includes,
             appendSnippets: SimpleSnippetMarkdownHandling.Append,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: false,
-            validateContent: true,
-            includes: includes,
-            rootDirectory: "c:/root");
+            rootDirectory: "c:/root",
+            validateContent: true);
     }
 
-    public static Task Verify(
+    public static async Task<string> Verify(
         DocumentConvention convention,
         string markdownContent,
         List<Snippet>? snippets = null,
@@ -58,14 +58,16 @@ static class SnippetVerifier
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
-        using var writer = new StringWriter(stringBuilder);
+        await using var writer = new StringWriter(stringBuilder);
         var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
+        var result = stringBuilder.ToString();
         var output = new
         {
             processResult.MissingSnippets,
             processResult.UsedSnippets,
-            content = stringBuilder.ToString()
+            result
         };
-        return Verifier.Verify(output, null, sourceFile);
+        await Verifier.Verify(output, null, sourceFile);
+        return result;
     }
 }

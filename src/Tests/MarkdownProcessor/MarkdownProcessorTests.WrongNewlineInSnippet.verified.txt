@@ -1,0 +1,14 @@
+{
+  MissingSnippets: [
+    {
+      Key: 'snippet1',
+      LineNumber: 2
+    }
+  ],
+  content: "
+<!-- snippet: snippet1 -->
+** Could not find snippet 'snippet1' **
+
+some text
+"
+}

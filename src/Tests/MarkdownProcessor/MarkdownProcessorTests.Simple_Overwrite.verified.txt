@@ -39,7 +39,7 @@ File',
       IsInError: false
     }
   ],
-  content: '
+  result: '
 <!-- snippet: snippet1 -->
 ```cs
 Snippet

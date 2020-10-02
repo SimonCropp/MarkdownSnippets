@@ -73,12 +73,14 @@ namespace MarkdownSnippets
         /// </summary>
         /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
         /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
-        public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue)
+        /// <param name="newLine">The string to use as a line separator in snippets.</param>
+        public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n")
         {
             Guard.AgainstNull(paths, nameof(paths));
+            Guard.AgainstNull(newLine, nameof(newLine));
             return paths
                 .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
-                .SelectMany(path => Read(path, maxWidth));
+                .SelectMany(path => Read(path, maxWidth, newLine));
         }
 
         /// <summary>
@@ -86,9 +88,11 @@ namespace MarkdownSnippets
         /// </summary>
         /// <param name="path">The current path to extract <see cref="Snippet"/>s from.</param>
         /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
-        public static IEnumerable<Snippet> Read(string path, int maxWidth = int.MaxValue)
+        /// <param name="newLine">The string to use as a line separator in snippets.</param>
+        public static IEnumerable<Snippet> Read(string path, int maxWidth = int.MaxValue, string newLine = "\n")
         {
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
+            Guard.AgainstNull(newLine, nameof(newLine));
             Guard.AgainstNullAndEmpty(path, nameof(path));
             if (!File.Exists(path))
             {
@@ -96,7 +100,7 @@ namespace MarkdownSnippets
             }
 
             using var reader = File.OpenText(path);
-            return Read(reader, path, maxWidth).ToList();
+            return Read(reader, path, maxWidth, newLine).ToList();
         }
 
         /// <summary>
@@ -105,12 +109,14 @@ namespace MarkdownSnippets
         /// <param name="textReader">The <see cref="TextReader"/> to read from.</param>
         /// <param name="path">The current path being used to extract <see cref="Snippet"/>s from. Only used for logging purposes in this overload.</param>
         /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
-        public static IEnumerable<Snippet> Read(TextReader textReader, string path, int maxWidth = int.MaxValue)
+        /// <param name="newLine">The string to use as a line separator in snippets.</param>
+        public static IEnumerable<Snippet> Read(TextReader textReader, string path, int maxWidth = int.MaxValue, string newLine = "\n")
         {
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNullAndEmpty(path, nameof(path));
-            return GetSnippets(textReader, path, maxWidth);
+            Guard.AgainstNull(newLine, nameof(newLine));
+            return GetSnippets(textReader, path, maxWidth, newLine);
         }
 
         static string GetLanguageFromPath(string path)
@@ -120,7 +126,7 @@ namespace MarkdownSnippets
             return s ?? string.Empty;
         }
 
-        static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth)
+        static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth, string newLine)
         {
             var language = GetLanguageFromPath(path);
             var loopStack = new LoopStack();
@@ -148,7 +154,7 @@ namespace MarkdownSnippets
 
                 if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
                 {
-                    loopStack.Push(endFunc, key, index, maxWidth);
+                    loopStack.Push(endFunc, key, index, maxWidth, newLine);
                     continue;
                 }
 

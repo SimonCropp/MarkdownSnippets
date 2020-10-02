@@ -16,6 +16,7 @@ namespace MarkdownSnippets
         AppendSnippetsToMarkdown appendSnippets;
         bool writeHeader;
         bool validateContent;
+        string newLine;
         string? header;
         int tocLevel;
         List<string> tocExcludes;
@@ -43,12 +44,14 @@ namespace MarkdownSnippets
             string rootDirectory,
             bool validateContent,
             string? header = null,
-            IEnumerable<string>? tocExcludes = null)
+            IEnumerable<string>? tocExcludes = null,
+            string newLine = "\n")
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippets, nameof(appendSnippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
             Guard.AgainstNull(includes, nameof(includes));
+            Guard.AgainstNull(newLine, nameof(newLine));
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
@@ -75,6 +78,7 @@ namespace MarkdownSnippets
             this.appendSnippets = appendSnippets;
             this.writeHeader = writeHeader;
             this.validateContent = validateContent;
+            this.newLine = newLine;
             this.header = header;
             this.tocLevel = tocLevel;
             if (tocExcludes == null)
@@ -124,7 +128,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
-            var (lines, newLine) = Lines.ReadAllLines(textReader, null);
+            var lines = Lines.ReadAllLines(textReader, null).ToList();
             writer.NewLine = newLine;
             var result = Apply(lines, newLine, file);
             foreach (var line in lines)
@@ -181,7 +185,6 @@ namespace MarkdownSnippets
                     tocLine = line;
                     continue;
                 }
-
 
                 void AppendSnippet(string key1)
                 {
@@ -325,7 +328,7 @@ namespace MarkdownSnippets
         }
 
 
-        static List<Snippet> SnippetsForFile(string key, string relativeToRoot)
+        List<Snippet> SnippetsForFile(string key, string relativeToRoot)
         {
             return new List<Snippet>
             {
@@ -333,7 +336,7 @@ namespace MarkdownSnippets
             };
         }
 
-        static bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
+        bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
         {
             var (success, path) = Downloader.DownloadFile(key).GetAwaiter().GetResult();
             if (!success)
@@ -346,7 +349,7 @@ namespace MarkdownSnippets
             return true;
         }
 
-        static Snippet FileToSnippet(string key, string file, string? path)
+        Snippet FileToSnippet(string key, string file, string? path)
         {
             var (text, lineCount) = ReadNonStartEndLines(file);
 
@@ -364,11 +367,11 @@ namespace MarkdownSnippets
                 path: path);
         }
 
-        static (string text, int lineCount) ReadNonStartEndLines(string file)
+        (string text, int lineCount) ReadNonStartEndLines(string file)
         {
             var cleanedLines = File.ReadAllLines(file)
                 .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart())).ToList();
-            return (string.Join(Environment.NewLine, cleanedLines), cleanedLines.Count);
+            return (string.Join(newLine, cleanedLines), cleanedLines.Count);
         }
     }
 }

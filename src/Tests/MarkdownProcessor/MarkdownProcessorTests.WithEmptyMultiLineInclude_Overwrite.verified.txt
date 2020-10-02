@@ -1,5 +1,5 @@
 {
-  content: '
+  result: '
 before
 
 one <!-- include: theKey. path: /thePath -->

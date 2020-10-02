@@ -119,14 +119,15 @@ public class DirectoryMarkdownProcessorTests
     public Task FileSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetMissing");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine: "\n");
         return Verifier.Throws(() => processor.Run());
     }
+
     [Fact]
     public Task UrlSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine: "\n");
         return Verifier.Throws(() => processor.Run());
     }
 
@@ -145,7 +146,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlIncludeMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");
-        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false);
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine: "\n");
         return Verifier.Throws(() => processor.Run());
     }
 
@@ -217,7 +218,8 @@ public class DirectoryMarkdownProcessorTests
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
-            documentExtensions: new List<string> {"txt"});
+            documentExtensions: new List<string> {"txt"},
+            newLine: "\n");
         processor.AddSnippets(
             SnippetBuild("snippet1"),
             SnippetBuild("snippet2")

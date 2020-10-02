@@ -22,15 +22,9 @@ class LoopStack
         stack.Pop();
     }
 
-    public void Push(Func<string, bool> endFunc, string key, int startLine, int maxWidth)
+    public void Push(Func<string, bool> endFunc, string key, int startLine, int maxWidth, string newLine)
     {
-        var state = new LoopState
-        (
-            key: key,
-            endFunc: endFunc,
-            startLine: startLine,
-            maxWidth:maxWidth
-        );
+        var state = new LoopState(key, endFunc, startLine, maxWidth, newLine);
         stack.Push(state);
     }
 

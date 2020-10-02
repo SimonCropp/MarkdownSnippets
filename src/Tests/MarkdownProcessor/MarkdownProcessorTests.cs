@@ -344,6 +344,31 @@ BAD
     }
 
     [Fact]
+    public async Task MixedNewlinesInFile()
+    {
+        var file = "FileWithMixedNewLines.txt";
+        File.Delete(file);
+        await File.WriteAllTextAsync(file, "a\rb\nc\r\nd");
+        var availableSnippets = new List<Snippet>();
+        var content = @"
+some other text
+
+snippet: FileWithMixedNewLines.txt
+";
+        var result = await SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            availableSnippets,
+            new List<string>
+            {
+                file
+            });
+
+        Assert.DoesNotContain("\r\n", result);
+        Assert.DoesNotContain("\r", result);
+    }
+
+    [Fact]
     public Task Simple()
     {
         var availableSnippets = new List<Snippet>

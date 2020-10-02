@@ -28,7 +28,7 @@ public class GitHashReaderTests
         return VerifyInner("GitDirs/WithRef");
     }
 
-    Task VerifyInner(string path)
+    static Task VerifyInner(string path)
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, path);
         var hash = GitHashReader.GetHashForGitDirectory(directory);

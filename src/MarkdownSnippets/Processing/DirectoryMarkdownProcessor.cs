@@ -20,13 +20,14 @@ namespace MarkdownSnippets
         List<string> documentExtensions;
         Action<string> log;
         string targetDirectory;
-        List<string> sourceMdFiles = new List<string>();
+        List<string> mdFiles = new List<string>();
         List<Include> includes = new List<Include>();
         List<Snippet> snippets = new List<Snippet>();
         public IReadOnlyList<Snippet> Snippets => snippets;
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
+        string newLine;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -46,7 +47,8 @@ namespace MarkdownSnippets
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
-            bool validateContent = false) :
+            bool validateContent = false,
+            string? newLine = null) :
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).Append,
@@ -64,7 +66,8 @@ namespace MarkdownSnippets
                 documentExtensions,
                 treatMissingAsWarning,
                 maxWidth,
-                validateContent)
+                validateContent,
+                newLine)
         {
         }
 
@@ -85,7 +88,8 @@ namespace MarkdownSnippets
             IEnumerable<string>? documentExtensions = null,
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
-            bool validateContent = false)
+            bool validateContent = false,
+            string? newLine = null)
         {
             this.appendSnippets = appendSnippets;
             this.convention = convention;
@@ -109,6 +113,7 @@ namespace MarkdownSnippets
                 AddMdFilesFrom(targetDirectory);
             }
 
+            this.newLine = FindNewLine(newLine);
             if (scanForSnippets)
             {
                 AddSnippetsFrom(targetDirectory);
@@ -118,6 +123,37 @@ namespace MarkdownSnippets
             {
                 AddIncludeFilesFrom(targetDirectory);
             }
+        }
+
+        string FindNewLine(string? newLine)
+        {
+            if (newLine != null)
+            {
+                return newLine;
+            }
+
+            foreach (var mdFile in mdFiles.OrderBy(x => x.Length))
+            {
+                using var reader = File.OpenText(mdFile);
+                if (reader.TryFindNewline(out newLine))
+                {
+                    return newLine!;
+                }
+            }
+
+            var otherMdFiles = Directory.EnumerateFiles(targetDirectory, "*.md", SearchOption.AllDirectories)
+                .Where(x => !mdFiles.Contains(x))
+                .OrderBy(x => x.Length);
+            foreach (var mdFile in otherMdFiles)
+            {
+                using var reader = File.OpenText(mdFile);
+                if (reader.TryFindNewline(out newLine))
+                {
+                    return newLine!;
+                }
+            }
+
+            throw new SnippetException("Could not derive new-line string from markdown files.");
         }
 
         public void AddSnippets(List<Snippet> snippets)
@@ -147,7 +183,7 @@ namespace MarkdownSnippets
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
-            var read = FileSnippetExtractor.Read(files, maxWidth).ToList();
+            var read = FileSnippetExtractor.Read(files, maxWidth, newLine).ToList();
             snippets.AddRange(read);
             log($"Added {read.Count} snippets");
         }
@@ -166,7 +202,7 @@ namespace MarkdownSnippets
             directory = ExpandDirectory(directory);
             var finder = new MdFileFinder(convention, directoryFilter, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
-            sourceMdFiles.AddRange(files);
+            mdFiles.AddRange(files);
             log($"Added {files.Count} markdown files");
         }
 
@@ -184,7 +220,7 @@ namespace MarkdownSnippets
             Guard.AgainstNull(files, nameof(files));
             foreach (var file in files)
             {
-                sourceMdFiles.Add(file);
+                mdFiles.Add(file);
             }
         }
 
@@ -202,9 +238,9 @@ namespace MarkdownSnippets
                 writeHeader,
                 targetDirectory,
                 validateContent,
-                header,
-                tocExcludes);
-            foreach (var sourceFile in sourceMdFiles)
+                header: header,
+                tocExcludes: tocExcludes, newLine: newLine);
+            foreach (var sourceFile in mdFiles)
             {
                 ProcessFile(sourceFile, processor);
             }
@@ -223,7 +259,7 @@ namespace MarkdownSnippets
                 targetFile = sourceFile;
             }
 
-            var (lines, newLine) = ReadLines(sourceFile);
+            var lines = ReadLines(sourceFile);
 
             FileEx.ClearReadOnly(targetFile);
 
@@ -280,19 +316,20 @@ namespace MarkdownSnippets
             }
         }
 
-        static void WriteLines(string target, List<Line> lines)
+        void WriteLines(string target, List<Line> lines)
         {
             using var writer = File.CreateText(target);
+            writer.NewLine = newLine;
             foreach (var line in lines)
             {
                 writer.WriteLine(line.Current);
             }
         }
 
-        static (List<Line> lines, string newLine) ReadLines(string sourceFile)
+        static List<Line> ReadLines(string sourceFile)
         {
             using var reader = File.OpenText(sourceFile);
-            return Lines.ReadAllLines(reader, sourceFile);
+            return Lines.ReadAllLines(reader, sourceFile).ToList();
         }
 
         static string TargetFileForSourceTransform(string sourceFile, string rootDirectory)

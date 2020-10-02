@@ -1,0 +1,27 @@
+{
+  UsedSnippets: [
+    {
+      Key: 'FileWithMixedNewLines.txt',
+      Language: 'txt',
+      Value: 'a
+b
+c
+d',
+      Error: '',
+      FileLocation: null,
+      IsInError: false
+    }
+  ],
+  result: '
+some other text
+
+<!-- snippet: FileWithMixedNewLines.txt -->
+```txt
+a
+b
+c
+d
+```
+<!-- endSnippet -->
+'
+}

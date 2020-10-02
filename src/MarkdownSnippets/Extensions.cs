@@ -1,10 +1,52 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 static class Extensions
 {
+    public static bool TryFindNewline(this TextReader reader, out string? newline)
+    {
+        do
+        {
+            var c = reader.Read();
+            if (c == -1)
+            {
+                break;
+            }
+
+            if (c == '\r')
+            {
+                var peek = reader.Peek();
+                if (peek == -1)
+                {
+                    newline = "\r";
+                    return true;
+                }
+
+                if (peek == '\n')
+                {
+                    newline = "\r\n";
+                    return true;
+                }
+
+                newline = "\r";
+                return true;
+            }
+
+            if (c == '\n')
+            {
+                newline = "\n";
+                return true;
+            }
+
+        } while (true);
+
+        newline = null;
+        return false;
+    }
+
     public static void TrimEnd(this StringBuilder builder)
     {
         var i = builder.Length - 1;

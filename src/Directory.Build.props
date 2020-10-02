@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591</NoWarn>
-    <Version>21.0.7</Version>
+    <Version>21.0.8</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>

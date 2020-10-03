@@ -4,10 +4,19 @@ using System.IO;
 
 static class FileEx
 {
+    public static string FixFileCapitalization(string file)
+    {
+        var fileName = Path.GetFileName(file);
+        var directory = Path.GetDirectoryName(file);
+        var filePaths = Directory.GetFiles(directory!, fileName, SearchOption.TopDirectoryOnly);
+        return filePaths[0];
+    }
+
     public static FileStream OpenRead(string path)
     {
         return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
     }
+
     public static string GetRelativePath(string file, string directory)
     {
         var fileUri = new Uri(file);
@@ -16,6 +25,7 @@ static class FileEx
         {
             directory += Path.DirectorySeparatorChar;
         }
+
         var directoryUri = new Uri(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
@@ -43,12 +53,14 @@ static class FileEx
 
         return files;
     }
+
     public static void ClearReadOnly(string path)
     {
         if (!File.Exists(path))
         {
             return;
         }
+
         new FileInfo(path)
         {
             IsReadOnly = false

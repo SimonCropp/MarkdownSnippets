@@ -190,6 +190,18 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task MixedCaseInclude()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/MixedCaseInclude");
+        var processor = new DirectoryMarkdownProcessor(root, writeHeader: false, newLine: "\r");
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllTextAsync(result));
+    }
+
+    [Fact]
     public Task ExplicitFileInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileInclude");

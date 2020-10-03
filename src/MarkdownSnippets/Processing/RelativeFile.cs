@@ -5,7 +5,7 @@ using System.Linq;
 
 static class RelativeFile
 {
-    public static bool Find(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    static bool InnerFind(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
     {
         if (!key.Contains("."))
         {
@@ -20,37 +20,31 @@ static class RelativeFile
             return true;
         }
 
-        if (relativePath != null)
+        var documentDirectory = Path.GetDirectoryName(relativePath);
+        if (documentDirectory != null)
         {
-            var documentDirectory = Path.GetDirectoryName(relativePath);
-            if (documentDirectory != null)
+            var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
+            if (File.Exists(relativeToDocument))
             {
-                var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
-                if (File.Exists(relativeToDocument))
-                {
-                    path = relativeToDocument;
-                    return true;
-                }
+                path = relativeToDocument;
+                return true;
             }
         }
 
-        if (linePath != null)
+        var lineDirectory = Path.GetDirectoryName(linePath);
+        if (lineDirectory != null)
         {
-            var lineDirectory = Path.GetDirectoryName(linePath);
-            if (lineDirectory != null)
+            var relativeToLine = Path.Combine(lineDirectory, key);
+            if (File.Exists(relativeToLine))
             {
-                var relativeToLine = Path.Combine(lineDirectory, key);
-                if (File.Exists(relativeToLine))
-                {
-                    path = relativeToLine;
-                    return true;
-                }
+                path = relativeToLine;
+                return true;
             }
         }
 
         if (File.Exists(key))
         {
-            path = key;
+            path = Path.GetFullPath(key);
             return true;
         }
 
@@ -64,6 +58,17 @@ static class RelativeFile
         }
 
         path = null!;
+        return false;
+    }
+
+    public static bool Find(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    {
+        if (InnerFind(allFiles, rootDirectory, key, relativePath, linePath, out path))
+        {
+            path = FileEx.FixFileCapitalization(path);
+            return true;
+        }
+
         return false;
     }
 }

@@ -15,7 +15,9 @@ public class TocBuilderTests
             new Line("##", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
+        var buildToc = TocBuilder.BuildToc(lines, 1, new List<string>(), "\r");
+        Assert.DoesNotContain("\r\n", buildToc);
+        return Verifier.Verify(buildToc);
     }
 
     [Fact]

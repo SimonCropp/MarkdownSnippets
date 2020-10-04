@@ -5,3 +5,15 @@ the code from snippet1
 ```
 <sup><a href='#snippet-snippet1' title='Navigate to start of snippet `snippet1`'>anchor</a></sup>
 <!-- endSnippet -->
+
+The include text <!-- singleLineInclude: fileToInclude.txt. path: /fileToInclude.txt -->
+
+Line 1 <!-- include: multiLineFileToInclude.txt. path: /multiLineFileToInclude.txt -->
+
+Line 2 <!-- endInclude -->
+
+<!-- include: includeWithCode.txt. path: /includeWithCode.txt -->
+```
+The Code
+```
+<!-- endInclude -->

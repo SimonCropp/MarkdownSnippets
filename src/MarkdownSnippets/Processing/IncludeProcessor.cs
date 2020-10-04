@@ -49,6 +49,15 @@ class IncludeProcessor
             return true;
         }
 
+        if (current.StartsWith("<!-- include: ", StringComparison.Ordinal))
+        {
+            var substring = current.Substring(14);
+            var includeKey = substring.Substring(0, substring.IndexOf(". "));
+            lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
+            Inner(lines, line, used, index, missing, includeKey, relativePath);
+            return true;
+        }
+
         var indexOfInclude = current.IndexOf("<!-- include: ", StringComparison.Ordinal);
         if (indexOfInclude > 0)
         {

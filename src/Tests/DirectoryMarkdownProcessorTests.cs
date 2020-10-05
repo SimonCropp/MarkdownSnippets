@@ -30,6 +30,22 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteExistsNoPath()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExistsNoPath");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            convention: DocumentConvention.InPlaceOverwrite);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+
+    [Fact]
     public Task InPlaceOverwriteExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExists");

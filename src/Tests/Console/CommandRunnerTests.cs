@@ -58,6 +58,27 @@ public class CommandRunnerTests
     }
 
     [Fact]
+    public async Task WritePath()
+    {
+        await CommandRunner.RunCommand(Capture, "--write-path", "false");
+        await VerifyResult();
+    }
+
+    [Fact]
+    public async Task ConventionShort()
+    {
+        await CommandRunner.RunCommand(Capture, "-c", "InPlaceOverwrite");
+        await VerifyResult();
+    }
+
+    [Fact]
+    public async Task ConventionLong()
+    {
+        await CommandRunner.RunCommand(Capture, "--convention", "InPlaceOverwrite");
+        await VerifyResult();
+    }
+
+    [Fact]
     public async Task ReadOnlyShort()
     {
         await CommandRunner.RunCommand(Capture, "-r", "false");

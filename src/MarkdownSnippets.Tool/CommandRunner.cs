@@ -37,7 +37,10 @@ static class CommandRunner
                         Exclude = options.Exclude.ToList(),
                         TocExcludes = options.TocExcludes.ToList(),
                         DocumentExtensions = options.DocumentExtensions.ToList(),
-                        UrlsAsSnippets = options.UrlsAsSnippets.ToList()
+                        UrlsAsSnippets = options.UrlsAsSnippets.ToList(),
+                        TreatMissingAsWarning = options.TreatMissingAsWarning,
+                        WritePath = options.WritePath,
+                        Convention = options.Convention
                     };
                     return invoke(options.TargetDirectory!, configInput);
                 });

@@ -48,6 +48,16 @@ public class Options
         HelpText = "Write a header at the top of each resultant md file. Optional. Defaults to true")]
     public bool? WriteHeader { get; set; }
 
+    [Option("missing-as-warning",
+        Required = false,
+        HelpText = "The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true. Optional. Defaults to false")]
+    public bool? TreatMissingAsWarning { get; set; }
+
+    [Option("write-path",
+        Required = false,
+        HelpText = "Control if the file path to a snippet/include is written to the md file. Optional. Defaults to true.")]
+    public bool? WritePath { get; set; }
+
     [Option("header",
         Required = false,
         HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:

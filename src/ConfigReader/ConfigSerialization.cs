@@ -16,4 +16,5 @@ public class ConfigSerialization
     public List<string> TocExcludes { get; set; } = new List<string>();
     public List<string> DocumentExtensions { get; set; } = new List<string>();
     public bool? TreatMissingAsWarning { get; set; }
+    public bool? WritePath { get; set; }
 }

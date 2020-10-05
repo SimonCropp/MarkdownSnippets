@@ -27,6 +27,7 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
+        bool writePath;
         string newLine;
 
         public DirectoryMarkdownProcessor(
@@ -48,7 +49,8 @@ namespace MarkdownSnippets
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
             bool validateContent = false,
-            string? newLine = null) :
+            string? newLine = null,
+            bool writePath = true) :
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).Append,
@@ -67,7 +69,8 @@ namespace MarkdownSnippets
                 treatMissingAsWarning,
                 maxWidth,
                 validateContent,
-                newLine)
+                newLine,
+                writePath)
         {
         }
 
@@ -89,7 +92,8 @@ namespace MarkdownSnippets
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false,
-            string? newLine = null)
+            string? newLine = null,
+            bool writePath = true)
         {
             this.appendSnippets = appendSnippets;
             this.convention = convention;
@@ -103,6 +107,7 @@ namespace MarkdownSnippets
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
             this.maxWidth = maxWidth;
             this.treatMissingAsWarning = treatMissingAsWarning;
+            this.writePath = writePath;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
 

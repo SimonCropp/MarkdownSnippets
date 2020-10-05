@@ -40,6 +40,7 @@ static class Program
             documentExtensions: configResult.DocumentExtensions,
             tocLevel: configResult.TocLevel,
             treatMissingAsWarning: configResult.TreatMissingAsWarning,
+            writePath: configResult.WritePath,
             maxWidth: configResult.MaxWidth,
             validateContent: configResult.ValidateContent);
 

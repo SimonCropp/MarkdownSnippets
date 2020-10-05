@@ -7,10 +7,12 @@ Config:
         line2
     UrlPrefix: 
     LinkFormat: Tfs
-    Convention: SourceTransform
+    Convention: InPlaceOverwrite
     TocLevel: 5
     MaxWidth: 80
     ValidateContent: False
+    WritePath: False
+    TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
     Exclude:
         Dir1

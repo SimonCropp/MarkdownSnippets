@@ -57,10 +57,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingAsWarning": true,
+  "WritePath": false,
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='File snippet `allConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-allConfig.json' title='Navigate to start of snippet `allConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L17' title='File snippet `allConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-allConfig.json' title='Navigate to start of snippet `allConfig.json`'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -77,3 +78,4 @@ Add a file named `mdsnippets.json` at the target directory with the following co
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).
  * [DocumentExtensions: Documents extensions to process. Defaults to `md`](/readme.md#documentextensions).
  * TreatMissingAsWarning: The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true.
+ * WritePath: Control if the file path to a snippet/include is written to the md file. Optional. Defaults to true..

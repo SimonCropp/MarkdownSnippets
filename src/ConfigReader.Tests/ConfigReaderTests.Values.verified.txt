@@ -24,5 +24,6 @@
     'md',
     'html'
   ],
-  TreatMissingAsWarning: true
+  TreatMissingAsWarning: true,
+  WritePath: false
 }

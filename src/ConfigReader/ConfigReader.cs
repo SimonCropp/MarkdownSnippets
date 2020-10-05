@@ -60,6 +60,7 @@ public static class ConfigReader
             LinkFormat = GetLinkFormat(config.LinkFormat),
             Convention = GetConvention(config.Convention),
             TreatMissingAsWarning = config.TreatMissingAsWarning,
+            WritePath = config.WritePath,
         };
     }
 

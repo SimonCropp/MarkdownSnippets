@@ -12,5 +12,6 @@
   "Header": "GENERATED FILE - Source File: {relativePath}",
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingAsWarning": true,
+  "WritePath": false,
   "ValidateContent": true
 }

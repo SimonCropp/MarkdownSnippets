@@ -269,7 +269,7 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L103-L123' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L112-L132' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
 <!-- endSnippet -->
 
 

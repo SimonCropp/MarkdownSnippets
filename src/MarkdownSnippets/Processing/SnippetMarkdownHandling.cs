@@ -76,7 +76,16 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            var path = snippet.Path.Replace(@"\", "/").Substring(rootDirectory.Length);
+            var path = snippet.Path.Replace(@"\", "/");
+            if (!path.StartsWith(rootDirectory))
+            {
+                //if file is not in the rootDirectory then the url wont work
+                supText = linkForAnchor;
+                return true;
+            }
+
+            path = path.Substring(rootDirectory.Length);
+
             var sourceLink = BuildLink(snippet, path);
             var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='File snippet `{snippet.Key}` was extracted from'>snippet source</a>";
             if (linkFormat == LinkFormat.Tfs)

@@ -36,7 +36,8 @@ csx
 _NCrunch_*
 logs
 run-git.cmd
-
+.idea
+.DS_Store
 *.jtconfig
 NugetBuild
 *.received.*

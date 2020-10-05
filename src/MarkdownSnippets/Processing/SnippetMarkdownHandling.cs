@@ -51,12 +51,13 @@ namespace MarkdownSnippets
 
         static string GetAnchorText(Snippet snippet, uint index)
         {
+            var id = $"{snippet.Key.GetHashCode():X}";
             if (index == 0)
             {
-                return $"snippet-{snippet.Key}";
+                return $"snippet-{id}";
             }
 
-            return  $"snippet-{snippet.Key}-{index}";
+            return  $"snippet-{id}-{index}";
         }
 
         bool TryGetSupText(Snippet snippet, string anchor, [NotNullWhen(true)] out string? supText)

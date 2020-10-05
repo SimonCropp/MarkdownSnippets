@@ -15,33 +15,33 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ## For [InPlaceOverwrite](https://github.com/SimonCropp/MarkdownSnippets#inplaceoverwrite)
 
 <!-- snippet: InPlaceOverwrite.json -->
-<a id='snippet-InPlaceOverwrite.json'></a>
+<a id='snippet-F417F1F7'></a>
 ```json
 {
   "Convention": "InPlaceOverwrite"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-InPlaceOverwrite.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-F417F1F7' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
 
 <!-- snippet: SourceTransform.json -->
-<a id='snippet-SourceTransform.json'></a>
+<a id='snippet-3F066B44'></a>
 ```json
 {
   "Convention": "SourceTransform"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-3F066B44' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## All Settings
 
 <!-- snippet: allConfig.json -->
-<a id='snippet-allConfig.json'></a>
+<a id='snippet-BA620C7A'></a>
 ```json
 {
   "ReadOnly": false,
@@ -60,7 +60,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-BA620C7A' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

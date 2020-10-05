@@ -28,7 +28,7 @@ When scanning for snippets the following are ignored:
  * All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
 
 <!-- snippet: ExcludedFileExtensions -->
-<a id='snippet-excludedfileextensions'></a>
+<a id='snippet-587B97E1'></a>
 ```cs
 "md",
 // extra binary
@@ -296,17 +296,17 @@ When scanning for snippets the following are ignored:
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L300' title='Snippet source file'>snippet source</a> | <a href='#snippet-excludedfileextensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L300' title='Snippet source file'>snippet source</a> | <a href='#snippet-587B97E1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * Files that cannot contain comments:
 
 <!-- snippet: NoAcceptCommentsExtensions -->
-<a id='snippet-noacceptcommentsextensions'></a>
+<a id='snippet-B5E2CB71'></a>
 ```cs
 "csv",
 "json",
 "geojson"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L23-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-noacceptcommentsextensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L23-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-B5E2CB71' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

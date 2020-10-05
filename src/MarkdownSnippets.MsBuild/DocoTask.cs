@@ -49,7 +49,7 @@ namespace MarkdownSnippets
                     MaxWidth = MaxWidth,
                     UrlsAsSnippets = UrlsAsSnippets,
                     DocumentExtensions = DocumentExtensions,
-                    TreatMissingAsWarning = TreatMissingAsWarning
+                    TreatMissingAsWarning = TreatMissingAsWarning,
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);

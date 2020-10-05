@@ -17,7 +17,8 @@ public class ConfigReaderTests
     [Fact]
     public Task BadJson()
     {
-        return Verifier.Throws(()=>ConfigReader.Parse(@"{
+        return Verifier.Throws(
+            () => ConfigReader.Parse(@"{
   ""ValidateContent"": true
   ""Convention"": ""InPlaceOverwrite""
 }"));

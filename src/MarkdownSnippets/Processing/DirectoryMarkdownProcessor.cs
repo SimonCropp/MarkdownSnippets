@@ -239,7 +239,8 @@ namespace MarkdownSnippets
                 targetDirectory,
                 validateContent,
                 header: header,
-                tocExcludes: tocExcludes, newLine: newLine);
+                tocExcludes: tocExcludes,
+                newLine: newLine);
             foreach (var sourceFile in mdFiles)
             {
                 ProcessFile(sourceFile, processor);

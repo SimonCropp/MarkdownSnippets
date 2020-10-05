@@ -9,4 +9,5 @@ Config:
     TocLevel: 0
     MaxWidth: 0
     ValidateContent: False
+    TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)

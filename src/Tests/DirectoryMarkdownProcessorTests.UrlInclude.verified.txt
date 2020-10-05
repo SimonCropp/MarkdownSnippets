@@ -1,4 +1,4 @@
-The MIT License (MIT) <!-- include: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt. path:  -->
+The MIT License (MIT) <!-- include: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt -->
 
 Copyright (c) 2013 Simon Cropp
 

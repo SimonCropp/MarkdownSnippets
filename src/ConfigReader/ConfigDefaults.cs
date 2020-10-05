@@ -23,7 +23,7 @@ public static class ConfigDefaults
                 DocumentExtensions = otherConfig.DocumentExtensions,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
-                TreatMissingAsWarning = otherConfig.TreatMissingAsWarning.GetValueOrDefault()
+                TreatMissingAsWarning = otherConfig.TreatMissingAsWarning.GetValueOrDefault(),
             };
         }
 

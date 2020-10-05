@@ -1,0 +1,6 @@
+{
+  targetDirectory: 'CurrentDirectory',
+  configInput: {
+    Convention: 'InPlaceOverwrite'
+  }
+}

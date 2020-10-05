@@ -20,7 +20,8 @@ line2",
             LinkFormat = LinkFormat.Tfs,
             UrlsAsSnippets = new List<string> {"Url1", "Url2"},
             TocLevel = 5,
-            MaxWidth = 80
+            MaxWidth = 80,
+            Convention = DocumentConvention.InPlaceOverwrite,
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         return Verifier.Verify(message);

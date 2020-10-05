@@ -3,5 +3,5 @@
 ```dot
 From Source File
 ```
-<sup><a href='#snippet-sourceFile.dot' title='Navigate to start of snippet `sourceFile.dot`'>anchor</a></sup>
+<sup><a href='#snippet-sourceFile.dot' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

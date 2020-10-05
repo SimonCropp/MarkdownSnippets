@@ -26,7 +26,7 @@ Text1
 
 Text2
 ```
-<sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='File snippet `tocBefore.txt` was extracted from'>snippet source</a> | <a href='#snippet-tocBefore.txt' title='Navigate to start of snippet `tocBefore.txt`'>anchor</a></sup>
+<sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-tocBefore.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The result will be rendered:
@@ -51,7 +51,7 @@ Text1
 
 Text2
 ```
-<sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='File snippet `tocAfter.txt` was extracted from'>snippet source</a> | <a href='#snippet-tocAfter.txt' title='Navigate to start of snippet `tocAfter.txt`'>anchor</a></sup>
+<sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-tocAfter.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

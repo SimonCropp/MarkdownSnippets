@@ -5,7 +5,7 @@ Local
 ```txt
 From Source File
 ```
-<sup><a href='/sourceFile.txt#L1-L1' title='File snippet `sourceFile.txt` was extracted from'>snippet source</a> | <a href='#snippet-sourceFile.txt' title='Navigate to start of snippet `sourceFile.txt`'>anchor</a></sup>
+<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Relative Local
@@ -15,7 +15,7 @@ Relative Local
 ```txt
 From Source File
 ```
-<sup><a href='#snippet-./sourceFile.txt' title='Navigate to start of snippet `./sourceFile.txt`'>anchor</a></sup>
+<sup><a href='#snippet-./sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Rooted
@@ -25,6 +25,6 @@ Rooted
 ```txt
 From Source File
 ```
-<sup><a href='/sourceFile.txt#L1-L1' title='File snippet `/sourceFile.txt` was extracted from'>snippet source</a> | <a href='#snippet-/sourceFile.txt' title='Navigate to start of snippet `/sourceFile.txt`'>anchor</a></sup>
+<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-/sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 

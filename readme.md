@@ -176,7 +176,7 @@ The resulting markdown will be:
     ```
     My Snippet Code
     ```
-    <sup><a href='/relativeUrlToFile#L1-L11' title='File snippet `MySnippetName` was extracted from'>snippet source</a> | <a href='#snippet-MySnippetName' title='Navigate to start of snippet `MySnippetName`'>anchor</a></sup>
+    <sup><a href='/relativeUrlToFile#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-MySnippetName' title='Start of snippet'>anchor</a></sup>
     <!-- endSnippet -->
 
 Notes:
@@ -197,9 +197,9 @@ Will render:
 	<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt'></a>
 	```txt
 	The MIT License (MIT)
-    ...
+	...
 	```
-	<sup><a href='#snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt' title='Navigate to start of snippet `https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt`'>anchor</a></sup>
+	<sup><a href='#snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt' title='Snippet source file'>anchor</a></sup>
 	<!-- endSnippet -->
 
 Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
@@ -217,9 +217,9 @@ Will render:
 	<a id='snippet-license.txt'></a>
 	```txt
 	The MIT License (MIT)
-    ...
+	...
 	```
-	<sup><a href='#snippet-license.txt' title='Navigate to start of snippet `license.txt`'>anchor</a></sup>
+	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
 	<!-- endSnippet -->
 
 Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
@@ -243,7 +243,7 @@ namespace MarkdownSnippets
     }
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='File snippet `LinkFormat.cs` was extracted from'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Navigate to start of snippet `LinkFormat.cs`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: BuildLink -->
@@ -269,7 +269,7 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L112-L132' title='File snippet `buildlink` was extracted from'>snippet source</a> | <a href='#snippet-buildlink' title='Navigate to start of snippet `buildlink`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L112-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

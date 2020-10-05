@@ -20,6 +20,24 @@ snippet: SourceTransform.json
 snippet: allConfig.json
 
 
+## JSON Schema
+
+Editor help is available by adding the `$schema` field to your `mdsnippets.json` file.
+
+```json
+{
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/docs/assets/mdsnippets-schema.json"
+}
+```
+
+In the screenshot, [JetBrains Rider](https://jetbrains.com/rider), is able to offer code completion support.
+
+![IDE schema code completion](/docs/assets/code-completion.png)
+
+The schema also includes `enum` values for constrained value types.
+
+![IDE schema code completion](/docs/assets/code-completion-values.png)
+
 ## More Info
 
  * [ReadOnly: Mark resulting files as read only](/readme.md#mark-resulting-files-as-read-only)

@@ -9,23 +9,27 @@ class IncludeProcessor
     DocumentConvention convention;
     IReadOnlyList<Include> includes;
     List<string> allFiles;
+    bool writePath;
     string rootDirectory;
 
     public IncludeProcessor(
         DocumentConvention convention,
         IReadOnlyList<Include> includes,
         string rootDirectory,
-        List<string> allFiles)
+        List<string> allFiles,
+        bool writePath)
     {
         rootDirectory = Path.GetFullPath(rootDirectory);
         this.rootDirectory = rootDirectory.Replace(@"\", "/");
         this.convention = convention;
         this.includes = includes;
         this.allFiles = allFiles;
+        this.writePath = writePath;
     }
 
     public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
     {
+
         var current = line.Current;
 
         if (current.StartsWith("include: "))
@@ -40,11 +44,23 @@ class IncludeProcessor
             return false;
         }
 
+        string GetIncludeKey(string substring)
+        {
+            var indexOfDotPath = substring.IndexOf(". Path:");
+            if (indexOfDotPath != -1)
+            {
+                return substring.Substring(0, indexOfDotPath);
+            }
+
+            var includeKey = substring.Substring(0, substring.Length-4);
+            return includeKey;
+        }
+
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);
         if (indexSingleLineInclude > 0)
         {
             var substring = current.Substring(indexSingleLineInclude + 24);
-            var includeKey = substring.Substring(0, substring.IndexOf(". "));
+            var includeKey = GetIncludeKey(substring);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
         }
@@ -52,7 +68,7 @@ class IncludeProcessor
         if (current.StartsWith("<!-- include: ", StringComparison.Ordinal))
         {
             var substring = current.Substring(14);
-            var includeKey = substring.Substring(0, substring.IndexOf(". "));
+            var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
@@ -62,7 +78,7 @@ class IncludeProcessor
         if (indexOfInclude > 0)
         {
             var substring = current.Substring(indexOfInclude + 14);
-            var includeKey = substring.Substring(0, substring.IndexOf(". "));
+            var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
@@ -134,19 +150,34 @@ class IncludeProcessor
         return BuildMultiple(line, path, include);
     }
 
-    static IEnumerable<Line> BuildMultiple(Line line, string? path, Include include)
+    IEnumerable<Line> BuildMultiple(Line line, string? path, Include include)
     {
         var count = include.Lines.Count;
         var first = include.Lines.First();
         var key = include.Key;
         if (IsSnippetLineOrEndsWithTicks(first))
         {
-            yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
+            if (writePath)
+            {
+                yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
+            }
+            else
+            {
+                yield return line.WithCurrent($"<!-- include: {key} -->");
+            }
             yield return new Line(first, path, 1);
         }
         else
         {
-            yield return line.WithCurrent($"{first} <!-- include: {key}. path: {path} -->");
+            if (writePath)
+            {
+                yield return line.WithCurrent($"{first} <!-- include: {key}. path: {path} -->");
+            }
+            else
+            {
+                yield return line.WithCurrent($"{first} <!-- include: {key} -->");
+            }
+
         }
 
         for (var index = 1; index < include.Lines.Count - 1; index++)
@@ -174,24 +205,42 @@ class IncludeProcessor
                line.EndsWith("```");
     }
 
-    static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include)
+    IEnumerable<Line> BuildEmpty(Line line, string? path, Include include)
     {
-        yield return line.WithCurrent($"<!-- emptyInclude: {include.Key}. path: {path} -->");
+        if (writePath)
+        {
+            yield return line.WithCurrent($"<!-- emptyInclude: {include.Key}. path: {path} -->");
+        }
+        yield return line.WithCurrent($"<!-- emptyInclude: {include.Key} -->");
     }
 
-    static IEnumerable<Line> BuildSingle(Line line, string? path, Include include)
+    IEnumerable<Line> BuildSingle(Line line, string? path, Include include)
     {
         var first = include.Lines.First();
         var key = include.Key;
         if (IsSnippetLineOrEndsWithTicks(first))
         {
-            yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
+            if (writePath)
+            {
+                yield return line.WithCurrent($"<!-- include: {key}. path: {path} -->");
+            }
+            else
+            {
+                yield return line.WithCurrent($"<!-- include: {key} -->");
+            }
             yield return new Line(first, path, 1);
             yield return new Line("<!-- endInclude -->", path, 1);
         }
         else
         {
-            yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key}. path: {path} -->");
+            if (writePath)
+            {
+                yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key}. path: {path} -->");
+            }
+            else
+            {
+                yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key} -->");
+            }
         }
     }
 

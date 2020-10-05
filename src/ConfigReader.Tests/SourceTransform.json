@@ -1,4 +1,4 @@
 ﻿{
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/docs/assets/mdsnippets-schema.json",
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
   "Convention": "SourceTransform"
 }

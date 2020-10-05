@@ -1,4 +1,5 @@
 ﻿{
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,

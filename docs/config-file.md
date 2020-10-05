@@ -18,10 +18,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='e62f4077'></a>
 ```json
 {
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
   "Convention": "InPlaceOverwrite"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e62f4077' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#e62f4077' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -31,10 +32,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='e4c42b12'></a>
 ```json
 {
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
   "Convention": "SourceTransform"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e4c42b12' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#e4c42b12' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -44,6 +46,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='38346206'></a>
 ```json
 {
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,
@@ -60,8 +63,27 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#38346206' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L17' title='Snippet source file'>snippet source</a> | <a href='#38346206' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## JSON Schema
+
+Editor help is available by adding the `$schema` field to the `mdsnippets.json` file.
+
+```json
+{
+  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json"
+}
+```
+
+In the screenshot, [JetBrains Rider](https://jetbrains.com/rider), is able to offer code completion support.
+
+![IDE schema code completion](/docs/code-completion.png)
+
+The schema also includes `enum` values for constrained value types.
+
+![IDE schema code completion](/docs/code-completion-values.png)
 
 
 ## More Info

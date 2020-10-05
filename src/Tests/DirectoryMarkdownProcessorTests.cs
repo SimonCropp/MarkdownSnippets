@@ -365,7 +365,7 @@ public class DirectoryMarkdownProcessorTests
     static Snippet SnippetBuild(string key, string? path = null)
     {
         return Snippet.Build(
-            language: ".cs",
+            language: "cs",
             startLine: 1,
             endLine: 2,
             value: "the code from " + key,

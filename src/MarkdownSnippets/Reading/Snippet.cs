@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace MarkdownSnippets
 {
@@ -33,6 +34,11 @@ namespace MarkdownSnippets
             Guard.AgainstEmpty(path, nameof(path));
             Guard.AgainstNull(language, nameof(language));
             Guard.AgainstUpperCase(language, nameof(language));
+            if (language.StartsWith("."))
+            {
+                throw new ArgumentException("Language cannot start with '.'", nameof(language));
+            }
+
             Guard.AgainstNegativeAndZero(startLine, nameof(startLine));
             Guard.AgainstNegativeAndZero(endLine, nameof(endLine));
             return new Snippet

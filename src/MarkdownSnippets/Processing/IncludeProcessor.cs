@@ -40,7 +40,7 @@ class IncludeProcessor
             return false;
         }
 
-        string GetIncludeKey(string substring)
+        static string GetIncludeKey(string substring)
         {
             var indexOfDotPath = substring.IndexOf(". path:");
             if (indexOfDotPath != -1)

@@ -12,7 +12,7 @@ Markdown snippets can be run inside a [GitHub Action](https://help.github.com/en
 Add the following to `.github\workflows\on-push-do-doco.yml` in the target repository.
 
 <!-- snippet: on-push-do-docs.yml -->
-<a id='snippet-8751FBE1'></a>
+<a id='d74f0784'></a>
 ```yml
 name: on-push-do-docs
 on:
@@ -37,7 +37,7 @@ jobs:
         git push "${remote}" ${branch} || echo "nothing to push"
       shell: bash
 ```
-<sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-8751FBE1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#d74f0784' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This action performs the following tasks:

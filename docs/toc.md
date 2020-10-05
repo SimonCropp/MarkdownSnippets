@@ -12,7 +12,7 @@ If a line is `toc` it will be replaced with a table of contents
 So if a markdown document contains the following:
 
 <!-- snippet: tocBefore.txt -->
-<a id='snippet-39CDC2BB'></a>
+<a id='fbf7eb4b'></a>
 ```txt
 # Title
 
@@ -26,13 +26,13 @@ Text1
 
 Text2
 ```
-<sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-39CDC2BB' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#fbf7eb4b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The result will be rendered:
 
 <!-- snippet: tocAfter.txt -->
-<a id='snippet-C04F13FC'></a>
+<a id='4b01b166'></a>
 ```txt
 # Title
 
@@ -51,7 +51,7 @@ Text1
 
 Text2
 ```
-<sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-C04F13FC' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#4b01b166' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

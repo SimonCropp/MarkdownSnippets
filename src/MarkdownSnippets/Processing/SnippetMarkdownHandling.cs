@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MarkdownSnippets
 {
@@ -51,13 +54,20 @@ namespace MarkdownSnippets
 
         static string GetAnchorText(Snippet snippet, uint index)
         {
-            var id = $"{snippet.Key.GetHashCode():X}";
+            var id = ComputeId(snippet);
             if (index == 0)
             {
-                return $"snippet-{id}";
+                return id;
             }
 
-            return  $"snippet-{id}-{index}";
+            return  $"{id}-{index}";
+        }
+
+        static string ComputeId(Snippet snippet)
+        {
+            using var sha = new SHA1Managed();
+            var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(snippet.Key));
+            return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
         }
 
         bool TryGetSupText(Snippet snippet, string anchor, [NotNullWhen(true)] out string? supText)

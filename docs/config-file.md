@@ -15,33 +15,33 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ## For [InPlaceOverwrite](https://github.com/SimonCropp/MarkdownSnippets#inplaceoverwrite)
 
 <!-- snippet: InPlaceOverwrite.json -->
-<a id='snippet-F417F1F7'></a>
+<a id='e62f4077'></a>
 ```json
 {
   "Convention": "InPlaceOverwrite"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-F417F1F7' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e62f4077' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
 
 <!-- snippet: SourceTransform.json -->
-<a id='snippet-3F066B44'></a>
+<a id='e4c42b12'></a>
 ```json
 {
   "Convention": "SourceTransform"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-3F066B44' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e4c42b12' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## All Settings
 
 <!-- snippet: allConfig.json -->
-<a id='snippet-BA620C7A'></a>
+<a id='38346206'></a>
 ```json
 {
   "ReadOnly": false,
@@ -60,7 +60,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-BA620C7A' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#38346206' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

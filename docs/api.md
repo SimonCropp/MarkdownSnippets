@@ -16,20 +16,20 @@ https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](https://img.shield
 ## Reading snippets from files
 
 <!-- snippet: ReadingFilesSimple -->
-<a id='snippet-4F0F3A0'></a>
+<a id='5fad5c65'></a>
 ```cs
 var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L9-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-4F0F3A0' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L9-L15' title='Snippet source file'>snippet source</a> | <a href='#5fad5c65' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Reading snippets from a directory structure
 
 <!-- snippet: ReadingDirectorySimple -->
-<a id='snippet-E57EEEE2'></a>
+<a id='edae4606'></a>
 ```cs
 // extract snippets from files
 var snippetExtractor = new DirectorySnippetExtractor(
@@ -38,14 +38,14 @@ var snippetExtractor = new DirectorySnippetExtractor(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L42-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-E57EEEE2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L42-L51' title='Snippet source file'>snippet source</a> | <a href='#edae4606' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Full Usage
 
 <!-- snippet: markdownProcessingSimple -->
-<a id='snippet-502FCEE2'></a>
+<a id='64e70e9e'></a>
 ```cs
 var directory = @"C:\path";
 
@@ -79,7 +79,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L56-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-502FCEE2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L56-L90' title='Snippet source file'>snippet source</a> | <a href='#64e70e9e' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

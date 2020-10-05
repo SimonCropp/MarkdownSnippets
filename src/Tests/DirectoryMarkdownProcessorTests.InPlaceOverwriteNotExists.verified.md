@@ -3,7 +3,7 @@
 ```cs
 the code from snippet1
 ```
-<sup><a href='#snippet-snippet1' title='Navigate to start of snippet `snippet1`'>anchor</a></sup>
+<sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The include text <!-- singleLineInclude: fileToInclude.txt -->

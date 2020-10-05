@@ -21,7 +21,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Convention": "InPlaceOverwrite"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='File snippet `InPlaceOverwrite.json` was extracted from'>snippet source</a> | <a href='#snippet-InPlaceOverwrite.json' title='Navigate to start of snippet `InPlaceOverwrite.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-InPlaceOverwrite.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -34,7 +34,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Convention": "SourceTransform"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='File snippet `SourceTransform.json` was extracted from'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Navigate to start of snippet `SourceTransform.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -60,7 +60,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ValidateContent": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='File snippet `allConfig.json` was extracted from'>snippet source</a> | <a href='#snippet-allConfig.json' title='Navigate to start of snippet `allConfig.json`'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

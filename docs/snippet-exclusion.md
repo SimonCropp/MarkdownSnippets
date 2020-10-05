@@ -296,7 +296,7 @@ When scanning for snippets the following are ignored:
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L300' title='File snippet `excludedfileextensions` was extracted from'>snippet source</a> | <a href='#snippet-excludedfileextensions' title='Navigate to start of snippet `excludedfileextensions`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L300' title='Snippet source file'>snippet source</a> | <a href='#snippet-excludedfileextensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * Files that cannot contain comments:
@@ -308,5 +308,5 @@ When scanning for snippets the following are ignored:
 "json",
 "geojson"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L23-L27' title='File snippet `noacceptcommentsextensions` was extracted from'>snippet source</a> | <a href='#snippet-noacceptcommentsextensions' title='Navigate to start of snippet `noacceptcommentsextensions`'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L23-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-noacceptcommentsextensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

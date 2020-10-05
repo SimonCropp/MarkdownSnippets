@@ -48,8 +48,7 @@ class IncludeProcessor
                 return substring.Substring(0, indexOfDotPath);
             }
 
-            var includeKey = substring.Substring(0, substring.Length - 4);
-            return includeKey;
+            return substring.Substring(0, substring.Length - 4);
         }
 
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);

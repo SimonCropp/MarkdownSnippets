@@ -27,7 +27,6 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles = new List<string>();
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
-        bool writePath;
         string newLine;
 
         public DirectoryMarkdownProcessor(
@@ -49,8 +48,7 @@ namespace MarkdownSnippets
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
             bool validateContent = false,
-            string? newLine = null,
-            bool writePath = true) :
+            string? newLine = null) :
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).Append,
@@ -69,8 +67,7 @@ namespace MarkdownSnippets
                 treatMissingAsWarning,
                 maxWidth,
                 validateContent,
-                newLine,
-                writePath)
+                newLine)
         {
         }
 
@@ -92,8 +89,7 @@ namespace MarkdownSnippets
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false,
-            string? newLine = null,
-            bool writePath = true)
+            string? newLine = null)
         {
             this.appendSnippets = appendSnippets;
             this.convention = convention;
@@ -107,7 +103,6 @@ namespace MarkdownSnippets
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
             this.maxWidth = maxWidth;
             this.treatMissingAsWarning = treatMissingAsWarning;
-            this.writePath = writePath;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
 
@@ -245,8 +240,7 @@ namespace MarkdownSnippets
                 validateContent,
                 header: header,
                 tocExcludes: tocExcludes,
-                newLine: newLine,
-                writePath: writePath);
+                newLine: newLine);
             foreach (var sourceFile in mdFiles)
             {
                 ProcessFile(sourceFile, processor);

@@ -24,7 +24,6 @@ public static class ConfigDefaults
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
                 TreatMissingAsWarning = otherConfig.TreatMissingAsWarning.GetValueOrDefault(),
-                WritePath = otherConfig.WritePath.GetValueOrDefault(true)
             };
         }
 
@@ -47,11 +46,6 @@ public static class ConfigDefaults
                 otherConfig.TreatMissingAsWarning,
                 fileConfig.TreatMissingAsWarning,
                 false),
-            WritePath = GetValueOrDefault(
-                "WritePath",
-                otherConfig.WritePath,
-                fileConfig.WritePath,
-                true),
             DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions)
         };
     }

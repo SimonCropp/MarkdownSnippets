@@ -22,7 +22,6 @@ line2",
             TocLevel = 5,
             MaxWidth = 80,
             Convention = DocumentConvention.InPlaceOverwrite,
-            WritePath = false
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         return Verifier.Verify(message);

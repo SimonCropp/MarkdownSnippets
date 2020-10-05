@@ -1,6 +1,6 @@
 some content
 
-The include text <!-- include: fileToInclude.txt. path: /fileToInclude.txt -->
+The include text <!-- include: fileToInclude.txt -->
 
 <!-- snippet: snippet1 -->
 <a id='snippet-snippet1'></a>

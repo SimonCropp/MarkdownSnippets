@@ -19,7 +19,6 @@ static class LogBuilder
     TocLevel: {config.TocLevel}
     MaxWidth: {config.MaxWidth}
     ValidateContent: {config.ValidateContent}
-    WritePath: {config.WritePath}
     TreatMissingAsWarning: {config.TreatMissingAsWarning}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 ");

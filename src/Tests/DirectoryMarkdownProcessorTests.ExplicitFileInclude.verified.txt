@@ -1,11 +1,11 @@
-The include text 1 <!-- singleLineInclude: fileToInclude1.txt. path: /fileToInclude1.txt -->
+The include text 1 <!-- singleLineInclude: fileToInclude1.txt -->
 
-The include text 2 <!-- singleLineInclude: /fileToInclude2.txt. path: /fileToInclude2.txt -->
+The include text 2 <!-- singleLineInclude: /fileToInclude2.txt -->
 
-The include text 3 <!-- singleLineInclude: fileToInclude3.txt. path: /Nested/fileToInclude3.txt -->
+The include text 3 <!-- singleLineInclude: fileToInclude3.txt -->
 
-The include text 4 <!-- singleLineInclude: /fileToInclude4.txt. path: /Nested/fileToInclude4.txt -->
+The include text 4 <!-- singleLineInclude: /fileToInclude4.txt -->
 
-The include text 5 <!-- singleLineInclude: Nested/fileToInclude5.txt. path: /Nested/fileToInclude5.txt -->
+The include text 5 <!-- singleLineInclude: Nested/fileToInclude5.txt -->
 
-The include text 6 <!-- singleLineInclude: /Nested/fileToInclude6.txt. path: /Nested/fileToInclude6.txt -->
+The include text 6 <!-- singleLineInclude: /Nested/fileToInclude6.txt -->

@@ -39,7 +39,6 @@ static class CommandRunner
                         DocumentExtensions = options.DocumentExtensions.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList(),
                         TreatMissingAsWarning = options.TreatMissingAsWarning,
-                        WritePath = options.WritePath,
                         Convention = options.Convention
                     };
                     return invoke(options.TargetDirectory!, configInput);

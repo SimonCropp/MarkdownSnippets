@@ -1,6 +1,0 @@
-{
-  targetDirectory: 'CurrentDirectory',
-  configInput: {
-    WritePath: false
-  }
-}

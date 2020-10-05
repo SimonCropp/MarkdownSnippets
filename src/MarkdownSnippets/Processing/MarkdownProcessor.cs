@@ -45,8 +45,7 @@ namespace MarkdownSnippets
             bool validateContent,
             string? header = null,
             IEnumerable<string>? tocExcludes = null,
-            string newLine = "\n",
-            bool writePath = true)
+            string newLine = "\n")
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNull(appendSnippets, nameof(appendSnippets));
@@ -94,7 +93,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory, allFiles, writePath);
+            includeProcessor = new IncludeProcessor(convention, includes, rootDirectory, allFiles);
         }
 
         public string Apply(string input, string? file = null)

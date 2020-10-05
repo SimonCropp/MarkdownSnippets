@@ -58,13 +58,6 @@ public class CommandRunnerTests
     }
 
     [Fact]
-    public async Task WritePath()
-    {
-        await CommandRunner.RunCommand(Capture, "--write-path", "false");
-        await VerifyResult();
-    }
-
-    [Fact]
     public async Task ConventionShort()
     {
         await CommandRunner.RunCommand(Capture, "-c", "InPlaceOverwrite");

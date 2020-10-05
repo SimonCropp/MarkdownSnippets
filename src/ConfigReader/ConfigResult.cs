@@ -17,5 +17,4 @@ public class ConfigResult
     public List<string> TocExcludes = new List<string>();
     public List<string> DocumentExtensions = new List<string>();
     public bool TreatMissingAsWarning;
-    public bool WritePath = true;
 }

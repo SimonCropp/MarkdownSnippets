@@ -18,7 +18,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='e62f4077'></a>
 ```json
 {
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
+  "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
   "Convention": "InPlaceOverwrite"
 }
 ```
@@ -32,7 +32,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='e4c42b12'></a>
 ```json
 {
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
+  "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
   "Convention": "SourceTransform"
 }
 ```
@@ -46,7 +46,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <a id='38346206'></a>
 ```json
 {
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json",
+  "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,
@@ -73,7 +73,7 @@ Editor help is available by adding the `$schema` field to the `mdsnippets.json` 
 
 ```json
 {
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json"
+  "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json"
 }
 ```
 

@@ -26,7 +26,7 @@ Editor help is available by adding the `$schema` field to the `mdsnippets.json` 
 
 ```json
 {
-  "$schema": "https://github.com/SimonCropp/MarkdownSnippets/schema.json"
+  "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json"
 }
 ```
 

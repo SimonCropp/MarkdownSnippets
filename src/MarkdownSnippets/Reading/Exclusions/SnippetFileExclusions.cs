@@ -32,6 +32,7 @@ namespace MarkdownSnippets
             #region ExcludedFileExtensions
 
             "md",
+            "user",
             // extra binary
             "mdb",
             "shp",

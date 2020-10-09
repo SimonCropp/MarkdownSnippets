@@ -1,5 +1,5 @@
-<a id='9bb56a41'></a>
+<a id='thekey'></a>
 ```thelanguage
 theValue
 ```
-<sup><a href='thePath#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#9bb56a41' title='Start of snippet'>anchor</a></sup>
+<sup><a href='thePath#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#thekey' title='Start of snippet'>anchor</a></sup>

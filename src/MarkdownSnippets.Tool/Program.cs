@@ -41,7 +41,8 @@ static class Program
             tocLevel: configResult.TocLevel,
             treatMissingAsWarning: configResult.TreatMissingAsWarning,
             maxWidth: configResult.MaxWidth,
-            validateContent: configResult.ValidateContent);
+            validateContent: configResult.ValidateContent,
+            hashSnippetAnchors: configResult.HashSnippetAnchors);
 
         var snippets = new List<Snippet>();
         await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);

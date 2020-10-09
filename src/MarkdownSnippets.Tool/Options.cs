@@ -53,6 +53,11 @@ public class Options
         HelpText = "The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true. Optional. Defaults to false")]
     public bool? TreatMissingAsWarning { get; set; }
 
+    [Option("hash-snippet-anchors",
+        Required = false,
+        HelpText = "The default behavior for snippet anchors to be the name of the snippet. To minimize the outputted html a hash can be used. Optional. Defaults to false")]
+    public bool? HashSnippetAnchors { get; set; }
+
     [Option("header",
         Required = false,
         HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:

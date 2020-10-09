@@ -16,14 +16,24 @@ namespace MarkdownSnippets
         LinkFormat linkFormat;
         string? urlPrefix;
         string rootDirectory;
+        Func<Snippet, string> getAnchorId;
 
-        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat, string? urlPrefix = null)
+        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, string? urlPrefix = null)
         {
             this.linkFormat = linkFormat;
             this.urlPrefix = urlPrefix;
             Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
             rootDirectory = Path.GetFullPath(rootDirectory);
             this.rootDirectory = rootDirectory.Replace(@"\", "/");
+
+            if (hashSnippetAnchors)
+            {
+                getAnchorId  = ComputeId;
+            }
+            else
+            {
+                getAnchorId = snippet => snippet.Key;
+            }
         }
 
         public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
@@ -52,9 +62,9 @@ namespace MarkdownSnippets
             }
         }
 
-        static string GetAnchorText(Snippet snippet, uint index)
+        string GetAnchorText(Snippet snippet, uint index)
         {
-            var id = ComputeId(snippet);
+            var id = getAnchorId(snippet);
             if (index == 0)
             {
                 return id;

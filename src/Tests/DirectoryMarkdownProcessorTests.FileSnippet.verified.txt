@@ -1,30 +1,30 @@
 Local
 
 <!-- snippet: sourceFile.txt -->
-<a id='af3be05a'></a>
+<a id='sourceFile.txt'></a>
 ```txt
 From Source File
 ```
-<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#af3be05a' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Relative Local
 
 <!-- snippet: ./sourceFile.txt -->
-<a id='86390a7e'></a>
+<a id='./sourceFile.txt'></a>
 ```txt
 From Source File
 ```
-<sup><a href='#86390a7e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#./sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Rooted
 
 <!-- snippet: /sourceFile.txt -->
-<a id='d754af21'></a>
+<a id='/sourceFile.txt'></a>
 ```txt
 From Source File
 ```
-<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#d754af21' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/sourceFile.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#/sourceFile.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 

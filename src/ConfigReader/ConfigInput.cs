@@ -5,6 +5,7 @@ public class ConfigInput
 {
     public bool? ReadOnly { get; set; }
     public bool? ValidateContent { get; set; }
+    public bool? HashSnippetAnchors { get; set; }
     public LinkFormat? LinkFormat { get; set; }
     public DocumentConvention? Convention { get; set; }
     public int? TocLevel { get; set; }

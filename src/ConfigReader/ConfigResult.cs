@@ -5,6 +5,7 @@ public class ConfigResult
 {
     public bool? ReadOnly;
     public bool ValidateContent;
+    public bool HashSnippetAnchors;
     public LinkFormat LinkFormat;
     public DocumentConvention Convention;
     public int TocLevel;

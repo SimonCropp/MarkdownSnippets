@@ -1,10 +1,10 @@
 \one.md
 <!-- snippet: snippet1 -->
-<a id='ff3f4401'></a>
+<a id='snippet1'></a>
 ```cs
 the code from snippet1
 ```
-<sup><a href='#ff3f4401' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -13,11 +13,11 @@ snippet: snippet1
 
 \two.md
 <!-- snippet: snippet2 -->
-<a id='1c06f78c'></a>
+<a id='snippet2'></a>
 ```cs
 the code from snippet2
 ```
-<sup><a href='#1c06f78c' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#snippet2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -48,10 +48,11 @@ namespace MarkdownSnippets
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
             bool validateContent = false,
-            string? newLine = null) :
+            string? newLine = null,
+            bool hashSnippetAnchors = false) :
             this(
                 targetDirectory,
-                new SnippetMarkdownHandling(targetDirectory, linkFormat, urlPrefix).Append,
+                new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, urlPrefix).Append,
                 convention,
                 scanForMdFiles,
                 scanForSnippets,
@@ -67,7 +68,8 @@ namespace MarkdownSnippets
                 treatMissingAsWarning,
                 maxWidth,
                 validateContent,
-                newLine)
+                newLine,
+                hashSnippetAnchors)
         {
         }
 
@@ -89,7 +91,8 @@ namespace MarkdownSnippets
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false,
-            string? newLine = null)
+            string? newLine = null,
+            bool hashSnippetAnchors = false)
         {
             this.appendSnippets = appendSnippets;
             this.convention = convention;

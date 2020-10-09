@@ -1,6 +1,7 @@
 {
   ReadOnly: false,
   ValidateContent: true,
+  HashSnippetAnchors: true,
   LinkFormat: 'Tfs',
   Convention: 'InPlaceOverwrite',
   TocLevel: 3,

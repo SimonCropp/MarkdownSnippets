@@ -230,7 +230,7 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 Defines the format of `snippet source` links that appear under each snippet.
 
 <!-- snippet: LinkFormat.cs -->
-<a id='014701a4'></a>
+<a id='LinkFormat.cs'></a>
 ```cs
 namespace MarkdownSnippets
 {
@@ -243,11 +243,11 @@ namespace MarkdownSnippets
     }
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#014701a4' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: BuildLink -->
-<a id='89ddf703'></a>
+<a id='buildlink'></a>
 ```cs
 if (linkFormat == LinkFormat.GitHub)
 {
@@ -269,7 +269,7 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L123-L143' title='Snippet source file'>snippet source</a> | <a href='#89ddf703' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L133-L153' title='Snippet source file'>snippet source</a> | <a href='#buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

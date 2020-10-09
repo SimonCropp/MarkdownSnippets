@@ -11,6 +11,7 @@ public static class ConfigDefaults
             return new ConfigResult
             {
                 ValidateContent = otherConfig.ValidateContent.GetValueOrDefault(),
+                HashSnippetAnchors = otherConfig.HashSnippetAnchors.GetValueOrDefault(),
                 ReadOnly = otherConfig.ReadOnly.GetValueOrDefault(),
                 WriteHeader = otherConfig.WriteHeader,
                 LinkFormat = otherConfig.LinkFormat.GetValueOrDefault(LinkFormat.GitHub),
@@ -30,6 +31,7 @@ public static class ConfigDefaults
         return new ConfigResult
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
+            HashSnippetAnchors = GetValueOrDefault("HashSnippetAnchors", otherConfig.HashSnippetAnchors, fileConfig.HashSnippetAnchors, false),
             ReadOnly = GetValueOrNull("ReadOnly", otherConfig.ReadOnly, fileConfig.ReadOnly),
             WriteHeader = GetValueOrNull("WriteHeader", otherConfig.WriteHeader, fileConfig.WriteHeader),
             LinkFormat = GetValueOrDefault("LinkFormat", otherConfig.LinkFormat, fileConfig.LinkFormat, LinkFormat.GitHub),

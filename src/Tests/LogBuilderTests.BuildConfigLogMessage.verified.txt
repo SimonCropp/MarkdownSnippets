@@ -11,6 +11,7 @@ Config:
     TocLevel: 5
     MaxWidth: 80
     ValidateContent: False
+    HashSnippetAnchors: False
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
     Exclude:

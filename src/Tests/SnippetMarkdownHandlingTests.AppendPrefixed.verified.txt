@@ -1,0 +1,5 @@
+<a id='thekey'></a>
+```thelanguage
+theValue
+```
+<sup><a href='prefix-thePath#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#thekey' title='Start of snippet'>anchor</a></sup>

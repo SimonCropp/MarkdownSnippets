@@ -44,6 +44,13 @@ public class CommandRunnerTests
     }
 
     [Fact]
+    public async Task HashSnippetAnchors()
+    {
+        await CommandRunner.RunCommand(Capture, "--hash-snippet-anchors", "true");
+        await VerifyResult();
+    }
+
+    [Fact]
     public async Task ValidateContentShort()
     {
         await CommandRunner.RunCommand(Capture, "-v", "false");

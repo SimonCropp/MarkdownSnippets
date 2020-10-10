@@ -1,18 +1,27 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://example.com/object1601918317.json",
+  "$id": "MarkdownSnippets",
   "title": "Root",
   "type": "object",
   "required": [
   ],
   "properties": {
+    "HashSnippetAnchors": {
+      "$id": "#root/HashSnippetAnchors",
+      "title": "HashSnippetAnchors",
+      "type": "boolean",
+      "examples": [
+        true
+      ],
+      "default": false
+    },
     "ReadOnly": {
       "$id": "#root/ReadOnly",
       "title": "Readonly",
       "type": "boolean",
       "examples": [
-        false
+        true
       ],
       "default": false
     },
@@ -119,7 +128,7 @@
       "title": "Writeheader",
       "type": "boolean",
       "examples": [
-        true
+        false
       ],
       "default": true
     },
@@ -157,7 +166,7 @@
       "title": "TreatMissingAsWarning",
       "type": "boolean",
       "examples": [
-        true
+        false
       ],
       "default": true
     },
@@ -166,7 +175,7 @@
       "title": "ValidateContent",
       "type": "boolean",
       "examples": [
-        true
+        false
       ],
       "default": true
     }

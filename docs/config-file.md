@@ -15,35 +15,35 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ## For [InPlaceOverwrite](https://github.com/SimonCropp/MarkdownSnippets#inplaceoverwrite)
 
 <!-- snippet: InPlaceOverwrite.json -->
-<a id='InPlaceOverwrite.json'></a>
+<a id='snippet-InPlaceOverwrite.json'></a>
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
   "Convention": "InPlaceOverwrite"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#InPlaceOverwrite.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/InPlaceOverwrite.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-InPlaceOverwrite.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
 
 <!-- snippet: SourceTransform.json -->
-<a id='SourceTransform.json'></a>
+<a id='snippet-SourceTransform.json'></a>
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
   "Convention": "SourceTransform"
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#SourceTransform.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## All Settings
 
 <!-- snippet: allConfig.json -->
-<a id='allConfig.json'></a>
+<a id='snippet-allConfig.json'></a>
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/schema.json",
@@ -64,7 +64,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "HashSnippetAnchors": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

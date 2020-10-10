@@ -3,21 +3,21 @@ snippet: snippet1
 
 \one.txt
 <!-- snippet: snippet1 -->
-<a id='snippet1'></a>
+<a id='snippet-snippet1'></a>
 ```cs
 the code from snippet1
 ```
-<sup><a href='#snippet1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 \two.txt
 <!-- snippet: snippet2 -->
-<a id='snippet2'></a>
+<a id='snippet-snippet2'></a>
 ```cs
 the code from snippet2
 ```
-<sup><a href='#snippet2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#snippet-snippet2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

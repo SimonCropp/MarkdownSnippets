@@ -32,7 +32,7 @@ namespace MarkdownSnippets
             }
             else
             {
-                getAnchorId = snippet => snippet.Key;
+                getAnchorId = snippet => $"snippet-{snippet.Key}";
             }
         }
 

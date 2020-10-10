@@ -1,9 +1,9 @@
 <!-- snippet: snippet1 -->
-<a id='snippet1'></a>
+<a id='snippet-snippet1'></a>
 ```cs
 the code from snippet1
 ```
-<sup><a href='#snippet1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The include text <!-- singleLineInclude: fileToInclude.txt -->

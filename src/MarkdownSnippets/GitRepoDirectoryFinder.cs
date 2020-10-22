@@ -17,32 +17,47 @@ namespace MarkdownSnippets
         public static string FindForDirectory(string directory)
         {
             Guard.DirectoryExists(directory, nameof(directory));
-            if (!TryFind(directory, out var rootDirectory))
+            if (TryFind(directory, out var path))
             {
-                throw new Exception("Could not find git repository directory");
+                return path;
+            }
+            throw new Exception("Could not find git repository directory");
+
+        }
+
+        private static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
+        {
+            if (TryFind(directory, ".git", out var rootDirectory))
+            {
+                path = rootDirectory;
+                return true;
             }
 
-            return rootDirectory;
+            if (TryFind(directory, ".gitignore", out rootDirectory))
+            {
+                path = rootDirectory;
+                return true;
+            }
+
+            path = null;
+            return false;
         }
 
         public static bool IsInGitRepository(string directory)
         {
             Guard.DirectoryExists(directory, nameof(directory));
-            if (TryFind(directory, out _))
-            {
-                return true;
-            }
-
-            return false;
+            return TryFind(directory, out _);
         }
 
-        public static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
+        static bool TryFind(string directory, string suffix, [NotNullWhen(true)] out string? path)
         {
             Guard.DirectoryExists(directory, nameof(directory));
 
             do
             {
-                if (Directory.Exists(Path.Combine(directory, ".git")))
+                var combine = Path.Combine(directory, suffix);
+                if (Directory.Exists(combine) ||
+                    File.Exists(combine))
                 {
                     path = directory;
                     return true;

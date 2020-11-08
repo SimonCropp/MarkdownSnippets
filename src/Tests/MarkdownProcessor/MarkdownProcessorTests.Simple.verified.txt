@@ -1,45 +1,48 @@
 {
   UsedSnippets: [
     {
-      Key: 'snippet1',
-      Language: 'cs',
-      Value: 'Snippet',
-      Error: '',
-      FileLocation: 'thePath(1-2)',
+      Key: snippet1,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
       IsInError: false
     },
     {
-      Key: 'snippet2',
-      Language: 'cs',
-      Value: 'Snippet',
-      Error: '',
-      FileLocation: 'thePath(1-2)',
+      Key: snippet2,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
       IsInError: false
     },
     {
-      Key: 'FileToUseAsSnippet.txt',
-      Language: 'txt',
-      Value: 'The
+      Key: FileToUseAsSnippet.txt,
+      Language: txt,
+      Value: 
+The
 Content
 From
-File',
-      Error: '',
-      FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
+File,
+      Error: ,
+      FileLocation: /src/Tests/FileToUseAsSnippet.txt(1-4),
       IsInError: false
     },
     {
-      Key: '/FileToUseAsSnippet.txt',
-      Language: 'txt',
-      Value: 'The
+      Key: /FileToUseAsSnippet.txt,
+      Language: txt,
+      Value: 
+The
 Content
 From
-File',
-      Error: '',
-      FileLocation: '/src/Tests/FileToUseAsSnippet.txt(1-4)',
+File,
+      Error: ,
+      FileLocation: /src/Tests/FileToUseAsSnippet.txt(1-4),
       IsInError: false
     }
   ],
-  result: '
+  result: 
+
 <!-- snippet: snippet1 -->
 ```cs
 Snippet
@@ -75,5 +78,5 @@ From
 File
 ```
 <!-- endSnippet -->
-'
+
 }

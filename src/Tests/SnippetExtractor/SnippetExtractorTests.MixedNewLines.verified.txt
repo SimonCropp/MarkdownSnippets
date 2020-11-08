@@ -1,11 +1,12 @@
 {
-  Key: 'codekey',
-  Language: 'cs',
-  Value: 'A
+  Key: codekey,
+  Language: cs,
+  Value: 
+A
 B
 C
-D',
-  Error: '',
-  FileLocation: 'path.cs(1-6)',
+D,
+  Error: ,
+  FileLocation: path.cs(1-6),
   IsInError: false
 }

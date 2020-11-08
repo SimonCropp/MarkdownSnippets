@@ -1,8 +1,9 @@
 [
   {
-    Key: 'appveyor.yml',
-    Language: 'yml',
-    Value: 'image: Visual Studio 2019
+    Key: appveyor.yml,
+    Language: yml,
+    Value: 
+image: Visual Studio 2019
 skip_commits:
   message: /docs|Merge pull request.*/
 build_script:
@@ -12,8 +13,8 @@ build_script:
     dotnet test src --configuration Release --no-build --no-restore
 test: off
 artifacts:
-- path: nugets\*.nupkg',
-    Error: '',
+- path: nugets\*.nupkg,
+    Error: ,
     FileLocation: null,
     IsInError: false
   }

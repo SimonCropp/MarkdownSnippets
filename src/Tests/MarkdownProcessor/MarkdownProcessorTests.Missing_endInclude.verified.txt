@@ -1,5 +1,5 @@
 {
-  Type: 'MarkdownProcessingException',
+  Type: MarkdownProcessingException,
   LineNumber: 2,
-  Message: 'Expected to find `<!-- endInclude -->`.'
+  Message: Expected to find `<!-- endInclude -->`.
 }

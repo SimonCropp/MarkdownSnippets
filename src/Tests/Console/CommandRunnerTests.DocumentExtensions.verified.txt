@@ -1,8 +1,8 @@
 {
-  targetDirectory: 'CurrentDirectory',
+  targetDirectory: CurrentDirectory,
   configInput: {
     DocumentExtensions: [
-      'txt'
+      txt
     ]
   }
 }

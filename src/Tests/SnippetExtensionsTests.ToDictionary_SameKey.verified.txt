@@ -1,27 +1,27 @@
 {
   snippet1: [
     {
-      Key: 'snippet1',
-      Language: 'language',
-      Value: 'Snippet',
-      Error: '',
+      Key: snippet1,
+      Language: language,
+      Value: Snippet,
+      Error: ,
       FileLocation: null,
       IsInError: false
     },
     {
-      Key: 'snippet1',
-      Language: 'language',
-      Value: 'Snippet',
-      Error: '',
-      FileLocation: 'thePath1(1-2)',
+      Key: snippet1,
+      Language: language,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath1(1-2),
       IsInError: false
     },
     {
-      Key: 'snippet1',
-      Language: 'language',
-      Value: 'Snippet',
-      Error: '',
-      FileLocation: 'thePath2(1-2)',
+      Key: snippet1,
+      Language: language,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath2(1-2),
       IsInError: false
     }
   ]

@@ -2,28 +2,28 @@
   ReadOnly: false,
   ValidateContent: true,
   HashSnippetAnchors: true,
-  LinkFormat: 'Tfs',
-  Convention: 'InPlaceOverwrite',
+  LinkFormat: Tfs,
+  Convention: InPlaceOverwrite,
   TocLevel: 3,
   MaxWidth: 80,
   UrlsAsSnippets: [
-    'Url1',
-    'Url2'
+    Url1,
+    Url2
   ],
   Exclude: [
-    'Dir1',
-    'Dir2'
+    Dir1,
+    Dir2
   ],
   WriteHeader: true,
-  Header: 'GENERATED FILE - Source File: {relativePath}',
-  UrlPrefix: 'TheUrlPrefix',
+  Header: GENERATED FILE - Source File: {relativePath},
+  UrlPrefix: TheUrlPrefix,
   TocExcludes: [
-    'Exclude Heading1',
-    'Exclude Heading2'
+    Exclude Heading1,
+    Exclude Heading2
   ],
   DocumentExtensions: [
-    'md',
-    'html'
+    md,
+    html
   ],
   TreatMissingAsWarning: true
 }

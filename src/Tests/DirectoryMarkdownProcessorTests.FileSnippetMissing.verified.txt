@@ -1,11 +1,11 @@
 {
-  Type: 'MissingSnippetsException',
+  Type: MissingSnippetsException,
   Missing: [
     {
-      Key: 'missing.txt',
+      Key: missing.txt,
       LineNumber: 1,
-      File: 'CurrentDirectory\DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md'
+      File: CurrentDirectory\DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md
     }
   ],
-  Message: 'Missing snippets: missing.txt'
+  Message: Missing snippets: missing.txt
 }

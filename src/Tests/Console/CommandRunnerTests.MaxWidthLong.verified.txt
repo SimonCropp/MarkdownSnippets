@@ -1,5 +1,5 @@
 {
-  targetDirectory: 'CurrentDirectory',
+  targetDirectory: CurrentDirectory,
   configInput: {
     MaxWidth: 5
   }

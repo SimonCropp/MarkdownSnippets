@@ -1,6 +1,6 @@
 {
-  targetDirectory: 'CurrentDirectory',
+  targetDirectory: CurrentDirectory,
   configInput: {
-    LinkFormat: 'Tfs'
+    LinkFormat: Tfs
   }
 }

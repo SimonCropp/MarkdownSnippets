@@ -1,6 +1,6 @@
 {
-  targetDirectory: 'CurrentDirectory',
+  targetDirectory: CurrentDirectory,
   configInput: {
-    UrlPrefix: 'the prefix'
+    UrlPrefix: the prefix
   }
 }

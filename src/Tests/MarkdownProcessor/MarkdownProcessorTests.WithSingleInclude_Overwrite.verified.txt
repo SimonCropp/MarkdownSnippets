@@ -1,9 +1,10 @@
 {
-  result: '
+  result: 
+
 before
 
 theValue1 <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
-'
+
 }

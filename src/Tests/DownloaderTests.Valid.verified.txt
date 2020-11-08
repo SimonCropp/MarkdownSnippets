@@ -1,6 +1,7 @@
 {
   success: true,
-  content: '# Auto detect text files and perform LF normalization
+  content: 
+# Auto detect text files and perform LF normalization
 * text=auto eol=crlf
 *.xml     -text 
 *.targets -text
@@ -21,5 +22,5 @@
 *.ico binary
 *.snk binary
 *.pdb binary
-*.svg binary'
+*.svg binary
 }

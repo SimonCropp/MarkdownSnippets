@@ -1,5 +1,6 @@
 {
-  result: '
+  result: 
+
 # Title
 
 toc1
@@ -11,5 +12,5 @@ Text1
 ## Heading 2
 
 Text2
-'
+
 }

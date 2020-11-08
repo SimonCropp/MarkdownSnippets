@@ -1,6 +1,6 @@
 {
-  targetDirectory: 'CurrentDirectory',
+  targetDirectory: CurrentDirectory,
   configInput: {
-    Header: 'the header'
+    Header: the header
   }
 }

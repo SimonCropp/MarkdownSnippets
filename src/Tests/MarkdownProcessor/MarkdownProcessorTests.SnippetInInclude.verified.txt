@@ -1,15 +1,16 @@
 {
   UsedSnippets: [
     {
-      Key: 'snippet1',
-      Language: 'cs',
-      Value: 'Snippet',
-      Error: '',
-      FileLocation: 'thePath(1-2)',
+      Key: snippet1,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
       IsInError: false
     }
   ],
-  result: '
+  result: 
+
 some text
 
 <!-- include: theKey. path: thePath -->
@@ -21,5 +22,5 @@ Snippet
 <!-- endInclude -->
 
 some other text
-'
+
 }

@@ -1,25 +1,26 @@
 {
-  Type: 'ContentValidationException',
+  Type: ContentValidationException,
   Errors: [
     {
-      Error: "Invalid word detected: 'you'",
+      Error: Invalid word detected: 'you',
       Line: 1,
-      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+      File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
     },
     {
-      Error: "Invalid word detected: 'we'",
+      Error: Invalid word detected: 'we',
       Line: 2,
       Column: 1,
-      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+      File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
     },
     {
-      Error: 'No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ',
+      Error: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ,
       Line: 3,
       Column: 2,
-      File: 'CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md'
+      File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
     }
   ],
-  Message: "Content validation errors:
+  Message: 
+Content validation errors:
 Invalid word detected: 'you'
   File: CurrentDirectory\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
   Line: 1
@@ -35,5 +36,5 @@ No exclamation marks. If a statement is important make it bold. https://www.tech
   Line: 3
   Column: 2
   Error: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
-"
+
 }

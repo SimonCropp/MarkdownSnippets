@@ -1,5 +1,6 @@
 {
-  result: '
+  result: 
+
 before
 
 theValue1 <!-- include: theKey. path: /thePath -->
@@ -7,5 +8,5 @@ theValue2
 theValue3 <!-- endInclude -->
 
 after
-'
+
 }

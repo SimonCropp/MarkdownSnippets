@@ -1,18 +1,20 @@
 {
   UsedSnippets: [
     {
-      Key: 'FileWithMixedNewLines.txt',
-      Language: 'txt',
-      Value: 'a
+      Key: FileWithMixedNewLines.txt,
+      Language: txt,
+      Value: 
+a
 b
 c
-d',
-      Error: '',
+d,
+      Error: ,
       FileLocation: null,
       IsInError: false
     }
   ],
-  result: '
+  result: 
+
 some other text
 
 <!-- snippet: FileWithMixedNewLines.txt -->
@@ -23,5 +25,5 @@ c
 d
 ```
 <!-- endSnippet -->
-'
+
 }

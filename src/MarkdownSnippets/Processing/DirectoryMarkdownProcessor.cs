@@ -68,8 +68,7 @@ namespace MarkdownSnippets
                 treatMissingAsWarning,
                 maxWidth,
                 validateContent,
-                newLine,
-                hashSnippetAnchors)
+                newLine)
         {
         }
 
@@ -91,8 +90,7 @@ namespace MarkdownSnippets
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false,
-            string? newLine = null,
-            bool hashSnippetAnchors = false)
+            string? newLine = null)
         {
             this.appendSnippets = appendSnippets;
             this.convention = convention;

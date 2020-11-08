@@ -1,8 +1,8 @@
 [
   {
-    Key: 'codekey',
-    Error: 'Line too long: caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab',
-    FileLocation: 'path.cs(3-3)',
+    Key: codekey,
+    Error: Line too long: caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab,
+    FileLocation: path.cs(3-3),
     IsInError: true
   }
 ]

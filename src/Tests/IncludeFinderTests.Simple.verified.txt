@@ -1,10 +1,10 @@
 [
   {
-    Error: '',
-    Key: 'file',
-    Path: 'CurrentDirectory\IncludeFinder\file.include.md',
+    Error: ,
+    Key: file,
+    Path: CurrentDirectory\IncludeFinder\file.include.md,
     Lines: [
-      'Simple1'
+      Simple1
     ]
   }
 ]

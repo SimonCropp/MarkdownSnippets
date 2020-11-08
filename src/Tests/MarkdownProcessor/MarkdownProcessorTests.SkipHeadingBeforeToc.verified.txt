@@ -1,5 +1,6 @@
 {
-  result: '
+  result: 
+
 ## Heading 1
 
 <!-- toc -->
@@ -12,5 +13,5 @@ Text1
 ## Heading 2
 
 Text2
-'
+
 }

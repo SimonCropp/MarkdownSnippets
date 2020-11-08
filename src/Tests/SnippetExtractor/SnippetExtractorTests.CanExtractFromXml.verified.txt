@@ -1,10 +1,10 @@
 [
   {
-    Key: 'codekey',
-    Language: 'cs',
-    Value: '<configSections/>',
-    Error: '',
-    FileLocation: 'path.cs(2-4)',
+    Key: codekey,
+    Language: cs,
+    Value: <configSections/>,
+    Error: ,
+    FileLocation: path.cs(2-4),
     IsInError: false
   }
 ]

@@ -73,7 +73,7 @@ public static class ConfigReader
         var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
         try
         {
-            return (ConfigSerialization) serializer.ReadObject(stream);
+            return (ConfigSerialization) serializer.ReadObject(stream)!;
         }
         catch (SerializationException exception)
         {

@@ -11,7 +11,7 @@ public static class Extensions
 
     public static string ToCurrentDirectory(this Assembly assembly, string relativePath)
     {
-        var fullPath = new Uri(assembly.CodeBase!).AbsolutePath;
+        var fullPath = new Uri(assembly.Location!).AbsolutePath;
         var directory = Path.GetDirectoryName(fullPath)!;
         return Path.Combine(directory, relativePath);
     }

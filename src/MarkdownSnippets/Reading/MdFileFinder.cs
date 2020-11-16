@@ -10,7 +10,7 @@ namespace MarkdownSnippets
         DirectoryFilter? directoryFilter;
         List<string> documentExtensions;
 
-        static List<string> defaultExtensions = new List<string> {"md"};
+        static List<string> defaultExtensions = new() {"md"};
 
         internal static List<string> BuildDefaultExtensions(IEnumerable<string>? documentExtensions = null)
         {

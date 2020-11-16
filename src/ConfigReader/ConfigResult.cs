@@ -10,12 +10,12 @@ public class ConfigResult
     public DocumentConvention Convention;
     public int TocLevel;
     public int MaxWidth;
-    public List<string> UrlsAsSnippets = new List<string>();
-    public List<string> Exclude = new List<string>();
+    public List<string> UrlsAsSnippets = new();
+    public List<string> Exclude = new();
     public bool? WriteHeader;
     public string? Header;
     public string? UrlPrefix;
-    public List<string> TocExcludes = new List<string>();
-    public List<string> DocumentExtensions = new List<string>();
+    public List<string> TocExcludes = new();
+    public List<string> DocumentExtensions = new();
     public bool TreatMissingAsWarning;
 }

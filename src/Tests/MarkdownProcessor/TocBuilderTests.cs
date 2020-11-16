@@ -12,7 +12,7 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("##", "", 0)
+            new("##", "", 0)
         };
 
         var buildToc = TocBuilder.BuildToc(lines, 1, new List<string>(), "\r");
@@ -25,8 +25,8 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("# Heading1", "", 0),
-            new Line("## Heading2", "", 0)
+            new("# Heading1", "", 0),
+            new("## Heading2", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
@@ -43,7 +43,7 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## **bold** *italic* [Link](link)", "", 0)
+            new("## **bold** *italic* [Link](link)", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
@@ -54,8 +54,8 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading1", "", 0),
-            new Line("### Heading2", "", 0)
+            new("## Heading1", "", 0),
+            new("### Heading2", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}, Environment.NewLine));
@@ -66,10 +66,10 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading1", "", 0),
-            new Line("### Heading2", "", 0),
-            new Line("## Heading3", "", 0),
-            new Line("### Heading4", "", 0)
+            new("## Heading1", "", 0),
+            new("### Heading2", "", 0),
+            new("## Heading3", "", 0),
+            new("### Heading4", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
@@ -80,10 +80,10 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading1", "", 0),
-            new Line("### Heading2", "", 0),
-            new Line("#### Heading3", "", 0),
-            new Line("##### Heading4", "", 0)
+            new("## Heading1", "", 0),
+            new("### Heading2", "", 0),
+            new("#### Heading3", "", 0),
+            new("##### Heading4", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 10, new List<string>(), Environment.NewLine));
@@ -94,9 +94,9 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading1", "", 0),
-            new Line("### Heading2", "", 0),
-            new Line("#### Heading3", "", 0)
+            new("## Heading1", "", 0),
+            new("### Heading2", "", 0),
+            new("#### Heading3", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
@@ -107,7 +107,7 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading", "", 0)
+            new("## Heading", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
@@ -118,7 +118,7 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("##  A B ", "", 0)
+            new("##  A B ", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
@@ -129,9 +129,9 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## Heading", "", 0),
-            new Line("### Heading", "", 0),
-            new Line("#### Heading", "", 0)
+            new("## Heading", "", 0),
+            new("### Heading", "", 0),
+            new("#### Heading", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines,4, new List<string>(), Environment.NewLine));
@@ -142,9 +142,9 @@ public class TocBuilderTests
     {
         var lines = new List<Line>
         {
-            new Line("## A", "", 0),
-            new Line("## A", "", 0),
-            new Line("## a", "", 0)
+            new("## A", "", 0),
+            new("## A", "", 0),
+            new("## a", "", 0)
         };
 
         return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));

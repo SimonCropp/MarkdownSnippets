@@ -10,7 +10,7 @@ namespace MarkdownSnippets
             return ExcludedDirectorySuffixes.Contains(suffix);
         }
 
-        public static List<string> ExcludedDirectorySuffixes { get; set; } = new List<string>
+        public static List<string> ExcludedDirectorySuffixes { get; set; } = new()
         {
             "bin",
             "obj"

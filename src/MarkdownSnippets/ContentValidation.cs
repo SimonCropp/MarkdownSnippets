@@ -3,7 +3,7 @@ using System.Linq;
 
 static class ContentValidation
 {
-    static Dictionary<string, string> phrases = new Dictionary<string, string>
+    static Dictionary<string, string> phrases = new()
     {
         {"a majority of ", "most"},
         {"a number of", "some or many"},
@@ -40,7 +40,7 @@ static class ContentValidation
 
     static List<string> invalidStrings;
 
-    static List<string> invalidWords = new List<string>
+    static List<string> invalidWords = new()
     {
         "you",
         "we",

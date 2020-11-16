@@ -23,7 +23,7 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles;
         IncludeProcessor includeProcessor;
 
-        static List<string> validationExcludes = new List<string>
+        static List<string> validationExcludes = new()
         {
             "code_of_conduct",
             ".github",
@@ -330,7 +330,7 @@ namespace MarkdownSnippets
 
         List<Snippet> SnippetsForFile(string key, string relativeToRoot)
         {
-            return new List<Snippet>
+            return new()
             {
                 FileToSnippet(key, relativeToRoot, null)
             };

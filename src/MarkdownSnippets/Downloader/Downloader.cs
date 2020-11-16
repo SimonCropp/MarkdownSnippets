@@ -22,7 +22,7 @@ static class Downloader
         }
     }
 
-    static HttpClient httpClient = new HttpClient
+    static HttpClient httpClient = new()
     {
         Timeout = TimeSpan.FromSeconds(30)
     };

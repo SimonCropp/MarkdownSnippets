@@ -16,7 +16,7 @@ namespace MarkdownSnippets
             return !NoAcceptCommentsExtensions.Contains(extension);
         }
 
-        public static List<string> NoAcceptCommentsExtensions { get; set; } = new List<string>
+        public static List<string> NoAcceptCommentsExtensions { get; set; } = new()
         {
             //files that dont accept comments hence cant contain snippets
 
@@ -27,7 +27,7 @@ namespace MarkdownSnippets
             #endregion
         };
 
-        public static List<string> ExcludedFileExtensions { get; set; } = new List<string>
+        public static List<string> ExcludedFileExtensions { get; set; } = new()
         {
             #region ExcludedFileExtensions
 

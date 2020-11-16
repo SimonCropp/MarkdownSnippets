@@ -20,11 +20,11 @@ namespace MarkdownSnippets
         List<string> documentExtensions;
         Action<string> log;
         string targetDirectory;
-        List<string> mdFiles = new List<string>();
-        List<Include> includes = new List<Include>();
-        List<Snippet> snippets = new List<Snippet>();
+        List<string> mdFiles = new();
+        List<Include> includes = new();
+        List<Snippet> snippets = new();
         public IReadOnlyList<Snippet> Snippets => snippets;
-        List<string> snippetSourceFiles = new List<string>();
+        List<string> snippetSourceFiles = new();
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
         string newLine;

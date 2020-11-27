@@ -14,7 +14,7 @@ class Line
 
     public Line WithCurrent(string current)
     {
-        return new (Original, Path, LineNumber)
+        return new(Original, Path, LineNumber)
         {
             Current = current
         };

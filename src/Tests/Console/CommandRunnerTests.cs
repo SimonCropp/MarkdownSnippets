@@ -109,14 +109,14 @@ public class CommandRunnerTests
     [Fact]
     public async Task TargetDirectoryShort()
     {
-        await CommandRunner.RunCommand(Capture, "-t", "../");
+        await CommandRunner.RunCommand(Capture, "-t", "../../");
         await VerifyResult();
     }
 
     [Fact]
     public async Task TargetDirectoryLong()
     {
-        await CommandRunner.RunCommand(Capture, "--target-directory", "../");
+        await CommandRunner.RunCommand(Capture, "--target-directory", "../../");
         await VerifyResult();
     }
 

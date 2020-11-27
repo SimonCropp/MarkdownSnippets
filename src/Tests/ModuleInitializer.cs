@@ -13,6 +13,5 @@ public static class ModuleInitializer
                 converters.Add(new SnippetConverter());
             });
         });
-        VerifierSettings.AddScrubber(Scrubber.Scrub);
     }
 }

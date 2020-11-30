@@ -7,5 +7,10 @@
       File: CurrentDirectory\DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md
     }
   ],
-  Message: Missing snippets: missing.txt
+  Message: Missing snippets: missing.txt,
+  StackTrace: 
+at MarkdownSnippets.DirectoryMarkdownProcessor.ProcessFile(String sourceFile, MarkdownProcessor markdownProcessor)
+at MarkdownSnippets.DirectoryMarkdownProcessor.Run()
+at DirectoryMarkdownProcessorTests.<>c__DisplayClass6_0.<FileSnippetMissing>b__0()
+at VerifyTests.InnerVerifier.Throws(Action target)
 }

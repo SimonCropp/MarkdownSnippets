@@ -2,5 +2,11 @@
   Type: MarkdownProcessingException,
   File: sourceFile,
   LineNumber: 2,
-  Message: Expected to find `<!-- endToc -->`.
+  Message: Expected to find `<!-- endToc -->`.,
+  StackTrace: 
+at Lines.RemoveUntil(List`1 lines, Int32 index, String match, String path, Line startLine)
+at MarkdownSnippets.MarkdownProcessor.Apply(List`1 lines, String newLine, String relativePath)
+at MarkdownSnippets.MarkdownProcessor.Apply(TextReader textReader, TextWriter writer, String file)
+at SnippetVerifier.<>c__DisplayClass0_0`1.<VerifyThrows>b__0()
+at VerifyTests.InnerVerifier.Throws(Func`1 target)
 }

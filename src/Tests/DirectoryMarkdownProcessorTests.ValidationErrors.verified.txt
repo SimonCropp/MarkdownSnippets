@@ -36,5 +36,10 @@ No exclamation marks. If a statement is important make it bold. https://www.tech
   Line: 3
   Column: 2
   Error: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
-
+,
+  StackTrace: 
+at MarkdownSnippets.DirectoryMarkdownProcessor.ProcessFile(String sourceFile, MarkdownProcessor markdownProcessor)
+at MarkdownSnippets.DirectoryMarkdownProcessor.Run()
+at DirectoryMarkdownProcessorTests.<>c__DisplayClass8_0.<ValidationErrors>b__0()
+at VerifyTests.InnerVerifier.Throws(Action target)
 }

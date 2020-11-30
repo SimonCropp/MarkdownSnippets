@@ -7,5 +7,10 @@
       File: CurrentDirectory\DirectoryMarkdownProcessor\UrlSnippetMissing\one.source.md
     }
   ],
-  Message: Missing snippets: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt
+  Message: Missing snippets: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt,
+  StackTrace: 
+at MarkdownSnippets.DirectoryMarkdownProcessor.ProcessFile(String sourceFile, MarkdownProcessor markdownProcessor)
+at MarkdownSnippets.DirectoryMarkdownProcessor.Run()
+at DirectoryMarkdownProcessorTests.<>c__DisplayClass7_0.<UrlSnippetMissing>b__0()
+at VerifyTests.InnerVerifier.Throws(Action target)
 }

@@ -427,6 +427,29 @@ some other text
     }
 
     [Fact]
+    public Task TableInInclude()
+    {
+        var availableSnippets = new List<Snippet>();
+        var content = @"
+some text
+
+include: theKey
+
+some other text
+";
+        var lines = new List<string> {@"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+| -------------------- | ----------------------- | ------------------ | --------------------- |
+|2|5|25|25|"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            availableSnippets,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, "thePath")
+            });
+    }
+    [Fact]
     public Task SnippetInIncludeLast()
     {
         var availableSnippets = new List<Snippet>

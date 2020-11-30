@@ -150,7 +150,7 @@ class IncludeProcessor
         var count = include.Lines.Count;
         var first = include.Lines.First();
         var key = include.Key;
-        if (IsSnippetLineOrEndsWithTicks(first))
+        if (ShouldWriteIncludeOnDiffLine(first))
         {
             if (writePath)
             {
@@ -183,7 +183,7 @@ class IncludeProcessor
         }
 
         var last = include.Lines.Last();
-        if (IsSnippetLineOrEndsWithTicks(last))
+        if (ShouldWriteIncludeOnDiffLine(last))
         {
             yield return new Line(last, path, count);
             yield return new Line("<!-- endInclude -->", path, count);
@@ -194,11 +194,13 @@ class IncludeProcessor
         }
     }
 
-    static bool IsSnippetLineOrEndsWithTicks(string line)
+    static bool ShouldWriteIncludeOnDiffLine(string line)
     {
         return SnippetKey.IsSnippetLine(line) ||
                line.StartsWith("<!-- endSnippet -->") ||
-               line.EndsWith("```");
+               line.EndsWith("```") ||
+               line.StartsWith("|") ||
+               line.EndsWith("|");
     }
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include, bool writePath)
@@ -215,7 +217,7 @@ class IncludeProcessor
     {
         var first = include.Lines.First();
         var key = include.Key;
-        if (IsSnippetLineOrEndsWithTicks(first))
+        if (ShouldWriteIncludeOnDiffLine(first))
         {
             if (writePath)
             {

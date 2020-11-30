@@ -1,0 +1,14 @@
+{
+  result: 
+
+some text
+
+<!-- include: theKey. path: thePath -->
+| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+| -------------------- | ----------------------- | ------------------ | --------------------- |
+|2|5|25|25|
+<!-- endInclude -->
+
+some other text
+
+}

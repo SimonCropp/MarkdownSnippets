@@ -4,9 +4,5 @@
 Key cannot contain whitespace or start/end with symbols.
 Key: key_
 Path: file
-Line: <!-- begin-snippet: key_ -->,
-  StackTrace: 
-at StartEndTester.IsBeginSnippet(String line, String path, String& key)
-at StartEndTester_IsBeginSnippetTests.<>c.<ShouldThrowForKeyEndingWithSymbol>b__9_0()
-at VerifyTests.InnerVerifier.Throws(Func`1 target)
+Line: <!-- begin-snippet: key_ -->
 }

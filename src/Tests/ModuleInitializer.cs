@@ -1,4 +1,5 @@
-﻿using VerifyTests;
+﻿using System;
+using VerifyTests;
 
 public static class ModuleInitializer
 {
@@ -13,5 +14,8 @@ public static class ModuleInitializer
                 converters.Add(new SnippetConverter());
             });
         });
+        VerifierSettings.ModifySerialization(
+            settings => settings.IgnoreMember<Exception>(
+                exception => exception.StackTrace));
     }
 }

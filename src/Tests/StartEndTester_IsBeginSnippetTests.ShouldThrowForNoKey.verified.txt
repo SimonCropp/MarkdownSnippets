@@ -3,9 +3,5 @@
   Message: 
 No Key could be derived.
 Path: file
-Line: '<!-- begin-snippet: -->',
-  StackTrace: 
-at StartEndTester.IsBeginSnippet(String line, String path, String& key)
-at StartEndTester_IsBeginSnippetTests.<>c.<ShouldThrowForNoKey>b__1_0()
-at VerifyTests.InnerVerifier.Throws(Func`1 target)
+Line: '<!-- begin-snippet: -->'
 }

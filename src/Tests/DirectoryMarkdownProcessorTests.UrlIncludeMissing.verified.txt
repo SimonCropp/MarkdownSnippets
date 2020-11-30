@@ -7,10 +7,5 @@
       File: CurrentDirectory\DirectoryMarkdownProcessor\UrlIncludeMissing\one.source.md
     }
   ],
-  Message: Missing includes: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt,
-  StackTrace: 
-at MarkdownSnippets.DirectoryMarkdownProcessor.ProcessFile(String sourceFile, MarkdownProcessor markdownProcessor)
-at MarkdownSnippets.DirectoryMarkdownProcessor.Run()
-at DirectoryMarkdownProcessorTests.<>c__DisplayClass9_0.<UrlIncludeMissing>b__0()
-at VerifyTests.InnerVerifier.Throws(Action target)
+  Message: Missing includes: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt
 }

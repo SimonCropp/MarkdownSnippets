@@ -15,9 +15,7 @@ public static class ModuleInitializer
                 converters.Add(new ProcessResultConverter());
                 converters.Add(new SnippetConverter());
             });
+            settings.IgnoreMember<Exception>(exception => exception.StackTrace);
         });
-        VerifierSettings.ModifySerialization(
-            settings => settings.IgnoreMember<Exception>(
-                exception => exception.StackTrace));
     }
 }

@@ -10,15 +10,15 @@ public class LogBuilderTests
     [Fact]
     public Task BuildConfigLogMessage()
     {
-        var config = new ConfigResult
+        ConfigResult config = new()
         {
             WriteHeader = true,
             Header = @"line1
 line2",
-            Exclude = new List<string> {"Dir1", "Dir2"},
+            Exclude = new(){"Dir1", "Dir2"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
-            UrlsAsSnippets = new List<string> {"Url1", "Url2"},
+            UrlsAsSnippets = new(){"Url1", "Url2"},
             TocLevel = 5,
             MaxWidth = 80,
             Convention = DocumentConvention.InPlaceOverwrite,
@@ -30,7 +30,7 @@ line2",
     [Fact]
     public Task BuildConfigLogMessageMinimal()
     {
-        var config = new ConfigResult();
+        ConfigResult config = new();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         return Verifier.Verify(message);
     }

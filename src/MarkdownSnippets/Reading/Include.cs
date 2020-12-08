@@ -14,7 +14,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(lineNumberInError, nameof(lineNumberInError));
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNullAndEmpty(error, nameof(error));
-            return new Include
+            return new()
             {
                 Key = key,
                 IsInError = true,
@@ -31,7 +31,7 @@ namespace MarkdownSnippets
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstEmpty(path, nameof(path));
             Guard.AgainstNull(lines, nameof(lines));
-            return new Include
+            return new()
             {
                 lines = lines,
                 Key = key,

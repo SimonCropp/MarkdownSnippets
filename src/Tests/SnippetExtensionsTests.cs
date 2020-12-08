@@ -10,7 +10,7 @@ public class SnippetExtensionsTests
     [Fact]
     public Task ToDictionary()
     {
-        var snippets = new List<Snippet>
+        List<Snippet> snippets = new()
         {
             SnippetBuild("snippet1", "thePath"),
             SnippetBuild("snippet2", "thePath")
@@ -21,7 +21,7 @@ public class SnippetExtensionsTests
     [Fact]
     public Task ToDictionary_SameKey()
     {
-        var snippets = new List<Snippet>
+        List<Snippet> snippets = new()
         {
             SnippetBuild("snippet1", null),
             SnippetBuild("snippet1", "thePath2"),

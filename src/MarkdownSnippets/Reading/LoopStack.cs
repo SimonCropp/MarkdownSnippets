@@ -24,7 +24,7 @@ class LoopStack
 
     public void Push(Func<string, bool> endFunc, string key, int startLine, int maxWidth, string newLine)
     {
-        var state = new LoopState(key, endFunc, startLine, maxWidth, newLine);
+        LoopState state = new(key, endFunc, startLine, maxWidth, newLine);
         stack.Push(state);
     }
 

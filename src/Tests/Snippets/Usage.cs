@@ -19,7 +19,7 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRun
 
-        var processor = new DirectoryMarkdownProcessor("targetDirectory");
+        DirectoryMarkdownProcessor processor = new("targetDirectory");
         processor.Run();
 
         #endregion
@@ -29,7 +29,7 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRunMaxWidth
 
-        var processor = new DirectoryMarkdownProcessor(
+        DirectoryMarkdownProcessor processor = new(
             "targetDirectory",
             maxWidth: 80);
         processor.Run();
@@ -42,7 +42,7 @@ class Usage
         #region ReadingDirectorySimple
 
         // extract snippets from files
-        var snippetExtractor = new DirectorySnippetExtractor(
+        DirectorySnippetExtractor snippetExtractor = new(
             // all directories except bin and obj
             directoryFilter: dirPath => !dirPath.EndsWith("bin") &&
                                         !dirPath.EndsWith("obj"));
@@ -58,15 +58,15 @@ class Usage
         var directory = @"C:\path";
 
         // extract snippets from files
-        var snippetExtractor = new DirectorySnippetExtractor();
+        DirectorySnippetExtractor snippetExtractor = new();
         var snippets = snippetExtractor.ReadSnippets(directory);
 
         // extract includes from files
-        var includeFinder = new IncludeFinder();
+        IncludeFinder includeFinder = new();
         var includes = includeFinder.ReadIncludes(directory);
 
         // Merge with some markdown text
-        var markdownProcessor = new MarkdownProcessor(
+        MarkdownProcessor markdownProcessor = new(
             convention: DocumentConvention.SourceTransform,
             snippets: snippets.Lookup,
             includes: includes,

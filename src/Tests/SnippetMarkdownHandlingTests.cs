@@ -12,10 +12,10 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task Append()
     {
-        var builder = new StringBuilder();
+        StringBuilder builder = new();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false);
-        using (var writer = new StringWriter(builder))
+        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, false);
+        using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
@@ -26,10 +26,10 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task AppendPrefixed()
     {
-        var builder = new StringBuilder();
+        StringBuilder builder = new();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false, "prefix-");
-        using (var writer = new StringWriter(builder))
+        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, false, "prefix-");
+        using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
@@ -40,10 +40,10 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task AppendHashed()
     {
-        var builder = new StringBuilder();
+        StringBuilder builder = new();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, true);
-        using (var writer = new StringWriter(builder))
+        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, true);
+        using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }

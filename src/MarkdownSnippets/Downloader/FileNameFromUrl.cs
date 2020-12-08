@@ -7,7 +7,7 @@ static class FileNameFromUrl
     public static string ConvertToFileName(string url)
     {
         var invalid = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).ToList();
-        var stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         foreach (var ch in url)
         {
             if (invalid.Contains(ch))

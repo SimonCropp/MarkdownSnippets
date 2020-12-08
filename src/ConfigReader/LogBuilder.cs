@@ -8,7 +8,7 @@ static class LogBuilder
     public static string BuildConfigLogMessage(string root, ConfigResult config, string configFilePath)
     {
         var header = GetHeader(config);
-        var builder = new StringBuilder($@"Config:
+        StringBuilder builder = new($@"Config:
     RootDir: {root}
     ReadOnly: {config.ReadOnly}
     WriteHeader: {config.WriteHeader}

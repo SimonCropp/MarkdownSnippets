@@ -14,7 +14,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(lineNumberInError, nameof(lineNumberInError));
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstNullAndEmpty(error, nameof(error));
-            return new Snippet
+            return new()
             {
                 Key = key,
                 StartLine = lineNumberInError,
@@ -41,7 +41,7 @@ namespace MarkdownSnippets
 
             Guard.AgainstNegativeAndZero(startLine, nameof(startLine));
             Guard.AgainstNegativeAndZero(endLine, nameof(endLine));
-            return new Snippet
+            return new()
             {
                 StartLine = startLine,
                 EndLine = endLine,

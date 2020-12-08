@@ -13,7 +13,7 @@ public class SnippetExtractorTests
     [Fact]
     public async Task AppendUrlAsSnippet()
     {
-        var snippets = new List<Snippet>();
+        List<Snippet> snippets = new();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
         await Verifier.Verify(snippets);
     }
@@ -25,9 +25,9 @@ public class SnippetExtractorTests
         try
         {
             File.WriteAllText(temp, "Foo");
-            var snippets = new List<Snippet>();
+            List<Snippet> snippets = new();
             snippets.AppendFileAsSnippet(temp);
-            var settings = new VerifySettings();
+            VerifySettings settings = new();
             settings.AddScrubber(x =>
             {
                 var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
@@ -176,7 +176,7 @@ public class SnippetExtractorTests
 
     static List<Snippet> FromText(string contents)
     {
-        using var reader = new StringReader(contents);
+        using StringReader reader = new(contents);
         return FileSnippetExtractor.Read(reader, "path.cs", 80).ToList();
     }
 

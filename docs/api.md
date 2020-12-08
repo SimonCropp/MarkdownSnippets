@@ -32,7 +32,7 @@ var snippets = FileSnippetExtractor.Read(files);
 <a id='snippet-readingdirectorysimple'></a>
 ```cs
 // extract snippets from files
-var snippetExtractor = new DirectorySnippetExtractor(
+DirectorySnippetExtractor snippetExtractor = new(
     // all directories except bin and obj
     directoryFilter: dirPath => !dirPath.EndsWith("bin") &&
                                 !dirPath.EndsWith("obj"));
@@ -50,15 +50,15 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 var directory = @"C:\path";
 
 // extract snippets from files
-var snippetExtractor = new DirectorySnippetExtractor();
+DirectorySnippetExtractor snippetExtractor = new();
 var snippets = snippetExtractor.ReadSnippets(directory);
 
 // extract includes from files
-var includeFinder = new IncludeFinder();
+IncludeFinder includeFinder = new();
 var includes = includeFinder.ReadIncludes(directory);
 
 // Merge with some markdown text
-var markdownProcessor = new MarkdownProcessor(
+MarkdownProcessor markdownProcessor = new(
     convention: DocumentConvention.SourceTransform,
     snippets: snippets.Lookup,
     includes: includes,

@@ -21,7 +21,7 @@ namespace MarkdownSnippets
             {
                 return path;
             }
-            throw new Exception("Could not find git repository directory");
+            throw new("Could not find git repository directory");
 
         }
 

@@ -34,7 +34,7 @@ static class StartEndTester
         return false;
     }
 
-    static Func<string, bool> throwFunc = _ => throw new Exception("Do not use out func");
+    static Func<string, bool> throwFunc = _ => throw new("Do not use out func");
 
     static bool IsEndRegion(string line)
     {

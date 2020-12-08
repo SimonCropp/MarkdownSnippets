@@ -9,7 +9,7 @@ public class IncludeFinderTests
     [Fact]
     public Task Simple()
     {
-        var finder = new IncludeFinder();
+        IncludeFinder finder = new();
         var includes = finder.ReadIncludes("IncludeFinder");
         return Verifier.Verify(includes);
     }

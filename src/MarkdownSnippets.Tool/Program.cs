@@ -26,7 +26,7 @@ static class Program
         var message = LogBuilder.BuildConfigLogMessage(targetDirectory, configResult, configFilePath);
         Console.WriteLine(message);
 
-        var processor = new DirectoryMarkdownProcessor(
+        DirectoryMarkdownProcessor processor = new(
             targetDirectory,
             log: Console.WriteLine,
             directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
@@ -44,7 +44,7 @@ static class Program
             validateContent: configResult.ValidateContent,
             hashSnippetAnchors: configResult.HashSnippetAnchors);
 
-        var snippets = new List<Snippet>();
+        List<Snippet> snippets = new();
         await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
         processor.AddSnippets(snippets);
 

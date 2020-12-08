@@ -11,20 +11,20 @@ namespace MarkdownSnippets
 
         public IncludeFinder(DirectoryFilter? directoryFilter = null)
         {
-            fileFinder = new IncludeFileFinder(directoryFilter);
+            fileFinder = new(directoryFilter);
         }
 
         public IReadOnlyList<Include> ReadIncludes(params string[] directories)
         {
             Guard.AgainstNull(directories, nameof(directories));
             var files = fileFinder.FindFiles(directories).ToList();
-            var dictionary = new Dictionary<string, Include>(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, Include> dictionary = new(StringComparer.OrdinalIgnoreCase);
             foreach (var file in files)
             {
                 var key = Path.GetFileName(file).Replace(".include.md", "");
                 if (dictionary.ContainsKey(key))
                 {
-                    throw new Exception($"Duplicate include: {key}");
+                    throw new($"Duplicate include: {key}");
                 }
 
                 dictionary[key] = Include.Build(key, File.ReadAllLines(file), file);

@@ -75,7 +75,7 @@ namespace MarkdownSnippets
 
         static string ComputeId(Snippet snippet)
         {
-            using var sha = new SHA1Managed();
+            using SHA1Managed sha = new();
             var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(snippet.Key));
             return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
         }
@@ -152,7 +152,7 @@ namespace MarkdownSnippets
             }
             #endregion
 
-            throw new Exception($"Unknown LinkFormat: {linkFormat}");
+            throw new($"Unknown LinkFormat: {linkFormat}");
         }
     }
 }

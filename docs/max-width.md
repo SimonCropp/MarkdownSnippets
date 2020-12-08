@@ -34,7 +34,7 @@ The Max Width setting is used to control the maximum characters per line of a sn
 <!-- snippet: DirectoryMarkdownProcessorRunMaxWidth -->
 <a id='snippet-directorymarkdownprocessorrunmaxwidth'></a>
 ```cs
-var processor = new DirectoryMarkdownProcessor(
+DirectoryMarkdownProcessor processor = new(
     "targetDirectory",
     maxWidth: 80);
 processor.Run();

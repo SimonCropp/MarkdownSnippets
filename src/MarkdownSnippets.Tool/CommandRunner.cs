@@ -15,7 +15,7 @@ static class CommandRunner
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                return invoke(firstArg, new ConfigInput());
+                return invoke(firstArg, new());
             }
         }
 
@@ -24,7 +24,7 @@ static class CommandRunner
                 options =>
                 {
                     ValidateAndApplyDefaults(options);
-                    var configInput = new ConfigInput
+                    ConfigInput configInput = new()
                     {
                         ReadOnly = options.ReadOnly,
                         ValidateContent = options.ValidateContent,

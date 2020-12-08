@@ -12,7 +12,7 @@ public class IncludeFileFinderTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Nested");
-        var finder = new IncludeFileFinder();
+        IncludeFileFinder finder = new();
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -21,7 +21,7 @@ public class IncludeFileFinderTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Simple");
-        var finder = new IncludeFileFinder();
+        IncludeFileFinder finder = new();
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -29,10 +29,10 @@ public class IncludeFileFinderTests
     [Fact]
     public Task VerifyLambdasAreCalled()
     {
-        var directories = new ConcurrentBag<string>();
+        ConcurrentBag<string> directories = new();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "IncludeFileFinder/VerifyLambdasAreCalled");
-        var finder = new IncludeFileFinder(
+        IncludeFileFinder finder = new(
             directoryFilter: path =>
             {
                 directories.Add(path);

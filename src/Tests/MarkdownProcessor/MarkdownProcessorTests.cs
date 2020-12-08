@@ -36,7 +36,7 @@ before
 
 after
 ";
-        var lines = new List<string> {"one", "two"};
+        List<string> lines = new() {"one", "two"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -57,7 +57,7 @@ BAD <!-- endInclude -->
 
 after
 ";
-        var lines = new List<string> {"theValue1", "theValue2"};
+        List<string> lines = new() {"theValue1", "theValue2"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -77,7 +77,7 @@ BAD <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
 ";
-        var lines = new List<string> {"theValue1"};
+        List<string> lines = new() {"theValue1"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -97,7 +97,7 @@ include: theKey
 
 after
 ";
-        var lines = new List<string> {"theValue1"};
+        List<string> lines = new() {"theValue1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -117,7 +117,7 @@ include: theKey
 
 after
 ";
-        var lines = new List<string> {"theValue1", "theValue2"};
+        List<string> lines = new() {"theValue1", "theValue2"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -137,7 +137,7 @@ include: theKey
 
 after
 ";
-        var lines = new List<string> {"", "", ""};
+        List<string> lines = new() {"", "", ""};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -156,7 +156,7 @@ include: theKey
 
 after
 ";
-        var lines = new List<string> {"theValue1", "theValue2", "theValue3"};
+        List<string> lines = new() {"theValue1", "theValue2", "theValue3"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -296,11 +296,10 @@ Text2
     [Fact]
     public Task Simple_Overwrite()
     {
-        var availableSnippets = new List<Snippet>
+        List<Snippet> availableSnippets = new()
         {
             SnippetBuild("cs", "snippet1"),
-            SnippetBuild("cs", "snippet2"
-            )
+            SnippetBuild("cs", "snippet2")
         };
         var content = @"
 <!-- snippet: snippet1 -->
@@ -349,7 +348,7 @@ BAD
         var file = "FileWithMixedNewLines.txt";
         File.Delete(file);
         await File.WriteAllTextAsync(file, "a\rb\nc\r\nd");
-        var availableSnippets = new List<Snippet>();
+        List<Snippet> availableSnippets = new();
         var content = @"
 some other text
 
@@ -371,7 +370,7 @@ snippet: FileWithMixedNewLines.txt
     [Fact]
     public Task Simple()
     {
-        var availableSnippets = new List<Snippet>
+        List<Snippet> availableSnippets = new()
         {
             SnippetBuild("cs", "snippet1"),
             SnippetBuild("cs", "snippet2")
@@ -404,7 +403,7 @@ snippet: /FileToUseAsSnippet.txt
     [Fact]
     public Task SnippetInInclude()
     {
-        var availableSnippets = new List<Snippet>
+        List<Snippet> availableSnippets = new()
         {
             SnippetBuild("cs", "snippet1")
         };
@@ -415,7 +414,7 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"snippet: snippet1"};
+        List<string> lines = new() {"snippet: snippet1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -429,7 +428,7 @@ some other text
     [Fact]
     public Task TableInInclude()
     {
-        var availableSnippets = new List<Snippet>();
+        List<Snippet> availableSnippets = new();
         var content = @"
 some text
 
@@ -437,7 +436,8 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {@"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+        List<string> lines = new()
+        {@"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
 | -------------------- | ----------------------- | ------------------ | --------------------- |
 |2|5|25|25|"};
         return SnippetVerifier.Verify(
@@ -452,7 +452,7 @@ some other text
     [Fact]
     public Task SnippetInIncludeLast()
     {
-        var availableSnippets = new List<Snippet>
+        List<Snippet> availableSnippets = new()
         {
             SnippetBuild("cs", "snippet1")
         };
@@ -463,7 +463,7 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"line1", "snippet: snippet1"};
+        List<string> lines = new() {"line1", "snippet: snippet1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,

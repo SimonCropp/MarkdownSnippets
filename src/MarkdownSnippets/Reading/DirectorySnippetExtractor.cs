@@ -19,7 +19,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
             this.newLine = newLine;
             this.maxWidth = maxWidth;
-            fileFinder = new SnippetFileFinder(directoryFilter);
+            fileFinder = new(directoryFilter);
         }
 
         public ReadSnippets ReadSnippets(params string[] directories)
@@ -29,7 +29,7 @@ namespace MarkdownSnippets
             var snippets = files
                 .SelectMany(Read)
                 .ToList();
-            return new ReadSnippets(snippets, files);
+            return new(snippets, files);
         }
 
         IEnumerable<Snippet> Read(string file)

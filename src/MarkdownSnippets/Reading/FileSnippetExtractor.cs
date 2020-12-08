@@ -129,7 +129,7 @@ namespace MarkdownSnippets
         static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth, string newLine)
         {
             var language = GetLanguageFromPath(path);
-            var loopStack = new LoopStack();
+            LoopStack loopStack = new();
             var index = 0;
             while (true)
             {

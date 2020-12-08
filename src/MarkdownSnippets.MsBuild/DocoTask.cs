@@ -35,7 +35,7 @@ namespace MarkdownSnippets
 
             var configResult = ConfigDefaults.Convert(
                 fileConfig,
-                new ConfigInput
+                new()
                 {
                     ReadOnly = ReadOnly,
                     ValidateContent = ValidateContent,
@@ -57,7 +57,7 @@ namespace MarkdownSnippets
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
             Log.LogMessage(message);
 
-            var processor = new DirectoryMarkdownProcessor(
+            DirectoryMarkdownProcessor processor = new(
                 root,
                 log: s => Log.LogMessage(s),
                 readOnly: configResult.ReadOnly,
@@ -75,7 +75,7 @@ namespace MarkdownSnippets
                 validateContent: configResult.ValidateContent,
                 hashSnippetAnchors: configResult.HashSnippetAnchors);
 
-            var snippets = new List<Snippet>();
+            List<Snippet> snippets = new();
 
             try
             {

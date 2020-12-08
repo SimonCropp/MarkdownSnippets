@@ -6,8 +6,6 @@
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
-    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="All" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="All" />
     <PackageReference Include="Verify.Xunit" Version="8.11.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="Xunit" Version="2.4.1" />

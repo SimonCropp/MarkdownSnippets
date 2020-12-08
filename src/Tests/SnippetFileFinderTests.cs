@@ -13,7 +13,7 @@ public class SnippetFileFinderTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Nested");
-        var finder = new SnippetFileFinder();
+        SnippetFileFinder finder = new();
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -22,7 +22,7 @@ public class SnippetFileFinderTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Simple");
-        var finder = new SnippetFileFinder();
+        SnippetFileFinder finder = new();
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -30,10 +30,10 @@ public class SnippetFileFinderTests
     [Fact]
     public Task VerifyLambdasAreCalled()
     {
-        var directories = new ConcurrentBag<string>();
+        ConcurrentBag<string> directories = new();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "SnippetFileFinder/VerifyLambdasAreCalled");
-        var finder = new SnippetFileFinder(
+        SnippetFileFinder finder = new(
             directoryFilter: path =>
             {
                 directories.Add(path);

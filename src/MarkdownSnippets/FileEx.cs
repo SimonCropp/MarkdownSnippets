@@ -19,14 +19,14 @@ static class FileEx
 
     public static string GetRelativePath(string file, string directory)
     {
-        var fileUri = new Uri(file);
+        Uri fileUri = new(file);
         // Folders must end in a slash
         if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
             directory += Path.DirectorySeparatorChar;
         }
 
-        var directoryUri = new Uri(directory);
+        Uri directoryUri = new(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
 
@@ -42,7 +42,7 @@ static class FileEx
 
     public static IEnumerable<string> FindFiles(string directory, string pattern)
     {
-        var files = new List<string>();
+        List<string> files = new();
         try
         {
             files.AddRange(Directory.EnumerateFiles(directory, pattern));

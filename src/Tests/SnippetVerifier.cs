@@ -19,9 +19,9 @@ static class SnippetVerifier
     where T: Exception
     {
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
-        var stringBuilder = new StringBuilder();
-        using var reader = new StringReader(markdownContent);
-        using var writer = new StringWriter(stringBuilder);
+        StringBuilder stringBuilder = new();
+        using StringReader reader = new(markdownContent);
+        using StringWriter writer = new(stringBuilder);
         return Verifier.Throws(() => markdownProcessor.Apply(reader, writer, "sourceFile"), null, sourceFile);
     }
 
@@ -34,7 +34,7 @@ static class SnippetVerifier
         includes ??= Array.Empty<Include>();
         snippets ??= Array.Empty<Snippet>();
         snippetSourceFiles ??= Array.Empty<string>();
-        return new MarkdownProcessor(
+        return new(
             convention: convention,
             snippets: snippets.ToDictionary(),
             includes: includes,
@@ -56,9 +56,9 @@ static class SnippetVerifier
     {
 
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
-        var stringBuilder = new StringBuilder();
-        using var reader = new StringReader(markdownContent);
-        await using var writer = new StringWriter(stringBuilder);
+        StringBuilder stringBuilder = new();
+        using StringReader reader = new(markdownContent);
+        await using StringWriter writer = new(stringBuilder);
         var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
         var result = stringBuilder.ToString();
         var output = new

@@ -7,8 +7,8 @@ static class TocBuilder
 {
     public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)
     {
-        var processed = new List<string>();
-        var builder = new StringBuilder();
+        List<string> processed = new();
+        StringBuilder builder = new();
         builder.Append("<!-- toc -->");
         builder.Append(newLine);
         builder.Append("## Contents");
@@ -46,7 +46,7 @@ static class TocBuilder
             headingCount++;
 
             var link = BuildLink(processed, title);
-            var indent = new string(' ', (headerLevel - 1) * 2);
+            string indent = new(' ', (headerLevel - 1) * 2);
             builder.Append($"{indent}* [{title}](#{link})");
             builder.Append(newLine);
         }
@@ -84,7 +84,7 @@ static class TocBuilder
 
     internal static string SanitizeLink(string lowerTitle)
     {
-        lowerTitle = new string(lowerTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-' || c == '_').ToArray());
+        lowerTitle = new(lowerTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-' || c == '_').ToArray());
         return lowerTitle.Replace(' ', '-');
     }
 }

@@ -14,7 +14,7 @@ public class DirectorySnippetExtractorTests
     public Task Case()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Case");
-        var extractor = new DirectorySnippetExtractor();
+        DirectorySnippetExtractor extractor = new();
         var snippets = extractor.ReadSnippets(directory);
         AssertCaseInsensitive(snippets.Lookup);
 
@@ -31,7 +31,7 @@ public class DirectorySnippetExtractorTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
-        var extractor = new DirectorySnippetExtractor();
+        DirectorySnippetExtractor extractor = new();
         var snippets = extractor.ReadSnippets(directory);
         return Verifier.Verify(snippets);
     }
@@ -40,7 +40,7 @@ public class DirectorySnippetExtractorTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
-        var extractor = new DirectorySnippetExtractor();
+        DirectorySnippetExtractor extractor = new();
         var snippets = extractor.ReadSnippets(directory);
         return Verifier.Verify(snippets);
     }
@@ -48,10 +48,10 @@ public class DirectorySnippetExtractorTests
     [Fact]
     public Task VerifyLambdasAreCalled()
     {
-        var directories = new ConcurrentBag<string>();
+        ConcurrentBag<string> directories = new();
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "DirectorySnippetExtractor/VerifyLambdasAreCalled");
-        var extractor = new DirectorySnippetExtractor(
+        DirectorySnippetExtractor extractor = new(
             directoryFilter: path =>
             {
                 directories.Add(path);

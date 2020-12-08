@@ -24,7 +24,7 @@ class Line
 
     public override string ToString()
     {
-        throw new Exception();
+        throw new();
     }
 
     public string Current

@@ -60,7 +60,7 @@ namespace MarkdownSnippets
         public List<string> FindFiles(params string[] directoryPaths)
         {
             Guard.AgainstNull(directoryPaths, nameof(directoryPaths));
-            var files = new List<string>();
+            List<string> files = new();
             foreach (var directoryPath in directoryPaths)
             {
                 Guard.DirectoryExists(directoryPath, nameof(directoryPath));

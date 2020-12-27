@@ -229,6 +229,7 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+            var stopwatch = Stopwatch.StartNew();
             MarkdownProcessor processor = new(
                 convention,
                 Snippets.ToDictionary(),
@@ -246,11 +247,12 @@ namespace MarkdownSnippets
             {
                 ProcessFile(sourceFile, processor);
             }
+
+            log($"Finished. {stopwatch.ElapsedMilliseconds}ms");
         }
 
         void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor)
         {
-            log($"Processing {sourceFile}");
             string targetFile;
             if (convention == DocumentConvention.SourceTransform)
             {

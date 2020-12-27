@@ -26,30 +26,30 @@ static class Program
         var message = LogBuilder.BuildConfigLogMessage(targetDirectory, configResult, configFilePath);
         Console.WriteLine(message);
 
-        DirectoryMarkdownProcessor processor = new(
-            targetDirectory,
-            log: Console.WriteLine,
-            directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
-            readOnly: configResult.ReadOnly,
-            writeHeader: configResult.WriteHeader,
-            header: configResult.Header,
-            urlPrefix: configResult.UrlPrefix,
-            linkFormat: configResult.LinkFormat,
-            convention: configResult.Convention,
-            tocExcludes: configResult.TocExcludes,
-            documentExtensions: configResult.DocumentExtensions,
-            tocLevel: configResult.TocLevel,
-            treatMissingAsWarning: configResult.TreatMissingAsWarning,
-            maxWidth: configResult.MaxWidth,
-            validateContent: configResult.ValidateContent,
-            hashSnippetAnchors: configResult.HashSnippetAnchors);
-
-        List<Snippet> snippets = new();
-        await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
-        processor.AddSnippets(snippets);
-
         try
         {
+            DirectoryMarkdownProcessor processor = new(
+                targetDirectory,
+                log: Console.WriteLine,
+                directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+                readOnly: configResult.ReadOnly,
+                writeHeader: configResult.WriteHeader,
+                header: configResult.Header,
+                urlPrefix: configResult.UrlPrefix,
+                linkFormat: configResult.LinkFormat,
+                convention: configResult.Convention,
+                tocExcludes: configResult.TocExcludes,
+                documentExtensions: configResult.DocumentExtensions,
+                tocLevel: configResult.TocLevel,
+                treatMissingAsWarning: configResult.TreatMissingAsWarning,
+                maxWidth: configResult.MaxWidth,
+                validateContent: configResult.ValidateContent,
+                hashSnippetAnchors: configResult.HashSnippetAnchors);
+
+            List<Snippet> snippets = new();
+            await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
+            processor.AddSnippets(snippets);
+
             processor.Run();
         }
         catch (SnippetException exception)

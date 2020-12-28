@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MarkdownSnippets;
 
@@ -7,6 +8,7 @@ static class Program
 {
     static async Task Main(string[] args)
     {
+        var stopwatch = Stopwatch.StartNew();
         try
         {
             await CommandRunner.RunCommand(Inner, args);
@@ -15,6 +17,10 @@ static class Program
         {
             Console.WriteLine($"Failed: {exception.Message}");
             Environment.Exit(1);
+        }
+        finally
+        {
+            Console.WriteLine($"Finished {stopwatch.ElapsedMilliseconds}ms");
         }
     }
 

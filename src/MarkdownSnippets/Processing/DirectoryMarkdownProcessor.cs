@@ -28,6 +28,7 @@ namespace MarkdownSnippets
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
         string newLine;
+        List<string> allFiles;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -109,6 +110,10 @@ namespace MarkdownSnippets
 
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             this.targetDirectory = Path.GetFullPath(targetDirectory);
+
+            FileFinder fileFinder = new(targetDirectory, convention,shouldIncludeDirectory);
+
+            allFiles = fileFinder.FindFiles();
             if (scanForMdFiles)
             {
                 AddMdFilesFrom(targetDirectory);

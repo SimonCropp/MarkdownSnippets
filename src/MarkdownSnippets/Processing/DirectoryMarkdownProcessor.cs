@@ -127,7 +127,16 @@ namespace MarkdownSnippets
 
             if (scanForIncludes)
             {
-                AddIncludeFilesFrom(targetDirectory);
+                foreach (var file in includeFiles)
+                {
+                    var key = Path.GetFileName(file).Replace(".include.md", "");
+                    if (includes.Any(x=>x.Key == key))
+                    {
+                        throw new($"Duplicate include: {key}");
+                    }
+
+                    includes.Add(Include.Build(key, File.ReadAllLines(file), file));
+                }
             }
         }
 
@@ -169,35 +178,6 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             AddSnippets(snippets.ToList());
-        }
-
-        string ExpandDirectory(string directory)
-        {
-            Guard.AgainstNull(directory, nameof(directory));
-            directory = Path.Combine(targetDirectory, directory);
-            directory = Path.GetFullPath(directory);
-            Guard.DirectoryExists(directory, nameof(directory));
-            return directory;
-        }
-
-        public void AddMdFilesFrom(string directory)
-        {
-            var stopwatch = Stopwatch.StartNew();
-            directory = ExpandDirectory(directory);
-            MdFileFinder finder = new(convention, shouldIncludeDirectory);
-            var files = finder.FindFiles(directory).ToList();
-            mdFiles.AddRange(files);
-            log($"Added {files.Count} markdown files ({stopwatch.ElapsedMilliseconds}ms)");
-        }
-
-        public void AddIncludeFilesFrom(string directory)
-        {
-            var stopwatch = Stopwatch.StartNew();
-            directory = ExpandDirectory(directory);
-            IncludeFinder finder = new(shouldIncludeDirectory);
-            var toAdd = finder.ReadIncludes(directory).ToList();
-            includes.AddRange(toAdd);
-            log($"Added {toAdd.Count} .include files ({stopwatch.ElapsedMilliseconds}ms)");
         }
 
         public void AddMdFiles(params string[] files)

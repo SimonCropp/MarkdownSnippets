@@ -1,3 +1,0 @@
-[
-  CurrentDirectory\IncludeFileFinder\VerifyLambdasAreCalled\subpath
-]

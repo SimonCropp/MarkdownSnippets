@@ -1,3 +1,0 @@
-[
-  CurrentDirectory\IncludeFileFinder\Nested\nested\nested\file.include.md
-]

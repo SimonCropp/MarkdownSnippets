@@ -1,4 +1,0 @@
-[
-  CurrentDirectory\IncludeFileFinder\Simple\file1.include.md,
-  CurrentDirectory\IncludeFileFinder\Simple\file2.include.md
-]

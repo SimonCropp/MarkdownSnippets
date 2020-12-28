@@ -22,64 +22,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L9-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-## Reading snippets from a directory structure
-
-<!-- snippet: ReadingDirectorySimple -->
-<a id='snippet-readingdirectorysimple'></a>
-```cs
-// extract snippets from files
-DirectorySnippetExtractor snippetExtractor = new(
-    // all directories except bin and obj
-    shouldIncludeDirectory: dirPath => !dirPath.EndsWith("bin") &&
-                                !dirPath.EndsWith("obj"));
-var snippets = snippetExtractor.ReadSnippets(@"C:\path");
-```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L45-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-## Full Usage
-
-<!-- snippet: markdownProcessingSimple -->
-<a id='snippet-markdownprocessingsimple'></a>
-```cs
-var directory = @"C:\path";
-
-// extract snippets from files
-DirectorySnippetExtractor snippetExtractor = new(shouldIncludeDirectory: _ => true);
-var snippets = snippetExtractor.ReadSnippets(directory);
-
-// extract includes from files
-IncludeFinder includeFinder = new(_=> true);
-var includes = includeFinder.ReadIncludes(directory);
-
-// Merge with some markdown text
-MarkdownProcessor markdownProcessor = new(
-    convention: DocumentConvention.SourceTransform,
-    snippets: snippets.Lookup,
-    includes: includes,
-    appendSnippets: SimpleSnippetMarkdownHandling.Append,
-    snippetSourceFiles: new List<string>(),
-    tocLevel: 2,
-    writeHeader: true,
-    rootDirectory: directory,
-    validateContent: true);
-
-var path = @"C:\path\inputMarkdownFile.md";
-using var reader = File.OpenText(path);
-using var writer = File.CreateText(@"C:\path\outputMarkdownFile.md");
-var result = markdownProcessor.Apply(reader, writer, path);
-// snippets that the markdown file expected but did not exist in the input snippets
-var missingSnippets = result.MissingSnippets;
-
-// snippets that the markdown file used
-var usedSnippets = result.UsedSnippets;
-```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L59-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using MarkdownSnippets;
 
 class Usage
@@ -36,59 +35,6 @@ class Usage
             maxWidth: 80,
             shouldIncludeDirectory: _ => true);
         processor.Run();
-
-        #endregion
-    }
-
-    void ReadingDirectory()
-    {
-        #region ReadingDirectorySimple
-
-        // extract snippets from files
-        DirectorySnippetExtractor snippetExtractor = new(
-            // all directories except bin and obj
-            shouldIncludeDirectory: dirPath => !dirPath.EndsWith("bin") &&
-                                        !dirPath.EndsWith("obj"));
-        var snippets = snippetExtractor.ReadSnippets(@"C:\path");
-
-        #endregion
-    }
-
-    void Basic()
-    {
-        #region markdownProcessingSimple
-
-        var directory = @"C:\path";
-
-        // extract snippets from files
-        DirectorySnippetExtractor snippetExtractor = new(shouldIncludeDirectory: _ => true);
-        var snippets = snippetExtractor.ReadSnippets(directory);
-
-        // extract includes from files
-        IncludeFinder includeFinder = new(_=> true);
-        var includes = includeFinder.ReadIncludes(directory);
-
-        // Merge with some markdown text
-        MarkdownProcessor markdownProcessor = new(
-            convention: DocumentConvention.SourceTransform,
-            snippets: snippets.Lookup,
-            includes: includes,
-            appendSnippets: SimpleSnippetMarkdownHandling.Append,
-            snippetSourceFiles: new List<string>(),
-            tocLevel: 2,
-            writeHeader: true,
-            rootDirectory: directory,
-            validateContent: true);
-
-        var path = @"C:\path\inputMarkdownFile.md";
-        using var reader = File.OpenText(path);
-        using var writer = File.CreateText(@"C:\path\outputMarkdownFile.md");
-        var result = markdownProcessor.Apply(reader, writer, path);
-        // snippets that the markdown file expected but did not exist in the input snippets
-        var missingSnippets = result.MissingSnippets;
-
-        // snippets that the markdown file used
-        var usedSnippets = result.UsedSnippets;
 
         #endregion
     }

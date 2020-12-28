@@ -11,16 +11,6 @@ https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](https://img.shield
 snippet: ReadingFilesSimple
 
 
-## Reading snippets from a directory structure
-
-snippet: ReadingDirectorySimple
-
-
-## Full Usage
-
-snippet: markdownProcessingSimple
-
-
 ## Ignored paths
 
 To change conventions manipulate lists `MarkdownSnippets.Exclusions.ExcludedDirectorySuffixes` and `MarkdownSnippets.Exclusions.ExcludedFileExtensions`.

@@ -9,16 +9,13 @@ class FileFinder
     DocumentConvention convention;
     ShouldIncludeDirectory shouldIncludeDirectory;
     List<string> files = new();
-    List<string> documentExtensions;
 
-    public FileFinder(string rootDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory, List<string> documentExtensions)
+    public FileFinder(string rootDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
     {
         this.rootDirectory = rootDirectory;
         this.convention = convention;
         this.shouldIncludeDirectory = shouldIncludeDirectory;
-        this.documentExtensions = documentExtensions;
     }
-
 
     public List<string> FindFiles()
     {

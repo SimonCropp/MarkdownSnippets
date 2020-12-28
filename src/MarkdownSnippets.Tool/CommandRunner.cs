@@ -36,7 +36,6 @@ static class CommandRunner
                         MaxWidth = options.MaxWidth,
                         Exclude = options.Exclude.ToList(),
                         TocExcludes = options.TocExcludes.ToList(),
-                        DocumentExtensions = options.DocumentExtensions.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList(),
                         TreatMissingAsWarning = options.TreatMissingAsWarning,
                         Convention = options.Convention,
@@ -85,7 +84,6 @@ static class CommandRunner
             throw new CommandLineException("max-width must be positive.");
         }
 
-        ValidateItems("document-extensions", options.DocumentExtensions);
         ValidateItems("exclude", options.Exclude);
         ValidateItems("toc-excludes", options.TocExcludes);
         ValidateItems("urls-as-snippets", options.UrlsAsSnippets);

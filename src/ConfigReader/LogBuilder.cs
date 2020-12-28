@@ -42,12 +42,6 @@ static class LogBuilder
         {string.Join("\r\n        ", config.UrlsAsSnippets)}");
         }
 
-        if (config.DocumentExtensions.Any())
-        {
-            builder.AppendLine($@"    DocumentExtensions:
-        {string.Join("\r\n        ", config.DocumentExtensions)}");
-        }
-
         return builder.ToString().Trim();
     }
 

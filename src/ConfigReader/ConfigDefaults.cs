@@ -21,7 +21,6 @@ public static class ConfigDefaults
                 UrlPrefix = otherConfig.UrlPrefix,
                 TocExcludes = otherConfig.TocExcludes,
                 UrlsAsSnippets = otherConfig.UrlsAsSnippets,
-                DocumentExtensions = otherConfig.DocumentExtensions,
                 TocLevel = otherConfig.TocLevel.GetValueOrDefault(2),
                 MaxWidth = otherConfig.MaxWidth.GetValueOrDefault(int.MaxValue),
                 TreatMissingAsWarning = otherConfig.TreatMissingAsWarning.GetValueOrDefault(),
@@ -48,7 +47,6 @@ public static class ConfigDefaults
                 otherConfig.TreatMissingAsWarning,
                 fileConfig.TreatMissingAsWarning,
                 false),
-            DocumentExtensions = JoinLists(fileConfig.DocumentExtensions, otherConfig.DocumentExtensions)
         };
     }
 

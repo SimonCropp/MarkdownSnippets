@@ -8,7 +8,9 @@ class FileFinder
     string rootDirectory;
     DocumentConvention convention;
     ShouldIncludeDirectory shouldIncludeDirectory;
-    List<string> files = new();
+    List<string> snippetFiles = new();
+    List<string> mdFiles = new();
+    List<string> includeFiles = new();
 
     public FileFinder(string rootDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
     {
@@ -17,16 +19,15 @@ class FileFinder
         this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
 
-    public List<string> FindFiles()
+    public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles) FindFiles()
     {
         FindFiles(rootDirectory);
-        return files;
+        return (snippetFiles, mdFiles, includeFiles);
     }
 
     void FindFiles(string directory)
     {
-        foreach (var file in Directory.EnumerateFiles(directory)
-            .Where(IncludeFile))
+        foreach (var file in Directory.EnumerateFiles(directory))
         {
             var extension = Path.GetExtension(file);
             if (extension == string.Empty)
@@ -39,7 +40,30 @@ class FileFinder
                 continue;
             }
 
-            files.Add(file);
+            if (file.EndsWith(".include.md"))
+            {
+                includeFiles.Add(file);
+                continue;
+            }
+
+            if (extension == ".md")
+            {
+                if (convention == DocumentConvention.SourceTransform)
+                {
+                    if (file.EndsWith(".source.md"))
+                    {
+                        mdFiles.Add(file);
+                    }
+                }
+                else
+                {
+                    mdFiles.Add(file);
+                }
+
+                continue;
+            }
+
+            snippetFiles.Add(file);
         }
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)
@@ -47,16 +71,5 @@ class FileFinder
         {
             FindFiles(subDirectory);
         }
-    }
-
-    bool IncludeFile(string fileName)
-    {
-        var extension = Path.GetExtension(fileName);
-        if (extension == string.Empty)
-        {
-            return false;
-        }
-
-        return !SnippetFileExclusions.IsBinary(extension);
     }
 }

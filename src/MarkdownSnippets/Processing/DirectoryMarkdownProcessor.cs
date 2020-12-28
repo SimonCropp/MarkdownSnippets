@@ -26,8 +26,7 @@ namespace MarkdownSnippets
         List<string> snippetSourceFiles = new();
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
-        string newLine;
-        List<string> allFiles;
+        string? newLine;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -98,6 +97,7 @@ namespace MarkdownSnippets
             this.shouldIncludeDirectory = shouldIncludeDirectory;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
+            this.newLine = newLine!;
             this.maxWidth = maxWidth;
             this.treatMissingAsWarning = treatMissingAsWarning;
 
@@ -108,15 +108,15 @@ namespace MarkdownSnippets
 
             FileFinder fileFinder = new(targetDirectory, convention,shouldIncludeDirectory);
 
-            allFiles = fileFinder.FindFiles();
+            var (snippetFiles, mdFiles, includeFiles) = fileFinder.FindFiles();
             if (scanForMdFiles)
             {
-                AddMdFilesFrom(targetDirectory);
+                this.mdFiles.AddRange(mdFiles);
             }
 
-            this.newLine = FindNewLine(newLine);
             if (scanForSnippets)
             {
+                InitNewLine();
                 AddSnippetsFrom(targetDirectory);
             }
 
@@ -126,11 +126,11 @@ namespace MarkdownSnippets
             }
         }
 
-        string FindNewLine(string? newLine)
+        void InitNewLine()
         {
             if (newLine != null)
             {
-                return newLine;
+                return;
             }
 
             foreach (var mdFile in mdFiles.OrderBy(x => x.Length))
@@ -138,19 +138,7 @@ namespace MarkdownSnippets
                 using var reader = File.OpenText(mdFile);
                 if (reader.TryFindNewline(out newLine))
                 {
-                    return newLine!;
-                }
-            }
-
-            var otherMdFiles = Directory.EnumerateFiles(targetDirectory, "*.md", SearchOption.AllDirectories)
-                .Where(x => !mdFiles.Contains(x))
-                .OrderBy(x => x.Length);
-            foreach (var mdFile in otherMdFiles)
-            {
-                using var reader = File.OpenText(mdFile);
-                if (reader.TryFindNewline(out newLine))
-                {
-                    return newLine!;
+                    return;
                 }
             }
 
@@ -187,7 +175,7 @@ namespace MarkdownSnippets
             snippetSourceFiles.AddRange(files);
             log($"Found {files.Count} files for snippets ({stopwatch.ElapsedMilliseconds}ms)");
             stopwatch.Restart();
-            var read = FileSnippetExtractor.Read(files, maxWidth, newLine).ToList();
+            var read = FileSnippetExtractor.Read(files, maxWidth, newLine!).ToList();
             snippets.AddRange(read);
             log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
         }
@@ -234,6 +222,9 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
+
+            InitNewLine();
+
             var stopwatch = Stopwatch.StartNew();
             MarkdownProcessor processor = new(
                 convention,
@@ -247,7 +238,7 @@ namespace MarkdownSnippets
                 validateContent,
                 header: header,
                 tocExcludes: tocExcludes,
-                newLine: newLine);
+                newLine: newLine!);
             foreach (var sourceFile in mdFiles)
             {
                 ProcessFile(sourceFile, processor);
@@ -275,7 +266,7 @@ namespace MarkdownSnippets
             var relativeSource = sourceFile
                 .Substring(targetDirectory.Length)
                 .Replace('\\', '/');
-            var result = markdownProcessor.Apply(lines, newLine, relativeSource);
+            var result = markdownProcessor.Apply(lines, newLine!, relativeSource);
 
             var missingSnippets = result.MissingSnippets;
             if (missingSnippets.Any())

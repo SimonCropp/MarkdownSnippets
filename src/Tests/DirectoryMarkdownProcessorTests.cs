@@ -334,7 +334,8 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            shouldIncludeDirectory: _ => true);
+            shouldIncludeDirectory: _ => true,
+            newLine: "\n" );
         Assert.Throws<MissingIncludesException>(() => processor.Run());
     }
 
@@ -346,7 +347,8 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
-            shouldIncludeDirectory: _ => true);
+            shouldIncludeDirectory: _ => true,
+            newLine: "\n" );
         processor.Run();
     }
 
@@ -357,7 +359,8 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            shouldIncludeDirectory: _ => true);
+            shouldIncludeDirectory: _ => true,
+            newLine: "\n" );
         Assert.Throws<MissingSnippetsException>(() => processor.Run());
     }
 
@@ -369,7 +372,8 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
-            shouldIncludeDirectory: _ => true);
+            shouldIncludeDirectory: _ => true,
+            newLine: "\n" );
         processor.Run();
     }
 

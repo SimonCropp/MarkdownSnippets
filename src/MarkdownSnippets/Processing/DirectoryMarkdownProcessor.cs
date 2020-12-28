@@ -253,7 +253,7 @@ namespace MarkdownSnippets
                 ProcessFile(sourceFile, processor);
             }
 
-            log($"Finished. {stopwatch.ElapsedMilliseconds}ms");
+            log($"MarkdownProcessor Finished. {stopwatch.ElapsedMilliseconds}ms");
         }
 
         void ProcessFile(string sourceFile, MarkdownProcessor markdownProcessor)

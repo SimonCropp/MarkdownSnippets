@@ -33,7 +33,7 @@ public class IncludeFileFinderTests
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "IncludeFileFinder/VerifyLambdasAreCalled");
         IncludeFileFinder finder = new(
-            directoryFilter: path =>
+            shouldIncludeDirectory: path =>
             {
                 directories.Add(path);
                 return true;

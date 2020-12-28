@@ -5,11 +5,11 @@ using MarkdownSnippets;
 
 class IncludeFileFinder
 {
-    DirectoryFilter? directoryFilter;
+    ShouldIncludeDirectory? shouldIncludeDirectory;
 
-    public IncludeFileFinder(DirectoryFilter? directoryFilter = null)
+    public IncludeFileFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
     {
-        this.directoryFilter = directoryFilter;
+        this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
 
     bool IncludeDirectory(string directoryPath)
@@ -26,12 +26,12 @@ class IncludeFileFinder
             return false;
         }
 
-        if (directoryFilter == null)
+        if (shouldIncludeDirectory == null)
         {
             return true;
         }
 
-        return directoryFilter(directoryPath);
+        return shouldIncludeDirectory(directoryPath);
     }
 
     static bool IncludeFile(string path)

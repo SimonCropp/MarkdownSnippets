@@ -6,11 +6,11 @@ namespace MarkdownSnippets
 {
     public class SnippetFileFinder
     {
-        DirectoryFilter? directoryFilter;
+        ShouldIncludeDirectory? shouldIncludeDirectory;
 
-        public SnippetFileFinder(DirectoryFilter? directoryFilter = null)
+        public SnippetFileFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
         {
-            this.directoryFilter = directoryFilter;
+            this.shouldIncludeDirectory = shouldIncludeDirectory;
         }
 
         bool IncludeDirectory(string directoryPath)
@@ -27,12 +27,12 @@ namespace MarkdownSnippets
                 return false;
             }
 
-            if (directoryFilter == null)
+            if (shouldIncludeDirectory == null)
             {
                 return true;
             }
 
-            return directoryFilter(directoryPath);
+            return shouldIncludeDirectory(directoryPath);
         }
 
         static bool IncludeFile(string path)

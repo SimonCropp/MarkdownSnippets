@@ -4,7 +4,7 @@ using MarkdownSnippets;
 
 static class ExcludeToFilterBuilder
 {
-    public static DirectoryFilter ExcludesToFilter(List<string> excludes)
+    public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes)
     {
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
         return path => !excludes.Any(path.Contains);

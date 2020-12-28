@@ -11,7 +11,7 @@ namespace MarkdownSnippets
         SnippetFileFinder fileFinder;
 
         public DirectorySnippetExtractor(
-            DirectoryFilter? directoryFilter = null,
+            ShouldIncludeDirectory? shouldIncludeDirectory = null,
             int maxWidth = int.MaxValue,
             string newLine = "\n")
         {
@@ -19,7 +19,7 @@ namespace MarkdownSnippets
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
             this.newLine = newLine;
             this.maxWidth = maxWidth;
-            fileFinder = new(directoryFilter);
+            fileFinder = new(shouldIncludeDirectory);
         }
 
         public ReadSnippets ReadSnippets(params string[] directories)

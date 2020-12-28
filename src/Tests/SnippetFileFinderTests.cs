@@ -34,7 +34,7 @@ public class SnippetFileFinderTests
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "SnippetFileFinder/VerifyLambdasAreCalled");
         SnippetFileFinder finder = new(
-            directoryFilter: path =>
+            shouldIncludeDirectory: path =>
             {
                 directories.Add(path);
                 return true;

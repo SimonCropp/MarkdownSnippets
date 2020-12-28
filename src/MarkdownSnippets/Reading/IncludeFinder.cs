@@ -9,9 +9,9 @@ namespace MarkdownSnippets
     {
         IncludeFileFinder fileFinder;
 
-        public IncludeFinder(DirectoryFilter? directoryFilter = null)
+        public IncludeFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
         {
-            fileFinder = new(directoryFilter);
+            fileFinder = new(shouldIncludeDirectory);
         }
 
         public IReadOnlyList<Include> ReadIncludes(params string[] directories)

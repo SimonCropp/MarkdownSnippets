@@ -52,7 +52,7 @@ public class DirectorySnippetExtractorTests
         var targetDirectory = Path.Combine(AssemblyLocation.CurrentDirectory,
             "DirectorySnippetExtractor/VerifyLambdasAreCalled");
         DirectorySnippetExtractor extractor = new(
-            directoryFilter: path =>
+            shouldIncludeDirectory: path =>
             {
                 directories.Add(path);
                 return true;

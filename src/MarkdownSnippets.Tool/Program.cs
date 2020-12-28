@@ -31,7 +31,7 @@ static class Program
             DirectoryMarkdownProcessor processor = new(
                 targetDirectory,
                 log: Console.WriteLine,
-                directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+                shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
                 readOnly: configResult.ReadOnly,
                 writeHeader: configResult.WriteHeader,
                 header: configResult.Header,

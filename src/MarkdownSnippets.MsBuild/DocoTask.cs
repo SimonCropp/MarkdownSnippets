@@ -61,7 +61,7 @@ namespace MarkdownSnippets
                 root,
                 log: s => Log.LogMessage(s),
                 readOnly: configResult.ReadOnly,
-                directoryFilter: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+                shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
                 writeHeader: configResult.WriteHeader,
                 header: configResult.Header,
                 urlPrefix: configResult.UrlPrefix,

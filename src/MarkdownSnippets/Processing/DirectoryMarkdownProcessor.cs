@@ -12,7 +12,7 @@ namespace MarkdownSnippets
         bool writeHeader;
         bool validateContent;
         string? header;
-        DirectoryFilter? directoryFilter;
+        ShouldIncludeDirectory? shouldIncludeDirectory;
         bool readOnly;
         int tocLevel;
         int maxWidth;
@@ -38,7 +38,7 @@ namespace MarkdownSnippets
             Action<string>? log = null,
             bool? writeHeader = null,
             string? header = null,
-            DirectoryFilter? directoryFilter = null,
+            ShouldIncludeDirectory? shouldIncludeDirectory = null,
             bool? readOnly = null,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
@@ -60,7 +60,7 @@ namespace MarkdownSnippets
                 log,
                 writeHeader,
                 header,
-                directoryFilter,
+                shouldIncludeDirectory,
                 readOnly,
                 tocLevel,
                 tocExcludes,
@@ -82,7 +82,7 @@ namespace MarkdownSnippets
             Action<string>? log = null,
             bool? writeHeader = null,
             string? header = null,
-            DirectoryFilter? directoryFilter = null,
+            ShouldIncludeDirectory? shouldIncludeDirectory = null,
             bool? readOnly = null,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
@@ -98,7 +98,7 @@ namespace MarkdownSnippets
             this.readOnly = readOnly.GetValueOrDefault(false);
             this.validateContent = validateContent;
             this.header = header;
-            this.directoryFilter = directoryFilter;
+            this.shouldIncludeDirectory = shouldIncludeDirectory;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
@@ -180,7 +180,7 @@ namespace MarkdownSnippets
         public void AddSnippetsFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            SnippetFileFinder finder = new(directoryFilter);
+            SnippetFileFinder finder = new(shouldIncludeDirectory);
             var files = finder.FindFiles(directory);
             snippetSourceFiles.AddRange(files);
             log($"Searching {files.Count} files for snippets");
@@ -201,7 +201,7 @@ namespace MarkdownSnippets
         public void AddMdFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            MdFileFinder finder = new(convention, directoryFilter, documentExtensions);
+            MdFileFinder finder = new(convention, shouldIncludeDirectory, documentExtensions);
             var files = finder.FindFiles(directory).ToList();
             mdFiles.AddRange(files);
             log($"Added {files.Count} markdown files");
@@ -210,7 +210,7 @@ namespace MarkdownSnippets
         public void AddIncludeFilesFrom(string directory)
         {
             directory = ExpandDirectory(directory);
-            IncludeFinder finder = new(directoryFilter);
+            IncludeFinder finder = new(shouldIncludeDirectory);
             var toAdd = finder.ReadIncludes(directory).ToList();
             includes.AddRange(toAdd);
             log($"Added {toAdd.Count} .include files");

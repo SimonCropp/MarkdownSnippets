@@ -34,7 +34,7 @@ var snippets = FileSnippetExtractor.Read(files);
 // extract snippets from files
 DirectorySnippetExtractor snippetExtractor = new(
     // all directories except bin and obj
-    directoryFilter: dirPath => !dirPath.EndsWith("bin") &&
+    shouldIncludeDirectory: dirPath => !dirPath.EndsWith("bin") &&
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```

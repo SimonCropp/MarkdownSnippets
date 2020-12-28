@@ -12,22 +12,6 @@ class IncludeFileFinder
         this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
 
-    bool IncludeDirectory(string directoryPath)
-    {
-        Guard.DirectoryExists(directoryPath, nameof(directoryPath));
-        var suffix = Path.GetFileName(directoryPath);
-        if (suffix.StartsWith("."))
-        {
-            return false;
-        }
-
-        if (DefaultDirectoryExclusions.ShouldExcludeDirectory(suffix))
-        {
-            return false;
-        }
-
-        return shouldIncludeDirectory(directoryPath);
-    }
 
     static bool IncludeFile(string path)
     {
@@ -66,5 +50,10 @@ class IncludeFileFinder
         {
             FindFiles(subDirectory, files);
         }
+    }
+
+    bool IncludeDirectory(string directoryPath)
+    {
+        return shouldIncludeDirectory(directoryPath);
     }
 }

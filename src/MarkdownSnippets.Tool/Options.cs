@@ -21,12 +21,6 @@ public class Options
         HelpText = "Headings to be excluded from table of contents. Optional. Colon ':' separated for multiple values.")]
     public IList<string> TocExcludes { get; set; } = null!;
 
-    [Option("document-extensions",
-        Separator = ':',
-        Required = false,
-        HelpText = "Document extensions to scan. Optional. Defaults to 'md'. Colon ':' separated for multiple values.")]
-    public IList<string> DocumentExtensions { get; set; } = null!;
-
     [Option('u', "urls-as-snippets",
         Separator = ' ',
         Required = false,

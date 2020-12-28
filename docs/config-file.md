@@ -53,7 +53,6 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
-  "DocumentExtensions": [ "md", "html" ],
   "Convention": "InPlaceOverwrite",
   "WriteHeader": true,
   "MaxWidth": 80,
@@ -64,7 +63,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "HashSnippetAnchors": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -98,5 +97,4 @@ The schema also includes `enum` values for constrained value types.
  * [WriteHeader: Disable Header](/docs/header.md#disable-header).
  * [UrlPrefix](/readme.md#urlprefix).
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).
- * [DocumentExtensions: Documents extensions to process. Defaults to `md`](/readme.md#documentextensions).
  * TreatMissingAsWarning: The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true.

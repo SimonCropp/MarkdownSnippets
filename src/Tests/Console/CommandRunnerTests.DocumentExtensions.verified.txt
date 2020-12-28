@@ -1,8 +1,0 @@
-{
-  targetDirectory: CurrentDirectory,
-  configInput: {
-    DocumentExtensions: [
-      txt
-    ]
-  }
-}

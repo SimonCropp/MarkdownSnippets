@@ -94,15 +94,6 @@ Can be enabled in [mdsnippets.json config file](/docs/config-file.md).
  * Run the docs generation.
 
 
-### DocumentExtensions
-
-By default markdown files are scanned for processing. In some circumstances it is helpful to process non-markdown files. 
-
-```ps
-mdsnippets --document-extensions "txt"
-```
-
-
 ### Mark resulting files as read only
 
 To mark the resulting documents files as read only use `-r` or `--readonly`.

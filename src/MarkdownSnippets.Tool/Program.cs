@@ -45,7 +45,6 @@ static class Program
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
                 tocExcludes: configResult.TocExcludes,
-                documentExtensions: configResult.DocumentExtensions,
                 treatMissingAsWarning: configResult.TreatMissingAsWarning,
                 maxWidth: configResult.MaxWidth,
                 urlPrefix: configResult.UrlPrefix,

@@ -17,7 +17,6 @@ namespace MarkdownSnippets
         int tocLevel;
         int maxWidth;
         IEnumerable<string>? tocExcludes;
-        List<string> documentExtensions;
         Action<string> log;
         string targetDirectory;
         List<string> mdFiles = new();
@@ -44,7 +43,6 @@ namespace MarkdownSnippets
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
-            IEnumerable<string>? documentExtensions = null,
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             string? urlPrefix = null,
@@ -65,7 +63,6 @@ namespace MarkdownSnippets
                 readOnly: readOnly,
                 tocLevel: tocLevel,
                 tocExcludes: tocExcludes,
-                documentExtensions: documentExtensions,
                 treatMissingAsWarning: treatMissingAsWarning,
                 maxWidth: maxWidth,
                 validateContent: validateContent,
@@ -87,7 +84,6 @@ namespace MarkdownSnippets
             bool? readOnly = null,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,
-            IEnumerable<string>? documentExtensions = null,
             bool treatMissingAsWarning = false,
             int maxWidth = int.MaxValue,
             bool validateContent = false,
@@ -102,7 +98,6 @@ namespace MarkdownSnippets
             this.shouldIncludeDirectory = shouldIncludeDirectory;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
-            this.documentExtensions = MdFileFinder.BuildDefaultExtensions(documentExtensions);
             this.maxWidth = maxWidth;
             this.treatMissingAsWarning = treatMissingAsWarning;
 
@@ -210,7 +205,7 @@ namespace MarkdownSnippets
         {
             var stopwatch = Stopwatch.StartNew();
             directory = ExpandDirectory(directory);
-            MdFileFinder finder = new(convention, shouldIncludeDirectory, documentExtensions);
+            MdFileFinder finder = new(convention, shouldIncludeDirectory);
             var files = finder.FindFiles(directory).ToList();
             mdFiles.AddRange(files);
             log($"Added {files.Count} markdown files ({stopwatch.ElapsedMilliseconds}ms)");

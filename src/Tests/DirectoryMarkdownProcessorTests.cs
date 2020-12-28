@@ -302,33 +302,6 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
-    public Task NonMd()
-    {
-        var root = Path.GetFullPath("DirectoryMarkdownProcessor/NonMd");
-        DirectoryMarkdownProcessor processor = new(
-            root,
-            writeHeader: false,
-            documentExtensions: new List<string> {"txt"},
-            newLine: "\n",
-            shouldIncludeDirectory: _ => true);
-        processor.AddSnippets(
-            SnippetBuild("snippet1"),
-            SnippetBuild("snippet2")
-        );
-        processor.Run();
-
-        StringBuilder builder = new();
-        foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories))
-        {
-            builder.AppendLine(file.Replace(root, ""));
-            builder.AppendLine(File.ReadAllText(file));
-            builder.AppendLine();
-        }
-
-        return Verifier.Verify(builder.ToString());
-    }
-
-    [Fact]
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
@@ -353,14 +326,6 @@ public class DirectoryMarkdownProcessorTests
 
         return Verifier.Verify(builder.ToString());
     }
-
-    //[Fact]
-    //public Task EmptyDocumentExtensions()
-    //{
-    //    var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-    //    var exception = Assert.Throws<ArgumentException>(() => new DirectoryMarkdownProcessor(root, documentExtensions: new List<string>()));
-    //    return Verifier.Verify(exception.Message);
-    //}
 
     [Fact]
     public void MustErrorByDefaultWhenIncludesAreMissing()

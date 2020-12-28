@@ -6,9 +6,9 @@ namespace MarkdownSnippets
 {
     public class SnippetFileFinder
     {
-        ShouldIncludeDirectory? shouldIncludeDirectory;
+        ShouldIncludeDirectory shouldIncludeDirectory;
 
-        public SnippetFileFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
+        public SnippetFileFinder(ShouldIncludeDirectory shouldIncludeDirectory)
         {
             this.shouldIncludeDirectory = shouldIncludeDirectory;
         }
@@ -25,11 +25,6 @@ namespace MarkdownSnippets
             if (DirectoryExclusions.ShouldExcludeDirectory(suffix))
             {
                 return false;
-            }
-
-            if (shouldIncludeDirectory == null)
-            {
-                return true;
             }
 
             return shouldIncludeDirectory(directoryPath);

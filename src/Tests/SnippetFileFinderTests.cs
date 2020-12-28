@@ -13,7 +13,7 @@ public class SnippetFileFinderTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Nested");
-        SnippetFileFinder finder = new();
+        SnippetFileFinder finder = new(_=> true);
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -22,7 +22,7 @@ public class SnippetFileFinderTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Simple");
-        SnippetFileFinder finder = new();
+        SnippetFileFinder finder = new(_=> true);
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }

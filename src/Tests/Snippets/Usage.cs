@@ -19,7 +19,7 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRun
 
-        DirectoryMarkdownProcessor processor = new("targetDirectory");
+        DirectoryMarkdownProcessor processor = new("targetDirectory",shouldIncludeDirectory: _ => true);
         processor.Run();
 
         #endregion
@@ -31,7 +31,8 @@ class Usage
 
         DirectoryMarkdownProcessor processor = new(
             "targetDirectory",
-            maxWidth: 80);
+            maxWidth: 80,
+            shouldIncludeDirectory: _ => true);
         processor.Run();
 
         #endregion
@@ -58,11 +59,11 @@ class Usage
         var directory = @"C:\path";
 
         // extract snippets from files
-        DirectorySnippetExtractor snippetExtractor = new();
+        DirectorySnippetExtractor snippetExtractor = new(shouldIncludeDirectory: _ => true);
         var snippets = snippetExtractor.ReadSnippets(directory);
 
         // extract includes from files
-        IncludeFinder includeFinder = new();
+        IncludeFinder includeFinder = new(_=> true);
         var includes = includeFinder.ReadIncludes(directory);
 
         // Merge with some markdown text

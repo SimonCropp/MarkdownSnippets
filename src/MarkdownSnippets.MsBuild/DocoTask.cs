@@ -59,21 +59,15 @@ namespace MarkdownSnippets
 
             DirectoryMarkdownProcessor processor = new(
                 root,
-                log: s => Log.LogMessage(s),
-                readOnly: configResult.ReadOnly,
                 shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+                convention: configResult.Convention,
+                log: s => Log.LogMessage(s),
                 writeHeader: configResult.WriteHeader,
                 header: configResult.Header,
-                urlPrefix: configResult.UrlPrefix,
+                readOnly: configResult.ReadOnly,
                 linkFormat: configResult.LinkFormat,
-                convention: configResult.Convention,
                 tocLevel: configResult.TocLevel,
-                tocExcludes: configResult.TocExcludes,
-                documentExtensions: configResult.DocumentExtensions,
-                treatMissingAsWarning: configResult.TreatMissingAsWarning,
-                maxWidth: configResult.MaxWidth,
-                validateContent: configResult.ValidateContent,
-                hashSnippetAnchors: configResult.HashSnippetAnchors);
+                tocExcludes: configResult.TocExcludes, documentExtensions: configResult.DocumentExtensions, treatMissingAsWarning: configResult.TreatMissingAsWarning, maxWidth: configResult.MaxWidth, urlPrefix: configResult.UrlPrefix, validateContent: configResult.ValidateContent, hashSnippetAnchors: configResult.HashSnippetAnchors);
 
             List<Snippet> snippets = new();
 

@@ -12,7 +12,7 @@ namespace MarkdownSnippets
         bool writeHeader;
         bool validateContent;
         string? header;
-        ShouldIncludeDirectory? shouldIncludeDirectory;
+        ShouldIncludeDirectory shouldIncludeDirectory;
         bool readOnly;
         int tocLevel;
         int maxWidth;
@@ -31,6 +31,7 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
+            ShouldIncludeDirectory shouldIncludeDirectory,
             DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
@@ -38,7 +39,6 @@ namespace MarkdownSnippets
             Action<string>? log = null,
             bool? writeHeader = null,
             string? header = null,
-            ShouldIncludeDirectory? shouldIncludeDirectory = null,
             bool? readOnly = null,
             LinkFormat linkFormat = LinkFormat.GitHub,
             int tocLevel = 2,
@@ -53,28 +53,29 @@ namespace MarkdownSnippets
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, urlPrefix).Append,
-                convention,
-                scanForMdFiles,
-                scanForSnippets,
-                scanForIncludes,
-                log,
-                writeHeader,
-                header,
                 shouldIncludeDirectory,
-                readOnly,
-                tocLevel,
-                tocExcludes,
-                documentExtensions,
-                treatMissingAsWarning,
-                maxWidth,
-                validateContent,
-                newLine)
+                convention,
+                scanForMdFiles: scanForMdFiles,
+                scanForSnippets: scanForSnippets,
+                scanForIncludes: scanForIncludes,
+                log: log,
+                writeHeader: writeHeader,
+                header: header,
+                readOnly: readOnly,
+                tocLevel: tocLevel,
+                tocExcludes: tocExcludes,
+                documentExtensions: documentExtensions,
+                treatMissingAsWarning: treatMissingAsWarning,
+                maxWidth: maxWidth,
+                validateContent: validateContent,
+                newLine: newLine)
         {
         }
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetsToMarkdown appendSnippets,
+            ShouldIncludeDirectory shouldIncludeDirectory,
             DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
@@ -82,7 +83,6 @@ namespace MarkdownSnippets
             Action<string>? log = null,
             bool? writeHeader = null,
             string? header = null,
-            ShouldIncludeDirectory? shouldIncludeDirectory = null,
             bool? readOnly = null,
             int tocLevel = 2,
             IEnumerable<string>? tocExcludes = null,

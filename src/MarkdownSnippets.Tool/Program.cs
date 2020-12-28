@@ -30,21 +30,15 @@ static class Program
         {
             DirectoryMarkdownProcessor processor = new(
                 targetDirectory,
-                log: Console.WriteLine,
                 shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
-                readOnly: configResult.ReadOnly,
+                convention: configResult.Convention,
+                log: Console.WriteLine,
                 writeHeader: configResult.WriteHeader,
                 header: configResult.Header,
-                urlPrefix: configResult.UrlPrefix,
+                readOnly: configResult.ReadOnly,
                 linkFormat: configResult.LinkFormat,
-                convention: configResult.Convention,
-                tocExcludes: configResult.TocExcludes,
-                documentExtensions: configResult.DocumentExtensions,
                 tocLevel: configResult.TocLevel,
-                treatMissingAsWarning: configResult.TreatMissingAsWarning,
-                maxWidth: configResult.MaxWidth,
-                validateContent: configResult.ValidateContent,
-                hashSnippetAnchors: configResult.HashSnippetAnchors);
+                tocExcludes: configResult.TocExcludes, documentExtensions: configResult.DocumentExtensions, treatMissingAsWarning: configResult.TreatMissingAsWarning, maxWidth: configResult.MaxWidth, urlPrefix: configResult.UrlPrefix, validateContent: configResult.ValidateContent, hashSnippetAnchors: configResult.HashSnippetAnchors);
 
             List<Snippet> snippets = new();
             await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);

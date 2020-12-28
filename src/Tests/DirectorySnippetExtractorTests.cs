@@ -14,7 +14,7 @@ public class DirectorySnippetExtractorTests
     public Task Case()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Case");
-        DirectorySnippetExtractor extractor = new();
+        DirectorySnippetExtractor extractor = new(shouldIncludeDirectory: _ => true);
         var snippets = extractor.ReadSnippets(directory);
         AssertCaseInsensitive(snippets.Lookup);
 
@@ -31,7 +31,7 @@ public class DirectorySnippetExtractorTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Nested");
-        DirectorySnippetExtractor extractor = new();
+        DirectorySnippetExtractor extractor = new(shouldIncludeDirectory: _ => true);
         var snippets = extractor.ReadSnippets(directory);
         return Verifier.Verify(snippets);
     }
@@ -40,7 +40,7 @@ public class DirectorySnippetExtractorTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "DirectorySnippetExtractor/Simple");
-        DirectorySnippetExtractor extractor = new();
+        DirectorySnippetExtractor extractor = new(shouldIncludeDirectory: _ => true);
         var snippets = extractor.ReadSnippets(directory);
         return Verifier.Verify(snippets);
     }

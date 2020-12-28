@@ -11,7 +11,7 @@ namespace MarkdownSnippets
         SnippetFileFinder fileFinder;
 
         public DirectorySnippetExtractor(
-            ShouldIncludeDirectory? shouldIncludeDirectory = null,
+            ShouldIncludeDirectory shouldIncludeDirectory,
             int maxWidth = int.MaxValue,
             string newLine = "\n")
         {

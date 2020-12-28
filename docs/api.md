@@ -38,7 +38,7 @@ DirectorySnippetExtractor snippetExtractor = new(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L42-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L43-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -50,11 +50,11 @@ var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 var directory = @"C:\path";
 
 // extract snippets from files
-DirectorySnippetExtractor snippetExtractor = new();
+DirectorySnippetExtractor snippetExtractor = new(shouldIncludeDirectory: _ => true);
 var snippets = snippetExtractor.ReadSnippets(directory);
 
 // extract includes from files
-IncludeFinder includeFinder = new();
+IncludeFinder includeFinder = new(_=> true);
 var includes = includeFinder.ReadIncludes(directory);
 
 // Merge with some markdown text
@@ -79,7 +79,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L56-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L57-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -5,9 +5,9 @@ using MarkdownSnippets;
 
 class IncludeFileFinder
 {
-    ShouldIncludeDirectory? shouldIncludeDirectory;
+    ShouldIncludeDirectory shouldIncludeDirectory;
 
-    public IncludeFileFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
+    public IncludeFileFinder(ShouldIncludeDirectory shouldIncludeDirectory)
     {
         this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
@@ -24,11 +24,6 @@ class IncludeFileFinder
         if (DirectoryExclusions.ShouldExcludeDirectory(suffix))
         {
             return false;
-        }
-
-        if (shouldIncludeDirectory == null)
-        {
-            return true;
         }
 
         return shouldIncludeDirectory(directoryPath);

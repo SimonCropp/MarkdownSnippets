@@ -9,7 +9,7 @@ namespace MarkdownSnippets
     {
         IncludeFileFinder fileFinder;
 
-        public IncludeFinder(ShouldIncludeDirectory? shouldIncludeDirectory = null)
+        public IncludeFinder(ShouldIncludeDirectory shouldIncludeDirectory)
         {
             fileFinder = new(shouldIncludeDirectory);
         }

@@ -12,7 +12,7 @@ public class IncludeFileFinderTests
     public Task Nested()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Nested");
-        IncludeFileFinder finder = new();
+        IncludeFileFinder finder = new(_=> true);
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }
@@ -21,7 +21,7 @@ public class IncludeFileFinderTests
     public Task Simple()
     {
         var directory = Path.Combine(AssemblyLocation.CurrentDirectory, "IncludeFileFinder/Simple");
-        IncludeFileFinder finder = new();
+        IncludeFileFinder finder = new(_=> true);
         var files = finder.FindFiles(directory);
         return Verifier.Verify(files);
     }

@@ -117,7 +117,12 @@ namespace MarkdownSnippets
             if (scanForSnippets)
             {
                 InitNewLine();
-                AddSnippetsFrom(targetDirectory);
+                snippetSourceFiles.AddRange(snippetFiles);
+                this.log($"Found {snippetFiles.Count} files for snippets");
+                var stopwatch = Stopwatch.StartNew();
+                var read = FileSnippetExtractor.Read(snippetFiles, this.maxWidth, this.newLine!).ToList();
+                snippets.AddRange(read);
+                this.log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
             }
 
             if (scanForIncludes)
@@ -164,20 +169,6 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNull(snippets, nameof(snippets));
             AddSnippets(snippets.ToList());
-        }
-
-        public void AddSnippetsFrom(string directory)
-        {
-            var stopwatch = Stopwatch.StartNew();
-            directory = ExpandDirectory(directory);
-            SnippetFileFinder finder = new(shouldIncludeDirectory);
-            var files = finder.FindFiles(directory);
-            snippetSourceFiles.AddRange(files);
-            log($"Found {files.Count} files for snippets ({stopwatch.ElapsedMilliseconds}ms)");
-            stopwatch.Restart();
-            var read = FileSnippetExtractor.Read(files, maxWidth, newLine!).ToList();
-            snippets.AddRange(read);
-            log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
         }
 
         string ExpandDirectory(string directory)

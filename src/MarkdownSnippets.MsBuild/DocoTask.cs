@@ -67,7 +67,13 @@ namespace MarkdownSnippets
                 readOnly: configResult.ReadOnly,
                 linkFormat: configResult.LinkFormat,
                 tocLevel: configResult.TocLevel,
-                tocExcludes: configResult.TocExcludes, documentExtensions: configResult.DocumentExtensions, treatMissingAsWarning: configResult.TreatMissingAsWarning, maxWidth: configResult.MaxWidth, urlPrefix: configResult.UrlPrefix, validateContent: configResult.ValidateContent, hashSnippetAnchors: configResult.HashSnippetAnchors);
+                tocExcludes: configResult.TocExcludes,
+                documentExtensions: configResult.DocumentExtensions,
+                treatMissingAsWarning: configResult.TreatMissingAsWarning,
+                maxWidth: configResult.MaxWidth,
+                urlPrefix: configResult.UrlPrefix,
+                validateContent: configResult.ValidateContent,
+                hashSnippetAnchors: configResult.HashSnippetAnchors);
 
             List<Snippet> snippets = new();
 

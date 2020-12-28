@@ -7,7 +7,7 @@ static class ExcludeToFilterBuilder
     public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes)
     {
         excludes = GetExcludesWithBothSlashes(excludes).ToList();
-        return path => !DirectoryExclusions.ShouldExcludeDirectory(path) &&
+        return path => !DefaultDirectoryExclusions.ShouldExcludeDirectory(path) &&
                        !excludes.Any(path.Contains);
     }
 

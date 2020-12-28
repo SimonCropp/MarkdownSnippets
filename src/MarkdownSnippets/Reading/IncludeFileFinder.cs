@@ -21,7 +21,7 @@ class IncludeFileFinder
             return false;
         }
 
-        if (DirectoryExclusions.ShouldExcludeDirectory(suffix))
+        if (DefaultDirectoryExclusions.ShouldExcludeDirectory(suffix))
         {
             return false;
         }

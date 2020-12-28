@@ -38,7 +38,7 @@ DirectorySnippetExtractor snippetExtractor = new(
                                 !dirPath.EndsWith("obj"));
 var snippets = snippetExtractor.ReadSnippets(@"C:\path");
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L43-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L45-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingdirectorysimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -79,7 +79,7 @@ var missingSnippets = result.MissingSnippets;
 // snippets that the markdown file used
 var usedSnippets = result.UsedSnippets;
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L57-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L59-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-markdownprocessingsimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

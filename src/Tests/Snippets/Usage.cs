@@ -19,7 +19,9 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRun
 
-        DirectoryMarkdownProcessor processor = new("targetDirectory",shouldIncludeDirectory: _ => true);
+        DirectoryMarkdownProcessor processor = new(
+            "targetDirectory",
+            shouldIncludeDirectory: _ => true);
         processor.Run();
 
         #endregion

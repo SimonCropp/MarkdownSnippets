@@ -40,7 +40,7 @@ DirectoryMarkdownProcessor processor = new(
     shouldIncludeDirectory: _ => true);
 processor.Run();
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L30-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-directorymarkdownprocessorrunmaxwidth' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L32-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-directorymarkdownprocessorrunmaxwidth' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

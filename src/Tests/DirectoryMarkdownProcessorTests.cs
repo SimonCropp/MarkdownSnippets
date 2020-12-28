@@ -18,7 +18,10 @@ public class DirectoryMarkdownProcessorTests
             targetDirectory: root,
             shouldIncludeDirectory: path =>
                 !path.Contains("IncludeFileFinder") &&
-                !path.Contains("DirectoryMarkdownProcessor"), tocLevel: 1, tocExcludes: new List<string>
+                !path.Contains("DirectoryMarkdownProcessor") &&
+                !DefaultDirectoryExclusions.ShouldExcludeDirectory(path),
+            tocLevel: 1,
+            tocExcludes: new List<string>
             {
                 "Icon",
                 "Credits",
@@ -254,7 +257,7 @@ public class DirectoryMarkdownProcessorTests
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithMergedSnippet");
         DirectoryMarkdownProcessor processor = new(
             root,
-            writeHeader: false, 
+            writeHeader: false,
             newLine: "\r",
             shouldIncludeDirectory: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1"));
@@ -270,8 +273,8 @@ public class DirectoryMarkdownProcessorTests
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithSnippetAtEnd");
         DirectoryMarkdownProcessor processor = new(
-            root, 
-            writeHeader: false, 
+            root,
+            writeHeader: false,
             newLine: "\r",
             shouldIncludeDirectory: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1"));
@@ -287,8 +290,8 @@ public class DirectoryMarkdownProcessorTests
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlInclude");
         DirectoryMarkdownProcessor processor = new(
-            root, 
-            writeHeader: false, 
+            root,
+            writeHeader: false,
             newLine: "\r",
             shouldIncludeDirectory: _ => true);
         processor.Run();
@@ -331,7 +334,7 @@ public class DirectoryMarkdownProcessorTests
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
         DirectoryMarkdownProcessor processor = new(
             root,
-            writeHeader: false, 
+            writeHeader: false,
             newLine: "\r",
             shouldIncludeDirectory: _ => true);
         processor.AddSnippets(

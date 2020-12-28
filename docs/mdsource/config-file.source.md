@@ -50,5 +50,4 @@ The schema also includes `enum` values for constrained value types.
  * [WriteHeader: Disable Header](/docs/header.md#disable-header).
  * [UrlPrefix](/readme.md#urlprefix).
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).
- * [DocumentExtensions: Documents extensions to process. Defaults to `md`](/readme.md#documentextensions).
  * TreatMissingAsWarning: The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true.

@@ -15,6 +15,5 @@ public class ConfigSerialization
     public List<string> UrlsAsSnippets { get; set; } = new();
     public List<string> Exclude { get; set; } = new();
     public List<string> TocExcludes { get; set; } = new();
-    public List<string> DocumentExtensions { get; set; } = new();
     public bool? TreatMissingAsWarning { get; set; }
 }

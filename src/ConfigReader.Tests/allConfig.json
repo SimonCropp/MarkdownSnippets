@@ -6,7 +6,6 @@
   "Exclude": [ "Dir1", "Dir2" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
-  "DocumentExtensions": [ "md", "html" ],
   "Convention": "InPlaceOverwrite",
   "WriteHeader": true,
   "MaxWidth": 80,

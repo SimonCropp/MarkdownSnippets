@@ -16,6 +16,5 @@ public class ConfigInput
     public string? Header { get; set; }
     public string? UrlPrefix { get; set; }
     public List<string> TocExcludes { get; set; } = new();
-    public List<string> DocumentExtensions { get; set; } = new();
     public bool? TreatMissingAsWarning { get; set; }
 }

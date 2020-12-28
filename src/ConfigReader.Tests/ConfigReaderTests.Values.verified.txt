@@ -21,9 +21,5 @@
     Exclude Heading1,
     Exclude Heading2
   ],
-  DocumentExtensions: [
-    md,
-    html
-  ],
   TreatMissingAsWarning: true
 }

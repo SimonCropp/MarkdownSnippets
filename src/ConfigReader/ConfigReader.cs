@@ -55,7 +55,6 @@ public static class ConfigReader
             Header = config.Header,
             UrlPrefix = config.UrlPrefix,
             TocExcludes = config.TocExcludes,
-            DocumentExtensions = config.DocumentExtensions,
             TocLevel = config.TocLevel,
             MaxWidth = config.MaxWidth,
             LinkFormat = GetLinkFormat(config.LinkFormat),

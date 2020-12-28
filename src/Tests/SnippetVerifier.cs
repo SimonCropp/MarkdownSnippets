@@ -43,7 +43,8 @@ static class SnippetVerifier
             tocLevel: 2,
             writeHeader: false,
             rootDirectory: "c:/root",
-            validateContent: true);
+            validateContent: true,
+            allFiles: new List<string>());
     }
 
     public static async Task<string> Verify(

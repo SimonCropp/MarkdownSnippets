@@ -10,6 +10,7 @@ class FileFinder
     ShouldIncludeDirectory shouldIncludeDirectory;
     List<string> snippetFiles = new();
     List<string> mdFiles = new();
+    List<string> allFiles = new();
     List<string> includeFiles = new();
 
     public FileFinder(string rootDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
@@ -19,10 +20,10 @@ class FileFinder
         this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
 
-    public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles) FindFiles()
+    public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
         FindFiles(rootDirectory);
-        return (snippetFiles, mdFiles, includeFiles);
+        return (snippetFiles, mdFiles, includeFiles,allFiles);
     }
 
     void FindFiles(string directory)
@@ -39,6 +40,8 @@ class FileFinder
             {
                 continue;
             }
+
+            allFiles.Add(file);
 
             if (file.EndsWith(".include.md"))
             {

@@ -12,7 +12,6 @@ namespace MarkdownSnippets
         bool writeHeader;
         bool validateContent;
         string? header;
-        ShouldIncludeDirectory shouldIncludeDirectory;
         bool readOnly;
         int tocLevel;
         int maxWidth;
@@ -27,6 +26,7 @@ namespace MarkdownSnippets
         AppendSnippetsToMarkdown appendSnippets;
         bool treatMissingAsWarning;
         string? newLine;
+        List<string> allFiles;
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
@@ -94,7 +94,6 @@ namespace MarkdownSnippets
             this.readOnly = readOnly.GetValueOrDefault(false);
             this.validateContent = validateContent;
             this.header = header;
-            this.shouldIncludeDirectory = shouldIncludeDirectory;
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.newLine = newLine!;
@@ -108,7 +107,8 @@ namespace MarkdownSnippets
 
             FileFinder fileFinder = new(targetDirectory, convention,shouldIncludeDirectory);
 
-            var (snippetFiles, mdFiles, includeFiles) = fileFinder.FindFiles();
+            var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
+            this.allFiles = allFiles;
             if (scanForMdFiles)
             {
                 this.mdFiles.AddRange(mdFiles);
@@ -203,6 +203,7 @@ namespace MarkdownSnippets
                 includes,
                 appendSnippets,
                 snippetSourceFiles,
+                allFiles,
                 tocLevel,
                 writeHeader,
                 targetDirectory,

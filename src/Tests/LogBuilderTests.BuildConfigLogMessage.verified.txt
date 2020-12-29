@@ -1,19 +1,14 @@
 Config:
     RootDir: theRoot
-    ReadOnly: True
-    WriteHeader: True
-    Header: 
-        line1
-        line2
     UrlPrefix: 
     LinkFormat: Tfs
     Convention: InPlaceOverwrite
     TocLevel: 5
-    MaxWidth: 80
     ValidateContent: False
     HashSnippetAnchors: False
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
+    MaxWidth: 80
     Exclude:
         Dir1
         Dir2

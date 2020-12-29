@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MarkdownSnippets;
 
 static class LogBuilder
 {
@@ -10,19 +11,28 @@ static class LogBuilder
         var header = GetHeader(config);
         StringBuilder builder = new($@"Config:
     RootDir: {root}
-    ReadOnly: {config.ReadOnly}
-    WriteHeader: {config.WriteHeader}
-    Header: {header}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
     Convention: {config.Convention}
     TocLevel: {config.TocLevel}
-    MaxWidth: {config.MaxWidth}
     ValidateContent: {config.ValidateContent}
     HashSnippetAnchors: {config.HashSnippetAnchors}
     TreatMissingAsWarning: {config.TreatMissingAsWarning}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 ");
+
+        if (config.Convention == DocumentConvention.SourceTransform)
+        {
+            builder.AppendLine(@$"    ReadOnly: {config.ReadOnly}
+    WriteHeader: {config.WriteHeader}
+    Header: {header}");
+        }
+
+        var maxWidth = config.MaxWidth;
+        if (maxWidth != int.MaxValue && maxWidth != 0)
+        {
+            builder.AppendLine(@$"    MaxWidth: {maxWidth}");
+        }
 
         if (config.Exclude.Any())
         {

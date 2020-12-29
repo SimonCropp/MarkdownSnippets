@@ -1,14 +1,13 @@
 Config:
     RootDir: theRoot
-    ReadOnly: 
-    WriteHeader: 
-    Header: 
     UrlPrefix: 
     LinkFormat: GitHub
     Convention: SourceTransform
     TocLevel: 0
-    MaxWidth: 0
     ValidateContent: False
     HashSnippetAnchors: False
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
+    ReadOnly: 
+    WriteHeader: 
+    Header:

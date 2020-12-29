@@ -41,11 +41,12 @@ class FileFinder
                 continue;
             }
 
-            allFiles.Add(file);
+            var fixedFile = file.Replace('\\', '/');
+            allFiles.Add(fixedFile);
 
             if (file.EndsWith(".include.md"))
             {
-                includeFiles.Add(file);
+                includeFiles.Add(fixedFile);
                 continue;
             }
 
@@ -53,20 +54,20 @@ class FileFinder
             {
                 if (convention == DocumentConvention.SourceTransform)
                 {
-                    if (file.EndsWith(".source.md"))
+                    if (fixedFile.EndsWith(".source.md"))
                     {
-                        mdFiles.Add(file);
+                        mdFiles.Add(fixedFile);
                     }
                 }
                 else
                 {
-                    mdFiles.Add(file);
+                    mdFiles.Add(fixedFile);
                 }
 
                 continue;
             }
 
-            snippetFiles.Add(file);
+            snippetFiles.Add(fixedFile);
         }
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)

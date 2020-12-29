@@ -8,14 +8,14 @@ class IncludeProcessor
 {
     DocumentConvention convention;
     IReadOnlyList<Include> includes;
-    List<string> allFiles;
+    IReadOnlyList<string> allFiles;
     string rootDirectory;
 
     public IncludeProcessor(
         DocumentConvention convention,
         IReadOnlyList<Include> includes,
         string rootDirectory,
-        List<string> allFiles)
+        IReadOnlyList<string> allFiles)
     {
         rootDirectory = Path.GetFullPath(rootDirectory);
         this.rootDirectory = rootDirectory.Replace(@"\", "/");

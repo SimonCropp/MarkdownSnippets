@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
 
@@ -51,9 +52,13 @@ static class Program
                 validateContent: configResult.ValidateContent,
                 hashSnippetAnchors: configResult.HashSnippetAnchors);
 
-            List<Snippet> snippets = new();
-            await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
-            processor.AddSnippets(snippets);
+            if (configResult.UrlsAsSnippets.Any())
+            {
+                List<Snippet> snippets = new();
+
+                await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
+                processor.AddSnippets(snippets);
+            }
 
             processor.Run();
         }

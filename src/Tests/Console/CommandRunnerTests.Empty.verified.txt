@@ -1,4 +1,4 @@
 {
-  targetDirectory: CurrentDirectory,
+  targetDirectory: {CurrentDirectory},
   configInput: {}
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 static class RelativeFile
 {
-    static bool InnerFind(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    static bool InnerFind(IReadOnlyList<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
     {
         if (!key.Contains("."))
         {
@@ -61,7 +61,7 @@ static class RelativeFile
         return false;
     }
 
-    public static bool Find(List<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    public static bool Find(IReadOnlyList<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
     {
         if (InnerFind(allFiles, rootDirectory, key, relativePath, linePath, out path))
         {

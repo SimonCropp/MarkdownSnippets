@@ -31,7 +31,7 @@ namespace MarkdownSnippets
         };
 
         string rootDirectory;
-        List<string> allFiles;
+        IReadOnlyList<string> allFiles;
 
         public MarkdownProcessor(
             DocumentConvention convention,
@@ -39,6 +39,7 @@ namespace MarkdownSnippets
             IReadOnlyList<Include> includes,
             AppendSnippetsToMarkdown appendSnippets,
             IReadOnlyList<string> snippetSourceFiles,
+            IReadOnlyList<string> allFiles,
             int tocLevel,
             bool writeHeader,
             string rootDirectory,
@@ -62,16 +63,10 @@ namespace MarkdownSnippets
             }
 
             this.rootDirectory = Path.GetFullPath(rootDirectory).Replace('\\', '/');
-            if (Directory.Exists(rootDirectory))
-            {
-                allFiles = Directory.EnumerateFiles(rootDirectory, "*.*", SearchOption.AllDirectories)
-                    .Select(x => x.Replace('\\', '/'))
-                    .ToList();
-            }
-            else
-            {
-                allFiles = new();
-            }
+
+            this.allFiles = allFiles
+                .Select(x => x.Replace('\\', '/'))
+                .ToList();
 
             this.convention = convention;
             this.snippets = snippets;
@@ -93,7 +88,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new(convention, includes, rootDirectory, allFiles);
+            includeProcessor = new(convention, includes, rootDirectory, this.allFiles);
         }
 
         public string Apply(string input, string? file = null)

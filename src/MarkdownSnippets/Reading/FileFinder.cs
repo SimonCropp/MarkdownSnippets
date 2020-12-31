@@ -22,11 +22,28 @@ class FileFinder
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
-        FindFiles(rootDirectory);
+        ProcessFiles(rootDirectory);
+        foreach (var subDirectory in Directory.EnumerateDirectories(rootDirectory)
+            .Where(path => shouldIncludeDirectory(path)))
+        {
+            FindFiles(subDirectory);
+        }
+
         return (snippetFiles, mdFiles, includeFiles, allFiles);
     }
 
     void FindFiles(string directory)
+    {
+        ProcessFiles(directory);
+
+        foreach (var subDirectory in Directory.EnumerateDirectories(directory)
+            .Where(path => shouldIncludeDirectory(path)))
+        {
+            FindFiles(subDirectory);
+        }
+    }
+
+    void ProcessFiles(string directory)
     {
         foreach (var file in Directory.EnumerateFiles(directory))
         {
@@ -69,12 +86,6 @@ class FileFinder
             }
 
             snippetFiles.Add(fixedFile);
-        }
-
-        foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-            .Where(path => shouldIncludeDirectory(path)))
-        {
-            FindFiles(subDirectory);
         }
     }
 }

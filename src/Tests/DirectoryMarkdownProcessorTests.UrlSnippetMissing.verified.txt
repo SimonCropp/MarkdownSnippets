@@ -4,7 +4,7 @@
     {
       Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt,
       LineNumber: 1,
-      File: {CurrentDirectory}/DirectoryMarkdownProcessor/UrlSnippetMissing/one.source.md
+      File: {CurrentDirectory}\DirectoryMarkdownProcessor\UrlSnippetMissing\one.source.md
     }
   ],
   Message: Missing snippets: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt

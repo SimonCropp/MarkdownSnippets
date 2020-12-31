@@ -59,33 +59,32 @@ class FileFinder
                 continue;
             }
 
-            var fixedFile = file.Replace('\\', '/');
-            allFiles.Add(fixedFile);
+            allFiles.Add(file);
 
             if (extension == "md")
             {
                 if (file.EndsWith(".include.md"))
                 {
-                    includeFiles.Add(fixedFile);
+                    includeFiles.Add(file);
                     continue;
                 }
 
                 if (convention == DocumentConvention.SourceTransform)
                 {
-                    if (fixedFile.EndsWith(".source.md"))
+                    if (file.EndsWith(".source.md"))
                     {
-                        mdFiles.Add(fixedFile);
+                        mdFiles.Add(file);
                     }
                 }
                 else
                 {
-                    mdFiles.Add(fixedFile);
+                    mdFiles.Add(file);
                 }
 
                 continue;
             }
 
-            snippetFiles.Add(fixedFile);
+            snippetFiles.Add(file);
         }
     }
 }

@@ -23,7 +23,7 @@ class FileFinder
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
         FindFiles(rootDirectory);
-        return (snippetFiles, mdFiles, includeFiles,allFiles);
+        return (snippetFiles, mdFiles, includeFiles, allFiles);
     }
 
     void FindFiles(string directory)
@@ -36,6 +36,7 @@ class FileFinder
                 continue;
             }
 
+            extension = extension.Substring(1);
             if (SnippetFileExclusions.IsBinary(extension))
             {
                 continue;
@@ -44,14 +45,14 @@ class FileFinder
             var fixedFile = file.Replace('\\', '/');
             allFiles.Add(fixedFile);
 
-            if (file.EndsWith(".include.md"))
+            if (extension == "md")
             {
-                includeFiles.Add(fixedFile);
-                continue;
-            }
+                if (file.EndsWith(".include.md"))
+                {
+                    includeFiles.Add(fixedFile);
+                    continue;
+                }
 
-            if (extension == ".md")
-            {
                 if (convention == DocumentConvention.SourceTransform)
                 {
                     if (fixedFile.EndsWith(".source.md"))

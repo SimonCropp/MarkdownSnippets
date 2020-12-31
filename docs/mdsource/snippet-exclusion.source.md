@@ -20,7 +20,7 @@ When scanning for snippets the following are ignored:
  * Any of the following directory names: `bin`, `obj`
  * All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
 
-snippet: ExcludedFileExtensions
+snippet: BinaryFileExtensions
 
  * Files that cannot contain comments:
 

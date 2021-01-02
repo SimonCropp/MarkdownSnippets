@@ -28,7 +28,6 @@ static class ContentValidation
         {"on a daily basis", "daily"},
         {"on the grounds that", "because"},
         {"prior to", "before"},
-        {"relative to", "regarding or about"},
         {"so as to", "to"},
         {"subsequent to", "after"},
         {"take into consideration", "consider"},

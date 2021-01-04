@@ -117,12 +117,19 @@ namespace MarkdownSnippets
             if (scanForSnippets)
             {
                 InitNewLine();
-                snippetSourceFiles.AddRange(snippetFiles);
-                this.log($"Found {snippetFiles.Count} files for snippets");
+                if (snippetFiles.Any())
+                {
+                    snippetSourceFiles.AddRange(snippetFiles);
+                    this.log($"Found {snippetFiles.Count} files for snippets");
+                }
+
                 var stopwatch = Stopwatch.StartNew();
                 var read = FileSnippetExtractor.Read(snippetFiles, this.maxWidth, this.newLine!).ToList();
-                snippets.AddRange(read);
-                this.log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
+                if (read.Any())
+                {
+                    snippets.AddRange(read);
+                    this.log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
+                }
             }
 
             if (scanForIncludes)
@@ -168,10 +175,17 @@ namespace MarkdownSnippets
                 .Select(x => x.Path!)
                 .Distinct()
                 .ToList();
-            snippetSourceFiles.AddRange(files);
-            log($"Added {files.Count} files for snippets");
-            this.snippets.AddRange(snippets);
-            log($"Added {snippets.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
+            if (files.Any())
+            {
+                snippetSourceFiles.AddRange(files);
+                log($"Added {files.Count} files for snippets");
+            }
+
+            if (snippets.Any())
+            {
+                this.snippets.AddRange(snippets);
+                log($"Added {snippets.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
+            }
         }
 
         public void AddSnippets(params Snippet[] snippets)

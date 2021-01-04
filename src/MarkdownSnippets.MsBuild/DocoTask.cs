@@ -72,10 +72,10 @@ namespace MarkdownSnippets
                 validateContent: configResult.ValidateContent,
                 hashSnippetAnchors: configResult.HashSnippetAnchors);
 
-            List<Snippet> snippets = new();
 
             try
             {
+                List<Snippet> snippets = new();
                 snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
                 processor.AddSnippets(snippets);
                 var snippetsInError = processor.Snippets.Where(x => x.IsInError).ToList();

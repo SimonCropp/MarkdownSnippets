@@ -42,7 +42,7 @@ static class SnippetVerifier
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: false,
-            rootDirectory: "c:/root",
+            targetDirectory: "c:/root",
             validateContent: true,
             allFiles: new List<string>());
     }

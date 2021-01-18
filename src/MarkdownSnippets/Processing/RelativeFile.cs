@@ -5,7 +5,7 @@ using System.Linq;
 
 static class RelativeFile
 {
-    static bool InnerFind(IReadOnlyList<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    static bool InnerFind(IReadOnlyList<string> allFiles, string targetDirectory, string key, string? relativePath, string? linePath, out string path)
     {
         if (!key.Contains("."))
         {
@@ -13,7 +13,7 @@ static class RelativeFile
             return false;
         }
 
-        var relativeToRoot = Path.Combine(rootDirectory, key);
+        var relativeToRoot = Path.Combine(targetDirectory, key);
         if (File.Exists(relativeToRoot))
         {
             path = relativeToRoot;
@@ -23,7 +23,7 @@ static class RelativeFile
         var documentDirectory = Path.GetDirectoryName(relativePath);
         if (documentDirectory != null)
         {
-            var relativeToDocument = Path.Combine(rootDirectory, documentDirectory.Trim('/', '\\'), key);
+            var relativeToDocument = Path.Combine(targetDirectory, documentDirectory.Trim('/', '\\'), key);
             if (File.Exists(relativeToDocument))
             {
                 path = relativeToDocument;
@@ -61,9 +61,9 @@ static class RelativeFile
         return false;
     }
 
-    public static bool Find(IReadOnlyList<string> allFiles, string rootDirectory, string key, string? relativePath, string? linePath, out string path)
+    public static bool Find(IReadOnlyList<string> allFiles, string targetDirectory, string key, string? relativePath, string? linePath, out string path)
     {
-        if (InnerFind(allFiles, rootDirectory, key, relativePath, linePath, out path))
+        if (InnerFind(allFiles, targetDirectory, key, relativePath, linePath, out path))
         {
             path = FileEx.FixFileCapitalization(path);
             return true;

@@ -1,5 +1,5 @@
 Config:
-    RootDir: theRoot
+    TargetDirectory: theRoot
     UrlPrefix: 
     LinkFormat: GitHub
     Convention: SourceTransform

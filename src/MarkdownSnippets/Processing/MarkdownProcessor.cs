@@ -30,7 +30,7 @@ namespace MarkdownSnippets
             "license"
         };
 
-        string rootDirectory;
+        string targetDirectory;
         IReadOnlyList<string> allFiles;
 
         public MarkdownProcessor(
@@ -42,7 +42,7 @@ namespace MarkdownSnippets
             IReadOnlyList<string> allFiles,
             int tocLevel,
             bool writeHeader,
-            string rootDirectory,
+            string targetDirectory,
             bool validateContent,
             string? header = null,
             IEnumerable<string>? tocExcludes = null,
@@ -55,14 +55,14 @@ namespace MarkdownSnippets
             Guard.AgainstNull(newLine, nameof(newLine));
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
-            Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
+            Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
 
             if (convention == DocumentConvention.InPlaceOverwrite && writeHeader)
             {
                 throw new SnippetException("WriteHeader is not allowed with InPlaceOverwrite convention.");
             }
 
-            this.rootDirectory = Path.GetFullPath(rootDirectory).Replace('\\', '/');
+            this.targetDirectory = Path.GetFullPath(targetDirectory).Replace('\\', '/');
 
             this.allFiles = allFiles
                 .Select(x => x.Replace('\\', '/'))
@@ -88,7 +88,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new(convention, includes, rootDirectory, this.allFiles);
+            includeProcessor = new(convention, includes, targetDirectory, this.allFiles);
         }
 
         public string Apply(string input, string? file = null)
@@ -312,7 +312,7 @@ namespace MarkdownSnippets
                 return true;
             }
 
-            if (RelativeFile.Find(allFiles, rootDirectory, key, relativePath, linePath, out var path))
+            if (RelativeFile.Find(allFiles, targetDirectory, key, relativePath, linePath, out var path))
             {
                 snippetsForKey = SnippetsForFile(key, path);
                 return true;

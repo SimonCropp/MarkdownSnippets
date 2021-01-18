@@ -5,7 +5,7 @@ using MarkdownSnippets;
 
 class FileFinder
 {
-    string rootDirectory;
+    string targetDirectory;
     DocumentConvention convention;
     ShouldIncludeDirectory shouldIncludeDirectory;
     List<string> snippetFiles = new();
@@ -13,17 +13,17 @@ class FileFinder
     List<string> allFiles = new();
     List<string> includeFiles = new();
 
-    public FileFinder(string rootDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
+    public FileFinder(string targetDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
     {
-        this.rootDirectory = rootDirectory;
+        this.targetDirectory = targetDirectory;
         this.convention = convention;
         this.shouldIncludeDirectory = shouldIncludeDirectory;
     }
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
-        ProcessFiles(rootDirectory);
-        foreach (var subDirectory in Directory.EnumerateDirectories(rootDirectory)
+        ProcessFiles(targetDirectory);
+        foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
             .Where(path => shouldIncludeDirectory(path)))
         {
             FindFiles(subDirectory);

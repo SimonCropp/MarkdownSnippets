@@ -216,7 +216,7 @@ namespace MarkdownSnippets
                 }
                 throw new SnippetException(@"No markdown files found. This may be due to the DocumentConvention being SourceTransform.
 See https://github.com/SimonCropp/MarkdownSnippets#document-convention
-To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory that contains:
+To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory ({}) that contains:
 {
   ""Convention"": ""InPlaceOverwrite""
 }");
@@ -330,15 +330,15 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
             return Lines.ReadAllLines(reader, sourceFile).ToList();
         }
 
-        static string TargetFileForSourceTransform(string sourceFile, string rootDirectory)
+        static string TargetFileForSourceTransform(string sourceFile, string targetDirectory)
         {
-            var relativePath = FileEx.GetRelativePath(sourceFile, rootDirectory);
+            var relativePath = FileEx.GetRelativePath(sourceFile, targetDirectory);
 
             var filtered = relativePath.Split(Path.DirectorySeparatorChar)
                 .Where(x => !string.Equals(x, "mdsource", StringComparison.OrdinalIgnoreCase))
                 .ToArray();
             var sourceTrimmed = Path.Combine(filtered);
-            var targetFile = Path.Combine(rootDirectory, sourceTrimmed);
+            var targetFile = Path.Combine(targetDirectory, sourceTrimmed);
             // remove ".md" from ".source.md" then change ".source" to ".md"
             targetFile = targetFile.Replace(".source.", ".");
             return targetFile;

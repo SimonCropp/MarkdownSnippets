@@ -15,16 +15,16 @@ namespace MarkdownSnippets
     {
         LinkFormat linkFormat;
         string? urlPrefix;
-        string rootDirectory;
+        string targetDirectory;
         Func<Snippet, string> getAnchorId;
 
-        public SnippetMarkdownHandling(string rootDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, string? urlPrefix = null)
+        public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, string? urlPrefix = null)
         {
             this.linkFormat = linkFormat;
             this.urlPrefix = urlPrefix;
-            Guard.AgainstNullAndEmpty(rootDirectory, nameof(rootDirectory));
-            rootDirectory = Path.GetFullPath(rootDirectory);
-            this.rootDirectory = rootDirectory.Replace(@"\", "/");
+            Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
+            targetDirectory = Path.GetFullPath(targetDirectory);
+            this.targetDirectory = targetDirectory.Replace(@"\", "/");
 
             if (hashSnippetAnchors)
             {
@@ -98,14 +98,14 @@ namespace MarkdownSnippets
             }
 
             var path = snippet.Path.Replace(@"\", "/");
-            if (!path.StartsWith(rootDirectory))
+            if (!path.StartsWith(targetDirectory))
             {
-                //if file is not in the rootDirectory then the url wont work
+                //if file is not in the targetDirectory then the url wont work
                 supText = linkForAnchor;
                 return true;
             }
 
-            path = path.Substring(rootDirectory.Length);
+            path = path.Substring(targetDirectory.Length);
 
             var sourceLink = BuildLink(snippet, path);
             var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='Snippet source file'>snippet source</a>";

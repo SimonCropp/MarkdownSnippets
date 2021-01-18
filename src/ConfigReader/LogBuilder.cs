@@ -6,11 +6,11 @@ using MarkdownSnippets;
 
 static class LogBuilder
 {
-    public static string BuildConfigLogMessage(string root, ConfigResult config, string configFilePath)
+    public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
         var header = GetHeader(config);
         StringBuilder builder = new($@"Config:
-    RootDir: {root}
+    TargetDirectory: {targetDirectory}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}
     Convention: {config.Convention}

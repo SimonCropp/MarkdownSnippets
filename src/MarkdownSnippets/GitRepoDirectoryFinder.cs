@@ -26,15 +26,15 @@ namespace MarkdownSnippets
 
         private static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
         {
-            if (TryFind(directory, ".git", out var rootDirectory))
+            if (TryFind(directory, ".git", out var targetDirectory))
             {
-                path = rootDirectory;
+                path = targetDirectory;
                 return true;
             }
 
-            if (TryFind(directory, ".gitignore", out rootDirectory))
+            if (TryFind(directory, ".gitignore", out targetDirectory))
             {
-                path = rootDirectory;
+                path = targetDirectory;
                 return true;
             }
 

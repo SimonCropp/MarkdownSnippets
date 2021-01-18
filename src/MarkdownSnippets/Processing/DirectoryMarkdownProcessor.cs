@@ -214,12 +214,12 @@ namespace MarkdownSnippets
                 {
                     throw new SnippetException("No markdown files found.");
                 }
-                throw new SnippetException(@"No markdown files found. This may be due to the DocumentConvention being SourceTransform.
+                throw new SnippetException($@"No markdown files found. This may be due to the DocumentConvention being SourceTransform.
 See https://github.com/SimonCropp/MarkdownSnippets#document-convention
-To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory ({}) that contains:
-{
+To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory ({targetDirectory}) that contains:
+{{
   ""Convention"": ""InPlaceOverwrite""
-}");
+}}");
             }
 
             var stopwatch = Stopwatch.StartNew();

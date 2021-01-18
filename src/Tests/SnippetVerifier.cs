@@ -18,11 +18,11 @@ static class SnippetVerifier
         [CallerFilePath] string sourceFile = "")
     where T: Exception
     {
-        var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
-        StringBuilder stringBuilder = new();
+        var processor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
+        StringBuilder builder = new();
         using StringReader reader = new(markdownContent);
-        using StringWriter writer = new(stringBuilder);
-        return Verifier.Throws(() => markdownProcessor.Apply(reader, writer, "sourceFile"), null, sourceFile);
+        using StringWriter writer = new(builder);
+        return Verifier.Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile);
     }
 
     static MarkdownProcessor BuildProcessor(

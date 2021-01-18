@@ -163,7 +163,7 @@ namespace MarkdownSnippets
                 }
             }
 
-            throw new SnippetException("Could not derive new-line string from markdown files.");
+            newLine = Environment.NewLine;
         }
 
         public void AddSnippets(List<Snippet> snippets)
@@ -208,7 +208,19 @@ namespace MarkdownSnippets
             Guard.AgainstNull(Snippets, nameof(snippets));
             Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
 
-            InitNewLine();
+            if (!mdFiles.Any())
+            {
+                if (convention == DocumentConvention.InPlaceOverwrite)
+                {
+                    throw new SnippetException("No markdown files found.");
+                }
+                throw new SnippetException(@"No markdown files found. This may be due to the DocumentConvention being SourceTransform.
+See https://github.com/SimonCropp/MarkdownSnippets#document-convention
+To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory that contains:
+{
+  ""Convention"": ""InPlaceOverwrite""
+}");
+            }
 
             var stopwatch = Stopwatch.StartNew();
             MarkdownProcessor processor = new(
@@ -222,9 +234,9 @@ namespace MarkdownSnippets
                 writeHeader,
                 targetDirectory,
                 validateContent,
-                header: header,
-                tocExcludes: tocExcludes,
-                newLine: newLine!);
+                header,
+                tocExcludes,
+                newLine!);
             foreach (var sourceFile in mdFiles)
             {
                 ProcessFile(sourceFile, processor);

@@ -11,5 +11,4 @@ Content:
 at ConfigReader.DeSerialize(String contents)
 at ConfigReader.Parse(String contents)
 at ConfigReaderTests.<>c.<BadJson>b__1_0()
-at VerifyTests.InnerVerifier.Throws(Func`1 target)
 }

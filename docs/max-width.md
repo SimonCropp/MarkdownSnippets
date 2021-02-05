@@ -37,7 +37,7 @@ The Max Width setting is used to control the maximum characters per line of a sn
 DirectoryMarkdownProcessor processor = new(
     "targetDirectory",
     maxWidth: 80,
-    sharedDirectoryIncludes: _ => true,
+    directoryIncludes: _ => true,
     markdownDirectoryIncludes: _ => true,
     snippetDirectoryIncludes: _ => true);
 processor.Run();

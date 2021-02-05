@@ -7,24 +7,33 @@ class FileFinder
 {
     string targetDirectory;
     DocumentConvention convention;
-    ShouldIncludeDirectory sharedIncludes;
+    ShouldIncludeDirectory directoryIncludes;
+    ShouldIncludeDirectory markdownDirectoryIncludes;
+    ShouldIncludeDirectory snippetDirectoryIncludes;
     List<string> snippetFiles = new();
     List<string> mdFiles = new();
     List<string> allFiles = new();
     List<string> includeFiles = new();
 
-    public FileFinder(string targetDirectory, DocumentConvention convention, ShouldIncludeDirectory sharedIncludes)
+    public FileFinder(
+        string targetDirectory,
+        DocumentConvention convention,
+        ShouldIncludeDirectory directoryIncludes,
+        ShouldIncludeDirectory markdownDirectoryIncludes,
+        ShouldIncludeDirectory snippetDirectoryIncludes)
     {
         this.targetDirectory = targetDirectory;
         this.convention = convention;
-        this.sharedIncludes = sharedIncludes;
+        this.directoryIncludes = directoryIncludes;
+        this.markdownDirectoryIncludes = markdownDirectoryIncludes;
+        this.snippetDirectoryIncludes = snippetDirectoryIncludes;
     }
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
         ProcessFiles(targetDirectory);
         foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
-            .Where(path => sharedIncludes(path)))
+            .Where(path => directoryIncludes(path)))
         {
             FindFiles(subDirectory);
         }
@@ -37,7 +46,7 @@ class FileFinder
         ProcessFiles(directory);
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-            .Where(path => sharedIncludes(path)))
+            .Where(path => directoryIncludes(path)))
         {
             FindFiles(subDirectory);
         }
@@ -45,46 +54,83 @@ class FileFinder
 
     void ProcessFiles(string directory)
     {
-        foreach (var file in Directory.EnumerateFiles(directory))
+        var scanForMarkdown = markdownDirectoryIncludes(directory);
+        var scanForSnippets = snippetDirectoryIncludes(directory);
+        if (scanForSnippets && scanForMarkdown)
         {
-            var extension = Path.GetExtension(file);
-            if (extension == string.Empty)
+            foreach (var file in EnumerateFiles(directory))
             {
-                continue;
-            }
+                allFiles.Add(file);
 
-            extension = extension.Substring(1);
-            if (SnippetFileExclusions.IsBinary(extension))
-            {
-                continue;
-            }
-
-            allFiles.Add(file);
-
-            if (extension == "md")
-            {
-                if (file.EndsWith(".include.md"))
+                if (file.EndsWith(".md"))
                 {
-                    includeFiles.Add(file);
+                    ProcessMarkdown(file);
+
                     continue;
                 }
 
-                if (convention == DocumentConvention.SourceTransform)
-                {
-                    if (file.EndsWith(".source.md"))
-                    {
-                        mdFiles.Add(file);
-                    }
-                }
-                else
-                {
-                    mdFiles.Add(file);
-                }
-
-                continue;
+                snippetFiles.Add(file);
             }
-
-            snippetFiles.Add(file);
+            return;
         }
+
+        if (scanForSnippets)
+        {
+            foreach (var file in EnumerateFiles(directory)
+                .Where(x=>!x.EndsWith(".md")))
+            {
+                allFiles.Add(file);
+                snippetFiles.Add(file);
+            }
+            return;
+        }
+
+        if (scanForMarkdown)
+        {
+            foreach (var file in EnumerateFiles(directory)
+                .Where(x=>x.EndsWith(".md")))
+            {
+                allFiles.Add(file);
+                ProcessMarkdown(file);
+            }
+        }
+    }
+
+    static IEnumerable<string> EnumerateFiles(string directory)
+    {
+        return Directory.EnumerateFiles(directory)
+            .Where(ShouldInclude);
+    }
+
+    void ProcessMarkdown(string file)
+    {
+        if (file.EndsWith(".include.md"))
+        {
+            includeFiles.Add(file);
+            return;
+        }
+
+        if (convention != DocumentConvention.SourceTransform)
+        {
+            mdFiles.Add(file);
+            return;
+        }
+
+        if (file.EndsWith(".source.md"))
+        {
+            mdFiles.Add(file);
+        }
+    }
+
+    static bool ShouldInclude(string file)
+    {
+        var extension = Path.GetExtension(file);
+        if (extension == string.Empty)
+        {
+            return false;
+        }
+
+        extension = extension.Substring(1);
+        return !SnippetFileExclusions.IsBinary(extension);
     }
 }

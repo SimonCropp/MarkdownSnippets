@@ -30,7 +30,7 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
-            ShouldIncludeDirectory sharedDirectoryIncludes,
+            ShouldIncludeDirectory directoryIncludes,
             ShouldIncludeDirectory markdownDirectoryIncludes,
             ShouldIncludeDirectory snippetDirectoryIncludes,
             DocumentConvention convention = DocumentConvention.SourceTransform,
@@ -53,7 +53,7 @@ namespace MarkdownSnippets
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, urlPrefix).Append,
-                sharedDirectoryIncludes,
+                directoryIncludes,
                 markdownDirectoryIncludes,
                 snippetDirectoryIncludes,
                 convention,
@@ -76,7 +76,7 @@ namespace MarkdownSnippets
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetsToMarkdown appendSnippets,
-            ShouldIncludeDirectory sharedDirectoryIncludes,
+            ShouldIncludeDirectory directoryIncludes,
             ShouldIncludeDirectory markdownDirectoryIncludes,
             ShouldIncludeDirectory snippetDirectoryIncludes,
             DocumentConvention convention = DocumentConvention.SourceTransform,
@@ -111,7 +111,11 @@ namespace MarkdownSnippets
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             this.targetDirectory = Path.GetFullPath(targetDirectory);
 
-            FileFinder fileFinder = new(targetDirectory, convention, sharedDirectoryIncludes);
+            FileFinder fileFinder = new(
+                targetDirectory,
+                convention,
+                directoryIncludes,markdownDirectoryIncludes,
+                snippetDirectoryIncludes);
 
             var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
             this.allFiles = allFiles;

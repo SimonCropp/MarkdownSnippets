@@ -16,7 +16,7 @@ public class DirectoryMarkdownProcessorTests
 
         DirectoryMarkdownProcessor processor = new(
             targetDirectory: root,
-            sharedDirectoryIncludes: path =>
+            directoryIncludes: path =>
                 !path.Contains("IncludeFileFinder") &&
                 !path.Contains("DirectoryMarkdownProcessor") &&
                 !DefaultDirectoryExclusions.ShouldExcludeDirectory(path),
@@ -40,7 +40,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             writeHeader: false,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1", "thePath"));
@@ -60,7 +60,7 @@ public class DirectoryMarkdownProcessorTests
             writeHeader: false,
             readOnly: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1", "thePath"));
@@ -77,7 +77,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -94,7 +94,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -115,7 +115,7 @@ public class DirectoryMarkdownProcessorTests
                 writeHeader: false,
                 readOnly: true,
                 newLine: "\r",
-                sharedDirectoryIncludes: _ => true,
+                directoryIncludes: _ => true,
                 markdownDirectoryIncludes: _ => true,
                 snippetDirectoryIncludes: _ => true);
             processor.AddSnippets(
@@ -144,7 +144,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\n",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
         markdownDirectoryIncludes: _ => true,
         snippetDirectoryIncludes: _ => true);
         return Verifier.Throws(() => processor.Run());
@@ -158,7 +158,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\n",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         return Verifier.Throws(() => processor.Run());
@@ -172,7 +172,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             validateContent: true,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         return Verifier.Throws(() => processor.Run());
@@ -186,7 +186,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\n",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         return Verifier.Throws(() => processor.Run());
@@ -200,7 +200,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -218,7 +218,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -236,7 +236,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
         markdownDirectoryIncludes: _ => true,
         snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -254,7 +254,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -271,7 +271,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
         markdownDirectoryIncludes: _ => true,
         snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -289,7 +289,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1"));
@@ -308,7 +308,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.AddSnippets(SnippetBuild("snippet1"));
@@ -327,7 +327,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.Run();
@@ -345,7 +345,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             newLine: "\r",
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
         processor.AddSnippets(
@@ -372,7 +372,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             newLine: "\n" );
@@ -387,7 +387,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             newLine: "\n" );
@@ -401,7 +401,7 @@ public class DirectoryMarkdownProcessorTests
         DirectoryMarkdownProcessor processor = new(
             root,
             writeHeader: false,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             newLine: "\n" );
@@ -416,7 +416,7 @@ public class DirectoryMarkdownProcessorTests
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
-            sharedDirectoryIncludes: _ => true,
+            directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             newLine: "\n" );

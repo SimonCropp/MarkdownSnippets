@@ -49,6 +49,11 @@ static class CommandRunner
 
     static void ValidateAndApplyDefaults(Options options)
     {
+        if (options.Exclude.Any())
+        {
+            throw new CommandLineException("`exclude` is obsolete. Use `exclude-directories`.");
+        }
+
         if (options.Header != null && string.IsNullOrWhiteSpace(options.Header))
         {
             throw new CommandLineException("Empty Header is not allowed.");

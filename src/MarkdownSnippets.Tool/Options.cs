@@ -9,6 +9,12 @@ public class Options
         HelpText = "The target directory to run against. Optional. If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.")]
     public string? TargetDirectory { get; set; }
 
+    [Option("exclude",
+        Separator = ':',
+        Required = false,
+        HelpText = "Obsolete. Use exclude-directories")]
+    public IList<string> Exclude { get; set; } = null!;
+
     [Option('e', "exclude-directories",
         Separator = ':',
         Required = false,

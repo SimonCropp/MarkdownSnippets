@@ -1,3 +1,13 @@
-[
-  {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled\subpath
-]
+{
+  directories: [
+    {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled\subpath
+  ],
+  markdownDirectories: [
+    {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled,
+    {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled\subpath
+  ],
+  snippetDirectories: [
+    {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled,
+    {CurrentDirectory}\SnippetFileFinder\VerifyLambdasAreCalled\subpath
+  ]
+}

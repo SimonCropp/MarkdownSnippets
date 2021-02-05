@@ -163,7 +163,21 @@ public class CommandRunnerTests
     [Fact]
     public async Task ExcludeLong()
     {
-        await CommandRunner.RunCommand(Capture, "--exclude", "dir");
+        await CommandRunner.RunCommand(Capture, "--exclude-directories", "dir");
+        await VerifyResult();
+    }
+
+    [Fact]
+    public async Task ExcludeMarkdownDirectoriesLong()
+    {
+        await CommandRunner.RunCommand(Capture, "--exclude-markdown-directories", "dir");
+        await VerifyResult();
+    }
+
+    [Fact]
+    public async Task ExcludeSnippetDirectoriesLong()
+    {
+        await CommandRunner.RunCommand(Capture, "--exclude-snippet-directories", "dir");
         await VerifyResult();
     }
 

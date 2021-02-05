@@ -1,7 +1,7 @@
 {
   targetDirectory: {CurrentDirectory},
   configInput: {
-    ExcludeDirectories: [
+    ExcludeMarkdownDirectories: [
       dir
     ]
   }

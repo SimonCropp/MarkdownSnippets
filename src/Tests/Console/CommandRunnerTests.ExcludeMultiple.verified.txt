@@ -1,7 +1,7 @@
 {
   targetDirectory: {CurrentDirectory},
   configInput: {
-    Exclude: [
+    ExcludeDirectories: [
       dir1,
       dir2
     ]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -44,6 +45,12 @@ public static class ConfigReader
     public static ConfigInput Parse(string contents)
     {
         var config = DeSerialize(contents);
+
+        if (config.Exclude.Any())
+        {
+            throw new SnippetException("`Exclude` is obsolete. Use `ExcludeDirectories`.");
+        }
+
         return new()
         {
             WriteHeader = config.WriteHeader,
@@ -51,7 +58,9 @@ public static class ConfigReader
             ValidateContent = config.ValidateContent,
             HashSnippetAnchors = config.HashSnippetAnchors,
             UrlsAsSnippets = config.UrlsAsSnippets,
-            Exclude = config.Exclude,
+            ExcludeDirectories = config.ExcludeDirectories,
+            ExcludeMarkdownDirectories = config.ExcludeMarkdownDirectories,
+            ExcludeSnippetDirectories = config.ExcludeSnippetDirectories,
             Header = config.Header,
             UrlPrefix = config.UrlPrefix,
             TocExcludes = config.TocExcludes,

@@ -46,7 +46,7 @@ The schema also includes `enum` values for constrained value types.
  * [Convention](/readme.md#document-convention).
  * [TocLevel: Heading level](/docs/toc.md#heading-level).
  * [TocExcludes: Ignore headings](/docs/toc.md#ignore-headings).
- * [Exclude: Exclude directories from snippet discovery](/docs/snippet-exclusion.md).
+ * [Exclude: Exclude directories from discovery](/docs/exclusion.md).
  * [WriteHeader: Disable Header](/docs/header.md#disable-header).
  * [UrlPrefix](/readme.md#urlprefix).
  * [UrlsAsSnippets: Urls to files to be included as snippets](/readme.md#urlsassnippets).

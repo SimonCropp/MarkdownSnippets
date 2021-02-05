@@ -25,7 +25,7 @@ Automatically extract snippets from code and injecting them into markdown docume
 
 ## Behavior
 
- * Recursively scan the target directory for code files containing snippets. (See [snippet exclusion](/docs/snippet-exclusion.md)).
+ * Recursively scan the target directory for code files containing snippets. (See [exclusion](/docs/exclusion.md)).
  * Recursively scan the target directory for markdown (`.md`) files. (See [Document Scanning](#document-convention)).
  * Merge the snippets into those markdown files.
 

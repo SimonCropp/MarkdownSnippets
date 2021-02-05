@@ -32,7 +32,9 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
     {
         DirectoryMarkdownProcessor processor = new(
             targetDirectory,
-            shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+            directoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
+            markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
+            snippetDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeSnippetDirectories),
             convention: configResult.Convention,
             log: Console.WriteLine,
             writeHeader: configResult.WriteHeader,

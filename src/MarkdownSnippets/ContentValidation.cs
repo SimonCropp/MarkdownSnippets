@@ -70,11 +70,8 @@ static class ContentValidation
         "whereof",
     };
 
-    static string invalidWordsJoined;
-
     static ContentValidation()
     {
-        invalidWordsJoined = string.Join(", ", invalidWords);
         invalidStrings = BuildInvalidStrings().ToList();
     }
 

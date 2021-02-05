@@ -34,10 +34,22 @@ static class LogBuilder
             builder.AppendLine(@$"    MaxWidth: {maxWidth}");
         }
 
-        if (config.Exclude.Any())
+        if (config.ExcludeDirectories.Any())
         {
-            builder.AppendLine($@"    Exclude:
-        {string.Join("\r\n        ", config.Exclude)}");
+            builder.AppendLine($@"    ExcludeDirectories:
+        {string.Join("\r\n        ", config.ExcludeDirectories)}");
+        }
+
+        if (config.ExcludeMarkdownDirectories.Any())
+        {
+            builder.AppendLine($@"    ExcludeMarkdownDirectories:
+        {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}");
+        }
+
+        if (config.ExcludeSnippetDirectories.Any())
+        {
+            builder.AppendLine($@"    ExcludeSnippetDirectories:
+        {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}");
         }
 
         if (config.TocExcludes.Any())

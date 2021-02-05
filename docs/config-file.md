@@ -50,7 +50,9 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ReadOnly": false,
   "LinkFormat": "Tfs",
   "TocLevel": 3,
-  "Exclude": [ "Dir1", "Dir2" ],
+  "ExcludeDirectories": [ "Dir1", "Dir2" ],
+  "ExcludeMarkdownDirectories": [ "Dir2", "Dir3" ],
+  "ExcludeSnippetDirectories": [ "Dir4", "Dir5" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
   "Convention": "InPlaceOverwrite",
@@ -63,7 +65,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "HashSnippetAnchors": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

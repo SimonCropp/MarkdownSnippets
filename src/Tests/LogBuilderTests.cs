@@ -14,7 +14,9 @@ public class LogBuilderTests
             WriteHeader = true,
             Header = @"line1
 line2",
-            Exclude = new(){"Dir1", "Dir2"},
+            ExcludeDirectories = new(){"Dir1", "Dir2"},
+            ExcludeMarkdownDirectories = new(){"Dir3", "Dir4"},
+            ExcludeSnippetDirectories = new(){"Dir5", "Dir6"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
             UrlsAsSnippets = new(){"Url1", "Url2"},

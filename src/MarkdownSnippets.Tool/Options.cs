@@ -9,11 +9,23 @@ public class Options
         HelpText = "The target directory to run against. Optional. If no directory is passed the current directory will be used, but only if it exists with a git repository directory tree. If not an error is returned.")]
     public string? TargetDirectory { get; set; }
 
-    [Option('e', "exclude",
+    [Option('e', "exclude-directories",
         Separator = ':',
         Required = false,
         HelpText = "Directories to be excluded. Optional. Colon ':' separated for multiple values.")]
-    public IList<string> Exclude { get; set; } = null!;
+    public IList<string> ExcludeDirectories { get; set; } = null!;
+
+    [Option("exclude-markdown-directories",
+        Separator = ':',
+        Required = false,
+        HelpText = "Directories to be excluded from markdown searching. Optional. Colon ':' separated for multiple values.")]
+    public IList<string> ExcludeMarkdownDirectories { get; set; } = null!;
+
+    [Option("exclude-snippet-directories",
+        Separator = ':',
+        Required = false,
+        HelpText = "Directories to be excluded from snippet searching. Optional. Colon ':' separated for multiple values.")]
+    public IList<string> ExcludeSnippetDirectories { get; set; } = null!;
 
     [Option("toc-excludes",
         Separator = ':',

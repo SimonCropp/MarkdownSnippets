@@ -20,7 +20,9 @@ namespace MarkdownSnippets
         public int? MaxWidth { get; set; }
         public LinkFormat? LinkFormat { get; set; }
         public DocumentConvention? Convention { get; set; }
-        public List<string> Exclude { get; set; } = new();
+        public List<string> ExcludeDirs { get; set; } = new();
+        public List<string> ExcludeMarkdownDirs { get; set; } = new();
+        public List<string> ExcludeSnippetDirs { get; set; } = new();
         public List<string> TocExcludes { get; set; } = new();
         public List<string> UrlsAsSnippets { get; set; } = new();
         public bool? TreatMissingAsWarning { get; set; }
@@ -43,7 +45,9 @@ namespace MarkdownSnippets
                     UrlPrefix = UrlPrefix,
                     LinkFormat = LinkFormat,
                     Convention = Convention,
-                    Exclude = Exclude,
+                    ExcludeDirectories = ExcludeDirs,
+                    ExcludeMarkdownDirectories = ExcludeMarkdownDirs,
+                    ExcludeSnippetDirectories = ExcludeSnippetDirs,
                     TocExcludes = TocExcludes,
                     TocLevel = TocLevel,
                     MaxWidth = MaxWidth,
@@ -57,7 +61,9 @@ namespace MarkdownSnippets
 
             DirectoryMarkdownProcessor processor = new(
                 root,
-                shouldIncludeDirectory: ExcludeToFilterBuilder.ExcludesToFilter(configResult.Exclude),
+                sharedDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
+                markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
+                snippetDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeSnippetDirectories),
                 convention: configResult.Convention,
                 log: s => Log.LogMessage(s),
                 writeHeader: configResult.WriteHeader,

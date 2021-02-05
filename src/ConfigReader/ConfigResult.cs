@@ -11,7 +11,9 @@ public class ConfigResult
     public int TocLevel;
     public int MaxWidth;
     public List<string> UrlsAsSnippets = new();
-    public List<string> Exclude = new();
+    public List<string> ExcludeDirectories = new();
+    public List<string> ExcludeMarkdownDirectories = new();
+    public List<string> ExcludeSnippetDirectories = new();
     public bool? WriteHeader;
     public string? Header;
     public string? UrlPrefix;

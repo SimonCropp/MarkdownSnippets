@@ -7,24 +7,24 @@ class FileFinder
 {
     string targetDirectory;
     DocumentConvention convention;
-    ShouldIncludeDirectory shouldIncludeDirectory;
+    ShouldIncludeDirectory sharedIncludes;
     List<string> snippetFiles = new();
     List<string> mdFiles = new();
     List<string> allFiles = new();
     List<string> includeFiles = new();
 
-    public FileFinder(string targetDirectory, DocumentConvention convention, ShouldIncludeDirectory shouldIncludeDirectory)
+    public FileFinder(string targetDirectory, DocumentConvention convention, ShouldIncludeDirectory sharedIncludes)
     {
         this.targetDirectory = targetDirectory;
         this.convention = convention;
-        this.shouldIncludeDirectory = shouldIncludeDirectory;
+        this.sharedIncludes = sharedIncludes;
     }
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
         ProcessFiles(targetDirectory);
         foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
-            .Where(path => shouldIncludeDirectory(path)))
+            .Where(path => sharedIncludes(path)))
         {
             FindFiles(subDirectory);
         }
@@ -37,7 +37,7 @@ class FileFinder
         ProcessFiles(directory);
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-            .Where(path => shouldIncludeDirectory(path)))
+            .Where(path => sharedIncludes(path)))
         {
             FindFiles(subDirectory);
         }

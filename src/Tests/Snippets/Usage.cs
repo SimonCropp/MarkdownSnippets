@@ -20,7 +20,9 @@ class Usage
 
         DirectoryMarkdownProcessor processor = new(
             "targetDirectory",
-            shouldIncludeDirectory: _ => true);
+            sharedDirectoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         processor.Run();
 
         #endregion
@@ -33,7 +35,9 @@ class Usage
         DirectoryMarkdownProcessor processor = new(
             "targetDirectory",
             maxWidth: 80,
-            shouldIncludeDirectory: _ => true);
+            sharedDirectoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         processor.Run();
 
         #endregion

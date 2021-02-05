@@ -33,7 +33,7 @@ public class SnippetFileFinderTests
         ConcurrentBag<string> directories = new();
         var directory = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/VerifyLambdasAreCalled"));
         FileFinder finder = new(directory, DocumentConvention.SourceTransform,
-            shouldIncludeDirectory: path =>
+            sharedIncludes: path =>
             {
                 directories.Add(path);
                 return true;

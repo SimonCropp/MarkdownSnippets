@@ -30,7 +30,9 @@ namespace MarkdownSnippets
 
         public DirectoryMarkdownProcessor(
             string targetDirectory,
-            ShouldIncludeDirectory shouldIncludeDirectory,
+            ShouldIncludeDirectory sharedDirectoryIncludes,
+            ShouldIncludeDirectory markdownDirectoryIncludes,
+            ShouldIncludeDirectory snippetDirectoryIncludes,
             DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
@@ -51,7 +53,9 @@ namespace MarkdownSnippets
             this(
                 targetDirectory,
                 new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, urlPrefix).Append,
-                shouldIncludeDirectory,
+                sharedDirectoryIncludes,
+                markdownDirectoryIncludes,
+                snippetDirectoryIncludes,
                 convention,
                 scanForMdFiles: scanForMdFiles,
                 scanForSnippets: scanForSnippets,
@@ -72,7 +76,9 @@ namespace MarkdownSnippets
         public DirectoryMarkdownProcessor(
             string targetDirectory,
             AppendSnippetsToMarkdown appendSnippets,
-            ShouldIncludeDirectory shouldIncludeDirectory,
+            ShouldIncludeDirectory sharedDirectoryIncludes,
+            ShouldIncludeDirectory markdownDirectoryIncludes,
+            ShouldIncludeDirectory snippetDirectoryIncludes,
             DocumentConvention convention = DocumentConvention.SourceTransform,
             bool scanForMdFiles = true,
             bool scanForSnippets = true,
@@ -105,7 +111,7 @@ namespace MarkdownSnippets
             Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
             this.targetDirectory = Path.GetFullPath(targetDirectory);
 
-            FileFinder fileFinder = new(targetDirectory, convention,shouldIncludeDirectory);
+            FileFinder fileFinder = new(targetDirectory, convention, sharedDirectoryIncludes);
 
             var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
             this.allFiles = allFiles;

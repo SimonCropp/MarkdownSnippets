@@ -34,7 +34,9 @@ static class CommandRunner
                         LinkFormat = options.LinkFormat,
                         TocLevel = options.TocLevel,
                         MaxWidth = options.MaxWidth,
-                        Exclude = options.Exclude.ToList(),
+                        ExcludeDirectories = options.ExcludeDirectories.ToList(),
+                        ExcludeMarkdownDirectories = options.ExcludeMarkdownDirectories.ToList(),
+                        ExcludeSnippetDirectories = options.ExcludeSnippetDirectories.ToList(),
                         TocExcludes = options.TocExcludes.ToList(),
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList(),
                         TreatMissingAsWarning = options.TreatMissingAsWarning,
@@ -84,7 +86,9 @@ static class CommandRunner
             throw new CommandLineException("max-width must be positive.");
         }
 
-        ValidateItems("exclude", options.Exclude);
+        ValidateItems("exclude", options.ExcludeDirectories);
+        ValidateItems("exclude-markdown-directories", options.ExcludeMarkdownDirectories);
+        ValidateItems("exclude-snippet-directories", options.ExcludeSnippetDirectories);
         ValidateItems("toc-excludes", options.TocExcludes);
         ValidateItems("urls-as-snippets", options.UrlsAsSnippets);
     }

@@ -9,9 +9,15 @@ Config:
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
     MaxWidth: 80
-    Exclude:
+    ExcludeDirectories:
         Dir1
         Dir2
+    ExcludeMarkdownDirectories:
+        Dir3
+        Dir4
+    ExcludeSnippetDirectories:
+        Dir5
+        Dir6
     UrlsAsSnippets:
         Url1
         Url2

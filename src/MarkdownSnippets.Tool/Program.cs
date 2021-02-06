@@ -15,6 +15,16 @@ catch (CommandLineException exception)
     Console.WriteLine($"Failed: {exception.Message}");
     Environment.Exit(1);
 }
+catch (ConfigurationException exception)
+{
+    Console.WriteLine($"Failed: {exception.Message}");
+    Environment.Exit(1);
+}
+catch (SnippetException exception)
+{
+    Console.WriteLine($"Failed: {exception.Message}");
+    Environment.Exit(1);
+}
 finally
 {
     Console.WriteLine($"Finished {stopwatch.ElapsedMilliseconds}ms");
@@ -28,40 +38,32 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
     var message = LogBuilder.BuildConfigLogMessage(targetDirectory, configResult, configFilePath);
     Console.WriteLine(message);
 
-    try
+    DirectoryMarkdownProcessor processor = new(
+        targetDirectory,
+        directoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
+        markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
+        snippetDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeSnippetDirectories),
+        convention: configResult.Convention,
+        log: Console.WriteLine,
+        writeHeader: configResult.WriteHeader,
+        header: configResult.Header,
+        readOnly: configResult.ReadOnly,
+        linkFormat: configResult.LinkFormat,
+        tocLevel: configResult.TocLevel,
+        tocExcludes: configResult.TocExcludes,
+        treatMissingAsWarning: configResult.TreatMissingAsWarning,
+        maxWidth: configResult.MaxWidth,
+        urlPrefix: configResult.UrlPrefix,
+        validateContent: configResult.ValidateContent,
+        hashSnippetAnchors: configResult.HashSnippetAnchors);
+
+    if (configResult.UrlsAsSnippets.Any())
     {
-        DirectoryMarkdownProcessor processor = new(
-            targetDirectory,
-            directoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
-            markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
-            snippetDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeSnippetDirectories),
-            convention: configResult.Convention,
-            log: Console.WriteLine,
-            writeHeader: configResult.WriteHeader,
-            header: configResult.Header,
-            readOnly: configResult.ReadOnly,
-            linkFormat: configResult.LinkFormat,
-            tocLevel: configResult.TocLevel,
-            tocExcludes: configResult.TocExcludes,
-            treatMissingAsWarning: configResult.TreatMissingAsWarning,
-            maxWidth: configResult.MaxWidth,
-            urlPrefix: configResult.UrlPrefix,
-            validateContent: configResult.ValidateContent,
-            hashSnippetAnchors: configResult.HashSnippetAnchors);
+        List<Snippet> snippets = new();
 
-        if (configResult.UrlsAsSnippets.Any())
-        {
-            List<Snippet> snippets = new();
-
-            await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
-            processor.AddSnippets(snippets);
-        }
-
-        processor.Run();
+        await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
+        processor.AddSnippets(snippets);
     }
-    catch (SnippetException exception)
-    {
-        Console.WriteLine($"Failed: {exception.Message}");
-        Environment.Exit(1);
-    }
+
+    processor.Run();
 }

@@ -48,7 +48,7 @@ public static class ConfigReader
 
         if (config.Exclude.Any())
         {
-            throw new SnippetException("`Exclude` is obsolete. Use `ExcludeDirectories`.");
+            throw new ConfigurationException("`Exclude` is obsolete. Use `ExcludeDirectories`.");
         }
 
         return new()

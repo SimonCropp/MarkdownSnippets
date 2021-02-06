@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using MarkdownSnippets;
 
 static class SnippetKey
 {
@@ -32,6 +33,10 @@ static class SnippetKey
         key = line.Current
             .Substring(8)
             .Trim();
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new SnippetException($"Could not parse snippet from: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
+        }
         return true;
     }
 

@@ -9,14 +9,13 @@ using VerifyXunit;
 
 static class SnippetVerifier
 {
-    public static Task VerifyThrows<T>(
+    public static Task VerifyThrows(
         DocumentConvention convention,
         string markdownContent,
         IReadOnlyList<Snippet>? snippets = null,
         IReadOnlyList<string>? snippetSourceFiles = null,
         IReadOnlyList<Include>? includes = null,
         [CallerFilePath] string sourceFile = "")
-    where T: Exception
     {
         var processor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         StringBuilder builder = new();

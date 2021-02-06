@@ -15,7 +15,7 @@ public class MarkdownProcessorTests
         var content = @"
 BAD <!-- include: theKey. path: /thePath -->
 ";
-        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
+        return SnippetVerifier.VerifyThrows(
             DocumentConvention.InPlaceOverwrite,
             content,
             includes: new[]
@@ -45,6 +45,7 @@ after
                 Include.Build("theKey", lines, "c:/root/thePath")
             });
     }
+
     [Fact]
     public Task WithMultiLineInclude_Overwrite()
     {
@@ -146,6 +147,7 @@ after
                 Include.Build("theKey", lines, "c:/root/thePath")
             });
     }
+
     [Fact]
     public Task WithMultipleInclude()
     {
@@ -176,9 +178,7 @@ include: theKey
 
 after
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
@@ -195,9 +195,7 @@ Text1
 
 Text2
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
@@ -216,9 +214,7 @@ Text1
 
 Text2
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
@@ -237,9 +233,7 @@ Text1
 
 Text2
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
@@ -255,9 +249,7 @@ This document has no headings.
 An empty toc section should be generated, in case
 any headings are added in future.
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
@@ -267,10 +259,29 @@ any headings are added in future.
 <!-- toc -->
 Bad
 ";
-        return SnippetVerifier.VerifyThrows<MarkdownProcessingException>(
-            DocumentConvention.InPlaceOverwrite,
-            content);
+        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
     }
+
+    [Fact]
+    public Task Empty_snippet_key()
+    {
+        var content = @"
+snippet: 
+
+";
+        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
+    }
+
+    [Fact]
+    public Task Whitespace_snippet_key()
+    {
+        var content = @"
+snippet:    
+
+";
+        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
+    }
+
     [Fact]
     public Task Toc_Overwrite()
     {
@@ -288,9 +299,7 @@ Text1
 
 Text2
 ";
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content);
+        return SnippetVerifier.Verify(DocumentConvention.InPlaceOverwrite, content);
     }
 
     [Fact]
@@ -437,9 +446,11 @@ include: theKey
 some other text
 ";
         List<string> lines = new()
-        {@"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+        {
+            @"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
 | -------------------- | ----------------------- | ------------------ | --------------------- |
-|2|5|25|25|"};
+|2|5|25|25|"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -449,6 +460,7 @@ some other text
                 Include.Build("theKey", lines, "thePath")
             });
     }
+
     [Fact]
     public Task SnippetInIncludeLast()
     {

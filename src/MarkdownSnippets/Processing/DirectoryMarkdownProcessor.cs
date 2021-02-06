@@ -14,7 +14,6 @@ namespace MarkdownSnippets
         string? header;
         bool readOnly;
         int tocLevel;
-        int maxWidth;
         IEnumerable<string>? tocExcludes;
         Action<string> log;
         string targetDirectory;
@@ -103,7 +102,6 @@ namespace MarkdownSnippets
             this.tocLevel = tocLevel;
             this.tocExcludes = tocExcludes;
             this.newLine = newLine!;
-            this.maxWidth = maxWidth;
             this.treatMissingAsWarning = treatMissingAsWarning;
 
             this.log = log ?? (s => { Trace.WriteLine(s); });
@@ -114,7 +112,7 @@ namespace MarkdownSnippets
             FileFinder fileFinder = new(
                 targetDirectory,
                 convention,
-                directoryIncludes,markdownDirectoryIncludes,
+                directoryIncludes, markdownDirectoryIncludes,
                 snippetDirectoryIncludes);
 
             var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
@@ -134,7 +132,7 @@ namespace MarkdownSnippets
                 }
 
                 var stopwatch = Stopwatch.StartNew();
-                var read = FileSnippetExtractor.Read(snippetFiles, this.maxWidth, this.newLine!).ToList();
+                var read = FileSnippetExtractor.Read(snippetFiles, maxWidth, this.newLine!).ToList();
                 if (read.Any())
                 {
                     snippets.AddRange(read);
@@ -147,7 +145,7 @@ namespace MarkdownSnippets
                 foreach (var file in includeFiles)
                 {
                     var key = Path.GetFileName(file).Replace(".include.md", "");
-                    if (includes.Any(x=>x.Key == key))
+                    if (includes.Any(x => x.Key == key))
                     {
                         throw new($"Duplicate include: {key}");
                     }
@@ -224,6 +222,7 @@ namespace MarkdownSnippets
                 {
                     throw new SnippetException("No markdown files found.");
                 }
+
                 throw new SnippetException($@"No markdown files found. This may be due to the DocumentConvention being SourceTransform.
 See https://github.com/SimonCropp/MarkdownSnippets#document-convention
 To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target directory ({targetDirectory}) that contains:

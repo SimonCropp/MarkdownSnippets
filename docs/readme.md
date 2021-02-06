@@ -15,7 +15,7 @@ To change this file edit the source file and then run MarkdownSnippets.
     * [Config file convention](/docs/config-file.md)
     * [Max Width](/docs/max-width.md)
     * [Includes](/docs/includes.md)
-    * [Snippet Exclusion](/docs/snippet-exclusion.md)
+    * [Directory Exclusion](/docs/exclusion.md)
     * [Header](/docs/header.md)
   * Writing Documentation
     * [Indentation](/docs/indentation.md)

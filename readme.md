@@ -279,7 +279,7 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
     * [Config file convention](/docs/config-file.md)
     * [Max Width](/docs/max-width.md)
     * [Includes](/docs/includes.md)
-    * [Snippet Exclusion](/docs/snippet-exclusion.md)
+    * [Directory Exclusion](/docs/exclusion.md)
     * [Header](/docs/header.md)
   * Writing Documentation
     * [Indentation](/docs/indentation.md)

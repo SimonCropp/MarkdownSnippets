@@ -16,7 +16,7 @@ public static class ConfigReader
             return (null, path);
         }
 
-        return (Parse(File.ReadAllText(path)), path);
+        return (Parse(File.ReadAllText(path), path), path);
     }
 
     static bool TryFindConfigFile(string directory, out string path)
@@ -42,13 +42,13 @@ public static class ConfigReader
         return false;
     }
 
-    public static ConfigInput Parse(string contents)
+    public static ConfigInput Parse(string contents, string path)
     {
         var config = DeSerialize(contents);
 
         if (config.Exclude.Any())
         {
-            throw new ConfigurationException("`Exclude` is obsolete. Use `ExcludeDirectories`.");
+            throw new ConfigurationException($"`Exclude` is obsolete. Use `ExcludeDirectories`. FilePath: {path}.");
         }
 
         return new()
@@ -66,8 +66,8 @@ public static class ConfigReader
             TocExcludes = config.TocExcludes,
             TocLevel = config.TocLevel,
             MaxWidth = config.MaxWidth,
-            LinkFormat = GetLinkFormat(config.LinkFormat),
-            Convention = GetConvention(config.Convention),
+            LinkFormat = GetLinkFormat(config.LinkFormat, path),
+            Convention = GetConvention(config.Convention, path),
             TreatMissingAsWarning = config.TreatMissingAsWarning,
         };
     }
@@ -91,7 +91,7 @@ Content:
         }
     }
 
-    static DocumentConvention? GetConvention(string? value)
+    static DocumentConvention? GetConvention(string? value, string path)
     {
         if (value == null)
         {
@@ -103,10 +103,10 @@ Content:
             return convention;
         }
 
-        throw new ConfigurationException($"Failed to parse DocumentConvention: {convention}");
+        throw new ConfigurationException($"Failed to parse DocumentConvention: {convention}. FilePath: {path}.");
     }
 
-    static LinkFormat? GetLinkFormat(string? value)
+    static LinkFormat? GetLinkFormat(string? value, string path)
     {
         if (value == null)
         {
@@ -115,7 +115,7 @@ Content:
 
         if (!Enum.TryParse<LinkFormat>(value, out var linkFormat))
         {
-            throw new ConfigurationException("Failed to parse LinkFormat:" + linkFormat);
+            throw new ConfigurationException($"Failed to parse LinkFormat: {linkFormat}. FilePath: {path}.");
         }
 
         return linkFormat;

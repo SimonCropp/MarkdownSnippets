@@ -9,6 +9,6 @@ Content:
 },
   StackTrace: 
 at ConfigReader.DeSerialize(String contents)
-at ConfigReader.Parse(String contents)
+at ConfigReader.Parse(String contents, String path)
 at ConfigReaderTests.<>c.<BadJson>b__1_0()
 }

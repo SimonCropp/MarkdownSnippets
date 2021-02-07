@@ -9,7 +9,7 @@ public class ConfigReaderTests
     [Fact]
     public Task Empty()
     {
-        var config = ConfigReader.Parse("{}");
+        var config = ConfigReader.Parse("{}", "filePath");
 
         return Verifier.Verify(config);
     }
@@ -21,14 +21,14 @@ public class ConfigReaderTests
             () => ConfigReader.Parse(@"{
   ""ValidateContent"": true
   ""Convention"": ""InPlaceOverwrite""
-}"));
+}", "filePath"));
     }
 
     [Fact]
     public Task Values()
     {
         var stream = File.ReadAllText("allConfig.json");
-        var config = ConfigReader.Parse(stream);
+        var config = ConfigReader.Parse(stream, "filePath");
         return Verifier.Verify(config);
     }
 }

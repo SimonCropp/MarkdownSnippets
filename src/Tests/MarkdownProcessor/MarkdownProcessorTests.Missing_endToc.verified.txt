@@ -2,5 +2,5 @@
   Type: MarkdownProcessingException,
   File: sourceFile,
   LineNumber: 2,
-  Message: Expected to find `<!-- endToc -->`.
+  Message: Expected to find `<!-- endToc -->`. File: sourceFile. LineNumber: 2.
 }

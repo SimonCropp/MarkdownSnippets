@@ -7,7 +7,7 @@ namespace MarkdownSnippets
         public int LineNumber { get; }
 
         public MarkdownProcessingException(string message, string? file, int lineNumber) :
-            base(message)
+            base($"{message} File: {file}. LineNumber: {lineNumber}.")
         {
             Guard.AgainstNegativeAndZero(lineNumber, nameof(lineNumber));
             Guard.AgainstEmpty(file, nameof(file));
@@ -17,7 +17,7 @@ namespace MarkdownSnippets
 
         public override string ToString()
         {
-            return $"{Message} File: {File}. LineNumber: {LineNumber}.";
+            return Message;
         }
     }
 }

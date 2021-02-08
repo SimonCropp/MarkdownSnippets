@@ -20,11 +20,6 @@ catch (ConfigurationException exception)
     Console.WriteLine($"Failed: {exception.Message}");
     Environment.Exit(1);
 }
-catch (MarkdownProcessingException exception)
-{
-    Console.WriteLine($"Failed: {exception.Message}, File:'{exception.File}', Line:{exception.LineNumber}.");
-    Environment.Exit(1);
-}
 catch (SnippetException exception)
 {
     Console.WriteLine($"Failed: {exception.Message}");

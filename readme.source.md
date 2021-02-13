@@ -213,6 +213,13 @@ snippet: BuildLink
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
 
 
+## Add to Windows Explorer
+
+Use [src/context-menu.reg](context-menu.reg) to add MarkdownSnippets to the Windows Explorer context menu.
+
+snippet: context-menu.reg
+
+
 ## More Documentation
 
 include: doc-index

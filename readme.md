@@ -25,6 +25,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Usage](#usage)
   * [Defining Snippets](#defining-snippets)
   * [Using Snippets](#using-snippets)
+  * [Add to Windows Explorer](#add-to-windows-explorer)
   * [More Documentation](#more-documentation)
   * [Security contact information](#security-contact-information)<!-- endToc -->
 
@@ -267,6 +268,31 @@ if (linkFormat == LinkFormat.GitLab)
 ### UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
+
+
+## Add to Windows Explorer
+
+Use [src/context-menu.reg](context-menu.reg) to add MarkdownSnippets to the Windows Explorer context menu.
+
+<!-- snippet: context-menu.reg -->
+<a id='snippet-context-menu.reg'></a>
+```reg
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Directory\Shell]
+@="none"
+[HKEY_CLASSES_ROOT\Directory\shell\mdsnippets]
+"MUIVerb"="run mdsnippets"
+"Position"="bottom"
+[HKEY_CLASSES_ROOT\Directory\Background\shell\mdsnippets]
+"MUIVerb"="run mdsnippets"
+"Position"="bottom"
+[HKEY_CLASSES_ROOT\Directory\shell\mdsnippets\command]
+@="cmd.exe /c mdsnippets \"%V\""
+[HKEY_CLASSES_ROOT\Directory\Background\shell\mdsnippets\command]
+@="cmd.exe /c mdsnippets \"%V\""
+```
+<sup><a href='/src/context-menu.reg#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-context-menu.reg' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## More Documentation

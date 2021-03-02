@@ -88,7 +88,7 @@ namespace MarkdownSnippets
             this.snippetSourceFiles = snippetSourceFiles
                 .Select(x => x.Replace('\\', '/'))
                 .ToList();
-            includeProcessor = new(convention, includes, targetDirectory, this.allFiles);
+            includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
         }
 
         public string Apply(string input, string? file = null)

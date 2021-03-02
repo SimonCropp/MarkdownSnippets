@@ -1,0 +1,11 @@
+{
+  result: 
+
+before
+
+the <!-- include: theKey. path: thePath -->
+Snippet <!-- endInclude -->
+
+after
+
+}

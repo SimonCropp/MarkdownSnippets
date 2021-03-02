@@ -4,7 +4,8 @@ using System.Diagnostics;
 namespace MarkdownSnippets
 {
     [DebuggerDisplay("Key={Key}, Path={Path}, Error={Error}")]
-    public class Include
+    public class Include :
+        IContent
     {
         /// <summary>
         /// Initialise a new instance of an in-error <see cref="Include"/>.

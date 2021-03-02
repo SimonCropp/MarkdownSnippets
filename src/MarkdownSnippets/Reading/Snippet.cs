@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace MarkdownSnippets
 {
     [DebuggerDisplay("Key={Key}, FileLocation={FileLocation}, Error={Error}")]
-    public class Snippet
+    public class Snippet : IContent
     {
         /// <summary>
         /// Initialise a new instance of an in-error <see cref="Snippet"/>.
@@ -132,5 +132,10 @@ namespace MarkdownSnippets
   Error: {Error}
 ";
         }
+    }
+
+    public interface IContent
+    {
+        string? Path { get; }
     }
 }

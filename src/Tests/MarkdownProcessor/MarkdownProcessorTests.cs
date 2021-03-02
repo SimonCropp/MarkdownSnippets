@@ -109,6 +109,81 @@ after
     }
 
     [Fact]
+    public Task WithSingleSnippet()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        List<string> lines = new() {"theValue1"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: new List<Snippet>
+            {
+                SnippetBuild("cs", "theKey")
+            });
+    }
+
+    [Fact]
+    public Task WithTwoLineSnippet()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        List<string> lines = new() {"theValue1"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: new List<Snippet>
+            {
+                Snippet.Build(
+                    language: "cs",
+                    startLine: 1,
+                    endLine: 2,
+                    value: @"the
+Snippet",
+                    key: "theKey",
+                    path: "thePath")
+            });
+    }
+
+    [Fact]
+    public Task WithMultiLineSnippet()
+    {
+        var content = @"
+before
+
+include: theKey
+
+after
+";
+        List<string> lines = new() {"theValue1"};
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: new List<Snippet>
+            {
+                Snippet.Build(
+                    language: "cs",
+                    startLine: 1,
+                    endLine: 2,
+                    value: @"the
+long
+Snippet",
+                    key: "theKey",
+                    path: "thePath")
+            });
+    }
+
+    [Fact]
     public Task WithDoubleInclude()
     {
         var content = @"

@@ -8,12 +8,14 @@ class IncludeProcessor
 {
     DocumentConvention convention;
     IReadOnlyList<Include> includes;
+    IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
     IReadOnlyList<string> allFiles;
     string targetDirectory;
 
     public IncludeProcessor(
         DocumentConvention convention,
         IReadOnlyList<Include> includes,
+        IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
         string targetDirectory,
         IReadOnlyList<string> allFiles)
     {
@@ -21,6 +23,7 @@ class IncludeProcessor
         this.targetDirectory = targetDirectory.Replace(@"\", "/");
         this.convention = convention;
         this.includes = includes;
+        this.snippets = snippets;
         this.allFiles = allFiles;
     }
 
@@ -89,6 +92,22 @@ class IncludeProcessor
         {
             AddInclude(lines, line, used, index, include, true);
             return;
+        }
+
+        if (snippets.TryGetValue(includeKey, out var snippetsResult))
+        {
+            if (snippetsResult.Count > 1)
+            {
+                throw new("Only one snippet may be used as an include");
+            }
+
+            if (snippetsResult.Count == 1)
+            {
+                var snippet = snippetsResult[0];
+                var snippetInclude = Include.Build(snippet.Key, snippet.Value.Lines(), snippet.Path);
+                AddInclude(lines, line, used, index, snippetInclude, true);
+                return;
+            }
         }
 
         if (includeKey.StartsWith("http"))
@@ -244,7 +263,7 @@ class IncludeProcessor
         }
     }
 
-    string? GetPath(Include include)
+    string? GetPath(IContent include)
     {
         if (include.Path == null)
         {

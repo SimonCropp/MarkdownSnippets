@@ -34,6 +34,7 @@ namespace MarkdownSnippets
             "user",
             // extra binary
             "mdb",
+            "binlog",
             "shp",
             "dbf",
             "shx",

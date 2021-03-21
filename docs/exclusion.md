@@ -54,6 +54,7 @@ When scanning for snippets the following are ignored:
 "user",
 // extra binary
 "mdb",
+"binlog",
 "shp",
 "dbf",
 "shx",
@@ -317,7 +318,7 @@ When scanning for snippets the following are ignored:
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L300' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfileextensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L32-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfileextensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * Files that cannot contain comments:

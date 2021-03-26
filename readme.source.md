@@ -9,8 +9,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-markdownsnippets?utm_source=nuget-markdownsnippets&utm_medium=referral&utm_campaign=enterprise).
 
-toc
-
 
 ## Value Proposition
 

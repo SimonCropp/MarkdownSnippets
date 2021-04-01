@@ -16,19 +16,6 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-markdownsnippets?utm_source=nuget-markdownsnippets&utm_medium=referral&utm_campaign=enterprise).
 
-<!-- toc -->
-## Contents
-
-  * [Value Proposition](#value-proposition)
-  * [Behavior](#behavior)
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Defining Snippets](#defining-snippets)
-  * [Using Snippets](#using-snippets)
-  * [Add to Windows Explorer](#add-to-windows-explorer)
-  * [More Documentation](#more-documentation)
-  * [Security contact information](#security-contact-information)<!-- endToc -->
-
 
 ## Value Proposition
 

@@ -366,7 +366,8 @@ namespace MarkdownSnippets
         {
             var cleanedLines = File.ReadAllLines(file)
                 .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart())).ToList();
-            return (string.Join(newLine, cleanedLines), cleanedLines.Count);
+            var text = string.Join(newLine, cleanedLines).Trim();
+            return (text, cleanedLines.Count);
         }
     }
 }

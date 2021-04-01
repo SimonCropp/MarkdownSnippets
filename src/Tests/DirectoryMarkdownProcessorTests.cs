@@ -228,6 +228,22 @@ public class DirectoryMarkdownProcessorTests
         return Verifier.Verify(File.ReadAllTextAsync(result));
     }
 
+    [Fact]
+    public Task FileSnippetWithWhiteSpace()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithWhiteSpace");
+        DirectoryMarkdownProcessor processor = new(
+            root,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+        markdownDirectoryIncludes: _ => true,
+        snippetDirectoryIncludes: _ => true);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verifier.Verify(File.ReadAllTextAsync(result));
+    }
 
     [Fact]
     public Task FileSnippet()

@@ -1,0 +1,30 @@
+Local
+
+<!-- snippet: sourceFile.txt -->
+<a id='snippet-sourceFile.txt'></a>
+```txt
+From Source File
+```
+<sup><a href='/sourceFile.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-sourceFile.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Relative Local
+
+<!-- snippet: ./sourceFile.txt -->
+<a id='snippet-./sourceFile.txt'></a>
+```txt
+From Source File
+```
+<sup><a href='#snippet-./sourceFile.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Rooted
+
+<!-- snippet: /sourceFile.txt -->
+<a id='snippet-/sourceFile.txt'></a>
+```txt
+From Source File
+```
+<sup><a href='/sourceFile.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-/sourceFile.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+

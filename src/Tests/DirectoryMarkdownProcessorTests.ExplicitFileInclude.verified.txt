@@ -1,4 +1,4 @@
-The include text 1 <!-- singleLineInclude: fileToInclude1.txt -->
+﻿The include text 1 <!-- singleLineInclude: fileToInclude1.txt -->
 
 The include text 2 <!-- singleLineInclude: /fileToInclude2.txt -->
 

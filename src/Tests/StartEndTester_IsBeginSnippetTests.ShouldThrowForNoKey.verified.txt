@@ -1,4 +1,4 @@
-{
+﻿{
   Type: SnippetReadingException,
   Message: 
 No Key could be derived.

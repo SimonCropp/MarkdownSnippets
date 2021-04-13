@@ -1,4 +1,4 @@
-some content
+﻿some content
 
 The include text <!-- include: fileToInclude.txt -->
 

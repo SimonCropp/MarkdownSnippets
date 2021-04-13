@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Item1: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ,
     Item2: 20

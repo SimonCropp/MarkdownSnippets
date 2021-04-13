@@ -1,4 +1,4 @@
-{
+﻿{
   success: true,
   content: 
 # Auto detect text files and perform LF normalization

@@ -1,4 +1,4 @@
-<!-- snippet: sourceFile.dot -->
+﻿<!-- snippet: sourceFile.dot -->
 <a id='snippet-sourceFile.dot'></a>
 ```dot
 From Source File

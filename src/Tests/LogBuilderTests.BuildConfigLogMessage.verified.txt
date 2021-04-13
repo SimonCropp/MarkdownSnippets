@@ -1,4 +1,4 @@
-Config:
+﻿Config:
     TargetDirectory: theRoot
     UrlPrefix: 
     LinkFormat: Tfs

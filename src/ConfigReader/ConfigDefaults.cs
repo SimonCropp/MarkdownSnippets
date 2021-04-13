@@ -97,12 +97,7 @@ public static class ConfigDefaults
             return input.Value;
         }
 
-        if (config != null)
-        {
-            return config.Value;
-        }
-
-        return null;
+        return config;
     }
 
     static string? GetValueOrDefault(string name, string? input, string? config)

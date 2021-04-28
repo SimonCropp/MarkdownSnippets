@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
@@ -12,7 +13,7 @@ public class SnippetFileFinderTests
     [Fact]
     public Task Nested()
     {
-        var directory = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Nested"));
+        var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/Nested");
         FileFinder finder = new(
             directory,
             DocumentConvention.SourceTransform,
@@ -26,7 +27,7 @@ public class SnippetFileFinderTests
     [Fact]
     public Task Simple()
     {
-        var directory = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/Simple"));
+        var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/Simple");
         FileFinder finder = new(
             directory,
             DocumentConvention.SourceTransform,
@@ -43,7 +44,7 @@ public class SnippetFileFinderTests
         ConcurrentBag<string> directories = new();
         ConcurrentBag<string> snippetDirectories = new();
         ConcurrentBag<string> markdownDirectories = new();
-        var directory = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "SnippetFileFinder/VerifyLambdasAreCalled"));
+        var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/VerifyLambdasAreCalled");
         FileFinder finder = new(
             directory,
             DocumentConvention.SourceTransform,

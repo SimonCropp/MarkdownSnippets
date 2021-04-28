@@ -1,6 +1,6 @@
 ﻿[
-  {CurrentDirectory}\SnippetFileFinder\Simple\code1.txt,
-  {CurrentDirectory}\SnippetFileFinder\Simple\code2.txt,
-  {CurrentDirectory}\SnippetFileFinder\Simple\code3.txt,
-  {CurrentDirectory}\SnippetFileFinder\Simple\code4.txt
+  {ProjectDirectory}SnippetFileFinder/Simple\code1.txt,
+  {ProjectDirectory}SnippetFileFinder/Simple\code2.txt,
+  {ProjectDirectory}SnippetFileFinder/Simple\code3.txt,
+  {ProjectDirectory}SnippetFileFinder/Simple\code4.txt
 ]

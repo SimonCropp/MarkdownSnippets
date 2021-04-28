@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VerifyXunit;
 using MarkdownSnippets;
+using VerifyTests;
 using Xunit;
 
 [UsesVerify]
@@ -30,7 +31,7 @@ public class GitHashReaderTests
 
     static Task VerifyInner(string path)
     {
-        var directory = Path.Combine(AssemblyLocation.CurrentDirectory, path);
+        var directory = Path.Combine(AttributeReader.GetProjectDirectory(), path);
         var hash = GitHashReader.GetHashForGitDirectory(directory);
         return Verifier.Verify(hash);
     }

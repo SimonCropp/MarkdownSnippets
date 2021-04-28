@@ -31,7 +31,7 @@ static class LogBuilder
         var maxWidth = config.MaxWidth;
         if (maxWidth != int.MaxValue && maxWidth != 0)
         {
-            builder.AppendLine(@$"    MaxWidth: {maxWidth}");
+            builder.AppendLine($"    MaxWidth: {maxWidth}");
         }
 
         if (config.ExcludeDirectories.Any())

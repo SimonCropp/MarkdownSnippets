@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MarkdownSnippets;
@@ -33,6 +34,7 @@ finally
 
 static async Task Inner(string targetDirectory, ConfigInput configInput)
 {
+    targetDirectory = Path.GetFullPath(targetDirectory);
     var (fileConfig, configFilePath) = ConfigReader.Read(targetDirectory);
     var configResult = ConfigDefaults.Convert(fileConfig, configInput);
 

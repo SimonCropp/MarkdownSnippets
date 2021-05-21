@@ -7,8 +7,6 @@
 
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-markdownsnippets?utm_source=nuget-markdownsnippets&utm_medium=referral&utm_campaign=enterprise).
-
 
 ## Value Proposition
 
@@ -222,10 +220,6 @@ snippet: context-menu.reg
 
 include: doc-index
 
-
-## Security contact information
-
-To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Credits

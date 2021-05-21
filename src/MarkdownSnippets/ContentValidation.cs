@@ -107,6 +107,7 @@ static class ContentValidation
             var error = $"Invalid word detected: '{invalidString.Trim()}'";
             yield return (error, indexOf);
         }
+
         foreach (var phrase in phrases)
         {
             var indexOf = cleanedLine.IndexOf(phrase.Key);
@@ -115,7 +116,7 @@ static class ContentValidation
                 continue;
             }
 
-            var error = $"Invalid phrase detected: '{phrase.Key}'. Instead consider {phrase.Value}";
+            var error = $"Invalid phrase detected: '{phrase.Key}'. Instead consider '{phrase.Value}'";
             yield return (error, indexOf);
         }
     }

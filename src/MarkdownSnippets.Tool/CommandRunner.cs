@@ -24,7 +24,7 @@ static class CommandRunner
                 options =>
                 {
                     ValidateAndApplyDefaults(options);
-                    ConfigInput configInput = new()
+                    ConfigInput input = new()
                     {
                         ReadOnly = options.ReadOnly,
                         ValidateContent = options.ValidateContent,
@@ -43,7 +43,7 @@ static class CommandRunner
                         Convention = options.Convention,
                         HashSnippetAnchors = options.HashSnippetAnchors
                     };
-                    return invoke(options.TargetDirectory!, configInput);
+                    return invoke(options.TargetDirectory!, input);
                 });
     }
 

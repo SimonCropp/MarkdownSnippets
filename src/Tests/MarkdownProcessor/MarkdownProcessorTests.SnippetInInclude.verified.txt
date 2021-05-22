@@ -1,4 +1,4 @@
-{
+﻿{
   UsedSnippets: [
     {
       Key: snippet1,
@@ -9,7 +9,7 @@
       IsInError: false
     }
   ],
-  result: 
+  result:
 
 some text
 

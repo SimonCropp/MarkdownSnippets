@@ -1,13 +1,13 @@
-{
+﻿{
   Type: SnippetException,
-  Message: 
+  Message:
 Failed to deserialize configuration. Error: There was an error deserializing the object of type ConfigSerialization. Encountered unexpected character '"'..
 Content:
 {
   "ValidateContent": true
   "Convention": "InPlaceOverwrite"
 },
-  StackTrace: 
+  StackTrace:
 at ConfigReader.DeSerialize(String contents)
 at ConfigReader.Parse(String contents, String path)
 at ConfigReaderTests.<>c.<BadJson>b__1_0()

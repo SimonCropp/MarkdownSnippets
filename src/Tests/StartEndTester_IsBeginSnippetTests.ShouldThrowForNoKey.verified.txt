@@ -1,6 +1,6 @@
 ﻿{
   Type: SnippetReadingException,
-  Message: 
+  Message:
 No Key could be derived.
 Path: file
 Line: '<!-- begin-snippet: -->'

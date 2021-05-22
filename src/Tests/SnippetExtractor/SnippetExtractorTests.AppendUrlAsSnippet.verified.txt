@@ -1,8 +1,8 @@
-[
+﻿[
   {
     Key: appveyor.yml,
     Language: yml,
-    Value: 
+    Value:
 image: Visual Studio 2019
 skip_commits:
   message: /docs|Merge pull request.*/

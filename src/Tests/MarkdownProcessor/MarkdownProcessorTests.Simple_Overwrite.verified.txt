@@ -1,4 +1,4 @@
-{
+﻿{
   UsedSnippets: [
     {
       Key: snippet1,
@@ -19,7 +19,7 @@
     {
       Key: FileToUseAsSnippet.txt,
       Language: txt,
-      Value: 
+      Value:
 The
 Content
 From
@@ -31,7 +31,7 @@ File,
     {
       Key: /FileToUseAsSnippet.txt,
       Language: txt,
-      Value: 
+      Value:
 The
 Content
 From
@@ -41,7 +41,7 @@ File,
       IsInError: false
     }
   ],
-  result: 
+  result:
 
 <!-- snippet: snippet1 -->
 ```cs

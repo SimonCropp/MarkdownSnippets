@@ -1,6 +1,6 @@
 ﻿{
   Type: SnippetReadingException,
-  Message: 
+  Message:
 Key cannot contain whitespace or start/end with symbols.
 Key: key_
 Path: file

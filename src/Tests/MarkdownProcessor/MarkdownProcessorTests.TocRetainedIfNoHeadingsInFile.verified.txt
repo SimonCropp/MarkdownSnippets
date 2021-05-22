@@ -1,5 +1,5 @@
-{
-  result: 
+﻿{
+  result:
 
 # Title
 

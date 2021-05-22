@@ -1,8 +1,8 @@
-[
+﻿[
   {
     Key: codekey,
     Language: cs,
-    Value: 
+    Value:
 BeforeWhiteSpace
 
 AfterWhiteSpace,

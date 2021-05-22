@@ -1,8 +1,8 @@
-[
+﻿[
   {
     Key: keychild,
     Language: cs,
-    Value: 
+    Value:
 b
 c,
     Error: ,

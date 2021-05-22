@@ -1,7 +1,7 @@
-{
+﻿{
   Key: codekey,
   Language: cs,
-  Value: 
+  Value:
 A
 B
 C

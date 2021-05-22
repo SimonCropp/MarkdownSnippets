@@ -19,7 +19,7 @@
       File: {CurrentDirectory}\DirectoryMarkdownProcessor\ValidationErrors\one.source.md
     }
   ],
-  Message: 
+  Message:
 Content validation errors:
 Invalid word detected: 'you'
   File: {CurrentDirectory}\DirectoryMarkdownProcessor\ValidationErrors\one.source.md

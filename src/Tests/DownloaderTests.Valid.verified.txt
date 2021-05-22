@@ -1,6 +1,6 @@
 ﻿{
   success: true,
-  content: 
+  content:
 # Auto detect text files and perform LF normalization
 * text=auto eol=crlf
 *.xml     -text 

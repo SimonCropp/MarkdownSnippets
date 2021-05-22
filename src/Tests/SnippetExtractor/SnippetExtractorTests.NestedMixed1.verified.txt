@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Key: keychild,
     Language: cs,
@@ -10,7 +10,7 @@
   {
     Key: keyparent,
     Language: cs,
-    Value: 
+    Value:
 a
 b
 c,

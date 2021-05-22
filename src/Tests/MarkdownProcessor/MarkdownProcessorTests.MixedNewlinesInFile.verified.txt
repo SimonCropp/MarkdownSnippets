@@ -1,9 +1,9 @@
-{
+﻿{
   UsedSnippets: [
     {
       Key: FileWithMixedNewLines.txt,
       Language: txt,
-      Value: 
+      Value:
 a
 b
 c
@@ -13,7 +13,7 @@ d,
       IsInError: false
     }
   ],
-  result: 
+  result:
 
 some other text
 

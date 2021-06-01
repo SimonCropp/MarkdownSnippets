@@ -112,7 +112,6 @@ public class DirectoryMarkdownProcessorTests
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             writeHeader: false,
-            newLine: "\n",
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,

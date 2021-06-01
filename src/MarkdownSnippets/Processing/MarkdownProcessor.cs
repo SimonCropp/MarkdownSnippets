@@ -281,7 +281,10 @@ namespace MarkdownSnippets
 
             MissingSnippet missing = new(key, line.LineNumber, line.Path);
             missings.Add(missing);
+            appendLine("```");
             appendLine($"** Could not find snippet '{key}' **");
+            appendLine("```");
+            appendLine("<!-- endSnippet -->");
         }
 
         bool TryGetSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)

@@ -105,6 +105,25 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteWithFileSnippetMissing()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteWithFileSnippetMissing");
+        DirectoryMarkdownProcessor processor = new(
+            root,
+            convention: DocumentConvention.InPlaceOverwrite,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true,
+            treatMissingAsWarning: true);
+
+        processor.Run();
+
+        FileInfo fileInfo = new(Path.Combine(root, "file.md"));
+        return Verifier.VerifyFile(fileInfo);
+    }
+
+    [Fact]
     public void ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");

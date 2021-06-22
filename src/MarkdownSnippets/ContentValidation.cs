@@ -127,11 +127,7 @@ static class ContentValidation
         builder.Append(' ');
         foreach (var ch in input)
         {
-            if (ch == '\'' ||
-                ch == '?' ||
-                ch == '.' ||
-                ch == ','
-            )
+            if (ch is '\'' or '?' or '.' or ',')
             {
                 builder.Append(' ');
             }

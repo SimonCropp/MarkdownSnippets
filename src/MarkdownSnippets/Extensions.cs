@@ -119,7 +119,7 @@ static class Extensions
         for (var index = input.Length - 1; index >= startIndex; index--)
         {
             var ch = input[index];
-            if (char.IsLetterOrDigit(ch) || ch == ']' || ch == ' ' || ch == ')')
+            if (char.IsLetterOrDigit(ch) || ch is ']' or ' ' or ')')
             {
                 return input.Substring(startIndex,  index + 1 - startIndex);
             }

@@ -9,10 +9,11 @@ namespace MarkdownSnippets
             var suffix = Path.GetFileName(path).ToLowerInvariant();
             return suffix.StartsWith("_") ||
                    suffix.StartsWith(".") ||
-                   suffix == "packages" ||
-                   suffix == "node_modules" ||
-                   suffix == "bin" ||
-                   suffix == "obj";
+                   suffix is
+                       "packages" or
+                       "node_modules" or
+                       "bin" or
+                       "obj";
         }
     };
 }

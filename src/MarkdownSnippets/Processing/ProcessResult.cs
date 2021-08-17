@@ -17,10 +17,6 @@ namespace MarkdownSnippets
             IReadOnlyList<MissingInclude> missingIncludes,
             IReadOnlyList<ValidationError> validationErrors)
         {
-            Guard.AgainstNull(usedSnippets, nameof(usedSnippets));
-            Guard.AgainstNull(missingSnippets, nameof(missingSnippets));
-            Guard.AgainstNull(usedIncludes, nameof(usedIncludes));
-            Guard.AgainstNull(validationErrors, nameof(validationErrors));
             UsedSnippets = usedSnippets;
             UsedIncludes = usedIncludes;
             MissingIncludes = missingIncludes;

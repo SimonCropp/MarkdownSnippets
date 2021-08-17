@@ -16,8 +16,6 @@ namespace MarkdownSnippets
 
         public ReadSnippets(IReadOnlyList<Snippet> snippets, IReadOnlyList<string> files)
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(files, nameof(files));
             Snippets = snippets;
             Files = files;
             SnippetsInError = Snippets.Where(_ => _.IsInError).Distinct().ToList();

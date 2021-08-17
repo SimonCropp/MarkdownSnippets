@@ -31,7 +31,6 @@ namespace MarkdownSnippets
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
             Guard.AgainstEmpty(path, nameof(path));
-            Guard.AgainstNull(lines, nameof(lines));
             return new()
             {
                 lines = lines,

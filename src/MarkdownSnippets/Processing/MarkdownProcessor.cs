@@ -48,11 +48,6 @@ namespace MarkdownSnippets
             IEnumerable<string>? tocExcludes = null,
             string newLine = "\n")
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendSnippets, nameof(appendSnippets));
-            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-            Guard.AgainstNull(includes, nameof(includes));
-            Guard.AgainstNull(newLine, nameof(newLine));
             Guard.AgainstEmpty(header, nameof(header));
             Guard.AgainstNegativeAndZero(tocLevel, nameof(tocLevel));
             Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
@@ -93,7 +88,6 @@ namespace MarkdownSnippets
 
         public string Apply(string input, string? file = null)
         {
-            Guard.AgainstNull(input, nameof(input));
             Guard.AgainstEmpty(file, nameof(file));
             var builder = StringBuilderCache.Acquire();
             try
@@ -120,8 +114,6 @@ namespace MarkdownSnippets
         /// </summary>
         public ProcessResult Apply(TextReader textReader, TextWriter writer, string? file = null)
         {
-            Guard.AgainstNull(textReader, nameof(textReader));
-            Guard.AgainstNull(writer, nameof(writer));
             Guard.AgainstEmpty(file, nameof(file));
             var lines = Lines.ReadAllLines(textReader, null).ToList();
             writer.NewLine = newLine;

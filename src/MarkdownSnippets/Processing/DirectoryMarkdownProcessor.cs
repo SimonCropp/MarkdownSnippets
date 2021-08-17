@@ -177,7 +177,6 @@ namespace MarkdownSnippets
         public void AddSnippets(List<Snippet> snippets)
         {
             var stopwatch = Stopwatch.StartNew();
-            Guard.AgainstNull(snippets, nameof(snippets));
             var files = snippets
                 .Where(x => x.Path != null)
                 .Select(x => x.Path!)
@@ -198,13 +197,11 @@ namespace MarkdownSnippets
 
         public void AddSnippets(params Snippet[] snippets)
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
             AddSnippets(snippets.ToList());
         }
 
         public void AddMdFiles(params string[] files)
         {
-            Guard.AgainstNull(files, nameof(files));
             foreach (var file in files)
             {
                 mdFiles.Add(file);
@@ -213,9 +210,6 @@ namespace MarkdownSnippets
 
         public void Run()
         {
-            Guard.AgainstNull(Snippets, nameof(snippets));
-            Guard.AgainstNull(snippetSourceFiles, nameof(snippetSourceFiles));
-
             if (!mdFiles.Any())
             {
                 if (convention == DocumentConvention.InPlaceOverwrite)

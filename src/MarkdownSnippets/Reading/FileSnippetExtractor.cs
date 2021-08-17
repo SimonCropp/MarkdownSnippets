@@ -23,7 +23,6 @@ namespace MarkdownSnippets
 
         public static async Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, IEnumerable<string> urls)
         {
-            Guard.AgainstNull(urls, nameof(urls));
             foreach (var url in urls)
             {
                 await AppendUrlAsSnippet(snippets, url);
@@ -32,7 +31,6 @@ namespace MarkdownSnippets
 
         public static async Task AppendUrlAsSnippet(ICollection<Snippet> snippets, string url, string key)
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
             Guard.AgainstNullAndEmpty(url, nameof(url));
             var (success, content) = await Downloader.DownloadContent(url);
             if (!success)
@@ -52,7 +50,6 @@ namespace MarkdownSnippets
 
         public static void AppendFilesAsSnippets(this ICollection<Snippet> snippets, params string[] filePaths)
         {
-            Guard.AgainstNull(filePaths, nameof(filePaths));
             foreach (var filePath in filePaths)
             {
                 AppendFileAsSnippet(snippets, filePath);
@@ -61,7 +58,6 @@ namespace MarkdownSnippets
 
         public static void AppendFileAsSnippet(ICollection<Snippet> snippets, string filePath, string key)
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
             Guard.FileExists(filePath, nameof(filePath));
             var text = File.ReadAllText(filePath);
             var snippet = Snippet.Build(1, text.LineCount(), text, key, GetLanguageFromPath(filePath), filePath);
@@ -76,8 +72,6 @@ namespace MarkdownSnippets
         /// <param name="newLine">The string to use as a line separator in snippets.</param>
         public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n")
         {
-            Guard.AgainstNull(paths, nameof(paths));
-            Guard.AgainstNull(newLine, nameof(newLine));
             return paths
                 .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
                 .SelectMany(path => Read(path, maxWidth, newLine));
@@ -92,7 +86,6 @@ namespace MarkdownSnippets
         public static IEnumerable<Snippet> Read(string path, int maxWidth = int.MaxValue, string newLine = "\n")
         {
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
-            Guard.AgainstNull(newLine, nameof(newLine));
             Guard.AgainstNullAndEmpty(path, nameof(path));
             if (!File.Exists(path))
             {
@@ -113,9 +106,7 @@ namespace MarkdownSnippets
         public static IEnumerable<Snippet> Read(TextReader textReader, string path, int maxWidth = int.MaxValue, string newLine = "\n")
         {
             Guard.AgainstNegativeAndZero(maxWidth, nameof(maxWidth));
-            Guard.AgainstNull(textReader, nameof(textReader));
             Guard.AgainstNullAndEmpty(path, nameof(path));
-            Guard.AgainstNull(newLine, nameof(newLine));
             return GetSnippets(textReader, path, maxWidth, newLine);
         }
 

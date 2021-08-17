@@ -10,9 +10,6 @@ namespace MarkdownSnippets
     {
         public static void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendLine, nameof(appendLine));
-
             foreach (var snippet in snippets)
             {
                 WriteSnippet(appendLine, snippet);

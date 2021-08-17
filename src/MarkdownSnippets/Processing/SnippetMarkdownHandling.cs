@@ -39,8 +39,6 @@ namespace MarkdownSnippets
         public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
         {
             Guard.AgainstNullAndEmpty(key, nameof(key));
-            Guard.AgainstNull(snippets, nameof(snippets));
-            Guard.AgainstNull(appendLine, nameof(appendLine));
             uint index = 0;
             foreach (var snippet in snippets)
             {

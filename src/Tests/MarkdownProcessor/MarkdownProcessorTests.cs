@@ -118,11 +118,11 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1"};
+
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 SnippetBuild("cs", "theKey")
             });
@@ -138,11 +138,11 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1"};
+
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 Snippet.Build(
                     language: "cs",
@@ -165,11 +165,11 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1"};
+
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 Snippet.Build(
                     language: "cs",

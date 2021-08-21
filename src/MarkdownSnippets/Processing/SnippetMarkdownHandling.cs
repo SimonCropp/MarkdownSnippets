@@ -83,22 +83,14 @@ namespace MarkdownSnippets
             var linkForAnchor = $"<a href='#{anchor}' title='Start of snippet'>anchor</a>";
             if (snippet.Path == null)
             {
-                // id anchors not supported on TFS
-                //https://developercommunity.visualstudio.com/content/problem/63289/anchors-in-markdown-documents-not-working.html
-                if (linkFormat != LinkFormat.Tfs)
-                {
-                    supText = linkForAnchor;
-                    return true;
-                }
-
-                supText = null;
-                return false;
+                supText = linkForAnchor;
+                return true;
             }
 
             var path = snippet.Path.Replace(@"\", "/");
             if (!path.StartsWith(targetDirectory))
             {
-                //if file is not in the targetDirectory then the url wont work
+                // if file is not in the targetDirectory then the url wont work
                 supText = linkForAnchor;
                 return true;
             }
@@ -107,14 +99,7 @@ namespace MarkdownSnippets
 
             var sourceLink = BuildLink(snippet, path);
             var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='Snippet source file'>snippet source</a>";
-            if (linkFormat == LinkFormat.Tfs)
-            {
-                supText = linkForSource;
-            }
-            else
-            {
-                supText = $"{linkForSource} | {linkForAnchor}";
-            }
+            supText = $"{linkForSource} | {linkForAnchor}";
 
             return true;
         }

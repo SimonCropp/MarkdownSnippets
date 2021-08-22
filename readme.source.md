@@ -273,7 +273,7 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
 #### Command line
 
 ```ps
-mdsnippets --urlPrefix "TheUrlPrefix"
+mdsnippets --url-prefix "TheUrlPrefix"
 ```
 
 

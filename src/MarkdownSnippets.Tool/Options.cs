@@ -81,7 +81,7 @@ public class Options
 " + HeaderWriter.DefaultHeader)]
     public string? Header { get; set; }
 
-    [Option("urlPrefix",
+    [Option("url-prefix",
         Required = false,
         HelpText = "The prefix to add to all the snippet URLs. Optional. Defaults to: null")]
     public string? UrlPrefix { get; set; }

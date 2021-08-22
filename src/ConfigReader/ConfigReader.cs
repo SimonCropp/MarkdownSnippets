@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -45,11 +44,6 @@ public static class ConfigReader
     public static ConfigInput Parse(string contents, string path)
     {
         var config = DeSerialize(contents);
-
-        if (config.Exclude.Any())
-        {
-            throw new ConfigurationException($"`Exclude` is obsolete. Use `ExcludeDirectories`. FilePath: {path}.");
-        }
 
         return new()
         {

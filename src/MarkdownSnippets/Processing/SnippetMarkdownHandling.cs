@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -54,10 +53,8 @@ namespace MarkdownSnippets
             appendLine($"<a id='{anchor}'></a>");
             WriteSnippetValueAndLanguage(appendLine, snippet);
 
-            if (TryGetSupText(snippet,anchor, out var supText))
-            {
-                appendLine($"<sup>{supText}</sup>");
-            }
+            var supText = GetSupText(snippet, anchor);
+            appendLine($"<sup>{supText}</sup>");
         }
 
         string GetAnchorText(Snippet snippet, uint index)
@@ -78,30 +75,26 @@ namespace MarkdownSnippets
             return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
         }
 
-        bool TryGetSupText(Snippet snippet, string anchor, [NotNullWhen(true)] out string? supText)
+        string GetSupText(Snippet snippet, string anchor)
         {
             var linkForAnchor = $"<a href='#{anchor}' title='Start of snippet'>anchor</a>";
             if (snippet.Path == null)
             {
-                supText = linkForAnchor;
-                return true;
+                return linkForAnchor;
             }
 
             var path = snippet.Path.Replace(@"\", "/");
             if (!path.StartsWith(targetDirectory))
             {
                 // if file is not in the targetDirectory then the url wont work
-                supText = linkForAnchor;
-                return true;
+                return linkForAnchor;
             }
 
             path = path.Substring(targetDirectory.Length);
 
             var sourceLink = BuildLink(snippet, path);
             var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='Snippet source file'>snippet source</a>";
-            supText = $"{linkForSource} | {linkForAnchor}";
-
-            return true;
+            return $"{linkForSource} | {linkForAnchor}";
         }
 
         static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)

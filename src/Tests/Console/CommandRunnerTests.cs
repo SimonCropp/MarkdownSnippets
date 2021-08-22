@@ -49,6 +49,12 @@ public class CommandRunnerTests
         await CommandRunner.RunCommand(Capture, "--hash-snippet-anchors", "true");
         await VerifyResult();
     }
+    [Fact]
+    public async Task OmitSnippetLinks()
+    {
+        await CommandRunner.RunCommand(Capture, "--omit-snippet-links", "true");
+        await VerifyResult();
+    }
 
     [Fact]
     public async Task ValidateContentShort()

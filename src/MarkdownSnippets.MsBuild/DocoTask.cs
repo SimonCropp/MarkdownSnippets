@@ -27,6 +27,7 @@ namespace MarkdownSnippets
         public List<string> UrlsAsSnippets { get; set; } = new();
         public bool? TreatMissingAsWarning { get; set; }
         public bool? HashSnippetAnchors { get; set; }
+        public bool? OmitSnippetLinks { get; set; }
 
         public override bool Execute()
         {
@@ -54,6 +55,7 @@ namespace MarkdownSnippets
                     UrlsAsSnippets = UrlsAsSnippets,
                     TreatMissingAsWarning = TreatMissingAsWarning,
                     HashSnippetAnchors = HashSnippetAnchors,
+                    OmitSnippetLinks = OmitSnippetLinks,
                 });
 
             var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
@@ -76,7 +78,8 @@ namespace MarkdownSnippets
                 maxWidth: configResult.MaxWidth,
                 urlPrefix: configResult.UrlPrefix,
                 validateContent: configResult.ValidateContent,
-                hashSnippetAnchors: configResult.HashSnippetAnchors);
+                hashSnippetAnchors: configResult.HashSnippetAnchors,
+                omitSnippetLinks: configResult.OmitSnippetLinks);
 
 
             try

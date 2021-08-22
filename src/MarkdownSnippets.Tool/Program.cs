@@ -58,7 +58,8 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
         maxWidth: configResult.MaxWidth,
         urlPrefix: configResult.UrlPrefix,
         validateContent: configResult.ValidateContent,
-        hashSnippetAnchors: configResult.HashSnippetAnchors);
+        hashSnippetAnchors: configResult.HashSnippetAnchors,
+        omitSnippetLinks: configResult.OmitSnippetLinks);
 
     if (configResult.UrlsAsSnippets.Any())
     {

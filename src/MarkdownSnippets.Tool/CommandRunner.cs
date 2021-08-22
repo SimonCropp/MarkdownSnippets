@@ -41,7 +41,8 @@ static class CommandRunner
                         UrlsAsSnippets = options.UrlsAsSnippets.ToList(),
                         TreatMissingAsWarning = options.TreatMissingAsWarning,
                         Convention = options.Convention,
-                        HashSnippetAnchors = options.HashSnippetAnchors
+                        HashSnippetAnchors = options.HashSnippetAnchors,
+                        OmitSnippetLinks = options.OmitSnippetLinks
                     };
                     return invoke(options.TargetDirectory!, input);
                 });

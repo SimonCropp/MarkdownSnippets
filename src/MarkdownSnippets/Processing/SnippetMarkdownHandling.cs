@@ -14,13 +14,15 @@ namespace MarkdownSnippets
     public class SnippetMarkdownHandling
     {
         LinkFormat linkFormat;
+        bool omitSnippetLinks;
         string? urlPrefix;
         string targetDirectory;
         Func<Snippet, string> getAnchorId;
 
-        public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, string? urlPrefix = null)
+        public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, bool omitSnippetLinks, string? urlPrefix = null)
         {
             this.linkFormat = linkFormat;
+            this.omitSnippetLinks = omitSnippetLinks;
             this.urlPrefix = urlPrefix;
             Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
             targetDirectory = Path.GetFullPath(targetDirectory);
@@ -54,7 +56,7 @@ namespace MarkdownSnippets
             appendLine($"<a id='{anchor}'></a>");
             WriteSnippetValueAndLanguage(appendLine, snippet);
 
-            if (TryGetSupText(snippet,anchor, out var supText))
+            if (TryGetSupText(snippet, anchor, out var supText))
             {
                 appendLine($"<sup>{supText}</sup>");
             }

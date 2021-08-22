@@ -12,9 +12,22 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task Append()
     {
-        StringBuilder builder = new();
+        var builder = new StringBuilder();
         var snippets = Snippets();
-        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, false);
+        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false,false);
+        using (StringWriter writer = new(builder))
+        {
+            markdownHandling.Append("key1", snippets, writer.WriteLine);
+        }
+
+        return Verifier.Verify(builder.ToString());
+    }
+    [Fact]
+    public Task AppendOmitSnippetLinks()
+    {
+        var builder = new StringBuilder();
+        var snippets = Snippets();
+        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false,true);
         using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -26,9 +39,9 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task AppendPrefixed()
     {
-        StringBuilder builder = new();
+        var builder = new StringBuilder();
         var snippets = Snippets();
-        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, false, "prefix-");
+        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false,false, "prefix-");
         using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -40,9 +53,9 @@ public class SnippetMarkdownHandlingTests
     [Fact]
     public Task AppendHashed()
     {
-        StringBuilder builder = new();
+        var builder = new StringBuilder();
         var snippets = Snippets();
-        SnippetMarkdownHandling markdownHandling = new("c:/dir/", LinkFormat.GitHub, true);
+        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub,false, true);
         using (StringWriter writer = new(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);

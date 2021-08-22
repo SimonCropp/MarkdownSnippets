@@ -94,7 +94,7 @@ public class CommandRunnerTests
     [Fact]
     public async Task ReadOnlyLong()
     {
-        await CommandRunner.RunCommand(Capture, "--readonly", "false");
+        await CommandRunner.RunCommand(Capture, "--read-only", "false");
         await VerifyResult();
     }
 

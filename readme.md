@@ -114,7 +114,7 @@ Can be enabled in [mdsnippets.json config file](/docs/config-file.md).
 
 ### Mark resulting files as read only
 
-To mark the resulting documents files as read only use `-r` or `--readonly`.
+To mark the resulting documents files as read only use `-r` or `--read-only`.
 
 This can be helpful in preventing incorrectly editing the documents file instead of the `.source.` file conventions.
 
@@ -123,7 +123,7 @@ mdsnippets -r true
 ```
 
 ```ps
-mdsnippets --readonly true
+mdsnippets --read-only true
 ```
 
 

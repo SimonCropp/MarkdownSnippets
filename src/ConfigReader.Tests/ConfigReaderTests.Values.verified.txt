@@ -1,7 +1,8 @@
-{
+﻿{
   ReadOnly: false,
   ValidateContent: true,
   HashSnippetAnchors: true,
+  OmitSnippetLinks: true,
   LinkFormat: Tfs,
   Convention: InPlaceOverwrite,
   TocLevel: 3,

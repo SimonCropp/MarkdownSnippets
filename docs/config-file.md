@@ -62,10 +62,11 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingAsWarning": true,
   "ValidateContent": true,
-  "HashSnippetAnchors": true
+  "HashSnippetAnchors": true,
+  "OmitSnippetLinks": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

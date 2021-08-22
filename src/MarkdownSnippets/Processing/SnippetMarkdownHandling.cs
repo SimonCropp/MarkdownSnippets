@@ -50,6 +50,12 @@ namespace MarkdownSnippets
 
         void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
         {
+            if (omitSnippetLinks)
+            {
+                WriteSnippetValueAndLanguage(appendLine, snippet);
+                return;
+            }
+
             var anchor = GetAnchorText(snippet, index);
 
             appendLine($"<a id='{anchor}'></a>");
@@ -72,7 +78,7 @@ namespace MarkdownSnippets
 
         static string ComputeId(Snippet snippet)
         {
-            using SHA1Managed sha = new();
+            using var sha = new SHA1Managed();
             var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(snippet.Key));
             return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
         }

@@ -16,6 +16,15 @@
       ],
       "default": false
     },
+    "OmitSnippetLinks": {
+      "$id": "#root/OmitSnippetLinks",
+      "title": "OmitSnippetLinks",
+      "type": "boolean",
+      "examples": [
+        true
+      ],
+      "default": false
+    },
     "ReadOnly": {
       "$id": "#root/ReadOnly",
       "title": "Readonly",

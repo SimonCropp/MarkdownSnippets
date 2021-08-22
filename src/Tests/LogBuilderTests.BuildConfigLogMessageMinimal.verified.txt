@@ -6,6 +6,7 @@
     TocLevel: 0
     ValidateContent: False
     HashSnippetAnchors: False
+    OmitSnippetLinks: False
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
     ReadOnly: 

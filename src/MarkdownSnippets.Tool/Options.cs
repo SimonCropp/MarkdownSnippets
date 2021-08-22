@@ -70,6 +70,11 @@ public class Options
         HelpText = "The default behavior for snippet anchors to be the name of the snippet. To minimize the outputted html a hash can be used. Optional. Defaults to false")]
     public bool? HashSnippetAnchors { get; set; }
 
+    [Option("omit-snippet-links",
+        Required = false,
+        HelpText = "The default behavior snippet links is to have both an achnor and a link to the snippet source. Optional. Defaults to false")]
+    public bool? OmitSnippetLinks { get; set; }
+
     [Option("header",
         Required = false,
         HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:

@@ -48,10 +48,11 @@ namespace MarkdownSnippets
             string? urlPrefix = null,
             bool validateContent = false,
             string? newLine = null,
-            bool hashSnippetAnchors = false) :
+            bool hashSnippetAnchors = false,
+            bool omitSnippetLinks = false) :
             this(
                 targetDirectory,
-                new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, urlPrefix).Append,
+                new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, omitSnippetLinks, urlPrefix).Append,
                 directoryIncludes,
                 markdownDirectoryIncludes,
                 snippetDirectoryIncludes,

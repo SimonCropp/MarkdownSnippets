@@ -234,6 +234,27 @@ mdsnippets -l Bitbucket
 ```
 
 
+### OmitSnippetLinks
+
+The links below a snippet can be omitted.
+
+
+#### Command line
+
+```ps
+mdsnippets --omit-snippet-links true
+```
+
+
+#### Config file
+
+```
+{
+  "OmitSnippetLinks": true
+}
+```
+
+
 #### Values
 
 snippet: LinkFormat.cs

@@ -45,7 +45,7 @@ public class Options
         HelpText = "Urls to files to be included as snippets. Optional. Space ' ' separated for multiple values.")]
     public IList<string> UrlsAsSnippets { get; set; } = null!;
 
-    [Option('r', "readonly",
+    [Option('r', "read-only",
         Required = false,
         HelpText = "Set resultant md files as read-only. Optional. Defaults to false.")]
     public bool? ReadOnly { get; set; }

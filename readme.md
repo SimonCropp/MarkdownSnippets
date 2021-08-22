@@ -241,6 +241,27 @@ mdsnippets -l Bitbucket
 ```
 
 
+### OmitSnippetLinks
+
+The links below a snippet can be omitted.
+
+
+#### Command line
+
+```ps
+mdsnippets --omit-snippet-links true
+```
+
+
+#### Config file
+
+```
+{
+  "OmitSnippetLinks": true
+}
+```
+
+
 #### Values
 
 <!-- snippet: LinkFormat.cs -->
@@ -286,7 +307,7 @@ if (linkFormat == LinkFormat.GitLab)
     return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L109-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L117-L137' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -298,7 +319,7 @@ UrlPrefix allows a string to be defined that will prefix all snippet links. This
 #### Command line
 
 ```ps
-mdsnippets --urlPrefix "TheUrlPrefix"
+mdsnippets --url-prefix "TheUrlPrefix"
 ```
 
 

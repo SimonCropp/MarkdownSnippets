@@ -32,7 +32,7 @@ public class CommandRunnerTests
     [Fact]
     public async Task UrlPrefix()
     {
-        await CommandRunner.RunCommand(Capture, "--urlPrefix", "the prefix");
+        await CommandRunner.RunCommand(Capture, "--url-prefix", "the prefix");
         await VerifyResult();
     }
 

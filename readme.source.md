@@ -72,6 +72,20 @@ When using the `mdsource` convention, all references to other files, such as lin
 
 Recursively scans the target directory for all `*.md` files and merges snippets into those files.
 
+
+##### Command line
+
+```ps
+mdsnippets -c InPlaceOverwrite
+```
+
+```ps
+mdsnippets --convention InPlaceOverwrite
+```
+
+
+##### Config file
+
 Can be enabled in [mdsnippets.json config file](/docs/config-file.md).
 
 ```json
@@ -79,6 +93,7 @@ Can be enabled in [mdsnippets.json config file](/docs/config-file.md).
   "Convention": "InPlaceOverwrite"
 }
 ```
+
 
 #### Moving from SourceTransform to InPlaceOverwrite
 
@@ -98,6 +113,10 @@ This can be helpful in preventing incorrectly editing the documents file instead
 
 ```ps
 mdsnippets -r true
+```
+
+```ps
+mdsnippets --readonly true
 ```
 
 
@@ -122,6 +141,10 @@ Urls to files to be included as snippets. Space ` ` separated for multiple value
 
 ```ps
 mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
+```
+
+```ps
+mdsnippets -u "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
 ```
 
 
@@ -199,7 +222,24 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 
 Defines the format of `snippet source` links that appear under each snippet.
 
+
+#### Command line
+
+```ps
+mdsnippets --link-format Bitbucket
+```
+
+```ps
+mdsnippets -l Bitbucket
+```
+
+
+#### Values
+
 snippet: LinkFormat.cs
+
+
+#### How links are constructed
 
 snippet: BuildLink
 
@@ -207,6 +247,13 @@ snippet: BuildLink
 ### UrlPrefix
 
 UrlPrefix allows a string to be defined that will prefix all snippet links. This is helpful when the markdown file are being hosted on a site that is no co-located with the source code files. It can be defined in the [config file](/docs/config-file.md), the [MsBuild task](/docs/msbuild.md), and the dotnet tool.
+
+
+#### Command line
+
+```ps
+mdsnippets --urlPrefix "the-prefix"
+```
 
 
 ## Add to Windows Explorer
@@ -219,7 +266,6 @@ snippet: context-menu.reg
 ## More Documentation
 
 include: doc-index
-
 
 
 ## Credits

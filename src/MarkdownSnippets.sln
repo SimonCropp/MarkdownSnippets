@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 16.0.29201.188
@@ -7,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 		Directory.Build.props = Directory.Build.props
 		..\readme.source.md = ..\readme.source.md
+		..\schema.json = ..\schema.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets", "MarkdownSnippets\MarkdownSnippets.csproj", "{D791BD27-4C4F-4C6F-B159-537F3FB9820D}"
@@ -17,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.Tool", "Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownSnippets.MsBuild", "MarkdownSnippets.MsBuild\MarkdownSnippets.MsBuild.csproj", "{DC81D2B7-5280-409A-8DE2-2C1DF7512281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigReader", "ConfigReader\ConfigReader.csproj", "{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigReader", "ConfigReader\ConfigReader.csproj", "{2AE6B279-71E9-4E47-B2C3-1BA5D5DC6E23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigReader.Tests", "ConfigReader.Tests\ConfigReader.Tests.csproj", "{B7DA8493-0480-444F-AE8F-BFA5D5E98995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigReader.Tests", "ConfigReader.Tests\ConfigReader.Tests.csproj", "{B7DA8493-0480-444F-AE8F-BFA5D5E98995}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

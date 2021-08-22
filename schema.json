@@ -56,22 +56,6 @@
       ],
       "default": 1
     },
-    "Exclude": {
-      "$id": "#root/Exclude",
-      "title": "Exclude",
-      "type": "array",
-      "default": [],
-      "items":{
-        "$id": "#root/Exclude/items",
-        "title": "Items",
-        "type": "string",
-        "default": "",
-        "examples": [
-          "Dir1"
-        ],
-        "pattern": "^.*$"
-      }
-    },
     "UrlsAsSnippets": {
       "$id": "#root/UrlsAsSnippets",
       "title": "Urlsassnippets",

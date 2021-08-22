@@ -61,7 +61,7 @@
       "title": "Urlsassnippets",
       "type": "array",
       "default": [],
-      "items":{
+      "items": {
         "$id": "#root/UrlsAsSnippets/items",
         "title": "Items",
         "type": "string",
@@ -77,7 +77,7 @@
       "title": "Tocexcludes",
       "type": "array",
       "default": [],
-      "items":{
+      "items": {
         "$id": "#root/TocExcludes/items",
         "title": "Items",
         "type": "string",
@@ -89,12 +89,63 @@
         "pattern": "^.*$"
       }
     },
+    "ExcludeMarkdownDirectories": {
+      "$id": "#root/ExcludeMarkdownDirectories",
+      "title": "ExcludeMarkdownDirectories",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/ExcludeMarkdownDirectories/items",
+        "title": "Items",
+        "type": "string",
+        "default": "",
+        "examples": [
+          "directory1",
+          "directory2"
+        ],
+        "pattern": "^.*$"
+      }
+    },
+    "ExcludeSnippetDirectories": {
+      "$id": "#root/ExcludeSnippetDirectories",
+      "title": "ExcludeSnippetDirectories",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/ExcludeSnippetDirectories/items",
+        "title": "Items",
+        "type": "string",
+        "default": "",
+        "examples": [
+          "directory1",
+          "directory1"
+        ],
+        "pattern": "^.*$"
+      }
+    },
+    "ExcludeDirectories": {
+      "$id": "#root/ExcludeDirectories",
+      "title": "ExcludeDirectories",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/ExcludeDirectories/items",
+        "title": "Items",
+        "type": "string",
+        "default": "",
+        "examples": [
+          "directory1",
+          "directory2"
+        ],
+        "pattern": "^.*$"
+      }
+    },
     "DocumentExtensions": {
       "$id": "#root/DocumentExtensions",
       "title": "Documentextensions",
       "type": "array",
       "default": [],
-      "items":{
+      "items": {
         "$id": "#root/DocumentExtensions/items",
         "title": "Items",
         "type": "string",

@@ -81,7 +81,6 @@ namespace MarkdownSnippets
                 hashSnippetAnchors: configResult.HashSnippetAnchors,
                 omitSnippetLinks: configResult.OmitSnippetLinks);
 
-
             try
             {
                 List<Snippet> snippets = new();

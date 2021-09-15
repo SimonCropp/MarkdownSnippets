@@ -19,6 +19,14 @@ public class SnippetExtractorTests
     }
 
     [Fact]
+    public async Task AppendUrlAsSnippetInline()
+    {
+        List<Snippet> snippets = new();
+        await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs");
+        await Verifier.Verify(snippets).ScrubLinesContaining("#region", "#endregion");
+    }
+
+    [Fact]
     public async Task AppendFileAsSnippet()
     {
         var temp = Path.GetTempFileName().ToLowerInvariant();

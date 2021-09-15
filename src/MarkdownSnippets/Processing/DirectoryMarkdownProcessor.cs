@@ -177,7 +177,6 @@ namespace MarkdownSnippets
 
         public void AddSnippets(List<Snippet> snippets)
         {
-            var stopwatch = Stopwatch.StartNew();
             var files = snippets
                 .Where(x => x.Path != null)
                 .Select(x => x.Path!)
@@ -186,13 +185,11 @@ namespace MarkdownSnippets
             if (files.Any())
             {
                 snippetSourceFiles.AddRange(files);
-                log($"Added {files.Count} files for snippets");
             }
 
             if (snippets.Any())
             {
                 this.snippets.AddRange(snippets);
-                log($"Added {snippets.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
             }
         }
 
@@ -224,6 +221,23 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
 {{
   ""Convention"": ""InPlaceOverwrite""
 }}");
+            }
+
+            foreach (var group in snippets.GroupBy(x=>x.Path))
+            {
+                if (group.Key == null)
+                {
+                    log("Snippets added with no path");
+                }
+                else
+                {
+                    log($"Snippets extracted from {group.Key}");
+                }
+
+                foreach (var snippet in group)
+                {
+                    log($"\t{snippet.Key}");
+                }
             }
 
             var stopwatch = Stopwatch.StartNew();

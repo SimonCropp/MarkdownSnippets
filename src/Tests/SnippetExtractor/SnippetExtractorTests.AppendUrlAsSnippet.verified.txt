@@ -17,7 +17,7 @@ artifacts:
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name },
     Error: ,
-    FileLocation: null,
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-13),
     IsInError: false
   }
 ]

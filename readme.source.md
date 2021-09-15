@@ -140,6 +140,8 @@ To stop regions collapsing in Visual Studio [disable 'enter outlining mode when 
 
 Urls to files to be included as snippets. Space ` ` separated for multiple values.
 
+Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
+
 ```ps
 mdsnippets --urls-as-snippets "https://github.com/SimonCropp/MarkdownSnippets/snippet.cs"
 ```

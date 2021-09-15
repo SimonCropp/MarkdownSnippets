@@ -1,0 +1,89 @@
+﻿[
+  {
+    Key: usage.cs,
+    Language: cs,
+    Value:
+using System.IO;
+using MarkdownSnippets;
+
+class Usage
+{
+    void ReadingFiles()
+    {
+
+        var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
+
+        var snippets = FileSnippetExtractor.Read(files);
+
+    }
+
+    void DirectoryMarkdownProcessorRun()
+    {
+
+        DirectoryMarkdownProcessor processor = new(
+            "targetDirectory",
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.Run();
+
+    }
+
+    void DirectoryMarkdownProcessorRunMaxWidth()
+    {
+
+        DirectoryMarkdownProcessor processor = new(
+            "targetDirectory",
+            maxWidth: 80,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.Run();
+
+    }
+},
+    Error: ,
+    FileLocation: null,
+    IsInError: false
+  },
+  {
+    Key: readingfilessimple,
+    Language: cs,
+    Value:
+var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
+
+var snippets = FileSnippetExtractor.Read(files);,
+    Error: ,
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(8-14),
+    IsInError: false
+  },
+  {
+    Key: directorymarkdownprocessorrun,
+    Language: cs,
+    Value:
+DirectoryMarkdownProcessor processor = new(
+    "targetDirectory",
+    directoryIncludes: _ => true,
+    markdownDirectoryIncludes: _ => true,
+    snippetDirectoryIncludes: _ => true);
+processor.Run();,
+    Error: ,
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(19-28),
+    IsInError: false
+  },
+  {
+    Key: directorymarkdownprocessorrunmaxwidth,
+    Language: cs,
+    Value:
+DirectoryMarkdownProcessor processor = new(
+    "targetDirectory",
+    maxWidth: 80,
+    directoryIncludes: _ => true,
+    markdownDirectoryIncludes: _ => true,
+    snippetDirectoryIncludes: _ => true);
+processor.Run();,
+    Error: ,
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(33-43),
+    IsInError: false
+  }
+]

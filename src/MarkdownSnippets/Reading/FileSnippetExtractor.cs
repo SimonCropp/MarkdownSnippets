@@ -10,17 +10,26 @@ namespace MarkdownSnippets
     /// </summary>
     public static class FileSnippetExtractor
     {
+        /// <summary>
+        /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
+        /// </summary>
         public static Task AppendUrlAsSnippet(this ICollection<Snippet> snippets, string url)
         {
             Guard.AgainstNullAndEmpty(url, nameof(url));
             return AppendUrlAsSnippet(snippets, url, Path.GetFileName(url).ToLowerInvariant());
         }
-
+        
+        /// <summary>
+        /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
+        /// </summary>
         public static Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls)
         {
             return AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
         }
-
+        
+        /// <summary>
+        /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
+        /// </summary>
         public static async Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, IEnumerable<string> urls)
         {
             foreach (var url in urls)
@@ -28,7 +37,10 @@ namespace MarkdownSnippets
                 await AppendUrlAsSnippet(snippets, url);
             }
         }
-
+        
+        /// <summary>
+        /// The url will be accessible using the file name as a key. Any snippets within the file will be extracted and accessible as individual keyed snippets.
+        /// </summary>
         public static async Task AppendUrlAsSnippet(ICollection<Snippet> snippets, string url, string key)
         {
             Guard.AgainstNullAndEmpty(url, nameof(url));
@@ -40,6 +52,12 @@ namespace MarkdownSnippets
 
             var snippet = Snippet.Build(1, content!.LineCount(), content!, key, GetLanguageFromPath(url), null);
             snippets.Add(snippet);
+
+            using var reader = new StringReader(content!);
+            foreach (var innerSnippet in Read(reader, url))
+            {
+                snippets.Add(innerSnippet);
+            }
         }
 
         public static void AppendFileAsSnippet(this ICollection<Snippet> snippets, string filePath)

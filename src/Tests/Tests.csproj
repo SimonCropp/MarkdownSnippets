@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.56" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.58" PrivateAssets="All" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

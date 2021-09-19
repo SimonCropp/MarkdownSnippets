@@ -18,10 +18,11 @@ namespace MarkdownSnippets
             {
                 return path;
             }
-            throw new("Could not find git repository directory");
 
+            throw new("Could not find git repository directory");
         }
-        private static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
+
+        static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
         {
             if (TryFind(directory, ".git", out var targetDirectory))
             {

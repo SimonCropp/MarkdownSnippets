@@ -1,6 +1,4 @@
-﻿using System;
-
-class CommandLineException :
+﻿class CommandLineException :
     Exception
 {
     public CommandLineException(string message) :

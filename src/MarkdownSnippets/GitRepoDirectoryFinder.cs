@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace MarkdownSnippets
 {
@@ -23,7 +21,6 @@ namespace MarkdownSnippets
             throw new("Could not find git repository directory");
 
         }
-
         private static bool TryFind(string directory, [NotNullWhen(true)] out string? path)
         {
             if (TryFind(directory, ".git", out var targetDirectory))

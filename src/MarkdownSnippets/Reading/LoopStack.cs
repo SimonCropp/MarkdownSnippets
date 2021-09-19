@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-[DebuggerDisplay("Depth={stack.Count}, IsInSnippet={IsInSnippet}")]
+﻿[DebuggerDisplay("Depth={stack.Count}, IsInSnippet={IsInSnippet}")]
 class LoopStack
 {
     public bool IsInSnippet => stack.Count > 0;

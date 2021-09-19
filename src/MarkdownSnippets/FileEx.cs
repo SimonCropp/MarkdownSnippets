@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-static class FileEx
+﻿static class FileEx
 {
     public static string FixFileCapitalization(string file)
     {

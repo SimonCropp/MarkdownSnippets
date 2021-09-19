@@ -1,7 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using MarkdownSnippets;
 using VerifyTests;
 using VerifyXunit;

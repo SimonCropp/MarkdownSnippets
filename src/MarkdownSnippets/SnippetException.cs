@@ -1,5 +1,3 @@
-using System;
-
 namespace MarkdownSnippets
 {
     public class SnippetException :

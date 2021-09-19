@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using VerifyXunit;
+﻿using VerifyXunit;
 using Xunit;
 
 [UsesVerify]

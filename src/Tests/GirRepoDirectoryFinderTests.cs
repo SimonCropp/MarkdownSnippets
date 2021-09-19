@@ -1,5 +1,4 @@
-﻿using System.IO;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 using VerifyXunit;
 using Xunit;
 

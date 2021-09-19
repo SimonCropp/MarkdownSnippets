@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-static class GitHashReader
+﻿static class GitHashReader
 {
     public static string GetHash(string directory)
     {

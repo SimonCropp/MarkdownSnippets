@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     [DebuggerDisplay("Key={Key}, Path={Path}, Error={Error}")]
     public class Include :

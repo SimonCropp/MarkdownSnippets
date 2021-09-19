@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 using VerifyXunit;
 using Xunit;
 

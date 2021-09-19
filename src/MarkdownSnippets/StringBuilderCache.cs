@@ -1,6 +1,3 @@
-using System;
-using System.Text;
-
 static class StringBuilderCache
 {
     const int MAX_BUILDER_SIZE = 360;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class ConfigSerialization
+﻿public class ConfigSerialization
 {
     public bool? ReadOnly { get; set; }
     public bool? ValidateContent { get; set; }

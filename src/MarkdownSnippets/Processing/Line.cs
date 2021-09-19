@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
+﻿[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
 class Line
 {
     public Line(string original, string? path, int lineNumber)

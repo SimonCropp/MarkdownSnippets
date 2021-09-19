@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     [DebuggerDisplay("Key={Key}, FileLocation={FileLocation}, Error={Error}")]
     public class Snippet : IContent

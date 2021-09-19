@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
+using Task = Microsoft.Build.Utilities.Task;
 
 namespace MarkdownSnippets
 {

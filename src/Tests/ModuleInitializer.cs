@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using VerifyTests;
+﻿using VerifyTests;
 
 public static class ModuleInitializer
 {

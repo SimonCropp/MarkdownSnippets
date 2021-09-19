@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 
 public class ConfigInput
 {

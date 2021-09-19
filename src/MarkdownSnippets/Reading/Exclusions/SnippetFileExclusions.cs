@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     public static class SnippetFileExclusions
     {

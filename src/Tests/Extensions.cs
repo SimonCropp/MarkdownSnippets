@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-
-public static class Extensions
+﻿public static class Extensions
 {
     public static string ToCurrentDirectory(this string relativePath)
     {

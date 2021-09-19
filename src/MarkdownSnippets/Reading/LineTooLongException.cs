@@ -1,6 +1,4 @@
-﻿using System;
-
-class LineTooLongException :
+﻿class LineTooLongException :
     Exception
 {
     public string Line { get; }

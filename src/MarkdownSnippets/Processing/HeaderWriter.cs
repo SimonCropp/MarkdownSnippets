@@ -1,5 +1,4 @@
-﻿using System;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 
 static class HeaderWriter
 {

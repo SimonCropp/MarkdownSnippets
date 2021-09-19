@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     public static class DefaultDirectoryExclusions
     {

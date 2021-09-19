@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-
-[DebuggerDisplay("Key={Key}")]
+﻿[DebuggerDisplay("Key={Key}")]
 class LoopState
 {
     public string GetLines()

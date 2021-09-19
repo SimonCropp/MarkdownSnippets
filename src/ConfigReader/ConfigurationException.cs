@@ -1,6 +1,4 @@
-﻿using System;
-
-class ConfigurationException :
+﻿class ConfigurationException :
     Exception
 {
     public ConfigurationException(string message) :

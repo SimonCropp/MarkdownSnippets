@@ -1,5 +1,4 @@
-﻿using System.IO;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 
 class Usage
 {

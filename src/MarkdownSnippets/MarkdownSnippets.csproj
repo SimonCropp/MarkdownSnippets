@@ -4,8 +4,8 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ProjectDefaults" Version="1.0.58" PrivateAssets="All" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.59" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.59" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
   </ItemGroup>

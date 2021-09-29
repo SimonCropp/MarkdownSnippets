@@ -1,4 +1,3 @@
-namespace MarkdownSnippets
-{
-    public delegate Include GetInclude(string key);
-}
+namespace MarkdownSnippets;
+
+public delegate Include GetInclude(string key);

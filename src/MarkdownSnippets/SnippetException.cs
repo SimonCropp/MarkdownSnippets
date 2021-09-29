@@ -1,11 +1,10 @@
-namespace MarkdownSnippets
+namespace MarkdownSnippets;
+
+public class SnippetException :
+    Exception
 {
-    public class SnippetException :
-        Exception
+    public SnippetException(string message) :
+        base(message)
     {
-        public SnippetException(string message) :
-            base(message)
-        {
-        }
     }
 }

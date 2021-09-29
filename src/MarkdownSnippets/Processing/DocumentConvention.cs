@@ -1,8 +1,7 @@
-namespace MarkdownSnippets
+namespace MarkdownSnippets;
+
+public enum DocumentConvention
 {
-    public enum DocumentConvention
-    {
-        SourceTransform,
-        InPlaceOverwrite
-    }
+    SourceTransform,
+    InPlaceOverwrite
 }

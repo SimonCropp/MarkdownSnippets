@@ -1,10 +1,9 @@
-namespace MarkdownSnippets
+namespace MarkdownSnippets;
+
+public enum LinkFormat
 {
-    public enum LinkFormat
-    {
-        GitHub,
-        Tfs,
-        Bitbucket,
-        GitLab
-    }
+    GitHub,
+    Tfs,
+    Bitbucket,
+    GitLab
 }

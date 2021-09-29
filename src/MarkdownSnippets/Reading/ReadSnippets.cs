@@ -1,35 +1,34 @@
-﻿namespace MarkdownSnippets
+﻿namespace MarkdownSnippets;
+
+[DebuggerDisplay("Count={Snippets.Count}")]
+public class ReadSnippets :
+    IEnumerable<Snippet>
 {
-    [DebuggerDisplay("Count={Snippets.Count}")]
-    public class ReadSnippets :
-        IEnumerable<Snippet>
+    public IReadOnlyList<Snippet> Snippets { get; }
+    public IReadOnlyList<string> Files { get; }
+    public IReadOnlyDictionary<string, IReadOnlyList<Snippet>> Lookup { get; }
+    public IReadOnlyList<Snippet> SnippetsInError { get; }
+
+    public ReadSnippets(IReadOnlyList<Snippet> snippets, IReadOnlyList<string> files)
     {
-        public IReadOnlyList<Snippet> Snippets { get; }
-        public IReadOnlyList<string> Files { get; }
-        public IReadOnlyDictionary<string, IReadOnlyList<Snippet>> Lookup { get; }
-        public IReadOnlyList<Snippet> SnippetsInError { get; }
-
-        public ReadSnippets(IReadOnlyList<Snippet> snippets, IReadOnlyList<string> files)
-        {
-            Snippets = snippets;
-            Files = files;
-            SnippetsInError = Snippets.Where(_ => _.IsInError).Distinct().ToList();
-            Lookup = Snippets.ToDictionary();
-        }
-
-        /// <summary>
-        /// Enumerates through the <see cref="Snippets" /> but will first throw an exception if there are any <see cref="SnippetsInError" />.
-        /// </summary>
-        public virtual IEnumerator<Snippet> GetEnumerator()
-        {
-            if (SnippetsInError.Any())
-            {
-                throw new SnippetReadingException($"SnippetsInError: {string.Join(", ", SnippetsInError.Select(x => x.Key))}");
-            }
-
-            return Snippets.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        Snippets = snippets;
+        Files = files;
+        SnippetsInError = Snippets.Where(_ => _.IsInError).Distinct().ToList();
+        Lookup = Snippets.ToDictionary();
     }
+
+    /// <summary>
+    /// Enumerates through the <see cref="Snippets" /> but will first throw an exception if there are any <see cref="SnippetsInError" />.
+    /// </summary>
+    public virtual IEnumerator<Snippet> GetEnumerator()
+    {
+        if (SnippetsInError.Any())
+        {
+            throw new SnippetReadingException($"SnippetsInError: {string.Join(", ", SnippetsInError.Select(x => x.Key))}");
+        }
+
+        return Snippets.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

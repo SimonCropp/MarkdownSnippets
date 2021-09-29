@@ -1,43 +1,42 @@
-namespace MarkdownSnippets
+namespace MarkdownSnippets;
+
+public class ContentValidationException :
+    SnippetException
 {
-    public class ContentValidationException :
-        SnippetException
+    public IReadOnlyList<ValidationError> Errors { get; }
+
+    public ContentValidationException(IReadOnlyList<ValidationError> errors) :
+        base(BuildMessage(errors))
     {
-        public IReadOnlyList<ValidationError> Errors { get; }
+        Errors = errors;
+    }
 
-        public ContentValidationException(IReadOnlyList<ValidationError> errors) :
-            base(BuildMessage(errors))
+    static string BuildMessage(IReadOnlyList<ValidationError> errors)
+    {
+        StringBuilder builder = new("Content validation errors:");
+        builder.AppendLine();
+        foreach (var error in errors)
         {
-            Errors = errors;
-        }
-
-        static string BuildMessage(IReadOnlyList<ValidationError> errors)
-        {
-            StringBuilder builder = new("Content validation errors:");
-            builder.AppendLine();
-            foreach (var error in errors)
+            if (error.File == null)
             {
-                if (error.File == null)
-                {
-                    builder.AppendLine($@"{error.Error}
-  Line: {error.Line}
-  Column: {error.Column}
-  Error: {error.Error}");
-                }
-
                 builder.AppendLine($@"{error.Error}
-  File: {error.File}
   Line: {error.Line}
   Column: {error.Column}
   Error: {error.Error}");
             }
 
-            return builder.ToString();
+            builder.AppendLine($@"{error.Error}
+  File: {error.File}
+  Line: {error.Line}
+  Column: {error.Column}
+  Error: {error.Error}");
         }
 
-        public override string ToString()
-        {
-            return Message;
-        }
+        return builder.ToString();
+    }
+
+    public override string ToString()
+    {
+        return Message;
     }
 }

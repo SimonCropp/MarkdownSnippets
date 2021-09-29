@@ -3,7 +3,6 @@
     Key: usage.cs,
     Language: cs,
     Value:
-using System.IO;
 using MarkdownSnippets;
 
 class Usage
@@ -43,7 +42,7 @@ class Usage
     }
 },
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(1-45),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(1-44),
     IsInError: false
   },
   {
@@ -54,7 +53,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(8-14),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(7-13),
     IsInError: false
   },
   {
@@ -68,7 +67,7 @@ DirectoryMarkdownProcessor processor = new(
     snippetDirectoryIncludes: _ => true);
 processor.Run();,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(19-28),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(18-27),
     IsInError: false
   },
   {
@@ -83,7 +82,7 @@ DirectoryMarkdownProcessor processor = new(
     snippetDirectoryIncludes: _ => true);
 processor.Run();,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(33-43),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(32-42),
     IsInError: false
   }
 ]

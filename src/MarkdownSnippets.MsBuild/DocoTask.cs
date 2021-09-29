@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Build.Framework;
 using Task = Microsoft.Build.Utilities.Task;
 

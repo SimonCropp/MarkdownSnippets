@@ -1,5 +1,3 @@
-using System.Linq;
-
 static class TocBuilder
 {
     public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)

@@ -1,5 +1,3 @@
-using System.Linq;
-
 static class ContentValidation
 {
     static Dictionary<string, string> phrases = new()

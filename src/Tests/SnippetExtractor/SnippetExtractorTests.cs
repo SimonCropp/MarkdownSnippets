@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using MarkdownSnippets;
+﻿using MarkdownSnippets;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;

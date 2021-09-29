@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     /// <summary>
     /// Extracts <see cref="Snippet"/>s from a given input.

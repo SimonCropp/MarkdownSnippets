@@ -1,5 +1,3 @@
-using System.Linq;
-
 static class Extensions
 {
     public static bool TryFindNewline(this TextReader reader, out string? newline)

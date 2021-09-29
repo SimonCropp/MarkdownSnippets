@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using CommandLine;
+﻿using CommandLine;
 using MarkdownSnippets;
 
 static class CommandRunner

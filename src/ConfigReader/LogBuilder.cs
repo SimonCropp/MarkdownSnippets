@@ -1,4 +1,3 @@
-using System.Linq;
 using MarkdownSnippets;
 
 static class LogBuilder

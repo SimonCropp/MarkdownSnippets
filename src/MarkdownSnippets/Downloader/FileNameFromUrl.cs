@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-static class FileNameFromUrl
+﻿static class FileNameFromUrl
 {
     public static string ConvertToFileName(string url)
     {

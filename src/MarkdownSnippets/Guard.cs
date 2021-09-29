@@ -1,5 +1,3 @@
-using System.Linq;
-
 static class Guard
 {
     public static void AgainstUpperCase(string value, string argumentName)

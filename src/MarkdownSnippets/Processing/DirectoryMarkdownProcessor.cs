@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace MarkdownSnippets
+﻿namespace MarkdownSnippets
 {
     public class DirectoryMarkdownProcessor
     {

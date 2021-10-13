@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5</TargetFramework>
+    <TargetFrameworks>net5;net6</TargetFrameworks>
     <ToolCommandName>mdsnippets</ToolCommandName>
     <AssemblyName>mdsnippets</AssemblyName>
     <PackageId>MarkdownSnippets.Tool</PackageId>
@@ -14,7 +14,7 @@
 
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.60" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
   </ItemGroup>
 </Project>

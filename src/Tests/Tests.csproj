@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <ProjectReference Include="..\MarkdownSnippets.Tool\MarkdownSnippets.Tool.csproj" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.60" PrivateAssets="All" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -15,6 +15,6 @@
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
   </ItemGroup>
 </Project>

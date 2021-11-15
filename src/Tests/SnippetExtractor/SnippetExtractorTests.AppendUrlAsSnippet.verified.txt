@@ -4,8 +4,6 @@
     Language: yml,
     Value:
 image: Visual Studio 2022
-skip_commits:
-  message: /docs|Merge pull request.*/
 build_script:
 - pwsh: |
     Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
@@ -18,7 +16,7 @@ artifacts:
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name },
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-14),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-12),
     IsInError: false
   }
 ]

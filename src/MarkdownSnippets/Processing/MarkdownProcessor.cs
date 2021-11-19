@@ -112,10 +112,14 @@ public class MarkdownProcessor
         var lines = Lines.ReadAllLines(textReader, null).ToList();
         writer.NewLine = newLine;
         var result = Apply(lines, newLine, file);
-        foreach (var line in lines)
+
+        for (var index = 0; index < lines.Count - 1; index++)
         {
+            var line = lines[index];
             writer.WriteLine(line.Current);
         }
+        
+        writer.Write(lines.Last().Current);
 
         return result;
     }

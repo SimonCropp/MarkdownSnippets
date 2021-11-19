@@ -10,5 +10,4 @@ some text
 <!-- endInclude -->
 
 some other text
-
 }

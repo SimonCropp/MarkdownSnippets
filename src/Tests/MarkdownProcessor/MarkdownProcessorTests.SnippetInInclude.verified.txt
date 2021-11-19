@@ -22,5 +22,4 @@ Snippet
 <!-- endInclude -->
 
 some other text
-
 }

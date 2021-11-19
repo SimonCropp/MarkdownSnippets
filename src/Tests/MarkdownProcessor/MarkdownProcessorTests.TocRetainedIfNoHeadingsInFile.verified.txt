@@ -10,5 +10,4 @@ This document has no headings.
 
 An empty toc section should be generated, in case
 any headings are added in future.
-
 }

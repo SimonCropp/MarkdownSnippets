@@ -8,5 +8,4 @@ theValue2
 theValue3 <!-- endInclude -->
 
 after
-
 }

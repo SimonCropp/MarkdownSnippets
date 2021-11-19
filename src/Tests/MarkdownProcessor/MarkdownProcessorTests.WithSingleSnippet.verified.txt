@@ -6,5 +6,4 @@ before
 Snippet <!-- singleLineInclude: theKey. path: thePath -->
 
 after
-
 }

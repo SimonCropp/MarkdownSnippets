@@ -7,5 +7,7 @@
       File: {CurrentDirectory}DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md
     }
   ],
-  Message: Missing snippets: missing.txt
+  Message:
+Missing snippets:
+  {CurrentDirectory}DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md: missing.txt
 }

@@ -11,7 +11,7 @@ public class MissingSnippetsException :
         Missing = missing;
     }
 
-    private static string Report(IReadOnlyList<MissingSnippet> missing)
+    static string Report(IReadOnlyList<MissingSnippet> missing)
     {
         return string.Join($"{Environment.NewLine}  ", missing.GroupBy(m => m.File ?? "file-unknown").Select(g => $"{g.Key}: {string.Join(",", g.Select(s => s.Key))}"));
     }

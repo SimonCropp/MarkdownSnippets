@@ -7,49 +7,49 @@ public class ContentValidationTest
     [Fact]
     public Task CheckInvalidWord()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you "));
+        return Verify(ContentValidation.Verify(" you "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
+        return Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
     }
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
+        return Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
     }
 
     [Fact]
     public Task CheckInvalidWordWithQuestionMark()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you? "));
+        return Verify(ContentValidation.Verify(" you? "));
     }
 
     [Fact]
     public Task CheckInvalidWordWithComma()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you, "));
+        return Verify(ContentValidation.Verify(" you, "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceEnd()
     {
-        return Verifier.Verify(ContentValidation.Verify(" you. "));
+        return Verify(ContentValidation.Verify(" you. "));
     }
 
     [Fact]
     public Task CheckInvalidWordSentenceStart()
     {
-        return Verifier.Verify(ContentValidation.Verify("you "));
+        return Verify(ContentValidation.Verify("you "));
     }
 
     [Fact]
     public Task CheckInvalidWordStringEnd()
     {
-        return Verifier.Verify(ContentValidation.Verify("the you"));
+        return Verify(ContentValidation.Verify("the you"));
     }
 
     [Fact]

@@ -61,7 +61,7 @@ static class SnippetVerifier
             processResult.UsedSnippets,
             result
         };
-        await Verifier.Verify(output, null, sourceFile);
+        await Verify(output, null, sourceFile);
         return result;
     }
 }

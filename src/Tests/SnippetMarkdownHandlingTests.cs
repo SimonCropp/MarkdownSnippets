@@ -16,7 +16,7 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verifier.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verifier.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verifier.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verifier.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 
     static List<Snippet> Snippets()

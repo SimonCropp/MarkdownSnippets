@@ -8,7 +8,7 @@ public class DownloaderTests
     public async Task Valid()
     {
         var content = await Downloader.DownloadContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/.gitattributes");
-        await Verifier.Verify(new {content.success, content.content});
+        await Verify(new {content.success, content.content});
     }
 
     [Fact]

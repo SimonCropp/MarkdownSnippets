@@ -11,7 +11,7 @@ public class LoopStateTests
         loopState.AppendLine("   Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verifier.Verify(loopState.GetLines());
+        return Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -21,7 +21,7 @@ public class LoopStateTests
         loopState.AppendLine("   ");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   ");
-        return Verifier.Verify(loopState.GetLines());
+        return Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class LoopStateTests
         loopState.AppendLine("      Line2");
         loopState.AppendLine("   ");
         loopState.AppendLine("     Line4");
-        return Verifier.Verify(loopState.GetLines());
+        return Verify(loopState.GetLines());
     }
 
     [Fact]
@@ -57,6 +57,6 @@ public class LoopStateTests
         loopState.AppendLine("Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verifier.Verify(loopState.GetLines());
+        return Verify(loopState.GetLines());
     }
 }

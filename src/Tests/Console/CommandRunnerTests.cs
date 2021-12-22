@@ -228,7 +228,7 @@ public class CommandRunnerTests
 
     Task VerifyResult()
     {
-        return Verifier.Verify(
+        return Verify(
             new
             {
                 targetDirectory,

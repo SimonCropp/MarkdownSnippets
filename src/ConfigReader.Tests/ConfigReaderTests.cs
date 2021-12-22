@@ -9,7 +9,7 @@ public class ConfigReaderTests
     {
         var config = ConfigReader.Parse("{}", "filePath");
 
-        return Verifier.Verify(config);
+        return Verify(config);
     }
 
     [Fact]
@@ -27,6 +27,6 @@ public class ConfigReaderTests
     {
         var stream = File.ReadAllText("allConfig.json");
         var config = ConfigReader.Parse(stream, "filePath");
-        return Verifier.Verify(config);
+        return Verify(config);
     }
 }

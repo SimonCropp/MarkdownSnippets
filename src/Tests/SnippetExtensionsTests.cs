@@ -13,7 +13,7 @@ public class SnippetExtensionsTests
             SnippetBuild("snippet1", "thePath"),
             SnippetBuild("snippet2", "thePath")
         };
-        return Verifier.Verify(snippets.ToDictionary());
+        return Verify(snippets.ToDictionary());
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class SnippetExtensionsTests
             SnippetBuild("snippet1", "thePath2"),
             SnippetBuild("snippet1", "thePath1")
         };
-        return Verifier.Verify(snippets.ToDictionary());
+        return Verify(snippets.ToDictionary());
     }
 
     static Snippet SnippetBuild(string key, string? path)

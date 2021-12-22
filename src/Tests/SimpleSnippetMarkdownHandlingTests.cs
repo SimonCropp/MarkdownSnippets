@@ -15,6 +15,6 @@ public class SimpleSnippetMarkdownHandlingTests
             SimpleSnippetMarkdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verifier.Verify(builder.ToString());
+        return Verify(builder.ToString());
     }
 }

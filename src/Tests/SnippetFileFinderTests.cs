@@ -17,7 +17,7 @@ public class SnippetFileFinderTests
             _ => true,
             _ => true);
         var files = finder.FindFiles();
-        return Verifier.Verify(files.snippetFiles);
+        return Verify(files.snippetFiles);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class SnippetFileFinderTests
             _ => true,
             _ => true);
         var files = finder.FindFiles();
-        return Verifier.Verify(files.snippetFiles);
+        return Verify(files.snippetFiles);
     }
 
     [Fact]
@@ -61,7 +61,7 @@ public class SnippetFileFinderTests
             }
         );
         var files = finder.FindFiles();
-        return Verifier.Verify(new
+        return Verify(new
         {
             directories = directories.OrderBy(file => file),
             markdownDirectories = markdownDirectories.OrderBy(file => file),

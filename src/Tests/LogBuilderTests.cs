@@ -24,7 +24,7 @@ line2",
             Convention = DocumentConvention.InPlaceOverwrite,
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verifier.Verify(message);
+        return Verify(message);
     }
 
     [Fact]
@@ -32,6 +32,6 @@ line2",
     {
         ConfigResult config = new();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verifier.Verify(message);
+        return Verify(message);
     }
 }

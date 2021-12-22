@@ -31,6 +31,6 @@ public class GitHashReaderTests
     {
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), path);
         var hash = GitHashReader.GetHashForGitDirectory(directory);
-        return Verifier.Verify(hash);
+        return Verify(hash);
     }
 }

@@ -7,18 +7,18 @@ public class HeaderWriterTests
     [Fact]
     public Task DefaultHeader()
     {
-        return Verifier.Verify(HeaderWriter.DefaultHeader);
+        return Verify(HeaderWriter.DefaultHeader);
     }
 
     [Fact]
     public Task WriteHeaderDefaultHeader()
     {
-        return Verifier.Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
+        return Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"));
     }
 
     [Fact]
     public Task WriteHeaderHeaderCustom()
     {
-        return Verifier.Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
+        return Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"));
     }
 }

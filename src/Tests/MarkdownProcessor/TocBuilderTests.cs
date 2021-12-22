@@ -14,7 +14,7 @@ public class TocBuilderTests
 
         var buildToc = TocBuilder.BuildToc(lines, 1, new(), "\r");
         Assert.DoesNotContain("\r\n", buildToc);
-        return Verifier.Verify(buildToc);
+        return Verify(buildToc);
     }
 
     [Fact]
@@ -26,13 +26,13 @@ public class TocBuilderTests
             new("## Heading2", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
     }
 
     [Fact]
     public Task SanitizeLink()
     {
-        return Verifier.Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
+        return Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class TocBuilderTests
             new("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class TocBuilderTests
             new("### Heading2", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new() {"Heading2"}, Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new() {"Heading2"}, Environment.NewLine));
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class TocBuilderTests
             new("### Heading4", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class TocBuilderTests
             new("##### Heading4", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 10, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 10, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class TocBuilderTests
             new("#### Heading3", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -107,7 +107,7 @@ public class TocBuilderTests
             new("## Heading", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -118,7 +118,7 @@ public class TocBuilderTests
             new("##  A B ", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -131,7 +131,7 @@ public class TocBuilderTests
             new("#### Heading", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines,4, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines,4, new(), Environment.NewLine));
     }
 
     [Fact]
@@ -144,6 +144,6 @@ public class TocBuilderTests
             new("## a", "", 0)
         };
 
-        return Verifier.Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
     }
 }

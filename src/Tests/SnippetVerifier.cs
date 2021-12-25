@@ -1,5 +1,4 @@
 using MarkdownSnippets;
-using VerifyXunit;
 
 static class SnippetVerifier
 {
@@ -15,7 +14,7 @@ static class SnippetVerifier
         StringBuilder builder = new();
         using StringReader reader = new(markdownContent);
         using StringWriter writer = new(builder);
-        return Verifier.Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile);
+        return Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile);
     }
 
     static MarkdownProcessor BuildProcessor(
@@ -61,7 +60,7 @@ static class SnippetVerifier
             processResult.UsedSnippets,
             result
         };
-        await Verify(output, null, sourceFile);
+        await Verifier.Verify(output, null, sourceFile);
         return result;
     }
 }

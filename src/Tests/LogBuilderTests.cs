@@ -1,6 +1,4 @@
-﻿using VerifyXunit;
-using MarkdownSnippets;
-using Xunit;
+﻿using MarkdownSnippets;
 
 [UsesVerify]
 public class LogBuilderTests

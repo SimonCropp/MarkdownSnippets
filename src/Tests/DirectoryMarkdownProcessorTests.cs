@@ -1,6 +1,4 @@
 using MarkdownSnippets;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class DirectoryMarkdownProcessorTests
@@ -162,7 +160,7 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
         markdownDirectoryIncludes: _ => true,
         snippetDirectoryIncludes: _ => true);
-        return Verifier.Throws(() => processor.Run());
+        return Throws(() => processor.Run());
     }
 
     [Fact]
@@ -176,7 +174,7 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Verifier.Throws(() => processor.Run());
+        return Throws(() => processor.Run());
     }
 
     [Fact]
@@ -190,7 +188,7 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Verifier.Throws(() => processor.Run());
+        return Throws(() => processor.Run());
     }
 
     [Fact]
@@ -204,7 +202,7 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Verifier.Throws(() => processor.Run());
+        return Throws(() => processor.Run());
     }
 
     [Fact]

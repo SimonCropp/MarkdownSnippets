@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class SnippetKey_ExtractTransform
+﻿public class SnippetKey_ExtractTransform
 {
     [Fact]
     public void MissingSpaces()

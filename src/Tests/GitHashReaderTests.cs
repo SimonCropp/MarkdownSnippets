@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using MarkdownSnippets;
-using VerifyTests;
-using Xunit;
+﻿using MarkdownSnippets;
 
 [UsesVerify]
 public class GitHashReaderTests

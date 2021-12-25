@@ -118,7 +118,7 @@ public class MarkdownProcessor
             var line = lines[index];
             writer.WriteLine(line.Current);
         }
-        
+
         writer.Write(lines.Last().Current);
 
         return result;

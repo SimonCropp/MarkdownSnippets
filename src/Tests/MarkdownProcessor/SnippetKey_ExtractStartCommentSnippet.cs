@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class SnippetKey_ExtractStartCommentSnippet
+﻿public class SnippetKey_ExtractStartCommentSnippet
 {
     [Fact]
     public void WithDashes()

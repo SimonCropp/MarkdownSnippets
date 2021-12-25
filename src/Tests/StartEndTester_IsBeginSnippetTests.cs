@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class StartEndTester_IsBeginSnippetTests
 {
     [Fact]
@@ -15,7 +12,7 @@ public class StartEndTester_IsBeginSnippetTests
     [Fact]
     public Task ShouldThrowForNoKey()
     {
-        return Verifier.Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
+        return Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
     }
 
     [Fact]
@@ -67,14 +64,14 @@ public class StartEndTester_IsBeginSnippetTests
     [Fact]
     public Task ShouldThrowForKeyStartingWithSymbol()
     {
-        return Verifier.Throws(() =>
+        return Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _));
     }
 
     [Fact]
     public Task ShouldThrowForKeyEndingWithSymbol()
     {
-        return Verifier.Throws(() =>
+        return Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _));
     }
 

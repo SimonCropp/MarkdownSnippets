@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class ConfigReaderTests
 {
     [Fact]
@@ -15,7 +12,7 @@ public class ConfigReaderTests
     [Fact]
     public Task BadJson()
     {
-        return Verifier.Throws(
+        return Throws(
             () => ConfigReader.Parse(@"{
   ""ValidateContent"": true
   ""Convention"": ""InPlaceOverwrite""

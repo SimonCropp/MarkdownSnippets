@@ -13,7 +13,7 @@ public static class FileSnippetExtractor
         Guard.AgainstNullAndEmpty(url, nameof(url));
         return AppendUrlAsSnippet(snippets, url, Path.GetFileName(url).ToLowerInvariant());
     }
-        
+
     /// <summary>
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
     /// </summary>
@@ -21,7 +21,7 @@ public static class FileSnippetExtractor
     {
         return AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
     }
-        
+
     /// <summary>
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
     /// </summary>
@@ -32,7 +32,7 @@ public static class FileSnippetExtractor
             await AppendUrlAsSnippet(snippets, url);
         }
     }
-        
+
     /// <summary>
     /// The url will be accessible using the file name as a key. Any snippets within the file will be extracted and accessible as individual keyed snippets.
     /// </summary>

@@ -1,7 +1,4 @@
 ﻿using MarkdownSnippets;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class SnippetExtractorTests

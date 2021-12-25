@@ -1,6 +1,4 @@
 ﻿using MarkdownSnippets;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class GirRepoDirectoryFinderTests

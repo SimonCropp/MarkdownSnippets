@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class StartEndTester_IsStartRegionTests
+﻿public class StartEndTester_IsStartRegionTests
 {
     [Fact]
     public void CanExtractFromXml()

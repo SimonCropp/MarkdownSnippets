@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class IndexReaderTests
+﻿public class IndexReaderTests
 {
     [Theory]
     [InlineData("a\r", "\r")]

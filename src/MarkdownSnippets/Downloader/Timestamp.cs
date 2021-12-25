@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-class Timestamp
+﻿class Timestamp
 {
     static DateTime minFileDate = DateTime.FromFileTimeUtc(0);
     public DateTime? Expiry;

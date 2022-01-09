@@ -8,21 +8,15 @@ public class DirectoryMarkdownProcessorTests
     {
         var root = GitRepoDirectoryFinder.FindForFilePath();
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             targetDirectory: root,
-            directoryIncludes: path =>
-                !path.Contains("IncludeFileFinder") &&
-                !path.Contains("DirectoryMarkdownProcessor") &&
-                !DefaultDirectoryExclusions.ShouldExcludeDirectory(path),
+            directoryIncludes: path => !path.Contains("IncludeFileFinder") &&
+                                       !path.Contains("DirectoryMarkdownProcessor") &&
+                                       !DefaultDirectoryExclusions.ShouldExcludeDirectory(path),
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             tocLevel: 1,
-            tocExcludes: new List<string>
-            {
-                "Icon",
-                "Credits",
-                "Release Notes"
-            });
+            tocExcludes: new List<string> {"Icon", "Credits", "Release Notes"});
         processor.Run();
     }
 
@@ -30,7 +24,7 @@ public class DirectoryMarkdownProcessorTests
     public Task InPlaceOverwriteExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExists");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             writeHeader: false,
@@ -40,7 +34,7 @@ public class DirectoryMarkdownProcessorTests
         processor.AddSnippets(SnippetBuild("snippet1", "thePath"));
         processor.Run();
 
-        FileInfo fileInfo = new(Path.Combine(root, "file.md"));
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
         return VerifyFile(fileInfo);
     }
 
@@ -48,7 +42,7 @@ public class DirectoryMarkdownProcessorTests
     public Task InPlaceOverwriteNotExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteNotExists");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             writeHeader: false,
@@ -60,7 +54,7 @@ public class DirectoryMarkdownProcessorTests
         processor.AddSnippets(SnippetBuild("snippet1", "thePath"));
         processor.Run();
 
-        FileInfo fileInfo = new(Path.Combine(root, "file.md"));
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
         return VerifyFile(fileInfo);
     }
 
@@ -68,7 +62,7 @@ public class DirectoryMarkdownProcessorTests
     public Task InPlaceOverwriteUrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteUrlSnippet");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             directoryIncludes: _ => true,
@@ -85,7 +79,7 @@ public class DirectoryMarkdownProcessorTests
     public Task InPlaceOverwriteUrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteUrlInclude");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             directoryIncludes: _ => true,
@@ -102,7 +96,7 @@ public class DirectoryMarkdownProcessorTests
     public Task InPlaceOverwriteWithFileSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteWithFileSnippetMissing");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             convention: DocumentConvention.InPlaceOverwrite,
             writeHeader: false,
@@ -113,7 +107,7 @@ public class DirectoryMarkdownProcessorTests
 
         processor.Run();
 
-        FileInfo fileInfo = new(Path.Combine(root, "file.md"));
+        var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
         return VerifyFile(fileInfo);
     }
 
@@ -123,8 +117,7 @@ public class DirectoryMarkdownProcessorTests
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");
         try
         {
-            DirectoryMarkdownProcessor processor = new(
-                root,
+            var processor = new DirectoryMarkdownProcessor(root,
                 writeHeader: false,
                 readOnly: true,
                 newLine: "\r",
@@ -137,7 +130,7 @@ public class DirectoryMarkdownProcessorTests
             );
             processor.Run();
 
-            FileInfo fileInfo = new(Path.Combine(root, "one.md"));
+            var fileInfo = new FileInfo(Path.Combine(root, "one.md"));
             Assert.True(fileInfo.IsReadOnly);
         }
         finally
@@ -153,13 +146,13 @@ public class DirectoryMarkdownProcessorTests
     public Task FileSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetMissing");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\n",
             directoryIncludes: _ => true,
-        markdownDirectoryIncludes: _ => true,
-        snippetDirectoryIncludes: _ => true);
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         return Throws(() => processor.Run());
     }
 
@@ -167,7 +160,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\n",
@@ -181,7 +174,7 @@ public class DirectoryMarkdownProcessorTests
     public Task ValidationErrors()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ValidationErrors");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             validateContent: true,
@@ -195,7 +188,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlIncludeMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\n",
@@ -209,7 +202,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippet");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -227,7 +220,7 @@ public class DirectoryMarkdownProcessorTests
     public Task BinaryFileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/BinaryFileSnippet");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -245,12 +238,12 @@ public class DirectoryMarkdownProcessorTests
     public Task FileSnippetWithWhiteSpace()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithWhiteSpace");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             directoryIncludes: _ => true,
-        markdownDirectoryIncludes: _ => true,
-        snippetDirectoryIncludes: _ => true);
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -262,12 +255,12 @@ public class DirectoryMarkdownProcessorTests
     public Task FileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             directoryIncludes: _ => true,
-        markdownDirectoryIncludes: _ => true,
-        snippetDirectoryIncludes: _ => true);
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -279,7 +272,7 @@ public class DirectoryMarkdownProcessorTests
     public Task MixedCaseInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MixedCaseInclude");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -297,12 +290,12 @@ public class DirectoryMarkdownProcessorTests
     public Task ExplicitFileInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileInclude");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             directoryIncludes: _ => true,
-        markdownDirectoryIncludes: _ => true,
-        snippetDirectoryIncludes: _ => true);
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
@@ -314,7 +307,7 @@ public class DirectoryMarkdownProcessorTests
     public Task ExplicitFileIncludeWithMergedSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithMergedSnippet");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -333,7 +326,7 @@ public class DirectoryMarkdownProcessorTests
     public Task ExplicitFileIncludeWithSnippetAtEnd()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithSnippetAtEnd");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -352,8 +345,7 @@ public class DirectoryMarkdownProcessorTests
     public Task UrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlInclude");
-        DirectoryMarkdownProcessor processor = new(
-            root,
+        var processor = new DirectoryMarkdownProcessor(root,
             writeHeader: false,
             newLine: "\r",
             directoryIncludes: _ => true,
@@ -370,7 +362,7 @@ public class DirectoryMarkdownProcessorTests
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             newLine: "\r",
@@ -383,7 +375,7 @@ public class DirectoryMarkdownProcessorTests
         );
         processor.Run();
 
-        StringBuilder builder = new();
+        var builder = new StringBuilder();
         foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories))
         {
             builder.AppendLine(file.Replace(root, ""));
@@ -398,13 +390,13 @@ public class DirectoryMarkdownProcessorTests
     public void MustErrorByDefaultWhenIncludesAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
-            newLine: "\n" );
+            newLine: "\n");
         Assert.Throws<MissingIncludesException>(() => processor.Run());
     }
 
@@ -412,14 +404,14 @@ public class DirectoryMarkdownProcessorTests
     public void MustNotErrorForMissingIncludesIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
-            newLine: "\n" );
+            newLine: "\n");
         processor.Run();
     }
 
@@ -427,13 +419,13 @@ public class DirectoryMarkdownProcessorTests
     public void MustErrorByDefaultWhenSnippetsAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
-            newLine: "\n" );
+            newLine: "\n");
         Assert.Throws<MissingSnippetsException>(() => processor.Run());
     }
 
@@ -441,14 +433,14 @@ public class DirectoryMarkdownProcessorTests
     public void MustNotErrorForMissingSnippetsIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
             treatMissingAsWarning: true,
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
-            newLine: "\n" );
+            newLine: "\n");
         processor.Run();
     }
 

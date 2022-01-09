@@ -17,7 +17,7 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRun
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             "targetDirectory",
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
@@ -31,7 +31,7 @@ class Usage
     {
         #region DirectoryMarkdownProcessorRunMaxWidth
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             "targetDirectory",
             maxWidth: 80,
             directoryIncludes: _ => true,

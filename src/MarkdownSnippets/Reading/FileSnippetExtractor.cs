@@ -133,7 +133,7 @@ public static class FileSnippetExtractor
     static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth, string newLine)
     {
         var language = GetLanguageFromPath(path);
-        LoopStack loopStack = new();
+        var loopStack = new LoopStack();
         var index = 0;
         while (true)
         {

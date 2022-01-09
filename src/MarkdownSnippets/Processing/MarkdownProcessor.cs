@@ -67,7 +67,7 @@ public class MarkdownProcessor
         this.tocLevel = tocLevel;
         if (tocExcludes == null)
         {
-            this.tocExcludes = new();
+            this.tocExcludes = new List<string>();
         }
         else
         {
@@ -77,7 +77,7 @@ public class MarkdownProcessor
         this.snippetSourceFiles = snippetSourceFiles
             .Select(x => x.Replace('\\', '/'))
             .ToList();
-        includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
+        includeProcessor = new IncludeProcessor(convention, includes, snippets, targetDirectory, this.allFiles);
     }
 
     public string Apply(string input, string? file = null)
@@ -86,8 +86,8 @@ public class MarkdownProcessor
         var builder = StringBuilderCache.Acquire();
         try
         {
-            using StringReader reader = new(input);
-            using StringWriter writer = new(builder);
+            using var reader = new StringReader(input);
+            using var writer = new StringWriter(builder);
             var processResult = Apply(reader, writer, file);
             var missing = processResult.MissingSnippets;
             if (missing.Any())
@@ -126,12 +126,12 @@ public class MarkdownProcessor
 
     internal ProcessResult Apply(List<Line> lines, string newLine, string? relativePath)
     {
-        List<MissingSnippet> missingSnippets = new();
-        List<ValidationError> validationErrors = new();
-        List<MissingInclude> missingIncludes = new();
-        List<Snippet> usedSnippets = new();
-        List<Include> usedIncludes = new();
-        StringBuilder builder = new();
+        var missingSnippets = new List<MissingSnippet>();
+        var validationErrors = new List<ValidationError>();
+        var missingIncludes = new List<MissingInclude>();
+        var usedSnippets = new List<Snippet>();
+        var usedIncludes = new List<Include>();
+        var builder = new StringBuilder();
         Line? tocLine = null;
 
         void AppendLine(string s)
@@ -140,7 +140,7 @@ public class MarkdownProcessor
             builder.Append(newLine);
         }
 
-        List<Line> headerLines = new();
+        var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
         {
             var line = lines[index];
@@ -218,7 +218,7 @@ public class MarkdownProcessor
 
         if (writeHeader)
         {
-            lines.Insert(0, new(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
+            lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
         }
 
         if (tocLine != null)
@@ -226,7 +226,7 @@ public class MarkdownProcessor
             tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
         }
 
-        return new(
+        return new ProcessResult(
             missingSnippets: missingSnippets,
             usedSnippets: usedSnippets.Distinct().ToList(),
             usedIncludes: usedIncludes.Distinct().ToList(),
@@ -269,7 +269,7 @@ public class MarkdownProcessor
             return;
         }
 
-        MissingSnippet missing = new(key, line.LineNumber, line.Path);
+        var missing = new MissingSnippet(key, line.LineNumber, line.Path);
         missings.Add(missing);
         appendLine("```");
         appendLine($"** Could not find snippet '{key}' **");
@@ -318,7 +318,7 @@ public class MarkdownProcessor
 
     List<Snippet> SnippetsForFile(string key, string relativeToRoot)
     {
-        return new()
+        return new List<Snippet>
         {
             FileToSnippet(key, relativeToRoot, null)
         };

@@ -13,7 +13,7 @@ public class ContentValidationException :
 
     static string BuildMessage(IReadOnlyList<ValidationError> errors)
     {
-        StringBuilder builder = new("Content validation errors:");
+        var builder = new StringBuilder("Content validation errors:");
         builder.AppendLine();
         foreach (var error in errors)
         {

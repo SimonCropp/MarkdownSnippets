@@ -19,7 +19,7 @@ public static class GitRepoDirectoryFinder
             return path;
         }
 
-        throw new("Could not find git repository directory");
+        throw new Exception("Could not find git repository directory");
     }
 
     static bool TryFind(string directory, [NotNullWhen(true)] out string? path)

@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 static class Markdown
 {
-    static Regex stripLinkRegex = new( @"\[(.*?)\][\[\(].*?[\]\)]",RegexOptions.Compiled);
+    static Regex stripLinkRegex = new(@"\[(.*?)\][\[\(].*?[\]\)]", RegexOptions.Compiled);
 
     public static string StripMarkdown(string input)
     {

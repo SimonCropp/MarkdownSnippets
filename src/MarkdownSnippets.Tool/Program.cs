@@ -35,7 +35,7 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
     var message = LogBuilder.BuildConfigLogMessage(targetDirectory, configResult, configFilePath);
     Console.WriteLine(message);
 
-    DirectoryMarkdownProcessor processor = new(
+    var processor = new DirectoryMarkdownProcessor(
         targetDirectory,
         directoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
         markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
@@ -57,7 +57,7 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
 
     if (configResult.UrlsAsSnippets.Any())
     {
-        List<Snippet> snippets = new();
+        var snippets = new List<Snippet>();
 
         await snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets);
         processor.AddSnippets(snippets);

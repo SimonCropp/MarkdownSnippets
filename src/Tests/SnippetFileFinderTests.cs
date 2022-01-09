@@ -7,12 +7,7 @@ public class SnippetFileFinderTests
     public Task Nested()
     {
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/Nested");
-        FileFinder finder = new(
-            directory,
-            DocumentConvention.SourceTransform,
-            _ => true,
-            _ => true,
-            _ => true);
+        var finder = new FileFinder(directory, DocumentConvention.SourceTransform, _ => true, _ => true, _ => true);
         var files = finder.FindFiles();
         return Verify(files.snippetFiles);
     }
@@ -21,12 +16,7 @@ public class SnippetFileFinderTests
     public Task Simple()
     {
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/Simple");
-        FileFinder finder = new(
-            directory,
-            DocumentConvention.SourceTransform,
-            _ => true,
-            _ => true,
-            _ => true);
+        var finder = new FileFinder(directory, DocumentConvention.SourceTransform, _ => true, _ => true, _ => true);
         var files = finder.FindFiles();
         return Verify(files.snippetFiles);
     }
@@ -34,11 +24,11 @@ public class SnippetFileFinderTests
     [Fact]
     public Task VerifyLambdasAreCalled()
     {
-        ConcurrentBag<string> directories = new();
-        ConcurrentBag<string> snippetDirectories = new();
-        ConcurrentBag<string> markdownDirectories = new();
+        var directories = new ConcurrentBag<string>();
+        var snippetDirectories = new ConcurrentBag<string>();
+        var markdownDirectories = new ConcurrentBag<string>();
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/VerifyLambdasAreCalled");
-        FileFinder finder = new(
+        var finder = new FileFinder(
             directory,
             DocumentConvention.SourceTransform,
             directoryIncludes: path =>
@@ -55,8 +45,7 @@ public class SnippetFileFinderTests
             {
                 snippetDirectories.Add(path);
                 return true;
-            }
-        );
+            });
         var files = finder.FindFiles();
         return Verify(new
         {

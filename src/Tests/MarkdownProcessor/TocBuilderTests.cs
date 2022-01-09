@@ -4,12 +4,12 @@ public class TocBuilderTests
     [Fact]
     public Task EmptyHeading()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("##", "", 0)
         };
 
-        var buildToc = TocBuilder.BuildToc(lines, 1, new(), "\r");
+        var buildToc = TocBuilder.BuildToc(lines, 1, new List<string>(), "\r");
         Assert.DoesNotContain("\r\n", buildToc);
         return Verify(buildToc);
     }
@@ -17,13 +17,13 @@ public class TocBuilderTests
     [Fact]
     public Task IgnoreTop()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("# Heading1", "", 0),
             new("## Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
@@ -35,30 +35,30 @@ public class TocBuilderTests
     [Fact]
     public Task StripMarkdown()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task Exclude()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading1", "", 0),
             new("### Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new() {"Heading2"}, Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string> {"Heading2"}, Environment.NewLine));
     }
 
     [Fact]
     public Task Nested()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading1", "", 0),
             new("### Heading2", "", 0),
@@ -66,13 +66,13 @@ public class TocBuilderTests
             new("### Heading4", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task Deep()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading1", "", 0),
             new("### Heading2", "", 0),
@@ -80,67 +80,67 @@ public class TocBuilderTests
             new("##### Heading4", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 10, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 10, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task StopAtLevel()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading1", "", 0),
             new("### Heading2", "", 0),
             new("#### Heading3", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task Single()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task WithSpaces()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("##  A B ", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task DuplicateNested()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## Heading", "", 0),
             new("### Heading", "", 0),
             new("#### Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines,4, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines,4, new List<string>(), Environment.NewLine));
     }
 
     [Fact]
     public Task Duplicates()
     {
-        List<Line> lines = new()
+        var lines = new List<Line>
         {
             new("## A", "", 0),
             new("## A", "", 0),
             new("## a", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, new List<string>(), Environment.NewLine));
     }
 }

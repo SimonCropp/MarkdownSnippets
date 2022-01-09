@@ -22,7 +22,7 @@
     static string ReadFirstLine(string head)
     {
         using var stream = FileEx.OpenRead(head);
-        using StreamReader reader = new(stream);
+        using var reader = new StreamReader(stream);
         return reader.ReadLine();
     }
 }

@@ -18,7 +18,7 @@ public class MdFileFinder
 
     public List<string> FindFiles(params string[] directoryPaths)
     {
-        List<string> files = new();
+        var files = new List<string>();
         foreach (var directoryPath in directoryPaths)
         {
             Guard.DirectoryExists(directoryPath, nameof(directoryPath));

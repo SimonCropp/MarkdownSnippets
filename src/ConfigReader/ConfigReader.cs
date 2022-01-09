@@ -42,7 +42,7 @@ public static class ConfigReader
     {
         var config = DeSerialize(contents);
 
-        return new()
+        return new ConfigInput
         {
             WriteHeader = config.WriteHeader,
             ReadOnly = config.ReadOnly,
@@ -66,11 +66,11 @@ public static class ConfigReader
 
     static ConfigSerialization DeSerialize(string contents)
     {
-        using MemoryStream stream = new(Encoding.UTF8.GetBytes(contents))
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents))
         {
             Position = 0
         };
-        DataContractJsonSerializer serializer = new(typeof(ConfigSerialization));
+        var serializer = new DataContractJsonSerializer(typeof(ConfigSerialization));
         try
         {
             return (ConfigSerialization) serializer.ReadObject(stream)!;

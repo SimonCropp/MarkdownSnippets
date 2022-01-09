@@ -34,7 +34,7 @@ public class DocoTask :
 
         var configResult = ConfigDefaults.Convert(
             fileConfig,
-            new()
+            new ConfigInput
             {
                 ReadOnly = ReadOnly,
                 ValidateContent = ValidateContent,
@@ -58,7 +58,7 @@ public class DocoTask :
         var message = LogBuilder.BuildConfigLogMessage(root, configResult, configFilePath);
         Log.LogMessage(message);
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             root,
             directoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeDirectories),
             markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
@@ -80,7 +80,7 @@ public class DocoTask :
 
         try
         {
-            List<Snippet> snippets = new();
+            var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
             processor.AddSnippets(snippets);
             var snippetsInError = processor.Snippets.Where(x => x.IsInError).ToList();

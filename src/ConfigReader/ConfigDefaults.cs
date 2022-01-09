@@ -6,7 +6,7 @@ public static class ConfigDefaults
     {
         if (fileConfig == null)
         {
-            return new()
+            return new ConfigResult
             {
                 ValidateContent = otherConfig.ValidateContent.GetValueOrDefault(),
                 HashSnippetAnchors = otherConfig.HashSnippetAnchors.GetValueOrDefault(),
@@ -28,7 +28,7 @@ public static class ConfigDefaults
             };
         }
 
-        return new()
+        return new ConfigResult
         {
             ValidateContent = GetValueOrDefault("ValidateContent", otherConfig.ValidateContent, fileConfig.ValidateContent, false),
             HashSnippetAnchors = GetValueOrDefault("HashSnippetAnchors", otherConfig.HashSnippetAnchors, fileConfig.HashSnippetAnchors, false),

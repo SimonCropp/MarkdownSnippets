@@ -5,7 +5,7 @@ static class LogBuilder
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
         var header = GetHeader(config);
-        StringBuilder builder = new($@"Config:
+        var builder = new StringBuilder($@"Config:
     TargetDirectory: {targetDirectory}
     UrlPrefix: {config.UrlPrefix}
     LinkFormat: {config.LinkFormat}

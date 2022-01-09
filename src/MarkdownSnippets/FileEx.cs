@@ -10,19 +10,19 @@
 
     public static FileStream OpenRead(string path)
     {
-        return new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
     }
 
     public static string GetRelativePath(string file, string directory)
     {
-        Uri fileUri = new(file);
+        var fileUri = new Uri(file);
         // Folders must end in a slash
         if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
             directory += Path.DirectorySeparatorChar;
         }
 
-        Uri directoryUri = new(directory);
+        var directoryUri = new Uri(directory);
         return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
     }
 
@@ -38,7 +38,7 @@
 
     public static IEnumerable<string> FindFiles(string directory, string pattern)
     {
-        List<string> files = new();
+        var files = new List<string>();
         try
         {
             files.AddRange(Directory.EnumerateFiles(directory, pattern));

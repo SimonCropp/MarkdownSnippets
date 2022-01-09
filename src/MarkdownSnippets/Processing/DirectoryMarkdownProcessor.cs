@@ -104,11 +104,7 @@ public class DirectoryMarkdownProcessor
         Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
         this.targetDirectory = Path.GetFullPath(targetDirectory);
 
-        FileFinder fileFinder = new(
-            targetDirectory,
-            convention,
-            directoryIncludes, markdownDirectoryIncludes,
-            snippetDirectoryIncludes);
+        var fileFinder = new FileFinder(targetDirectory, convention, directoryIncludes, markdownDirectoryIncludes, snippetDirectoryIncludes);
 
         var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
         this.allFiles = allFiles;
@@ -142,7 +138,7 @@ public class DirectoryMarkdownProcessor
                 var key = Path.GetFileName(file).Replace(".include.md", "");
                 if (includes.Any(x => x.Key == key))
                 {
-                    throw new($"Duplicate include: {key}");
+                    throw new Exception($"Duplicate include: {key}");
                 }
 
                 includes.Add(Include.Build(key, File.ReadAllLines(file), file));
@@ -235,9 +231,8 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
         }
 
         var stopwatch = Stopwatch.StartNew();
-        MarkdownProcessor processor = new(
-            convention,
-            Snippets.ToDictionary(),
+        var processor = new MarkdownProcessor(
+            convention, Snippets.ToDictionary(),
             includes,
             appendSnippets,
             snippetSourceFiles,

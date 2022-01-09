@@ -94,7 +94,7 @@ class IncludeProcessor
         {
             if (snippetsResult.Count > 1)
             {
-                throw new("Only one snippet may be used as an include");
+                throw new Exception("Only one snippet may be used as an include");
             }
 
             if (snippetsResult.Count == 1)
@@ -124,7 +124,7 @@ class IncludeProcessor
             return;
         }
 
-        missing.Add(new(includeKey, index + 1, line.Path));
+        missing.Add(new MissingInclude(includeKey, index + 1, line.Path));
         line.Current = $"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
     }
 
@@ -176,7 +176,7 @@ class IncludeProcessor
                 yield return line.WithCurrent($"<!-- include: {key} -->");
             }
 
-            yield return new(first, path, 1);
+            yield return new Line(first, path, 1);
         }
         else
         {
@@ -194,18 +194,18 @@ class IncludeProcessor
         for (var index = 1; index < include.Lines.Count - 1; index++)
         {
             var includeLine = include.Lines[index];
-            yield return new(includeLine, path, index);
+            yield return new Line(includeLine, path, index);
         }
 
         var last = include.Lines.Last();
         if (ShouldWriteIncludeOnDiffLine(last))
         {
-            yield return new(last, path, count);
-            yield return new("<!-- endInclude -->", path, count);
+            yield return new Line(last, path, count);
+            yield return new Line("<!-- endInclude -->", path, count);
         }
         else
         {
-            yield return new($"{last} <!-- endInclude -->", path, count);
+            yield return new Line($"{last} <!-- endInclude -->", path, count);
         }
     }
 
@@ -243,8 +243,8 @@ class IncludeProcessor
                 yield return line.WithCurrent($"<!-- include: {key} -->");
             }
 
-            yield return new(first, path, 1);
-            yield return new("<!-- endInclude -->", path, 1);
+            yield return new Line(first, path, 1);
+            yield return new Line("<!-- endInclude -->", path, 1);
         }
         else
         {

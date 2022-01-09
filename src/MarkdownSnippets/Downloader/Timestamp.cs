@@ -6,7 +6,7 @@
 
     public static Timestamp GetTimestamp(HttpResponseMessage headResponse)
     {
-        Timestamp timestamp = new();
+        var timestamp = new Timestamp();
         if (headResponse.Content.Headers.LastModified != null)
         {
             timestamp.LastModified = headResponse.Content.Headers.LastModified.Value.UtcDateTime;
@@ -28,7 +28,7 @@
 
     public static Timestamp GetTimestamp(string path)
     {
-        Timestamp timestamp = new();
+        var timestamp = new Timestamp();
         var creationTimeUtc = File.GetCreationTimeUtc(path);
         if (creationTimeUtc != minFileDate)
         {

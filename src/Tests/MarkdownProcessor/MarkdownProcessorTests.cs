@@ -30,7 +30,7 @@ before
 
 after
 ";
-        List<string> lines = new() {"one", "two"};
+        var lines = new List<string> {"one", "two"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -52,7 +52,7 @@ BAD <!-- endInclude -->
 
 after
 ";
-        List<string> lines = new() {"theValue1", "theValue2"};
+        var lines = new List<string> {"theValue1", "theValue2"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -72,7 +72,7 @@ BAD <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
 ";
-        List<string> lines = new() {"theValue1"};
+        var lines = new List<string> {"theValue1"};
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -92,7 +92,7 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1"};
+        var lines = new List<string> {"theValue1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -116,7 +116,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
+            snippets: new List<Snippet>
             {
                 SnippetBuild("cs", "theKey")
             });
@@ -136,7 +136,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
+            snippets: new List<Snippet>
             {
                 Snippet.Build(
                     language: "cs",
@@ -163,7 +163,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
+            snippets: new List<Snippet>
             {
                 Snippet.Build(
                     language: "cs",
@@ -187,7 +187,7 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1", "theValue2"};
+        var lines = new [] {"theValue1", "theValue2"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -207,7 +207,7 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"", "", ""};
+        var lines = new [] {"", "", ""};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -227,7 +227,7 @@ include: theKey
 
 after
 ";
-        List<string> lines = new() {"theValue1", "theValue2", "theValue3"};
+        var lines = new [] {"theValue1", "theValue2", "theValue3"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -374,7 +374,7 @@ Text2
     [Fact]
     public Task Simple_Overwrite()
     {
-        List<Snippet> availableSnippets = new()
+        var availableSnippets = new List<Snippet>
         {
             SnippetBuild("cs", "snippet1"),
             SnippetBuild("cs", "snippet2")
@@ -426,7 +426,7 @@ BAD
         var file = "FileWithMixedNewLines.txt";
         File.Delete(file);
         await File.WriteAllTextAsync(file, "a\rb\nc\r\nd");
-        List<Snippet> availableSnippets = new();
+        var availableSnippets = new List<Snippet>();
         var content = @"
 some other text
 
@@ -448,7 +448,7 @@ snippet: FileWithMixedNewLines.txt
     [Fact]
     public Task Simple()
     {
-        List<Snippet> availableSnippets = new()
+        var availableSnippets = new List<Snippet>
         {
             SnippetBuild("cs", "snippet1"),
             SnippetBuild("cs", "snippet2")
@@ -481,7 +481,7 @@ snippet: /FileToUseAsSnippet.txt
     [Fact]
     public Task SnippetInInclude()
     {
-        List<Snippet> availableSnippets = new()
+        var availableSnippets = new List<Snippet>
         {
             SnippetBuild("cs", "snippet1")
         };
@@ -492,7 +492,7 @@ include: theKey
 
 some other text
 ";
-        List<string> lines = new() {"snippet: snippet1"};
+        var lines = new List<string> {"snippet: snippet1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -506,7 +506,7 @@ some other text
     [Fact]
     public Task TableInInclude()
     {
-        List<Snippet> availableSnippets = new();
+        var availableSnippets = new List<Snippet>();
         var content = @"
 some text
 
@@ -514,7 +514,7 @@ include: theKey
 
 some other text
 ";
-        List<string> lines = new()
+        var lines = new List<string>
         {
             @"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
 | -------------------- | ----------------------- | ------------------ | --------------------- |
@@ -533,7 +533,7 @@ some other text
     [Fact]
     public Task SnippetInIncludeLast()
     {
-        List<Snippet> availableSnippets = new()
+        var availableSnippets = new List<Snippet>
         {
             SnippetBuild("cs", "snippet1")
         };
@@ -544,7 +544,7 @@ include: theKey
 
 some other text
 ";
-        List<string> lines = new() {"line1", "snippet: snippet1"};
+        var lines = new List<string> {"line1", "snippet: snippet1"};
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,

@@ -11,7 +11,7 @@ public class Snippet : IContent
         Guard.AgainstNegativeAndZero(lineNumberInError, nameof(lineNumberInError));
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstNullAndEmpty(error, nameof(error));
-        return new()
+        return new Snippet
         {
             Key = key,
             StartLine = lineNumberInError,
@@ -37,7 +37,7 @@ public class Snippet : IContent
 
         Guard.AgainstNegativeAndZero(startLine, nameof(startLine));
         Guard.AgainstNegativeAndZero(endLine, nameof(endLine));
-        return new()
+        return new Snippet
         {
             StartLine = startLine,
             EndLine = endLine,

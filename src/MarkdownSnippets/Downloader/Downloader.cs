@@ -36,7 +36,7 @@ static class Downloader
         }
 
         Timestamp webTimeStamp;
-        using (HttpRequestMessage request = new(HttpMethod.Head, uri))
+        using (var request = new HttpRequestMessage(HttpMethod.Head, uri))
         {
             using var headResponse = await httpClient.SendAsync(request);
             if (headResponse.StatusCode != HttpStatusCode.OK)
@@ -60,7 +60,7 @@ static class Downloader
 
         using var response = await httpClient.GetAsync(uri);
         using var httpStream = await response.Content.ReadAsStreamAsync();
-        using (FileStream fileStream = new(file, FileMode.Create, FileAccess.Write, FileShare.None))
+        using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
         {
             await httpStream.CopyToAsync(fileStream);
         }

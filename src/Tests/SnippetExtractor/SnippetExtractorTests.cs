@@ -6,7 +6,7 @@ public class SnippetExtractorTests
     [Fact]
     public async Task AppendUrlAsSnippet()
     {
-        List<Snippet> snippets = new();
+        var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
         await Verify(snippets);
     }
@@ -14,7 +14,7 @@ public class SnippetExtractorTests
     [Fact]
     public async Task AppendUrlAsSnippetInline()
     {
-        List<Snippet> snippets = new();
+        var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs");
         await Verify(snippets).ScrubLinesContaining("#region", "#endregion");
     }
@@ -26,9 +26,9 @@ public class SnippetExtractorTests
         try
         {
             await File.WriteAllTextAsync(temp, "Foo");
-            List<Snippet> snippets = new();
+            var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.AddScrubber(x =>
             {
                 var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
@@ -177,7 +177,7 @@ public class SnippetExtractorTests
 
     static List<Snippet> FromText(string contents)
     {
-        using StringReader reader = new(contents);
+        using var reader = new StringReader(contents);
         return FileSnippetExtractor.Read(reader, "path.cs", 80).ToList();
     }
 

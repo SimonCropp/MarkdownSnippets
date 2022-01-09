@@ -6,17 +6,17 @@ public class LogBuilderTests
     [Fact]
     public Task BuildConfigLogMessage()
     {
-        ConfigResult config = new()
+        var config = new ConfigResult
         {
             WriteHeader = true,
             Header = @"line1
 line2",
-            ExcludeDirectories = new(){"Dir1", "Dir2"},
-            ExcludeMarkdownDirectories = new(){"Dir3", "Dir4"},
-            ExcludeSnippetDirectories = new(){"Dir5", "Dir6"},
+            ExcludeDirectories = new List<string> {"Dir1", "Dir2"},
+            ExcludeMarkdownDirectories = new List<string> {"Dir3", "Dir4"},
+            ExcludeSnippetDirectories = new List<string> {"Dir5", "Dir6"},
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
-            UrlsAsSnippets = new(){"Url1", "Url2"},
+            UrlsAsSnippets = new List<string> {"Url1", "Url2"},
             TocLevel = 5,
             MaxWidth = 80,
             Convention = DocumentConvention.InPlaceOverwrite,
@@ -28,7 +28,7 @@ line2",
     [Fact]
     public Task BuildConfigLogMessageMinimal()
     {
-        ConfigResult config = new();
+        var config = new ConfigResult();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
         return Verify(message);
     }

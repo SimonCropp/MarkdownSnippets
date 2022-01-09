@@ -3,7 +3,7 @@
     public static string ConvertToFileName(string url)
     {
         var invalid = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).ToList();
-        StringBuilder stringBuilder = new();
+        var stringBuilder = new StringBuilder();
         foreach (var ch in url)
         {
             if (invalid.Contains(ch))

@@ -19,7 +19,7 @@ class Usage
     void DirectoryMarkdownProcessorRun()
     {
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             "targetDirectory",
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
@@ -31,7 +31,7 @@ class Usage
     void DirectoryMarkdownProcessorRunMaxWidth()
     {
 
-        DirectoryMarkdownProcessor processor = new(
+        var processor = new DirectoryMarkdownProcessor(
             "targetDirectory",
             maxWidth: 80,
             directoryIncludes: _ => true,
@@ -60,7 +60,7 @@ var snippets = FileSnippetExtractor.Read(files);,
     Key: directorymarkdownprocessorrun,
     Language: cs,
     Value:
-DirectoryMarkdownProcessor processor = new(
+var processor = new DirectoryMarkdownProcessor(
     "targetDirectory",
     directoryIncludes: _ => true,
     markdownDirectoryIncludes: _ => true,
@@ -74,7 +74,7 @@ processor.Run();,
     Key: directorymarkdownprocessorrunmaxwidth,
     Language: cs,
     Value:
-DirectoryMarkdownProcessor processor = new(
+var processor = new DirectoryMarkdownProcessor(
     "targetDirectory",
     maxWidth: 80,
     directoryIncludes: _ => true,

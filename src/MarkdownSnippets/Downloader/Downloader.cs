@@ -9,9 +9,9 @@ static class Downloader
         cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
         Directory.CreateDirectory(cache);
         foreach (var file in new DirectoryInfo(cache)
-            .GetFiles()
-            .OrderByDescending(x => x.LastWriteTime)
-            .Skip(100))
+                     .GetFiles()
+                     .OrderByDescending(x => x.LastWriteTime)
+                     .Skip(100))
         {
             file.Delete();
         }
@@ -78,6 +78,7 @@ static class Downloader
         {
             return (true, File.ReadAllText(path));
         }
+
         return (false, null);
     }
 }

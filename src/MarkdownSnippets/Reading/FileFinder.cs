@@ -30,7 +30,7 @@ class FileFinder
     {
         ProcessFiles(targetDirectory);
         foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
-            .Where(path => directoryIncludes(path)))
+                     .Where(path => directoryIncludes(path)))
         {
             FindFiles(subDirectory);
         }
@@ -43,7 +43,7 @@ class FileFinder
         ProcessFiles(directory);
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-            .Where(path => directoryIncludes(path)))
+                     .Where(path => directoryIncludes(path)))
         {
             FindFiles(subDirectory);
         }
@@ -59,7 +59,7 @@ class FileFinder
             {
                 allFiles.Add(file);
 
-                if (file.EndsWith(".md"))
+                if (file.IsMdFile())
                 {
                     ProcessMarkdown(file);
 
@@ -68,24 +68,26 @@ class FileFinder
 
                 snippetFiles.Add(file);
             }
+
             return;
         }
 
         if (scanForSnippets)
         {
             foreach (var file in EnumerateFiles(directory)
-                .Where(x=>!x.EndsWith(".md")))
+                         .Where(x => !x.IsMdFile()))
             {
                 allFiles.Add(file);
                 snippetFiles.Add(file);
             }
+
             return;
         }
 
         if (scanForMarkdown)
         {
             foreach (var file in EnumerateFiles(directory)
-                .Where(x=>x.EndsWith(".md")))
+                         .Where(Paths.IsMdFile))
             {
                 allFiles.Add(file);
                 ProcessMarkdown(file);
@@ -101,7 +103,7 @@ class FileFinder
 
     void ProcessMarkdown(string file)
     {
-        if (file.EndsWith(".include.md"))
+        if (file.IsIncludeMdFile())
         {
             includeFiles.Add(file);
             return;
@@ -113,7 +115,7 @@ class FileFinder
             return;
         }
 
-        if (file.EndsWith(".source.md"))
+        if (file.IsSourceMdFile())
         {
             mdFiles.Add(file);
         }

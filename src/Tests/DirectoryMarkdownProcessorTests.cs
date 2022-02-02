@@ -39,6 +39,24 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task InPlaceOverwriteExistsMdx()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExistsMdx");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            convention: DocumentConvention.InPlaceOverwrite,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.AddSnippets(SnippetBuild("snippet1", "thePath"));
+        processor.Run();
+
+        var fileInfo = new FileInfo(Path.Combine(root, "file.mdx"));
+        return VerifyFile(fileInfo);
+    }
+
+    [Fact]
     public Task InPlaceOverwriteNotExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteNotExists");
@@ -247,6 +265,23 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var result = Path.Combine(root, "one.md");
+
+        return Verify(File.ReadAllTextAsync(result));
+    }
+
+    [Fact]
+    public Task Mdx()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Mdx");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.mdx");
 
         return Verify(File.ReadAllTextAsync(result));
     }

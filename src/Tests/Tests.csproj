@@ -6,7 +6,7 @@
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
-    <PackageReference Include="Verify.Xunit" Version="16.1.1" />
+    <PackageReference Include="Verify.Xunit" Version="16.1.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />

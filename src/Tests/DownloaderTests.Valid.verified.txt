@@ -3,12 +3,8 @@
   content:
 # Auto detect text files and perform LF normalization
 * text=auto eol=crlf
-*.xml     -text 
-*.targets -text
 *.txt -text
 
-
-# Denote all files that are truly binary and should not be modified.
 *.dll binary
 *.exe binary
 *.png binary

@@ -4,3 +4,4 @@
 *.sln.DotSettings -text
 *.png binary
 *.snk binary
+*.json -text

@@ -131,6 +131,6 @@ public class SnippetMarkdownHandling
         }
         #endregion
 
-        throw new Exception($"Unknown LinkFormat: {linkFormat}");
+        throw new($"Unknown LinkFormat: {linkFormat}");
     }
 }

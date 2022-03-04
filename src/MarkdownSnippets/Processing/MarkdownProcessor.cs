@@ -67,7 +67,7 @@ public class MarkdownProcessor
         this.tocLevel = tocLevel;
         if (tocExcludes == null)
         {
-            this.tocExcludes = new List<string>();
+            this.tocExcludes = new();
         }
         else
         {
@@ -77,7 +77,7 @@ public class MarkdownProcessor
         this.snippetSourceFiles = snippetSourceFiles
             .Select(x => x.Replace('\\', '/'))
             .ToList();
-        includeProcessor = new IncludeProcessor(convention, includes, snippets, targetDirectory, this.allFiles);
+        includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
     }
 
     public string Apply(string input, string? file = null)
@@ -211,14 +211,12 @@ public class MarkdownProcessor
                 index++;
 
                 lines.RemoveUntil(index, "<!-- endToc -->", relativePath, line);
-
-                continue;
             }
         }
 
         if (writeHeader)
         {
-            lines.Insert(0, new Line(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
+            lines.Insert(0, new(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
         }
 
         if (tocLine != null)
@@ -226,7 +224,7 @@ public class MarkdownProcessor
             tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
         }
 
-        return new ProcessResult(
+        return new(
             missingSnippets: missingSnippets,
             usedSnippets: usedSnippets.Distinct().ToList(),
             usedIncludes: usedIncludes.Distinct().ToList(),
@@ -318,7 +316,7 @@ public class MarkdownProcessor
 
     List<Snippet> SnippetsForFile(string key, string relativeToRoot)
     {
-        return new List<Snippet>
+        return new()
         {
             FileToSnippet(key, relativeToRoot, null)
         };

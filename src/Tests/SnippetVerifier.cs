@@ -26,7 +26,7 @@ static class SnippetVerifier
         includes ??= Array.Empty<Include>();
         snippets ??= Array.Empty<Snippet>();
         snippetSourceFiles ??= Array.Empty<string>();
-        return new MarkdownProcessor(
+        return new(
             convention: convention,
             snippets: snippets.ToDictionary(),
             includes: includes,

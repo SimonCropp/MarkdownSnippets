@@ -138,7 +138,7 @@ public class DirectoryMarkdownProcessor
                 var key = Path.GetFileName(file).Replace(".include.md", "");
                 if (includes.Any(x => x.Key == key))
                 {
-                    throw new Exception($"Duplicate include: {key}");
+                    throw new($"Duplicate include: {key}");
                 }
 
                 includes.Add(Include.Build(key, File.ReadAllLines(file), file));

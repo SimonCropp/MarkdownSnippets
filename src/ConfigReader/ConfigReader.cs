@@ -42,7 +42,7 @@ public static class ConfigReader
     {
         var config = DeSerialize(contents);
 
-        return new ConfigInput
+        return new()
         {
             WriteHeader = config.WriteHeader,
             ReadOnly = config.ReadOnly,

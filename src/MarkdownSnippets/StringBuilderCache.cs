@@ -19,7 +19,7 @@ static class StringBuilderCache
                 return builder;
             }
         }
-        return new StringBuilder(capacity);
+        return new(capacity);
     }
 
     public static void Release(StringBuilder builder)

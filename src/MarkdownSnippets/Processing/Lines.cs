@@ -34,7 +34,7 @@ static class Lines
         var index = 1;
         while ((line = textReader.ReadLine()) != null)
         {
-            yield return new Line(line, path, index);
+            yield return new(line, path, index);
             index++;
         }
     }

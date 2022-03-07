@@ -79,7 +79,7 @@ static class TocBuilder
 
     internal static string SanitizeLink(string lowerTitle)
     {
-        lowerTitle = new string(lowerTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c is '-' or '_').ToArray());
+        lowerTitle = new(lowerTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c is '-' or '_').ToArray());
         return lowerTitle.Replace(' ', '-');
     }
 }

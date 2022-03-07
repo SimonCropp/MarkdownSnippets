@@ -10,7 +10,7 @@
 
     public static FileStream OpenRead(string path)
     {
-        return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        return new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
     }
 
     public static string GetRelativePath(string file, string directory)

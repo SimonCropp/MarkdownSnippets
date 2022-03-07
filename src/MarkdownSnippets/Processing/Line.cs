@@ -11,7 +11,7 @@ class Line
 
     public Line WithCurrent(string current)
     {
-        return new Line(Original, Path, LineNumber)
+        return new(Original, Path, LineNumber)
         {
             Current = current
         };
@@ -21,7 +21,7 @@ class Line
 
     public override string ToString()
     {
-        throw new Exception();
+        throw new();
     }
 
     public string Current

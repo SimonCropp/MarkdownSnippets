@@ -34,7 +34,7 @@ public class DocoTask :
 
         var configResult = ConfigDefaults.Convert(
             fileConfig,
-            new ConfigInput
+            new()
             {
                 ReadOnly = ReadOnly,
                 ValidateContent = ValidateContent,

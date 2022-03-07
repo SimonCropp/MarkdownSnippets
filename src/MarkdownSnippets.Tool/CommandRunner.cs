@@ -10,7 +10,7 @@ static class CommandRunner
             var firstArg = args[0];
             if (!firstArg.StartsWith('-'))
             {
-                return invoke(firstArg, new ConfigInput());
+                return invoke(firstArg, new());
             }
         }
 

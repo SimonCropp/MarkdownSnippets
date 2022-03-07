@@ -1,14 +1,11 @@
 ﻿{
   success: true,
   content:
-# Auto detect text files and perform LF normalization
 * text=auto eol=crlf
 *.txt -text
-
-*.dll binary
-*.exe binary
+.editorconfig -text
+*.sln.DotSettings -text
 *.png binary
-*.ico binary
 *.snk binary
-*.pdb binary
+*.json -text
 }

@@ -12,7 +12,7 @@ public class Include :
         Guard.AgainstNegativeAndZero(lineNumberInError, nameof(lineNumberInError));
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstNullAndEmpty(error, nameof(error));
-        return new Include
+        return new()
         {
             Key = key,
             IsInError = true,
@@ -28,7 +28,7 @@ public class Include :
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstEmpty(path, nameof(path));
-        return new Include
+        return new()
         {
             lines = lines,
             Key = key,

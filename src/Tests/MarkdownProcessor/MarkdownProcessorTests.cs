@@ -116,7 +116,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 SnippetBuild("cs", "theKey")
             });
@@ -136,7 +136,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 Snippet.Build(
                     language: "cs",
@@ -163,7 +163,7 @@ after
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new List<Snippet>
+            snippets: new()
             {
                 Snippet.Build(
                     language: "cs",

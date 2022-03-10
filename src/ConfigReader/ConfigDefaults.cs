@@ -54,13 +54,11 @@ public static class ConfigDefaults
         };
     }
 
-    static List<string> JoinLists(List<string> list1, List<string> list2)
-    {
-        return list1
+    static List<string> JoinLists(List<string> list1, List<string> list2) =>
+        list1
             .Concat(list2)
             .Distinct()
             .ToList();
-    }
 
     static T GetValueOrDefault<T>(string name, T? input, T? config, T defaultValue)
         where T : struct

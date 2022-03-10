@@ -32,13 +32,9 @@ class SnippetConverter :
         writer.WriteEndObject();
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-    {
+    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) =>
         throw new NotImplementedException();
-    }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(Snippet);
-    }
+    public override bool CanConvert(Type objectType) =>
+        objectType == typeof(Snippet);
 }

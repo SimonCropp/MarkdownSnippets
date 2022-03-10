@@ -70,12 +70,10 @@ public class Include :
         }
     }
 
-    public override string ToString()
-    {
-        return $@"ReadInclude.
+    public override string ToString() =>
+        $@"ReadInclude.
   Key: {Key}
   Path: {Path}
   Error: {Error}
 ";
-    }
 }

@@ -13,10 +13,7 @@ class LoopStack
         }
     }
 
-    public void Pop()
-    {
-        stack.Pop();
-    }
+    public void Pop() => stack.Pop();
 
     public void Push(Func<string, bool> endFunc, string key, int startLine, int maxWidth, string newLine)
     {

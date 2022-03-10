@@ -479,14 +479,12 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    static Snippet SnippetBuild(string key, string? path = null)
-    {
-        return Snippet.Build(
+    static Snippet SnippetBuild(string key, string? path = null) =>
+        Snippet.Build(
             language: "cs",
             startLine: 1,
             endLine: 2,
             value: "the code from " + key,
             key: key,
             path: path);
-    }
 }

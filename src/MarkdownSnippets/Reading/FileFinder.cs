@@ -95,11 +95,9 @@ class FileFinder
         }
     }
 
-    static IEnumerable<string> EnumerateFiles(string directory)
-    {
-        return Directory.EnumerateFiles(directory)
+    static IEnumerable<string> EnumerateFiles(string directory) =>
+        Directory.EnumerateFiles(directory)
             .Where(ShouldInclude);
-    }
 
     void ProcessMarkdown(string file)
     {

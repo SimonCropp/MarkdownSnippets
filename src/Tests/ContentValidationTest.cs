@@ -2,64 +2,43 @@
 public class ContentValidationTest
 {
     [Fact]
-    public Task CheckInvalidWord()
-    {
-        return Verify(ContentValidation.Verify(" you "));
-    }
+    public Task CheckInvalidWord() => Verify(ContentValidation.Verify(" you "));
 
     [Fact]
-    public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage()
-    {
-        return Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
-    }
+    public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage() =>
+        Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
 
     [Fact]
-    public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase()
-    {
-        return Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
-    }
+    public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase() =>
+        Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
 
     [Fact]
-    public Task CheckInvalidWordWithQuestionMark()
-    {
-        return Verify(ContentValidation.Verify(" you? "));
-    }
+    public Task CheckInvalidWordWithQuestionMark() =>
+        Verify(ContentValidation.Verify(" you? "));
 
     [Fact]
-    public Task CheckInvalidWordWithComma()
-    {
-        return Verify(ContentValidation.Verify(" you, "));
-    }
+    public Task CheckInvalidWordWithComma() =>
+        Verify(ContentValidation.Verify(" you, "));
 
     [Fact]
-    public Task CheckInvalidWordSentenceEnd()
-    {
-        return Verify(ContentValidation.Verify(" you. "));
-    }
+    public Task CheckInvalidWordSentenceEnd() =>
+        Verify(ContentValidation.Verify(" you. "));
 
     [Fact]
-    public Task CheckInvalidWordSentenceStart()
-    {
-        return Verify(ContentValidation.Verify("you "));
-    }
+    public Task CheckInvalidWordSentenceStart() =>
+        Verify(ContentValidation.Verify("you "));
 
     [Fact]
-    public Task CheckInvalidWordStringEnd()
-    {
-        return Verify(ContentValidation.Verify("the you"));
-    }
+    public Task CheckInvalidWordStringEnd() =>
+        Verify(ContentValidation.Verify("the you"));
 
     [Fact]
-    public void CheckInvalidWordDoesNotThrowWhenNoMatch()
-    {
+    public void CheckInvalidWordDoesNotThrowWhenNoMatch() =>
         Assert.Empty(ContentValidation.Verify(" some random content which doesn't contain invalid words. "));
-    }
 
     [Fact]
-    public void CheckInvalidWordDoesNotThrowWhenIsQuote()
-    {
+    public void CheckInvalidWordDoesNotThrowWhenIsQuote() =>
         Assert.Empty(ContentValidation.Verify("> you "));
-    }
 
     [Fact]
     public void CheckInvalidWordInUrl()

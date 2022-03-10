@@ -10,16 +10,12 @@ public class StartEndTester_IsBeginSnippetTests
     }
 
     [Fact]
-    public Task ShouldThrowForNoKey()
-    {
-        return Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
-    }
+    public Task ShouldThrowForNoKey() =>
+        Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _));
 
     [Fact]
-    public void ShouldNotThrowForNoKeyWithNoSpace()
-    {
+    public void ShouldNotThrowForNoKeyWithNoSpace() =>
         StartEndTester.IsBeginSnippet("<!--begin-snippet:-->", "file", out _);
-    }
 
     [Fact]
     public void CanExtractFromXmlWithMissingSpaces()
@@ -62,18 +58,14 @@ public class StartEndTester_IsBeginSnippetTests
     }
 
     [Fact]
-    public Task ShouldThrowForKeyStartingWithSymbol()
-    {
-        return Throws(() =>
+    public Task ShouldThrowForKeyStartingWithSymbol() =>
+        Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _));
-    }
 
     [Fact]
-    public Task ShouldThrowForKeyEndingWithSymbol()
-    {
-        return Throws(() =>
+    public Task ShouldThrowForKeyEndingWithSymbol() =>
+        Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _));
-    }
 
     [Fact]
     public void CanExtractWithDifferentEndComments()

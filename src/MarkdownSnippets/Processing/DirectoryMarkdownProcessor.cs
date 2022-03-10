@@ -183,10 +183,8 @@ public class DirectoryMarkdownProcessor
         }
     }
 
-    public void AddSnippets(params Snippet[] snippets)
-    {
+    public void AddSnippets(params Snippet[] snippets) =>
         AddSnippets(snippets.ToList());
-    }
 
     public void AddMdFiles(params string[] files)
     {

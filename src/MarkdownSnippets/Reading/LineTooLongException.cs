@@ -3,8 +3,5 @@
 {
     public string Line { get; }
 
-    public LineTooLongException(string line)
-    {
-        Line = line;
-    }
+    public LineTooLongException(string line) => Line = line;
 }

@@ -209,14 +209,12 @@ class IncludeProcessor
         }
     }
 
-    static bool ShouldWriteIncludeOnDiffLine(string line)
-    {
-        return SnippetKey.IsSnippetLine(line) ||
-               line.StartsWith("<!-- endSnippet -->") ||
-               line.EndsWith("```") ||
-               line.StartsWith("|") ||
-               line.EndsWith("|");
-    }
+    static bool ShouldWriteIncludeOnDiffLine(string line) =>
+        SnippetKey.IsSnippetLine(line) ||
+        line.StartsWith("<!-- endSnippet -->") ||
+        line.EndsWith("```") ||
+        line.StartsWith("|") ||
+        line.EndsWith("|");
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include, bool writePath)
     {

@@ -67,15 +67,11 @@ static class ContentValidation
         "whereof",
     };
 
-    static ContentValidation()
-    {
+    static ContentValidation() =>
         invalidStrings = BuildInvalidStrings().ToList();
-    }
 
-    static IEnumerable<string> BuildInvalidStrings()
-    {
-        return invalidWords.Select(word => $" {word} ");
-    }
+    static IEnumerable<string> BuildInvalidStrings() =>
+        invalidWords.Select(word => $" {word} ");
 
     public static IEnumerable<(string error, int column)> Verify(string line)
     {

@@ -6,10 +6,8 @@ public class ContentValidationException :
     public IReadOnlyList<ValidationError> Errors { get; }
 
     public ContentValidationException(IReadOnlyList<ValidationError> errors) :
-        base(BuildMessage(errors))
-    {
+        base(BuildMessage(errors)) =>
         Errors = errors;
-    }
 
     static string BuildMessage(IReadOnlyList<ValidationError> errors)
     {
@@ -35,8 +33,5 @@ public class ContentValidationException :
         return builder.ToString();
     }
 
-    public override string ToString()
-    {
-        return Message;
-    }
+    public override string ToString() => Message;
 }

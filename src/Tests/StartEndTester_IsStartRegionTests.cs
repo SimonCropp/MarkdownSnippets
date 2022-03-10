@@ -8,28 +8,20 @@
     }
 
     [Fact]
-    public void ShouldThrowForKeyStartingWithSymbol()
-    {
+    public void ShouldThrowForKeyStartingWithSymbol() =>
         Assert.False(StartEndTester.IsStartRegion("#region _key", out _));
-    }
 
     [Fact]
-    public void WithSpaces()
-    {
+    public void WithSpaces() =>
         Assert.False(StartEndTester.IsStartRegion("#region the text", out _));
-    }
 
     [Fact]
-    public void ShouldThrowForKeyEndingWithSymbol()
-    {
+    public void ShouldThrowForKeyEndingWithSymbol() =>
         Assert.False(StartEndTester.IsStartRegion("#region key_ ", out _));
-    }
 
     [Fact]
-    public void ShouldIgnoreForNoKey()
-    {
+    public void ShouldIgnoreForNoKey() =>
         Assert.False(StartEndTester.IsStartRegion("#region ", out _));
-    }
 
     [Fact]
     public void CanExtractFromXmlWithExtraSpaces()

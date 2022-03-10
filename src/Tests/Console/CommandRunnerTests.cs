@@ -151,16 +151,12 @@ public class CommandRunnerTests
     }
 
     [Fact]
-    public Task ExcludeDuplicates()
-    {
-        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", "dir:dir"));
-    }
+    public Task ExcludeDuplicates() =>
+        Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", "dir:dir"));
 
     [Fact]
-    public Task ExcludeWhitespace()
-    {
-        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", ": :"));
-    }
+    public Task ExcludeWhitespace() =>
+        Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-e", ": :"));
 
     [Fact]
     public async Task ExcludeLong()
@@ -198,16 +194,11 @@ public class CommandRunnerTests
     }
 
     [Fact]
-    public Task UrlsAsSnippetsDuplicates()
-    {
-        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url url"));
-    }
+    public Task UrlsAsSnippetsDuplicates() =>
+        Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", "url url"));
 
     [Fact]
-    public Task UrlsAsSnippetsWhitespace()
-    {
-        return Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", ": :"));
-    }
+    public Task UrlsAsSnippetsWhitespace() => Assert.ThrowsAsync<CommandLineException>(() => CommandRunner.RunCommand(Capture, "-u", ": :"));
 
     [Fact]
     public async Task UrlsAsSnippetsLong()
@@ -223,13 +214,11 @@ public class CommandRunnerTests
         return Task.CompletedTask;
     }
 
-    Task VerifyResult()
-    {
-        return Verify(
+    Task VerifyResult() =>
+        Verify(
             new
             {
                 targetDirectory,
                 configInput
             });
-    }
 }

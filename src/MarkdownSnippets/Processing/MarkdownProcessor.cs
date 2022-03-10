@@ -314,13 +314,12 @@ public class MarkdownProcessor
     }
 
 
-    List<Snippet> SnippetsForFile(string key, string relativeToRoot)
-    {
-        return new()
+    List<Snippet> SnippetsForFile(string key, string relativeToRoot) =>
+
+        new()
         {
             FileToSnippet(key, relativeToRoot, null)
         };
-    }
 
     bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
     {

@@ -59,11 +59,9 @@ public class SnippetMarkdownHandlingTests
         return Verify(builder.ToString());
     }
 
-    static List<Snippet> Snippets()
-    {
-        return new()
+    static List<Snippet> Snippets() =>
+        new()
         {
             Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", "c:/dir/thePath")
         };
-    }
 }

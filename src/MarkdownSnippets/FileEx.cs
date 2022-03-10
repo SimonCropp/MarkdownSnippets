@@ -8,10 +8,8 @@
         return filePaths[0];
     }
 
-    public static FileStream OpenRead(string path)
-    {
-        return new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-    }
+    public static FileStream OpenRead(string path) =>
+        new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
     public static string GetRelativePath(string file, string directory)
     {
@@ -63,11 +61,9 @@
         };
     }
 
-    public static void MakeReadOnly(string path)
-    {
+    public static void MakeReadOnly(string path) =>
         new FileInfo(path)
         {
             IsReadOnly = true
         };
-    }
 }

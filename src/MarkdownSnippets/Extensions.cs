@@ -58,10 +58,7 @@ static class Extensions
         }
     }
 
-    public static IReadOnlyList<T> ToReadonlyList<T>(this IEnumerable<T> value)
-    {
-        return value.ToList();
-    }
+    public static IReadOnlyList<T> ToReadonlyList<T>(this IEnumerable<T> value) => value.ToList();
 
     public static int LineCount(this string input)
     {
@@ -121,23 +118,17 @@ static class Extensions
         return string.Empty;
     }
 
-    public static string[] SplitBySpace(this string substring)
-    {
-        return substring
+    public static string[] SplitBySpace(this string substring) =>
+        substring
             .Split(new[]
                 {
                     ' '
                 },
                 StringSplitOptions.RemoveEmptyEntries);
-    }
 
-    public static string[] Lines(this string value)
-    {
-        return value.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
-    }
+    public static string[] Lines(this string value) =>
+        value.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
 
-    public static bool IsWhiteSpace(this string target)
-    {
-        return string.IsNullOrWhiteSpace(target);
-    }
+    public static bool IsWhiteSpace(this string target) =>
+        string.IsNullOrWhiteSpace(target);
 }

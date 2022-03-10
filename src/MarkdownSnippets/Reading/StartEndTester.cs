@@ -3,13 +3,11 @@ using MarkdownSnippets;
 
 static class StartEndTester
 {
-    internal static bool IsStartOrEnd(string trimmedLine)
-    {
-        return IsBeginSnippet(trimmedLine) ||
-               IsEndSnippet(trimmedLine) ||
-               IsStartRegion(trimmedLine) ||
-               IsEndRegion(trimmedLine);
-    }
+    internal static bool IsStartOrEnd(string trimmedLine) =>
+        IsBeginSnippet(trimmedLine) ||
+        IsEndSnippet(trimmedLine) ||
+        IsStartRegion(trimmedLine) ||
+        IsEndRegion(trimmedLine);
 
     internal static bool IsStart(
         string trimmedLine,
@@ -35,20 +33,14 @@ static class StartEndTester
 
     static Func<string, bool> throwFunc = _ => throw new("Do not use out func");
 
-    static bool IsEndRegion(string line)
-    {
-        return line.StartsWith("#endregion", StringComparison.Ordinal);
-    }
+    static bool IsEndRegion(string line) =>
+        line.StartsWith("#endregion", StringComparison.Ordinal);
 
-    static bool IsEndSnippet(string line)
-    {
-        return IndexOf(line, "end-snippet") >= 0;
-    }
+    static bool IsEndSnippet(string line) =>
+        IndexOf(line, "end-snippet") >= 0;
 
-    static bool IsStartRegion(string line)
-    {
-        return line.StartsWith("#region ", StringComparison.Ordinal);
-    }
+    static bool IsStartRegion(string line) =>
+        line.StartsWith("#region ", StringComparison.Ordinal);
 
     internal static bool IsStartRegion(
         string line,

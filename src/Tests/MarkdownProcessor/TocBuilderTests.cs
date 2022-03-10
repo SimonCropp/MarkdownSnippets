@@ -27,10 +27,8 @@ public class TocBuilderTests
     }
 
     [Fact]
-    public Task SanitizeLink()
-    {
-        return Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
-    }
+    public Task SanitizeLink() =>
+        Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
 
     [Fact]
     public Task StripMarkdown()

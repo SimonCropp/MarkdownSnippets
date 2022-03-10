@@ -9,20 +9,16 @@ class Line
         LineNumber = lineNumber;
     }
 
-    public Line WithCurrent(string current)
-    {
-        return new(Original, Path, LineNumber)
+    public Line WithCurrent(string current) =>
+        new(Original, Path, LineNumber)
         {
             Current = current
         };
-    }
 
     public readonly string Original;
 
-    public override string ToString()
-    {
+    public override string ToString() =>
         throw new();
-    }
 
     public string Current
     {

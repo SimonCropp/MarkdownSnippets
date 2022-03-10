@@ -13,16 +13,12 @@ public class GitHashReaderTests
     }
 
     [Fact]
-    public Task NoRef()
-    {
-        return VerifyInner("GitDirs/NoRef");
-    }
+    public Task NoRef() =>
+        VerifyInner("GitDirs/NoRef");
 
     [Fact]
-    public Task WithRef()
-    {
-        return VerifyInner("GitDirs/WithRef");
-    }
+    public Task WithRef() =>
+        VerifyInner("GitDirs/WithRef");
 
     static Task VerifyInner(string path)
     {

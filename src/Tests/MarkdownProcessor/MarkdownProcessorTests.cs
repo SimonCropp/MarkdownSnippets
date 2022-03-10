@@ -555,14 +555,12 @@ some other text
             });
     }
 
-    static Snippet SnippetBuild(string language, string key)
-    {
-        return Snippet.Build(
+    static Snippet SnippetBuild(string language, string key) =>
+        Snippet.Build(
             language: language,
             startLine: 1,
             endLine: 2,
             value: "Snippet",
             key: key,
             path: "thePath");
-    }
 }

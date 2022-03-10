@@ -17,10 +17,8 @@ public static class FileSnippetExtractor
     /// <summary>
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
     /// </summary>
-    public static Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls)
-    {
-        return AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
-    }
+    public static Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls) =>
+        AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
 
     /// <summary>
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
@@ -83,12 +81,10 @@ public static class FileSnippetExtractor
     /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
     /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
     /// <param name="newLine">The string to use as a line separator in snippets.</param>
-    public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n")
-    {
-        return paths
+    public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n") =>
+        paths
             .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
             .SelectMany(path => Read(path, maxWidth, newLine));
-    }
 
     /// <summary>
     /// Read from a path.

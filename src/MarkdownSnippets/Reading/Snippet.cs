@@ -120,14 +120,12 @@ public class Snippet : IContent
         }
     }
 
-    public override string ToString()
-    {
-        return $@"ReadSnippet.
+    public override string ToString() =>
+        $@"ReadSnippet.
   Key: {Key}
   FileLocation: {FileLocation}
   Error: {Error}
 ";
-    }
 }
 
 public interface IContent

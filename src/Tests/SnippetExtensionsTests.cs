@@ -26,14 +26,12 @@ public class SnippetExtensionsTests
         return Verify(snippets.ToDictionary());
     }
 
-    static Snippet SnippetBuild(string key, string? path)
-    {
-        return Snippet.Build(
+    static Snippet SnippetBuild(string key, string? path) =>
+        Snippet.Build(
             language: "language",
             startLine: 1,
             endLine: 2,
             value: "Snippet",
             key: key,
             path: path);
-    }
 }

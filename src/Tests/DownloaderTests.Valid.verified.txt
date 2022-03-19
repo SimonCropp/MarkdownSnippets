@@ -3,9 +3,6 @@
   content:
 * text=auto eol=crlf
 *.txt -text
-.editorconfig -text
-*.sln.DotSettings -text
 *.png binary
 *.snk binary
-*.json -text
 }

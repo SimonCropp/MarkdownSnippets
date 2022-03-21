@@ -1,8 +1,7 @@
 ﻿{
   success: true,
   content:
-* text=auto eol=crlf
-*.txt -text
+* text
 *.png binary
 *.snk binary
 }

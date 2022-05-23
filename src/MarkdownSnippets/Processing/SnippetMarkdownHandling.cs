@@ -24,7 +24,7 @@ public class SnippetMarkdownHandling
 
         if (hashSnippetAnchors)
         {
-            getAnchorId  = ComputeId;
+            getAnchorId = ComputeId;
         }
         else
         {
@@ -68,7 +68,7 @@ public class SnippetMarkdownHandling
             return id;
         }
 
-        return  $"{id}-{index}";
+        return $"{id}-{index}";
     }
 
     static string ComputeId(Snippet snippet)
@@ -81,7 +81,7 @@ public class SnippetMarkdownHandling
     string GetSupText(Snippet snippet, string anchor)
     {
         var linkForAnchor = $"<a href='#{anchor}' title='Start of snippet'>anchor</a>";
-        if (snippet.Path == null)
+        if (snippet.Path == null || linkFormat == LinkFormat.None)
         {
             return linkForAnchor;
         }

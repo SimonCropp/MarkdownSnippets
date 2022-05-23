@@ -277,10 +277,11 @@ public enum LinkFormat
     GitHub,
     Tfs,
     Bitbucket,
-    GitLab
+    GitLab,
+    None
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConfigReader\ConfigReader.csproj" />
-    <PackageReference Include="Verify.Xunit" Version="16.8.1" />
+    <PackageReference Include="Verify.Xunit" Version="16.8.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="All" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />

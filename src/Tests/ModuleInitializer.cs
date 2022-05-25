@@ -4,14 +4,11 @@
     public static void Initialize()
     {
         VerifierSettings.IgnoreStackTrack();
-        VerifierSettings.ModifySerialization(settings =>
-        {
-            settings.AddExtraSettings(serializerSettings =>
+        VerifierSettings.AddExtraSettings(serializerSettings =>
             {
                 var converters = serializerSettings.Converters;
                 converters.Add(new ProcessResultConverter());
                 converters.Add(new SnippetConverter());
-            });
         });
     }
 }

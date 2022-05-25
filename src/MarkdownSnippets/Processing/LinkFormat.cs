@@ -5,5 +5,6 @@ public enum LinkFormat
     GitHub,
     Tfs,
     Bitbucket,
-    GitLab
+    GitLab,
+    None
 }

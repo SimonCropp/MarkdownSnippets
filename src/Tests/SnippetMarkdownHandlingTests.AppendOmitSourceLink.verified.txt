@@ -1,0 +1,5 @@
+﻿<a id='snippet-thekey'></a>
+```thelanguage
+theValue
+```
+<sup><a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>

@@ -262,6 +262,8 @@ mdsnippets --omit-snippet-links true
 
 snippet: LinkFormat.cs
 
+Link format `None` will omit the source link but still keep the snippet anchor.
+
 
 #### How links are constructed
 

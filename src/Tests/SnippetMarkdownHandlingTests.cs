@@ -1,4 +1,4 @@
-﻿using MarkdownSnippets;
+using MarkdownSnippets;
 
 [UsesVerify]
 public class SnippetMarkdownHandlingTests
@@ -9,6 +9,20 @@ public class SnippetMarkdownHandlingTests
         var builder = new StringBuilder();
         var snippets = Snippets();
         var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false, false);
+        using (var writer = new StringWriter(builder))
+        {
+            markdownHandling.Append("key1", snippets, writer.WriteLine);
+        }
+
+        return Verify(builder.ToString());
+    }
+
+    [Fact]
+    public Task AppendOmitSourceLink()
+    {
+        var builder = new StringBuilder();
+        var snippets = Snippets();
+        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.None, false, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);

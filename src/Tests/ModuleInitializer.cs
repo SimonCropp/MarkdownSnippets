@@ -3,7 +3,7 @@
     [ModuleInitializer]
     public static void Initialize()
     {
-        VerifierSettings.IgnoreStackTrack();
+        VerifierSettings.IgnoreStackTrace();
         VerifierSettings.AddExtraSettings(serializerSettings =>
             {
                 var converters = serializerSettings.Converters;

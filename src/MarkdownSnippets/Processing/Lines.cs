@@ -30,9 +30,8 @@ static class Lines
 
     public static IEnumerable<Line> ReadAllLines(TextReader textReader, string? path)
     {
-        string? line;
         var index = 1;
-        while ((line = textReader.ReadLine()) != null)
+        while (textReader.ReadLine() is { } line)
         {
             yield return new(line, path, index);
             index++;

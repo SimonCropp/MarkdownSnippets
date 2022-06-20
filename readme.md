@@ -284,6 +284,8 @@ public enum LinkFormat
 <sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Link format `None` will omit the source link but still keep the snippet anchor.
+
 
 #### How links are constructed
 

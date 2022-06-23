@@ -237,6 +237,13 @@ mdsnippets -l Bitbucket
 ```
 
 
+#### Values
+
+snippet: LinkFormat.cs
+
+Link format `None` will omit the source link but still keep the snippet anchor.
+
+
 ### OmitSnippetLinks
 
 The links below a snippet can be omitted.
@@ -256,13 +263,6 @@ mdsnippets --omit-snippet-links true
   "OmitSnippetLinks": true
 }
 ```
-
-
-#### Values
-
-snippet: LinkFormat.cs
-
-Link format `None` will omit the source link but still keep the snippet anchor.
 
 
 #### How links are constructed

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace MarkdownSnippets;
 
 /// <summary>
@@ -275,7 +277,11 @@ public class MarkdownProcessor
         appendLine("<!-- endSnippet -->");
     }
 
-    bool TryGetSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
+    bool TryGetSnippets(
+        string key,
+        string? relativePath,
+        string? linePath,
+        [NotNullWhen(true)] out IReadOnlyList<Snippet>? snippetsForKey)
     {
         if (snippets.TryGetValue(key, out snippetsForKey))
         {
@@ -290,7 +296,11 @@ public class MarkdownProcessor
         return FilesToSnippets(key, relativePath, linePath, out snippetsForKey);
     }
 
-    bool FilesToSnippets(string key, string? relativePath, string? linePath, out IReadOnlyList<Snippet> snippetsForKey)
+    bool FilesToSnippets(
+        string key,
+        string? relativePath,
+        string? linePath,
+        [NotNullWhen(true)] out IReadOnlyList<Snippet>? snippetsForKey)
     {
         var keyWithDirChar = FileEx.PrependSlash(key);
 

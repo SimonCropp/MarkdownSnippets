@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 
 static class Downloader
 {
@@ -76,7 +77,7 @@ static class Downloader
         var (success, path) = await DownloadFile(uri);
         if (success)
         {
-            return (true, File.ReadAllText(path));
+            return (true, File.ReadAllText(path!));
         }
 
         return (false, null);

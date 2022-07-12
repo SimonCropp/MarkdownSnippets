@@ -23,6 +23,6 @@
     {
         using var stream = FileEx.OpenRead(head);
         using var reader = new StreamReader(stream);
-        return reader.ReadLine();
+        return reader.ReadLine()!;
     }
 }

@@ -7,7 +7,7 @@ public static class GitRepoDirectoryFinder
     public static string FindForFilePath([CallerFilePath] string sourceFilePath = "")
     {
         Guard.FileExists(sourceFilePath, nameof(sourceFilePath));
-        var directory = Path.GetDirectoryName(sourceFilePath);
+        var directory = Path.GetDirectoryName(sourceFilePath)!;
         return FindForDirectory(directory);
     }
 

@@ -9,7 +9,7 @@
         {
             if (invalid.Contains(ch))
             {
-                stringBuilder.Append("_");
+                stringBuilder.Append('_');
                 continue;
             }
 

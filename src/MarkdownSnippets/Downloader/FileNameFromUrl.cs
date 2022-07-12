@@ -1,8 +1,9 @@
 ﻿static class FileNameFromUrl
 {
+    static List<char> invalid = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).ToList();
+
     public static string ConvertToFileName(string url)
     {
-        var invalid = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).ToList();
         var stringBuilder = new StringBuilder();
         foreach (var ch in url)
         {

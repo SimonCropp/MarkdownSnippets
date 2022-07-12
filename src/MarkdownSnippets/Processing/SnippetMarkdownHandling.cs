@@ -73,7 +73,7 @@ public class SnippetMarkdownHandling
 
     static string ComputeId(Snippet snippet)
     {
-        using var sha = new SHA1Managed();
+        using var sha = SHA1.Create();
         var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(snippet.Key));
         return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
     }

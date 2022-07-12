@@ -266,6 +266,27 @@ public enum LinkFormat
 Link format `None` will omit the source link but still keep the snippet anchor.
 
 
+### OmitSnippetLinks
+
+The links below a snippet can be omitted.
+
+
+#### Command line
+
+```ps
+mdsnippets --omit-snippet-links true
+```
+
+
+#### Config file
+
+```
+{
+  "OmitSnippetLinks": true
+}
+```
+
+
 #### How links are constructed
 
 <!-- snippet: BuildLink -->
@@ -293,27 +314,6 @@ if (linkFormat == LinkFormat.GitLab)
 ```
 <sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L112-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-### OmitSnippetLinks
-
-The links below a snippet can be omitted.
-
-
-#### Command line
-
-```ps
-mdsnippets --omit-snippet-links true
-```
-
-
-#### Config file
-
-```
-{
-  "OmitSnippetLinks": true
-}
-```
 
 
 ### UrlPrefix

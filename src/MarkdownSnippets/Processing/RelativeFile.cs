@@ -47,7 +47,7 @@ static class RelativeFile
 
         var suffix = FileEx.PrependSlash(key);
         var endWith = allFiles
-            .FirstOrDefault(x => x.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(_ => _.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
         if (endWith != null)
         {
             path = endWith;

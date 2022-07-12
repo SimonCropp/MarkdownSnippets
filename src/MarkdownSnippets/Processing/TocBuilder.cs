@@ -33,7 +33,7 @@ static class TocBuilder
             }
 
             var title = GetTitle(trimmedHash);
-            if (tocExcludes.Any(x => string.Equals(x, title, StringComparison.OrdinalIgnoreCase)))
+            if (tocExcludes.Any(_ => string.Equals(_, title, StringComparison.OrdinalIgnoreCase)))
             {
                 continue;
             }
@@ -66,7 +66,7 @@ static class TocBuilder
     static string BuildLink(List<string> processed, string title)
     {
         var lowerTitle = title.ToLowerInvariant();
-        var processedCount = processed.Count(x => x == lowerTitle);
+        var processedCount = processed.Count(_ => _ == lowerTitle);
         processed.Add(lowerTitle);
         var noSpaces = SanitizeLink(lowerTitle);
         if (processedCount == 0)

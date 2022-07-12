@@ -83,7 +83,7 @@ public static class FileSnippetExtractor
     /// <param name="newLine">The string to use as a line separator in snippets.</param>
     public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n") =>
         paths
-            .Where(x => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(x).Substring(1)))
+            .Where(_ => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(_).Substring(1)))
             .SelectMany(path => Read(path, maxWidth, newLine));
 
     /// <summary>

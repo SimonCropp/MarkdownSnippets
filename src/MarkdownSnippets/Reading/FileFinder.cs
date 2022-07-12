@@ -75,7 +75,7 @@ class FileFinder
         if (scanForSnippets)
         {
             foreach (var file in EnumerateFiles(directory)
-                         .Where(x => !x.IsMdFile()))
+                         .Where(_ => !_.IsMdFile()))
             {
                 allFiles.Add(file);
                 snippetFiles.Add(file);

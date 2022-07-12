@@ -83,7 +83,7 @@ public class DocoTask :
             var snippets = new List<Snippet>();
             snippets.AppendUrlsAsSnippets(configResult.UrlsAsSnippets).GetAwaiter().GetResult();
             processor.AddSnippets(snippets);
-            var snippetsInError = processor.Snippets.Where(x => x.IsInError).ToList();
+            var snippetsInError = processor.Snippets.Where(_ => _.IsInError).ToList();
             if (snippetsInError.Any())
             {
                 foreach (var snippet in snippetsInError)

@@ -10,7 +10,7 @@ static class Downloader
         Directory.CreateDirectory(cache);
         foreach (var file in new DirectoryInfo(cache)
                      .GetFiles()
-                     .OrderByDescending(x => x.LastWriteTime)
+                     .OrderByDescending(_ => _.LastWriteTime)
                      .Skip(100))
         {
             file.Delete();

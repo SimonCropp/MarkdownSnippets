@@ -24,7 +24,7 @@ public class ReadSnippets :
     {
         if (SnippetsInError.Any())
         {
-            throw new SnippetReadingException($"SnippetsInError: {string.Join(", ", SnippetsInError.Select(x => x.Key))}");
+            throw new SnippetReadingException($"SnippetsInError: {string.Join(", ", SnippetsInError.Select(_ => _.Key))}");
         }
 
         return Snippets.GetEnumerator();

@@ -54,7 +54,7 @@ public class MarkdownProcessor
         this.targetDirectory = Path.GetFullPath(targetDirectory).Replace('\\', '/');
 
         this.allFiles = allFiles
-            .Select(x => x.Replace('\\', '/'))
+            .Select(_ => _.Replace('\\', '/'))
             .ToList();
 
         this.convention = convention;
@@ -75,7 +75,7 @@ public class MarkdownProcessor
         }
 
         this.snippetSourceFiles = snippetSourceFiles
-            .Select(x => x.Replace('\\', '/'))
+            .Select(_ => _.Replace('\\', '/'))
             .ToList();
         includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
     }
@@ -355,7 +355,7 @@ public class MarkdownProcessor
     (string text, int lineCount) ReadNonStartEndLines(string file)
     {
         var cleanedLines = File.ReadAllLines(file)
-            .Where(x => !StartEndTester.IsStartOrEnd(x.TrimStart())).ToList();
+            .Where(_ => !StartEndTester.IsStartOrEnd(_.TrimStart())).ToList();
         var text = string.Join(newLine, cleanedLines).Trim();
         return (text, cleanedLines.Count);
     }

@@ -136,7 +136,7 @@ public class DirectoryMarkdownProcessor
             foreach (var file in includeFiles)
             {
                 var key = Path.GetFileName(file).Replace(".include.md", "");
-                if (includes.Any(x => x.Key == key))
+                if (includes.Any(_ => _.Key == key))
                 {
                     throw new($"Duplicate include: {key}");
                 }
@@ -153,7 +153,7 @@ public class DirectoryMarkdownProcessor
             return;
         }
 
-        foreach (var mdFile in mdFiles.OrderBy(x => x.Length))
+        foreach (var mdFile in mdFiles.OrderBy(_ => _.Length))
         {
             using var reader = File.OpenText(mdFile);
             if (reader.TryFindNewline(out newLine))
@@ -168,8 +168,8 @@ public class DirectoryMarkdownProcessor
     public void AddSnippets(List<Snippet> snippets)
     {
         var files = snippets
-            .Where(x => x.Path != null)
-            .Select(x => x.Path!)
+            .Where(_ => _.Path != null)
+            .Select(_ => _.Path!)
             .Distinct()
             .ToList();
         if (files.Any())
@@ -340,7 +340,7 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
         var relativePath = FileEx.GetRelativePath(sourceFile, targetDirectory);
 
         var filtered = relativePath.Split(Path.DirectorySeparatorChar)
-            .Where(x => !string.Equals(x, "mdsource", StringComparison.OrdinalIgnoreCase))
+            .Where(_ => !string.Equals(_, "mdsource", StringComparison.OrdinalIgnoreCase))
             .ToArray();
         var sourceTrimmed = Path.Combine(filtered);
         var targetFile = Path.Combine(targetDirectory, sourceTrimmed);

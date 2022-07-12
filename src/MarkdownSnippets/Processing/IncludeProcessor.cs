@@ -83,7 +83,7 @@ class IncludeProcessor
 
     void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
     {
-        var include = includes.SingleOrDefault(x => string.Equals(x.Key, includeKey, StringComparison.OrdinalIgnoreCase));
+        var include = includes.SingleOrDefault(_ => string.Equals(_.Key, includeKey, StringComparison.OrdinalIgnoreCase));
         if (include != null)
         {
             AddInclude(lines, line, used, index, include, true);

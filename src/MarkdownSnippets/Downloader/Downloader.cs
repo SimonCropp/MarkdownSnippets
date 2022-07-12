@@ -2,11 +2,10 @@
 
 static class Downloader
 {
-    static string cache;
+    static string cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
 
     static Downloader()
     {
-        cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
         Directory.CreateDirectory(cache);
         foreach (var file in new DirectoryInfo(cache)
                      .GetFiles()

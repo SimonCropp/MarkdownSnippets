@@ -14,7 +14,6 @@ d,
     }
   ],
   result:
-
 some other text
 
 <!-- snippet: FileWithMixedNewLines.txt -->

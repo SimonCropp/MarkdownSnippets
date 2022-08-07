@@ -10,7 +10,6 @@
     }
   ],
   result:
-
 some text
 
 line1 <!-- include: theKey. path: thePath -->

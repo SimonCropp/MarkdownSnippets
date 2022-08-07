@@ -1,6 +1,5 @@
 ﻿{
   result:
-
 ## Heading 1
 
 <!-- toc -->

@@ -12,7 +12,7 @@ class SnippetConverter :
             return;
         }
 
-        var snippet = (Snippet)value;matk
+        var snippet = (Snippet)value;
         writer.WriteStartObject();
         writer.WritePropertyName("Key");
         serializer.Serialize(writer, snippet.Key);

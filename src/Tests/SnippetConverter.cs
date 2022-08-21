@@ -1,5 +1,5 @@
 using MarkdownSnippets;
-using Newtonsoft.Json;
+using Argon;
 
 class SnippetConverter :
     JsonConverter
@@ -12,7 +12,7 @@ class SnippetConverter :
             return;
         }
 
-        var snippet = (Snippet)value;
+        var snippet = (Snippet)value;matk
         writer.WriteStartObject();
         writer.WritePropertyName("Key");
         serializer.Serialize(writer, snippet.Key);

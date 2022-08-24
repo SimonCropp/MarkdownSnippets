@@ -1,4 +1,4 @@
-<!-- toc -->
+﻿<!-- toc -->
 ## Contents
 
   * [Heading2](#heading2)<!-- endToc -->

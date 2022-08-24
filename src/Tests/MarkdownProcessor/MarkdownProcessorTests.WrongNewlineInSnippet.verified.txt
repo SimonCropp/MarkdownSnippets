@@ -1,4 +1,4 @@
-{
+﻿{
   MissingSnippets: [
     {
       Key: 'snippet1',

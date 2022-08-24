@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Key: codekey,
     Error: Snippet was not closed,

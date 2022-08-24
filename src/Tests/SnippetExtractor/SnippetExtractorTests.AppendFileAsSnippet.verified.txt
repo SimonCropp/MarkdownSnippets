@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Key: File.tmp,
     Language: tmp,

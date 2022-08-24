@@ -1,4 +1,4 @@
-<!-- toc -->
+﻿<!-- toc -->
 ## Contents
 
   * [bold italic Link](#bold-italic-link)<!-- endToc -->

@@ -1,4 +1,4 @@
-<!-- toc -->
+﻿<!-- toc -->
 ## Contents
 
   * [A B](#a-b)<!-- endToc -->

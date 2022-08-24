@@ -1,4 +1,4 @@
-[
+﻿[
   {
     Key: codekey,
     Error: Line too long: caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab,

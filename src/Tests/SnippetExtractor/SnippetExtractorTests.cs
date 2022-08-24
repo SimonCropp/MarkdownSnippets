@@ -28,14 +28,13 @@ public class SnippetExtractorTests
             await File.WriteAllTextAsync(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
-            var settings = new VerifySettings();
-            settings.AddScrubber(x =>
-            {
-                var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
-                x.Replace(temp, "FilePath.txt");
-                x.Replace(nameWithoutExtension, "File");
-            });
-            await Verify(snippets, settings);
+            await Verify(snippets)
+                .AddScrubber(x =>
+                {
+                    var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
+                    x.Replace(temp, "FilePath.txt");
+                    x.Replace(nameWithoutExtension, "File");
+                });
         }
         finally
         {

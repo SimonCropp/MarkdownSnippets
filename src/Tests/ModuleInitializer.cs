@@ -3,6 +3,7 @@
     [ModuleInitializer]
     public static void Initialize()
     {
+        VerifyDiffPlex.Initialize();
         VerifierSettings.IgnoreStackTrace();
         VerifierSettings.AddExtraSettings(serializerSettings =>
             {

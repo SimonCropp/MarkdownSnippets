@@ -3,7 +3,7 @@
     "MSBuild.Sdk.Extras": "3.0.44"
   },
   "sdk": {
-    "version": "7.0.100-preview.6.22352.1",
+    "version": "7.0.100-rc.1.22431.12",
     "allowPrerelease": true,
     "rollForward": "latestFeature"
   }

@@ -22,7 +22,7 @@
       <PackagePath>build</PackagePath>
     </Content>
 
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.3.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.3.2" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

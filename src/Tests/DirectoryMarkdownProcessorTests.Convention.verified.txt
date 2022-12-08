@@ -10,7 +10,6 @@ the code from snippet1
 <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-
 /one.source.md
 snippet: snippet1
 
@@ -22,5 +21,4 @@ the code from snippet2
 ```
 <sup><a href='#snippet-snippet2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
 

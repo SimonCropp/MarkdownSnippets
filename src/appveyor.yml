@@ -1,6 +1,6 @@
 image:
-- macOS
 - Visual Studio 2022
+- macOS
 environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true

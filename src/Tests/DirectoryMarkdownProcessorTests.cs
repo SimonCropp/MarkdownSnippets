@@ -411,7 +411,7 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var builder = new StringBuilder();
-        foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories))
+        foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).OrderBy(_ => _))
         {
             builder.AppendLine(file.Replace(root, ""));
             builder.AppendLine(File.ReadAllText(file));

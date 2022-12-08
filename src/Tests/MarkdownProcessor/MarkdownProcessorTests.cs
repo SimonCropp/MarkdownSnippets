@@ -14,7 +14,7 @@ BAD <!-- include: theKey. path: /thePath -->
             content,
             includes: new[]
             {
-                Include.Build("theKey", Array.Empty<string>(), "c:/root/thePath")
+                Include.Build("theKey", Array.Empty<string>(), Path.GetFullPath("thePath"))
             });
     }
 
@@ -30,13 +30,17 @@ before
 
 after
 ";
-        var lines = new List<string> {"one", "two"};
+        var lines = new List<string>
+        {
+            "one",
+            "two"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -52,13 +56,17 @@ BAD <!-- endInclude -->
 
 after
 ";
-        var lines = new List<string> {"theValue1", "theValue2"};
+        var lines = new List<string>
+        {
+            "theValue1",
+            "theValue2"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -72,13 +80,16 @@ BAD <!-- singleLineInclude: theKey. path: /thePath -->
 
 after
 ";
-        var lines = new List<string> {"theValue1"};
+        var lines = new List<string>
+        {
+            "theValue1"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -92,13 +103,16 @@ include: theKey
 
 after
 ";
-        var lines = new List<string> {"theValue1"};
+        var lines = new List<string>
+        {
+            "theValue1"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -187,13 +201,17 @@ include: theKey
 
 after
 ";
-        var lines = new [] {"theValue1", "theValue2"};
+        var lines = new[]
+        {
+            "theValue1",
+            "theValue2"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -207,7 +225,12 @@ include: theKey
 
 after
 ";
-        var lines = new [] {"", "", ""};
+        var lines = new[]
+        {
+            "",
+            "",
+            ""
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -227,13 +250,18 @@ include: theKey
 
 after
 ";
-        var lines = new [] {"theValue1", "theValue2", "theValue3"};
+        var lines = new[]
+        {
+            "theValue1",
+            "theValue2",
+            "theValue3"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 
@@ -492,7 +520,10 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"snippet: snippet1"};
+        var lines = new List<string>
+        {
+            "snippet: snippet1"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -544,7 +575,11 @@ include: theKey
 
 some other text
 ";
-        var lines = new List<string> {"line1", "snippet: snippet1"};
+        var lines = new List<string>
+        {
+            "line1",
+            "snippet: snippet1"
+        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,

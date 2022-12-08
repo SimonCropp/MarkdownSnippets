@@ -1,3 +1,3 @@
 ﻿[
-  {ProjectDirectory}SnippetFileFinder/Nested\nested\nested\code.txt
+  {ProjectDirectory}SnippetFileFinder/Nested/nested/nested/code.txt
 ]

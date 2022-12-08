@@ -35,7 +35,11 @@ class FileFinder
             FindFiles(subDirectory);
         }
 
-        return (snippetFiles, mdFiles, includeFiles, allFiles);
+        return (
+            snippetFiles.OrderBy(_ => _).ToList(),
+            mdFiles.OrderBy(_ => _).ToList(),
+            includeFiles.OrderBy(_ => _).ToList(),
+            allFiles.OrderBy(_ => _).ToList());
     }
 
     void FindFiles(string directory)

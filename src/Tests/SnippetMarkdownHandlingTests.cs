@@ -8,7 +8,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -22,7 +22,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.None, false, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.None, false, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -36,7 +36,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false, true);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, true);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -50,7 +50,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, false, false, "prefix-");
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, false, "prefix-");
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -64,7 +64,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling("c:/dir/", LinkFormat.GitHub, true, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, true, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -76,6 +76,6 @@ public class SnippetMarkdownHandlingTests
     static List<Snippet> Snippets() =>
         new()
         {
-            Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", "c:/dir/thePath")
+            Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", Environment.CurrentDirectory)
         };
 }

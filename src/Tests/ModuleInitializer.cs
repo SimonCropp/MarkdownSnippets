@@ -5,11 +5,12 @@
     {
         VerifyDiffPlex.Initialize();
         VerifierSettings.IgnoreStackTrace();
-        VerifierSettings.AddExtraSettings(serializerSettings =>
-            {
-                var converters = serializerSettings.Converters;
-                converters.Add(new ProcessResultConverter());
-                converters.Add(new SnippetConverter());
+        VerifierSettings.AddExtraSettings(serializer =>
+        {
+            var converters = serializer.Converters;
+            converters.Add(new ProcessResultConverter());
+            converters.Add(new SnippetConverter());
         });
+        VerifierSettings.AddScrubber(_ => _.Replace('\\', '/'));
     }
 }

@@ -2,4 +2,4 @@
 ```thelanguage
 theValue
 ```
-<sup><a href='prefix-thePath#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='prefix-#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>

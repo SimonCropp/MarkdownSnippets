@@ -4,10 +4,10 @@
     {
       Key: missing.txt,
       LineNumber: 1,
-      File: {CurrentDirectory}DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md
+      File: {CurrentDirectory}DirectoryMarkdownProcessor/FileSnippetMissing/one.source.md
     }
   ],
   Message:
 Missing snippets:
-  {CurrentDirectory}DirectoryMarkdownProcessor\FileSnippetMissing\one.source.md: missing.txt
+  {CurrentDirectory}DirectoryMarkdownProcessor/FileSnippetMissing/one.source.md: missing.txt
 }

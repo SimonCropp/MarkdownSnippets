@@ -10,7 +10,7 @@ class Usage
     void ReadingFiles()
     {
 
-        var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
+        var files = Directory.EnumerateFiles(@"C:/path", "*.cs", SearchOption.AllDirectories);
 
         var snippets = FileSnippetExtractor.Read(files);
 
@@ -49,7 +49,7 @@ class Usage
     Key: readingfilessimple,
     Language: cs,
     Value:
-var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
+var files = Directory.EnumerateFiles(@"C:/path", "*.cs", SearchOption.AllDirectories);
 
 var snippets = FileSnippetExtractor.Read(files);,
     Error: ,

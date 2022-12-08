@@ -1,4 +1,4 @@
 ﻿{
-  targetDirectory: {ProjectDirectory}bin\,
+  targetDirectory: {ProjectDirectory}bin/,
   configInput: {}
 }

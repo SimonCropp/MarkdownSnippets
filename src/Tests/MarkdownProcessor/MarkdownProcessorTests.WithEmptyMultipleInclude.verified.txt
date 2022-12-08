@@ -2,7 +2,7 @@
   result:
 before
 
- <!-- include: theKey. path: /thePath -->
+ <!-- include: theKey. path: {CurrentDirectory}thePath -->
 
  <!-- endInclude -->
 

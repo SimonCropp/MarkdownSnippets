@@ -213,7 +213,7 @@ after
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, "c:/root/thePath")
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
 

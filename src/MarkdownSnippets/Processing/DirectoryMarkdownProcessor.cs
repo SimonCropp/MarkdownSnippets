@@ -211,7 +211,7 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
 }}");
         }
 
-        foreach (var group in snippets.GroupBy(x=>x.Path))
+        foreach (var group in snippets.GroupBy(_ => _.Path))
         {
             if (group.Key == null)
             {
@@ -230,7 +230,8 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
 
         var stopwatch = Stopwatch.StartNew();
         var processor = new MarkdownProcessor(
-            convention, Snippets.ToDictionary(),
+            convention,
+            Snippets.ToDictionary(),
             includes,
             appendSnippets,
             snippetSourceFiles,

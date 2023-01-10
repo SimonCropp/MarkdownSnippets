@@ -420,6 +420,30 @@ public class DirectoryMarkdownProcessorTests
 
         return Verify(builder.ToString());
     }
+    [Fact]
+    public Task ConventionWithNestedDir()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/ConventionWithNestedDir");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            newLine: "\r",
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.AddSnippets(SnippetBuild("snippet1"));
+        processor.Run();
+
+        var builder = new StringBuilder();
+        foreach (var file in Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).OrderBy(_ => _))
+        {
+            builder.AppendLineN(file.Replace(root, ""));
+            builder.AppendLineN(File.ReadAllText(file));
+            builder.AppendLineN();
+        }
+
+        return Verify(builder.ToString());
+    }
 
     [Fact]
     public void MustErrorByDefaultWhenIncludesAreMissing()

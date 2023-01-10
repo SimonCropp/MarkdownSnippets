@@ -1,0 +1,12 @@
+﻿/mdsource/Nested/one.source.md
+snippet: snippet1
+
+/Nested/one.md
+<!-- snippet: snippet1 -->
+<a id='snippet-snippet1'></a>
+```cs
+the code from snippet1
+```
+<sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+

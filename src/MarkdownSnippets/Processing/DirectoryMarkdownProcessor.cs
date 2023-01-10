@@ -322,6 +322,8 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
 
     void WriteLines(string target, List<Line> lines)
     {
+        var directoryName = Path.GetDirectoryName(target)!;
+        Directory.CreateDirectory(directoryName);
         using var writer = File.CreateText(target);
         writer.NewLine = newLine;
         foreach (var line in lines)

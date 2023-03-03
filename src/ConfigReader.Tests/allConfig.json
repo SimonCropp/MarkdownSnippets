@@ -15,6 +15,5 @@
   "UrlPrefix": "TheUrlPrefix",
   "TreatMissingAsWarning": true,
   "ValidateContent": true,
-  "HashSnippetAnchors": true,
   "OmitSnippetLinks": true
 }

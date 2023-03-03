@@ -12,7 +12,6 @@ static class LogBuilder
     Convention: {config.Convention}
     TocLevel: {config.TocLevel}
     ValidateContent: {config.ValidateContent}
-    HashSnippetAnchors: {config.HashSnippetAnchors}
     OmitSnippetLinks: {config.OmitSnippetLinks}
     TreatMissingAsWarning: {config.TreatMissingAsWarning}
     FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})

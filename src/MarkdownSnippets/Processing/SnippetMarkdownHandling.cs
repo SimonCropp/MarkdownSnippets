@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace MarkdownSnippets;
 
 /// <summary>
@@ -11,9 +9,8 @@ public class SnippetMarkdownHandling
     bool omitSnippetLinks;
     string? urlPrefix;
     string targetDirectory;
-    Func<Snippet, string> getAnchorId;
 
-    public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool hashSnippetAnchors, bool omitSnippetLinks, string? urlPrefix = null)
+    public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool omitSnippetLinks, string? urlPrefix = null)
     {
         this.linkFormat = linkFormat;
         this.omitSnippetLinks = omitSnippetLinks;
@@ -21,15 +18,6 @@ public class SnippetMarkdownHandling
         Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
         targetDirectory = Path.GetFullPath(targetDirectory);
         this.targetDirectory = targetDirectory.Replace('\\', '/');
-
-        if (hashSnippetAnchors)
-        {
-            getAnchorId = ComputeId;
-        }
-        else
-        {
-            getAnchorId = snippet => $"snippet-{snippet.Key}";
-        }
     }
 
     public void Append(string key, IEnumerable<Snippet> snippets, AppendLine appendLine)
@@ -60,22 +48,15 @@ public class SnippetMarkdownHandling
         appendLine($"<sup>{supText}</sup>");
     }
 
-    string GetAnchorText(Snippet snippet, uint index)
+    static string GetAnchorText(Snippet snippet, uint index)
     {
-        var id = getAnchorId(snippet);
+        var id = $"snippet-{snippet.Key}";
         if (index == 0)
         {
             return id;
         }
 
         return $"{id}-{index}";
-    }
-
-    static string ComputeId(Snippet snippet)
-    {
-        using var sha = SHA1.Create();
-        var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(snippet.Key));
-        return string.Concat(hash.Take(4).Select(b => b.ToString("x2")));
     }
 
     string GetSupText(Snippet snippet, string anchor)

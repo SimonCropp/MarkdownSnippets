@@ -7,15 +7,6 @@
   "required": [
   ],
   "properties": {
-    "HashSnippetAnchors": {
-      "$id": "#root/HashSnippetAnchors",
-      "title": "HashSnippetAnchors",
-      "type": "boolean",
-      "examples": [
-        true
-      ],
-      "default": false
-    },
     "OmitSnippetLinks": {
       "$id": "#root/OmitSnippetLinks",
       "title": "OmitSnippetLinks",

@@ -47,7 +47,6 @@ public static class ConfigReader
             WriteHeader = config.WriteHeader,
             ReadOnly = config.ReadOnly,
             ValidateContent = config.ValidateContent,
-            HashSnippetAnchors = config.HashSnippetAnchors,
             OmitSnippetLinks = config.OmitSnippetLinks,
             UrlsAsSnippets = config.UrlsAsSnippets,
             ExcludeDirectories = config.ExcludeDirectories,

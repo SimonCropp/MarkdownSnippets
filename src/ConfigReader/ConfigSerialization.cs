@@ -2,7 +2,6 @@
 {
     public bool? ReadOnly { get; set; }
     public bool? ValidateContent { get; set; }
-    public bool? HashSnippetAnchors { get; set; }
     public bool? OmitSnippetLinks { get; set; }
     public string? LinkFormat { get; set; }
     public string? Convention { get; set; }

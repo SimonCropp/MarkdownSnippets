@@ -4,7 +4,6 @@ public class ConfigResult
 {
     public bool? ReadOnly;
     public bool ValidateContent;
-    public bool HashSnippetAnchors;
     public bool OmitSnippetLinks;
     public LinkFormat LinkFormat;
     public DocumentConvention Convention;

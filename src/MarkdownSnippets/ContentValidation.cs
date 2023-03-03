@@ -75,7 +75,7 @@ static class ContentValidation
 
     public static IEnumerable<(string error, int column)> Verify(string line)
     {
-        if (line.StartsWith(">"))
+        if (line.StartsWith('>'))
         {
             yield break;
         }

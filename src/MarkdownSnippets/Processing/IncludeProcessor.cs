@@ -215,8 +215,8 @@ class IncludeProcessor
         return SnippetKey.IsSnippetLine(span) ||
                line.StartsWith("<!-- endSnippet -->") ||
                line.EndsWith("```") ||
-               line.StartsWith("|") ||
-               line.EndsWith("|");
+               line.StartsWith('|') ||
+               line.EndsWith('|');
     }
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include, bool writePath)

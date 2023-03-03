@@ -4,7 +4,7 @@ static class RelativeFile
 {
     static bool InnerFind(IReadOnlyList<string> allFiles, string targetDirectory, string key, string? relativePath, string? linePath, out string path)
     {
-        if (!key.Contains("."))
+        if (!key.Contains('.'))
         {
             path = null!;
             return false;

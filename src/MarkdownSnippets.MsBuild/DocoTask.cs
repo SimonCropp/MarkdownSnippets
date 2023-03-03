@@ -23,7 +23,6 @@ public class DocoTask :
     public List<string> TocExcludes { get; set; } = new();
     public List<string> UrlsAsSnippets { get; set; } = new();
     public bool? TreatMissingAsWarning { get; set; }
-    public bool? HashSnippetAnchors { get; set; }
     public bool? OmitSnippetLinks { get; set; }
 
     public override bool Execute()
@@ -51,7 +50,6 @@ public class DocoTask :
                 MaxWidth = MaxWidth,
                 UrlsAsSnippets = UrlsAsSnippets,
                 TreatMissingAsWarning = TreatMissingAsWarning,
-                HashSnippetAnchors = HashSnippetAnchors,
                 OmitSnippetLinks = OmitSnippetLinks,
             });
 
@@ -75,7 +73,6 @@ public class DocoTask :
             maxWidth: configResult.MaxWidth,
             urlPrefix: configResult.UrlPrefix,
             validateContent: configResult.ValidateContent,
-            hashSnippetAnchors: configResult.HashSnippetAnchors,
             omitSnippetLinks: configResult.OmitSnippetLinks);
 
         try

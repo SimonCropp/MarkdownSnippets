@@ -42,11 +42,10 @@ public class DirectoryMarkdownProcessor
         string? urlPrefix = null,
         bool validateContent = false,
         string? newLine = null,
-        bool hashSnippetAnchors = false,
         bool omitSnippetLinks = false) :
         this(
             targetDirectory,
-            new SnippetMarkdownHandling(targetDirectory, linkFormat, hashSnippetAnchors, omitSnippetLinks, urlPrefix).Append,
+            new SnippetMarkdownHandling(targetDirectory, linkFormat, omitSnippetLinks, urlPrefix).Append,
             directoryIncludes,
             markdownDirectoryIncludes,
             snippetDirectoryIncludes,

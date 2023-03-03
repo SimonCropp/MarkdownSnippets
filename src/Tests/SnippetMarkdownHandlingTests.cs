@@ -8,7 +8,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -22,7 +22,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.None, false, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.None, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -36,7 +36,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, true);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, true);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -50,7 +50,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, false, "prefix-");
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false, "prefix-");
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);
@@ -64,7 +64,7 @@ public class SnippetMarkdownHandlingTests
     {
         var builder = new StringBuilder();
         var snippets = Snippets();
-        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, true, false);
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false);
         using (var writer = new StringWriter(builder))
         {
             markdownHandling.Append("key1", snippets, writer.WriteLine);

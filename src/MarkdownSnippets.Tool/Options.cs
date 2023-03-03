@@ -59,11 +59,6 @@ Each url will be accessible using the file name as a key. Any snippets within th
         HelpText = "The default behavior for a missing snippet/include is to log an error (or throw an exception). To change that behavior to a warning set TreatMissingAsWarning to true. Optional. Defaults to false")]
     public bool? TreatMissingAsWarning { get; set; }
 
-    [Option("hash-snippet-anchors",
-        Required = false,
-        HelpText = "The default behavior for snippet anchors to be the name of the snippet. To minimize the outputted html a hash can be used. Optional. Defaults to false")]
-    public bool? HashSnippetAnchors { get; set; }
-
     [Option("omit-snippet-links",
         Required = false,
         HelpText = "The default behavior snippet links is to have both an anchor and a link to the snippet source. Optional. Defaults to false")]

@@ -20,7 +20,7 @@ public class SnippetMarkdownHandling
         this.urlPrefix = urlPrefix;
         Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
         targetDirectory = Path.GetFullPath(targetDirectory);
-        this.targetDirectory = targetDirectory.Replace(@"\", "/");
+        this.targetDirectory = targetDirectory.Replace('\\', '/');
 
         if (hashSnippetAnchors)
         {
@@ -86,7 +86,7 @@ public class SnippetMarkdownHandling
             return linkForAnchor;
         }
 
-        var path = snippet.Path.Replace(@"\", "/");
+        var path = snippet.Path.Replace('\\', '/');
         if (!path.StartsWith(targetDirectory))
         {
             // if file is not in the targetDirectory then the url wont work

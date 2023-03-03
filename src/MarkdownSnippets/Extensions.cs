@@ -145,6 +145,24 @@ static class Extensions
                 },
                 StringSplitOptions.RemoveEmptyEntries);
 
+    public static string[] SplitBySpace(this ReadOnlySpan<char> value)
+    {
+        var indexes = new List<int>();
+        for (var index = 0; index < value.Length; index++)
+        {
+            if (value[index] ==  ' ')
+            {
+                indexes.Add(index);
+            }
+        }
+
+        return value.Split(new[]
+            {
+                ' '
+            },
+            StringSplitOptions.RemoveEmptyEntries);
+    }
+
 #if NETSTANDARD
 
     public static bool StartsWith(this string value, char ch) =>

@@ -66,7 +66,7 @@ Each url will be accessible using the file name as a key. Any snippets within th
 
     [Option("omit-snippet-links",
         Required = false,
-        HelpText = "The default behavior snippet links is to have both an achnor and a link to the snippet source. Optional. Defaults to false")]
+        HelpText = "The default behavior snippet links is to have both an anchor and a link to the snippet source. Optional. Defaults to false")]
     public bool? OmitSnippetLinks { get; set; }
 
     [Option("header",

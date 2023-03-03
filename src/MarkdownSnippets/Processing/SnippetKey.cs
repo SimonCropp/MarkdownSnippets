@@ -12,11 +12,9 @@ static class SnippetKey
             return false;
         }
 
-        var substring = line.Current
-            .Substring(14);
-        var indexOf = substring.IndexOf("-->");
-        key = substring.Substring(0,indexOf)
-            .Trim();
+        var substring = line.Current.AsSpan(14);
+        var indexOf = substring.IndexOf("-->".AsSpan());
+        key = substring.Slice(0, indexOf).Trim().ToString();
         return true;
     }
 

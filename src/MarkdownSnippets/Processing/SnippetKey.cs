@@ -5,14 +5,14 @@ static class SnippetKey
 {
     public static bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
-        var lineCurrent = line.Current;
+        var lineCurrent = line.Current.AsSpan();
         if (!IsStartCommentSnippetLine(lineCurrent))
         {
             key = null;
             return false;
         }
 
-        var substring = line.Current.AsSpan(14);
+        var substring = lineCurrent.Slice(14);
         var indexOf = substring.IndexOf("-->".AsSpan());
         key = substring.Slice(0, indexOf).Trim().ToString();
         return true;
@@ -38,6 +38,6 @@ static class SnippetKey
     public static bool IsSnippetLine(ReadOnlySpan<char> lineCurrent) =>
         lineCurrent.StartsWith("snippet:".AsSpan());
 
-    public static bool IsStartCommentSnippetLine(string lineCurrent) =>
-        lineCurrent.AsSpan().StartsWith("<!-- snippet:".AsSpan());
+    public static bool IsStartCommentSnippetLine(ReadOnlySpan<char> lineCurrent) =>
+        lineCurrent.StartsWith("<!-- snippet:".AsSpan());
 }

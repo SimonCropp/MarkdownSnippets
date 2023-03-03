@@ -30,7 +30,7 @@ public class Snippet : IContent
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstEmpty(path, nameof(path));
         Guard.AgainstUpperCase(language, nameof(language));
-        if (language.StartsWith("."))
+        if (language.StartsWith('.'))
         {
             throw new ArgumentException("Language cannot start with '.'", nameof(language));
         }

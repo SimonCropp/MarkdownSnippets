@@ -157,7 +157,7 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (line.Current.StartsWith("#"))
+            if (line.Current.StartsWith('#'))
             {
                 if (tocLine != null)
                 {

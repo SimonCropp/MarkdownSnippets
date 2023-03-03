@@ -16,7 +16,7 @@ static class TocBuilder
         {
             var current = headerLine.Current;
             var trimmedHash = current.TrimStart('#');
-            if (!trimmedHash.StartsWith(" "))
+            if (!trimmedHash.StartsWith(' '))
             {
                 continue;
             }

@@ -26,7 +26,7 @@
 
     public static string PrependSlash(string path)
     {
-        if (path.StartsWith("/"))
+        if (path.StartsWith('/'))
         {
             return path;
         }

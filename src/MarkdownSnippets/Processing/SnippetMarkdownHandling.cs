@@ -9,7 +9,6 @@ public class SnippetMarkdownHandling
     bool omitSnippetLinks;
     string? urlPrefix;
     string targetDirectory;
-    Func<Snippet, string> getAnchorId;
 
     public SnippetMarkdownHandling(string targetDirectory, LinkFormat linkFormat, bool omitSnippetLinks, string? urlPrefix = null)
     {
@@ -19,7 +18,6 @@ public class SnippetMarkdownHandling
         Guard.AgainstNullAndEmpty(targetDirectory, nameof(targetDirectory));
         targetDirectory = Path.GetFullPath(targetDirectory);
         this.targetDirectory = targetDirectory.Replace('\\', '/');
-        getAnchorId = snippet => $"snippet-{snippet.Key}";
     }
 
     public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
@@ -50,9 +48,9 @@ public class SnippetMarkdownHandling
         appendLine($"<sup>{supText}</sup>");
     }
 
-    string GetAnchorText(Snippet snippet, uint index)
+    static string GetAnchorText(Snippet snippet, uint index)
     {
-        var id = getAnchorId(snippet);
+        var id = $"snippet-{snippet.Key}";
         if (index == 0)
         {
             return id;

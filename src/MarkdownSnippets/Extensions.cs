@@ -1,3 +1,7 @@
+#if NETSTANDARD
+using System.Runtime.InteropServices;
+#endif
+
 static class Extensions
 {
     public static bool TryFindNewline(this TextReader reader, out string? newline)

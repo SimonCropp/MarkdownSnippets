@@ -36,8 +36,8 @@ static class SnippetKey
     }
 
     public static bool IsSnippetLine(string lineCurrent) =>
-        lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
+        lineCurrent.AsSpan().StartsWith("snippet:".AsSpan());
 
     public static bool IsStartCommentSnippetLine(string lineCurrent) =>
-        lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
+        lineCurrent.AsSpan().StartsWith("<!-- snippet:".AsSpan());
 }

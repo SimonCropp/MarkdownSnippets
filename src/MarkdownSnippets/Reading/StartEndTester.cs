@@ -48,7 +48,7 @@ static class StartEndTester
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
-            key = "";
+            key = null;
             return false;
         }
 
@@ -56,15 +56,17 @@ static class StartEndTester
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {
-            key = "";
+            key = null;
+            return false;
+        }
+
+        if (split.Length != 1)
+        {
+            key = null;
             return false;
         }
 
         key = split[0].ToLowerInvariant();
-        if (split.Length != 1)
-        {
-            return false;
-        }
 
         if (KeyValidator.IsInValidKey(key))
         {

@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 static class Extensions
 {
     public static bool TryFindNewline(this TextReader reader, out string? newline)
@@ -117,6 +119,22 @@ static class Extensions
         }
         return string.Empty;
     }
+
+#if NETSTANDARD
+    public static void Append(this StringBuilder builder, ReadOnlySpan<char> value)
+    {
+        if (value.Length > 0)
+        {
+            unsafe
+            {
+                fixed (char* valueChars = &MemoryMarshal.GetReference(value))
+                {
+                    builder.Append(valueChars, value.Length);
+                }
+            }
+        }
+    }
+#endif
 
     public static string[] SplitBySpace(this string substring) =>
         substring

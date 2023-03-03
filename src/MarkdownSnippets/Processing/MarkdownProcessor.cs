@@ -139,7 +139,7 @@ public class MarkdownProcessor
         void AppendLine(string s)
         {
             builder.Append(s);
-            builder.Append(newLine);
+            builder.Append(newLine.AsSpan());
         }
 
         var headerLines = new List<Line>();

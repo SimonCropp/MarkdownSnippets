@@ -27,9 +27,7 @@ static class SnippetKey
             return false;
         }
 
-        key = line.Current
-            .Substring(8)
-            .Trim();
+        key = line.Current.AsSpan(8).Trim().ToString();
         if (string.IsNullOrWhiteSpace(key))
         {
             throw new SnippetException($"Could not parse snippet from: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");

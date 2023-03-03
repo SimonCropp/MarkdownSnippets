@@ -20,14 +20,14 @@ static class SnippetKey
 
     public static bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
-        var lineCurrent = line.Current;
+        var lineCurrent = line.Current.AsSpan();
         if (!IsSnippetLine(lineCurrent))
         {
             key = null;
             return false;
         }
 
-        key = line.Current.AsSpan(8).Trim().ToString();
+        key = lineCurrent.Slice(8).Trim().ToString();
         if (string.IsNullOrWhiteSpace(key))
         {
             throw new SnippetException($"Could not parse snippet from: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
@@ -35,8 +35,8 @@ static class SnippetKey
         return true;
     }
 
-    public static bool IsSnippetLine(string lineCurrent) =>
-        lineCurrent.AsSpan().StartsWith("snippet:".AsSpan());
+    public static bool IsSnippetLine(ReadOnlySpan<char> lineCurrent) =>
+        lineCurrent.StartsWith("snippet:".AsSpan());
 
     public static bool IsStartCommentSnippetLine(string lineCurrent) =>
         lineCurrent.AsSpan().StartsWith("<!-- snippet:".AsSpan());

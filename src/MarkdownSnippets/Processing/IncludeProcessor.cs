@@ -16,7 +16,7 @@ class IncludeProcessor
         IReadOnlyList<string> allFiles)
     {
         targetDirectory = Path.GetFullPath(targetDirectory);
-        this.targetDirectory = targetDirectory.Replace(@"\", "/");
+        this.targetDirectory = targetDirectory.Replace('\\', '/');
         this.convention = convention;
         this.includes = includes;
         this.snippets = snippets;
@@ -267,7 +267,7 @@ class IncludeProcessor
             return null;
         }
 
-        var path = include.Path.Replace(@"\", "/");
+        var path = include.Path.Replace('\\', '/');
         if (!path.StartsWith(targetDirectory))
         {
             return path;

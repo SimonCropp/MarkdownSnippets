@@ -32,7 +32,7 @@ public class SnippetMarkdownHandling
         }
     }
 
-    public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+    public void Append(string key, IEnumerable<Snippet> snippets, AppendLine appendLine)
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         uint index = 0;
@@ -43,7 +43,7 @@ public class SnippetMarkdownHandling
         }
     }
 
-    void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
+    void WriteSnippet(AppendLine appendLine, Snippet snippet, uint index)
     {
         if (omitSnippetLinks)
         {
@@ -100,7 +100,7 @@ public class SnippetMarkdownHandling
         return $"{linkForSource} | {linkForAnchor}";
     }
 
-    static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
+    static void WriteSnippetValueAndLanguage(AppendLine appendLine, Snippet snippet)
     {
         appendLine($"```{snippet.Language}");
         appendLine(snippet.Value);

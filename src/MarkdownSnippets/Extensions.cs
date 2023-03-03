@@ -118,13 +118,14 @@ static class Extensions
         return string.Empty;
     }
 
-    public static string[] SplitBySpace(this string substring) =>
-        substring
+    public static string[] SplitBySpace(this string value) =>
+        value
             .Split(new[]
                 {
                     ' '
                 },
                 StringSplitOptions.RemoveEmptyEntries);
+
 #if NETSTANDARD
 
     public static bool StartsWith(this string value, char ch) =>

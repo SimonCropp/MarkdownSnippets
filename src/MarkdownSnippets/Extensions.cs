@@ -111,6 +111,27 @@ static class Extensions
             index++;
         }
     }
+    public static int LastIndexOfSequence(this CharSpan value, char c, int max)
+    {
+        var index = 0;
+        while (true)
+        {
+            if (index == max)
+            {
+                return index;
+            }
+            if (index == value.Length)
+            {
+                return index;
+            }
+            var ch = value[index];
+            if (c != ch)
+            {
+                return index;
+            }
+            index++;
+        }
+    }
 
     public static CharSpan TrimBackCommentChars(this CharSpan input, int startIndex)
     {

@@ -15,7 +15,8 @@ static class StartEndTester
         [NotNullWhen(true)] out string? currentKey,
         [NotNullWhen(true)] out Func<string, bool>? endFunc)
     {
-        if (IsBeginSnippet(trimmedLine, path, out currentKey))
+        var trimmedLineSpan = trimmedLine.AsSpan();
+        if (IsBeginSnippet(trimmedLineSpan, path, out currentKey))
         {
             endFunc = IsEndSnippet;
             return true;
@@ -86,12 +87,11 @@ static class StartEndTester
     }
 
     internal static bool IsBeginSnippet(
-        string line,
+        CharSpan line,
         string path,
         [NotNullWhen(true)] out string? key)
     {
-        var lineSpan = line.AsSpan();
-        var beginSnippetIndex = IndexOf(lineSpan, "begin-snippet: ".AsSpan());
+        var beginSnippetIndex = IndexOf(line, "begin-snippet: ".AsSpan());
         if (beginSnippetIndex == -1)
         {
             key = null;
@@ -99,14 +99,14 @@ static class StartEndTester
         }
 
         var startIndex = beginSnippetIndex + 15;
-        var substring = lineSpan
+        var substring = line
             .TrimBackCommentChars(startIndex);
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {
             throw new SnippetReadingException($@"No Key could be derived.
 Path: {path}
-Line: '{line}'");
+Line: '{line.ToString()}'");
         }
 
         var keySpan = split[0];
@@ -114,7 +114,7 @@ Line: '{line}'");
         {
             throw new SnippetReadingException($@"Too many parts.
 Path: {path}
-Line: '{line}'");
+Line: '{line.ToString()}'");
         }
 
         if (KeyValidator.IsInValidKey(keySpan))
@@ -122,7 +122,7 @@ Line: '{line}'");
             throw new SnippetReadingException($@"Key cannot contain whitespace or start/end with symbols.
 Key: {keySpan.ToString()}
 Path: {path}
-Line: {line}");
+Line: {line.ToString()}");
         }
 
         key = keySpan.ToString().ToLowerInvariant();

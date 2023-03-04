@@ -14,7 +14,7 @@ static class ExcludeToFilterBuilder
 
             foreach (var exclude in excludes)
             {
-                if (path.Contains(exclude))
+                if (path.IndexOf(exclude.AsSpan()) != -1)
                 {
                     return false;
                 }

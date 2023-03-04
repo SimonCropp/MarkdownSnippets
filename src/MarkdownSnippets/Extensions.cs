@@ -183,8 +183,29 @@ static class Extensions
 
         return value[lastPos] == ch;
     }
-
+    public static bool Contains(this CharSpan value, CharSpan match) =>
+        value.IndexOf(match) != -1;
 #if NETSTANDARD
+     
+    public static bool SequenceEqual(this CharSpan value1, CharSpan value2)
+    {
+        if (value1.Length != value2.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < value1.Length; index++)
+        {
+            var ch1 = value1[index];
+            var ch2 = value2[index];
+            if (ch1 != ch2)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static void Append(this StringBuilder builder, CharSpan value)
     {

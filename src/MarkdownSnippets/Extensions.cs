@@ -122,21 +122,6 @@ static class Extensions
         return string.Empty;
     }
 
-#if NETSTANDARD
-    public static void Append(this StringBuilder builder, CharSpan value)
-    {
-        if (value.Length > 0)
-        {
-            unsafe
-            {
-                fixed (char* valueChars = &MemoryMarshal.GetReference(value))
-                {
-                    builder.Append(valueChars, value.Length);
-                }
-            }
-        }
-    }
-#endif
 
     public static string[] SplitBySpace(this string value) =>
         value.Split(new[]
@@ -185,17 +170,40 @@ static class Extensions
         return new(value,indexes);
     }
 
+    public static bool StartsWith(this CharSpan value, char ch) =>
+        value.Length != 0 && value[0] == ch;
+
+    public static bool EndsWith(this CharSpan value, char ch)
+    {
+        var lastPos = value.Length - 1;
+        if (lastPos == -1)
+        {
+            return false;
+        }
+
+        return value[lastPos] == ch;
+    }
+
 #if NETSTANDARD
+
+    public static void Append(this StringBuilder builder, CharSpan value)
+    {
+        if (value.Length > 0)
+        {
+            unsafe
+            {
+                fixed (char* valueChars = &MemoryMarshal.GetReference(value))
+                {
+                    builder.Append(valueChars, value.Length);
+                }
+            }
+        }
+    }
 
     public static bool StartsWith(this string value, char ch) =>
         value.Length != 0 && value[0] == ch;
 
-    public static bool EndsWith(this string value, char ch)
-    {
-        var lastPos = value.Length - 1;
-        return lastPos < value.Length &&
-               value[lastPos] == ch;
-    }
+
 
     public static bool Contains(this CharSpan span, char value)
     {

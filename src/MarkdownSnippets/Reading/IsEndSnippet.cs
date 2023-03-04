@@ -1,1 +1,1 @@
-﻿delegate bool IsEndSnippet(string value);
+﻿delegate bool IsEndSnippet(CharSpan value);

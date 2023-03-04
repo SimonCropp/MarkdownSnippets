@@ -4,6 +4,31 @@ using System.Runtime.InteropServices;
 
 static class Extensions
 {
+#if NETSTANDARD
+    static bool IsDirectorySeparator(char c) =>
+        c is '/' or '\\';
+    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path)
+    {
+        for (var i = path.Length; --i >= 0;)
+        {
+            if (IsDirectorySeparator(path[i]))
+            {
+                return path.Slice(i + 1, path.Length - i - 1);
+            }
+        }
+
+        return path;
+    }
+#else
+
+    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path) =>
+        Path.GetFileName(path);
+
+#endif
+
+    public static bool StartsWith(this CharSpan value, char ch) =>
+        value.Length != 0 && value[0] == ch;
+
     public static bool TryFindNewline(this TextReader reader, out string? newline)
     {
         do
@@ -131,6 +156,26 @@ static class Extensions
                 StringSplitOptions.RemoveEmptyEntries);
 
 #if NETSTANDARD
+
+    public static bool SequenceEqual(this CharSpan value1, CharSpan value2)
+    {
+        if (value1.Length != value2.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < value1.Length; index++)
+        {
+            var ch1 = value1[index];
+            var ch2 = value2[index];
+            if (ch1 != ch2)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static bool StartsWith(this string value, char ch) =>
         value.Length != 0 && value[0] == ch;

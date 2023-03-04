@@ -10,17 +10,21 @@ static class ExcludeToFilterBuilder
                 return false;
             }
 
-            excludes = GetExcludesWithBothSlashes(excludes).ToList();
+            if (!excludes.Any(path.Contains))
+            {
+                return true;
+            }
 
-            return !excludes.Any(path.Contains);
+            if (!excludes.Any(path.Replace('\\', '/').Contains))
+            {
+                return true;
+            }
+
+            if (!excludes.Any(path.Replace('/', '\\').Contains))
+            {
+                return true;
+            }
+
+            return false;
         };
-
-    static IEnumerable<string> GetExcludesWithBothSlashes(List<string> excludes)
-    {
-        foreach (var exclude in excludes)
-        {
-            yield return exclude.Replace('\\', '/');
-            yield return exclude.Replace('/', '\\');
-        }
-    }
 }

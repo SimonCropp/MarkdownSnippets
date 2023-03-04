@@ -1,7 +1,8 @@
 ﻿namespace MarkdownSnippets;
 
 [DebuggerDisplay("Key={Key}, FileLocation={FileLocation}, Error={Error}")]
-public class Snippet : IContent
+public class Snippet :
+    IContent
 {
     /// <summary>
     /// Initialise a new instance of an in-error <see cref="Snippet"/>.

@@ -8,6 +8,17 @@ static class Guard
         }
     }
 
+    public static void AgainstUpperCase(CharSpan value, string argumentName)
+    {
+        foreach (var ch in value)
+        {
+            if (char.IsUpper(ch))
+            {
+                throw new ArgumentException($"Cannot contain upper case. Value: {value}", argumentName);
+            }
+        }
+    }
+
     public static void AgainstNegativeAndZero(int value, string argumentName)
     {
         if (value <= 0)

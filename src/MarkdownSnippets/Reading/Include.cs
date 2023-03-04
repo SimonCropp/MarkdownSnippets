@@ -37,19 +37,19 @@ public class Include :
         };
     }
 
-    public string Error { get; private set; } = null!;
+    public string Error { get; private init; } = null!;
 
-    public bool IsInError { get; private set; }
+    public bool IsInError { get; private init; }
 
     /// <summary>
     /// The key used to identify the snippet.
     /// </summary>
-    public string Key { get; private set; } = null!;
+    public string Key { get; private init; } = null!;
 
     /// <summary>
     /// The path the snippet was read from.
     /// </summary>
-    public string? Path { get; private set; }
+    public string? Path { get; private init; }
 
     public IReadOnlyList<string> Lines
     {

@@ -4,12 +4,7 @@ public static class DefaultDirectoryExclusions
 {
     public static bool ShouldExcludeDirectory(CharSpan path)
     {
-        
-#if NETSTANDARD
-        var suffix = Path.GetFileName(path.ToString()).AsSpan();
-        #else
-        var suffix = Path.GetFileName(path);
-        #endif
+        var suffix = path.GetFileName();
 
         if (suffix.StartsWith('.'))
         {

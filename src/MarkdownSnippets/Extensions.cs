@@ -185,8 +185,31 @@ static class Extensions
     }
     public static bool Contains(this CharSpan value, CharSpan match) =>
         value.IndexOf(match) != -1;
+
 #if NETSTANDARD
-     
+    static bool IsDirectorySeparator(char c) =>
+        c is '/' or '\\';
+    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path)
+    {
+        for (var i = path.Length; --i >= 0;)
+        {
+            if (IsDirectorySeparator(path[i]))
+            {
+                return path.Slice(i + 1, path.Length - i - 1);
+            }
+        }
+
+        return path;
+    }
+#else
+
+    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path) =>
+        Path.GetFileName(path);
+
+#endif
+
+#if NETSTANDARD
+
     public static bool SequenceEqual(this CharSpan value1, CharSpan value2)
     {
         if (value1.Length != value2.Length)

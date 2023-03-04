@@ -127,7 +127,9 @@ Line: {line}");
 
     static int IndexOf(string line, string value)
     {
-        var charactersToScan = Math.Min(line.Length, value.Length + 10);
-        return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
+        var valueSpan = value.AsSpan();
+        var lineSpan = line.AsSpan();
+        var charactersToScan = Math.Min(lineSpan.Length, valueSpan.Length + 10);
+        return lineSpan.Slice(0, charactersToScan).IndexOf(valueSpan, StringComparison.Ordinal);
     }
 }

@@ -31,7 +31,7 @@
         return ReadOnlySpan<char>.Empty;
     }
 
-    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path)
+    public static ReadOnlySpan<char> GetFileName(ReadOnlySpan<char> path)
     {
         for (var i = path.Length; --i >= 0;)
         {
@@ -49,7 +49,7 @@
     public static ReadOnlySpan<char> GetExtension(ReadOnlySpan<char> path) =>
         Path.GetExtension(path);
 
-    public static ReadOnlySpan<char> GetFileName(this ReadOnlySpan<char> path) =>
+    public static ReadOnlySpan<char> GetFileName(ReadOnlySpan<char> path) =>
         Path.GetFileName(path);
 
 #endif

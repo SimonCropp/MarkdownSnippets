@@ -1,3 +1,7 @@
+#if NETSTANDARD
+using System.Runtime.InteropServices;
+#endif
+
 static class Extensions
 {
     public static bool TryFindNewline(this TextReader reader, out string? newline)
@@ -156,6 +160,19 @@ static class Extensions
         return false;
     }
 
+    public static void Append(this StringBuilder builder, CharSpan value)
+    {
+        if (value.Length > 0)
+        {
+            unsafe
+            {
+                fixed (char* valueChars = &MemoryMarshal.GetReference(value))
+                {
+                    builder.Append(valueChars, value.Length);
+                }
+            }
+        }
+    }
 #endif
 
     public static string[] Lines(this string value) =>

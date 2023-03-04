@@ -2,12 +2,18 @@
 
 static class ExcludeToFilterBuilder
 {
-    public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes)
-    {
-        excludes = GetExcludesWithBothSlashes(excludes).ToList();
-        return path => !DefaultDirectoryExclusions.ShouldExcludeDirectory(path) &&
-                       !excludes.Any(path.Contains);
-    }
+    public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes) =>
+        path =>
+        {
+            if (DefaultDirectoryExclusions.ShouldExcludeDirectory(path))
+            {
+                return false;
+            }
+
+            excludes = GetExcludesWithBothSlashes(excludes).ToList();
+
+            return !excludes.Any(path.Contains);
+        };
 
     static IEnumerable<string> GetExcludesWithBothSlashes(List<string> excludes)
     {

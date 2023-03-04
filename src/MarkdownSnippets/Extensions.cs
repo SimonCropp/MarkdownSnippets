@@ -149,11 +149,15 @@ static class Extensions
     {
         var indexes = new List<Spans.Index>();
         var index = 0;
-        int? from = 0;
+        int? from = null;
         while (true)
         {
             if (index == value.Length)
             {
+                if (from != null)
+                {
+                    indexes.Add(new (from.Value, index-from.Value));
+                }
                 break;
             }
             var ch = value[index];
@@ -162,16 +166,17 @@ static class Extensions
             {
                 if (from != null)
                 {
-                    indexes.Add(new (from.Value, index-1));
+                    indexes.Add(new (from.Value, index-from.Value));
                 }
 
                 from = null;
-                continue;
             }
-
-            if (from == null)
+            else
             {
-                from = index;
+                if (from == null)
+                {
+                    from = index;
+                }
             }
 
             index++;
@@ -231,7 +236,10 @@ ref struct Spans
 
     public ReadOnlySpan<char> this[int index]
     {
-        get {     var tuple = items[index];
-            return span.Slice(tuple.From, tuple.To); }
+        get
+        {
+            var tuple = items[index];
+            return span.Slice(tuple.From, tuple.To);
+        }
     }
 }

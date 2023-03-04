@@ -5,7 +5,7 @@ namespace MarkdownSnippets;
 /// </summary>
 public static class SimpleSnippetMarkdownHandling
 {
-    public static void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+    public static void Append(string key, IEnumerable<Snippet> snippets, AppendLine appendLine)
     {
         foreach (var snippet in snippets)
         {
@@ -13,7 +13,7 @@ public static class SimpleSnippetMarkdownHandling
         }
     }
 
-    static void WriteSnippet(Action<string> appendLine, Snippet snippet)
+    static void WriteSnippet(AppendLine appendLine, Snippet snippet)
     {
         appendLine($"```{snippet.Language}");
         appendLine(snippet.Value);

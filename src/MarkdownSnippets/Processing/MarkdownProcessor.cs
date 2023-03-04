@@ -257,7 +257,7 @@ public class MarkdownProcessor
         return true;
     }
 
-    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    void ProcessSnippetLine(AppendLine appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
     {
         appendLine($"<!-- snippet: {key} -->");
 

@@ -155,6 +155,17 @@ static class Extensions
                 },
                 StringSplitOptions.RemoveEmptyEntries);
 
+    public static bool EndsWith(this CharSpan value, char ch)
+    {
+        var lastPos = value.Length - 1;
+        if (lastPos == -1)
+        {
+            return false;
+        }
+
+        return value[lastPos] == ch;
+    }
+
 #if NETSTANDARD
 
     public static bool SequenceEqual(this CharSpan value1, CharSpan value2)

@@ -216,6 +216,13 @@ class IncludeProcessor
         line.StartsWith('|') ||
         line.EndsWith('|');
 
+    static bool ShouldWriteIncludeOnDiffLine(CharSpan line) =>
+        SnippetKey.IsSnippetLine(line) ||
+        line.StartsWith("<!-- endSnippet -->".AsSpan()) ||
+        line.EndsWith("```".AsSpan()) ||
+        line.StartsWith('|') ||
+        line.EndsWith('|');
+
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include, bool writePath)
     {
         if (writePath)

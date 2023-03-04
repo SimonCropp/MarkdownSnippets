@@ -143,6 +143,19 @@ static class Extensions
                value[lastPos] == ch;
     }
 
+    public static bool Contains(this CharSpan span, char value)
+    {
+        foreach (var ch in span)
+        {
+            if (ch == value)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 #endif
 
     public static string[] Lines(this string value) =>

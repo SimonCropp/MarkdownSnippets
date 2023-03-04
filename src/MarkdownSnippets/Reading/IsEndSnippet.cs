@@ -1,0 +1,1 @@
+﻿delegate bool IsEndSnippet(string value);

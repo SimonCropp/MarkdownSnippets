@@ -15,7 +15,7 @@ class LoopStack
 
     public void Pop() => stack.Pop();
 
-    public void Push(Func<string, bool> endFunc, string key, int startLine, int maxWidth, string newLine)
+    public void Push(IsEndSnippet endFunc, string key, int startLine, int maxWidth, string newLine)
     {
         var state = new LoopState(key, endFunc, startLine, maxWidth, newLine);
         stack.Push(state);

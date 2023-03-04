@@ -13,7 +13,7 @@ static class StartEndTester
         string trimmedLine,
         string path,
         [NotNullWhen(true)] out string? currentKey,
-        [NotNullWhen(true)] out Func<string, bool>? endFunc)
+        [NotNullWhen(true)] out IsEndSnippet? endFunc)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey))
         {
@@ -31,7 +31,7 @@ static class StartEndTester
         return false;
     }
 
-    static Func<string, bool> throwFunc = _ => throw new("Do not use out func");
+    static IsEndSnippet throwFunc = _ => throw new("Do not use out func");
 
     static bool IsEndRegion(string line) =>
         line.StartsWith("#endregion", StringComparison.Ordinal);

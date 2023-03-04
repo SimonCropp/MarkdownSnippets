@@ -32,6 +32,14 @@ static class Guard
         }
     }
 
+    public static void AgainstNullAndEmpty(CharSpan value, string argumentName)
+    {
+        if (value.Contains(' '))
+        {
+            throw new ArgumentException("Empty span", argumentName);
+        }
+    }
+
     public static void DirectoryExists(string path, string argumentName)
     {
         AgainstNullAndEmpty(path, argumentName);

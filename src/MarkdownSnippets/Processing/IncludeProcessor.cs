@@ -164,8 +164,9 @@ class IncludeProcessor
     {
         var count = include.Lines.Count;
         var first = include.Lines.First();
+        var firstSpan = first.AsSpan();
         var key = include.Key;
-        if (ShouldWriteIncludeOnDiffLine(first))
+        if (ShouldWriteIncludeOnDiffLine(firstSpan))
         {
             if (writePath)
             {
@@ -198,7 +199,8 @@ class IncludeProcessor
         }
 
         var last = include.Lines.Last();
-        if (ShouldWriteIncludeOnDiffLine(last))
+        var lastSpan = last.AsSpan();
+        if (ShouldWriteIncludeOnDiffLine(lastSpan))
         {
             yield return new(last, path, count);
             yield return new("<!-- endInclude -->", path, count);
@@ -209,15 +211,12 @@ class IncludeProcessor
         }
     }
 
-    static bool ShouldWriteIncludeOnDiffLine(string line)
-    {
-        var span = line.AsSpan();
-        return SnippetKey.IsSnippetLine(span) ||
-               span.StartsWith("<!-- endSnippet -->".AsSpan()) ||
-               span.EndsWith("```".AsSpan()) ||
-               span.StartsWith('|') ||
-               span.EndsWith('|');
-    }
+    static bool ShouldWriteIncludeOnDiffLine(CharSpan line) =>
+        SnippetKey.IsSnippetLine(line) ||
+        line.StartsWith("<!-- endSnippet -->".AsSpan()) ||
+        line.EndsWith("```".AsSpan()) ||
+        line.StartsWith('|') ||
+        line.EndsWith('|');
 
     static IEnumerable<Line> BuildEmpty(Line line, string? path, Include include, bool writePath)
     {
@@ -232,8 +231,9 @@ class IncludeProcessor
     static IEnumerable<Line> BuildSingle(Line line, string? path, Include include, bool writePath)
     {
         var first = include.Lines.First();
+        var firstSpan = first.AsSpan();
         var key = include.Key;
-        if (ShouldWriteIncludeOnDiffLine(first))
+        if (ShouldWriteIncludeOnDiffLine(firstSpan))
         {
             if (writePath)
             {

@@ -14,7 +14,7 @@ static class Guard
         {
             if (char.IsUpper(ch))
             {
-                throw new ArgumentException($"Cannot contain upper case. Value: {value}", argumentName);
+                throw new ArgumentException($"Cannot contain upper case. Value: {value.ToString()}", argumentName);
             }
         }
     }

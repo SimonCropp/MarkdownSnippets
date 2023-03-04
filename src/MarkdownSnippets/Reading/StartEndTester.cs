@@ -90,7 +90,8 @@ static class StartEndTester
         string path,
         [NotNullWhen(true)] out string? key)
     {
-        var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
+        var lineSpan = line.AsSpan();
+        var beginSnippetIndex = IndexOf(lineSpan, "begin-snippet: ".AsSpan());
         if (beginSnippetIndex == -1)
         {
             key = null;
@@ -98,7 +99,7 @@ static class StartEndTester
         }
 
         var startIndex = beginSnippetIndex + 15;
-        var substring = line
+        var substring = lineSpan
             .TrimBackCommentChars(startIndex);
         var split = substring.SplitBySpace();
         if (split.Length == 0)
@@ -108,7 +109,7 @@ Path: {path}
 Line: '{line}'");
         }
 
-        key = split[0].ToLowerInvariant();
+        var keySpan = split[0];
         if (split.Length != 1)
         {
             throw new SnippetReadingException($@"Too many parts.
@@ -116,14 +117,15 @@ Path: {path}
 Line: '{line}'");
         }
 
-        if (KeyValidator.IsInValidKey(key))
+        if (KeyValidator.IsInValidKey(keySpan))
         {
             throw new SnippetReadingException($@"Key cannot contain whitespace or start/end with symbols.
-Key: {key}
+Key: {keySpan.ToString()}
 Path: {path}
 Line: {line}");
         }
 
+        key = keySpan.ToString().ToLowerInvariant();
         return true;
     }
 

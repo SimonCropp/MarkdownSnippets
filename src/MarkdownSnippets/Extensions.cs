@@ -134,26 +134,19 @@ static class Extensions
         }
     }
 
-    public static string TrimBackCommentChars(this string input, int startIndex)
+    public static CharSpan TrimBackCommentChars(this CharSpan input, int startIndex)
     {
         for (var index = input.Length - 1; index >= startIndex; index--)
         {
             var ch = input[index];
             if (char.IsLetterOrDigit(ch) || ch is ']' or ' ' or ')')
             {
-                return input.Substring(startIndex,  index + 1 - startIndex);
+                return input.Slice(startIndex,  index + 1 - startIndex);
             }
         }
-        return string.Empty;
-    }
 
-    public static string[] SplitBySpace(this string value) =>
-        value
-            .Split(new[]
-                {
-                    ' '
-                },
-                StringSplitOptions.RemoveEmptyEntries);
+        return CharSpan.Empty;
+    }
 
     public static bool EndsWith(this CharSpan value, char ch)
     {

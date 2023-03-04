@@ -46,7 +46,8 @@ static class StartEndTester
         string line,
         [NotNullWhen(true)] out string? key)
     {
-        if (!line.StartsWith("#region ", StringComparison.Ordinal))
+        var lineSpan = line.AsSpan();
+        if (!lineSpan.StartsWith("#region ".AsSpan()))
         {
             key = null;
             return false;

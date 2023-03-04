@@ -53,8 +53,7 @@ static class StartEndTester
             return false;
         }
 
-        var substring = line.Substring(8);
-        var split = substring.SplitBySpace();
+        var split = lineSpan.Slice(8).SplitBySpace();
         if (split.Length == 0)
         {
             key = null;
@@ -67,13 +66,14 @@ static class StartEndTester
             return false;
         }
 
-        key = split[0].ToLowerInvariant();
-
-        if (KeyValidator.IsInValidKey(key))
+        var first = split[0];
+        if (KeyValidator.IsInValidKey(first))
         {
+            key = null;
             return false;
         }
 
+        key = first.ToString().ToLowerInvariant();
         return true;
     }
 

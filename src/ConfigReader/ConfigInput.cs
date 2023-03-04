@@ -2,20 +2,20 @@
 
 public class ConfigInput
 {
-    public bool? ReadOnly { get; set; }
-    public bool? ValidateContent { get; set; }
-    public bool? OmitSnippetLinks { get; set; }
-    public LinkFormat? LinkFormat { get; set; }
-    public DocumentConvention? Convention { get; set; }
-    public int? TocLevel { get; set; }
-    public int? MaxWidth { get; set; }
-    public List<string> UrlsAsSnippets { get; set; } = new();
-    public List<string> ExcludeDirectories { get; set; } = new();
-    public List<string> ExcludeMarkdownDirectories { get; set; } = new();
-    public List<string> ExcludeSnippetDirectories { get; set; } = new();
-    public bool? WriteHeader { get; set; }
-    public string? Header { get; set; }
-    public string? UrlPrefix { get; set; }
-    public List<string> TocExcludes { get; set; } = new();
-    public bool? TreatMissingAsWarning { get; set; }
+    public bool? ReadOnly { get; init; }
+    public bool? ValidateContent { get; init; }
+    public bool? OmitSnippetLinks { get; init; }
+    public LinkFormat? LinkFormat { get; init; }
+    public DocumentConvention? Convention { get; init; }
+    public int? TocLevel { get; init; }
+    public int? MaxWidth { get; init; }
+    public List<string> UrlsAsSnippets { get; init; } = new();
+    public List<string> ExcludeDirectories { get; init; } = new();
+    public List<string> ExcludeMarkdownDirectories { get; init; } = new();
+    public List<string> ExcludeSnippetDirectories { get; init; } = new();
+    public bool? WriteHeader { get; init; }
+    public string? Header { get; init; }
+    public string? UrlPrefix { get; init; }
+    public List<string> TocExcludes { get; init; } = new();
+    public bool? TreatMissingAsWarning { get; init; }
 }

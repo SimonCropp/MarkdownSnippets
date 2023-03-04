@@ -50,14 +50,14 @@ public class Snippet :
         };
     }
 
-    public string Error { get; private set; } = null!;
+    public string Error { get; private init; } = null!;
 
-    public bool IsInError { get; private set; }
+    public bool IsInError { get; private init; }
 
     /// <summary>
     /// The key used to identify the snippet.
     /// </summary>
-    public string Key { get; private set; } = null!;
+    public string Key { get; private init; } = null!;
 
     /// <summary>
     /// The language of the snippet, extracted from the file extension of the input file.
@@ -75,17 +75,17 @@ public class Snippet :
     /// <summary>
     /// The path the snippet was read from.
     /// </summary>
-    public string? Path { get; private set; }
+    public string? Path { get; private init; }
 
     /// <summary>
     /// The line the snippets started on.
     /// </summary>
-    public int StartLine { get; private set; }
+    public int StartLine { get; private init; }
 
     /// <summary>
     /// The line the snippet ended on.
     /// </summary>
-    public int EndLine { get; private set; }
+    public int EndLine { get; private init; }
 
     /// <summary>
     /// The <see cref="Path"/>, <see cref="StartLine"/>, and <see cref="EndLine"/> concatenated.

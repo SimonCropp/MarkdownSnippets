@@ -133,6 +133,11 @@ static class Extensions
 
     public static bool EndsWith(this string value, char ch)
     {
+        if (value.Length == 0)
+        {
+            return false;
+        }
+
         var lastPos = value.Length - 1;
         return lastPos < value.Length &&
                value[lastPos] == ch;

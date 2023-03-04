@@ -132,7 +132,7 @@ Line: {line}");
         return IndexOf(lineSpan, valueSpan);
     }
 
-    static int IndexOf(ReadOnlySpan<char> line, ReadOnlySpan<char> value)
+    static int IndexOf(CharSpan line, CharSpan value)
     {
         var charactersToScan = Math.Min(line.Length, value.Length + 10);
         return line.Slice(0, charactersToScan).IndexOf(value, StringComparison.Ordinal);

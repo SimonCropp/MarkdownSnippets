@@ -35,9 +35,9 @@ static class SnippetKey
         return true;
     }
 
-    public static bool IsSnippetLine(ReadOnlySpan<char> lineCurrent) =>
+    public static bool IsSnippetLine(CharSpan lineCurrent) =>
         lineCurrent.StartsWith("snippet:".AsSpan());
 
-    public static bool IsStartCommentSnippetLine(ReadOnlySpan<char> lineCurrent) =>
+    public static bool IsStartCommentSnippetLine(CharSpan lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:".AsSpan());
 }

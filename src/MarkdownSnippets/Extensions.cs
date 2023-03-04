@@ -123,7 +123,7 @@ static class Extensions
     }
 
 #if NETSTANDARD
-    public static void Append(this StringBuilder builder, ReadOnlySpan<char> value)
+    public static void Append(this StringBuilder builder, CharSpan value)
     {
         if (value.Length > 0)
         {
@@ -145,7 +145,7 @@ static class Extensions
                 },
                 StringSplitOptions.RemoveEmptyEntries);
 
-    public static Spans SplitBySpace(this ReadOnlySpan<char> value)
+    public static Spans SplitBySpace(this CharSpan value)
     {
         var indexes = new List<Spans.Index>();
         var index = 0;
@@ -197,7 +197,7 @@ static class Extensions
                value[lastPos] == ch;
     }
 
-    public static bool Contains(this ReadOnlySpan<char> span, char value)
+    public static bool Contains(this CharSpan span, char value)
     {
         foreach (var ch in span)
         {
@@ -221,10 +221,10 @@ static class Extensions
 
 ref struct Spans
 {
-    ReadOnlySpan<char> span;
+    CharSpan span;
     readonly List<Index> items;
 
-    public Spans(ReadOnlySpan<char> span, List<Index> items)
+    public Spans(CharSpan span, List<Index> items)
     {
         this.span = span;
         this.items = items;
@@ -234,7 +234,7 @@ ref struct Spans
 
     public int Length => items.Count;
 
-    public ReadOnlySpan<char> this[int index]
+    public CharSpan this[int index]
     {
         get
         {

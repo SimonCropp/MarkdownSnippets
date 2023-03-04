@@ -5,7 +5,7 @@
         !char.IsLetterOrDigit(key, 0) ||
         !char.IsLetterOrDigit(key, key.Length - 1);
 
-    public static bool IsInValidKey(ReadOnlySpan<char> key) =>
+    public static bool IsInValidKey(CharSpan key) =>
         key.Contains(' ') ||
         !char.IsLetterOrDigit(key[0]) ||
         !char.IsLetterOrDigit(key[key.Length - 1]);

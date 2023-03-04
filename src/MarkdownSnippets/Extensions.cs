@@ -147,7 +147,7 @@ static class Extensions
 
     public static Spans SplitBySpace(this ReadOnlySpan<char> value)
     {
-        var indexes = new List<Spans.Item>();
+        var indexes = new List<Spans.Index>();
         var index = 0;
         int? from = 0;
         while (true)
@@ -192,6 +192,19 @@ static class Extensions
                value[lastPos] == ch;
     }
 
+    public static bool Contains(this ReadOnlySpan<char> span, char value)
+    {
+        foreach (var ch in span)
+        {
+            if (ch == value)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 #endif
 
     public static string[] Lines(this string value) =>
@@ -204,21 +217,21 @@ static class Extensions
 ref struct Spans
 {
     ReadOnlySpan<char> span;
-    readonly List<Item> items;
+    readonly List<Index> items;
 
-    public Spans(ReadOnlySpan<char> span, List<Item> items)
+    public Spans(ReadOnlySpan<char> span, List<Index> items)
     {
         this.span = span;
         this.items = items;
     }
 
-    public record Item(int From, int To);
+    public record Index(int From, int To);
 
     public int Length => items.Count;
 
-    public ReadOnlySpan<char> Get(int index)
+    public ReadOnlySpan<char> this[int index]
     {
-        var tuple = items[index];
-        return span.Slice(tuple.From, tuple.To);
+        get {     var tuple = items[index];
+            return span.Slice(tuple.From, tuple.To); }
     }
 }

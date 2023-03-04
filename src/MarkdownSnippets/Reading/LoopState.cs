@@ -82,13 +82,13 @@ class LoopState
     public string Key { get; }
     char paddingChar;
     int paddingLength;
-    public Func<string, bool> EndFunc { get; }
+    public IsEndSnippet EndFunc { get; }
     public int StartLine { get; }
     int newlineCount;
     int maxWidth;
     string newLine;
 
-    public LoopState(string key, Func<string, bool> endFunc, int startLine, int maxWidth, string newLine)
+    public LoopState(string key, IsEndSnippet endFunc, int startLine, int maxWidth, string newLine)
     {
         this.maxWidth = maxWidth;
         this.newLine = newLine;

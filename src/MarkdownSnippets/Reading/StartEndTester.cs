@@ -6,9 +6,9 @@ static class StartEndTester
     internal static bool IsStartOrEnd(string trimmedLine)
     {
         var span = trimmedLine.AsSpan();
-        return IsBeginSnippet(trimmedLine) ||
+        return IsBeginSnippet(span) ||
                IsEndSnippet(span) ||
-               IsStartRegion(trimmedLine) ||
+               IsStartRegion(span) ||
                IsEndRegion(span);
     }
 
@@ -43,8 +43,8 @@ static class StartEndTester
     static bool IsEndSnippet(CharSpan line) =>
         IndexOf(line, "end-snippet".AsSpan()) >= 0;
 
-    static bool IsStartRegion(string line) =>
-        line.StartsWith("#region ", StringComparison.Ordinal);
+    static bool IsStartRegion(CharSpan line) =>
+        line.StartsWith("#region ".AsSpan(), StringComparison.Ordinal);
 
     internal static bool IsStartRegion(
         string line,
@@ -83,9 +83,9 @@ static class StartEndTester
         return true;
     }
 
-    static bool IsBeginSnippet(string line)
+    static bool IsBeginSnippet(CharSpan line)
     {
-        var startIndex = IndexOf(line, "begin-snippet: ");
+        var startIndex = IndexOf(line, "begin-snippet: ".AsSpan());
         return startIndex != -1;
     }
 

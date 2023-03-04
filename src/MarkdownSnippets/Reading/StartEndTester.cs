@@ -46,13 +46,14 @@ static class StartEndTester
         string line,
         [NotNullWhen(true)] out string? key)
     {
-        if (!line.StartsWith("#region ", StringComparison.Ordinal))
+        var lineAsSpan = line.AsSpan();
+        if (!lineAsSpan.StartsWith("#region ".AsSpan()))
         {
             key = null;
             return false;
         }
 
-        var substring = line.Substring(8);
+        var substring = lineAsSpan.Slice(8);
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {
@@ -66,13 +67,15 @@ static class StartEndTester
             return false;
         }
 
-        key = split[0].ToLowerInvariant();
+        var keySpan = split[0];
 
-        if (KeyValidator.IsInValidKey(key))
+        if (KeyValidator.IsInValidKey(keySpan))
         {
+            key = null;
             return false;
         }
 
+        key = keySpan.ToString().ToLowerInvariant();
         return true;
     }
 

@@ -145,22 +145,39 @@ static class Extensions
                 },
                 StringSplitOptions.RemoveEmptyEntries);
 
-    public static string[] SplitBySpace(this ReadOnlySpan<char> value)
+    public static Spans SplitBySpace(this ReadOnlySpan<char> value)
     {
-        var indexes = new List<int>();
-        for (var index = 0; index < value.Length; index++)
+        var indexes = new List<Spans.Item>();
+        var index = 0;
+        int? from = 0;
+        while (true)
         {
-            if (value[index] ==  ' ')
+            if (index == value.Length)
             {
-                indexes.Add(index);
+                break;
             }
+            var ch = value[index];
+
+            if (ch == ' ')
+            {
+                if (from != null)
+                {
+                    indexes.Add(new (from.Value, index-1));
+                }
+
+                from = null;
+                continue;
+            }
+
+            if (from == null)
+            {
+                from = index;
+            }
+
+            index++;
         }
 
-        return value.Split(new[]
-            {
-                ' '
-            },
-            StringSplitOptions.RemoveEmptyEntries);
+        return new(value,indexes);
     }
 
 #if NETSTANDARD
@@ -182,4 +199,26 @@ static class Extensions
 
     public static bool IsWhiteSpace(this string target) =>
         string.IsNullOrWhiteSpace(target);
+}
+
+ref struct Spans
+{
+    ReadOnlySpan<char> span;
+    readonly List<Item> items;
+
+    public Spans(ReadOnlySpan<char> span, List<Item> items)
+    {
+        this.span = span;
+        this.items = items;
+    }
+
+    public record Item(int From, int To);
+
+    public int Length => items.Count;
+
+    public ReadOnlySpan<char> Get(int index)
+    {
+        var tuple = items[index];
+        return span.Slice(tuple.From, tuple.To);
+    }
 }

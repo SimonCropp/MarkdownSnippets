@@ -453,7 +453,7 @@ BAD
     {
         var file = "FileWithMixedNewLines.txt";
         File.Delete(file);
-        await File.WriteAllTextAsync(file, "a\rb\nc\r\nd");
+        File.WriteAllText(file, "a\rb\nc\r\nd");
         var availableSnippets = new List<Snippet>();
         var content = @"
 some other text

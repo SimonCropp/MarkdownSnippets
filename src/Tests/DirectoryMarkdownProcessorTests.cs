@@ -90,7 +90,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -107,7 +107,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -249,7 +249,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -266,7 +266,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -283,7 +283,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.mdx");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -300,7 +300,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -318,7 +318,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -335,7 +335,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -354,7 +354,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -373,7 +373,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]
@@ -390,7 +390,7 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllTextAsync(result));
+        return Verify(File.ReadAllText(result));
     }
 
     [Fact]

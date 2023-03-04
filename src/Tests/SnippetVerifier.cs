@@ -51,7 +51,7 @@ static class SnippetVerifier
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
-        await using var writer = new StringWriter(stringBuilder);
+        using var writer = new StringWriter(stringBuilder);
         var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
         var result = stringBuilder.ToString();
         var output = new

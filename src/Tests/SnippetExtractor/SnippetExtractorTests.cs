@@ -25,7 +25,7 @@ public class SnippetExtractorTests
         var temp = Path.GetTempFileName().ToLowerInvariant();
         try
         {
-            await File.WriteAllTextAsync(temp, "Foo");
+            File.WriteAllText(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
             await Verify(snippets)

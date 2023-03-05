@@ -28,12 +28,7 @@ class FileFinder
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
-        ProcessFiles(targetDirectory);
-        foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
-                     .Where(path => directoryIncludes(path.AsSpan())))
-        {
-            FindFiles(subDirectory);
-        }
+        FindFiles(targetDirectory);
 
         return (
             snippetFiles.OrderBy(_ => _).ToList(),

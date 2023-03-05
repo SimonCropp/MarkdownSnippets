@@ -33,17 +33,17 @@ public class SnippetFileFinderTests
             DocumentConvention.SourceTransform,
             directoryIncludes: path =>
             {
-                directories.Add(path);
+                directories.Add(path.ToString());
                 return true;
             },
             markdownDirectoryIncludes: path =>
             {
-                markdownDirectories.Add(path);
+                markdownDirectories.Add(path.ToString());
                 return true;
             },
             snippetDirectoryIncludes: path =>
             {
-                snippetDirectories.Add(path);
+                snippetDirectories.Add(path.ToString());
                 return true;
             });
         var files = finder.FindFiles();

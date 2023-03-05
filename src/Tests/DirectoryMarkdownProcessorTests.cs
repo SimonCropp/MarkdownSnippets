@@ -10,9 +10,9 @@ public class DirectoryMarkdownProcessorTests
 
         var processor = new DirectoryMarkdownProcessor(
             targetDirectory: root,
-            directoryIncludes: path => !path.Contains("IncludeFileFinder") &&
-                                       !path.Contains("DirectoryMarkdownProcessor") &&
-                                       !DefaultDirectoryExclusions.ShouldExcludeDirectory(path.AsSpan()),
+            directoryIncludes: path => !path.Contains("IncludeFileFinder".AsSpan()) &&
+                                       !path.Contains("DirectoryMarkdownProcessor".AsSpan()) &&
+                                       !DefaultDirectoryExclusions.ShouldExcludeDirectory(path),
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             tocLevel: 1,

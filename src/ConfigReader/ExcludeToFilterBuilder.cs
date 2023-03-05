@@ -5,20 +5,18 @@ static class ExcludeToFilterBuilder
     public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes) =>
         path =>
         {
-            var pathSpan = path.AsSpan();
-
-            if (DefaultDirectoryExclusions.ShouldExcludeDirectory(pathSpan))
+            if (DefaultDirectoryExclusions.ShouldExcludeDirectory(path))
             {
                 return false;
             }
 
-            var pathForwardSlash = pathSpan.Replace('\\', '/');
-            var pathBackSlash = pathSpan.Replace('/', '\\');
+            var pathForwardSlash = path.Replace('\\', '/');
+            var pathBackSlash = path.Replace('/', '\\');
             foreach (var exclude in excludes)
             {
                 var excludeSpan = exclude.AsSpan();
 
-                if (pathSpan.Contains(excludeSpan))
+                if (path.Contains(excludeSpan))
                 {
                     return true;
                 }

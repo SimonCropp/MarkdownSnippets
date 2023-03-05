@@ -30,7 +30,7 @@ class FileFinder
     {
         ProcessFiles(targetDirectory);
         foreach (var subDirectory in Directory.EnumerateDirectories(targetDirectory)
-                     .Where(path => directoryIncludes(path)))
+                     .Where(path => directoryIncludes(path.AsSpan())))
         {
             FindFiles(subDirectory);
         }
@@ -47,7 +47,7 @@ class FileFinder
         ProcessFiles(directory);
 
         foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-                     .Where(path => directoryIncludes(path)))
+                     .Where(path => directoryIncludes(path.AsSpan())))
         {
             FindFiles(subDirectory);
         }
@@ -55,8 +55,8 @@ class FileFinder
 
     void ProcessFiles(string directory)
     {
-        var scanForMarkdown = markdownDirectoryIncludes(directory);
-        var scanForSnippets = snippetDirectoryIncludes(directory);
+        var scanForMarkdown = markdownDirectoryIncludes(directory.AsSpan());
+        var scanForSnippets = snippetDirectoryIncludes(directory.AsSpan());
         if (scanForSnippets && scanForMarkdown)
         {
             foreach (var file in EnumerateFiles(directory))

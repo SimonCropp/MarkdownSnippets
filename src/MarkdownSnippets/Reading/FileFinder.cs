@@ -32,7 +32,18 @@ class FileFinder
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
 #if NETSTANDARD
-        FindFiles(targetDirectory);
+        void FindFileInDirectory(string directory)
+        {
+            ProcessFiles(directory);
+
+            foreach (var subDirectory in Directory.EnumerateDirectories(directory)
+                         .Where(path => directoryIncludes(path.AsSpan())))
+            {
+                FindFileInDirectory(subDirectory);
+            }
+        }
+
+        FindFileInDirectory(targetDirectory);
 #else
         ProcessFiles(targetDirectory);
         var directoryEnumerator = new FileSystemEnumerable<string>(
@@ -60,17 +71,6 @@ class FileFinder
             mdFiles.OrderBy(_ => _).ToList(),
             includeFiles.OrderBy(_ => _).ToList(),
             allFiles.OrderBy(_ => _).ToList());
-    }
-
-    void FindFiles(string directory)
-    {
-        ProcessFiles(directory);
-
-        foreach (var subDirectory in Directory.EnumerateDirectories(directory)
-                     .Where(path => directoryIncludes(path.AsSpan())))
-        {
-            FindFiles(subDirectory);
-        }
     }
 
     void ProcessFiles(string directory)

@@ -10,19 +10,24 @@ static class ExcludeToFilterBuilder
                 return false;
             }
 
-            if (!excludes.Any(path.Contains))
+            var pathForwardSlash = path.Replace('\\', '/');
+            var pathBackSlash = path.Replace('/', '\\');
+            foreach (var exclude in excludes)
             {
-                return true;
-            }
+                if (path.Contains(exclude))
+                {
+                    return true;
+                }
 
-            if (!excludes.Any(path.Replace('\\', '/').Contains))
-            {
-                return true;
-            }
+                if (pathForwardSlash.Contains(exclude))
+                {
+                    return true;
+                }
 
-            if (!excludes.Any(path.Replace('/', '\\').Contains))
-            {
-                return true;
+                if (pathBackSlash.Contains(exclude))
+                {
+                    return true;
+                }
             }
 
             return false;

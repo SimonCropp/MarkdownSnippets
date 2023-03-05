@@ -98,7 +98,7 @@ public class DirectoryMarkdownProcessor
         this.newLine = newLine!;
         this.treatMissingAsWarning = treatMissingAsWarning;
 
-        this.log = log ?? (s => { Trace.WriteLine(s); });
+        this.log = log ?? (_ => Trace.WriteLine(_));
 
         Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
         this.targetDirectory = Path.GetFullPath(targetDirectory);

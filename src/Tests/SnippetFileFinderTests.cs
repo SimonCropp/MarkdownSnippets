@@ -24,9 +24,9 @@ public class SnippetFileFinderTests
     [Fact]
     public Task VerifyLambdasAreCalled()
     {
-        var directories = new ConcurrentBag<string>();
-        var snippetDirectories = new ConcurrentBag<string>();
-        var markdownDirectories = new ConcurrentBag<string>();
+        var directories = new HashSet<string>();
+        var snippetDirectories = new List<string>();
+        var markdownDirectories = new List<string>();
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/VerifyLambdasAreCalled");
         var finder = new FileFinder(
             directory,

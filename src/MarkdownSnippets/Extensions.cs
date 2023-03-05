@@ -5,7 +5,30 @@ using System.Runtime.InteropServices;
 static class Extensions
 {
     public static bool StartsWith(this CharSpan value, char ch) =>
-        value.Length != 0 && value[0] == ch;
+        value.Length != 0 &&
+        value[0] == ch;
+
+    public static bool Contains(this CharSpan target, CharSpan value) =>
+        target.IndexOf(value) != -1;
+
+    public static CharSpan Replace(this CharSpan target, char from, char to)
+    {
+        var chars = new char[target.Length];
+        for (var index = 0; index < target.Length; index++)
+        {
+            var ch = target[index];
+            if (ch == from)
+            {
+                chars[index] = to;
+            }
+            else
+            {
+                chars[index] = ch;
+            }
+        }
+
+        return new(chars);
+    }
 
     public static bool TryFindNewline(this TextReader reader, out string? newline)
     {

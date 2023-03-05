@@ -135,9 +135,10 @@ public class DirectoryMarkdownProcessor
             foreach (var file in includeFiles)
             {
                 var key = Path.GetFileName(file).Replace(".include.md", "");
-                if (includes.Any(_ => _.Key == key))
+                var existing = includes.SingleOrDefault(_ => _.Key == key);
+                if (existing != null)
                 {
-                    throw new($"Duplicate include: {key}");
+                    throw new($"Duplicate include: {key}. Exising File: {existing.Path}. New File: {file}");
                 }
 
                 includes.Add(Include.Build(key, File.ReadAllLines(file), file));

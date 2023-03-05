@@ -35,19 +35,24 @@ class FileFinder
         FindFiles(targetDirectory);
 #else
         ProcessFiles(targetDirectory);
-        var directoryEnumerator = new FileSystemEnumerable<FileSystemInfo>(
+        var directoryEnumerator = new FileSystemEnumerable<string>(
             targetDirectory,
-            (ref FileSystemEntry entry) => entry.ToFileSystemInfo(),
-            new(){RecurseSubdirectories = true,})
+            (ref FileSystemEntry entry) => entry.ToFullPath(),
+            new()
+            {
+                RecurseSubdirectories = true,
+                IgnoreInaccessible = true
+            })
         {
-            ShouldIncludePredicate = (ref FileSystemEntry entry) =>
-                entry.IsDirectory &&
-                directoryIncludes(entry.ToFullPath()),
-            ShouldRecursePredicate = (ref FileSystemEntry entry) =>  directoryIncludes(entry.ToFullPath())
+            ShouldIncludePredicate = (ref FileSystemEntry entry) => entry.IsDirectory,
+            ShouldRecursePredicate = (ref FileSystemEntry entry) => directoryIncludes(entry.ToFullPath())
         };
         foreach (var item in directoryEnumerator)
         {
-            ProcessFiles(item.FullName);
+            if (directoryIncludes(item))
+            {
+                ProcessFiles(item);
+            }
         }
 #endif
         return (

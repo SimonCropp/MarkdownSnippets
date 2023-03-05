@@ -62,7 +62,7 @@ public class DocoTask :
             markdownDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeMarkdownDirectories),
             snippetDirectoryIncludes: ExcludeToFilterBuilder.ExcludesToFilter(configResult.ExcludeSnippetDirectories),
             convention: configResult.Convention,
-            log: s => Log.LogMessage(s),
+            log: _ => Log.LogMessage(_),
             writeHeader: configResult.WriteHeader,
             header: configResult.Header,
             readOnly: configResult.ReadOnly,

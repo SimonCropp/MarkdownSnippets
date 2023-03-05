@@ -1,5 +1,6 @@
 ﻿{
   directories: [
+    {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled/subpath,
     {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled/subpath
   ],
   markdownDirectories: [

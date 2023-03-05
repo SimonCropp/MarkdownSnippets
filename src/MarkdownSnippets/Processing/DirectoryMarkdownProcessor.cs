@@ -138,7 +138,11 @@ public class DirectoryMarkdownProcessor
                 var existing = includes.SingleOrDefault(_ => _.Key == key);
                 if (existing != null)
                 {
-                    throw new($"Duplicate include: {key}. Exising File: {existing.Path}. New File: {file}");
+                    throw new($"""
+                        Duplicate include: {key}
+                        Exising File: {existing.Path}
+                        New File:     {file}
+                        """);
                 }
 
                 includes.Add(Include.Build(key, File.ReadAllLines(file), file));

@@ -1,4 +1,7 @@
-﻿using MarkdownSnippets;
+﻿#if NET5_0_OR_GREATER
+using System.IO.Enumeration;
+#endif
+using MarkdownSnippets;
 
 class FileFinder
 {
@@ -28,8 +31,25 @@ class FileFinder
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {
+#if NETSTANDARD
         FindFiles(targetDirectory);
-
+#else
+        ProcessFiles(targetDirectory);
+        var directoryEnumerator = new FileSystemEnumerable<FileSystemInfo>(
+            targetDirectory,
+            (ref FileSystemEntry entry) => entry.ToFileSystemInfo(),
+            new(){RecurseSubdirectories = true,})
+        {
+            ShouldIncludePredicate = (ref FileSystemEntry entry) =>
+                entry.IsDirectory &&
+                directoryIncludes(entry.ToFullPath()),
+            ShouldRecursePredicate = (ref FileSystemEntry entry) =>  directoryIncludes(entry.ToFullPath())
+        };
+        foreach (var item in directoryEnumerator)
+        {
+            ProcessFiles(item.FullName);
+        }
+#endif
         return (
             snippetFiles.OrderBy(_ => _).ToList(),
             mdFiles.OrderBy(_ => _).ToList(),

@@ -7,7 +7,7 @@ static class ExcludeToFilterBuilder
         {
             var pathSpan = path.AsSpan();
 
-            if (DefaultDirectoryExclusions.ShouldExcludeDirectory(path))
+            if (DefaultDirectoryExclusions.ShouldExcludeDirectory(pathSpan))
             {
                 return false;
             }

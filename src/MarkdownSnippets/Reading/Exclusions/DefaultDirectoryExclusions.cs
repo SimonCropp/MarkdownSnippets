@@ -2,9 +2,9 @@
 
 public static class DefaultDirectoryExclusions
 {
-    public static bool ShouldExcludeDirectory(string path)
+    public static bool ShouldExcludeDirectory(CharSpan path)
     {
-        var suffix = Path.GetFileName(path).ToLowerInvariant();
+        var suffix = PathEx.GetFileName(path);
         return suffix.StartsWith('.') ||
                suffix is
                    "packages" or

@@ -4,6 +4,23 @@ using System.Runtime.InteropServices;
 
 static class Extensions
 {
+    public static Span<char> Concat(this ReadOnlySpan<char> str0, ReadOnlySpan<char> str1)
+    {
+        int length = checked(str0.Length + str1.Length);
+        if (length == 0)
+        {
+            return Span<char>.Empty;
+        }
+
+        var buffer = new char[length];
+
+        var result = new Span<char>(buffer);
+
+        str0.CopyTo(result);
+        str1.CopyTo(result.Slice(str0.Length));
+
+        return result;
+    }
     public static bool StartsWith(this CharSpan value, char ch) =>
         value.Length != 0 &&
         value[0] == ch;

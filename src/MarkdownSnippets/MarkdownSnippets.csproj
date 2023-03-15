@@ -6,6 +6,6 @@
   <ItemGroup>
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="Polyfill" Version="0.10.0" PrivateAssets="All" />
+    <PackageReference Include="Polyfill" Version="0.12.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

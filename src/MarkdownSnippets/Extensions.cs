@@ -126,25 +126,6 @@ static class Extensions
                 },
                 StringSplitOptions.RemoveEmptyEntries);
 
-#if NETSTANDARD
-
-    public static bool StartsWith(this string value, char ch) =>
-        value.Length != 0 && value[0] == ch;
-
-    public static bool EndsWith(this string value, char ch)
-    {
-        if (value.Length == 0)
-        {
-            return false;
-        }
-
-        var lastPos = value.Length - 1;
-        return lastPos < value.Length &&
-               value[lastPos] == ch;
-    }
-
-#endif
-
     public static string[] Lines(this string value) =>
         value.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
 

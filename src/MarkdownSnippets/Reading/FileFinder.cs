@@ -131,7 +131,7 @@ class FileFinder
             return false;
         }
 
-        extension = extension.Substring(1);
+        extension = extension[1..];
         return !SnippetFileExclusions.IsBinary(extension);
     }
 }

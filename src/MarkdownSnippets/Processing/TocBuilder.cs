@@ -59,7 +59,7 @@ static class TocBuilder
 
     static string GetTitle(string current)
     {
-        var trim = current.Substring(1).Trim();
+        var trim = current[1..].Trim();
         return Markdown.StripMarkdown(trim);
     }
 

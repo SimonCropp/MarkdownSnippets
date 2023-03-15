@@ -266,8 +266,7 @@ To move to InPlaceOverwrite add a file named `mdsnippets.json` in the target dir
 
         FileEx.ClearReadOnly(targetFile);
 
-        var relativeSource = sourceFile
-            .Substring(targetDirectory.Length)
+        var relativeSource = sourceFile[targetDirectory.Length..]
             .Replace('\\', '/');
         var result = markdownProcessor.Apply(lines, newLine!, relativeSource);
 

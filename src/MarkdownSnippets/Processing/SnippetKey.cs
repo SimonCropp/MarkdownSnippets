@@ -12,10 +12,9 @@ static class SnippetKey
             return false;
         }
 
-        var substring = line.Current
-            .Substring(14);
+        var substring = line.Current[14..];
         var indexOf = substring.IndexOf("-->");
-        key = substring.Substring(0,indexOf)
+        key = substring[..indexOf]
             .Trim();
         return true;
     }
@@ -29,8 +28,7 @@ static class SnippetKey
             return false;
         }
 
-        key = line.Current
-            .Substring(8)
+        key = line.Current[8..]
             .Trim();
         if (string.IsNullOrWhiteSpace(key))
         {

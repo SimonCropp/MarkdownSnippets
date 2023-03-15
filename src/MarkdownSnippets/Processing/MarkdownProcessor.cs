@@ -358,7 +358,7 @@ public class MarkdownProcessor
             endLine: lineCount,
             value: text,
             key: key,
-            language: Path.GetExtension(file).Substring(1),
+            language: Path.GetExtension(file)[1..],
             path: path);
     }
 

@@ -52,7 +52,7 @@ static class StartEndTester
             return false;
         }
 
-        var substring = line.Substring(8);
+        var substring = line[8..];
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {

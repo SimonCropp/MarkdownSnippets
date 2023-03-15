@@ -29,7 +29,7 @@ class IncludeProcessor
 
         if (current.StartsWith("include: "))
         {
-            var includeKey = line.Current.Substring(9);
+            var includeKey = line.Current[9..];
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
         }
@@ -44,16 +44,16 @@ class IncludeProcessor
             var indexOfDotPath = substring.IndexOf(". path:");
             if (indexOfDotPath != -1)
             {
-                return substring.Substring(0, indexOfDotPath);
+                return substring[..indexOfDotPath];
             }
 
-            return substring.Substring(0, substring.Length - 4);
+            return substring[..^4];
         }
 
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);
         if (indexSingleLineInclude > 0)
         {
-            var substring = current.Substring(indexSingleLineInclude + 24);
+            var substring = current[(indexSingleLineInclude + 24)..];
             var includeKey = GetIncludeKey(substring);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
@@ -61,7 +61,7 @@ class IncludeProcessor
 
         if (current.StartsWith("<!-- include: ", StringComparison.Ordinal))
         {
-            var substring = current.Substring(14);
+            var substring = current[14..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
@@ -71,7 +71,7 @@ class IncludeProcessor
         var indexOfInclude = current.IndexOf("<!-- include: ", StringComparison.Ordinal);
         if (indexOfInclude > 0)
         {
-            var substring = current.Substring(indexOfInclude + 14);
+            var substring = current[(indexOfInclude + 14)..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
@@ -270,6 +270,6 @@ class IncludeProcessor
             return path;
         }
 
-        return path.Substring(targetDirectory.Length);
+        return path[targetDirectory.Length..];
     }
 }

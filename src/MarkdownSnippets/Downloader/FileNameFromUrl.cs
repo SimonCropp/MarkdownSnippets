@@ -4,7 +4,7 @@
 
     public static string ConvertToFileName(string url)
     {
-        var stringBuilder = new StringBuilder();
+        var stringBuilder = new StringBuilder(url.Length);
         foreach (var ch in url)
         {
             if (invalid.Contains(ch))

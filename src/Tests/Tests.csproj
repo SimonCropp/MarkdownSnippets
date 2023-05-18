@@ -7,7 +7,7 @@
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
-    <PackageReference Include="Argon" Version="0.7.0" />
+    <PackageReference Include="Argon" Version="0.7.1" />
     <PackageReference Include="Verify.DiffPlex" Version="2.2.1" />
     <PackageReference Include="Verify.Xunit" Version="20.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="All" />

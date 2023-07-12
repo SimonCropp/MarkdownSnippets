@@ -45,16 +45,20 @@ public class ValidationError
     {
         if (File == null)
         {
-            return $@"ContentError.
-  Line: {Line}
-  Column: {Column}
-  Error: {Error}";
+            return $"""
+                    ContentError.
+                      Line: {Line}
+                      Column: {Column}
+                      Error: {Error}
+                    """;
         }
 
-        return $@"ContentError.
-  File: {File}
-  Line: {Line}
-  Column: {Column}
-  Error: {Error}";
+        return $"""
+                ContentError.
+                  File: {File}
+                  Line: {Line}
+                  Column: {Column}
+                  Error: {Error}
+                """;
     }
 }

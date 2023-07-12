@@ -45,14 +45,16 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractWithInnerWhiteSpace()
     {
-        var input = @"
-  #region CodeKey
-
-  BeforeWhiteSpace
-
-  AfterWhiteSpace
-
-  #endregion";
+        var input = """
+                    
+                      #region CodeKey
+                    
+                      BeforeWhiteSpace
+                    
+                      AfterWhiteSpace
+                    
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -60,13 +62,15 @@ public class SnippetExtractorTests
     [Fact]
     public Task NestedBroken()
     {
-        var input = @"
-  #region KeyParent
-  a
-  #region KeyChild
-  b
-  c
-  #endregion";
+        var input = """
+                    
+                      #region KeyParent
+                      a
+                      #region KeyChild
+                      b
+                      c
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -74,14 +78,16 @@ public class SnippetExtractorTests
     [Fact]
     public Task NestedRegion()
     {
-        var input = @"
-  #region KeyParent
-  a
-  #region KeyChild
-  b
-  #endregion
-  c
-  #endregion";
+        var input = """
+                    
+                      #region KeyParent
+                      a
+                      #region KeyChild
+                      b
+                      #endregion
+                      c
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -89,14 +95,16 @@ public class SnippetExtractorTests
     [Fact]
     public Task NestedMixed2()
     {
-        var input = @"
-  #region KeyParent
-  a
-  <!-- begin-snippet: KeyChild -->
-  b
-  <!-- end-snippet -->
-  c
-  #endregion";
+        var input = """
+                    
+                      #region KeyParent
+                      a
+                      <!-- begin-snippet: KeyChild -->
+                      b
+                      <!-- end-snippet -->
+                      c
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -104,31 +112,33 @@ public class SnippetExtractorTests
     [Fact]
     public Task RemoveDuplicateNewlines()
     {
-        var input = @"
+        var input = """
+                    
+                    
+                    
+                      <!-- begin-snippet: KeyParent -->
+                    
+                    
+                      a
+                    
+                    
+                      <!-- begin-snippet: KeyChild -->
+                    
+                    
+                      b
+                    
+                    
+                      <!-- end-snippet -->
+                    
+                    
+                      c
+                    
+                    
+                      <!-- end-snippet -->
 
 
-  <!-- begin-snippet: KeyParent -->
 
-
-  a
-
-
-  <!-- begin-snippet: KeyChild -->
-
-
-  b
-
-
-  <!-- end-snippet -->
-
-
-  c
-
-
-  <!-- end-snippet -->
-
-
-";
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -136,14 +146,16 @@ public class SnippetExtractorTests
     [Fact]
     public Task NestedStartCode()
     {
-        var input = @"
-  <!-- begin-snippet: KeyParent -->
-  a
-  <!-- begin-snippet: KeyChild -->
-  b
-  <!-- end-snippet -->
-  c
-  <!-- end-snippet -->";
+        var input = """
+                    
+                      <!-- begin-snippet: KeyParent -->
+                      a
+                      <!-- begin-snippet: KeyChild -->
+                      b
+                      <!-- end-snippet -->
+                      c
+                      <!-- end-snippet -->
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -151,14 +163,16 @@ public class SnippetExtractorTests
     [Fact]
     public Task NestedMixed1()
     {
-        var input = @"
-  <!-- begin-snippet: KeyParent -->
-  a
-  #region KeyChild
-  b
-  #endregion
-  c
-  <!-- end-snippet -->";
+        var input = """
+                    
+                      <!-- begin-snippet: KeyParent -->
+                      a
+                      #region KeyChild
+                      b
+                      #endregion
+                      c
+                      <!-- end-snippet -->
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -166,10 +180,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractFromXml()
     {
-        var input = @"
-  <!-- begin-snippet: CodeKey -->
-  <configSections/>
-  <!-- end-snippet -->";
+        var input = """
+                    
+                      <!-- begin-snippet: CodeKey -->
+                      <configSections/>
+                      <!-- end-snippet -->
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -183,9 +199,11 @@ public class SnippetExtractorTests
     [Fact]
     public Task UnClosedSnippet()
     {
-        var input = @"
-  <!-- begin-snippet: CodeKey -->
-  <configSections/>";
+        var input = """
+                    
+                      <!-- begin-snippet: CodeKey -->
+                      <configSections/>
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -193,9 +211,11 @@ public class SnippetExtractorTests
     [Fact]
     public Task UnClosedRegion()
     {
-        var input = @"
-  #region CodeKey
-  <configSections/>";
+        var input = """
+                    
+                      #region CodeKey
+                      <configSections/>
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -203,10 +223,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task TooWide()
     {
-        var input = @"
-  #region CodeKey
-  caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
-  #endregion";
+        var input = """
+                    
+                      #region CodeKey
+                      caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -226,10 +248,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractFromRegion()
     {
-        var input = @"
-  #region CodeKey
-  The Code
-  #endregion";
+        var input = """
+                    
+                      #region CodeKey
+                      The Code
+                      #endregion
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -237,10 +261,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractWithNoTrailingCharacters()
     {
-        var input = @"
-  // begin-snippet: CodeKey
-  the code
-  // end-snippet ";
+        var input = """
+                    
+                      // begin-snippet: CodeKey
+                      the code
+                      // end-snippet
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -248,10 +274,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractWithMissingSpaces()
     {
-        var input = @"
-  <!--begin-snippet: CodeKey-->
-  <configSections/>
-  <!--end-snippet-->";
+        var input = """
+                    
+                      <!--begin-snippet: CodeKey-->
+                      <configSections/>
+                      <!--end-snippet-->
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -259,10 +287,12 @@ public class SnippetExtractorTests
     [Fact]
     public Task CanExtractWithTrailingWhitespace()
     {
-        var input = @"
-  // begin-snippet: CodeKey
-  the code
-  // end-snippet   ";
+        var input = """
+                    
+                      // begin-snippet: CodeKey
+                      the code
+                      // end-snippet
+                    """;
         var snippets = FromText(input);
         return Verify(snippets);
     }

@@ -71,9 +71,11 @@ public class Include :
     }
 
     public override string ToString() =>
-        $@"ReadInclude.
-  Key: {Key}
-  Path: {Path}
-  Error: {Error}
-";
+        $"""
+         ReadInclude.
+           Key: {Key}
+           Path: {Path}
+           Error: {Error}
+
+         """;
 }

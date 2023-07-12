@@ -12,10 +12,14 @@ public class ConfigReaderTests
     [Fact]
     public Task BadJson() =>
         Throws(
-            () => ConfigReader.Parse(@"{
-  ""ValidateContent"": true
-  ""Convention"": ""InPlaceOverwrite""
-}", "filePath"));
+            () => ConfigReader.Parse(
+                """
+                {
+                  "ValidateContent": true
+                  "Convention": "InPlaceOverwrite"
+                }
+                """,
+                "filePath"));
 
     [Fact]
     public Task Values()

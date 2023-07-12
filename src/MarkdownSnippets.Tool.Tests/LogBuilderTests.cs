@@ -9,8 +9,10 @@ public class LogBuilderTests
         var config = new ConfigResult
         {
             WriteHeader = true,
-            Header = @"line1
-line2",
+            Header = """
+                     line1
+                     line2
+                     """,
             ExcludeDirectories = new() {"Dir1", "Dir2"},
             ExcludeMarkdownDirectories = new() {"Dir3", "Dir4"},
             ExcludeSnippetDirectories = new() {"Dir5", "Dir6"},

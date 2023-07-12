@@ -122,11 +122,13 @@ public class Snippet :
     }
 
     public override string ToString() =>
-        $@"ReadSnippet.
-  Key: {Key}
-  FileLocation: {FileLocation}
-  Error: {Error}
-";
+        $"""
+         ReadSnippet.
+           Key: {Key}
+           FileLocation: {FileLocation}
+           Error: {Error}
+
+         """;
 }
 
 public interface IContent

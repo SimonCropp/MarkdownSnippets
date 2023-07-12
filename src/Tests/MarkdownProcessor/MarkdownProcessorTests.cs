@@ -6,9 +6,11 @@ public class MarkdownProcessorTests
     [Fact]
     public Task Missing_endInclude()
     {
-        var content = @"
-BAD <!-- include: theKey. path: /thePath -->
-";
+        var content = """
+
+                      BAD <!-- include: theKey. path: /thePath -->
+
+                      """;
         return SnippetVerifier.VerifyThrows(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -21,15 +23,17 @@ BAD <!-- include: theKey. path: /thePath -->
     [Fact]
     public Task WithEmptyMultiLineInclude_Overwrite()
     {
-        var content = @"
-before
+        var content = """
 
- <!-- include: theKey. path: /thePath -->
+                      before
+                      
+                       <!-- include: theKey. path: /thePath -->
+                      
+                       <!-- endInclude -->
 
- <!-- endInclude -->
+                      after
 
-after
-";
+                      """;
         var lines = new List<string>
         {
             "one",
@@ -47,15 +51,17 @@ after
     [Fact]
     public Task WithMultiLineInclude_Overwrite()
     {
-        var content = @"
-before
+        var content = """
 
-BAD <!-- include: theKey. path: /thePath -->
-BAD
-BAD <!-- endInclude -->
+                      before
 
-after
-";
+                      BAD <!-- include: theKey. path: /thePath -->
+                      BAD
+                      BAD <!-- endInclude -->
+
+                      after
+
+                      """;
         var lines = new List<string>
         {
             "theValue1",
@@ -73,13 +79,15 @@ after
     [Fact]
     public Task WithSingleInclude_Overwrite()
     {
-        var content = @"
-before
+        var content = """
 
-BAD <!-- singleLineInclude: theKey. path: /thePath -->
+                      before
 
-after
-";
+                      BAD <!-- singleLineInclude: theKey. path: /thePath -->
+
+                      after
+
+                      """;
         var lines = new List<string>
         {
             "theValue1"
@@ -96,13 +104,15 @@ after
     [Fact]
     public Task WithSingleInclude()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
         var lines = new List<string>
         {
             "theValue1"
@@ -119,13 +129,15 @@ after
     [Fact]
     public Task WithSingleSnippet()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
 
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -139,13 +151,15 @@ after
     [Fact]
     public Task WithTwoLineSnippet()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
 
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -156,8 +170,10 @@ after
                     language: "cs",
                     startLine: 1,
                     endLine: 2,
-                    value: @"the
-Snippet",
+                    value: """
+                           the
+                           Snippet
+                           """,
                     key: "theKey",
                     path: "thePath")
             });
@@ -166,13 +182,15 @@ Snippet",
     [Fact]
     public Task WithMultiLineSnippet()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
 
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -183,9 +201,11 @@ after
                     language: "cs",
                     startLine: 1,
                     endLine: 2,
-                    value: @"the
-long
-Snippet",
+                    value: """
+                           the
+                           long
+                           Snippet
+                           """,
                     key: "theKey",
                     path: "thePath")
             });
@@ -194,13 +214,15 @@ Snippet",
     [Fact]
     public Task WithDoubleInclude()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
         var lines = new[]
         {
             "theValue1",
@@ -218,13 +240,15 @@ after
     [Fact]
     public Task WithEmptyMultipleInclude()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
         var lines = new[]
         {
             "",
@@ -243,13 +267,15 @@ after
     [Fact]
     public Task WithMultipleInclude()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
         var lines = new[]
         {
             "theValue1",
@@ -268,134 +294,152 @@ after
     [Fact]
     public Task MissingInclude()
     {
-        var content = @"
-before
+        var content = """
 
-include: theKey
+                      before
 
-after
-";
+                      include: theKey
+
+                      after
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
     public Task SkipHeadingBeforeToc()
     {
-        var content = @"
-## Heading 1
+        var content = """
 
-toc
+                      ## Heading 1
 
-Text1
+                      toc
 
-## Heading 2
+                      Text1
 
-Text2
-";
+                      ## Heading 2
+
+                      Text2
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
     public Task Toc1()
     {
-        var content = @"
-# Title
+        var content = """
 
-toc1
+                      # Title
 
-## Heading 1
+                      toc1
 
-Text1
+                      ## Heading 1
 
-## Heading 2
+                      Text1
 
-Text2
-";
+                      ## Heading 2
+
+                      Text2
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
     public Task Toc()
     {
-        var content = @"
-# Title
+        var content = """
 
-toc
+                      # Title
 
-## Heading 1
+                      toc
 
-Text1
+                      ## Heading 1
 
-## Heading 2
+                      Text1
 
-Text2
-";
+                      ## Heading 2
+
+                      Text2
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
     public Task TocRetainedIfNoHeadingsInFile()
     {
-        var content = @"
-# Title
+        var content = """
 
-toc
+                      # Title
 
-This document has no headings.
+                      toc
 
-An empty toc section should be generated, in case
-any headings are added in future.
-";
+                      This document has no headings.
+
+                      An empty toc section should be generated, in case
+                      any headings are added in future.
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
     }
 
     [Fact]
     public Task Missing_endToc()
     {
-        var content = @"
-<!-- toc -->
-Bad
-";
+        var content = """
+
+                      <!-- toc -->
+                      Bad
+
+                      """;
         return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
     }
 
     [Fact]
     public Task Empty_snippet_key()
     {
-        var content = @"
-snippet: 
+        var content = """
 
-";
+                      snippet:
+
+
+                      """;
         return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
     }
 
     [Fact]
     public Task Whitespace_snippet_key()
     {
-        var content = @"
-snippet:    
+        var content = """
 
-";
+                      snippet:
+
+
+                      """;
         return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
     }
 
     [Fact]
     public Task Toc_Overwrite()
     {
-        var content = @"
-# Title
+        var content = """
 
-<!-- toc -->
-Bad<!-- endToc -->
+                      # Title
 
-## Heading 1
+                      <!-- toc -->
+                      Bad<!-- endToc -->
 
-Text1
+                      ## Heading 1
 
-## Heading 2
+                      Text1
 
-Text2
-";
+                      ## Heading 2
+
+                      Text2
+
+                      """;
         return SnippetVerifier.Verify(DocumentConvention.InPlaceOverwrite, content);
     }
 
@@ -407,37 +451,39 @@ Text2
             SnippetBuild("cs", "snippet1"),
             SnippetBuild("cs", "snippet2")
         };
-        var content = @"
-<!-- snippet: snippet1 -->
-```cs
-BAD
-```
-<!-- endSnippet -->
+        var content = """
 
-some text
+                      <!-- snippet: snippet1 -->
+                      ```cs
+                      BAD
+                      ```
+                      <!-- endSnippet -->
 
-<!-- snippet: snippet2 -->
-```cs
-BAD
-```
-<!-- endSnippet -->
+                      some text
 
-some other text
+                      <!-- snippet: snippet2 -->
+                      ```cs
+                      BAD
+                      ```
+                      <!-- endSnippet -->
 
-<!-- snippet: FileToUseAsSnippet.txt -->
-```txt
-BAD
-```
-<!-- endSnippet -->
+                      some other text
 
-some other text
+                      <!-- snippet: FileToUseAsSnippet.txt -->
+                      ```txt
+                      BAD
+                      ```
+                      <!-- endSnippet -->
 
-<!-- snippet: /FileToUseAsSnippet.txt -->
-```txt
-BAD
-```
-<!-- endSnippet -->
-";
+                      some other text
+
+                      <!-- snippet: /FileToUseAsSnippet.txt -->
+                      ```txt
+                      BAD
+                      ```
+                      <!-- endSnippet -->
+
+                      """;
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
@@ -455,11 +501,13 @@ BAD
         File.Delete(file);
         File.WriteAllText(file, "a\rb\nc\r\nd");
         var availableSnippets = new List<Snippet>();
-        var content = @"
-some other text
+        var content = """
 
-snippet: FileWithMixedNewLines.txt
-";
+                      some other text
+
+                      snippet: FileWithMixedNewLines.txt
+
+                      """;
         var result = await SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -481,21 +529,23 @@ snippet: FileWithMixedNewLines.txt
             SnippetBuild("cs", "snippet1"),
             SnippetBuild("cs", "snippet2")
         };
-        var content = @"
-snippet: snippet1
+        var content = """
 
-some text
+                      snippet: snippet1
 
-snippet: snippet2
+                      some text
 
-some other text
+                      snippet: snippet2
 
-snippet: FileToUseAsSnippet.txt
+                      some other text
 
-some other text
+                      snippet: FileToUseAsSnippet.txt
 
-snippet: /FileToUseAsSnippet.txt
-";
+                      some other text
+
+                      snippet: /FileToUseAsSnippet.txt
+
+                      """;
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
@@ -513,13 +563,15 @@ snippet: /FileToUseAsSnippet.txt
         {
             SnippetBuild("cs", "snippet1")
         };
-        var content = @"
-some text
+        var content = """
 
-include: theKey
+                      some text
 
-some other text
-";
+                      include: theKey
+
+                      some other text
+
+                      """;
         var lines = new List<string>
         {
             "snippet: snippet1"
@@ -538,18 +590,22 @@ some other text
     public Task TableInInclude()
     {
         var availableSnippets = new List<Snippet>();
-        var content = @"
-some text
+        var content = """
 
-include: theKey
+                      some text
 
-some other text
-";
+                      include: theKey
+
+                      some other text
+
+                      """;
         var lines = new List<string>
         {
-            @"| Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
-| -------------------- | ----------------------- | ------------------ | --------------------- |
-|2|5|25|25|"
+            """
+            | Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+            | -------------------- | ----------------------- | ------------------ | --------------------- |
+            |2|5|25|25|
+            """
         };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
@@ -568,13 +624,15 @@ some other text
         {
             SnippetBuild("cs", "snippet1")
         };
-        var content = @"
-some text
+        var content = """
 
-include: theKey
+                      some text
 
-some other text
-";
+                      include: theKey
+
+                      some other text
+
+                      """;
         var lines = new List<string>
         {
             "line1",

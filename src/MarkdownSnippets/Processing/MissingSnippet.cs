@@ -38,14 +38,18 @@ public class MissingSnippet
     {
         if (File == null)
         {
-            return $@"MissingSnippet.
-  LineNumber: {LineNumber}
-  Key: {Key}";
+            return $"""
+                    MissingSnippet.
+                      LineNumber: {LineNumber}
+                      Key: {Key}
+                    """;
         }
 
-        return $@"MissingSnippet.
-  File: {File}
-  LineNumber: {LineNumber}
-  Key: {Key}";
+        return $"""
+                MissingSnippet.
+                  File: {File}
+                  LineNumber: {LineNumber}
+                  Key: {Key}
+                """;
     }
 }

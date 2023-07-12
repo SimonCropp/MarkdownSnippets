@@ -35,8 +35,10 @@ public class Options
     [Option('u', "urls-as-snippets",
         Separator = ' ',
         Required = false,
-        HelpText = @"Urls to files to be included as snippets. Optional. Space ' ' separated for multiple values.
-Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.")]
+        HelpText = """
+                   Urls to files to be included as snippets. Optional. Space ' ' separated for multiple values.
+                   Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
+                   """)]
     public IList<string> UrlsAsSnippets { get; set; } = null!;
 
     [Option('r', "read-only",
@@ -66,8 +68,10 @@ Each url will be accessible using the file name as a key. Any snippets within th
 
     [Option("header",
         Required = false,
-        HelpText = @"The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:
-" + HeaderWriter.DefaultHeader)]
+        HelpText = """
+                   The header to write. `{relativePath}` is replaced with the current .source.md file. Optional. Defaults to:
+
+                   """ + HeaderWriter.DefaultHeader)]
     public string? Header { get; set; }
 
     [Option("url-prefix",

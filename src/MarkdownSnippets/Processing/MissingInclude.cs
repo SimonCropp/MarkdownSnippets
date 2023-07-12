@@ -38,14 +38,18 @@ public class MissingInclude
     {
         if (File == null)
         {
-            return $@"MissingInclude.
-  LineNumber: {LineNumber}
-  Key: {Key}";
+            return $"""
+                    MissingInclude.
+                      LineNumber: {LineNumber}
+                      Key: {Key}
+                    """;
         }
 
-        return $@"MissingInclude.
-  File: {File}
-  LineNumber: {LineNumber}
-  Key: {Key}";
+        return $"""
+                MissingInclude.
+                  File: {File}
+                  LineNumber: {LineNumber}
+                  Key: {Key}
+                """;
     }
 }

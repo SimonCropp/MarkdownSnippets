@@ -188,7 +188,6 @@ class IncludeProcessor
             {
                 yield return line.WithCurrent($"{first} <!-- include: {key} -->");
             }
-
         }
 
         for (var index = 1; index < include.Lines.Count - 1; index++)
@@ -222,8 +221,10 @@ class IncludeProcessor
         {
             yield return line.WithCurrent($"<!-- emptyInclude: {include.Key}. path: {path} -->");
         }
-
-        yield return line.WithCurrent($"<!-- emptyInclude: {include.Key} -->");
+        else
+        {
+            yield return line.WithCurrent($"<!-- emptyInclude: {include.Key} -->");
+        }
     }
 
     static IEnumerable<Line> BuildSingle(Line line, string? path, Include include, bool writePath)

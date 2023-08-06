@@ -27,9 +27,9 @@ public class MarkdownProcessorTests
 
                       before
                       
-                       <!-- include: theKey. path: /thePath -->
+                      <!-- include: theKey. path: /thePath -->
                       
-                       <!-- endInclude -->
+                      <!-- endInclude -->
 
                       after
 

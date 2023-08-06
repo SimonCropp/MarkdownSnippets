@@ -1,4 +1,4 @@
-<!-- snippet: snippet1 -->
+﻿<!-- snippet: snippet1 -->
 <a id='snippet-snippet1'></a>
 ```cs
 the code from snippet1
@@ -8,9 +8,9 @@ the code from snippet1
 
 The include text <!-- singleLineInclude: fileToInclude.txt -->
 
-Line 1 <!-- include: multiLineFileToInclude.txt -->
+Line 1<!-- include: multiLineFileToInclude.txt -->
 
-Line 2 <!-- endInclude -->
+Line 2<!-- endInclude -->
 
 <!-- include: includeWithCode.txt -->
 ```

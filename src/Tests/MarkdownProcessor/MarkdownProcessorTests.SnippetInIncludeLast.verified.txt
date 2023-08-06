@@ -12,7 +12,7 @@
   result:
 some text
 
-line1 <!-- include: theKey. path: thePath -->
+line1<!-- include: theKey. path: thePath -->
 <!-- snippet: snippet1 -->
 ```cs
 Snippet

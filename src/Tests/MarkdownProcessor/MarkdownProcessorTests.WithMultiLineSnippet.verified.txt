@@ -2,9 +2,9 @@
   result:
 before
 
-the <!-- include: theKey. path: thePath -->
+the<!-- include: theKey. path: thePath -->
 long
-Snippet <!-- endInclude -->
+Snippet<!-- endInclude -->
 
 after
 }

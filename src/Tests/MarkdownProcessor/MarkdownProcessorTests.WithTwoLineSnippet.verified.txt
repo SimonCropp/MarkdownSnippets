@@ -2,8 +2,8 @@
   result:
 before
 
-the <!-- include: theKey. path: thePath -->
-Snippet <!-- endInclude -->
+the<!-- include: theKey. path: thePath -->
+Snippet<!-- endInclude -->
 
 after
 }

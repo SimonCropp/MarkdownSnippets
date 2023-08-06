@@ -100,31 +100,34 @@ static class StartEndTester
         var split = substring.SplitBySpace();
         if (split.Length == 0)
         {
-            throw new SnippetReadingException($"""
-                                               No Key could be derived.
-                                               Path: {path}
-                                               Line: '{line}'
-                                               """);
+            throw new SnippetReadingException(
+                $"""
+                 No Key could be derived.
+                 Path: {path}
+                 Line: '{line}'
+                 """);
         }
 
         key = split[0].ToLowerInvariant();
         if (split.Length != 1)
         {
-            throw new SnippetReadingException($"""
-                                               Too many parts.
-                                               Path: {path}
-                                               Line: '{line}'
-                                               """);
+            throw new SnippetReadingException(
+                $"""
+                 Too many parts.
+                 Path: {path}
+                 Line: '{line}'
+                 """);
         }
 
         if (KeyValidator.IsInValidKey(key))
         {
-            throw new SnippetReadingException($"""
-                                               Key cannot contain whitespace or start/end with symbols.
-                                               Key: {key}
-                                               Path: {path}
-                                               Line: {line}
-                                               """);
+            throw new SnippetReadingException(
+                $"""
+                 Key cannot contain whitespace or start/end with symbols.
+                 Key: {key}
+                 Path: {path}
+                 Line: {line}
+                 """);
         }
 
         return true;

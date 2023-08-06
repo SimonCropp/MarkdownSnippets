@@ -2,8 +2,8 @@
   result:
 before
 
-theValue1 <!-- include: theKey. path: {CurrentDirectory}thePath -->
-theValue2 <!-- endInclude -->
+theValue1<!-- include: theKey. path: {CurrentDirectory}thePath -->
+theValue2<!-- endInclude -->
 
 after
 }

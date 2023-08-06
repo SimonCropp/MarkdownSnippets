@@ -364,7 +364,7 @@ Windows Registry Editor Version 5.00
 
 ## More Documentation
 
-  * Developer Information <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * Developer Information<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
     * [.net API](/docs/api.md)
     * [MsBuild Task](/docs/msbuild.md)
     * [Github Action](/docs/github-action.md)
@@ -376,7 +376,7 @@ Windows Registry Editor Version 5.00
     * [Header](/docs/header.md)
   * Writing Documentation
     * [Indentation](/docs/indentation.md)
-    * [Table of contents](/docs/toc.md) <!-- endInclude -->
+    * [Table of contents](/docs/toc.md)<!-- endInclude -->
 
 
 ## Credits

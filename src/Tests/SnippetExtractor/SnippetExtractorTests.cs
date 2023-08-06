@@ -96,14 +96,13 @@ public class SnippetExtractorTests
     public Task NestedMixed2()
     {
         var input = """
-                    
-                      #region KeyParent
-                      a
-                      <!-- begin-snippet: KeyChild -->
-                      b
-                      <!-- end-snippet -->
-                      c
-                      #endregion
+                    #region KeyParent
+                    a
+                    <!-- begin-snippet: KeyChild -->
+                    b
+                    <!-- end-snippet -->
+                    c
+                    #endregion
                     """;
         var snippets = FromText(input);
         return Verify(snippets);
@@ -114,27 +113,25 @@ public class SnippetExtractorTests
     {
         var input = """
                     
+                    <!-- begin-snippet: KeyParent -->
                     
                     
-                      <!-- begin-snippet: KeyParent -->
+                    a
                     
                     
-                      a
+                    <!-- begin-snippet: KeyChild -->
                     
                     
-                      <!-- begin-snippet: KeyChild -->
+                    b
                     
                     
-                      b
+                    <!-- end-snippet -->
                     
                     
-                      <!-- end-snippet -->
+                    c
                     
                     
-                      c
-                    
-                    
-                      <!-- end-snippet -->
+                    <!-- end-snippet -->
 
 
 
@@ -147,14 +144,13 @@ public class SnippetExtractorTests
     public Task NestedStartCode()
     {
         var input = """
-                    
-                      <!-- begin-snippet: KeyParent -->
-                      a
-                      <!-- begin-snippet: KeyChild -->
-                      b
-                      <!-- end-snippet -->
-                      c
-                      <!-- end-snippet -->
+                    <!-- begin-snippet: KeyParent -->
+                    a
+                    <!-- begin-snippet: KeyChild -->
+                    b
+                    <!-- end-snippet -->
+                    c
+                    <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
         return Verify(snippets);
@@ -164,14 +160,13 @@ public class SnippetExtractorTests
     public Task NestedMixed1()
     {
         var input = """
-                    
-                      <!-- begin-snippet: KeyParent -->
-                      a
-                      #region KeyChild
-                      b
-                      #endregion
-                      c
-                      <!-- end-snippet -->
+                    <!-- begin-snippet: KeyParent -->
+                    a
+                    #region KeyChild
+                    b
+                    #endregion
+                    c
+                    <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
         return Verify(snippets);
@@ -181,10 +176,9 @@ public class SnippetExtractorTests
     public Task CanExtractFromXml()
     {
         var input = """
-                    
-                      <!-- begin-snippet: CodeKey -->
-                      <configSections/>
-                      <!-- end-snippet -->
+                    <!-- begin-snippet: CodeKey -->
+                    <configSections/>
+                    <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
         return Verify(snippets);
@@ -200,9 +194,8 @@ public class SnippetExtractorTests
     public Task UnClosedSnippet()
     {
         var input = """
-                    
-                      <!-- begin-snippet: CodeKey -->
-                      <configSections/>
+                    <!-- begin-snippet: CodeKey -->
+                    <configSections/>
                     """;
         var snippets = FromText(input);
         return Verify(snippets);

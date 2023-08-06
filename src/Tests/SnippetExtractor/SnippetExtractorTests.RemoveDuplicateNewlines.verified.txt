@@ -4,7 +4,7 @@
     Language: cs,
     Value: b,
     Error: ,
-    FileLocation: path.cs(10-16),
+    FileLocation: path.cs(8-14),
     IsInError: false
   },
   {
@@ -17,7 +17,7 @@ b
 
 c,
     Error: ,
-    FileLocation: path.cs(4-22),
+    FileLocation: path.cs(2-20),
     IsInError: false
   }
 ]

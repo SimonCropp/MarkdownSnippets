@@ -2,7 +2,7 @@
   {
     Key: codekey,
     Error: Snippet was not closed,
-    FileLocation: path.cs(3-3),
+    FileLocation: path.cs(2-2),
     IsInError: true
   }
 ]

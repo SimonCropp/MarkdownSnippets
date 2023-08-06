@@ -4,7 +4,7 @@
     Language: cs,
     Value: <configSections/>,
     Error: ,
-    FileLocation: path.cs(2-4),
+    FileLocation: path.cs(1-3),
     IsInError: false
   }
 ]

@@ -2,7 +2,7 @@
   result:
 before
 
-theValue1 <!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
+theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
 
 after
 }

@@ -6,7 +6,7 @@ the code from snippet1
 <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-The include text <!-- singleLineInclude: fileToInclude.txt -->
+The include text<!-- singleLineInclude: fileToInclude.txt -->
 
 Line 1<!-- include: multiLineFileToInclude.txt -->
 

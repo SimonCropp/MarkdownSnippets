@@ -8,7 +8,7 @@ public class MarkdownProcessorTests
     {
         var content = """
 
-                      BAD <!-- include: theKey. path: /thePath -->
+                      BAD<!-- include: theKey. path: /thePath -->
 
                       """;
         return SnippetVerifier.VerifyThrows(
@@ -55,9 +55,9 @@ public class MarkdownProcessorTests
 
                       before
 
-                      BAD <!-- include: theKey. path: /thePath -->
+                      BAD<!-- include: theKey. path: /thePath -->
                       BAD
-                      BAD <!-- endInclude -->
+                      BAD<!-- endInclude -->
 
                       after
 
@@ -83,7 +83,7 @@ public class MarkdownProcessorTests
 
                       before
 
-                      BAD <!-- singleLineInclude: theKey. path: /thePath -->
+                      BAD<!-- singleLineInclude: theKey. path: /thePath -->
 
                       after
 

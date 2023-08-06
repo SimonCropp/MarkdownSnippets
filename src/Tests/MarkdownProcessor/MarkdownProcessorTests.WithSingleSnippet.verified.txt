@@ -2,7 +2,7 @@
   result:
 before
 
-Snippet <!-- singleLineInclude: theKey. path: thePath -->
+Snippet<!-- singleLineInclude: theKey. path: thePath -->
 
 after
 }

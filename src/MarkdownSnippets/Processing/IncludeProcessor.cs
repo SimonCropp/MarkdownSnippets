@@ -249,11 +249,11 @@ class IncludeProcessor
         {
             if (writePath)
             {
-                yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key}. path: {path} -->");
+                yield return line.WithCurrent($"{first}<!-- singleLineInclude: {key}. path: {path} -->");
             }
             else
             {
-                yield return line.WithCurrent($"{first} <!-- singleLineInclude: {key} -->");
+                yield return line.WithCurrent($"{first}<!-- singleLineInclude: {key} -->");
             }
         }
     }

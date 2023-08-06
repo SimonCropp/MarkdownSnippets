@@ -2,9 +2,9 @@
   result:
 before
 
-theValue1 <!-- include: theKey. path: {CurrentDirectory}thePath -->
+theValue1<!-- include: theKey. path: {CurrentDirectory}thePath -->
 theValue2
-theValue3 <!-- endInclude -->
+theValue3<!-- endInclude -->
 
 after
 }

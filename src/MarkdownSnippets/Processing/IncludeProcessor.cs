@@ -182,11 +182,11 @@ class IncludeProcessor
         {
             if (writePath)
             {
-                yield return line.WithCurrent($"{first} <!-- include: {key}. path: {path} -->");
+                yield return line.WithCurrent($"{first}<!-- include: {key}. path: {path} -->");
             }
             else
             {
-                yield return line.WithCurrent($"{first} <!-- include: {key} -->");
+                yield return line.WithCurrent($"{first}<!-- include: {key} -->");
             }
 
         }
@@ -205,7 +205,7 @@ class IncludeProcessor
         }
         else
         {
-            yield return new($"{last} <!-- endInclude -->", path, count);
+            yield return new($"{last}<!-- endInclude -->", path, count);
         }
     }
 

@@ -2,9 +2,9 @@
   result:
 before
 
- <!-- include: theKey. path: {CurrentDirectory}thePath -->
+<!-- include: theKey. path: {CurrentDirectory}thePath -->
 
- <!-- endInclude -->
+<!-- endInclude -->
 
 after
 }

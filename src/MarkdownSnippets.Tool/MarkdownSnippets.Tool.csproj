@@ -8,6 +8,7 @@
     <PackAsTool>True</PackAsTool>
     <Description>.NET Core Global Tool for merging code snippets with markdown documents</Description>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RollForward>LatestMajor</RollForward>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />

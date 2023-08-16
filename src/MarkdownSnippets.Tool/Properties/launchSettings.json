@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "MarkdownSnippets.Tool": {
-      "commandName": "Project",
-      "workingDirectory": "C:\\Code\\LocalDb"
-    }
-  }
-}

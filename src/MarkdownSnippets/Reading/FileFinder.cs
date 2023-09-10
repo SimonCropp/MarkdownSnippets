@@ -1,30 +1,16 @@
 ﻿using MarkdownSnippets;
 
-class FileFinder
+class FileFinder(
+    string targetDirectory,
+    DocumentConvention convention,
+    ShouldIncludeDirectory directoryIncludes,
+    ShouldIncludeDirectory markdownDirectoryIncludes,
+    ShouldIncludeDirectory snippetDirectoryIncludes)
 {
-    string targetDirectory;
-    DocumentConvention convention;
-    ShouldIncludeDirectory directoryIncludes;
-    ShouldIncludeDirectory markdownDirectoryIncludes;
-    ShouldIncludeDirectory snippetDirectoryIncludes;
     List<string> snippetFiles = new();
     List<string> mdFiles = new();
     List<string> allFiles = new();
     List<string> includeFiles = new();
-
-    public FileFinder(
-        string targetDirectory,
-        DocumentConvention convention,
-        ShouldIncludeDirectory directoryIncludes,
-        ShouldIncludeDirectory markdownDirectoryIncludes,
-        ShouldIncludeDirectory snippetDirectoryIncludes)
-    {
-        this.targetDirectory = targetDirectory;
-        this.convention = convention;
-        this.directoryIncludes = directoryIncludes;
-        this.markdownDirectoryIncludes = markdownDirectoryIncludes;
-        this.snippetDirectoryIncludes = snippetDirectoryIncludes;
-    }
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {

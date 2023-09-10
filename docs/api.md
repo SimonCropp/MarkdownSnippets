@@ -22,7 +22,7 @@ var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L7-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

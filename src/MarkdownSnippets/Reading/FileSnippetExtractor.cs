@@ -122,6 +122,7 @@ public static class FileSnippetExtractor
     static string GetLanguageFromPath(string path)
     {
         var extension = Path.GetExtension(path);
+        // ReSharper disable once ConstantConditionalAccessQualifier
         var s = extension?.TrimStart('.');
         return s ?? string.Empty;
     }

@@ -1,5 +1,5 @@
 ﻿[DebuggerDisplay("Key={Key}")]
-class LoopState
+class LoopState(string key, Func<string, bool> endFunc, int startLine, int maxWidth, string newLine)
 {
     public string GetLines()
     {
@@ -79,21 +79,10 @@ class LoopState
     }
 
     StringBuilder? builder;
-    public string Key { get; }
+    public string Key { get; } = key;
     char paddingChar;
     int paddingLength;
-    public Func<string, bool> EndFunc { get; }
-    public int StartLine { get; }
+    public Func<string, bool> EndFunc { get; } = endFunc;
+    public int StartLine { get; } = startLine;
     int newlineCount;
-    int maxWidth;
-    string newLine;
-
-    public LoopState(string key, Func<string, bool> endFunc, int startLine, int maxWidth, string newLine)
-    {
-        this.maxWidth = maxWidth;
-        this.newLine = newLine;
-        Key = key;
-        EndFunc = endFunc;
-        StartLine = startLine;
-    }
 }

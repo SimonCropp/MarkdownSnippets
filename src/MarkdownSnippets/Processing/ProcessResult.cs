@@ -3,32 +3,23 @@ namespace MarkdownSnippets;
 /// <summary>
 /// The result of <see cref="MarkdownProcessor"/> Apply methods.
 /// </summary>
-public class ProcessResult :
-    IEnumerable<Snippet>
-{
-    public ProcessResult(
+public class ProcessResult(
         IReadOnlyList<Snippet> usedSnippets,
         IReadOnlyList<MissingSnippet> missingSnippets,
         IReadOnlyList<Include> usedIncludes,
         IReadOnlyList<MissingInclude> missingIncludes,
-        IReadOnlyList<ValidationError> validationErrors)
-    {
-        UsedSnippets = usedSnippets;
-        UsedIncludes = usedIncludes;
-        MissingIncludes = missingIncludes;
-        MissingSnippets = missingSnippets;
-        ValidationErrors = validationErrors;
-    }
-
+        IReadOnlyList<ValidationError> validationErrors) :
+        IEnumerable<Snippet>
+{
     /// <summary>
     /// List of all <see cref="Snippet"/>s that the markdown file used.
     /// </summary>
-    public IReadOnlyList<Snippet> UsedSnippets { get; }
+    public IReadOnlyList<Snippet> UsedSnippets { get; } = usedSnippets;
 
     /// <summary>
     /// List of all <see cref="Include"/>s that the markdown file used.
     /// </summary>
-    public IReadOnlyList<Include> UsedIncludes { get; }
+    public IReadOnlyList<Include> UsedIncludes { get; } = usedIncludes;
 
     /// <summary>
     /// Enumerates through the <see cref="UsedSnippets" /> but will first throw an exception if there are any <see cref="MissingSnippets" />.
@@ -58,15 +49,15 @@ public class ProcessResult :
     /// <summary>
     /// List of all snippets that the markdown file expected but did not exist in the input snippets.
     /// </summary>
-    public IReadOnlyList<MissingSnippet> MissingSnippets { get; }
+    public IReadOnlyList<MissingSnippet> MissingSnippets { get; } = missingSnippets;
 
     /// <summary>
     /// List of all validation errors that the markdown file.
     /// </summary>
-    public IReadOnlyList<ValidationError> ValidationErrors { get; }
+    public IReadOnlyList<ValidationError> ValidationErrors { get; } = validationErrors;
 
     /// <summary>
     /// List of all includes that the markdown file expected but did not exist in the input includes.
     /// </summary>
-    public IReadOnlyList<MissingInclude> MissingIncludes { get; }
+    public IReadOnlyList<MissingInclude> MissingIncludes { get; } = missingIncludes;
 }

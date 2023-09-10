@@ -1,4 +1,5 @@
 ﻿using MarkdownSnippets;
+// ReSharper disable UnusedVariable
 
 class Usage
 {

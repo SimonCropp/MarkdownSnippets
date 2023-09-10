@@ -1,13 +1,9 @@
 namespace MarkdownSnippets;
 
-public class ContentValidationException :
-    SnippetException
+public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
+    SnippetException(BuildMessage(errors))
 {
-    public IReadOnlyList<ValidationError> Errors { get; }
-
-    public ContentValidationException(IReadOnlyList<ValidationError> errors) :
-        base(BuildMessage(errors)) =>
-        Errors = errors;
+    public IReadOnlyList<ValidationError> Errors { get; } = errors;
 
     static string BuildMessage(IReadOnlyList<ValidationError> errors)
     {

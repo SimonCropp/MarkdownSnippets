@@ -1,13 +1,9 @@
 namespace MarkdownSnippets;
 
-public class MissingSnippetsException :
-    SnippetException
+public class MissingSnippetsException(IReadOnlyList<MissingSnippet> missing) :
+    SnippetException($"Missing snippets:{Environment.NewLine}  {Report(missing)}")
 {
-    public IReadOnlyList<MissingSnippet> Missing { get; }
-
-    public MissingSnippetsException(IReadOnlyList<MissingSnippet> missing) :
-        base($"Missing snippets:{Environment.NewLine}  {Report(missing)}") =>
-        Missing = missing;
+    public IReadOnlyList<MissingSnippet> Missing { get; } = missing;
 
     static string Report(IReadOnlyList<MissingSnippet> missing) =>
         string.Join($"{Environment.NewLine}  ", missing.GroupBy(m => m.File ?? "file-unknown").Select(g => $"{g.Key}: {string.Join(",", g.Select(s => s.Key))}"));

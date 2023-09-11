@@ -50,9 +50,9 @@ public class SnippetFileFinderTests
         var files = finder.FindFiles();
         return Verify(new
         {
-            directories = directories.OrderBy(file => file),
-            markdownDirectories = markdownDirectories.OrderBy(file => file),
-            snippetDirectories = snippetDirectories.OrderBy(file => file),
+            directories = directories.OrderBy(_ => _),
+            markdownDirectories = markdownDirectories.OrderBy(_ => _),
+            snippetDirectories = snippetDirectories.OrderBy(_ => _),
         });
     }
 }

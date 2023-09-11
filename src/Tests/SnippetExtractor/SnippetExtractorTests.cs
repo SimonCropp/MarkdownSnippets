@@ -29,11 +29,11 @@ public class SnippetExtractorTests
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
             await Verify(snippets)
-                .AddScrubber(x =>
+                .AddScrubber(_ =>
                 {
                     var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
-                    x.Replace(temp, "FilePath.txt");
-                    x.Replace(nameWithoutExtension, "File");
+                    _.Replace(temp, "FilePath.txt");
+                    _.Replace(nameWithoutExtension, "File");
                 });
         }
         finally
@@ -46,13 +46,13 @@ public class SnippetExtractorTests
     public Task CanExtractWithInnerWhiteSpace()
     {
         var input = """
-                    
+
                       #region CodeKey
-                    
+
                       BeforeWhiteSpace
-                    
+
                       AfterWhiteSpace
-                    
+
                       #endregion
                     """;
         var snippets = FromText(input);
@@ -63,7 +63,7 @@ public class SnippetExtractorTests
     public Task NestedBroken()
     {
         var input = """
-                    
+
                       #region KeyParent
                       a
                       #region KeyChild
@@ -79,7 +79,7 @@ public class SnippetExtractorTests
     public Task NestedRegion()
     {
         var input = """
-                    
+
                       #region KeyParent
                       a
                       #region KeyChild
@@ -112,25 +112,25 @@ public class SnippetExtractorTests
     public Task RemoveDuplicateNewlines()
     {
         var input = """
-                    
+
                     <!-- begin-snippet: KeyParent -->
-                    
-                    
+
+
                     a
-                    
-                    
+
+
                     <!-- begin-snippet: KeyChild -->
-                    
-                    
+
+
                     b
-                    
-                    
+
+
                     <!-- end-snippet -->
-                    
-                    
+
+
                     c
-                    
-                    
+
+
                     <!-- end-snippet -->
 
 
@@ -205,7 +205,7 @@ public class SnippetExtractorTests
     public Task UnClosedRegion()
     {
         var input = """
-                    
+
                       #region CodeKey
                       <configSections/>
                     """;
@@ -217,7 +217,7 @@ public class SnippetExtractorTests
     public Task TooWide()
     {
         var input = """
-                    
+
                       #region CodeKey
                       caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
                       #endregion
@@ -242,7 +242,7 @@ public class SnippetExtractorTests
     public Task CanExtractFromRegion()
     {
         var input = """
-                    
+
                       #region CodeKey
                       The Code
                       #endregion
@@ -255,7 +255,7 @@ public class SnippetExtractorTests
     public Task CanExtractWithNoTrailingCharacters()
     {
         var input = """
-                    
+
                       // begin-snippet: CodeKey
                       the code
                       // end-snippet
@@ -268,7 +268,7 @@ public class SnippetExtractorTests
     public Task CanExtractWithMissingSpaces()
     {
         var input = """
-                    
+
                       <!--begin-snippet: CodeKey-->
                       <configSections/>
                       <!--end-snippet-->
@@ -281,7 +281,7 @@ public class SnippetExtractorTests
     public Task CanExtractWithTrailingWhitespace()
     {
         var input = """
-                    
+
                       // begin-snippet: CodeKey
                       the code
                       // end-snippet

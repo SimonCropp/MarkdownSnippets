@@ -4,6 +4,7 @@
     Language: cs,
     Value:
 using MarkdownSnippets;
+// ReSharper disable UnusedVariable
 
 class Usage
 {
@@ -42,7 +43,7 @@ class Usage
     }
 },
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(1-44),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(1-45),
     IsInError: false
   },
   {
@@ -53,7 +54,7 @@ var files = Directory.EnumerateFiles(@"C:/path", "*.cs", SearchOption.AllDirecto
 
 var snippets = FileSnippetExtractor.Read(files);,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(7-13),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(8-14),
     IsInError: false
   },
   {
@@ -67,7 +68,7 @@ var processor = new DirectoryMarkdownProcessor(
     snippetDirectoryIncludes: _ => true);
 processor.Run();,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(18-27),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(19-28),
     IsInError: false
   },
   {
@@ -82,7 +83,7 @@ var processor = new DirectoryMarkdownProcessor(
     snippetDirectoryIncludes: _ => true);
 processor.Run();,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(32-42),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/Tests/Snippets/Usage.cs(33-43),
     IsInError: false
   }
 ]

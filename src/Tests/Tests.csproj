@@ -14,7 +14,7 @@
     <PackageReference Include="Xunit" Version="2.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.94" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.97" PrivateAssets="all" />
     <None Include="badsnippets\code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -11,7 +11,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1" PrivateAssets="All" />
     <PackageReference Include="Xunit" Version="2.5.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.99" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.100" PrivateAssets="all" />
     <None Update="allConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

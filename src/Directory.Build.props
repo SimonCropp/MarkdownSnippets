@@ -7,5 +7,6 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>
+    <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
   </PropertyGroup>
 </Project>

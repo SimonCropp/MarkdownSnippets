@@ -25,16 +25,13 @@ Invalid word detected: 'you'
   File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
   Line: 1
   Column: 0
-  Error: Invalid word detected: 'you'
 Invalid word detected: 'we'
   File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
   Line: 2
   Column: 1
-  Error: Invalid word detected: 'we'
 No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
   File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
   Line: 3
   Column: 2
-  Error: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. 
 
 }

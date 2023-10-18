@@ -18,7 +18,6 @@ public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
                      {error.Error}
                        Line: {error.Line}
                        Column: {error.Column}
-                       Error: {error.Error}
                      """);
             }
 
@@ -28,7 +27,6 @@ public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
                    File: {error.File}
                    Line: {error.Line}
                    Column: {error.Column}
-                   Error: {error.Error}
                  """);
         }
 

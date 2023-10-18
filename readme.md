@@ -14,6 +14,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 **[.net 6](https://dotnet.microsoft.com/download/dotnet/6.0) or higher is required to run this tool.**
 
 ## Value Proposition

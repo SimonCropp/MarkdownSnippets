@@ -76,11 +76,12 @@ public static class ConfigReader
         }
         catch (SerializationException exception)
         {
-            throw new SnippetException($"""
-                                        Failed to deserialize configuration. Error: {exception.Message}.
-                                        Content:
-                                        {contents}
-                                        """);
+            throw new SnippetException(
+                $"""
+                 Failed to deserialize configuration. Error: {exception.Message}.
+                 Content:
+                 {contents}
+                 """);
         }
     }
 

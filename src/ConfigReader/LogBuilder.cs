@@ -5,27 +5,29 @@ static class LogBuilder
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
         var header = GetHeader(config);
-        var builder = new StringBuilder($"""
-                                         Config:
-                                             TargetDirectory: {targetDirectory}
-                                             UrlPrefix: {config.UrlPrefix}
-                                             LinkFormat: {config.LinkFormat}
-                                             Convention: {config.Convention}
-                                             TocLevel: {config.TocLevel}
-                                             ValidateContent: {config.ValidateContent}
-                                             OmitSnippetLinks: {config.OmitSnippetLinks}
-                                             TreatMissingAsWarning: {config.TreatMissingAsWarning}
-                                             FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
+        var builder = new StringBuilder(
+            $"""
+             Config:
+                 TargetDirectory: {targetDirectory}
+                 UrlPrefix: {config.UrlPrefix}
+                 LinkFormat: {config.LinkFormat}
+                 Convention: {config.Convention}
+                 TocLevel: {config.TocLevel}
+                 ValidateContent: {config.ValidateContent}
+                 OmitSnippetLinks: {config.OmitSnippetLinks}
+                 TreatMissingAsWarning: {config.TreatMissingAsWarning}
+                 FileConfigPath: {configFilePath} (exists:{File.Exists(configFilePath)})
 
-                                         """);
+             """);
 
         if (config.Convention == DocumentConvention.SourceTransform)
         {
-            builder.AppendLine($"""
-                                    ReadOnly: {config.ReadOnly}
-                                    WriteHeader: {config.WriteHeader}
-                                    Header: {header}
-                                """);
+            builder.AppendLine(
+                $"""
+                     ReadOnly: {config.ReadOnly}
+                     WriteHeader: {config.WriteHeader}
+                     Header: {header}
+                 """);
         }
 
         var maxWidth = config.MaxWidth;
@@ -36,42 +38,47 @@ static class LogBuilder
 
         if (config.ExcludeDirectories.Any())
         {
-            builder.AppendLine($"""
-                                    ExcludeDirectories:
-                                        {string.Join("\r\n        ", config.ExcludeDirectories)}
-                                """);
+            builder.AppendLine(
+                $"""
+                     ExcludeDirectories:
+                         {string.Join("\r\n        ", config.ExcludeDirectories)}
+                 """);
         }
 
         if (config.ExcludeMarkdownDirectories.Any())
         {
-            builder.AppendLine($"""
-                                    ExcludeMarkdownDirectories:
-                                        {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}
-                                """);
+            builder.AppendLine(
+                $"""
+                     ExcludeMarkdownDirectories:
+                         {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}
+                 """);
         }
 
         if (config.ExcludeSnippetDirectories.Any())
         {
-            builder.AppendLine($"""
-                                    ExcludeSnippetDirectories:
-                                        {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}
-                                """);
+            builder.AppendLine(
+                $"""
+                     ExcludeSnippetDirectories:
+                         {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}
+                 """);
         }
 
         if (config.TocExcludes.Any())
         {
-            builder.AppendLine($"""
-                                    TocExcludes:
-                                        {string.Join("\r\n        ", config.TocExcludes)}
-                                """);
+            builder.AppendLine(
+                $"""
+                     TocExcludes:
+                         {string.Join("\r\n        ", config.TocExcludes)}
+                 """);
         }
 
         if (config.UrlsAsSnippets.Any())
         {
-            builder.AppendLine($"""
-                                    UrlsAsSnippets:
-                                        {string.Join("\r\n        ", config.UrlsAsSnippets)}
-                                """);
+            builder.AppendLine(
+                $"""
+                     UrlsAsSnippets:
+                         {string.Join("\r\n        ", config.UrlsAsSnippets)}
+                 """);
         }
 
         return builder.ToString().Trim();
@@ -88,7 +95,7 @@ static class LogBuilder
         header = string.Join(newlineIndent, header.Lines());
         header = header.Replace(@"\n", newlineIndent);
         return $"""
-                
+
                         {header}
                 """;
     }

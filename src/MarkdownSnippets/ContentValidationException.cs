@@ -13,21 +13,23 @@ public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
         {
             if (error.File == null)
             {
-                builder.AppendLine($"""
-                                    {error.Error}
-                                      Line: {error.Line}
-                                      Column: {error.Column}
-                                      Error: {error.Error}
-                                    """);
+                builder.AppendLine(
+                    $"""
+                     {error.Error}
+                       Line: {error.Line}
+                       Column: {error.Column}
+                       Error: {error.Error}
+                     """);
             }
 
-            builder.AppendLine($"""
-                                {error.Error}
-                                  File: {error.File}
-                                  Line: {error.Line}
-                                  Column: {error.Column}
-                                  Error: {error.Error}
-                                """);
+            builder.AppendLine(
+                $"""
+                 {error.Error}
+                   File: {error.File}
+                   Line: {error.Line}
+                   Column: {error.Column}
+                   Error: {error.Error}
+                 """);
         }
 
         return builder.ToString();

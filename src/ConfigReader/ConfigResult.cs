@@ -9,13 +9,13 @@ public class ConfigResult
     public DocumentConvention Convention;
     public int TocLevel;
     public int MaxWidth;
-    public List<string> UrlsAsSnippets = new();
-    public List<string> ExcludeDirectories = new();
-    public List<string> ExcludeMarkdownDirectories = new();
-    public List<string> ExcludeSnippetDirectories = new();
+    public List<string> UrlsAsSnippets = [];
+    public List<string> ExcludeDirectories = [];
+    public List<string> ExcludeMarkdownDirectories = [];
+    public List<string> ExcludeSnippetDirectories = [];
     public bool? WriteHeader;
     public string? Header;
     public string? UrlPrefix;
-    public List<string> TocExcludes = new();
+    public List<string> TocExcludes = [];
     public bool TreatMissingAsWarning;
 }

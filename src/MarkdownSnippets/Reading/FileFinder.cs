@@ -7,10 +7,10 @@ class FileFinder(
     ShouldIncludeDirectory markdownDirectoryIncludes,
     ShouldIncludeDirectory snippetDirectoryIncludes)
 {
-    List<string> snippetFiles = new();
-    List<string> mdFiles = new();
-    List<string> allFiles = new();
-    List<string> includeFiles = new();
+    List<string> snippetFiles = [];
+    List<string> mdFiles = [];
+    List<string> allFiles = [];
+    List<string> includeFiles = [];
 
     public (List<string> snippetFiles, List<string> mdFiles, List<string> includeFiles, List<string> allFiles) FindFiles()
     {

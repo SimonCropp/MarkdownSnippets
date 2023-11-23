@@ -69,7 +69,7 @@ public class MarkdownProcessor
         this.tocLevel = tocLevel;
         if (tocExcludes == null)
         {
-            this.tocExcludes = new();
+            this.tocExcludes = [];
         }
         else
         {

@@ -10,10 +10,10 @@
     public string? UrlPrefix { get; set; }
     public int? TocLevel { get; set; }
     public int? MaxWidth { get; set; }
-    public List<string> UrlsAsSnippets { get; set; } = new();
-    public List<string> ExcludeDirectories { get; set; } = new();
-    public List<string> ExcludeMarkdownDirectories { get; set; } = new();
-    public List<string> ExcludeSnippetDirectories { get; set; } = new();
-    public List<string> TocExcludes { get; set; } = new();
+    public List<string> UrlsAsSnippets { get; set; } = [];
+    public List<string> ExcludeDirectories { get; set; } = [];
+    public List<string> ExcludeMarkdownDirectories { get; set; } = [];
+    public List<string> ExcludeSnippetDirectories { get; set; } = [];
+    public List<string> TocExcludes { get; set; } = [];
     public bool? TreatMissingAsWarning { get; set; }
 }

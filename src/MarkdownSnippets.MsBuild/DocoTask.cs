@@ -17,11 +17,11 @@ public class DocoTask :
     public int? MaxWidth { get; set; }
     public LinkFormat? LinkFormat { get; set; }
     public DocumentConvention? Convention { get; set; }
-    public List<string> ExcludeDirs { get; set; } = new();
-    public List<string> ExcludeMarkdownDirs { get; set; } = new();
-    public List<string> ExcludeSnippetDirs { get; set; } = new();
-    public List<string> TocExcludes { get; set; } = new();
-    public List<string> UrlsAsSnippets { get; set; } = new();
+    public List<string> ExcludeDirs { get; set; } = [];
+    public List<string> ExcludeMarkdownDirs { get; set; } = [];
+    public List<string> ExcludeSnippetDirs { get; set; } = [];
+    public List<string> TocExcludes { get; set; } = [];
+    public List<string> UrlsAsSnippets { get; set; } = [];
     public bool? TreatMissingAsWarning { get; set; }
     public bool? OmitSnippetLinks { get; set; }
 

@@ -11,11 +11,11 @@ public class DirectoryMarkdownProcessor
     IEnumerable<string>? tocExcludes;
     Action<string> log;
     string targetDirectory;
-    List<string> mdFiles = new();
-    List<Include> includes = new();
-    List<Snippet> snippets = new();
+    List<string> mdFiles = [];
+    List<Include> includes = [];
+    List<Snippet> snippets = [];
     public IReadOnlyList<Snippet> Snippets => snippets;
-    List<string> snippetSourceFiles = new();
+    List<string> snippetSourceFiles = [];
     AppendSnippetsToMarkdown appendSnippets;
     bool treatMissingAsWarning;
     string? newLine;

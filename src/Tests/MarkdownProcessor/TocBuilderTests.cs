@@ -50,7 +50,7 @@ public class TocBuilderTests
             new("### Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new() {"Heading2"}, Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, ["Heading2"], Environment.NewLine));
     }
 
     [Fact]

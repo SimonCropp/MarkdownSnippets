@@ -23,9 +23,9 @@ static class SnippetVerifier
         IReadOnlyList<string>? snippetSourceFiles,
         IReadOnlyList<Include>? includes)
     {
-        includes ??= Array.Empty<Include>();
-        snippets ??= Array.Empty<Snippet>();
-        snippetSourceFiles ??= Array.Empty<string>();
+        includes ??= [];
+        snippets ??= [];
+        snippetSourceFiles ??= [];
         return new(
             convention: convention,
             snippets: snippets.ToDictionary(),

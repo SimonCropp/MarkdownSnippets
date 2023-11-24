@@ -19,12 +19,12 @@ public class MarkdownProcessor
     List<string> snippetSourceFiles;
     IncludeProcessor includeProcessor;
 
-    static List<string> validationExcludes = new()
-    {
+    static List<string> validationExcludes =
+    [
         "code_of_conduct",
         ".github",
         "license"
-    };
+    ];
 
     string targetDirectory;
     IReadOnlyList<string> allFiles;
@@ -325,11 +325,7 @@ public class MarkdownProcessor
 
 
     List<Snippet> SnippetsForFile(string key, string relativeToRoot) =>
-
-        new()
-        {
-            FileToSnippet(key, relativeToRoot, null)
-        };
+        [FileToSnippet(key, relativeToRoot, null)];
 
     bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
     {

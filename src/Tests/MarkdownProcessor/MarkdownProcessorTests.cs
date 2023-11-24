@@ -14,10 +14,10 @@ public class MarkdownProcessorTests
         return SnippetVerifier.VerifyThrows(
             DocumentConvention.InPlaceOverwrite,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", Array.Empty<string>(), Path.GetFullPath("thePath"))
-            });
+            includes:
+            [
+                Include.Build("theKey", [], Path.GetFullPath("thePath"))
+            ]);
     }
 
     [Fact]
@@ -26,9 +26,9 @@ public class MarkdownProcessorTests
         var content = """
 
                       before
-                      
+
                       <!-- include: theKey. path: /thePath -->
-                      
+
                       <!-- endInclude -->
 
                       after
@@ -142,10 +142,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
-            {
-                SnippetBuild("cs", "theKey")
-            });
+            snippets: [SnippetBuild("cs", "theKey")]);
     }
 
     [Fact]
@@ -164,8 +161,8 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
-            {
+            snippets:
+            [
                 Snippet.Build(
                     language: "cs",
                     startLine: 1,
@@ -176,7 +173,7 @@ public class MarkdownProcessorTests
                            """,
                     key: "theKey",
                     path: "thePath")
-            });
+            ]);
     }
 
     [Fact]
@@ -195,8 +192,8 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: new()
-            {
+            snippets:
+            [
                 Snippet.Build(
                     language: "cs",
                     startLine: 1,
@@ -208,7 +205,7 @@ public class MarkdownProcessorTests
                            """,
                     key: "theKey",
                     path: "thePath")
-            });
+            ]);
     }
 
     [Fact]

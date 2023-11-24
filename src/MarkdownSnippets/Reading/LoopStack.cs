@@ -21,5 +21,5 @@ class LoopStack
         stack.Push(state);
     }
 
-    Stack<LoopState> stack = new();
+    Stack<LoopState> stack = [];
 }

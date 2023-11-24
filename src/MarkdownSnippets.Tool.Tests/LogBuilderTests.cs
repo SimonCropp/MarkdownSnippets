@@ -13,12 +13,12 @@ public class LogBuilderTests
                      line1
                      line2
                      """,
-            ExcludeDirectories = new() {"Dir1", "Dir2"},
-            ExcludeMarkdownDirectories = new() {"Dir3", "Dir4"},
-            ExcludeSnippetDirectories = new() {"Dir5", "Dir6"},
+            ExcludeDirectories = ["Dir1", "Dir2"],
+            ExcludeMarkdownDirectories = ["Dir3", "Dir4"],
+            ExcludeSnippetDirectories = ["Dir5", "Dir6"],
             ReadOnly = true,
             LinkFormat = LinkFormat.Tfs,
-            UrlsAsSnippets = new() {"Url1", "Url2"},
+            UrlsAsSnippets = ["Url1", "Url2"],
             TocLevel = 5,
             MaxWidth = 80,
             Convention = DocumentConvention.InPlaceOverwrite,

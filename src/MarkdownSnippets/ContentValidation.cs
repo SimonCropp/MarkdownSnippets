@@ -36,8 +36,8 @@ static class ContentValidation
 
     static List<string> invalidStrings;
 
-    static List<string> invalidWords = new()
-    {
+    static List<string> invalidWords =
+    [
         "you",
         "we",
         "our",
@@ -64,8 +64,8 @@ static class ContentValidation
         "whatsoever",
         "whereat",
         "wherein",
-        "whereof",
-    };
+        "whereof"
+    ];
 
     static ContentValidation() =>
         invalidStrings = BuildInvalidStrings().ToList();

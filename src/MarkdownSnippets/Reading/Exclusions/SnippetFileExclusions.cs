@@ -14,19 +14,18 @@ public static class SnippetFileExclusions
         return !NoAcceptCommentsExtensions.Contains(extension);
     }
 
-    public static List<string> NoAcceptCommentsExtensions { get; set; } = new()
-    {
+    public static List<string> NoAcceptCommentsExtensions { get; set; } =
+    [
         //files that dont accept comments hence cant contain snippets
-
         #region NoAcceptCommentsExtensions
         "csv",
         "json",
         "geojson"
         #endregion
-    };
+    ];
 
-    public static List<string> BinaryFileExtensions { get; set; } = new()
-    {
+    public static List<string> BinaryFileExtensions { get; set; } =
+    [
         #region BinaryFileExtensions
 
         "user",
@@ -297,5 +296,5 @@ public static class SnippetFileExclusions
         "zipx"
 
         #endregion
-    };
+    ];
 }

@@ -74,8 +74,5 @@ public class SnippetMarkdownHandlingTests
     }
 
     static List<Snippet> Snippets() =>
-        new()
-        {
-            Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", Environment.CurrentDirectory)
-        };
+        [Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", Environment.CurrentDirectory)];
 }

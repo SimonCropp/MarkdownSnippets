@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-static class HeaderWriter
+﻿static class HeaderWriter
 {
     static string[] defaultHeaderLines;
 
@@ -24,7 +22,7 @@ static class HeaderWriter
         return $"<!--{newline}{inner}{newline}-->{newline}";
     }
 
-    static string[] separator = {"\r\n", "\r", "\n", @"\n"};
+    static string[] separator = ["\r\n", "\r", "\n", @"\n"];
 
     static string[] Header(string? header)
     {

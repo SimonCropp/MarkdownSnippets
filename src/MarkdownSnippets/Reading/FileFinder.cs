@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-class FileFinder(
+﻿class FileFinder(
     string targetDirectory,
     DocumentConvention convention,
     ShouldIncludeDirectory directoryIncludes,

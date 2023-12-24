@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-static class Lines
+﻿static class Lines
 {
     public static void RemoveUntil(
         this List<Line> lines,

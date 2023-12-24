@@ -1,5 +1,3 @@
-using MarkdownSnippets;
-
 class IncludeProcessor
 {
     DocumentConvention convention;

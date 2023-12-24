@@ -1,5 +1,3 @@
-using MarkdownSnippets;
-
 static class SnippetExtensions
 {
     public static Dictionary<string, IReadOnlyList<Snippet>> ToDictionary(this IEnumerable<Snippet> value) =>

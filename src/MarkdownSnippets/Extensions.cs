@@ -119,15 +119,10 @@ static class Extensions
     }
 
     public static string[] SplitBySpace(this string value) =>
-        value
-            .Split(new[]
-                {
-                    ' '
-                },
-                StringSplitOptions.RemoveEmptyEntries);
+        value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
     public static string[] Lines(this string value) =>
-        value.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
+        value.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
 
     public static bool IsWhiteSpace(this string target) =>
         string.IsNullOrWhiteSpace(target);

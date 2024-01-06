@@ -77,8 +77,12 @@ public class SnippetMarkdownHandling
         path = path[targetDirectory.Length..];
 
         var sourceLink = BuildLink(snippet, path);
-        var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='Snippet source file'>snippet source</a>";
-        return $"{linkForSource} | {linkForAnchor}";
+        var builder = new StringBuilder("<a href='");
+        builder.Append(urlPrefix);
+        builder.Append(sourceLink);
+        builder.Append("' title='Snippet source file'>snippet source</a> | ");
+        builder.Append(linkForAnchor);
+        return builder.ToString();
     }
 
     static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)

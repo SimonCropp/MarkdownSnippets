@@ -76,10 +76,9 @@ public class SnippetMarkdownHandling
 
         path = path[targetDirectory.Length..];
 
-        var sourceLink = BuildLink(snippet, path);
         var builder = new StringBuilder("<a href='");
         builder.Append(urlPrefix);
-        builder.Append(sourceLink);
+        BuildLink(snippet, path, builder);
         builder.Append("' title='Snippet source file'>snippet source</a> | ");
         builder.Append(linkForAnchor);
         return builder.ToString();
@@ -92,27 +91,47 @@ public class SnippetMarkdownHandling
         appendLine("```");
     }
 
-    string BuildLink(Snippet snippet, string path)
+    void BuildLink(Snippet snippet, string path, StringBuilder builder)
     {
         #region BuildLink
         if (linkFormat == LinkFormat.GitHub)
         {
-            return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+            builder.Append(path);
+            builder.Append("#L");
+            builder.Append(snippet.StartLine);
+            builder.Append("-L");
+            builder.Append(snippet.EndLine);
+            return;
         }
 
         if (linkFormat == LinkFormat.Tfs)
         {
-            return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+            builder.Append(path);
+            builder.Append("&line=");
+            builder.Append(snippet.StartLine);
+            builder.Append("&lineEnd=");
+            builder.Append(snippet.EndLine);
+            return;
         }
 
         if (linkFormat == LinkFormat.Bitbucket)
         {
-            return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+            builder.Append(path);
+            builder.Append("#lines");
+            builder.Append(snippet.StartLine);
+            builder.Append(":");
+            builder.Append(snippet.EndLine);
+            return;
         }
 
         if (linkFormat == LinkFormat.GitLab)
         {
-            return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+            builder.Append(path);
+            builder.Append("#L");
+            builder.Append(snippet.StartLine);
+            builder.Append("-");
+            builder.Append(snippet.EndLine);
+            return;
         }
         #endregion
 

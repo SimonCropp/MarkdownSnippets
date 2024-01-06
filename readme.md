@@ -303,25 +303,45 @@ mdsnippets --omit-snippet-links true
 ```cs
 if (linkFormat == LinkFormat.GitHub)
 {
-    return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+    builder.Append(path);
+    builder.Append("#L");
+    builder.Append(snippet.StartLine);
+    builder.Append("-L");
+    builder.Append(snippet.EndLine);
+    return;
 }
 
 if (linkFormat == LinkFormat.Tfs)
 {
-    return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+    builder.Append(path);
+    builder.Append("&line=");
+    builder.Append(snippet.StartLine);
+    builder.Append("&lineEnd=");
+    builder.Append(snippet.EndLine);
+    return;
 }
 
 if (linkFormat == LinkFormat.Bitbucket)
 {
-    return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+    builder.Append(path);
+    builder.Append("#lines");
+    builder.Append(snippet.StartLine);
+    builder.Append(":");
+    builder.Append(snippet.EndLine);
+    return;
 }
 
 if (linkFormat == LinkFormat.GitLab)
 {
-    return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+    builder.Append(path);
+    builder.Append("#L");
+    builder.Append(snippet.StartLine);
+    builder.Append("-");
+    builder.Append(snippet.EndLine);
+    return;
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L97-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

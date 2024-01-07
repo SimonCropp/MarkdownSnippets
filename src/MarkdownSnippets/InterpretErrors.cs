@@ -19,7 +19,9 @@ public static class InterpretErrors
         builder.AppendLine("## Snippet errors\r\n");
         foreach (var error in snippets)
         {
-            builder.AppendLine(" * " + error);
+            Polyfill.AppendLine(
+                builder,
+                $" * {error}");
         }
 
         builder.AppendLine();
@@ -38,7 +40,9 @@ public static class InterpretErrors
             builder.AppendLine("## Missing snippets\r\n");
             foreach (var error in missingSnippets)
             {
-                builder.AppendLine($" * Key:'{error.Key}' Line:'{error.LineNumber}'");
+                Polyfill.AppendLine(
+                    builder,
+                    $" * Key:'{error.Key}' Line:'{error.LineNumber}'");
             }
         }
         //TODO: handle other errors

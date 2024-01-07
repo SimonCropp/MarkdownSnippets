@@ -76,9 +76,12 @@ public class SnippetMarkdownHandling
 
         path = path[targetDirectory.Length..];
 
-        var sourceLink = BuildLink(snippet, path);
-        var linkForSource = $"<a href='{urlPrefix}{sourceLink}' title='Snippet source file'>snippet source</a>";
-        return $"{linkForSource} | {linkForAnchor}";
+        var builder = new StringBuilder($"<a href='{urlPrefix}");
+        BuildLink(snippet, path, builder);
+        Polyfill.Append(
+            builder,
+            $"' title='Snippet source file'>snippet source</a> | {linkForAnchor}");
+        return builder.ToString();
     }
 
     static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
@@ -88,27 +91,31 @@ public class SnippetMarkdownHandling
         appendLine("```");
     }
 
-    string BuildLink(Snippet snippet, string path)
+    void BuildLink(Snippet snippet, string path, StringBuilder builder)
     {
         #region BuildLink
         if (linkFormat == LinkFormat.GitHub)
         {
-            return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+            Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
+            return;
         }
 
         if (linkFormat == LinkFormat.Tfs)
         {
-            return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+            Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
+            return;
         }
 
         if (linkFormat == LinkFormat.Bitbucket)
         {
-            return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+            Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
+            return;
         }
 
         if (linkFormat == LinkFormat.GitLab)
         {
-            return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+            Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
+            return;
         }
         #endregion
 

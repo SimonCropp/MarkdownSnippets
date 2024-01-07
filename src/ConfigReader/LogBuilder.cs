@@ -22,7 +22,8 @@ static class LogBuilder
 
         if (config.Convention == DocumentConvention.SourceTransform)
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      ReadOnly: {config.ReadOnly}
                      WriteHeader: {config.WriteHeader}
@@ -33,12 +34,15 @@ static class LogBuilder
         var maxWidth = config.MaxWidth;
         if (maxWidth != int.MaxValue && maxWidth != 0)
         {
-            builder.AppendLine($"    MaxWidth: {maxWidth}");
+            Polyfill.AppendLine(
+                builder,
+                $"    MaxWidth: {maxWidth}");
         }
 
         if (config.ExcludeDirectories.Any())
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      ExcludeDirectories:
                          {string.Join("\r\n        ", config.ExcludeDirectories)}
@@ -47,7 +51,8 @@ static class LogBuilder
 
         if (config.ExcludeMarkdownDirectories.Any())
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      ExcludeMarkdownDirectories:
                          {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}
@@ -56,7 +61,8 @@ static class LogBuilder
 
         if (config.ExcludeSnippetDirectories.Any())
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      ExcludeSnippetDirectories:
                          {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}
@@ -65,7 +71,8 @@ static class LogBuilder
 
         if (config.TocExcludes.Any())
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      TocExcludes:
                          {string.Join("\r\n        ", config.TocExcludes)}
@@ -74,7 +81,8 @@ static class LogBuilder
 
         if (config.UrlsAsSnippets.Any())
         {
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                      UrlsAsSnippets:
                          {string.Join("\r\n        ", config.UrlsAsSnippets)}

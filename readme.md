@@ -303,25 +303,29 @@ mdsnippets --omit-snippet-links true
 ```cs
 if (linkFormat == LinkFormat.GitHub)
 {
-    return $"{path}#L{snippet.StartLine}-L{snippet.EndLine}";
+    Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
+    return;
 }
 
 if (linkFormat == LinkFormat.Tfs)
 {
-    return $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}";
+    Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
+    return;
 }
 
 if (linkFormat == LinkFormat.Bitbucket)
 {
-    return $"{path}#lines={snippet.StartLine}:{snippet.EndLine}";
+    Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
+    return;
 }
 
 if (linkFormat == LinkFormat.GitLab)
 {
-    return $"{path}#L{snippet.StartLine}-{snippet.EndLine}";
+    Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
+    return;
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L93-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

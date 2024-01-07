@@ -13,7 +13,8 @@ public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
         {
             if (error.File == null)
             {
-                builder.AppendLine(
+                Polyfill.AppendLine(
+                    builder,
                     $"""
                      {error.Error}
                        Line: {error.Line}
@@ -21,7 +22,8 @@ public class ContentValidationException(IReadOnlyList<ValidationError> errors) :
                      """);
             }
 
-            builder.AppendLine(
+            Polyfill.AppendLine(
+                builder,
                 $"""
                  {error.Error}
                    File: {error.File}

@@ -37,7 +37,11 @@ public static class InterpretErrors
         var missingSnippets = processResult.MissingSnippets.ToList();
         if (missingSnippets.Any())
         {
-            builder.AppendLine("## Missing snippets\r\n");
+            builder.Append(
+                """
+                ## Missing snippets
+
+                """);
             foreach (var error in missingSnippets)
             {
                 Polyfill.AppendLine(

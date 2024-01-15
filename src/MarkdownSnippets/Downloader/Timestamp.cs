@@ -7,14 +7,15 @@
     public static Timestamp GetTimestamp(HttpResponseMessage headResponse)
     {
         var timestamp = new Timestamp();
-        if (headResponse.Content.Headers.LastModified != null)
+        var headers = headResponse.Content.Headers;
+        if (headers.LastModified != null)
         {
-            timestamp.LastModified = headResponse.Content.Headers.LastModified.Value.UtcDateTime;
+            timestamp.LastModified = headers.LastModified.Value.UtcDateTime;
         }
 
-        if (headResponse.Content.Headers.Expires != null)
+        if (headers.Expires != null)
         {
-            timestamp.Expiry = headResponse.Content.Headers.Expires.Value.UtcDateTime;
+            timestamp.Expiry = headers.Expires.Value.UtcDateTime;
         }
 
         return timestamp;

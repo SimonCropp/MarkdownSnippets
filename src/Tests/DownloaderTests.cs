@@ -1,4 +1,3 @@
-[UsesVerify]
 public class DownloaderTests
 {
     [Fact]

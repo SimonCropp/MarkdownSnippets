@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class HeaderWriterTests
+﻿public class HeaderWriterTests
 {
     [Fact]
     public Task DefaultHeader() =>

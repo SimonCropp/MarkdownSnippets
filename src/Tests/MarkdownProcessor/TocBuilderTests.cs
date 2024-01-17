@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class TocBuilderTests
+﻿public class TocBuilderTests
 {
     [Fact]
     public Task EmptyHeading()

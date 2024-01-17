@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class CommandRunnerTests
+﻿public class CommandRunnerTests
 {
     string? targetDirectory;
     ConfigInput? configInput;

@@ -1,6 +1,5 @@
 ﻿using MarkdownSnippets;
 
-[UsesVerify]
 public class SnippetExtractorTests
 {
     [Fact]

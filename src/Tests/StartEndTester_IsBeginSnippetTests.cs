@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class StartEndTester_IsBeginSnippetTests
+﻿public class StartEndTester_IsBeginSnippetTests
 {
     [Fact]
     public void CanExtractFromXml()

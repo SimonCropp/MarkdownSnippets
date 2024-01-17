@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ConfigReaderTests
+﻿public class ConfigReaderTests
 {
     [Fact]
     public Task Empty()

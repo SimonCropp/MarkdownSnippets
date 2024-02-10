@@ -4,14 +4,8 @@ using Argon;
 class ProcessResultConverter :
     JsonConverter
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        if (value == null)
-        {
-            writer.WriteValue("null");
-            return;
-        }
-
         var processResult = (ProcessResult)value;
         writer.WriteStartObject();
         writer.WritePropertyName("missing");

@@ -22,8 +22,8 @@
       <PackagePath>build</PackagePath>
     </Content>
 
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.8.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.9.5" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.110" PrivateAssets="all" />
   </ItemGroup>
 </Project>

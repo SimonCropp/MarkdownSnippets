@@ -9,4 +9,7 @@
     <Description>Extracts snippets from code files and merges them into markdown documents.</Description>
     <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
   </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
+  </ItemGroup>
 </Project>

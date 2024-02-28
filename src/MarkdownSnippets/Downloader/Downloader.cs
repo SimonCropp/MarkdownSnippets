@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-static class Downloader
+﻿static class Downloader
 {
     static string cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
 

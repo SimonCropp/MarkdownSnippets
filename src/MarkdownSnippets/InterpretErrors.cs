@@ -35,7 +35,7 @@ public static class InterpretErrors
     {
         var builder = StringBuilderCache.Acquire();
         var missingSnippets = processResult.MissingSnippets.ToList();
-        if (missingSnippets.Any())
+        if (missingSnippets.Count != 0)
         {
             builder.Append(
                 """

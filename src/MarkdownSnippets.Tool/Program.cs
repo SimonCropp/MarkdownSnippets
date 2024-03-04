@@ -54,7 +54,7 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
         validateContent: configResult.ValidateContent,
         omitSnippetLinks: configResult.OmitSnippetLinks);
 
-    if (configResult.UrlsAsSnippets.Any())
+    if (configResult.UrlsAsSnippets.Count != 0)
     {
         var snippets = new List<Snippet>();
 

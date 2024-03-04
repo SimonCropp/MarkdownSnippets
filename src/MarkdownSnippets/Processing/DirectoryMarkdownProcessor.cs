@@ -115,7 +115,7 @@ public class DirectoryMarkdownProcessor
         if (scanForSnippets)
         {
             InitNewLine();
-            if (snippetFiles.Any())
+            if (snippetFiles.Count != 0)
             {
                 snippetSourceFiles.AddRange(snippetFiles);
                 this.log($"Found {snippetFiles.Count} files for snippets");
@@ -123,7 +123,7 @@ public class DirectoryMarkdownProcessor
 
             var stopwatch = Stopwatch.StartNew();
             var read = FileSnippetExtractor.Read(snippetFiles, maxWidth, this.newLine!).ToList();
-            if (read.Any())
+            if (read.Count != 0)
             {
                 snippets.AddRange(read);
                 this.log($"Added {read.Count} snippets ({stopwatch.ElapsedMilliseconds}ms)");
@@ -171,12 +171,12 @@ public class DirectoryMarkdownProcessor
             .Select(_ => _.Path!)
             .Distinct()
             .ToList();
-        if (files.Any())
+        if (files.Count != 0)
         {
             snippetSourceFiles.AddRange(files);
         }
 
-        if (snippets.Any())
+        if (snippets.Count != 0)
         {
             this.snippets.AddRange(snippets);
         }
@@ -195,7 +195,7 @@ public class DirectoryMarkdownProcessor
 
     public void Run()
     {
-        if (!mdFiles.Any())
+        if (mdFiles.Count == 0)
         {
             if (convention == DocumentConvention.InPlaceOverwrite)
             {

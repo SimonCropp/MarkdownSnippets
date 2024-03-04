@@ -160,8 +160,9 @@ class IncludeProcessor
 
     static IEnumerable<Line> BuildMultiple(Line line, string? path, Include include, bool writePath)
     {
-        var count = include.Lines.Count;
-        var first = include.Lines.First();
+        var lines = include.Lines;
+        var count = lines.Count;
+        var first = lines[0];
         var key = include.Key;
         if (ShouldWriteIncludeOnDiffLine(first))
         {
@@ -188,13 +189,13 @@ class IncludeProcessor
             }
         }
 
-        for (var index = 1; index < include.Lines.Count - 1; index++)
+        for (var index = 1; index < lines.Count - 1; index++)
         {
-            var includeLine = include.Lines[index];
+            var includeLine = lines[index];
             yield return new(includeLine, path, index);
         }
 
-        var last = include.Lines.Last();
+        var last = lines[^1];
         if (ShouldWriteIncludeOnDiffLine(last))
         {
             yield return new(last, path, count);
@@ -227,7 +228,7 @@ class IncludeProcessor
 
     static IEnumerable<Line> BuildSingle(Line line, string? path, Include include, bool writePath)
     {
-        var first = include.Lines.First();
+        var first = include.Lines[0];
         var key = include.Key;
         if (ShouldWriteIncludeOnDiffLine(first))
         {

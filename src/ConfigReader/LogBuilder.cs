@@ -39,7 +39,7 @@ static class LogBuilder
                 $"    MaxWidth: {maxWidth}");
         }
 
-        if (config.ExcludeDirectories.Any())
+        if (config.ExcludeDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
@@ -49,7 +49,7 @@ static class LogBuilder
                  """);
         }
 
-        if (config.ExcludeMarkdownDirectories.Any())
+        if (config.ExcludeMarkdownDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
@@ -59,7 +59,7 @@ static class LogBuilder
                  """);
         }
 
-        if (config.ExcludeSnippetDirectories.Any())
+        if (config.ExcludeSnippetDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
@@ -69,7 +69,7 @@ static class LogBuilder
                  """);
         }
 
-        if (config.TocExcludes.Any())
+        if (config.TocExcludes.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
@@ -79,7 +79,7 @@ static class LogBuilder
                  """);
         }
 
-        if (config.UrlsAsSnippets.Any())
+        if (config.UrlsAsSnippets.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,

@@ -3,7 +3,7 @@
 
 class Usage
 {
-    void ReadingFiles()
+    static void ReadingFiles()
     {
         #region ReadingFilesSimple
 
@@ -14,7 +14,7 @@ class Usage
         #endregion
     }
 
-    void DirectoryMarkdownProcessorRun()
+    static void DirectoryMarkdownProcessorRun()
     {
         #region DirectoryMarkdownProcessorRun
 
@@ -28,7 +28,7 @@ class Usage
         #endregion
     }
 
-    void DirectoryMarkdownProcessorRunMaxWidth()
+    static void DirectoryMarkdownProcessorRunMaxWidth()
     {
         #region DirectoryMarkdownProcessorRunMaxWidth
 

@@ -248,7 +248,7 @@ public class MarkdownProcessor
         }
 
         var errors = ContentValidation.Verify(line.Original).ToList();
-        if (!errors.Any())
+        if (errors.Count == 0)
         {
             return false;
         }

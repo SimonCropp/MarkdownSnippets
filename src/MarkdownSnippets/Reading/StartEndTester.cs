@@ -96,9 +96,9 @@ static class StartEndTester
         }
 
         var startIndex = beginSnippetIndex + 15;
-        var substring = line
+        var substring = line.AsSpan()
             .TrimBackCommentChars(startIndex);
-        var split = substring.SplitBySpace();
+        var split = substring.ToString().SplitBySpace();
         if (split.Length == 0)
         {
             throw new SnippetReadingException(

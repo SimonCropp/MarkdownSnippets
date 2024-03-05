@@ -5,7 +5,7 @@ public delegate bool EndFunc(string line);
 static class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
-        IsBeginSnippet(trimmedLine) ||
+        IsBeginSnippet(trimmedLine.AsSpan()) ||
         IsEndSnippet(trimmedLine) ||
         IsStartRegion(trimmedLine) ||
         IsEndRegion(trimmedLine);
@@ -71,9 +71,9 @@ static class StartEndTester
         return true;
     }
 
-    static bool IsBeginSnippet(string line)
+    static bool IsBeginSnippet(CharSpan line)
     {
-        var startIndex = IndexOf(line.AsSpan(), "begin-snippet: ");
+        var startIndex = IndexOf(line, "begin-snippet: ");
         return startIndex != -1;
     }
 

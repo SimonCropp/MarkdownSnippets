@@ -299,7 +299,7 @@ mdsnippets --omit-snippet-links true
 #### How links are constructed
 
 <!-- snippet: BuildLink -->
-<a id='snippet-buildlink'></a>
+<a id='snippet-BuildLink'></a>
 ```cs
 if (linkFormat == LinkFormat.GitHub)
 {
@@ -325,7 +325,7 @@ if (linkFormat == LinkFormat.GitLab)
     return;
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-buildlink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

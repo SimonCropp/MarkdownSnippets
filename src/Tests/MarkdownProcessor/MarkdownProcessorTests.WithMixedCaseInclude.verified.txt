@@ -4,9 +4,7 @@ before
 
 theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
 
-theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
-
-theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
+theValue2<!-- singleLineInclude: TheKey. path: {CurrentDirectory}thePath -->
 
 after
 }

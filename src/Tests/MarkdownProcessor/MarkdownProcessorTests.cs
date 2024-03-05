@@ -124,6 +124,7 @@ public class MarkdownProcessorTests
                 Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
+
     [Fact]
     public Task WithMixedCaseInclude()
     {
@@ -133,23 +134,18 @@ public class MarkdownProcessorTests
 
                       include: theKey
 
-                      include: thekey
-
                       include: TheKey
 
                       after
 
                       """;
-        var lines = new List<string>
-        {
-            "theValue1"
-        };
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
             includes: new[]
             {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
+                Include.Build("theKey", ["theValue1"], Path.GetFullPath("thePath")),
+                Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath")),
             });
     }
 
@@ -182,8 +178,6 @@ public class MarkdownProcessorTests
 
                       snippet: TheKey
 
-                      snippet: thekey
-
                       after
 
                       """;
@@ -191,7 +185,10 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: [SnippetBuild("cs", "thekey")]);
+            snippets: [
+                SnippetBuild("cs", "theKey"),
+                SnippetBuild("cs", "TheKey"),
+            ]);
     }
 
     [Fact]

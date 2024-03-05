@@ -1,6 +1,6 @@
 ﻿[
   {
-    Key: keychild,
+    Key: KeyChild,
     Language: cs,
     Value:
 b
@@ -10,7 +10,7 @@ c,
     IsInError: false
   },
   {
-    Key: keyparent,
+    Key: KeyParent,
     Error: Snippet was not closed,
     FileLocation: path.cs(3-3),
     IsInError: true

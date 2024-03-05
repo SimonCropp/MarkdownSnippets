@@ -72,7 +72,6 @@ static class StartEndTester
             return false;
         }
 
-        key = key.ToLowerInvariant();
         return true;
     }
 
@@ -130,7 +129,6 @@ static class StartEndTester
                  """);
         }
 
-        key = key.ToLowerInvariant();
         return true;
     }
 

@@ -5,7 +5,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 
     [Fact]
@@ -21,7 +21,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 
     [Fact]
@@ -29,7 +29,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 
     [Fact]
@@ -37,7 +37,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 
     [Fact]
@@ -45,7 +45,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("code_key", key);
+        Assert.Equal("Code_Key", key);
     }
 
     [Fact]
@@ -53,7 +53,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("code-key", key);
+        Assert.Equal("Code-Key", key);
     }
 
     [Fact]
@@ -71,7 +71,7 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 
     [Fact]
@@ -79,6 +79,6 @@
     {
         var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key);
         Assert.True(isBeginSnippet);
-        Assert.Equal("codekey", key);
+        Assert.Equal("CodeKey", key);
     }
 }

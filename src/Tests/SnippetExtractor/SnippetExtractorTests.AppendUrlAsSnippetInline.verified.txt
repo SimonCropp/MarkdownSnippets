@@ -8,7 +8,7 @@ using MarkdownSnippets;
 
 class Usage
 {
-    void ReadingFiles()
+    static void ReadingFiles()
     {
 
         var files = Directory.EnumerateFiles(@"C:/path", "*.cs", SearchOption.AllDirectories);
@@ -17,7 +17,7 @@ class Usage
 
     }
 
-    void DirectoryMarkdownProcessorRun()
+    static void DirectoryMarkdownProcessorRun()
     {
 
         var processor = new DirectoryMarkdownProcessor(
@@ -29,7 +29,7 @@ class Usage
 
     }
 
-    void DirectoryMarkdownProcessorRunMaxWidth()
+    static void DirectoryMarkdownProcessorRunMaxWidth()
     {
 
         var processor = new DirectoryMarkdownProcessor(

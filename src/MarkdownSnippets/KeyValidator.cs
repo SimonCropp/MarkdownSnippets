@@ -1,4 +1,4 @@
-﻿class KeyValidator
+﻿static class KeyValidator
 {
     public static bool IsInValidKey(string key) =>
         key.Contains(' ') ||

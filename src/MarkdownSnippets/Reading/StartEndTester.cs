@@ -53,27 +53,21 @@ static class StartEndTester
             return false;
         }
 
-        var substring = line[8..];
-        var split = substring.SplitBySpace();
-        if (split.Length == 0)
+        var substring = line[8..].Trim();
+
+        if (substring.Contains(' '))
         {
             key = null;
             return false;
         }
 
-        if (split.Length != 1)
+        if (!KeyValidator.IsValidKey(substring.AsSpan()))
         {
             key = null;
             return false;
         }
 
-        key = split[0];
-
-        if (!KeyValidator.IsValidKey(key.AsSpan()))
-        {
-            return false;
-        }
-
+        key = substring;
         return true;
     }
 

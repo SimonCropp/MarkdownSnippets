@@ -153,7 +153,7 @@ public static class FileSnippetExtractor
 
             var trimmedLine = line.Trim();
 
-            if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
+            if (StartEndTester.IsStart(trimmedLine.AsSpan(), path, out var key, out var endFunc))
             {
                 loopStack.Push(endFunc, key, index, maxWidth, newLine);
                 continue;

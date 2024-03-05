@@ -11,7 +11,7 @@ static class StartEndTester
         IsEndRegion(trimmedLine);
 
     internal static bool IsStart(
-        string trimmedLine,
+        CharSpan trimmedLine,
         string path,
         [NotNullWhen(true)] out string? currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc)
@@ -22,7 +22,7 @@ static class StartEndTester
             return true;
         }
 
-        if (IsStartRegion(trimmedLine.AsSpan(), out currentKey))
+        if (IsStartRegion(trimmedLine, out currentKey))
         {
             endFunc = IsEndRegion;
             return true;
@@ -78,11 +78,11 @@ static class StartEndTester
     }
 
     internal static bool IsBeginSnippet(
-        string line,
+        CharSpan line,
         string path,
         [NotNullWhen(true)] out string? key)
     {
-        var beginSnippetIndex = IndexOf(line.AsSpan(), "begin-snippet: ");
+        var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
             key = null;
@@ -90,7 +90,7 @@ static class StartEndTester
         }
 
         var startIndex = beginSnippetIndex + 15;
-        var substring = line.AsSpan()
+        var substring = line
             .TrimBackCommentChars(startIndex);
         var split = substring.ToString().SplitBySpace();
         if (split.Length == 0)

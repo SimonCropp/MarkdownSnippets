@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+public delegate bool EndFunc(string line);
+
 static class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
@@ -12,7 +14,7 @@ static class StartEndTester
         string trimmedLine,
         string path,
         [NotNullWhen(true)] out string? currentKey,
-        [NotNullWhen(true)] out Func<string, bool>? endFunc)
+        [NotNullWhen(true)] out EndFunc? endFunc)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey))
         {
@@ -30,7 +32,7 @@ static class StartEndTester
         return false;
     }
 
-    static Func<string, bool> throwFunc = _ => throw new("Do not use out func");
+    static EndFunc throwFunc = _ => throw new("Do not use out func");
 
     static bool IsEndRegion(string line) =>
         line.StartsWith("#endregion", StringComparison.Ordinal);

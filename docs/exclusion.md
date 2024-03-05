@@ -318,7 +318,7 @@ When scanning for snippets the following are ignored:
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L29-L298' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L28-L297' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * Files that cannot contain comments:
@@ -330,5 +330,5 @@ When scanning for snippets the following are ignored:
 "json",
 "geojson"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L20-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-NoAcceptCommentsExtensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L16-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-NoAcceptCommentsExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

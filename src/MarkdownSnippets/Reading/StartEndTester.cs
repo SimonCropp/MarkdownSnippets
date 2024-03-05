@@ -65,9 +65,15 @@ static class StartEndTester
             return false;
         }
 
-        key = split[0].ToLowerInvariant();
+        key = split[0];
 
-        return KeyValidator.IsValidKey(key);
+        if (!KeyValidator.IsValidKey(key.AsSpan()))
+        {
+            return false;
+        }
+
+        key = key.ToLowerInvariant();
+        return true;
     }
 
     static bool IsBeginSnippet(string line)
@@ -113,7 +119,7 @@ static class StartEndTester
                  """);
         }
 
-        if (KeyValidator.IsValidKey(key))
+        if (KeyValidator.IsValidKey(key.AsSpan()))
         {
             return true;
         }

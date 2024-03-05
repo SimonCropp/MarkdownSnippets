@@ -1,6 +1,6 @@
 ﻿static class KeyValidator
 {
-    public static bool IsValidKey(string key)
+    public static bool IsValidKey(CharSpan key)
     {
         if (key.Length == 0)
         {

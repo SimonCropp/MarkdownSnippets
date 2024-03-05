@@ -1,1 +1,34 @@
-﻿
+﻿{
+  UsedSnippets: [
+    {
+      Key: thekey,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
+      IsInError: false
+    }
+  ],
+  result:
+before
+
+<!-- snippet: theKey -->
+```cs
+Snippet
+```
+<!-- endSnippet -->
+
+<!-- snippet: TheKey -->
+```cs
+Snippet
+```
+<!-- endSnippet -->
+
+<!-- snippet: thekey -->
+```cs
+Snippet
+```
+<!-- endSnippet -->
+
+after
+}

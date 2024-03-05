@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-public delegate bool EndFunc(string line);
+public delegate bool EndFunc(CharSpan line);
 
 static class StartEndTester
 {
-    internal static bool IsStartOrEnd(string trimmedLine) =>
-        IsBeginSnippet(trimmedLine.AsSpan()) ||
+    internal static bool IsStartOrEnd(CharSpan trimmedLine) =>
+        IsBeginSnippet(trimmedLine) ||
         IsEndSnippet(trimmedLine) ||
         IsStartRegion(trimmedLine) ||
         IsEndRegion(trimmedLine);
@@ -34,13 +34,13 @@ static class StartEndTester
 
     static EndFunc throwFunc = _ => throw new("Do not use out func");
 
-    static bool IsEndRegion(string line) =>
+    static bool IsEndRegion(CharSpan line) =>
         line.StartsWith("#endregion", StringComparison.Ordinal);
 
-    static bool IsEndSnippet(string line) =>
-        IndexOf(line.AsSpan(), "end-snippet") >= 0;
+    static bool IsEndSnippet(CharSpan line) =>
+        IndexOf(line, "end-snippet") >= 0;
 
-    static bool IsStartRegion(string line) =>
+    static bool IsStartRegion(CharSpan line) =>
         line.StartsWith("#region ", StringComparison.Ordinal);
 
     internal static bool IsStartRegion(

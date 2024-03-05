@@ -164,7 +164,7 @@ public static class FileSnippetExtractor
                 continue;
             }
 
-            if (!loopStack.Current.EndFunc(trimmedLine))
+            if (!loopStack.Current.EndFunc(trimmedLine.AsSpan()))
             {
                 Snippet? error = null;
                 try

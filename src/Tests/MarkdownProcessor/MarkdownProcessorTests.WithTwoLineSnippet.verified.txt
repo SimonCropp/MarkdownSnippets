@@ -1,9 +1,25 @@
 ﻿{
+  UsedSnippets: [
+    {
+      Key: theKey,
+      Language: cs,
+      Value:
+the
+Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
+      IsInError: false
+    }
+  ],
   result:
 before
 
-the<!-- include: theKey. path: thePath -->
-Snippet<!-- endInclude -->
+<!-- snippet: theKey -->
+```cs
+the
+Snippet
+```
+<!-- endSnippet -->
 
 after
 }

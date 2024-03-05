@@ -1,8 +1,22 @@
 ﻿{
+  UsedSnippets: [
+    {
+      Key: theKey,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
+      IsInError: false
+    }
+  ],
   result:
 before
 
-Snippet<!-- singleLineInclude: theKey. path: thePath -->
+<!-- snippet: theKey -->
+```cs
+Snippet
+```
+<!-- endSnippet -->
 
 after
 }

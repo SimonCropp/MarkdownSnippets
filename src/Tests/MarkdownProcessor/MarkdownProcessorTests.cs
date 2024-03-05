@@ -132,7 +132,7 @@ public class MarkdownProcessorTests
 
                       before
 
-                      include: theKey
+                      snippet: theKey
 
                       after
 
@@ -151,7 +151,7 @@ public class MarkdownProcessorTests
 
                       before
 
-                      include: theKey
+                      snippet: theKey
 
                       after
 
@@ -182,7 +182,7 @@ public class MarkdownProcessorTests
 
                       before
 
-                      include: theKey
+                      snippet: theKey
 
                       after
 

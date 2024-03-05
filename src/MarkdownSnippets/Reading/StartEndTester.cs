@@ -38,7 +38,7 @@ static class StartEndTester
         line.StartsWith("#endregion", StringComparison.Ordinal);
 
     static bool IsEndSnippet(string line) =>
-        IndexOf(line, "end-snippet") >= 0;
+        IndexOf(line.AsSpan(), "end-snippet") >= 0;
 
     static bool IsStartRegion(string line) =>
         line.StartsWith("#region ", StringComparison.Ordinal);
@@ -79,7 +79,7 @@ static class StartEndTester
 
     static bool IsBeginSnippet(string line)
     {
-        var startIndex = IndexOf(line, "begin-snippet: ");
+        var startIndex = IndexOf(line.AsSpan(), "begin-snippet: ");
         return startIndex != -1;
     }
 
@@ -88,7 +88,7 @@ static class StartEndTester
         string path,
         [NotNullWhen(true)] out string? key)
     {
-        var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
+        var beginSnippetIndex = IndexOf(line.AsSpan(), "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
             key = null;
@@ -134,7 +134,7 @@ static class StartEndTester
         return true;
     }
 
-    static int IndexOf(string line, string value)
+    static int IndexOf(CharSpan line, string value)
     {
         if (value.Length > line.Length)
         {
@@ -142,6 +142,6 @@ static class StartEndTester
         }
 
         var charactersToScan = Math.Min(line.Length, value.Length + 10);
-        return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
+        return line[..charactersToScan].IndexOf(value.AsSpan(), StringComparison.Ordinal);
     }
 }

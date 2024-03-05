@@ -67,12 +67,7 @@ static class StartEndTester
 
         key = split[0].ToLowerInvariant();
 
-        if (KeyValidator.IsInValidKey(key))
-        {
-            return false;
-        }
-
-        return true;
+        return KeyValidator.IsValidKey(key);
     }
 
     static bool IsBeginSnippet(string line)
@@ -118,18 +113,18 @@ static class StartEndTester
                  """);
         }
 
-        if (KeyValidator.IsInValidKey(key))
+        if (KeyValidator.IsValidKey(key))
         {
-            throw new SnippetReadingException(
-                $"""
-                 Key cannot contain whitespace or start/end with symbols.
-                 Key: {key}
-                 Path: {path}
-                 Line: {line}
-                 """);
+            return true;
         }
 
-        return true;
+        throw new SnippetReadingException(
+            $"""
+             Key cannot contain whitespace or start/end with symbols.
+             Key: {key}
+             Path: {path}
+             Line: {line}
+             """);
     }
 
     static int IndexOf(string line, string value)

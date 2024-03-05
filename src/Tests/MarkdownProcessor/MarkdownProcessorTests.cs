@@ -124,6 +124,34 @@ public class MarkdownProcessorTests
                 Include.Build("theKey", lines, Path.GetFullPath("thePath"))
             });
     }
+    [Fact]
+    public Task WithMixedCaseInclude()
+    {
+        var content = """
+
+                      before
+
+                      include: theKey
+
+                      include: thekey
+
+                      include: TheKey
+
+                      after
+
+                      """;
+        var lines = new List<string>
+        {
+            "theValue1"
+        };
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            includes: new[]
+            {
+                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
+            });
+    }
 
     [Fact]
     public Task WithSingleSnippet()
@@ -142,6 +170,28 @@ public class MarkdownProcessorTests
             DocumentConvention.SourceTransform,
             content,
             snippets: [SnippetBuild("cs", "theKey")]);
+    }
+    [Fact]
+    public Task WithMixedCaseSnippet()
+    {
+        var content = """
+
+                      before
+
+                      snippet: theKey
+
+                      snippet: TheKey
+
+                      snippet: thekey
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: [SnippetBuild("cs", "thekey")]);
     }
 
     [Fact]

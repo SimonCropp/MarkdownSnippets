@@ -16,13 +16,13 @@ https://nuget.org/packages/MarkdownSnippets/ [![NuGet Status](https://img.shield
 ## Reading snippets from files
 
 <!-- snippet: ReadingFilesSimple -->
-<a id='snippet-readingfilessimple'></a>
+<a id='snippet-ReadingFilesSimple'></a>
 ```cs
 var files = Directory.EnumerateFiles(@"C:\path", "*.cs", SearchOption.AllDirectories);
 
 var snippets = FileSnippetExtractor.Read(files);
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-readingfilessimple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-ReadingFilesSimple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

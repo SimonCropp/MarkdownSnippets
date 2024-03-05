@@ -1,6 +1,6 @@
 ﻿[
   {
-    Key: codekey,
+    Key: CodeKey,
     Language: cs,
     Value:
 BeforeWhiteSpace

@@ -47,7 +47,7 @@ class Usage
     IsInError: false
   },
   {
-    Key: readingfilessimple,
+    Key: ReadingFilesSimple,
     Language: cs,
     Value:
 var files = Directory.EnumerateFiles(@"C:/path", "*.cs", SearchOption.AllDirectories);
@@ -58,7 +58,7 @@ var snippets = FileSnippetExtractor.Read(files);,
     IsInError: false
   },
   {
-    Key: directorymarkdownprocessorrun,
+    Key: DirectoryMarkdownProcessorRun,
     Language: cs,
     Value:
 var processor = new DirectoryMarkdownProcessor(
@@ -72,7 +72,7 @@ processor.Run();,
     IsInError: false
   },
   {
-    Key: directorymarkdownprocessorrunmaxwidth,
+    Key: DirectoryMarkdownProcessorRunMaxWidth,
     Language: cs,
     Value:
 var processor = new DirectoryMarkdownProcessor(

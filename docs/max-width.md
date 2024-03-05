@@ -32,7 +32,7 @@ The Max Width setting is used to control the maximum characters per line of a sn
 ### Code Api
 
 <!-- snippet: DirectoryMarkdownProcessorRunMaxWidth -->
-<a id='snippet-directorymarkdownprocessorrunmaxwidth'></a>
+<a id='snippet-DirectoryMarkdownProcessorRunMaxWidth'></a>
 ```cs
 var processor = new DirectoryMarkdownProcessor(
     "targetDirectory",
@@ -42,7 +42,7 @@ var processor = new DirectoryMarkdownProcessor(
     snippetDirectoryIncludes: _ => true);
 processor.Run();
 ```
-<sup><a href='/src/Tests/Snippets/Usage.cs#L33-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-directorymarkdownprocessorrunmaxwidth' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Snippets/Usage.cs#L33-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-DirectoryMarkdownProcessorRunMaxWidth' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

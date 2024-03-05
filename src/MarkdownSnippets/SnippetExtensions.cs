@@ -2,11 +2,10 @@ static class SnippetExtensions
 {
     public static Dictionary<string, IReadOnlyList<Snippet>> ToDictionary(this IEnumerable<Snippet> value) =>
         value
-            .GroupBy(_ => _.Key.ToLowerInvariant(), StringComparer.OrdinalIgnoreCase)
+            .GroupBy(_ => _.Key)
             .ToDictionary(
-                keySelector: _ => _.Key.ToLowerInvariant(),
-                elementSelector: _ => _.OrderBy(ScrubPath).ToReadonlyList(),
-                comparer: StringComparer.OrdinalIgnoreCase);
+                keySelector: _ => _.Key,
+                elementSelector: _ => _.OrderBy(ScrubPath).ToReadonlyList());
 
     static string? ScrubPath(Snippet snippet) =>
         snippet.Path?

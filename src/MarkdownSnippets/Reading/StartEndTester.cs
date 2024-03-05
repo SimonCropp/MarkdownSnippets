@@ -22,7 +22,7 @@ static class StartEndTester
             return true;
         }
 
-        if (IsStartRegion(trimmedLine, out currentKey))
+        if (IsStartRegion(trimmedLine.AsSpan(), out currentKey))
         {
             endFunc = IsEndRegion;
             return true;
@@ -44,7 +44,7 @@ static class StartEndTester
         line.StartsWith("#region ", StringComparison.Ordinal);
 
     internal static bool IsStartRegion(
-        string line,
+        CharSpan line,
         [NotNullWhen(true)] out string? key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
@@ -61,13 +61,13 @@ static class StartEndTester
             return false;
         }
 
-        if (!KeyValidator.IsValidKey(substring.AsSpan()))
+        if (!KeyValidator.IsValidKey(substring))
         {
             key = null;
             return false;
         }
 
-        key = substring;
+        key = substring.ToString();
         return true;
     }
 

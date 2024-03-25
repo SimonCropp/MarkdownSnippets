@@ -4,6 +4,16 @@
 public class SnippetFileFinderTests
 {
     [Fact]
+    public void Hidden()
+    {
+        var path = Path.Combine(Path.GetTempPath(), "mdsnippetsHidden");
+        var directory = new DirectoryInfo(path);
+        directory.Create();
+        directory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        Assert.True(DefaultDirectoryExclusions.ShouldExcludeDirectory(path));
+    }
+
+    [Fact]
     public Task Nested()
     {
         var directory = Path.Combine(AttributeReader.GetProjectDirectory(), "SnippetFileFinder/Nested");

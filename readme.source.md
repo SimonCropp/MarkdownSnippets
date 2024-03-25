@@ -9,7 +9,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
-**[.net 6](https://dotnet.microsoft.com/download/dotnet/6.0) or higher is required to run this tool.**
+**[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run this tool.**
 
 ## Value Proposition
 

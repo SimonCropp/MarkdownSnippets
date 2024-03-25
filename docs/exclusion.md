@@ -42,11 +42,36 @@ mdsnippets --exclude-markdown-directories foo:bar
 
 ## Ignored paths
 
-When scanning for snippets the following are ignored:
+### Directory exclusion rules:
 
- * All directories and files starting with a period `.`
- * Any of the following directory names: `bin`, `obj`
- * All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
+<!-- snippet: DefaultDirectoryExclusions.cs -->
+<a id='snippet-DefaultDirectoryExclusions.cs'></a>
+```cs
+namespace MarkdownSnippets;
+
+public static class DefaultDirectoryExclusions
+{
+    public static bool ShouldExcludeDirectory(string path)
+    {
+        var suffix = Path.GetFileName(path).ToLowerInvariant();
+        return suffix is
+            ".git" or
+            ".vs" or
+            ".idea" or
+            "packages" or
+            "node_modules" or
+            "bin" or
+            "obj";
+    }
+}
+```
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### File exclusion rules
+
+All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
 
 <!-- snippet: BinaryFileExtensions -->
 <a id='snippet-BinaryFileExtensions'></a>
@@ -321,7 +346,10 @@ When scanning for snippets the following are ignored:
 <sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L28-L297' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
- * Files that cannot contain comments:
+
+### No comment files
+
+Files that cannot contain comments are excluded.
 
 <!-- snippet: NoAcceptCommentsExtensions -->
 <a id='snippet-NoAcceptCommentsExtensions'></a>

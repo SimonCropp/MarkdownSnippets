@@ -35,14 +35,20 @@ mdsnippets --exclude-markdown-directories foo:bar
 
 ## Ignored paths
 
-When scanning for snippets the following are ignored:
+### Directory exclusion rules:
 
- * All directories and files starting with a period `.`
- * Any of the following directory names: `bin`, `obj`
- * All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
+snippet: DefaultDirectoryExclusions.cs
+
+
+### File exclusion rules
+
+All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
 
 snippet: BinaryFileExtensions
 
- * Files that cannot contain comments:
+
+### No comment files
+
+Files that cannot contain comments are excluded.
 
 snippet: NoAcceptCommentsExtensions

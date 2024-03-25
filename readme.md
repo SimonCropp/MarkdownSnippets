@@ -328,7 +328,7 @@ if (linkFormat == LinkFormat.GitLab)
 
 if (linkFormat == LinkFormat.DevOps)
 {
-    Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1");
+    Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
 }
 ```
 <sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>

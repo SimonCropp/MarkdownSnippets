@@ -502,6 +502,16 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
+    [Theory]
+    [InlineData(".git")]
+    [InlineData(".vs")]
+    [InlineData(".idea")]
+    [InlineData(".vscode")]
+    [InlineData(".angular")]
+    [InlineData(".somearbitrarypaththatstartsiwthafullstop")]
+    public void AllPathsStartingWithAFullStopAreExcludedByDefault(string path) =>
+        Assert.True(DefaultDirectoryExclusions.ShouldExcludeDirectory(path));
+
     static Snippet SnippetBuild(string key, string? path = null) =>
         Snippet.Build(
             language: "cs",

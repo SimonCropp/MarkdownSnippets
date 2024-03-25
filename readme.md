@@ -266,10 +266,11 @@ public enum LinkFormat
     Tfs,
     Bitbucket,
     GitLab,
+    DevOps,
     None
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Link format `None` will omit the source link but still keep the snippet anchor.
@@ -324,8 +325,13 @@ if (linkFormat == LinkFormat.GitLab)
     Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
     return;
 }
+
+if (linkFormat == LinkFormat.DevOps)
+{
+    Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
+}
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

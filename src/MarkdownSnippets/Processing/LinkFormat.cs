@@ -6,5 +6,6 @@ public enum LinkFormat
     Tfs,
     Bitbucket,
     GitLab,
+    DevOps,
     None
 }

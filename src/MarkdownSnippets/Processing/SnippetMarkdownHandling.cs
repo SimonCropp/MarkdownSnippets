@@ -117,6 +117,12 @@ public class SnippetMarkdownHandling
             Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
             return;
         }
+
+        if (linkFormat == LinkFormat.DevOps)
+        {
+            Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
+        }
+
         #endregion
 
         throw new($"Unknown LinkFormat: {linkFormat}");

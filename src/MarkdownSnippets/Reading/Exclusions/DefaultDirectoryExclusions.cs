@@ -16,14 +16,13 @@ public static class DefaultDirectoryExclusions
             ".vscode" or
             ".idea" or
 
-            // angular cache
-            ".angular" or
-
             // package cache
             "packages" or
             "node_modules" or
 
             // build output
+            "dist" or
+            ".angular" or
             "bin" or
             "obj")
         {

@@ -35,6 +35,7 @@
         "GitHub",
         "Bitbucket",
         "GitLab",
+        "DevOps",
         "None"
       ],
       "pattern": "^.*$"

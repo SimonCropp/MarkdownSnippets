@@ -53,9 +53,10 @@ public static class DefaultDirectoryExclusions
 {
     public static bool ShouldExcludeDirectory(string path)
     {
-        var suffix = Path.GetFileName(path).ToLowerInvariant();
-        return suffix is
-
+        var suffix = Path
+            .GetFileName(path)
+            .ToLowerInvariant();
+        if (suffix is
             // source control
             ".git" or
 
@@ -73,11 +74,17 @@ public static class DefaultDirectoryExclusions
 
             // build output
             "bin" or
-            "obj";
+            "obj")
+        {
+            return true;
+        }
+
+        var directory = new DirectoryInfo(path);
+        return directory.Attributes.HasFlag(FileAttributes.Hidden);
     }
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

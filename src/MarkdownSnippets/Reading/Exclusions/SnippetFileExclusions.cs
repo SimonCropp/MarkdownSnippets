@@ -15,9 +15,11 @@ public static class SnippetFileExclusions
 
             #region NoAcceptCommentsExtensions
 
+            "DotSettings",
             "csv",
             "json",
-            "geojson"
+            "geojson",
+            "sln"
 
             #endregion
         };

@@ -94,38 +94,26 @@ public class SnippetMarkdownHandling
     void BuildLink(Snippet snippet, string path, StringBuilder builder)
     {
         #region BuildLink
-        if (linkFormat == LinkFormat.GitHub)
+        switch (linkFormat)
         {
-            Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
-            return;
+            case LinkFormat.GitHub:
+                Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
+                return;
+            case LinkFormat.Tfs:
+                Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
+                return;
+            case LinkFormat.Bitbucket:
+                Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
+                return;
+            case LinkFormat.GitLab:
+                Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
+                return;
+            case LinkFormat.DevOps:
+                Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
+                return;
+            case LinkFormat.None:
+                throw new($"Unknown LinkFormat: {linkFormat}");
         }
-
-        if (linkFormat == LinkFormat.Tfs)
-        {
-            Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
-            return;
-        }
-
-        if (linkFormat == LinkFormat.Bitbucket)
-        {
-            Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
-            return;
-        }
-
-        if (linkFormat == LinkFormat.GitLab)
-        {
-            Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
-            return;
-        }
-
-        if (linkFormat == LinkFormat.DevOps)
-        {
-            Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
-            return;
-        }
-
         #endregion
-
-        throw new($"Unknown LinkFormat: {linkFormat}");
     }
 }

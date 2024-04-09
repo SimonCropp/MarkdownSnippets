@@ -40,13 +40,6 @@ dotnet tool install -g MarkdownSnippets.Tool
 ```
 
 
-### Update
-
-```ps
-dotnet tool update -g MarkdownSnippets.Tool
-```
-
-
 ## Usage
 
 ```ps

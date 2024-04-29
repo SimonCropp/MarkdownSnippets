@@ -1,23 +1,19 @@
 using System.Diagnostics.CodeAnalysis;
 
-class SnippetKey
+class NewSnippet:ISnippetPart
 {
-    public bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
+    public bool IsSnippetLine(string lineCurrent) =>
+        lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
+
+
+    public int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
-        var lineCurrent = line.Current;
-        if (!IsStartCommentSnippetLine(lineCurrent))
-        {
-            key = null;
-            return false;
-        }
-
-        var substring = line.Current[14..];
-        var indexOf = substring.IndexOf("-->");
-        key = substring[..indexOf]
-            .Trim();
-        return true;
+        builder.Clear();
+        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
+        builder.TrimEnd();
+        line.Current = builder.ToString();
+        return index;
     }
-
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
@@ -35,14 +31,29 @@ class SnippetKey
         }
         return true;
     }
+}
 
+public interface ISnippet
+{
+    public ISnippetPart GetNew { get;  }
+    public ISnippetPart GetReplace { get; }
+}
+public interface ISnippetPart
+{
+    int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line);
+    bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key);
+    public bool IsSnippetLine(string line);
+}
+class CodeSnippet:ISnippet
+{
+    public ISnippetPart GetNew { get; } = new NewSnippet();
+    public ISnippetPart GetReplace { get; } = new ReplaceSnippet();
+}
+class ReplaceSnippet : ISnippetPart
+{
     public bool IsSnippetLine(string lineCurrent) =>
-        lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
-
-    public bool IsStartCommentSnippetLine(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
-
-    public static int HandleInPlaceSnippet(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    public int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
         builder.Clear();
         markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
@@ -58,13 +69,19 @@ class SnippetKey
             line);
         return index;
     }
-
-    public static int HandleSourceTransform(MarkdownProcessor markdownProcessor, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
-        builder.Clear();
-        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
-        builder.TrimEnd();
-        line.Current = builder.ToString();
-        return index;
+        var lineCurrent = line.Current;
+        if (!IsSnippetLine(lineCurrent))
+        {
+            key = null;
+            return false;
+        }
+
+        var substring = line.Current[14..];
+        var indexOf = substring.IndexOf("-->");
+        key = substring[..indexOf]
+            .Trim();
+        return true;
     }
 }

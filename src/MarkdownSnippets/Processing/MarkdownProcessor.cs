@@ -18,7 +18,7 @@ public class MarkdownProcessor
     List<string> tocExcludes;
     List<string> snippetSourceFiles;
     IncludeProcessor includeProcessor;
-    IReadOnlyList<SnippetKey> snippetKeys = [new SnippetKey()];
+    IReadOnlyList<ISnippet> snippetKeys = [new CodeSnippet()];
 
     static List<string> validationExcludes =
     [
@@ -200,21 +200,20 @@ public class MarkdownProcessor
                 return index;
             }
 
-            if (snippetKey.ExtractSnippet(line, out var key))
+            if (snippetKey.GetNew.ExtractSnippet(line, out var key))
             {
-                return SnippetKey.HandleSourceTransform(this, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                return snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
             }
 
             if (convention == DocumentConvention.SourceTransform)
             {
                 return index;
             }
-
-            if (snippetKey.ExtractStartCommentSnippet(line, out key))
-            {
-                index = SnippetKey.HandleInPlaceSnippet(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
-                return index;
-            }
+            //
+            // if (snippetKey.GetReplace.ExtractSnippet(line, out key))
+            // {
+            //     return snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+            // }
 
             if (line.Current == "<!-- toc -->")
             {

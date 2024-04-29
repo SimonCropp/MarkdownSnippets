@@ -4,7 +4,7 @@ class IncludeProcessor
     IReadOnlyList<Include> includes;
     IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
     IReadOnlyList<string> allFiles;
-    IReadOnlyList<SnippetKey> snippetKeys;
+    IReadOnlyList<ISnippet> snippetKeys;
     string targetDirectory;
 
     public IncludeProcessor(
@@ -12,7 +12,7 @@ class IncludeProcessor
         IReadOnlyList<Include> includes,
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
         string targetDirectory,
-        IReadOnlyList<string> allFiles, IReadOnlyList<SnippetKey> snippetKeys)
+        IReadOnlyList<string> allFiles, IReadOnlyList<ISnippet> snippetKeys)
     {
         targetDirectory = Path.GetFullPath(targetDirectory);
         this.targetDirectory = targetDirectory.Replace('\\', '/');
@@ -210,7 +210,7 @@ class IncludeProcessor
     }
 
     bool ShouldWriteIncludeOnDiffLine(string line) =>
-        snippetKeys.Any(_=>_.IsSnippetLine(line)) ||
+        snippetKeys.Any(_=>_.GetNew.IsSnippetLine(line) || _.GetReplace.IsSnippetLine(line)) ||
         line.StartsWith("<!-- endSnippet -->") ||
         line.EndsWith("```") ||
         line.StartsWith('|') ||

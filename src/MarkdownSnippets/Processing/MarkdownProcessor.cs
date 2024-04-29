@@ -209,11 +209,11 @@ public class MarkdownProcessor
             {
                 return index;
             }
-            //
-            // if (snippetKey.GetReplace.ExtractSnippet(line, out key))
-            // {
-            //     return snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
-            // }
+
+            if (snippetKey.GetReplace.ExtractSnippet(line, out key))
+            {
+                return snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+            }
 
             if (line.Current == "<!-- toc -->")
             {

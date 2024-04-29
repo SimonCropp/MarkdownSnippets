@@ -4,6 +4,7 @@ class IncludeProcessor
     IReadOnlyList<Include> includes;
     IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
     IReadOnlyList<string> allFiles;
+    IReadOnlyList<SnippetKey> snippetKeys;
     string targetDirectory;
 
     public IncludeProcessor(
@@ -11,7 +12,7 @@ class IncludeProcessor
         IReadOnlyList<Include> includes,
         IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets,
         string targetDirectory,
-        IReadOnlyList<string> allFiles)
+        IReadOnlyList<string> allFiles, IReadOnlyList<SnippetKey> snippetKeys)
     {
         targetDirectory = Path.GetFullPath(targetDirectory);
         this.targetDirectory = targetDirectory.Replace('\\', '/');
@@ -19,6 +20,7 @@ class IncludeProcessor
         this.includes = includes;
         this.snippets = snippets;
         this.allFiles = allFiles;
+        this.snippetKeys = snippetKeys;
     }
 
     public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
@@ -158,7 +160,7 @@ class IncludeProcessor
         return BuildMultiple(line, path, include, writePath);
     }
 
-    static IEnumerable<Line> BuildMultiple(Line line, string? path, Include include, bool writePath)
+    IEnumerable<Line> BuildMultiple(Line line, string? path, Include include, bool writePath)
     {
         var lines = include.Lines;
         var count = lines.Count;
@@ -207,8 +209,8 @@ class IncludeProcessor
         }
     }
 
-    static bool ShouldWriteIncludeOnDiffLine(string line) =>
-        SnippetKey.IsSnippetLine(line) ||
+    bool ShouldWriteIncludeOnDiffLine(string line) =>
+        snippetKeys.Any(_=>_.IsSnippetLine(line)) ||
         line.StartsWith("<!-- endSnippet -->") ||
         line.EndsWith("```") ||
         line.StartsWith('|') ||
@@ -226,7 +228,7 @@ class IncludeProcessor
         }
     }
 
-    static IEnumerable<Line> BuildSingle(Line line, string? path, Include include, bool writePath)
+    IEnumerable<Line> BuildSingle(Line line, string? path, Include include, bool writePath)
     {
         var first = include.Lines[0];
         var key = include.Key;

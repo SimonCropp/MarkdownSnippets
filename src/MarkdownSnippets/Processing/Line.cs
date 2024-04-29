@@ -1,5 +1,5 @@
 ﻿[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
-class Line
+public class Line
 {
     public Line(string original, string? path, int lineNumber)
     {

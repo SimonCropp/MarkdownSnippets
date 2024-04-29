@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 
-static class SnippetKey
+class SnippetKey
 {
-    public static bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
+    public bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
         if (!IsStartCommentSnippetLine(lineCurrent))
@@ -18,7 +18,7 @@ static class SnippetKey
         return true;
     }
 
-    public static bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
+    public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
         if (!IsSnippetLine(lineCurrent))
@@ -36,9 +36,35 @@ static class SnippetKey
         return true;
     }
 
-    public static bool IsSnippetLine(string lineCurrent) =>
+    public bool IsSnippetLine(string lineCurrent) =>
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
-    public static bool IsStartCommentSnippetLine(string lineCurrent) =>
+    public bool IsStartCommentSnippetLine(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
+
+    public static int HandleInPlaceSnippet(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    {
+        builder.Clear();
+        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
+        builder.TrimEnd();
+        line.Current = builder.ToString();
+
+        index++;
+
+        lines.RemoveUntil(
+            index,
+            "<!-- endSnippet -->",
+            relativePath,
+            line);
+        return index;
+    }
+
+    public static int HandleSourceTransform(MarkdownProcessor markdownProcessor, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    {
+        builder.Clear();
+        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
+        builder.TrimEnd();
+        line.Current = builder.ToString();
+        return index;
+    }
 }

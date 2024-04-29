@@ -295,36 +295,28 @@ mdsnippets --omit-snippet-links true
 <!-- snippet: BuildLink -->
 <a id='snippet-BuildLink'></a>
 ```cs
-if (linkFormat == LinkFormat.GitHub)
+switch (linkFormat)
 {
-    Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
-    return;
-}
-
-if (linkFormat == LinkFormat.Tfs)
-{
-    Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
-    return;
-}
-
-if (linkFormat == LinkFormat.Bitbucket)
-{
-    Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
-    return;
-}
-
-if (linkFormat == LinkFormat.GitLab)
-{
-    Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
-    return;
-}
-
-if (linkFormat == LinkFormat.DevOps)
-{
-    Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
+    case LinkFormat.GitHub:
+        Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-L{snippet.EndLine}");
+        return;
+    case LinkFormat.Tfs:
+        Polyfill.Append(builder, $"{path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}");
+        return;
+    case LinkFormat.Bitbucket:
+        Polyfill.Append(builder, $"{path}#lines={snippet.StartLine}:{snippet.EndLine}");
+        return;
+    case LinkFormat.GitLab:
+        Polyfill.Append(builder, $"{path}#L{snippet.StartLine}-{snippet.EndLine}");
+        return;
+    case LinkFormat.DevOps:
+        Polyfill.Append(builder, $"?path={path}&line={snippet.StartLine}&lineEnd={snippet.EndLine}&lineStartColumn=1&lineEndColumn=999");
+        return;
+    case LinkFormat.None:
+        throw new($"Unknown LinkFormat: {linkFormat}");
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

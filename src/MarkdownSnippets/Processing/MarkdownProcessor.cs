@@ -18,6 +18,7 @@ public class MarkdownProcessor
     List<string> tocExcludes;
     List<string> snippetSourceFiles;
     IncludeProcessor includeProcessor;
+    IReadOnlyList<SnippetKey> snippetKeys = [new SnippetKey()];
 
     static List<string> validationExcludes =
     [
@@ -79,7 +80,7 @@ public class MarkdownProcessor
         this.snippetSourceFiles = snippetSourceFiles
             .Select(_ => _.Replace('\\', '/'))
             .ToList();
-        includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
+        includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles, snippetKeys);
     }
 
     public string Apply(string input, string? file = null)
@@ -136,84 +137,11 @@ public class MarkdownProcessor
         var builder = new StringBuilder();
         Line? tocLine = null;
 
-        void AppendLine(string s)
-        {
-            builder.Append(s);
-            builder.Append(newLine);
-        }
 
         var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
         {
-            var line = lines[index];
-
-            if (ValidateContent(relativePath, line, validationErrors))
-            {
-                continue;
-            }
-
-            if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes, relativePath))
-            {
-                continue;
-            }
-
-            if (line.Current.StartsWith('#'))
-            {
-                if (tocLine != null)
-                {
-                    headerLines.Add(line);
-                }
-
-                continue;
-            }
-
-            if (line.Current == "toc")
-            {
-                tocLine = line;
-                continue;
-            }
-
-            void AppendSnippet(string key1)
-            {
-                builder.Clear();
-                ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
-                builder.TrimEnd();
-                line.Current = builder.ToString();
-            }
-
-            if (SnippetKey.ExtractSnippet(line, out var key))
-            {
-                AppendSnippet(key);
-                continue;
-            }
-
-            if (convention == DocumentConvention.SourceTransform)
-            {
-                continue;
-            }
-
-            if (SnippetKey.ExtractStartCommentSnippet(line, out key))
-            {
-                AppendSnippet(key);
-
-                index++;
-
-                lines.RemoveUntil(
-                    index,
-                    "<!-- endSnippet -->",
-                    relativePath,
-                    line);
-                continue;
-            }
-
-            if (line.Current == "<!-- toc -->")
-            {
-                tocLine = line;
-
-                index++;
-
-                lines.RemoveUntil(index, "<!-- endToc -->", relativePath, line);
-            }
+            index = ProcessLine(lines, newLine, relativePath, builder, index, validationErrors, usedIncludes, missingIncludes, headerLines, missingSnippets, usedSnippets, ref tocLine);
         }
 
         if (writeHeader)
@@ -232,6 +160,73 @@ public class MarkdownProcessor
             usedIncludes: usedIncludes.Distinct().ToList(),
             missingIncludes: missingIncludes,
             validationErrors: validationErrors);
+    }
+
+    int ProcessLine(List<Line> lines, string newLine, string? relativePath, StringBuilder builder, int index, List<ValidationError> validationErrors, List<Include> usedIncludes, List<MissingInclude> missingIncludes, List<Line> headerLines, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, ref Line? tocLine)
+    {
+        Action<string> appendLine = s =>
+        {
+            builder.Append(s);
+            builder.Append(newLine);
+        };
+        var line = lines[index];
+
+
+        foreach (var snippetKey in snippetKeys)
+        {
+            if (ValidateContent(relativePath, line, validationErrors))
+            {
+                return index;
+            }
+
+            if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes, relativePath))
+            {
+                return index;
+            }
+
+            if (line.Current.StartsWith('#'))
+            {
+                if (tocLine != null)
+                {
+                    headerLines.Add(line);
+                }
+
+                return index;
+            }
+
+            if (line.Current == "toc")
+            {
+                tocLine = line;
+                return index;
+            }
+
+            if (snippetKey.ExtractSnippet(line, out var key))
+            {
+                return SnippetKey.HandleSourceTransform(this, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+            }
+
+            if (convention == DocumentConvention.SourceTransform)
+            {
+                return index;
+            }
+
+            if (snippetKey.ExtractStartCommentSnippet(line, out key))
+            {
+                index = SnippetKey.HandleInPlaceSnippet(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                return index;
+            }
+
+            if (line.Current == "<!-- toc -->")
+            {
+                tocLine = line;
+
+                index++;
+
+                lines.RemoveUntil(index, "<!-- endToc -->", relativePath, line);
+            }
+        }
+
+        return index;
     }
 
     bool ValidateContent(string? relativePath, Line line, List<ValidationError> validationErrors)
@@ -257,7 +252,7 @@ public class MarkdownProcessor
         return true;
     }
 
-    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    public void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
     {
         appendLine($"<!-- snippet: {key} -->");
 

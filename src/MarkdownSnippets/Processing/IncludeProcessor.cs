@@ -210,7 +210,7 @@ class IncludeProcessor
     }
 
     bool ShouldWriteIncludeOnDiffLine(string line) =>
-        snippetKeys.Any(_=>_.GetNew.IsSnippetLine(line) || _.GetReplace.IsSnippetLine(line)) ||
+        snippetKeys.Any(_=>_.GetNew.ShouldExcludeFromIncludeProcessing(line) || _.GetReplace.ShouldExcludeFromIncludeProcessing(line)) ||
         line.StartsWith("<!-- endSnippet -->") ||
         line.EndsWith("```") ||
         line.StartsWith('|') ||

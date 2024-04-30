@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 class NewSnippet:ISnippetPart
 {
-    public bool IsSnippetLine(string lineCurrent) =>
+    public bool ShouldExcludeFromIncludeProcessing(string lineCurrent) =>
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
 
@@ -17,7 +17,7 @@ class NewSnippet:ISnippetPart
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
-        if (!IsSnippetLine(lineCurrent))
+        if (!ShouldExcludeFromIncludeProcessing(lineCurrent))
         {
             key = null;
             return false;
@@ -42,7 +42,7 @@ public interface ISnippetPart
 {
     int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line);
     bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key);
-    public bool IsSnippetLine(string line);
+    public bool ShouldExcludeFromIncludeProcessing(string line);
 }
 class CodeSnippet:ISnippet
 {
@@ -51,7 +51,7 @@ class CodeSnippet:ISnippet
 }
 class ReplaceSnippet : ISnippetPart
 {
-    public bool IsSnippetLine(string lineCurrent) =>
+    public bool ShouldExcludeFromIncludeProcessing(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
     public int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
@@ -72,7 +72,7 @@ class ReplaceSnippet : ISnippetPart
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
-        if (!IsSnippetLine(lineCurrent))
+        if (!ShouldExcludeFromIncludeProcessing(lineCurrent))
         {
             key = null;
             return false;

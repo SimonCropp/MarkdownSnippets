@@ -6,13 +6,13 @@ class NewSnippet:ISnippetPart
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
 
-    public int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
         builder.Clear();
         markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
         builder.TrimEnd();
         line.Current = builder.ToString();
-        return index;
+        return "";
     }
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
@@ -40,7 +40,7 @@ public interface ISnippet
 }
 public interface ISnippetPart
 {
-    int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line);
+    string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line);
     bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key);
     public bool ShouldExcludeFromIncludeProcessing(string line);
 }
@@ -53,21 +53,19 @@ class ReplaceSnippet : ISnippetPart
 {
     public bool ShouldExcludeFromIncludeProcessing(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
-    public int Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
         builder.Clear();
         markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
         builder.TrimEnd();
         line.Current = builder.ToString();
 
-        index++;
-
         lines.RemoveUntil(
-            index,
+            index+1,
             "<!-- endSnippet -->",
             relativePath,
             line);
-        return index;
+        return "";
     }
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {

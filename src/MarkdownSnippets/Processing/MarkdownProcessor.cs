@@ -202,7 +202,8 @@ public class MarkdownProcessor
 
             if (snippetKey.GetNew.ExtractSnippet(line, out var key))
             {
-                return snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                return index;
             }
 
             if (convention == DocumentConvention.SourceTransform)
@@ -212,7 +213,8 @@ public class MarkdownProcessor
 
             if (snippetKey.GetReplace.ExtractSnippet(line, out key))
             {
-                return snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                return index;
             }
 
             if (line.Current == "<!-- toc -->")

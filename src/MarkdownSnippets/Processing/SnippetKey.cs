@@ -11,8 +11,7 @@ class NewSnippet:ISnippetPart
         builder.Clear();
         markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
         builder.TrimEnd();
-        line.Current = builder.ToString();
-        return "";
+        return builder.ToString();
     }
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
@@ -58,14 +57,13 @@ class ReplaceSnippet : ISnippetPart
         builder.Clear();
         markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
         builder.TrimEnd();
-        line.Current = builder.ToString();
 
         lines.RemoveUntil(
             index+1,
             "<!-- endSnippet -->",
             relativePath,
             line);
-        return "";
+        return builder.ToString();
     }
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {

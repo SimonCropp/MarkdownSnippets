@@ -202,7 +202,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetNew.ExtractSnippet(line, out var key))
             {
-                snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                line.Current = snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
                 return index;
             }
 
@@ -213,7 +213,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetReplace.ExtractSnippet(line, out key))
             {
-                snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                line.Current = snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
                 return index;
             }
 

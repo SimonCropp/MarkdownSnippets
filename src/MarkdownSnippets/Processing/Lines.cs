@@ -9,15 +9,14 @@
     {
         while (true)
         {
-            if (index == lines.Count)
+            if (lines.Count <= index)
             {
                 throw new MarkdownProcessingException($"Expected to find `{match}`.", path, startLine.LineNumber);
             }
 
-            var lineCurrent = lines[index].Current;
-            var shouldExit = lineCurrent.Contains(match);
-                lines.RemoveAt(index);
-            if (shouldExit)
+            var line = lines[index].Current;
+            lines.RemoveAt(index);
+            if (line.Contains(match))
             {
                 break;
             }

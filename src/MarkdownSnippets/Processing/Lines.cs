@@ -16,13 +16,11 @@
 
             var lineCurrent = lines[index].Current;
             var shouldExit = lineCurrent.Contains(match);
+                lines.RemoveAt(index);
             if (shouldExit)
             {
-                lines.RemoveAt(index);
                 break;
             }
-
-            lines.RemoveAt(index);
         }
     }
 

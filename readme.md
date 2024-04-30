@@ -266,6 +266,7 @@ public enum LinkFormat
 <sup><a href='/src/MarkdownSnippets/Processing/LinkFormat.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-LinkFormat.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 Link format `None` will omit the source link but still keep the snippet anchor.
 
 
@@ -316,8 +317,9 @@ switch (linkFormat)
         throw new($"Unknown LinkFormat: {linkFormat}");
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L96-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L87-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 
 ### UrlPrefix
@@ -364,6 +366,7 @@ Windows Registry Editor Version 5.00
 ```
 <sup><a href='/src/context-menu.reg#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-context-menu.reg' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 
 ## More Documentation

@@ -5,18 +5,16 @@ namespace MarkdownSnippets;
 /// </summary>
 public static class SimpleSnippetMarkdownHandling
 {
-    public static void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+    public static string Append(string key, IEnumerable<Snippet> snippets)
     {
+        var builder = new StringBuilder();
         foreach (var snippet in snippets)
         {
-            WriteSnippet(appendLine, snippet);
+            builder.Append(WriteSnippet(snippet));
         }
+        return builder.ToString();
     }
 
-    static void WriteSnippet(Action<string> appendLine, Snippet snippet)
-    {
-        appendLine($"```{snippet.Language}");
-        appendLine(snippet.Value);
-        appendLine("```");
-    }
+    static string WriteSnippet(Snippet snippet) =>
+        $"```{snippet.Language}\n{snippet.Value}\n```\n";
 }

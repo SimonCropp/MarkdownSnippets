@@ -40,6 +40,7 @@ jobs:
 <sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-on-push-do-docs.yml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 This action performs the following tasks:
 
  * Use the [Checkout Action](https://github.com/marketplace/actions/checkout) to pull down the source

@@ -26,6 +26,7 @@ var snippets = FileSnippetExtractor.Read(files);
 <!-- endSnippet -->
 
 
+
 ## Ignored paths
 
 To change conventions manipulate lists `MarkdownSnippets.Exclusions.NoAcceptCommentsExtensions` and `MarkdownSnippets.Exclusions.BinaryFileExtensions`.

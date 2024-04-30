@@ -26,6 +26,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 <!-- endSnippet -->
 
 
+
 ## For [SourceTransform](https://github.com/SimonCropp/MarkdownSnippets#sourcetransform)
 
 <!-- snippet: SourceTransform.json -->
@@ -38,6 +39,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ```
 <sup><a href='/src/ConfigReader.Tests/SourceTransform.json#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SourceTransform.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 
 ## All Settings
@@ -67,6 +69,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
 ```
 <sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 
 ## JSON Schema

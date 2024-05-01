@@ -26,11 +26,12 @@ static class SnippetVerifier
         includes ??= [];
         snippets ??= [];
         snippetSourceFiles ??= [];
+        SnippetMarkdownHandlingFactory.Set(SimpleSnippetMarkdownHandling.Append);
         return new(
             convention: convention,
             snippets: snippets.ToDictionary(),
             includes: includes,
-            appendSnippets: SimpleSnippetMarkdownHandling.Append,
+            appendSnippets: SnippetMarkdownHandlingFactory.Append!,
             snippetSourceFiles: snippetSourceFiles,
             tocLevel: 2,
             writeHeader: false,

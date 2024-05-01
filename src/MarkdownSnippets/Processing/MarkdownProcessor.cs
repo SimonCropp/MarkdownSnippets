@@ -258,23 +258,26 @@ public class MarkdownProcessor
 
     public void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
     {
-
-        appendLine($"<!-- snippet: {key} -->");
+        var builder = new StringBuilder();
+        builder.AppendLine($"<!-- snippet: {key} -->");
 
         if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
         {
-            appendLine(appendSnippets(key, snippetsForKey));
-            appendLine("<!-- endSnippet -->");
+            builder.AppendLine(appendSnippets(key, snippetsForKey));
+            builder.AppendLine("<!-- endSnippet -->");
             used.AddRange(snippetsForKey);
-            return;
+        }
+        else
+        {
+            var missing = new MissingSnippet(key, line.LineNumber, line.Path);
+            missings.Add(missing);
+            builder.AppendLine("```");
+            builder.AppendLine($"** Could not find snippet '{key}' **");
+            builder.AppendLine("```");
+            builder.AppendLine("<!-- endSnippet -->");
         }
 
-        var missing = new MissingSnippet(key, line.LineNumber, line.Path);
-        missings.Add(missing);
-        appendLine("```");
-        appendLine($"** Could not find snippet '{key}' **");
-        appendLine("```");
-        appendLine("<!-- endSnippet -->");
+        appendLine(builder.ToString());
     }
 
     bool TryGetSnippets(

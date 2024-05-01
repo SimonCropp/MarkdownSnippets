@@ -6,10 +6,9 @@ class NewSnippet:ISnippetPart
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
 
-    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
-    {
-        return markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
-    }
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line) =>
+        markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
+
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;
@@ -49,19 +48,17 @@ class ReplaceSnippet : ISnippetPart
 {
     public bool ShouldExcludeFromIncludeProcessing(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
+
     public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
-        builder.Clear();
-        appendLine(markdownProcessor.ProcessSnippetLine( missingSnippets, usedSnippets, key, relativePath, line));
-        builder.TrimEnd();
-
         lines.RemoveUntil(
-            index+1,
+            index + 1,
             "<!-- endSnippet -->",
             relativePath,
             line);
-        return builder.ToString();
+        return markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
     }
+
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current;

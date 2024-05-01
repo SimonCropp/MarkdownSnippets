@@ -1,3 +1,3 @@
 namespace MarkdownSnippets;
 
-public delegate string AppendSnippetsToMarkdown(string key, IEnumerable<Snippet> snippets);
+public delegate void AppendSnippetsToMarkdown(string key, IEnumerable<Snippet> snippets, Action<string> appendLine);

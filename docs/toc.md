@@ -29,7 +29,6 @@ Text2
 <sup><a href='/docs/mdsource/toc/tocBefore.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-tocBefore.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-
 The result will be rendered:
 
 <!-- snippet: tocAfter.txt -->
@@ -54,7 +53,6 @@ Text2
 ```
 <sup><a href='/docs/mdsource/toc/tocAfter.txt#L1-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-tocAfter.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
 
 
 ## Heading Level

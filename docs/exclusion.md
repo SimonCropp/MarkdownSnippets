@@ -87,7 +87,6 @@ public static class DefaultDirectoryExclusions
 <!-- endSnippet -->
 
 
-
 ### File exclusion rules
 
 All binary files as defined by https://github.com/sindresorhus/binary-extensions/:
@@ -366,7 +365,6 @@ All binary files as defined by https://github.com/sindresorhus/binary-extensions
 <!-- endSnippet -->
 
 
-
 ### No comment files
 
 Files that cannot contain comments are excluded.
@@ -382,4 +380,3 @@ Files that cannot contain comments are excluded.
 ```
 <sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-NoAcceptCommentsExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-

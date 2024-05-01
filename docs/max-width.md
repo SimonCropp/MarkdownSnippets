@@ -46,7 +46,6 @@ processor.Run();
 <!-- endSnippet -->
 
 
-
 ## References
 
 https://en.wikipedia.org/wiki/Line_length#Electronic_text

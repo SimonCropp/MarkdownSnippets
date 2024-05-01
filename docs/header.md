@@ -21,7 +21,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 <!-- endSnippet -->
 
 
-
 ## Disable Header
 
 To disable the header use `--write-header`

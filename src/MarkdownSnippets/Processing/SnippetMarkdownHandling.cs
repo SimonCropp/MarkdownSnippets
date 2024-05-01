@@ -20,30 +20,32 @@ public class SnippetMarkdownHandling
         this.targetDirectory = targetDirectory.Replace('\\', '/');
     }
 
-    public string Append(string key, IEnumerable<Snippet> snippets)
+    public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         uint index = 0;
-        var builder = new StringBuilder();
         foreach (var snippet in snippets)
         {
-            builder.Append(WriteSnippet(snippet, index));
+            WriteSnippet(appendLine, snippet, index);
             index++;
         }
-        return builder.ToString();
     }
 
-    string WriteSnippet(Snippet snippet, uint index)
+    void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
     {
         if (omitSnippetLinks)
         {
-            return $"```{snippet.Language}\n{snippet.Value}\n```\n";
+            WriteSnippetValueAndLanguage(appendLine, snippet);
+            return;
         }
 
         var anchor = GetAnchorText(snippet, index);
 
+        appendLine($"<a id='{anchor}'></a>");
+        WriteSnippetValueAndLanguage(appendLine, snippet);
+
         var supText = GetSupText(snippet, anchor);
-        return $"<a id='{anchor}'></a>\n```{snippet.Language}\n{snippet.Value}\n```\n<sup>{supText}</sup>\n";
+        appendLine($"<sup>{supText}</sup>");
     }
 
     static string GetAnchorText(Snippet snippet, uint index)
@@ -80,6 +82,13 @@ public class SnippetMarkdownHandling
             builder,
             $"' title='Snippet source file'>snippet source</a> | {linkForAnchor}");
         return builder.ToString();
+    }
+
+    static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
+    {
+        appendLine($"```{snippet.Language}");
+        appendLine(snippet.Value);
+        appendLine("```");
     }
 
     void BuildLink(Snippet snippet, string path, StringBuilder builder)

@@ -9,7 +9,7 @@ class NewSnippet:ISnippetPart
     public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
         builder.Clear();
-        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
+        appendLine(markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line));
         builder.TrimEnd();
         return builder.ToString();
     }
@@ -55,7 +55,7 @@ class ReplaceSnippet : ISnippetPart
     public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
         builder.Clear();
-        markdownProcessor.ProcessSnippetLine(appendLine, missingSnippets, usedSnippets, key, relativePath, line);
+        appendLine(markdownProcessor.ProcessSnippetLine( missingSnippets, usedSnippets, key, relativePath, line));
         builder.TrimEnd();
 
         lines.RemoveUntil(

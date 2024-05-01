@@ -256,7 +256,7 @@ public class MarkdownProcessor
         return true;
     }
 
-    public void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    public string ProcessSnippetLine(List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
     {
         var builder = new StringBuilder();
         builder.AppendLine($"<!-- snippet: {key} -->");
@@ -277,7 +277,7 @@ public class MarkdownProcessor
             builder.AppendLine("<!-- endSnippet -->");
         }
 
-        appendLine(builder.ToString());
+        return builder.ToString();
     }
 
     bool TryGetSnippets(

@@ -35,16 +35,16 @@ public class SnippetMarkdownHandling
     {
         if (omitSnippetLinks)
         {
-            WriteSnippetValueAndLanguage(appendLine, snippet);
+            appendLine(WriteSnippetValueAndLanguage(snippet));
             return;
         }
 
         var anchor = GetAnchorText(snippet, index);
+        var supText = GetSupText(snippet, anchor);
 
         appendLine($"<a id='{anchor}'></a>");
-        WriteSnippetValueAndLanguage(appendLine, snippet);
+        appendLine(WriteSnippetValueAndLanguage(snippet));
 
-        var supText = GetSupText(snippet, anchor);
         appendLine($"<sup>{supText}</sup>");
     }
 
@@ -84,12 +84,8 @@ public class SnippetMarkdownHandling
         return builder.ToString();
     }
 
-    static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
-    {
-        appendLine($"```{snippet.Language}");
-        appendLine(snippet.Value);
-        appendLine("```");
-    }
+    static string WriteSnippetValueAndLanguage(Snippet snippet) =>
+        $"```{snippet.Language}\n{snippet.Value}\n```";
 
     void BuildLink(Snippet snippet, string path, StringBuilder builder)
     {

@@ -258,6 +258,7 @@ public class MarkdownProcessor
 
     public void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
     {
+
         appendLine($"<!-- snippet: {key} -->");
 
         if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))

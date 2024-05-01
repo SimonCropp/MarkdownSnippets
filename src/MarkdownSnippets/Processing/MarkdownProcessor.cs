@@ -263,7 +263,7 @@ public class MarkdownProcessor
 
         if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
         {
-            appendSnippets(key, snippetsForKey, appendLine);
+            appendLine(appendSnippets(key, snippetsForKey));
             appendLine("<!-- endSnippet -->");
             used.AddRange(snippetsForKey);
             return;

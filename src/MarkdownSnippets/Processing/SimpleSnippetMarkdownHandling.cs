@@ -5,14 +5,14 @@ namespace MarkdownSnippets;
 /// </summary>
 public static class SimpleSnippetMarkdownHandling
 {
-    public static void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+    public static string Append(string key, IEnumerable<Snippet> snippets)
     {
         var builder = new StringBuilder();
         foreach (var snippet in snippets)
         {
             builder.Append(WriteSnippet(snippet));
         }
-        appendLine(builder.ToString().TrimEnd());
+        return builder.ToString().TrimEnd();
     }
 
     static string WriteSnippet(Snippet snippet) =>

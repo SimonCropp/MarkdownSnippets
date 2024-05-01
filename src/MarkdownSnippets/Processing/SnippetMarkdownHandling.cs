@@ -20,7 +20,7 @@ public class SnippetMarkdownHandling
         this.targetDirectory = targetDirectory.Replace('\\', '/');
     }
 
-    public void Append(string key, IEnumerable<Snippet> snippets, Action<string> appendLine)
+    public string Append(string key, IEnumerable<Snippet> snippets)
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         var builder = new StringBuilder();
@@ -30,7 +30,7 @@ public class SnippetMarkdownHandling
             builder.AppendLine(WriteSnippet(snippet, index));
             index++;
         }
-        appendLine(builder.ToString().TrimEnd());
+        return builder.ToString().TrimEnd();
     }
 
     string WriteSnippet(Snippet snippet, uint index)

@@ -26,12 +26,12 @@ public class SnippetMarkdownHandling
         uint index = 0;
         foreach (var snippet in snippets)
         {
-            WriteSnippet(appendLine, snippet, index);
+            appendLine(WriteSnippet(snippet, index));
             index++;
         }
     }
 
-    void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
+    string WriteSnippet(Snippet snippet, uint index)
     {
         var builder = new StringBuilder();
         if (omitSnippetLinks)
@@ -49,7 +49,7 @@ public class SnippetMarkdownHandling
             builder.Append($"<sup>{supText}</sup>");
         }
 
-        appendLine(builder.ToString());
+        return builder.ToString();
     }
 
     static string GetAnchorText(Snippet snippet, uint index)

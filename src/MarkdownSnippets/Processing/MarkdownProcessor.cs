@@ -134,14 +134,12 @@ public class MarkdownProcessor
         var missingIncludes = new List<MissingInclude>();
         var usedSnippets = new List<Snippet>();
         var usedIncludes = new List<Include>();
-        var builder = new StringBuilder();
         Line? tocLine = null;
-
 
         var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
         {
-            index = ProcessLine(lines, newLine, relativePath, builder, index, validationErrors, usedIncludes, missingIncludes, headerLines, missingSnippets, usedSnippets, ref tocLine);
+            index = ProcessLine(lines, newLine, relativePath, index, validationErrors, usedIncludes, missingIncludes, headerLines, missingSnippets, usedSnippets, ref tocLine);
         }
 
         if (writeHeader)
@@ -162,16 +160,8 @@ public class MarkdownProcessor
             validationErrors: validationErrors);
     }
 
-    int ProcessLine(List<Line> lines, string newLine, string? relativePath, StringBuilder builder, int index, List<ValidationError> validationErrors, List<Include> usedIncludes, List<MissingInclude> missingIncludes, List<Line> headerLines, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, ref Line? tocLine)
+    int ProcessLine(List<Line> lines, string newLine, string? relativePath, int index, List<ValidationError> validationErrors, List<Include> usedIncludes, List<MissingInclude> missingIncludes, List<Line> headerLines, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, ref Line? tocLine)
     {
-        Action<string> appendLine = s =>
-        {
-            foreach (var line in s.Replace("\r\n","\r").Split('\r'))
-            {
-                builder.Append(line);
-                builder.Append(newLine);
-            }
-        };
         var line = lines[index];
 
 
@@ -205,7 +195,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetNew.ExtractSnippet(line, out var key))
             {
-                var current = snippetKey.GetNew.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                var current = snippetKey.GetNew.Handle(this, lines, relativePath, index, missingSnippets, usedSnippets, key, line);
                 current = current.TrimEnd();
                 current = current.Replace("\r\n", "\r").Replace("\r", newLine);
                 line.Current = current;
@@ -219,7 +209,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetReplace.ExtractSnippet(line, out key))
             {
-                var current = snippetKey.GetReplace.Handle(this, lines, relativePath, builder, index, missingSnippets, usedSnippets, appendLine, key, line);
+                var current = snippetKey.GetReplace.Handle(this, lines, relativePath, index, missingSnippets, usedSnippets, key, line);
                 current = current.TrimEnd();
                 current = current.Replace("\r\n", "\r").Replace("\r", newLine);
                 line.Current = current;

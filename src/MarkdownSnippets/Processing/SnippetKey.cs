@@ -6,7 +6,7 @@ class NewSnippet:ISnippetPart
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
 
-    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line) =>
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, string key, Line line) =>
         markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
 
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
@@ -35,7 +35,7 @@ public interface ISnippet
 }
 public interface ISnippetPart
 {
-    string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line);
+    string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, string key, Line line);
     bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key);
     public bool ShouldExcludeFromIncludeProcessing(string line);
 }
@@ -49,7 +49,7 @@ class ReplaceSnippet : ISnippetPart
     public bool ShouldExcludeFromIncludeProcessing(string lineCurrent) =>
         lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
 
-    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, string key, Line line)
     {
         lines.RemoveUntil(
             index + 1,

@@ -166,8 +166,11 @@ public class MarkdownProcessor
     {
         Action<string> appendLine = s =>
         {
-            builder.Append(s);
-            builder.Append(newLine);
+            foreach (var line in s.Replace("\r\n","\r").Split('\r'))
+            {
+                builder.Append(line);
+                builder.Append(newLine);
+            }
         };
         var line = lines[index];
 

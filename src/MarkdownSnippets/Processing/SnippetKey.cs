@@ -8,10 +8,7 @@ class NewSnippet:ISnippetPart
 
     public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, StringBuilder builder, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, Action<string> appendLine, string key, Line line)
     {
-        builder.Clear();
-        appendLine(markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line));
-        builder.TrimEnd();
-        return builder.ToString();
+        return markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
     }
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {

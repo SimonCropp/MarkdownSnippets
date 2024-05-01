@@ -33,19 +33,23 @@ public class SnippetMarkdownHandling
 
     void WriteSnippet(Action<string> appendLine, Snippet snippet, uint index)
     {
+        var builder = new StringBuilder();
         if (omitSnippetLinks)
         {
-            appendLine(WriteSnippetValueAndLanguage(snippet));
-            return;
+            builder.Append(WriteSnippetValueAndLanguage(snippet));
+        }
+        else
+        {
+            var anchor = GetAnchorText(snippet, index);
+            var supText = GetSupText(snippet, anchor);
+
+            builder.AppendLine($"<a id='{anchor}'></a>");
+            builder.AppendLine(WriteSnippetValueAndLanguage(snippet));
+
+            builder.Append($"<sup>{supText}</sup>");
         }
 
-        var anchor = GetAnchorText(snippet, index);
-        var supText = GetSupText(snippet, anchor);
-
-        appendLine($"<a id='{anchor}'></a>");
-        appendLine(WriteSnippetValueAndLanguage(snippet));
-
-        appendLine($"<sup>{supText}</sup>");
+        appendLine(builder.ToString());
     }
 
     static string GetAnchorText(Snippet snippet, uint index)

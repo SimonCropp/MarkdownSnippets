@@ -253,7 +253,7 @@ public class MarkdownProcessor
         return true;
     }
 
-    public string ProcessSnippetLine(List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line, ResultsAggregator aggregator)
+    public string ProcessSnippetLine(string key, string? relativePath, Line line, ResultsAggregator aggregator)
     {
         var builder = new StringBuilder();
         builder.AppendLine($"<!-- snippet: {key} -->");
@@ -262,7 +262,7 @@ public class MarkdownProcessor
         {
             builder.AppendLine(appendSnippets(key, snippetsForKey));
             builder.AppendLine("<!-- endSnippet -->");
-            used.AddRange(snippetsForKey);
+            aggregator.AddUsed(snippetsForKey);
         }
         else
         {

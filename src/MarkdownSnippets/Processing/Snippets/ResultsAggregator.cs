@@ -8,6 +8,8 @@
 
     public void AddUsed(Snippet snippet) =>
         usedSnippets.Add(snippet);
+    public void AddUsed(IEnumerable<Snippet> snippets) =>
+        usedSnippets.AddRange(snippets);
 
     public void AddMissing(MissingSnippet missingSnippet) =>
         missingSnippets.Add(missingSnippet);

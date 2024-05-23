@@ -6,7 +6,7 @@ class NewSnippet:ISnippetPart
         lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
 
-    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, int index, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, string key, Line line, ResultsAggregator aggregator) =>
+    public string Handle(MarkdownProcessor markdownProcessor, List<Line> lines, string? relativePath, int index, string key, Line line, ResultsAggregator aggregator) =>
         markdownProcessor.ProcessSnippetLine(key, relativePath, line, aggregator);
 
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)

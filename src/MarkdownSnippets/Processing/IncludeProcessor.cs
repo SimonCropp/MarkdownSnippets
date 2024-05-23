@@ -23,14 +23,14 @@ class IncludeProcessor
         this.snippetKeys = snippetKeys;
     }
 
-    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
+    public bool TryProcessInclude(List<Line> lines, Line line, int index, string? relativePath, ResultsAggregator aggregator)
     {
         var current = line.Current;
 
         if (current.StartsWith("include: "))
         {
             var includeKey = line.Current[9..];
-            Inner(lines, line, used, index, missing, includeKey, relativePath);
+            Inner(lines, line, index, includeKey, relativePath, aggregator);
             return true;
         }
 
@@ -55,7 +55,7 @@ class IncludeProcessor
         {
             var substring = current[(indexSingleLineInclude + 24)..];
             var includeKey = GetIncludeKey(substring);
-            Inner(lines, line, used, index, missing, includeKey, relativePath);
+            Inner(lines, line, index, includeKey, relativePath, aggregator);
             return true;
         }
 
@@ -64,7 +64,7 @@ class IncludeProcessor
             var substring = current[14..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
-            Inner(lines, line, used, index, missing, includeKey, relativePath);
+            Inner(lines, line, index, includeKey, relativePath, aggregator);
             return true;
         }
 
@@ -74,19 +74,19 @@ class IncludeProcessor
             var substring = current[(indexOfInclude + 14)..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
-            Inner(lines, line, used, index, missing, includeKey, relativePath);
+            Inner(lines, line, index, includeKey, relativePath, aggregator);
             return true;
         }
 
         return false;
     }
 
-    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
+    void Inner(List<Line> lines, Line line, int index, string includeKey, string? relativePath, ResultsAggregator aggregator)
     {
         var include = includes.SingleOrDefault(_ => _.Key == includeKey);
         if (include != null)
         {
-            AddInclude(lines, line, used, index, include, true);
+            AddInclude(lines, line, index, include, true, aggregator);
             return;
         }
 
@@ -101,7 +101,7 @@ class IncludeProcessor
             {
                 var snippet = snippetsResult[0];
                 var snippetInclude = Include.Build(snippet.Key, snippet.Value.Lines(), snippet.Path);
-                AddInclude(lines, line, used, index, snippetInclude, true);
+                AddInclude(lines, line, index, snippetInclude, true, aggregator);
                 return;
             }
         }
@@ -112,7 +112,7 @@ class IncludeProcessor
             if (success)
             {
                 include = Include.Build(includeKey, File.ReadAllLines(httpPath!), null);
-                AddInclude(lines, line, used, index, include, false);
+                AddInclude(lines, line, index, include, false, aggregator);
                 return;
             }
         }
@@ -120,17 +120,17 @@ class IncludeProcessor
         if (RelativeFile.Find(allFiles, targetDirectory, includeKey, relativePath, line.Path, out var path))
         {
             include = Include.Build(includeKey, File.ReadAllLines(path), path);
-            AddInclude(lines, line, used, index, include, false);
+            AddInclude(lines, line, index, include, false, aggregator);
             return;
         }
 
-        missing.Add(new(includeKey, index + 1, line.Path));
+        aggregator.AddMissing(new MissingInclude(includeKey, index + 1, line.Path));
         line.Current = $"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
     }
 
-    void AddInclude(List<Line> lines, Line line, List<Include> used, int index, Include include, bool writePath)
+    void AddInclude(List<Line> lines, Line line, int index, Include include, bool writePath, ResultsAggregator aggregator)
     {
-        used.Add(include);
+        aggregator.AddUsed(include);
         var linesToInject = BuildIncludes(line, include, writePath).ToList();
         var first = linesToInject.First();
         lines[index] = first;

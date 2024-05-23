@@ -140,7 +140,7 @@ public class MarkdownProcessor
         var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
         {
-            index = ProcessLine(lines, newLine, relativePath, index, validationErrors, usedIncludes, missingIncludes, headerLines, missingSnippets, usedSnippets, ref tocLine, resultsAggregator);
+            index = ProcessLine(lines, newLine, relativePath, index, headerLines, ref tocLine, resultsAggregator);
         }
 
         if (writeHeader)
@@ -161,19 +161,18 @@ public class MarkdownProcessor
             validationErrors: validationErrors);
     }
 
-    int ProcessLine(List<Line> lines, string newLine, string? relativePath, int index, List<ValidationError> validationErrors, List<Include> usedIncludes, List<MissingInclude> missingIncludes, List<Line> headerLines, List<MissingSnippet> missingSnippets, List<Snippet> usedSnippets, ref Line? tocLine, ResultsAggregator aggregator)
+    int ProcessLine(List<Line> lines, string newLine, string? relativePath, int index, List<Line> headerLines, ref Line? tocLine, ResultsAggregator aggregator)
     {
         var line = lines[index];
 
-
         foreach (var snippetKey in snippetKeys)
         {
-            if (ValidateContent(relativePath, line, validationErrors))
+            if (ValidateContent(relativePath, line, aggregator))
             {
                 return index;
             }
 
-            if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes, relativePath))
+            if (includeProcessor.TryProcessInclude(lines, line, index, relativePath, aggregator))
             {
                 return index;
             }
@@ -196,7 +195,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetNew.ExtractSnippet(line, out var key))
             {
-                var current = snippetKey.GetNew.Handle(this, lines, relativePath, index, missingSnippets, usedSnippets, key, line, aggregator);
+                var current = snippetKey.GetNew.Handle(this, lines, relativePath, index, key, line, aggregator);
                 current = current.TrimEnd();
                 current = current.Replace("\r\n", "\r").Replace("\r", newLine);
                 line.Current = current;
@@ -210,7 +209,7 @@ public class MarkdownProcessor
 
             if (snippetKey.GetReplace.ExtractSnippet(line, out key))
             {
-                var current = snippetKey.GetReplace.Handle(this, lines, relativePath, index, missingSnippets, usedSnippets, key, line, aggregator);
+                var current = snippetKey.GetReplace.Handle(this, lines, relativePath, index, key, line, aggregator);
                 current = current.TrimEnd();
                 current = current.Replace("\r\n", "\r").Replace("\r", newLine);
                 line.Current = current;
@@ -230,7 +229,7 @@ public class MarkdownProcessor
         return index;
     }
 
-    bool ValidateContent(string? relativePath, Line line, List<ValidationError> validationErrors)
+    bool ValidateContent(string? relativePath, Line line, ResultsAggregator aggregator)
     {
         if (!validateContent)
         {
@@ -249,7 +248,7 @@ public class MarkdownProcessor
             return false;
         }
 
-        validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
+        aggregator.AddValidationError(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
         return true;
     }
 

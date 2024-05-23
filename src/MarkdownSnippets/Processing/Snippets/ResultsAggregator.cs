@@ -22,4 +22,7 @@
 
     public void AddValidationError(ValidationError validationError) =>
         validationErrors.Add(validationError);
+
+    public void AddValidationError(IEnumerable<ValidationError> validationError) =>
+        validationErrors.AddRange(validationError);
 }

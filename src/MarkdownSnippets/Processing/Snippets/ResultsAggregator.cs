@@ -8,21 +8,22 @@
 
     public void AddUsed(Snippet snippet) =>
         usedSnippets.Add(snippet);
+
     public void AddUsed(IEnumerable<Snippet> snippets) =>
         usedSnippets.AddRange(snippets);
 
-    public void AddMissing(MissingSnippet missingSnippet) =>
-        missingSnippets.Add(missingSnippet);
+    public void AddMissing(MissingSnippet snippet) =>
+        missingSnippets.Add(snippet);
 
     public void AddUsed(Include include) =>
         usedIncludes.Add(include);
 
-    public void AddMissing(MissingInclude missingInclude) =>
-        missingIncludes.Add(missingInclude);
+    public void AddMissing(MissingInclude include) =>
+        missingIncludes.Add(include);
 
-    public void AddValidationError(ValidationError validationError) =>
-        validationErrors.Add(validationError);
+    public void AddValidationError(ValidationError error) =>
+        validationErrors.Add(error);
 
-    public void AddValidationError(IEnumerable<ValidationError> validationError) =>
-        validationErrors.AddRange(validationError);
+    public void AddValidationError(IEnumerable<ValidationError> errors) =>
+        validationErrors.AddRange(errors);
 }

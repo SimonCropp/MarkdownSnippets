@@ -130,11 +130,6 @@ public class MarkdownProcessor
     internal ProcessResult Apply(List<Line> lines, string newLine, string? relativePath)
     {
         var resultsAggregator = new ResultsAggregator();
-        var missingSnippets = resultsAggregator.missingSnippets;
-        var validationErrors = resultsAggregator.validationErrors;
-        var missingIncludes = resultsAggregator.missingIncludes;
-        var usedSnippets = resultsAggregator.usedSnippets;
-        var usedIncludes = resultsAggregator.usedIncludes;
         Line? tocLine = null;
 
         var headerLines = new List<Line>();
@@ -154,11 +149,11 @@ public class MarkdownProcessor
         }
 
         return new(
-            missingSnippets: missingSnippets,
-            usedSnippets: usedSnippets.Distinct().ToList(),
-            usedIncludes: usedIncludes.Distinct().ToList(),
-            missingIncludes: missingIncludes,
-            validationErrors: validationErrors);
+            missingSnippets: resultsAggregator.missingSnippets,
+            usedSnippets: resultsAggregator.usedSnippets.Distinct().ToList(),
+            usedIncludes: resultsAggregator.usedIncludes.Distinct().ToList(),
+            missingIncludes: resultsAggregator.missingIncludes,
+            validationErrors: resultsAggregator.validationErrors);
     }
 
     int ProcessLine(List<Line> lines, string newLine, string? relativePath, int index, List<Line> headerLines, ref Line? tocLine, ResultsAggregator aggregator)

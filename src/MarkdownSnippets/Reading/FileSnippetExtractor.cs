@@ -98,7 +98,7 @@ public static class FileSnippetExtractor
         Guard.AgainstNullAndEmpty(path, nameof(path));
         if (!File.Exists(path))
         {
-            return Enumerable.Empty<Snippet>();
+            return [];
         }
 
         using var reader = File.OpenText(path);

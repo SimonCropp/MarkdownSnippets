@@ -253,7 +253,7 @@ public class MarkdownProcessor
         return true;
     }
 
-    public string ProcessSnippetLine(List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    public string ProcessSnippetLine(List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line, ResultsAggregator aggregator)
     {
         var builder = new StringBuilder();
         builder.AppendLine($"<!-- snippet: {key} -->");
@@ -267,7 +267,7 @@ public class MarkdownProcessor
         else
         {
             var missing = new MissingSnippet(key, line.LineNumber, line.Path);
-            missings.Add(missing);
+            aggregator.AddMissing(missing);
             builder.AppendLine("```");
             builder.AppendLine($"** Could not find snippet '{key}' **");
             builder.AppendLine("```");

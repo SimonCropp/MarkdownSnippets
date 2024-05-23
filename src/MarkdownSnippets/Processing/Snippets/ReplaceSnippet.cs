@@ -12,7 +12,7 @@ class ReplaceSnippet : ISnippetPart
             "<!-- endSnippet -->",
             relativePath,
             line);
-        return markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line);
+        return markdownProcessor.ProcessSnippetLine(missingSnippets, usedSnippets, key, relativePath, line, aggregator);
     }
 
     public bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)

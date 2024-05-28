@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -22,8 +22,8 @@
       <PackagePath>build</PackagePath>
     </Content>
 
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.9.5" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
   </ItemGroup>
 </Project>

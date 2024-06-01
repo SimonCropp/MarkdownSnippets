@@ -8,12 +8,12 @@
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="17.9.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageVersion Include="Polyfill" Version="5.2.2" />
+    <PackageVersion Include="Polyfill" Version="5.3.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.127" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.0.0" />
-    <PackageVersion Include="Verify.Xunit" Version="24.2.0" />
+    <PackageVersion Include="Verify.Xunit" Version="25.0.0" />
     <PackageVersion Include="Xunit" Version="2.8.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
   </ItemGroup>

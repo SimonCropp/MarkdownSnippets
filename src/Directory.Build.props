@@ -11,6 +11,7 @@
     <NuGetAuditMode>all</NuGetAuditMode>
     <NuGetAuditLevel>low</NuGetAuditLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />

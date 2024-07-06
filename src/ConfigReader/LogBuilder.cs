@@ -4,7 +4,6 @@ static class LogBuilder
 {
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
-        var header = GetHeader(config);
         var builder = new StringBuilder(
             $"""
              Config:
@@ -27,8 +26,19 @@ static class LogBuilder
                 $"""
                      ReadOnly: {config.ReadOnly}
                      WriteHeader: {config.WriteHeader}
-                     Header: {header}
                  """);
+            var header1 = config.Header;
+            if (header1 != null)
+            {
+                var newlineIndent = $"{Environment.NewLine}        ";
+                header1 = string.Join(newlineIndent, header1.Lines());
+                header1 = header1.Replace(@"\n", newlineIndent);
+                var header = $"""
+
+                                      {header1}
+                              """;
+                Polyfill.AppendLine(builder, $"    Header: {header}");
+            }
         }
 
         var maxWidth = config.MaxWidth;
@@ -39,72 +49,27 @@ static class LogBuilder
                 $"    MaxWidth: {maxWidth}");
         }
 
-        if (config.ExcludeDirectories.Count != 0)
-        {
-            Polyfill.AppendLine(
-                builder,
-                $"""
-                     ExcludeDirectories:
-                         {string.Join("\r\n        ", config.ExcludeDirectories)}
-                 """);
-        }
-
-        if (config.ExcludeMarkdownDirectories.Count != 0)
-        {
-            Polyfill.AppendLine(
-                builder,
-                $"""
-                     ExcludeMarkdownDirectories:
-                         {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}
-                 """);
-        }
-
-        if (config.ExcludeSnippetDirectories.Count != 0)
-        {
-            Polyfill.AppendLine(
-                builder,
-                $"""
-                     ExcludeSnippetDirectories:
-                         {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}
-                 """);
-        }
-
-        if (config.TocExcludes.Count != 0)
-        {
-            Polyfill.AppendLine(
-                builder,
-                $"""
-                     TocExcludes:
-                         {string.Join("\r\n        ", config.TocExcludes)}
-                 """);
-        }
-
-        if (config.UrlsAsSnippets.Count != 0)
-        {
-            Polyfill.AppendLine(
-                builder,
-                $"""
-                     UrlsAsSnippets:
-                         {string.Join("\r\n        ", config.UrlsAsSnippets)}
-                 """);
-        }
+        AppendValues(config.ExcludeDirectories, builder, "ExcludeDirectories");
+        AppendValues(config.ExcludeMarkdownDirectories, builder, "ExcludeMarkdownDirectories");
+        AppendValues(config.ExcludeSnippetDirectories, builder, "ExcludeSnippetDirectories");
+        AppendValues(config.TocExcludes, builder, "TocExcludes");
+        AppendValues(config.UrlsAsSnippets, builder, "UrlsAsSnippets");
 
         return builder.ToString().Trim();
     }
 
-    static string? GetHeader(ConfigResult config)
+    static void AppendValues(List<string> items, StringBuilder builder, string name)
     {
-        var header = config.Header;
-        if (header == null)
+        if (items.Count == 0)
         {
-            return null;
+            return;
         }
-        var newlineIndent = $"{Environment.NewLine}        ";
-        header = string.Join(newlineIndent, header.Lines());
-        header = header.Replace(@"\n", newlineIndent);
-        return $"""
 
-                        {header}
-                """;
+        Polyfill.AppendLine(builder, $"    {name}:");
+        foreach (var item in items)
+        {
+            builder.Append("        ");
+            builder.AppendLine(item);
+        }
     }
 }

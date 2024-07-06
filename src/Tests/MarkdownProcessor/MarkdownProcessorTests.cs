@@ -13,10 +13,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.VerifyThrows(
             DocumentConvention.InPlaceOverwrite,
             content,
-            includes:
-            [
-                Include.Build("theKey", [], Path.GetFullPath("thePath"))
-            ]);
+            includes: [Include.Build("theKey", [], Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -41,10 +38,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -69,10 +63,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -94,10 +85,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.InPlaceOverwrite,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -119,10 +107,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -142,11 +127,11 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            includes: new[]
-            {
+            includes:
+            [
                 Include.Build("theKey", ["theValue1"], Path.GetFullPath("thePath")),
-                Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath")),
-            });
+                Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath"))
+            ]);
     }
 
     [Fact]
@@ -185,7 +170,8 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            snippets: [
+            snippets:
+            [
                 SnippetBuild("cs", "theKey"),
                 SnippetBuild("cs", "TheKey"),
             ]);
@@ -274,10 +260,10 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            includes: new[]
-            {
+            includes:
+            [
                 Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            ]);
     }
 
     [Fact]
@@ -301,10 +287,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -328,10 +311,7 @@ public class MarkdownProcessorTests
         return SnippetVerifier.Verify(
             DocumentConvention.SourceTransform,
             content,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            });
+            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
     }
 
     [Fact]
@@ -623,10 +603,7 @@ public class MarkdownProcessorTests
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, "thePath")
-            });
+            includes: [Include.Build("theKey", lines, "thePath")]);
     }
 
     [Fact]
@@ -654,10 +631,7 @@ public class MarkdownProcessorTests
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, "thePath")
-            });
+            includes: [Include.Build("theKey", lines, "thePath")]);
     }
 
     [Fact]
@@ -685,10 +659,7 @@ public class MarkdownProcessorTests
             DocumentConvention.SourceTransform,
             content,
             availableSnippets,
-            includes: new[]
-            {
-                Include.Build("theKey", lines, "thePath")
-            });
+            includes: [Include.Build("theKey", lines, "thePath")]);
     }
 
     static Snippet SnippetBuild(string language, string key) =>

@@ -64,9 +64,9 @@ static class Extensions
     {
         var count = 1;
         var len = input.Length;
-        for(var i = 0; i != len; ++i)
+        for (var i = 0; i != len; ++i)
         {
-            switch(input[i])
+            switch (input[i])
             {
                 case '\r':
                     ++count;
@@ -74,12 +74,14 @@ static class Extensions
                     {
                         ++i;
                     }
+
                     break;
                 case '\n':
                     ++count;
                     break;
             }
         }
+
         return count;
     }
 
@@ -92,15 +94,18 @@ static class Extensions
             {
                 return index;
             }
+
             if (index == value.Length)
             {
                 return index;
             }
+
             var ch = value[index];
             if (c != ch)
             {
                 return index;
             }
+
             index++;
         }
     }
@@ -112,9 +117,10 @@ static class Extensions
             var ch = input[index];
             if (char.IsLetterOrDigit(ch) || ch is ']' or ' ' or ')')
             {
-                return input.Substring(startIndex,  index + 1 - startIndex);
+                return input[startIndex..(index + 1)];
             }
         }
+
         return string.Empty;
     }
 

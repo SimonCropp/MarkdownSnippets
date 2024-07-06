@@ -10,7 +10,7 @@
     FileConfigPath: theConfigFilePath (exists:False)
     ReadOnly: True
     WriteHeader: True
-    Header: 
+    Header:
         line1
         line2
     MaxWidth: 80

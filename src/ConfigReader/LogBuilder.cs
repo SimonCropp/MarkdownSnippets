@@ -27,26 +27,17 @@ static class LogBuilder
                      ReadOnly: {config.ReadOnly}
                      WriteHeader: {config.WriteHeader}
                  """);
-            var header1 = config.Header;
-            if (header1 != null)
+            if (config.Header != null)
             {
-                var newlineIndent = $"{Environment.NewLine}        ";
-                header1 = string.Join(newlineIndent, header1.Lines());
-                header1 = header1.Replace(@"\n", newlineIndent);
-                var header = $"""
-
-                                      {header1}
-                              """;
-                Polyfill.AppendLine(builder, $"    Header: {header}");
+                AppendValues(config.Header.Lines(), builder, "Header");
             }
         }
 
         var maxWidth = config.MaxWidth;
-        if (maxWidth != int.MaxValue && maxWidth != 0)
+        if (maxWidth != int.MaxValue &&
+            maxWidth != 0)
         {
-            Polyfill.AppendLine(
-                builder,
-                $"    MaxWidth: {maxWidth}");
+            Polyfill.AppendLine(builder, $"    MaxWidth: {maxWidth}");
         }
 
         AppendValues(config.ExcludeDirectories, builder, "ExcludeDirectories");
@@ -54,11 +45,11 @@ static class LogBuilder
         AppendValues(config.ExcludeSnippetDirectories, builder, "ExcludeSnippetDirectories");
         AppendValues(config.TocExcludes, builder, "TocExcludes");
         AppendValues(config.UrlsAsSnippets, builder, "UrlsAsSnippets");
-
-        return builder.ToString().Trim();
+        builder.TrimEnd();
+        return builder.ToString();
     }
 
-    static void AppendValues(List<string> items, StringBuilder builder, string name)
+    static void AppendValues(IReadOnlyList<string> items, StringBuilder builder, string name)
     {
         if (items.Count == 0)
         {

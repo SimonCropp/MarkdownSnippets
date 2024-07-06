@@ -9,5 +9,4 @@
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
     ReadOnly: 
-    WriteHeader: 
-    Header:
+    WriteHeader:

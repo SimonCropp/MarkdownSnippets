@@ -1,8 +1,2 @@
-﻿class CommandLineException :
-    Exception
-{
-    public CommandLineException(string message) :
-        base(message)
-    {
-    }
-}
+﻿class CommandLineException(string message) :
+    Exception(message);

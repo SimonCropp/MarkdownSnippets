@@ -18,6 +18,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
 **[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run this tool.**
 
+
 ## Value Proposition
 
 Automatically extract snippets from code and injecting them into markdown documents has several benefits:
@@ -226,8 +227,6 @@ Will render:
 	```
 	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
 	<!-- endSnippet -->
-
-Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
 
 
 ### LinkFormat

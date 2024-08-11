@@ -1,4 +1,4 @@
-﻿using MarkdownSnippets;
+﻿
 // ReSharper disable UnusedVariable
 
 public class SnippetFileFinderTests

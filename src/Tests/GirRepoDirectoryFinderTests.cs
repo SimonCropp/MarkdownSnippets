@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class GirRepoDirectoryFinderTests
+﻿public class GirRepoDirectoryFinderTests
 {
     [Fact]
     public void CanFindGirRepoDir()

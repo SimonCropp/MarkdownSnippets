@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class ConfigResult
+﻿public class ConfigResult
 {
     public bool? ReadOnly;
     public bool ValidateContent;

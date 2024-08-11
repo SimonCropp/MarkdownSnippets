@@ -1,7 +1,4 @@
-﻿using CommandLine;
-using MarkdownSnippets;
-
-public class Options
+﻿public class Options
 {
     [Option('t', "target-directory",
         Required = false,

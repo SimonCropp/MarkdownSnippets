@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class SimpleSnippetMarkdownHandlingTests
+﻿public class SimpleSnippetMarkdownHandlingTests
 {
     [Fact]
     public Task Append()

@@ -1,5 +1,3 @@
-using MarkdownSnippets;
-
 static class SnippetVerifier
 {
     public static Task VerifyThrows(

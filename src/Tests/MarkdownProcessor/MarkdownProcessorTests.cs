@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class MarkdownProcessorTests
+﻿public class MarkdownProcessorTests
 {
     [Fact]
     public Task Missing_endInclude()

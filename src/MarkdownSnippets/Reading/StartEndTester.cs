@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-public delegate bool EndFunc(string line);
+﻿public delegate bool EndFunc(string line);
 
 static class StartEndTester
 {

@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public static class ConfigDefaults
+﻿public static class ConfigDefaults
 {
     public static ConfigResult Convert(ConfigInput? fileConfig, ConfigInput otherConfig)
     {

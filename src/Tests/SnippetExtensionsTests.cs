@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class SnippetExtensionsTests
+﻿public class SnippetExtensionsTests
 {
     [Fact]
     public Task ToDictionary()

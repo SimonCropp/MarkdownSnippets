@@ -1,5 +1,3 @@
-using MarkdownSnippets;
-
 public class DirectoryMarkdownProcessorTests
 {
     [Fact]

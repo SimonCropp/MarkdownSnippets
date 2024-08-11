@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class ConfigInput
+﻿public class ConfigInput
 {
     public bool? ReadOnly { get; init; }
     public bool? ValidateContent { get; init; }

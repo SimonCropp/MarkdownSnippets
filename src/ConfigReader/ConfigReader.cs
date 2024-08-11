@@ -1,8 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using MarkdownSnippets;
-
-public static class ConfigReader
+﻿public static class ConfigReader
 {
     public static (ConfigInput? config, string path) Read(string directory)
     {

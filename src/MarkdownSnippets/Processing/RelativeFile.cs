@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 static class RelativeFile
 {
     static bool InnerFind(IReadOnlyList<string> allFiles, string targetDirectory, string key, string? relativePath, string? linePath, out string path)

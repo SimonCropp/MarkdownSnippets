@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace MarkdownSnippets;
+﻿namespace MarkdownSnippets;
 
 public static class GitRepoDirectoryFinder
 {

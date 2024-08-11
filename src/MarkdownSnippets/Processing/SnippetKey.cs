@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 static class SnippetKey
 {
     public static bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)

@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-static class ExcludeToFilterBuilder
+﻿static class ExcludeToFilterBuilder
 {
     public static ShouldIncludeDirectory ExcludesToFilter(List<string> excludes) =>
         path =>

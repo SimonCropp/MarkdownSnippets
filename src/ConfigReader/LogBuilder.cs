@@ -1,5 +1,3 @@
-using MarkdownSnippets;
-
 static class LogBuilder
 {
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)

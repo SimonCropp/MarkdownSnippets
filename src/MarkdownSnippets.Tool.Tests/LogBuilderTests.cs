@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class LogBuilderTests
+﻿public class LogBuilderTests
 {
     [Fact]
     public Task BuildConfigLogMessage()

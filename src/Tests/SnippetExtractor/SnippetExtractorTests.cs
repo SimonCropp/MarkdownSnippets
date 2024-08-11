@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-public class SnippetExtractorTests
+﻿public class SnippetExtractorTests
 {
     [Fact]
     public async Task AppendUrlAsSnippet()

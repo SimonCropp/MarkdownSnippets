@@ -1,6 +1,4 @@
-﻿using MarkdownSnippets;
-
-var stopwatch = Stopwatch.StartNew();
+﻿var stopwatch = Stopwatch.StartNew();
 try
 {
     await CommandRunner.RunCommand(Inner, args);

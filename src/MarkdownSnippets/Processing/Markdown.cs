@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 static class Markdown
 {
     static Regex stripLinkRegex = new(@"\[(.*?)\][\[\(].*?[\]\)]", RegexOptions.Compiled);

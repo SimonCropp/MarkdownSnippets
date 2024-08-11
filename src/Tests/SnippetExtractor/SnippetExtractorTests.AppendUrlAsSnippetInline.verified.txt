@@ -3,7 +3,6 @@
     Key: usage.cs,
     Language: cs,
     Value:
-using MarkdownSnippets;
 // ReSharper disable UnusedVariable
 
 class Usage

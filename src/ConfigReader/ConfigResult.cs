@@ -1,19 +1,19 @@
 ﻿public class ConfigResult
 {
-    public bool? ReadOnly;
-    public bool ValidateContent;
-    public bool OmitSnippetLinks;
-    public LinkFormat LinkFormat;
-    public DocumentConvention Convention;
-    public int TocLevel;
-    public int MaxWidth;
-    public List<string> UrlsAsSnippets = [];
-    public List<string> ExcludeDirectories = [];
-    public List<string> ExcludeMarkdownDirectories = [];
-    public List<string> ExcludeSnippetDirectories = [];
-    public bool? WriteHeader;
-    public string? Header;
-    public string? UrlPrefix;
-    public List<string> TocExcludes = [];
-    public bool TreatMissingAsWarning;
+    public bool? ReadOnly { get; init; }
+    public bool ValidateContent { get; init; }
+    public bool OmitSnippetLinks { get; init; }
+    public LinkFormat LinkFormat { get; init; }
+    public DocumentConvention Convention { get; init; }
+    public int TocLevel { get; init; }
+    public int MaxWidth { get; init; }
+    public List<string>? UrlsAsSnippets { get; init; }
+    public List<string>? ExcludeDirectories { get; init; }
+    public List<string>? ExcludeMarkdownDirectories { get; init; }
+    public List<string>? ExcludeSnippetDirectories { get; init; }
+    public bool? WriteHeader { get; init; }
+    public string? Header { get; init; }
+    public string? UrlPrefix { get; init; }
+    public List<string>? TocExcludes { get; init; }
+    public bool TreatMissingAsWarning { get; init; }
 }

@@ -37,53 +37,58 @@ static class LogBuilder
                 $"    MaxWidth: {maxWidth}");
         }
 
-        if (config.ExcludeDirectories.Count != 0)
+        var excludeDirectories = config.ExcludeDirectories;
+        if (excludeDirectories != null && excludeDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
                 $"""
                      ExcludeDirectories:
-                         {string.Join("\r\n        ", config.ExcludeDirectories)}
+                         {string.Join("\r\n        ", excludeDirectories)}
                  """);
         }
 
-        if (config.ExcludeMarkdownDirectories.Count != 0)
+        var excludeMarkdownDirectories = config.ExcludeMarkdownDirectories;
+        if (excludeMarkdownDirectories != null && excludeMarkdownDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
                 $"""
                      ExcludeMarkdownDirectories:
-                         {string.Join("\r\n        ", config.ExcludeMarkdownDirectories)}
+                         {string.Join("\r\n        ", excludeMarkdownDirectories)}
                  """);
         }
 
-        if (config.ExcludeSnippetDirectories.Count != 0)
+        var excludeSnippetDirectories = config.ExcludeSnippetDirectories;
+        if (excludeSnippetDirectories != null && excludeSnippetDirectories.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
                 $"""
                      ExcludeSnippetDirectories:
-                         {string.Join("\r\n        ", config.ExcludeSnippetDirectories)}
+                         {string.Join("\r\n        ", excludeSnippetDirectories)}
                  """);
         }
 
-        if (config.TocExcludes.Count != 0)
+        var tocExcludes = config.TocExcludes;
+        if (tocExcludes != null && tocExcludes.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
                 $"""
                      TocExcludes:
-                         {string.Join("\r\n        ", config.TocExcludes)}
+                         {string.Join("\r\n        ", tocExcludes)}
                  """);
         }
 
-        if (config.UrlsAsSnippets.Count != 0)
+        var urlsAsSnippets = config.UrlsAsSnippets;
+        if (urlsAsSnippets != null && urlsAsSnippets.Count != 0)
         {
             Polyfill.AppendLine(
                 builder,
                 $"""
                      UrlsAsSnippets:
-                         {string.Join("\r\n        ", config.UrlsAsSnippets)}
+                         {string.Join("\r\n        ", urlsAsSnippets)}
                  """);
         }
 

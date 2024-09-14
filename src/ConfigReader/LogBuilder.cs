@@ -2,7 +2,6 @@ static class LogBuilder
 {
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
-        var header = GetHeader(config);
         var builder = new StringBuilder(
             $"""
              Config:
@@ -20,6 +19,7 @@ static class LogBuilder
 
         if (config.Convention == DocumentConvention.SourceTransform)
         {
+            var header = GetHeader(config);
             Polyfill.AppendLine(
                 builder,
                 $"""
@@ -102,6 +102,7 @@ static class LogBuilder
         {
             return null;
         }
+
         var newlineIndent = $"{Environment.NewLine}        ";
         header = string.Join(newlineIndent, header.Lines());
         header = header.Replace(@"\n", newlineIndent);

@@ -4,18 +4,18 @@
 
     public static string ConvertToFileName(string url)
     {
-        var stringBuilder = new StringBuilder(url.Length);
+        var builder = new StringBuilder(url.Length);
         foreach (var ch in url)
         {
             if (invalid.Contains(ch))
             {
-                stringBuilder.Append('_');
+                builder.Append('_');
                 continue;
             }
 
-            stringBuilder.Append(ch);
+            builder.Append(ch);
         }
 
-        return stringBuilder.ToString();
+        return builder.ToString();
     }
 }

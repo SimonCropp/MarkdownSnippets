@@ -112,18 +112,18 @@ static class StartEndTester
                  """);
         }
 
-        if (!KeyValidator.IsValidKey(key.AsSpan()))
+        if (KeyValidator.IsValidKey(key.AsSpan()))
         {
-            throw new SnippetReadingException(
-                $"""
-                 Key cannot contain whitespace or start/end with symbols.
-                 Key: {key}
-                 Path: {path}
-                 Line: {line}
-                 """);
+            return true;
         }
 
-        return true;
+        throw new SnippetReadingException(
+            $"""
+             Key cannot contain whitespace or start/end with symbols.
+             Key: {key}
+             Path: {path}
+             Line: {line}
+             """);
     }
 
     static int IndexOf(string line, string value)

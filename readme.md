@@ -12,11 +12,11 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MsBuild%20Task)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.net%20API)](https://www.nuget.org/packages/MarkdownSnippets/)
 
-A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) that extract snippets from code files and merges them into markdown documents.
+A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) or [MsBuild Task](/docs/msbuild.md) that extract snippets from code files and merges them into markdown documents.
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
-**[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run this tool.**
+**[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run the dotnet tool.**
 
 
 ## Value Proposition
@@ -46,6 +46,8 @@ Install [MarkdownSnippets.Tool](https://nuget.org/packages/MarkdownSnippets.Tool
 ```ps
 dotnet tool install -g MarkdownSnippets.Tool
 ```
+
+See also: [MsBuild Task usage](/docs/msbuild.md)
 
 
 ## Usage

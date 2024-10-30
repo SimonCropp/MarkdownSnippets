@@ -10,13 +10,13 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![Build status](https://ci.appveyor.com/api/projects/status/8ijthhby6mhw8fk3/branch/main?svg=true)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MsBuild%20Task)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
-[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.net%20API)](https://www.nuget.org/packages/MarkdownSnippets/)
+[![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.NET%20API)](https://www.nuget.org/packages/MarkdownSnippets/)
 
 A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) or [MsBuild Task](/docs/msbuild.md) that extract snippets from code files and merges them into markdown documents.
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
-**[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run the dotnet tool.**
+**[.NET 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run the dotnet tool.**
 
 
 ## Value Proposition
@@ -370,7 +370,7 @@ Windows Registry Editor Version 5.00
 ## More Documentation
 
   * Developer Information<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
-    * [.net API](/docs/api.md)
+    * [.NET API](/docs/api.md)
     * [MsBuild Task](/docs/msbuild.md)
     * [Github Action](/docs/github-action.md)
   * Customisation

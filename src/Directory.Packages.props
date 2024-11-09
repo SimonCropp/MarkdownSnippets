@@ -14,8 +14,8 @@
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.1.2" />
     <PackageVersion Include="Verify.XunitV3" Version="28.1.2" />
-    <PackageVersion Include="xunit.v3" Version="0.5.0-pre.27" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.42" />
+    <PackageVersion Include="xunit.v3" Version="0.6.0-pre.7" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.49" />
     <!-- explicit to avoid CVE -->
     <PackageVersion Include="System.Formats.Asn1" Version="8.0.1" />
   </ItemGroup>

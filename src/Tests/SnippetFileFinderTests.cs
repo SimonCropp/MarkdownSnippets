@@ -1,5 +1,4 @@
-﻿
-// ReSharper disable UnusedVariable
+﻿// ReSharper disable UnusedVariable
 
 public class SnippetFileFinderTests
 {

@@ -22,21 +22,19 @@ class Line
 
     public string Current
     {
-        get => current;
+        get;
         set
         {
             IsWhiteSpace = value.IsWhiteSpace();
             Length = value.Length;
-            current = value;
+            field = value;
         }
-    }
+    } = null!;
 
     public string? Path { get; }
     public int LineNumber { get; }
 
     public int Length { get; private set; }
-
-    string current = null!;
 
     public bool IsWhiteSpace { get; private set; }
 }

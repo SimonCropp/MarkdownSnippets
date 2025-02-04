@@ -311,9 +311,18 @@ public class MarkdownProcessor
             return true;
         }
 
+        string? lineExpression = null;
+
+        if (key.Contains('#'))
+        {
+            var splitByHash = key.Split('#', StringSplitOptions.None);
+            key = splitByHash[0];
+            lineExpression = splitByHash[1];
+        }
+
         if (RelativeFile.Find(allFiles, targetDirectory, key, relativePath, linePath, out var path))
         {
-            snippetsForKey = SnippetsForFile(key, path);
+            snippetsForKey = SnippetsForFile(key, path, lineExpression);
             return true;
         }
 
@@ -322,8 +331,7 @@ public class MarkdownProcessor
     }
 
 
-    List<Snippet> SnippetsForFile(string key, string relativeToRoot) =>
-        [FileToSnippet(key, relativeToRoot, null)];
+    List<Snippet> SnippetsForFile(string key, string relativeToRoot, string? lines = null) => [FileToSnippet(key, relativeToRoot, null, lines)];
 
     bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
     {
@@ -338,22 +346,77 @@ public class MarkdownProcessor
         return true;
     }
 
-    Snippet FileToSnippet(string key, string file, string? path)
+    Snippet FileToSnippet(string key, string file, string? path, string? linesExpression = null)
     {
-        var (text, lineCount) = ReadNonStartEndLines(file);
+        var language = Path.GetExtension(file)[1..];
 
-        if (lineCount == 0)
+        if (linesExpression == null)
         {
-            lineCount++;
+            var (text, endLine) = ReadNonStartEndLines(file);
+            return Snippet.Build(startLine: 1, endLine: endLine, value: text, key: key, language: language, path: path);
         }
 
-        return Snippet.Build(
-            startLine: 1,
-            endLine: lineCount,
-            value: text,
-            key: key,
-            language: Path.GetExtension(file)[1..],
-            path: path);
+        if (linesExpression[0] == 'L')
+        {
+            return ParseSpecificLines(key, file, path, linesExpression, language);
+        }
+
+        if (linesExpression[0] == 'M' && language == "cs")
+        {
+            return ParseCSharpMethod(key, file, path, linesExpression, language);
+        }
+
+        throw new SnippetException($"Unable to parse expression '{linesExpression}'");
+    }
+
+    static Snippet ParseCSharpMethod(string key, string file, string? path, string linesExpression, string language)
+    {
+        var methodName = linesExpression[2..];
+
+        var code = File.ReadAllText(file);
+        var tree = CSharpSyntaxTree.ParseText(code);
+        var root = tree.GetCompilationUnitRoot();
+
+        var method = root.DescendantNodes()
+            .OfType<MethodDeclarationSyntax>()
+            .FirstOrDefault(m => m.Identifier.Text == methodName);
+
+        if (method != null)
+        {
+            var text = method.ToFullString();
+            var startLine = method.Span.Start;
+            var endLine = method.Span.End;
+
+            return Snippet.Build(startLine: startLine, endLine: endLine, value: text, key: key, language: language, path: path);
+        }
+
+        throw new SnippetException(
+            $"""
+             Failed to find method {methodName} in file {file} configuration.
+             Content:
+             {code}
+             """);
+    }
+
+    static Snippet ParseSpecificLines(string key, string file, string? path, string linesExpression, string language)
+    {
+        var text = string.Empty;
+
+        var expressionSplit = linesExpression.Split('-');
+        var startLine = int.Parse(expressionSplit[0][1..]);
+        var endLine = int.Parse(expressionSplit[1]);
+
+        var fileLines = File.ReadAllLines(file);
+
+        var selectedText = new StringBuilder();
+
+        for (var index = startLine; index < endLine; index++)
+        {
+            selectedText.AppendLine(fileLines[index]);
+            text = selectedText.ToString();
+        }
+
+        return Snippet.Build(startLine: startLine, endLine: endLine, value: text, key: key, language: language, path: path);
     }
 
     (string text, int lineCount) ReadNonStartEndLines(string file)

@@ -223,6 +223,32 @@ Will render:
 	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
 	<!-- endSnippet -->
 
+### Including a partial file
+
+If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. 
+Using a syntax of #L10-20 you can only include lines 10 to 20 from that file. For example:
+
+	<!-- snippet: license.txt#L1-3 -->
+	<a id='snippet-license.txt#L1-3'></a>
+	```txt
+	The MIT License (MIT)
+	...
+	```
+	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
+	<!-- endSnippet -->
+
+### Including a C# Method
+
+If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. 
+Using a syntax of #M-MethodName you can reference a specific method. For example:
+
+	<!-- snippet: src\ConfigReader\LogBuilder.cs#M-GetHeader -->
+	<a id='src\ConfigReader\LogBuilder.cs#M-GetHeader'></a>
+	```cs
+	...
+	```
+	<sup><a href='#src\ConfigReader\LogBuilder.cs' title='Start of snippet'>anchor</a></sup>
+	<!-- endSnippet -->
 
 ### LinkFormat
 

@@ -4,6 +4,7 @@
     <TargetFrameworks>net8.0;$(TargetFrameworks)</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <NoWarn>xUnit1051</NoWarn>
+    <RootNamespace>testing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />

@@ -3,7 +3,7 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
     <TargetFrameworks>net8.0;$(TargetFrameworks)</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <NoWarn>xUnit1051</NoWarn>
+    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
     <RootNamespace>testing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>

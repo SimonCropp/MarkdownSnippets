@@ -1,4 +1,6 @@
-﻿public class MarkdownProcessorTests
+﻿using Polyfills;
+
+public class MarkdownProcessorTests
 {
     [Fact]
     public Task Missing_endInclude()
@@ -520,7 +522,7 @@
     {
         var file = "FileWithMixedNewLines.txt";
         File.Delete(file);
-        File.WriteAllText(file, "a\rb\nc\r\nd");
+        await FilePolyfill.WriteAllTextAsync(file, "a\rb\nc\r\nd");
         var availableSnippets = new List<Snippet>();
         var content = """
 

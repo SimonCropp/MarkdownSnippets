@@ -1,4 +1,6 @@
-﻿public class SnippetExtractorTests
+﻿using Polyfills;
+
+public class SnippetExtractorTests
 {
     [Fact]
     public async Task AppendUrlAsSnippet()
@@ -22,7 +24,7 @@
         var temp = Path.GetTempFileName().ToLowerInvariant();
         try
         {
-            File.WriteAllText(temp, "Foo");
+            await FilePolyfill.WriteAllTextAsync(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
             await Verify(snippets)

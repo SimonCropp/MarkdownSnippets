@@ -1,0 +1,10 @@
+﻿[
+  {
+    Key: CodeKey,
+    Language: cs,
+    Value: Console.WriteLine("Hello World");,
+    Error: ,
+    FileLocation: path.cs(1-3),
+    IsInError: false
+  }
+]

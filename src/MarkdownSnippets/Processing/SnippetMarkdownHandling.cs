@@ -86,7 +86,7 @@ public class SnippetMarkdownHandling
 
     static void WriteSnippetValueAndLanguage(Action<string> appendLine, Snippet snippet)
     {
-        appendLine($"```{snippet.Language}");
+        appendLine($"```{snippet.Language} {snippet.ExpressiveCode}".TrimEnd());
         appendLine(snippet.Value);
         appendLine("```");
     }

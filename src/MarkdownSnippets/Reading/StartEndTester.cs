@@ -1,7 +1,9 @@
 ﻿public delegate bool EndFunc(string line);
 
-static class StartEndTester
+static partial class StartEndTester
 {
+    static readonly Regex keyPatternRegex = new(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?");
+
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||
         IsEndSnippet(trimmedLine) ||
@@ -12,21 +14,28 @@ static class StartEndTester
         string trimmedLine,
         string path,
         [NotNullWhen(true)] out string? currentKey,
-        [NotNullWhen(true)] out EndFunc? endFunc)
+        [NotNullWhen(true)] out EndFunc? endFunc,
+        out string? expressiveCode
+    )
     {
-        if (IsBeginSnippet(trimmedLine, path, out currentKey))
+        if (IsBeginSnippet(trimmedLine, path, out currentKey, out var block))
         {
             endFunc = IsEndSnippet;
+            expressiveCode = block;
             return true;
         }
 
         if (IsStartRegion(trimmedLine, out currentKey))
         {
             endFunc = IsEndRegion;
+            // not supported for regions
+            expressiveCode = null;
             return true;
         }
 
+        expressiveCode = null;
         endFunc = throwFunc;
+
         return false;
     }
 
@@ -78,8 +87,11 @@ static class StartEndTester
     internal static bool IsBeginSnippet(
         string line,
         string path,
-        [NotNullWhen(true)] out string? key)
+        [NotNullWhen(true)] out string? key,
+        [NotNullWhen(true)] out string? expressiveCode
+    )
     {
+        expressiveCode = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
@@ -90,8 +102,10 @@ static class StartEndTester
         var startIndex = beginSnippetIndex + 15;
         var substring = line
             .TrimBackCommentChars(startIndex);
-        var split = substring.SplitBySpace();
-        if (split.Length == 0)
+
+        var match = keyPatternRegex.Match(substring);
+
+        if (match.Length == 0)
         {
             throw new SnippetReadingException(
                 $"""
@@ -101,7 +115,8 @@ static class StartEndTester
                  """);
         }
 
-        key = split[0];
+        var partOne = match.Groups[1].Value;
+        var split = partOne.SplitBySpace();
         if (split.Length != 1)
         {
             throw new SnippetReadingException(
@@ -111,6 +126,9 @@ static class StartEndTester
                  Line: '{line}'
                  """);
         }
+
+        key = split[0];
+        expressiveCode = match.Groups[2].Value;
 
         if (KeyValidator.IsValidKey(key.AsSpan()))
         {

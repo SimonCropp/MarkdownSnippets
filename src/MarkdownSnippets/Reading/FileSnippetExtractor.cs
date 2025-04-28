@@ -43,7 +43,7 @@ public static class FileSnippetExtractor
             throw new SnippetException($"Unable to get UrlAsSnippet: {url}");
         }
 
-        var snippet = Snippet.Build(1, content!.LineCount(), content!, key, GetLanguageFromPath(url), url);
+        var snippet = Snippet.Build(1, content!.LineCount(), content!, key, GetLanguageFromPath(url), url, null);
         snippets.Add(snippet);
 
         using var reader = new StringReader(content!);
@@ -71,7 +71,7 @@ public static class FileSnippetExtractor
     {
         Guard.FileExists(filePath, nameof(filePath));
         var text = File.ReadAllText(filePath);
-        var snippet = Snippet.Build(1, text.LineCount(), text, key, GetLanguageFromPath(filePath), filePath);
+        var snippet = Snippet.Build(1, text.LineCount(), text, key, GetLanguageFromPath(filePath), filePath, null);
         snippets.Add(snippet);
     }
 
@@ -153,9 +153,9 @@ public static class FileSnippetExtractor
 
             var trimmedLine = line.Trim();
 
-            if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc))
+            if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc, out var expressive))
             {
-                loopStack.Push(endFunc, key, index, maxWidth, newLine);
+                loopStack.Push(endFunc, key, index, maxWidth, newLine, expressive);
                 continue;
             }
 
@@ -207,7 +207,8 @@ public static class FileSnippetExtractor
             key: loopState.Key,
             value: value,
             path: path,
-            language: language.ToLowerInvariant()
+            language: language.ToLowerInvariant(),
+            expressiveCode: loopState.ExpressiveCode
         );
     }
 }

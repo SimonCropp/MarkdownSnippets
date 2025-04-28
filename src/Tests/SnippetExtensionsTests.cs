@@ -30,5 +30,6 @@
             endLine: 2,
             value: "Snippet",
             key: key,
-            path: path);
+            path: path,
+            expressiveCode: null);
 }

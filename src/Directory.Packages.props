@@ -4,7 +4,7 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Argon" Version="0.27.0" />
+    <PackageVersion Include="Argon" Version="0.28.0" />
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="17.13.9" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />

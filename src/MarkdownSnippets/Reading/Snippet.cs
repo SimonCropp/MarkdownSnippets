@@ -26,7 +26,7 @@ public class Snippet :
     /// <summary>
     /// Initialise a new instance of <see cref="Snippet"/>.
     /// </summary>
-    public static Snippet Build(int startLine, int endLine, string value, string key, string language, string? path)
+    public static Snippet Build(int startLine, int endLine, string value, string key, string language, string? path, string? expressiveCode)
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstEmpty(path, nameof(path));
@@ -46,6 +46,7 @@ public class Snippet :
             Key = key,
             language = language,
             Path = path,
+            ExpressiveCode = expressiveCode,
             Error = ""
         };
     }
@@ -60,6 +61,12 @@ public class Snippet :
     public string Key { get; private init; } = null!;
 
     /// <summary>
+    /// An associated expressive code block with the snippet
+    /// See https://expressive-code.com/
+    /// </summary>
+    public string? ExpressiveCode { get; private init; }
+
+    /// <summary>
     /// The language of the snippet, extracted from the file extension of the input file.
     /// </summary>
     public string Language
@@ -70,6 +77,7 @@ public class Snippet :
             return language!;
         }
     }
+
     string? language;
 
     /// <summary>
@@ -98,6 +106,7 @@ public class Snippet :
             {
                 return null;
             }
+
             return $"{Path}({StartLine}-{EndLine})";
         }
     }

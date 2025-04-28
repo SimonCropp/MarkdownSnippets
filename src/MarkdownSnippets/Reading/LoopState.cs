@@ -1,5 +1,5 @@
 ﻿[DebuggerDisplay("Key={Key}")]
-class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string newLine)
+class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string newLine, string? expressiveCode = null)
 {
     public string GetLines()
     {
@@ -85,4 +85,5 @@ class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string
     public EndFunc EndFunc { get; } = endFunc;
     public int StartLine { get; } = startLine;
     int newlineCount;
+    public string? ExpressiveCode { get; } = expressiveCode;
 }

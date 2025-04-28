@@ -15,7 +15,7 @@ public static class SimpleSnippetMarkdownHandling
 
     static void WriteSnippet(Action<string> appendLine, Snippet snippet)
     {
-        appendLine($"```{snippet.Language}");
+        appendLine($"```{snippet.Language} {snippet.ExpressiveCode}".TrimEnd());
         appendLine(snippet.Value);
         appendLine("```");
     }

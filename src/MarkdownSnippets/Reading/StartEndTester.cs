@@ -2,8 +2,6 @@
 
 static partial class StartEndTester
 {
-    static readonly Regex keyPatternRegex = new(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?");
-
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||
         IsEndSnippet(trimmedLine) ||
@@ -103,7 +101,7 @@ static partial class StartEndTester
         var substring = line
             .TrimBackCommentChars(startIndex);
 
-        var match = keyPatternRegex.Match(substring);
+        var match = ExpressiveCode.Instance.Pattern.Match(substring);
 
         if (match.Length == 0)
         {

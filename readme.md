@@ -366,6 +366,50 @@ Windows Registry Editor Version 5.00
 <sup><a href='/src/context-menu.reg#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-context-menu.reg' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+## Expressive Code / Snippet Metadata
+
+When defining snippets, you can add additional metadata at the source to the rendered snippet using the following syntax.
+
+```csharp
+// begin-snippet: HelloWorld(title=Program.cs {1})
+Console.WriteLine("Hello, World");
+// end-snippet
+```
+
+Note the text within the parenthesis; this is metadata we want to add to the rendered Markdown block immediately after the language declaration.
+The metadata is stripped and the key remains `HelloWorld`. The feature produces the following output at your target destination (will vary based on your configuration):
+
+````markdown
+<-- begin-snippet: HelloWorld -->
+```csharp title=Program.cs {1}
+Console.WriteLine("Hello, World");
+```
+<-- end-snippet -->
+````
+
+This syntax is known as [Expressive Code](https://expressive-code.com/) and is supported in documentation systems such
+as [Astro Starlight](https://github.com/withastro/starlight/) but can be installed in any Markdown-powered tool
+that supports [reHype](https://github.com/rehypejs/rehype).
+
+It is important to note, the metadata is not explicitly limited to Expressive code. Any text within the `()` will be rendered after
+the language block. This can be useful for adding additional information based on your specific rendering engine. For example, if
+you use a presentation tool such as [Sli.dev](https://sli.dev/), you can use this feature to apply [magic-move animations](https://sli.dev/features/shiki-magic-move).
+
+```csharp
+// begin-snippet: EncapsulateVariable({*|2})
+Console.WriteLine("Hello, World");
+// end-snippet
+```
+
+The above snippet will render as follows:
+
+````markdown
+<-- begin-snippet: EncapsulateVariable -->
+```csharp {*|2}
+Console.WriteLine("Hello, World");
+```
+<-- end-snippet -->
+````
 
 ## More Documentation
 

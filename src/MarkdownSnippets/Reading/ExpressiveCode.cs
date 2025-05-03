@@ -1,6 +1,6 @@
 static partial class ExpressiveCode
 {
-    private const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";
+    const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";
 
 #if NET8_0_OR_GREATER
     public static Regex Pattern { get; } = BuildRegex();

@@ -1,16 +1,14 @@
 static partial class ExpressiveCode
 {
 #if NET8_0_OR_GREATER
+    static ExpressiveCode() =>
+        Pattern = KeyPatternRegex();
+
+    public static Regex Pattern { get; }
+
     [GeneratedRegex(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?")]
     private static partial Regex KeyPatternRegex();
 #else
-    static readonly Regex KeyPatternRegex = new(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?");
+    public static readonly Regex Pattern = new(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?");
 #endif
-    static ExpressiveCode() =>
-#if NET8_0_OR_GREATER
-        Pattern = KeyPatternRegex();
-#else
-        Pattern = KeyPatternRegex;
-#endif
-    public static Regex Pattern { get; }
 }

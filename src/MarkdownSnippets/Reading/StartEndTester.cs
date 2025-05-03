@@ -98,7 +98,7 @@ static partial class StartEndTester
         var substring = line
             .TrimBackCommentChars(startIndex);
 
-        var match = ExpressiveCode.Instance.Pattern.Match(substring);
+        var match = ExpressiveCode.Pattern.Match(substring);
 
         if (match.Length == 0)
         {

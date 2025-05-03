@@ -1,10 +1,7 @@
 static partial class ExpressiveCode
 {
 #if NET8_0_OR_GREATER
-    static ExpressiveCode() =>
-        Pattern = BuildRegex();
-
-    public static Regex Pattern { get; }
+    public static Regex Pattern { get; } = BuildRegex();
 
     [GeneratedRegex(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?")]
     private static partial Regex BuildRegex();

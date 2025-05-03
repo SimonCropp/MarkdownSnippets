@@ -84,7 +84,7 @@ static partial class StartEndTester
         string line,
         string path,
         [NotNullWhen(true)] out string? key,
-        [NotNullWhen(true)] out string? expressiveCode)
+        out string? expressiveCode)
     {
         expressiveCode = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
@@ -124,6 +124,10 @@ static partial class StartEndTester
 
         key = split[0];
         expressiveCode = match.Groups[2].Value;
+        if (expressiveCode.Length == 0)
+        {
+            expressiveCode = null;
+        }
 
         if (KeyValidator.IsValidKey(key.AsSpan()))
         {

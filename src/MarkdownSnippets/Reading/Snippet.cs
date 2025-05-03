@@ -30,6 +30,7 @@ public class Snippet :
     {
         Guard.AgainstNullAndEmpty(key, nameof(key));
         Guard.AgainstEmpty(path, nameof(path));
+        Guard.AgainstEmpty(expressiveCode, nameof(expressiveCode));
         Guard.AgainstUpperCase(language, nameof(language));
         if (language.StartsWith('.'))
         {

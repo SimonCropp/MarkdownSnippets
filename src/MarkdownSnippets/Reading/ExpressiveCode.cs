@@ -1,11 +1,13 @@
 static partial class ExpressiveCode
 {
+    private const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";
+
 #if NET8_0_OR_GREATER
     public static Regex Pattern { get; } = BuildRegex();
 
-    [GeneratedRegex(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?")]
+    [GeneratedRegex(regex)]
     private static partial Regex BuildRegex();
 #else
-    public static readonly Regex Pattern = new(@"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?");
+    public static readonly Regex Pattern = new(regex);
 #endif
 }

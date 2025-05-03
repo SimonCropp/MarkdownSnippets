@@ -84,8 +84,7 @@ static partial class StartEndTester
         string line,
         string path,
         [NotNullWhen(true)] out string? key,
-        [NotNullWhen(true)] out string? expressiveCode
-    )
+        [NotNullWhen(true)] out string? expressiveCode)
     {
         expressiveCode = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");

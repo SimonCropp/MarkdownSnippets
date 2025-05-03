@@ -31,12 +31,13 @@ static class SnippetKey
         {
             throw new SnippetException($"Could not parse snippet from: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
         }
+
         return true;
     }
 
-    public static bool IsSnippetLine(string lineCurrent) =>
-        lineCurrent.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
+    public static bool IsSnippetLine(string line) =>
+        line.StartsWith("snippet:", StringComparison.OrdinalIgnoreCase);
 
-    public static bool IsStartCommentSnippetLine(string lineCurrent) =>
-        lineCurrent.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
+    public static bool IsStartCommentSnippetLine(string line) =>
+        line.StartsWith("<!-- snippet:", StringComparison.OrdinalIgnoreCase);
 }

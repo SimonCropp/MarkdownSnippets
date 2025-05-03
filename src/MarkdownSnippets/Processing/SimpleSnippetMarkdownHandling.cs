@@ -15,11 +15,14 @@ public static class SimpleSnippetMarkdownHandling
 
     static void WriteSnippet(Action<string> appendLine, Snippet snippet)
     {
-        var declaration =
-            string.IsNullOrWhiteSpace(snippet.ExpressiveCode)
-                ? snippet.Language
-                : $"{snippet.Language} {snippet.ExpressiveCode}";
-        appendLine($"```{declaration}");
+        if (snippet.ExpressiveCode is null)
+        {
+            appendLine($"```{snippet.Language}");
+        }
+        else
+        {
+            appendLine($"```{snippet.Language} {snippet.ExpressiveCode}");
+        }
         appendLine(snippet.Value);
         appendLine("```");
     }

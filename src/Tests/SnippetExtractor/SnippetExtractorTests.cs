@@ -288,4 +288,16 @@ public class SnippetExtractorTests
         var snippets = FromText(input);
         return Verify(snippets);
     }
+
+    [Fact]
+    public Task CanExtractWithExpressiveCode()
+    {
+        var input = """
+                      <!--begin-snippet: CodeKey(title="Program.cs" {1-3})-->
+                      Console.WriteLine("Hello World");
+                      <!--end-snippet-->
+                    """;
+        var snippets = FromText(input);
+        return Verify(snippets);
+    }
 }

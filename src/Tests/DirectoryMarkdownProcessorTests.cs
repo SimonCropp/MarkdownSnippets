@@ -507,5 +507,6 @@ public class DirectoryMarkdownProcessorTests
             endLine: 2,
             value: "the code from " + key,
             key: key,
-            path: path);
+            path: path,
+            expressiveCode: null);
 }

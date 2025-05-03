@@ -204,7 +204,8 @@ public class MarkdownProcessorTests
                            Snippet
                            """,
                     key: "theKey",
-                    path: "thePath")
+                    path: "thePath",
+                    expressiveCode: null),
             ]);
     }
 
@@ -236,7 +237,8 @@ public class MarkdownProcessorTests
                            Snippet
                            """,
                     key: "theKey",
-                    path: "thePath")
+                    path: "thePath",
+                    expressiveCode: null)
             ]);
     }
 
@@ -669,5 +671,6 @@ public class MarkdownProcessorTests
             endLine: 2,
             value: "Snippet",
             key: key,
-            path: "thePath");
+            path: "thePath",
+            expressiveCode: null);
 }

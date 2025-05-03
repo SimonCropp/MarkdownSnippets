@@ -353,7 +353,8 @@ public class MarkdownProcessor
             value: text,
             key: key,
             language: Path.GetExtension(file)[1..],
-            path: path);
+            path: path,
+            expressiveCode: null);
     }
 
     (string text, int lineCount) ReadNonStartEndLines(string file)

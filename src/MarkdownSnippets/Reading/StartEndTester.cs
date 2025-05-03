@@ -1,6 +1,6 @@
 ﻿public delegate bool EndFunc(string line);
 
-static partial class StartEndTester
+static class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||

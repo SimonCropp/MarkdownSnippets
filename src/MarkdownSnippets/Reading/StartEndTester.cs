@@ -13,13 +13,11 @@ static partial class StartEndTester
         string path,
         [NotNullWhen(true)] out string? currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
-        out string? expressiveCode
-    )
+        out string? expressiveCode)
     {
-        if (IsBeginSnippet(trimmedLine, path, out currentKey, out var block))
+        if (IsBeginSnippet(trimmedLine, path, out currentKey, out expressiveCode))
         {
             endFunc = IsEndSnippet;
-            expressiveCode = block;
             return true;
         }
 

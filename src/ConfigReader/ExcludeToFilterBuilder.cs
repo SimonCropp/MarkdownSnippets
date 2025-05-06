@@ -1,4 +1,4 @@
-﻿static class ExcludeToFilterBuilder
+static class ExcludeToFilterBuilder
 {
     public static ShouldIncludeDirectory ExcludesToFilter(List<string>? excludes) =>
         path =>
@@ -11,7 +11,7 @@
             if(excludes == null ||
                excludes.Count == 0)
             {
-                return false;
+                return true;
             }
 
             if (!excludes.Any(path.Contains))

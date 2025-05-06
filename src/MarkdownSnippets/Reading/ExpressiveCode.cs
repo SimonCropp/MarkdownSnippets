@@ -1,3 +1,4 @@
+// ReSharper disable once PartialTypeWithSinglePart
 static partial class ExpressiveCode
 {
     const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";

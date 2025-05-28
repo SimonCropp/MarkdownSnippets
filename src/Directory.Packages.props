@@ -8,8 +8,8 @@
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="17.14.8" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
-    <PackageVersion Include="Polyfill" Version="7.32.0" />
-    <PackageVersion Include="ProjectDefaults" Version="1.0.153" />
+    <PackageVersion Include="Polyfill" Version="7.33.0" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.154" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.1.2" />

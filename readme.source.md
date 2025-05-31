@@ -171,8 +171,8 @@ snippet&#58; MySnippetName
 
 The resulting markdown will be:
 
-    <!-- snippet: MySnippetName -->
     Some blurb about the below snippet
+    <!-- snippet: MySnippetName -->
     <a id='snippet-MySnippetName'></a>
     ```
     My Snippet Code

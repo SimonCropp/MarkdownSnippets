@@ -73,7 +73,7 @@
         var (success, path) = await DownloadFile(uri);
         if (success)
         {
-            return (true, await FilePolyfill.ReadAllTextAsync(path!));
+            return (true, await File.ReadAllTextAsync(path!));
         }
 
         return (false, null);

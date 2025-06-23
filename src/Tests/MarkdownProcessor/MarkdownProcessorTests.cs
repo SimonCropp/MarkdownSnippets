@@ -524,7 +524,7 @@ public class MarkdownProcessorTests
     {
         var file = "FileWithMixedNewLines.txt";
         File.Delete(file);
-        await FilePolyfill.WriteAllTextAsync(file, "a\rb\nc\r\nd");
+        await File.WriteAllTextAsync(file, "a\rb\nc\r\nd");
         var availableSnippets = new List<Snippet>();
         var content = """
 

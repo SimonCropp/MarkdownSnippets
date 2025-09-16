@@ -18,7 +18,7 @@ public class DirectoryMarkdownProcessor
     List<string> snippetSourceFiles = [];
     AppendSnippetsToMarkdown appendSnippets;
     bool treatMissingAsWarning;
-    string? newLine;
+    string newLine;
     List<string> allFiles;
 
     public DirectoryMarkdownProcessor(
@@ -122,7 +122,7 @@ public class DirectoryMarkdownProcessor
             }
 
             var stopwatch = Stopwatch.StartNew();
-            var read = FileSnippetExtractor.Read(snippetFiles, maxWidth, this.newLine!).ToList();
+            var read = FileSnippetExtractor.Read(snippetFiles, maxWidth, this.newLine).ToList();
             if (read.Count != 0)
             {
                 snippets.AddRange(read);
@@ -145,6 +145,7 @@ public class DirectoryMarkdownProcessor
         }
     }
 
+    [MemberNotNull(nameof(newLine))]
     void InitNewLine()
     {
         if (newLine != null)
@@ -155,8 +156,9 @@ public class DirectoryMarkdownProcessor
         foreach (var mdFile in mdFiles.OrderBy(_ => _.Length))
         {
             using var reader = File.OpenText(mdFile);
-            if (reader.TryFindNewline(out newLine))
+            if (reader.TryFindNewline(out var detectedNewLine))
             {
+                newLine = detectedNewLine;
                 return;
             }
         }
@@ -244,7 +246,7 @@ public class DirectoryMarkdownProcessor
             validateContent,
             header,
             tocExcludes,
-            newLine!);
+            newLine);
         foreach (var sourceFile in mdFiles)
         {
             ProcessFile(sourceFile, processor);
@@ -271,7 +273,7 @@ public class DirectoryMarkdownProcessor
 
         var relativeSource = sourceFile[targetDirectory.Length..]
             .Replace('\\', '/');
-        var result = markdownProcessor.Apply(lines, newLine!, relativeSource);
+        var result = markdownProcessor.Apply(lines, newLine, relativeSource);
 
         var missingSnippets = result.MissingSnippets;
         if (missingSnippets.Any())

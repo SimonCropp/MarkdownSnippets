@@ -1,6 +1,6 @@
 static class Extensions
 {
-    public static bool TryFindNewline(this TextReader reader, out string? newline)
+    public static bool TryFindNewline(this TextReader reader, [NotNullWhen(true)] out string? newline)
     {
         do
         {

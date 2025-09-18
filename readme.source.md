@@ -205,6 +205,19 @@ Will render:
 
 Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
 
+You can also use `web-snippet:` to reference remote content where you want to target a specific snippet defined in that content.
+
+	web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet
+
+Will render:
+
+	<!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet -->
+	<a id='snippet-snipPet'></a>
+	```txt
+	Some code
+	```
+	<sup><a href='#snippet-snipPet' title='Start of snippet'>anchor</a></sup>
+	<!-- endSnippet -->
 
 ### Including a full file
 

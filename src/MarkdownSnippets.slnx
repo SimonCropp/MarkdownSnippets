@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../readme.source.md" />
+    <File Path="../schema.json" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+  </Folder>
+  <Project Path="ConfigReader.Tests/ConfigReader.Tests.csproj" />
+  <Project Path="ConfigReader/ConfigReader.csproj" />
+  <Project Path="MarkdownSnippets.MsBuild/MarkdownSnippets.MsBuild.csproj" />
+  <Project Path="MarkdownSnippets.Tool.Tests/MarkdownSnippets.Tool.Tests.csproj" />
+  <Project Path="MarkdownSnippets.Tool/MarkdownSnippets.Tool.csproj" />
+  <Project Path="MarkdownSnippets/MarkdownSnippets.csproj" />
+  <Project Path="Tests/Tests.csproj" />
+</Solution>

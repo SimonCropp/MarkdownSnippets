@@ -26,6 +26,16 @@ The path syntax uses forward slashes `/`.
 snippet&#58; http://myurl
 </pre>
 
+## Including a snippet from an external URL
+
+To include a specific named snippet from a file using an external URL, use the `web-snippet:` keyword followed by the URL and the snippet key separated by a `#`:
+
+<pre>
+web-snippet&#58;https://raw.githubusercontent.com/owner/repo/branch/path/to/file.cs#snippetKey
+</pre>
+
+This will fetch the file from the URL, extract the snippet with the given key, and embed it in your Markdown.
+
 
 ## Markdown includes
 

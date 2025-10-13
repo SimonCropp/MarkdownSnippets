@@ -179,9 +179,23 @@ public class MarkdownProcessor
                 line.Current = builder.ToString();
             }
 
+            void AppendWebSnippet(string url, string snippetKey)
+            {
+                builder.Clear();
+                ProcessWebSnippetLine(AppendLine, missingSnippets, usedSnippets, url, snippetKey, line);
+                builder.TrimEnd();
+                line.Current = builder.ToString();
+            }
+
             if (SnippetKey.ExtractSnippet(line, out var key))
             {
                 AppendSnippet(key);
+                continue;
+            }
+
+            if (SnippetKey.ExtractWebSnippet(line, out var url, out var snippetKey))
+            {
+                AppendWebSnippet(url, snippetKey);
                 continue;
             }
 
@@ -273,6 +287,40 @@ public class MarkdownProcessor
         appendLine($"** Could not find snippet '{key}' **");
         appendLine("```");
         appendLine("<!-- endSnippet -->");
+    }
+
+    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, Line line)
+    {
+        appendLine($"<!-- web-snippet: {url}#{snippetKey} -->");
+        // Download file content
+        var (success, content) = Downloader.DownloadContent(url).GetAwaiter().GetResult();
+        if (!success || string.IsNullOrWhiteSpace(content))
+        {
+            var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
+            missings.Add(missing);
+            appendLine("```");
+            appendLine($"** Could not fetch or parse web-snippet '{url}#{snippetKey}' **");
+            appendLine("```");
+            appendLine("<!-- endSnippet -->");
+            return;
+        }
+        // Extract snippets from content
+        using var reader = new StringReader(content);
+        var snippets = FileSnippetExtractor.Read(reader, url);
+        var found = snippets.FirstOrDefault(s => s.Key == snippetKey);
+        if (found == null)
+        {
+            var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
+            missings.Add(missing);
+            appendLine("```");
+            appendLine($"** Could not find snippet '{snippetKey}' in '{url}' **");
+            appendLine("```");
+            appendLine("<!-- endSnippet -->");
+            return;
+        }
+        appendSnippets(snippetKey, [found], appendLine);
+        appendLine("<!-- endSnippet -->");
+        used.Add(found);
     }
 
     bool TryGetSnippets(

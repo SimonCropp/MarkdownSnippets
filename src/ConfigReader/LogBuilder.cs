@@ -98,7 +98,8 @@ static class LogBuilder
 #if NET9_0
         builder.AppendLine("    TargetFramework: net9.0");
 #endif
-        return builder.ToString().Trim();
+        builder.TrimEnd();
+        return builder.ToString();
     }
 
     static string? GetHeader(ConfigResult config)

@@ -197,7 +197,7 @@ Notes:
 
 Snippets that start with `http` will be downloaded and the contents rendered. For example:
 
-    snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt
+`snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt`
 
 Will render:
 
@@ -214,7 +214,7 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 
 `web-snippet:` can be used to reference remote content where a specific snippet is defined in that content.
 
-	web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet
+`web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet`
 
 Will render:
 
@@ -230,7 +230,7 @@ Will render:
 
 If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. For example:
 
-    snippet: license.txt
+`snippet: license.txt`
 
 Will render:
 
@@ -238,11 +238,28 @@ Will render:
 	<a id='snippet-license.txt'></a>
 	```txt
 	The MIT License (MIT)
-	...
+	
+	Copyright (c) 2013 Simon Cropp
+	
+	Permission is hereby granted, free of charge, to any person obtaining a copy of
+	this software and associated documentation files (the "Software"), to deal in
+	the Software without restriction, including without limitation the rights to
+	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+	the Software, and to permit persons to whom the Software is furnished to do so,
+	subject to the following conditions:
+	
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+	FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	```
-	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
+	<sup><a href='/license.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
 	<!-- endSnippet -->
-
 
 ### LinkFormat
 

@@ -190,7 +190,7 @@ Notes:
 
 Snippets that start with `http` will be downloaded and the contents rendered. For example:
 
-    snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt
+`snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt`
 
 Will render:
 
@@ -207,7 +207,7 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 
 `web-snippet:` can be used to reference remote content where a specific snippet is defined in that content.
 
-	web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet
+`web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet`
 
 Will render:
 
@@ -223,19 +223,11 @@ Will render:
 
 If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. For example:
 
-    snippet: license.txt
+`snippet: license.txt`
 
 Will render:
 
-	<!-- snippet: license.txt -->
-	<a id='snippet-license.txt'></a>
-	```txt
-	The MIT License (MIT)
-	...
-	```
-	<sup><a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
-	<!-- endSnippet -->
-
+	snippet: license.txt
 
 ### LinkFormat
 

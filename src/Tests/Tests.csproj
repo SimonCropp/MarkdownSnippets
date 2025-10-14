@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>net8.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;$(TargetFrameworks)</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <NoWarn>$(NoWarn);xUnit1051</NoWarn>
     <RootNamespace>testing</RootNamespace>

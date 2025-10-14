@@ -92,6 +92,21 @@ static class LogBuilder
                  """);
         }
 
+#if NETSTANDARD2_0
+        builder.AppendLine("    TargetFramework: netstandard2.0");
+#endif
+#if NETSTANDARD2_1
+        builder.AppendLine("    TargetFramework: netstandard2.1");
+#endif
+#if NET48
+        builder.AppendLine("    TargetFramework: net48");
+#endif
+#if NET8_0
+        builder.AppendLine("    TargetFramework: net8.0");
+#endif
+#if NET9_0
+        builder.AppendLine("    TargetFramework: net9.0");
+#endif
         return builder.ToString().Trim();
     }
 

@@ -21,7 +21,8 @@
             Convention = DocumentConvention.InPlaceOverwrite,
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verify(message);
+        return Verify(message)
+            .UniqueForTargetFrameworkAndVersion();
     }
 
     [Fact]
@@ -45,7 +46,8 @@
             Convention = DocumentConvention.SourceTransform,
         };
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verify(message);
+        return Verify(message)
+            .UniqueForTargetFrameworkAndVersion();
     }
 
     [Fact]
@@ -53,6 +55,7 @@
     {
         var config = new ConfigResult();
         var message = LogBuilder.BuildConfigLogMessage("theRoot", config, "theConfigFilePath");
-        return Verify(message);
+        return Verify(message)
+            .UniqueForTargetFrameworkAndVersion();
     }
 }

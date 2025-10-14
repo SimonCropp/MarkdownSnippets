@@ -2,12 +2,17 @@
     TargetDirectory: theRoot
     UrlPrefix: 
     LinkFormat: Tfs
-    Convention: InPlaceOverwrite
+    Convention: SourceTransform
     TocLevel: 5
     ValidateContent: False
     OmitSnippetLinks: False
     TreatMissingAsWarning: False
     FileConfigPath: theConfigFilePath (exists:False)
+    ReadOnly: True
+    WriteHeader: True
+    Header: 
+        line1
+        line2
     MaxWidth: 80
     ExcludeDirectories:
         Dir1
@@ -21,3 +26,4 @@
     UrlsAsSnippets:
         Url1
         Url2
+    TargetFramework: net9.0

@@ -10,4 +10,5 @@
     FileConfigPath: theConfigFilePath (exists:False)
     ReadOnly: 
     WriteHeader: 
-    Header:
+    Header: 
+    TargetFramework: net9.0

@@ -20,6 +20,7 @@ build_script:
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
+      sudo ./dotnet-install.sh --version 9.0.305 --architecture x64 --install-dir '/usr/local/share/dotnet'
     }
 - dotnet build src --configuration Release
 - dotnet test src --configuration Release --no-build --no-restore
@@ -29,7 +30,7 @@ on_failure:
 artifacts:
 - path: nugets/*.nupkg,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-25),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-26),
     IsInError: false
   }
 ]

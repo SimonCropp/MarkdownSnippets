@@ -6,12 +6,6 @@
     <DevelopmentDependency>true</DevelopmentDependency>
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
-  <Target Name="ShowSdkInfo" BeforeTargets="Build">
-    <Message Text="SDK Version: $(NETCoreSdkVersion)" Importance="high" />
-    <Message Text="SDK Major: $(SdkMajorVersion)" Importance="high" />
-    <Message Text="Target Framework: $(TargetFramework)" Importance="high" />
-    <Message Text="SDK Root: $(NetCoreSdkBundledVersionsPropsPath)" Importance="high" />
-  </Target>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
 

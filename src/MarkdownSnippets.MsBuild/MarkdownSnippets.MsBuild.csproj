@@ -1,22 +1,28 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net48;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net48;net9.0</TargetFrameworks>
     <Description>Extract code snippets from any language to be used when building documentation.</Description>
     <DevelopmentDependency>true</DevelopmentDependency>
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
+  <Target Name="ShowSdkInfo" BeforeTargets="Build">
+    <Message Text="SDK Version: $(NETCoreSdkVersion)" Importance="high" />
+    <Message Text="SDK Major: $(SdkMajorVersion)" Importance="high" />
+    <Message Text="Target Framework: $(TargetFramework)" Importance="high" />
+    <Message Text="SDK Root: $(NetCoreSdkBundledVersionsPropsPath)" Importance="high" />
+  </Target>
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
 
-    <Content Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.MsBuild.dll">
+    <TfmSpecificPackageFile Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.MsBuild.dll">
       <Pack>true</Pack>
-      <PackagePath>task</PackagePath>
-    </Content>
-    <Content Include="$(SolutionDir)MarkdownSnippets\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.dll">
+      <PackagePath>task\$(TargetFramework)</PackagePath>
+    </TfmSpecificPackageFile>
+    <TfmSpecificPackageFile Include="$(SolutionDir)MarkdownSnippets\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.dll">
       <Pack>true</Pack>
-      <PackagePath>task</PackagePath>
-    </Content>
+      <PackagePath>task\$(TargetFramework)</PackagePath>
+    </TfmSpecificPackageFile>
     <Content Include="MarkdownSnippets.MsBuild.targets">
       <Pack>true</Pack>
       <PackagePath>build</PackagePath>

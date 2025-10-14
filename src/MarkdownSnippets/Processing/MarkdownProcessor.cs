@@ -233,10 +233,7 @@ public class MarkdownProcessor
             lines.Insert(0, new(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
         }
 
-        if (tocLine != null)
-        {
-            tocLine.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
-        }
+        tocLine?.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
 
         return new(
             missingSnippets: missingSnippets,

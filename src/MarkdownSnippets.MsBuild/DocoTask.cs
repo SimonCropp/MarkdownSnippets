@@ -86,7 +86,7 @@ public class DocoTask :
 
             processor.AddSnippets(snippets);
             var snippetsInError = processor.Snippets.Where(_ => _.IsInError).ToList();
-            if (snippetsInError.Any())
+            if (snippetsInError.Count != 0)
             {
                 foreach (var snippet in snippetsInError)
                 {

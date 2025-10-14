@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net48;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ToolCommandName>mdsnippets</ToolCommandName>
     <AssemblyName>mdsnippets</AssemblyName>
     <PackageId>MarkdownSnippets.Tool</PackageId>

@@ -2,14 +2,14 @@ static class SnippetKey
 {
     public static bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
-        var lineCurrent = line.Current;
+        var lineCurrent = line.Current.TrimStart();
         if (!IsStartCommentSnippetLine(lineCurrent))
         {
             key = null;
             return false;
         }
 
-        var substring = line.Current[14..];
+        var substring = lineCurrent[14..];
         var indexOf = substring.IndexOf("-->");
         key = substring[..indexOf]
             .Trim();
@@ -18,14 +18,14 @@ static class SnippetKey
 
     public static bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
-        var lineCurrent = line.Current;
+        var lineCurrent = line.Current.TrimStart();
         if (!IsSnippetLine(lineCurrent))
         {
             key = null;
             return false;
         }
 
-        key = line.Current[8..]
+        key = lineCurrent[8..]
             .Trim();
         if (string.IsNullOrWhiteSpace(key))
         {
@@ -37,7 +37,7 @@ static class SnippetKey
 
     public static bool ExtractWebSnippet(Line line, [NotNullWhen(true)] out string? url, [NotNullWhen(true)] out string? snippetKey)
     {
-        var lineCurrent = line.Current;
+        var lineCurrent = line.Current.TrimStart();
         if (!IsWebSnippetLine(lineCurrent))
         {
             url = null;

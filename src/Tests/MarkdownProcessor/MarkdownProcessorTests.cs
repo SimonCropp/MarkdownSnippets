@@ -1,4 +1,4 @@
-﻿public class MarkdownProcessorTests
+public class MarkdownProcessorTests
 {
     [Fact]
     public Task Missing_endInclude()
@@ -660,6 +660,136 @@
             content,
             availableSnippets,
             includes: [Include.Build("theKey", lines, "thePath")]);
+    }
+
+    [Fact]
+    public Task WithIndentedSnippet()
+    {
+        var content = """
+
+                      before
+
+                          snippet: theKey
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: [SnippetBuild("cs", "theKey")]);
+    }
+
+    [Fact]
+    public Task WithIndentedSnippetMultipleSpaces()
+    {
+        var content = """
+
+                      before
+
+                              snippet: theKey
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: [SnippetBuild("cs", "theKey")]);
+    }
+
+    [Fact]
+    public Task WithIndentedCommentSnippet()
+    {
+        var content = """
+
+                      before
+
+                          <!-- snippet: theKey -->
+                          bad content
+                          <!-- endSnippet -->
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            snippets: [SnippetBuild("cs", "theKey")]);
+    }
+
+    [Fact]
+    public Task WithTabIndentedSnippet()
+    {
+        var content = $"""
+
+                      before
+
+                      {"\t"}snippet: theKey
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: [SnippetBuild("cs", "theKey")]);
+    }
+
+    [Fact]
+    public Task WithIndentedWebSnippet()
+    {
+        var content = """
+
+                      before
+
+                          web-snippet: http://example.com/file.cs#snippet1
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets: [SnippetBuild("cs", "snippet1")]);
+    }
+
+    [Fact]
+    public Task WithIndentedMultiLineSnippet()
+    {
+        var content = """
+
+                      before
+
+                        snippet: theKey
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content,
+            snippets:
+            [
+                Snippet.Build(
+                    language: "cs",
+                    startLine: 1,
+                    endLine: 2,
+                    value: """
+                           the
+                           long
+                           Snippet
+                           """,
+                    key: "theKey",
+                    path: "thePath",
+                    expressiveCode: null)
+            ]);
     }
 
     static Snippet SnippetBuild(string language, string key) =>

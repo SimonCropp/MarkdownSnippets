@@ -1,4 +1,4 @@
-﻿[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
+[DebuggerDisplay("Line={LineNumber}, Original={Original}, Current={Current}")]
 class Line
 {
     public Line(string original, string? path, int lineNumber)
@@ -7,6 +7,7 @@ class Line
         Current = original;
         Path = path;
         LineNumber = lineNumber;
+        LeadingWhitespace = GetLeadingWhitespace(original);
     }
 
     public Line WithCurrent(string current) =>
@@ -37,4 +38,23 @@ class Line
     public int Length { get; private set; }
 
     public bool IsWhiteSpace { get; private set; }
+
+    public string LeadingWhitespace { get; }
+
+    static string GetLeadingWhitespace(string text)
+    {
+        var length = 0;
+        foreach (var c in text)
+        {
+            if (c is ' ' or '\t')
+            {
+                length++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return text[..length];
+    }
 }

@@ -134,11 +134,21 @@ public class MarkdownProcessor
         var builder = new StringBuilder();
         Line? tocLine = null;
 
-        void AppendLine(string s)
+        Action<string> CreateIndentedAppendLine(string indent) => s =>
         {
-            builder.Append(s);
+            var first = true;
+            foreach (var line in s.AsSpan().EnumerateLines())
+            {
+                if (!first)
+                {
+                    builder.Append(newLine);
+                }
+                first = false;
+                builder.Append(indent);
+                builder.Append(line);
+            }
             builder.Append(newLine);
-        }
+        };
 
         var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
@@ -165,7 +175,7 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (line.Current == "toc")
+            if (line.Current.TrimStart() == "toc")
             {
                 tocLine = line;
                 continue;
@@ -174,7 +184,8 @@ public class MarkdownProcessor
             void AppendSnippet(string key1)
             {
                 builder.Clear();
-                ProcessSnippetLine(AppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
+                var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
+                ProcessSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -182,7 +193,8 @@ public class MarkdownProcessor
             void AppendWebSnippet(string url, string snippetKey)
             {
                 builder.Clear();
-                ProcessWebSnippetLine(AppendLine, missingSnippets, usedSnippets, url, snippetKey, line);
+                var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
+                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, line);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -218,7 +230,7 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (line.Current == "<!-- toc -->")
+            if (line.Current.TrimStart() == "<!-- toc -->")
             {
                 tocLine = line;
 

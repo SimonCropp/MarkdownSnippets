@@ -1,0 +1,18 @@
+﻿{
+  MissingSnippets: [
+    {
+      Key: http://example.com/file.cs#snippet1,
+      LineNumber: 4
+    }
+  ],
+  result:
+before
+
+    <!-- web-snippet: http://example.com/file.cs#snippet1 -->
+    ```
+    ** Could not fetch or parse web-snippet 'http://example.com/file.cs#snippet1' **
+    ```
+    <!-- endSnippet -->
+
+after
+}

@@ -1,7 +1,7 @@
 ﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MarkdownSnippetsAssembly Condition="$(MSBuildRuntimeType) == 'Core'">$(MSBuildThisFileDirectory)..\task\net9.0\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
-    <MarkdownSnippetsAssembly Condition="$(MSBuildRuntimeType) != 'Core'">$(MSBuildThisFileDirectory)..\task\net48\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
+    <MarkdownSnippetsAssembly Condition="$(MSBuildRuntimeType) != 'Core'">$(MSBuildThisFileDirectory)..\task\netstandard2.0\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
   </PropertyGroup>
 
   <ItemGroup>

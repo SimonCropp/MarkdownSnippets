@@ -1,6 +1,5 @@
-﻿public delegate bool EndFunc(string line);
-
-static class StartEndTester
+﻿// ReSharper disable PartialTypeWithSinglePart
+static partial class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||
@@ -98,7 +97,7 @@ static class StartEndTester
         var substring = line
             .TrimBackCommentChars(startIndex);
 
-        var match = ExpressiveCode.Pattern.Match(substring);
+        var match = pattern.Match(substring);
 
         if (match.Length == 0)
         {
@@ -142,6 +141,17 @@ static class StartEndTester
              Line: {line}
              """);
     }
+
+    const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";
+
+#if NET8_0_OR_GREATER
+    static Regex pattern { get; } = BuildRegex();
+
+    [GeneratedRegex(regex)]
+    private static partial Regex BuildRegex();
+#else
+    static readonly Regex pattern = new(regex);
+#endif
 
     static int IndexOf(string line, string value)
     {

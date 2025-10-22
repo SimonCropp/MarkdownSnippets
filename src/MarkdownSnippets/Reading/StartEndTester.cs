@@ -97,9 +97,35 @@ static partial class StartEndTester
         var substring = line
             .TrimBackCommentChars(startIndex);
 
-        var match = pattern.Match(substring);
+        var startArgs = substring.IndexOf('(');
+        if (startArgs == -1)
+        {
+            key = substring.Trim();
+        }
+        else
+        {
+            substring = substring.Trim();
+            key = substring[..startArgs].Trim();
 
-        if (match.Length == 0)
+            if (!substring.EndsWith(')'))
+            {
+                throw new SnippetReadingException(
+                    $"""
+                     ExpressiveCode must end with ')`.
+                     Key: {key}
+                     Path: {path}
+                     Line: {line}
+                     """);
+            }
+
+            expressiveCode = substring[(startArgs +1)..^1].Trim();
+            if (expressiveCode.Length == 0)
+            {
+                expressiveCode = null;
+            }
+        }
+
+        if (key.Length == 0)
         {
             throw new SnippetReadingException(
                 $"""
@@ -107,25 +133,6 @@ static partial class StartEndTester
                  Path: {path}
                  Line: '{line}'
                  """);
-        }
-
-        var partOne = match.Groups[1].Value;
-        var split = partOne.SplitBySpace();
-        if (split.Length != 1)
-        {
-            throw new SnippetReadingException(
-                $"""
-                 Too many parts.
-                 Path: {path}
-                 Line: '{line}'
-                 """);
-        }
-
-        key = split[0];
-        expressiveCode = match.Groups[2].Value;
-        if (expressiveCode.Length == 0)
-        {
-            expressiveCode = null;
         }
 
         if (KeyValidator.IsValidKey(key.AsSpan()))
@@ -141,17 +148,6 @@ static partial class StartEndTester
              Line: {line}
              """);
     }
-
-    const string regex = @"([a-zA-Z0-9\-_]+)(?:\((.*?)\))?";
-
-#if NET8_0_OR_GREATER
-    static Regex pattern { get; } = BuildRegex();
-
-    [GeneratedRegex(regex)]
-    private static partial Regex BuildRegex();
-#else
-    static readonly Regex pattern = new(regex);
-#endif
 
     static int IndexOf(string line, string value)
     {

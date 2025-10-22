@@ -11,7 +11,7 @@ static class StartEndTester
         CharSpan path,
         out CharSpan currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
-        out string? expressiveCode)
+        out CharSpan expressiveCode)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey, out expressiveCode))
         {
@@ -56,13 +56,8 @@ static class StartEndTester
 
         var substring = line[8..].Trim();
 
-        if (substring.Contains(' '))
-        {
-            key = null;
-            return false;
-        }
-
-        if (!KeyValidator.IsValidKey(substring))
+        if (substring.Contains(' ') ||
+            !KeyValidator.IsValidKey(substring))
         {
             key = null;
             return false;
@@ -82,7 +77,7 @@ static class StartEndTester
         CharSpan line,
         CharSpan path,
         out CharSpan key,
-        out string? expressiveCode)
+        out CharSpan expressiveCode)
     {
         expressiveCode = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
@@ -117,11 +112,7 @@ static class StartEndTester
                      """);
             }
 
-            var expressiveCodeSpan = substring[(startArgs + 1)..^1].Trim();
-            if (expressiveCodeSpan.Length != 0)
-            {
-                expressiveCode = expressiveCodeSpan.ToString();
-            }
+            expressiveCode = substring[(startArgs + 1)..^1].Trim();
         }
 
         if (key.Length == 0)

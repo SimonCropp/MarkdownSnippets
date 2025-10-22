@@ -124,9 +124,6 @@ static class Extensions
         return string.Empty;
     }
 
-    public static string[] SplitBySpace(this string value) =>
-        value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
     public static string[] Lines(this string value) =>
         value.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
 

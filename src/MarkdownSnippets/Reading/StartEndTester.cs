@@ -9,7 +9,7 @@ static class StartEndTester
     internal static bool IsStart(
         CharSpan trimmedLine,
         CharSpan path,
-        [NotNullWhen(true)] out string? currentKey,
+        out CharSpan currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
         out string? expressiveCode)
     {
@@ -46,7 +46,7 @@ static class StartEndTester
 
     internal static bool IsStartRegion(
         CharSpan line,
-        [NotNullWhen(true)] out string? key)
+        out CharSpan key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
@@ -81,7 +81,7 @@ static class StartEndTester
     internal static bool IsBeginSnippet(
         CharSpan line,
         CharSpan path,
-        [NotNullWhen(true)] out string? key,
+        out CharSpan key,
         out string? expressiveCode)
     {
         expressiveCode = null;
@@ -97,22 +97,21 @@ static class StartEndTester
             .TrimBackCommentChars(startIndex);
 
         var startArgs = substring.IndexOf('(');
-        CharSpan keySpan;
         if (startArgs == -1)
         {
-            keySpan = substring.Trim();
+            key = substring.Trim();
         }
         else
         {
             substring = substring.Trim();
-            keySpan = substring[..startArgs].Trim();
+            key = substring[..startArgs].Trim();
 
             if (!substring.EndsWith(')'))
             {
                 throw new SnippetReadingException(
                     $"""
                      ExpressiveCode must end with ')`.
-                     Key: {keySpan}
+                     Key: {key}
                      Path: {path}
                      Line: {line}
                      """);
@@ -125,7 +124,7 @@ static class StartEndTester
             }
         }
 
-        if (keySpan.Length == 0)
+        if (key.Length == 0)
         {
             throw new SnippetReadingException(
                 $"""
@@ -135,16 +134,15 @@ static class StartEndTester
                  """);
         }
 
-        if (KeyValidator.IsValidKey(keySpan))
+        if (KeyValidator.IsValidKey(key))
         {
-            key = keySpan.ToString();
             return true;
         }
 
         throw new SnippetReadingException(
             $"""
              Key cannot contain whitespace or start/end with symbols.
-             Key: {keySpan}
+             Key: {key}
              Path: {path}
              Line: {line}
              """);

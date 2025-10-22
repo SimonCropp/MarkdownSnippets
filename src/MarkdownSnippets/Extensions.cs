@@ -110,7 +110,7 @@ static class Extensions
         }
     }
 
-    public static string TrimBackCommentChars(this string input, int startIndex)
+    public static CharSpan TrimBackCommentChars(this CharSpan input, int startIndex)
     {
         for (var index = input.Length - 1; index >= startIndex; index--)
         {

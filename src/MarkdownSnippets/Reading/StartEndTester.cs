@@ -97,34 +97,35 @@ static class StartEndTester
             .TrimBackCommentChars(startIndex);
 
         var startArgs = substring.IndexOf('(');
+        CharSpan keySpan;
         if (startArgs == -1)
         {
-            key = substring.Trim();
+            keySpan = substring.Trim();
         }
         else
         {
             substring = substring.Trim();
-            key = substring[..startArgs].Trim();
+            keySpan = substring[..startArgs].Trim();
 
             if (!substring.EndsWith(')'))
             {
                 throw new SnippetReadingException(
                     $"""
                      ExpressiveCode must end with ')`.
-                     Key: {key}
+                     Key: {keySpan}
                      Path: {path}
                      Line: {line}
                      """);
             }
 
-            expressiveCode = substring[(startArgs + 1)..^1].Trim();
-            if (expressiveCode.Length == 0)
+            var expressiveCodeSpan = substring[(startArgs + 1)..^1].Trim();
+            if (expressiveCodeSpan.Length != 0)
             {
-                expressiveCode = null;
+                expressiveCode = expressiveCodeSpan.ToString();
             }
         }
 
-        if (key.Length == 0)
+        if (keySpan.Length == 0)
         {
             throw new SnippetReadingException(
                 $"""
@@ -134,15 +135,16 @@ static class StartEndTester
                  """);
         }
 
-        if (KeyValidator.IsValidKey(key.AsSpan()))
+        if (KeyValidator.IsValidKey(keySpan))
         {
+            key = keySpan.ToString();
             return true;
         }
 
         throw new SnippetReadingException(
             $"""
              Key cannot contain whitespace or start/end with symbols.
-             Key: {key}
+             Key: {keySpan}
              Path: {path}
              Line: {line}
              """);

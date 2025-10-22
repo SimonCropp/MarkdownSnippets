@@ -1,4 +1,4 @@
-﻿static class StartEndTester
+static class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||
@@ -96,9 +96,35 @@
         var substring = line
             .TrimBackCommentChars(startIndex);
 
-        var match = ExpressiveCode.Pattern.Match(substring);
+        var startArgs = substring.IndexOf('(');
+        if (startArgs == -1)
+        {
+            key = substring.Trim();
+        }
+        else
+        {
+            substring = substring.Trim();
+            key = substring[..startArgs].Trim();
 
-        if (match.Length == 0)
+            if (!substring.EndsWith(')'))
+            {
+                throw new SnippetReadingException(
+                    $"""
+                     ExpressiveCode must end with ')`.
+                     Key: {key}
+                     Path: {path}
+                     Line: {line}
+                     """);
+            }
+
+            expressiveCode = substring[(startArgs +1)..^1].Trim();
+            if (expressiveCode.Length == 0)
+            {
+                expressiveCode = null;
+            }
+        }
+
+        if (key.Length == 0)
         {
             throw new SnippetReadingException(
                 $"""
@@ -106,25 +132,6 @@
                  Path: {path}
                  Line: '{line}'
                  """);
-        }
-
-        var partOne = match.Groups[1].Value;
-        var split = partOne.SplitBySpace();
-        if (split.Length != 1)
-        {
-            throw new SnippetReadingException(
-                $"""
-                 Too many parts.
-                 Path: {path}
-                 Line: '{line}'
-                 """);
-        }
-
-        key = split[0];
-        expressiveCode = match.Groups[2].Value;
-        if (expressiveCode.Length == 0)
-        {
-            expressiveCode = null;
         }
 
         if (KeyValidator.IsValidKey(key.AsSpan()))

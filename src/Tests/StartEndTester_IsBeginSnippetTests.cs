@@ -99,4 +99,21 @@
         Assert.Equal("CodeKey", key);
         Assert.Equal("""title="Program.cs" {1-3}""", expressive);
     }
+    [Fact]
+    public void CanExtractWithExpressiveCodeWithHtmlSnippetTrailingWhitespace()
+    {
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!--begin-snippet: CodeKey(title="Program.cs" {1-3})  -->""", "file", out var key, out var block);
+        Assert.True(isBeginSnippet);
+        Assert.Equal("CodeKey", key);
+        Assert.Equal("""title="Program.cs" {1-3}""", block);
+    }
+
+    [Fact]
+    public void CanExtractWithExpressiveCodeWithCsharpCommentTrailingWhitespace()
+    {
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""/*begin-snippet: CodeKey(title="Program.cs" {1-3})  */""", "file", out var key, out var expressive);
+        Assert.True(isBeginSnippet);
+        Assert.Equal("CodeKey", key);
+        Assert.Equal("""title="Program.cs" {1-3}""", expressive);
+    }
 }

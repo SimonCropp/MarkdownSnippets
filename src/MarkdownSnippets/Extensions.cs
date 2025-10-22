@@ -85,7 +85,7 @@ static class Extensions
         return count;
     }
 
-    public static int LastIndexOfSequence(this string value, char c, int max)
+    public static int LastIndexOfSequence(this CharSpan value, char c, int max)
     {
         var index = 0;
         while (true)

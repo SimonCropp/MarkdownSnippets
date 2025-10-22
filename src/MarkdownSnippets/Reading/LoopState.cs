@@ -40,13 +40,15 @@ class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string
                 builder.Append(newLine);
             }
         }
+
         var paddingToRemove = line.LastIndexOfSequence(paddingChar, paddingLength);
 
         var lineLength = line.Length - paddingToRemove;
         if (lineLength > maxWidth)
         {
-            throw new LineTooLongException(line.Substring(paddingToRemove,lineLength));
+            throw new LineTooLongException(line.Substring(paddingToRemove, lineLength));
         }
+
         builder.Append(line, paddingToRemove, lineLength);
         if (line.Length == 0)
         {
@@ -58,7 +60,7 @@ class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string
         }
     }
 
-    void CheckWhiteSpace(string line, char whiteSpace)
+    void CheckWhiteSpace(CharSpan line, char whiteSpace)
     {
         var c = line[0];
         if (c != whiteSpace)

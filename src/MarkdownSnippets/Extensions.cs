@@ -127,6 +127,16 @@ static class Extensions
     public static string[] Lines(this string value) =>
         value.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
 
-    public static bool IsWhiteSpace(this string target) =>
-        string.IsNullOrWhiteSpace(target);
+    public static bool IsWhiteSpace(this CharSpan target)
+    {
+        for (var i = 0; i < target.Length; i++)
+        {
+            if (!char.IsWhiteSpace(target[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -60,7 +60,7 @@ static class Extensions
 
     public static IReadOnlyList<T> ToReadonlyList<T>(this IEnumerable<T> value) => value.ToList();
 
-    public static int LineCount(this string input)
+    public static int LineCount(this CharSpan input)
     {
         var count = 1;
         var len = input.Length;

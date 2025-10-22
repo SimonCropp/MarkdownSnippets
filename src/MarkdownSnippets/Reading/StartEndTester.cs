@@ -1,5 +1,4 @@
-﻿// ReSharper disable PartialTypeWithSinglePart
-static partial class StartEndTester
+static class StartEndTester
 {
     internal static bool IsStartOrEnd(string trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||

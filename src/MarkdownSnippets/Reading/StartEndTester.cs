@@ -117,7 +117,7 @@ static class StartEndTester
                      """);
             }
 
-            expressiveCode = substring[(startArgs +1)..^1].Trim();
+            expressiveCode = substring[(startArgs + 1)..^1].Trim();
             if (expressiveCode.Length == 0)
             {
                 expressiveCode = null;
@@ -148,7 +148,7 @@ static class StartEndTester
              """);
     }
 
-    static int IndexOf(string line, string value)
+    static int IndexOf(CharSpan line, CharSpan value)
     {
         if (value.Length > line.Length)
         {
@@ -156,6 +156,6 @@ static class StartEndTester
         }
 
         var charactersToScan = Math.Min(line.Length, value.Length + 10);
-        return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
+        return line[..charactersToScan].IndexOf(value, StringComparison.Ordinal);
     }
 }

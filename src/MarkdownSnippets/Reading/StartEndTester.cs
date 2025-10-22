@@ -35,10 +35,10 @@ static class StartEndTester
 
     static EndFunc throwFunc = _ => throw new("Do not use out func");
 
-    static bool IsEndRegion(string line) =>
+    static bool IsEndRegion(CharSpan line) =>
         line.StartsWith("#endregion", StringComparison.Ordinal);
 
-    static bool IsEndSnippet(string line) =>
+    static bool IsEndSnippet(CharSpan line) =>
         IndexOf(line, "end-snippet") >= 0;
 
     static bool IsStartRegion(string line) =>

@@ -1,0 +1,1 @@
+﻿delegate bool EndFunc(string line);

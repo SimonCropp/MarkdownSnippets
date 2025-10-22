@@ -1,14 +1,14 @@
 static class StartEndTester
 {
-    internal static bool IsStartOrEnd(string trimmedLine) =>
+    internal static bool IsStartOrEnd(CharSpan trimmedLine) =>
         IsBeginSnippet(trimmedLine) ||
         IsEndSnippet(trimmedLine) ||
         IsStartRegion(trimmedLine) ||
         IsEndRegion(trimmedLine);
 
     internal static bool IsStart(
-        string trimmedLine,
-        string path,
+        CharSpan trimmedLine,
+        CharSpan path,
         [NotNullWhen(true)] out string? currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
         out string? expressiveCode)
@@ -41,11 +41,11 @@ static class StartEndTester
     static bool IsEndSnippet(CharSpan line) =>
         IndexOf(line, "end-snippet") >= 0;
 
-    static bool IsStartRegion(string line) =>
+    static bool IsStartRegion(CharSpan line) =>
         line.StartsWith("#region ", StringComparison.Ordinal);
 
     internal static bool IsStartRegion(
-        string line,
+        CharSpan line,
         [NotNullWhen(true)] out string? key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
@@ -62,25 +62,25 @@ static class StartEndTester
             return false;
         }
 
-        if (!KeyValidator.IsValidKey(substring.AsSpan()))
+        if (!KeyValidator.IsValidKey(substring))
         {
             key = null;
             return false;
         }
 
-        key = substring;
+        key = substring.ToString();
         return true;
     }
 
-    static bool IsBeginSnippet(string line)
+    static bool IsBeginSnippet(CharSpan line)
     {
         var startIndex = IndexOf(line, "begin-snippet: ");
         return startIndex != -1;
     }
 
     internal static bool IsBeginSnippet(
-        string line,
-        string path,
+        CharSpan line,
+        CharSpan path,
         [NotNullWhen(true)] out string? key,
         out string? expressiveCode)
     {

@@ -9,7 +9,7 @@ public class MissingSnippetsException(IReadOnlyList<MissingSnippet> missing) :
         string.Join(
             $"{Environment.NewLine}  ",
             missing.GroupBy(_ => _.File ?? "file-unknown")
-                .Select(_ => $"{_.Key}: {string.Join(",", _.Select(s => s.Key))}"));
+                .Select(_ => $"{_.Key}: {string.Join(',', _.Select(_ => _.Key))}"));
 
     public override string ToString() => Message;
 }

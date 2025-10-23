@@ -316,7 +316,7 @@ public class MarkdownProcessor
         // Extract snippets from content
         using var reader = new StringReader(content);
         var snippets = FileSnippetExtractor.Read(reader, url);
-        var found = snippets.FirstOrDefault(s => s.Key == snippetKey);
+        var found = snippets.FirstOrDefault(_ => _.Key == snippetKey);
         if (found == null)
         {
             var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
@@ -416,19 +416,9 @@ public class MarkdownProcessor
 
     (string text, int lineCount) ReadNonStartEndLines(string file)
     {
-        using var reader = File.OpenText(file);
-        var lines = new List<string>();
-        while (reader.ReadLine() is { } line)
-        {
-            if (StartEndTester.IsStartOrEnd(line))
-            {
-                continue;
-            }
-
-            lines.Add(line);
-        }
-
-        var text = string.Join(newLine, lines).Trim();
-        return (text, lines.Count);
+        var cleanedLines = File.ReadAllLines(file)
+            .Where(_ => !StartEndTester.IsStartOrEnd(_.TrimStart())).ToList();
+        var text = string.Join(newLine, cleanedLines).Trim();
+        return (text, cleanedLines.Count);
     }
 }

@@ -1,10 +1,13 @@
 static class StartEndTester
 {
-    internal static bool IsStartOrEnd(CharSpan trimmedLine) =>
-        IsBeginSnippet(trimmedLine) ||
-        IsEndSnippet(trimmedLine) ||
-        IsStartRegion(trimmedLine) ||
-        IsEndRegion(trimmedLine);
+    internal static bool IsStartOrEnd(CharSpan line)
+    {
+        var trimmedLine = line.Trim();
+        return IsBeginSnippet(trimmedLine) ||
+               IsEndSnippet(trimmedLine) ||
+               IsStartRegion(trimmedLine) ||
+               IsEndRegion(trimmedLine);
+    }
 
     internal static bool IsStart(
         CharSpan trimmedLine,

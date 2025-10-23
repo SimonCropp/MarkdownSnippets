@@ -140,8 +140,3 @@ public class Snippet :
 
          """;
 }
-
-public interface IContent
-{
-    string? Path { get; }
-}

@@ -416,9 +416,19 @@ public class MarkdownProcessor
 
     (string text, int lineCount) ReadNonStartEndLines(string file)
     {
-        var cleanedLines = File.ReadAllLines(file)
-            .Where(_ => !StartEndTester.IsStartOrEnd(_.TrimStart())).ToList();
-        var text = string.Join(newLine, cleanedLines).Trim();
-        return (text, cleanedLines.Count);
+        using var reader = File.OpenText(file);
+        var lines = new List<string>();
+        while (reader.ReadLine() is { } line)
+        {
+            if (StartEndTester.IsStartOrEnd(line))
+            {
+                continue;
+            }
+
+            lines.Add(line);
+        }
+
+        var text = string.Join(newLine, lines).Trim();
+        return (text, lines.Count);
     }
 }

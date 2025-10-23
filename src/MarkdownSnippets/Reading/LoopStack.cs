@@ -15,9 +15,11 @@ class LoopStack
 
     public void Pop() => stack.Pop();
 
-    public void Push(EndFunc endFunc, string key, int startLine, int maxWidth, string newLine, string? expressiveCode)
+    public void Push(EndFunc endFunc, CharSpan key, int startLine, int maxWidth, string newLine, CharSpan expressiveCode)
     {
-        var state = new LoopState(key, endFunc, startLine, maxWidth, newLine, expressiveCode);
+        var expressiveCodeString = expressiveCode.Length == 0 ? null : expressiveCode.ToString();
+
+        var state = new LoopState(key.ToString(), endFunc, startLine, maxWidth, newLine, expressiveCodeString);
         stack.Push(state);
     }
 

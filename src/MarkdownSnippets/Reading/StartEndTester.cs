@@ -1,17 +1,20 @@
 static class StartEndTester
 {
-    internal static bool IsStartOrEnd(string trimmedLine) =>
-        IsBeginSnippet(trimmedLine) ||
-        IsEndSnippet(trimmedLine) ||
-        IsStartRegion(trimmedLine) ||
-        IsEndRegion(trimmedLine);
+    internal static bool IsStartOrEnd(CharSpan line)
+    {
+        var trimmedLine = line.Trim();
+        return IsBeginSnippet(trimmedLine) ||
+               IsEndSnippet(trimmedLine) ||
+               IsStartRegion(trimmedLine) ||
+               IsEndRegion(trimmedLine);
+    }
 
     internal static bool IsStart(
-        string trimmedLine,
-        string path,
-        [NotNullWhen(true)] out string? currentKey,
+        CharSpan trimmedLine,
+        CharSpan path,
+        out CharSpan currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
-        out string? expressiveCode)
+        out CharSpan expressiveCode)
     {
         if (IsBeginSnippet(trimmedLine, path, out currentKey, out expressiveCode))
         {
@@ -35,18 +38,18 @@ static class StartEndTester
 
     static EndFunc throwFunc = _ => throw new("Do not use out func");
 
-    static bool IsEndRegion(string line) =>
+    static bool IsEndRegion(CharSpan line) =>
         line.StartsWith("#endregion", StringComparison.Ordinal);
 
-    static bool IsEndSnippet(string line) =>
+    static bool IsEndSnippet(CharSpan line) =>
         IndexOf(line, "end-snippet") >= 0;
 
-    static bool IsStartRegion(string line) =>
+    static bool IsStartRegion(CharSpan line) =>
         line.StartsWith("#region ", StringComparison.Ordinal);
 
     internal static bool IsStartRegion(
-        string line,
-        [NotNullWhen(true)] out string? key)
+        CharSpan line,
+        out CharSpan key)
     {
         if (!line.StartsWith("#region ", StringComparison.Ordinal))
         {
@@ -56,33 +59,28 @@ static class StartEndTester
 
         var substring = line[8..].Trim();
 
-        if (substring.Contains(' '))
+        if (substring.Contains(' ') ||
+            !KeyValidator.IsValidKey(substring))
         {
             key = null;
             return false;
         }
 
-        if (!KeyValidator.IsValidKey(substring.AsSpan()))
-        {
-            key = null;
-            return false;
-        }
-
-        key = substring;
+        key = substring.ToString();
         return true;
     }
 
-    static bool IsBeginSnippet(string line)
+    static bool IsBeginSnippet(CharSpan line)
     {
         var startIndex = IndexOf(line, "begin-snippet: ");
         return startIndex != -1;
     }
 
     internal static bool IsBeginSnippet(
-        string line,
-        string path,
-        [NotNullWhen(true)] out string? key,
-        out string? expressiveCode)
+        CharSpan line,
+        CharSpan path,
+        out CharSpan key,
+        out CharSpan expressiveCode)
     {
         expressiveCode = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
@@ -117,11 +115,7 @@ static class StartEndTester
                      """);
             }
 
-            expressiveCode = substring[(startArgs +1)..^1].Trim();
-            if (expressiveCode.Length == 0)
-            {
-                expressiveCode = null;
-            }
+            expressiveCode = substring[(startArgs + 1)..^1].Trim();
         }
 
         if (key.Length == 0)
@@ -134,7 +128,7 @@ static class StartEndTester
                  """);
         }
 
-        if (KeyValidator.IsValidKey(key.AsSpan()))
+        if (KeyValidator.IsValidKey(key))
         {
             return true;
         }
@@ -148,7 +142,7 @@ static class StartEndTester
              """);
     }
 
-    static int IndexOf(string line, string value)
+    static int IndexOf(CharSpan line, CharSpan value)
     {
         if (value.Length > line.Length)
         {
@@ -156,6 +150,6 @@ static class StartEndTester
         }
 
         var charactersToScan = Math.Min(line.Length, value.Length + 10);
-        return line.IndexOf(value, startIndex: 0, count: charactersToScan, StringComparison.Ordinal);
+        return line[..charactersToScan].IndexOf(value, StringComparison.Ordinal);
     }
 }

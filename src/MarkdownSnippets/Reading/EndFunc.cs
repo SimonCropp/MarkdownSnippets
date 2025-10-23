@@ -1,1 +1,1 @@
-delegate bool EndFunc(string line);
+delegate bool EndFunc(CharSpan line);

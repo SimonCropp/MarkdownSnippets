@@ -23,6 +23,7 @@ public static class SimpleSnippetMarkdownHandling
         {
             appendLine($"```{snippet.Language} {snippet.ExpressiveCode}");
         }
+
         appendLine(snippet.Value);
         appendLine("```");
     }

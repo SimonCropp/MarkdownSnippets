@@ -124,7 +124,7 @@ public static class FileSnippetExtractor
         var extension = Path.GetExtension(path);
         // ReSharper disable once ConstantConditionalAccessQualifier
         var s = extension?.TrimStart('.');
-        return s ?? string.Empty;
+        return s?.ToLowerInvariant() ?? string.Empty;
     }
 
     static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth, string newLine)
@@ -207,7 +207,7 @@ public static class FileSnippetExtractor
             key: loopState.Key,
             value: value,
             path: path,
-            language: language.ToLowerInvariant(),
+            language: language,
             expressiveCode: loopState.ExpressiveCode
         );
     }

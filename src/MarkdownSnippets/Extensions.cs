@@ -60,7 +60,7 @@ static class Extensions
 
     public static IReadOnlyList<T> ToReadonlyList<T>(this IEnumerable<T> value) => value.ToList();
 
-    public static int LineCount(this string input)
+    public static int LineCount(this CharSpan input)
     {
         var count = 1;
         var len = input.Length;
@@ -85,7 +85,7 @@ static class Extensions
         return count;
     }
 
-    public static int LastIndexOfSequence(this string value, char c, int max)
+    public static int LastIndexOfSequence(this CharSpan value, char c, int max)
     {
         var index = 0;
         while (true)
@@ -110,7 +110,7 @@ static class Extensions
         }
     }
 
-    public static string TrimBackCommentChars(this string input, int startIndex)
+    public static CharSpan TrimBackCommentChars(this CharSpan input, int startIndex)
     {
         for (var index = input.Length - 1; index >= startIndex; index--)
         {
@@ -127,6 +127,16 @@ static class Extensions
     public static string[] Lines(this string value) =>
         value.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
 
-    public static bool IsWhiteSpace(this string target) =>
-        string.IsNullOrWhiteSpace(target);
+    public static bool IsWhiteSpace(this CharSpan target)
+    {
+        for (var i = 0; i < target.Length; i++)
+        {
+            if (!char.IsWhiteSpace(target[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

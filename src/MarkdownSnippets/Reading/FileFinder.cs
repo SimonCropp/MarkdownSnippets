@@ -109,13 +109,12 @@
 
     static bool ShouldInclude(string file)
     {
-        var extension = Path.GetExtension(file);
+        var extension = FileSnippetExtractor.GetLanguageFromPath(file);
         if (extension == string.Empty)
         {
             return false;
         }
 
-        extension = extension[1..];
         return !SnippetFileExclusions.IsBinary(extension);
     }
 }

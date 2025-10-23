@@ -8,14 +8,11 @@
         return filePaths[0];
     }
 
-    public static FileStream OpenRead(string path) =>
-        new(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
     public static string GetRelativePath(string file, string directory)
     {
         var fileUri = new Uri(file);
         // Folders must end in a slash
-        if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        if (!directory.EndsWith(Path.DirectorySeparatorChar))
         {
             directory += Path.DirectorySeparatorChar;
         }
@@ -32,20 +29,6 @@
         }
 
         return $"/{path}";
-    }
-
-    public static IEnumerable<string> FindFiles(string directory, string pattern)
-    {
-        var files = new List<string>();
-        try
-        {
-            files.AddRange(Directory.EnumerateFiles(directory, pattern));
-        }
-        catch (UnauthorizedAccessException)
-        {
-        }
-
-        return files;
     }
 
     public static void ClearReadOnly(string path)

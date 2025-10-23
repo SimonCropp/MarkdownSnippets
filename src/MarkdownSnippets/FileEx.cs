@@ -15,7 +15,7 @@
     {
         var fileUri = new Uri(file);
         // Folders must end in a slash
-        if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        if (!directory.EndsWith(Path.DirectorySeparatorChar))
         {
             directory += Path.DirectorySeparatorChar;
         }

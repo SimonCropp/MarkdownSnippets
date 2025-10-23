@@ -409,7 +409,7 @@ public class MarkdownProcessor
             endLine: lineCount,
             value: text,
             key: key,
-            language: Path.GetExtension(file)[1..],
+            language: FileSnippetExtractor.GetLanguageFromPath(file),
             path: path,
             expressiveCode: null);
     }

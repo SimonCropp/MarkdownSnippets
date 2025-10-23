@@ -83,7 +83,7 @@ public static class FileSnippetExtractor
     /// <param name="newLine">The string to use as a line separator in snippets.</param>
     public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n") =>
         paths
-            .Where(_ => SnippetFileExclusions.CanContainCommentsExtension(Path.GetExtension(_)[1..]))
+            .Where(_ => SnippetFileExclusions.CanContainCommentsExtension(GetLanguageFromPath(_)))
             .SelectMany(path => Read(path, maxWidth, newLine));
 
     /// <summary>
@@ -119,7 +119,7 @@ public static class FileSnippetExtractor
         return GetSnippets(textReader, path, maxWidth, newLine);
     }
 
-    static string GetLanguageFromPath(string path)
+    public static string GetLanguageFromPath(string path)
     {
         var extension = Path.GetExtension(path);
         // ReSharper disable once ConstantConditionalAccessQualifier

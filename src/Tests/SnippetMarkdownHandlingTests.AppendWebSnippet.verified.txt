@@ -1,0 +1,5 @@
+﻿<a id='snippet-http://example.com/file.cs%23mysnippet'></a>
+```cs
+theValue
+```
+<sup><a href='http://example.com/file.cs#mysnippet' title='Snippet source file'>anchor</a></sup>

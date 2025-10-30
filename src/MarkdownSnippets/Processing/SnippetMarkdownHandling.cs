@@ -50,7 +50,19 @@ public class SnippetMarkdownHandling
 
     static string GetAnchorText(Snippet snippet, uint index)
     {
-        var id = $"snippet-{snippet.Key}";
+        string id;
+        var pathStr = snippet.Path;
+        if (pathStr != null && pathStr.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+        {
+            // For web-snippets, include the full URL and the snippet key, with '#' encoded
+            var combined = $"snippet-{pathStr}#{snippet.Key}";
+            id = combined.Replace("#", "%23");
+        }
+        else
+        {
+            id = $"snippet-{snippet.Key}";
+        }
+
         if (index == 0)
         {
             return id;
@@ -62,12 +74,18 @@ public class SnippetMarkdownHandling
     string GetSupText(Snippet snippet, string anchor)
     {
         var linkForAnchor = $"<a href='#{anchor}' title='Start of snippet'>anchor</a>";
-        if (snippet.Path == null || linkFormat == LinkFormat.None)
+        var pathLocal = snippet.Path;
+        if (pathLocal == null || linkFormat == LinkFormat.None)
         {
             return linkForAnchor;
         }
 
-        var path = snippet.Path.Replace('\\', '/');
+        var path = pathLocal.Replace('\\', '/');
+        if (path.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+        {
+            // For web-snippets: link back to the original URL with the snippet key as a hash
+            return $"<a href='{path}#{snippet.Key}' title='Snippet source file'>anchor</a>";
+        }
         if (!path.StartsWith(targetDirectory))
         {
             // if file is not in the targetDirectory then the url wont work

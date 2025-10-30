@@ -219,11 +219,11 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 Will render:
 
 	<!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet -->
-	<a id='snippet-snipPet'></a>
+	<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt%23snipPet'></a>
 	```txt
 	Some code
 	```
-	<sup><a href='#snippet-snipPet' title='Start of snippet'>anchor</a></sup>
+	<sup><a href='https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet' title='Snippet source file'>anchor</a></sup>
 	<!-- endSnippet -->
 
 ### Including a full file
@@ -347,7 +347,7 @@ switch (linkFormat)
         throw new($"Unknown LinkFormat: {linkFormat}");
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L103-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L121-L142' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

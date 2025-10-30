@@ -83,7 +83,11 @@ public class SnippetMarkdownHandling
         var path = pathLocal.Replace('\\', '/');
         if (path.StartsWith("http", StringComparison.OrdinalIgnoreCase))
         {
-            // For web-snippets: link back to the original URL with the snippet key as a hash
+            // For web-snippets: use ViewUrl if provided, otherwise link back to the original URL with the snippet key as a hash
+            if (snippet.ViewUrl != null)
+            {
+                return $"<a href='{snippet.ViewUrl}#L{snippet.StartLine}-L{snippet.EndLine}' title='Snippet source file'>anchor</a>";
+            }
             return $"<a href='{path}#{snippet.Key}' title='Snippet source file'>anchor</a>";
         }
         if (!path.StartsWith(targetDirectory))

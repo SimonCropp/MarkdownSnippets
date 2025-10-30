@@ -814,6 +814,46 @@ public class MarkdownProcessorTests
             content);
     }
 
+    [Fact]
+    public Task WithCommentWebSnippetWithViewUrl()
+    {
+        var content = """
+
+                      before
+
+                      <!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt -->
+                      OLD CONTENT
+                      THAT SHOULD BE
+                      REPLACED
+                      <!-- endSnippet -->
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content);
+    }
+
+    [Fact]
+    public Task WithInlineWebSnippetWithViewUrl()
+    {
+        var content = """
+
+                      before
+
+                      web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt
+
+                      after
+
+                      """;
+
+        return SnippetVerifier.Verify(
+            DocumentConvention.SourceTransform,
+            content);
+    }
+
     static Snippet SnippetBuild(string language, string key) =>
         Snippet.Build(
             language: language,

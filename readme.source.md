@@ -212,11 +212,25 @@ Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kep
 Will render:
 
 	<!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet -->
-	<a id='snippet-snipPet'></a>
+	<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt%23snipPet'></a>
 	```txt
 	Some code
 	```
-	<sup><a href='#snippet-snipPet' title='Start of snippet'>anchor</a></sup>
+	<sup><a href='https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet' title='Snippet source file'>anchor</a></sup>
+	<!-- endSnippet -->
+
+You can optionally provide a second URL that will be used for the source link. This is useful when the raw content URL is different from the view URL. For example:
+
+`web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet`
+
+Will render:
+
+	<!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet -->
+	<a id='snippet-https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt%23snipPet'></a>
+	```txt
+	Some code
+	```
+	<sup><a href='https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet#L1-L3' title='Snippet source file'>anchor</a></sup>
 	<!-- endSnippet -->
 
 ### Including a full file

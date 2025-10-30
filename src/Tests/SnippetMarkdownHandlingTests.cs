@@ -91,6 +91,28 @@ public class SnippetMarkdownHandlingTests
         return Verify(builder.ToString());
     }
 
+    [Fact]
+    public Task AppendWebSnippetWithViewUrl()
+    {
+        var builder = new StringBuilder();
+        var webSnippet = Snippet.Build(
+            startLine: 5,
+            endLine: 10,
+            value: "theValue",
+            key: "mysnippet",
+            language: "cs",
+            path: "http://example.com/raw/file.cs",
+            expressiveCode: null,
+            viewUrl: "https://github.com/user/repo/blob/main/file.cs");
+        var markdownHandling = new SnippetMarkdownHandling(Environment.CurrentDirectory, LinkFormat.GitHub, false);
+        using (var writer = new StringWriter(builder))
+        {
+            markdownHandling.Append("key1", new List<Snippet> { webSnippet }, writer.WriteLine);
+        }
+
+        return Verify(builder.ToString());
+    }
+
     static List<Snippet> Snippets() =>
         [Snippet.Build(1, 2, "theValue", "thekey", "thelanguage", Environment.CurrentDirectory, expressiveCode: null)];
 }

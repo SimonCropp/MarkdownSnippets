@@ -48,7 +48,39 @@ public class Snippet :
             language = language,
             Path = path,
             ExpressiveCode = expressiveCode,
-            Error = ""
+            Error = "",
+            ViewUrl = null
+        };
+    }
+
+    /// <summary>
+    /// Initialise a new instance of <see cref="Snippet"/> with an optional view URL.
+    /// </summary>
+    public static Snippet Build(int startLine, int endLine, string value, string key, string language, string? path, string? expressiveCode, string? viewUrl)
+    {
+        Guard.AgainstNullAndEmpty(key, nameof(key));
+        Guard.AgainstEmpty(path, nameof(path));
+        Guard.AgainstEmpty(expressiveCode, nameof(expressiveCode));
+        Guard.AgainstEmpty(viewUrl, nameof(viewUrl));
+        Guard.AgainstUpperCase(language, nameof(language));
+        if (language.StartsWith('.'))
+        {
+            throw new ArgumentException("Language cannot start with '.'", nameof(language));
+        }
+
+        Guard.AgainstNegativeAndZero(startLine, nameof(startLine));
+        Guard.AgainstNegativeAndZero(endLine, nameof(endLine));
+        return new()
+        {
+            StartLine = startLine,
+            EndLine = endLine,
+            value = value,
+            Key = key,
+            language = language,
+            Path = path,
+            ExpressiveCode = expressiveCode,
+            Error = "",
+            ViewUrl = viewUrl
         };
     }
 
@@ -66,6 +98,11 @@ public class Snippet :
     /// See https://expressive-code.com/
     /// </summary>
     public string? ExpressiveCode { get; private init; }
+
+    /// <summary>
+    /// Optional URL to use for viewing the snippet source (for web-snippets).
+    /// </summary>
+    public string? ViewUrl { get; private init; }
 
     /// <summary>
     /// The language of the snippet, extracted from the file extension of the input file.

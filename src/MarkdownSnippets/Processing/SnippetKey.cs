@@ -16,6 +16,32 @@ static class SnippetKey
         return true;
     }
 
+    public static bool ExtractStartCommentWebSnippet(Line line, [NotNullWhen(true)] out string? url, [NotNullWhen(true)] out string? snippetKey)
+    {
+        var lineCurrent = line.Current.TrimStart();
+        if (!IsStartCommentWebSnippetLine(lineCurrent))
+        {
+            url = null;
+            snippetKey = null;
+            return false;
+        }
+
+        var substring = lineCurrent[18..]; // after "<!-- web-snippet: "
+        var indexOf = substring.IndexOf("-->");
+        var value = substring[..indexOf].Trim();
+
+        var hashIndex = value.LastIndexOf('#');
+        if (hashIndex < 0 || hashIndex == value.Length - 1)
+        {
+            url = null;
+            snippetKey = null;
+            return false;
+        }
+        url = value[..hashIndex];
+        snippetKey = value[(hashIndex + 1)..];
+        return true;
+    }
+
     public static bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
     {
         var lineCurrent = line.Current.TrimStart();
@@ -65,4 +91,7 @@ static class SnippetKey
 
     public static bool IsWebSnippetLine(string line) =>
         line.StartsWith("web-snippet:", StringComparison.OrdinalIgnoreCase);
+
+    public static bool IsStartCommentWebSnippetLine(string line) =>
+        line.StartsWith("<!-- web-snippet:", StringComparison.OrdinalIgnoreCase);
 }

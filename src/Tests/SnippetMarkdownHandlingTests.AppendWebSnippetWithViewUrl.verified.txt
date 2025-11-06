@@ -1,0 +1,5 @@
+﻿<a id='snippet-http://example.com/raw/file.cs%23mysnippet'></a>
+```cs
+theValue
+```
+<sup><a href='https://github.com/user/repo/blob/main/file.cs#L5-L10' title='Snippet source file'>anchor</a></sup>

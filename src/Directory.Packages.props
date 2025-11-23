@@ -8,6 +8,7 @@
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="17.14.28" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.4" />
     <PackageVersion Include="Polyfill" Version="9.2.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.162" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />

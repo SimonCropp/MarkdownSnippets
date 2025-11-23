@@ -15,7 +15,7 @@
   <Target
     Name="MarkdownSnippetsTarget"
     AfterTargets="AfterCompile"
-    Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1' AND ('$(TargetFrameworks)' == '' OR $(TargetFrameworks.EndsWith($(TargetFramework))))" >
+    Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1' AND ('$(TargetFrameworks)' == '' OR $(TargetFramework) == $([MSBuild]::ValueOrDefault('$(TargetFrameworks)', '').Split(';')[0]))" >
     <MarkdownSnippets.DocoTask
       ProjectDirectory="$(MSBuildProjectDirectory)"
       ReadOnly="$(MarkdownSnippetsReadOnly)"

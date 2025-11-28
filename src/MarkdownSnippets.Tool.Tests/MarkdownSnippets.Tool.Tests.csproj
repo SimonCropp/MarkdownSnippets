@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Argon" />
+    <PackageReference Include="ProjectFiles" />
     <PackageReference Include="Verify.DiffPlex" />
     <PackageReference Include="Verify.XunitV3" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />

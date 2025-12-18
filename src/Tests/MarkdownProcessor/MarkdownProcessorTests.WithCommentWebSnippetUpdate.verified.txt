@@ -1,0 +1,22 @@
+﻿{
+  UsedSnippets: [
+    {
+      Key: snipPet,
+      Language: txt,
+      Value: Some code,
+      Error: ,
+      FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt(1-3),
+      IsInError: false
+    }
+  ],
+  result:
+before
+
+<!-- web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet -->
+```txt
+Some code
+```
+<!-- endSnippet -->
+
+after
+}

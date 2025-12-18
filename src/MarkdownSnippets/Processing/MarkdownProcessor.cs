@@ -190,11 +190,11 @@ public class MarkdownProcessor
                 line.Current = builder.ToString();
             }
 
-            void AppendWebSnippet(string url, string snippetKey)
+            void AppendWebSnippet(string url, string snippetKey, string? viewUrl = null)
             {
                 builder.Clear();
                 var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
-                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, line);
+                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, viewUrl, line);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -205,9 +205,9 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (SnippetKey.ExtractWebSnippet(line, out var url, out var snippetKey))
+            if (SnippetKey.ExtractWebSnippet(line, out var url, out var snippetKey, out var viewUrl))
             {
-                AppendWebSnippet(url, snippetKey);
+                AppendWebSnippet(url, snippetKey, viewUrl);
                 continue;
             }
 
@@ -219,6 +219,20 @@ public class MarkdownProcessor
             if (SnippetKey.ExtractStartCommentSnippet(line, out key))
             {
                 AppendSnippet(key);
+
+                index++;
+
+                lines.RemoveUntil(
+                    index,
+                    "<!-- endSnippet -->",
+                    relativePath,
+                    line);
+                continue;
+            }
+
+            if (SnippetKey.ExtractStartCommentWebSnippet(line, out url, out snippetKey, out viewUrl))
+            {
+                AppendWebSnippet(url, snippetKey, viewUrl);
 
                 index++;
 
@@ -298,12 +312,57 @@ public class MarkdownProcessor
         appendLine("<!-- endSnippet -->");
     }
 
-    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, Line line)
+    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, string? viewUrl, Line line)
     {
-        appendLine($"<!-- web-snippet: {url}#{snippetKey} -->");
+        var commentText = viewUrl == null
+            ? $"<!-- web-snippet: {url}#{snippetKey} -->"
+            : $"<!-- web-snippet: {url}#{snippetKey} {viewUrl} -->";
+        appendLine(commentText);
         // Download file content
-        var (success, content) = Downloader.DownloadContent(url).GetAwaiter().GetResult();
-        if (!success || string.IsNullOrWhiteSpace(content))
+        try
+        {
+            var (success, content) = Downloader.DownloadContent(url).GetAwaiter().GetResult();
+            if (!success || string.IsNullOrWhiteSpace(content))
+            {
+                var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
+                missings.Add(missing);
+                appendLine("```");
+                appendLine($"** Could not fetch or parse web-snippet '{url}#{snippetKey}' **");
+                appendLine("```");
+                appendLine("<!-- endSnippet -->");
+                return;
+            }
+            // Extract snippets from content
+            using var reader = new StringReader(content);
+            var snippets = FileSnippetExtractor.Read(reader, url);
+            var found = snippets.FirstOrDefault(_ => _.Key == snippetKey);
+            if (found == null)
+            {
+                var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
+                missings.Add(missing);
+                appendLine("```");
+                appendLine($"** Could not find snippet '{snippetKey}' in '{url}' **");
+                appendLine("```");
+                appendLine("<!-- endSnippet -->");
+                return;
+            }
+            // Create new snippet with viewUrl if provided
+            var snippetToAppend = viewUrl == null
+                ? found
+                : Snippet.Build(
+                    language: found.Language,
+                    startLine: found.StartLine,
+                    endLine: found.EndLine,
+                    value: found.Value,
+                    key: found.Key,
+                    path: found.Path,
+                    expressiveCode: found.ExpressiveCode,
+                    viewUrl: viewUrl);
+            appendSnippets(snippetKey, [snippetToAppend], appendLine);
+            appendLine("<!-- endSnippet -->");
+            used.Add(snippetToAppend);
+        }
+        catch
         {
             var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
             missings.Add(missing);
@@ -311,25 +370,7 @@ public class MarkdownProcessor
             appendLine($"** Could not fetch or parse web-snippet '{url}#{snippetKey}' **");
             appendLine("```");
             appendLine("<!-- endSnippet -->");
-            return;
         }
-        // Extract snippets from content
-        using var reader = new StringReader(content);
-        var snippets = FileSnippetExtractor.Read(reader, url);
-        var found = snippets.FirstOrDefault(_ => _.Key == snippetKey);
-        if (found == null)
-        {
-            var missing = new MissingSnippet($"{url}#{snippetKey}", line.LineNumber, line.Path);
-            missings.Add(missing);
-            appendLine("```");
-            appendLine($"** Could not find snippet '{snippetKey}' in '{url}' **");
-            appendLine("```");
-            appendLine("<!-- endSnippet -->");
-            return;
-        }
-        appendSnippets(snippetKey, [found], appendLine);
-        appendLine("<!-- endSnippet -->");
-        used.Add(found);
     }
 
     bool TryGetSnippets(

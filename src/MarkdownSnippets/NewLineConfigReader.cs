@@ -106,7 +106,7 @@ static class NewLineConfigReader
             end++;
         }
 
-        return line.Substring(0, end);
+        return line[..end];
     }
 
     static string? TryReadFromEditorConfig(string directory)
@@ -152,8 +152,8 @@ static class NewLineConfigReader
                 continue;
             }
 
-            var key = trimmed.Substring(0, equalsIndex).Trim().ToLowerInvariant();
-            var value = trimmed.Substring(equalsIndex + 1).Trim().ToLowerInvariant();
+            var key = trimmed[..equalsIndex].Trim().ToLowerInvariant();
+            var value = trimmed[(equalsIndex + 1)..].Trim().ToLowerInvariant();
 
             if (key == "end_of_line")
             {
@@ -181,7 +181,7 @@ static class NewLineConfigReader
             return false;
         }
 
-        var pattern = section.Substring(1);
+        var pattern = section[1..];
         if (pattern.Equals(".md", StringComparison.OrdinalIgnoreCase))
         {
             return true;
@@ -195,7 +195,7 @@ static class NewLineConfigReader
             if (braceStart != -1 && braceEnd > braceStart)
             {
                 var extensions = pattern.Substring(braceStart + 1, braceEnd - braceStart - 1).Split(',');
-                return extensions.Any(e => e.Trim().Equals("md", StringComparison.OrdinalIgnoreCase));
+                return extensions.Any(_ => _.Trim().Equals("md", StringComparison.OrdinalIgnoreCase));
             }
         }
 

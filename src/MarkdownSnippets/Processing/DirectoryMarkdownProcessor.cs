@@ -153,17 +153,7 @@ public class DirectoryMarkdownProcessor
             return;
         }
 
-        foreach (var mdFile in mdFiles.OrderBy(_ => _.Length))
-        {
-            using var reader = File.OpenText(mdFile);
-            if (reader.TryFindNewline(out var detectedNewLine))
-            {
-                newLine = detectedNewLine;
-                return;
-            }
-        }
-
-        newLine = Environment.NewLine;
+        newLine = NewLineConfigReader.ReadNewLine(targetDirectory, mdFiles);
     }
 
     public void AddSnippets(List<Snippet> snippets)

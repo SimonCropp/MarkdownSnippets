@@ -1,7 +1,8 @@
 ﻿{
   success: true,
   content:
-* text
+# Auto detect text files and normalize line endings to LF
+* text=auto eol=lf
 *.png binary
 *.snk binary
 

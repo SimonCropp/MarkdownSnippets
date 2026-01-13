@@ -1,6 +1,6 @@
 ﻿static class FileNameFromUrl
 {
-    static HashSet<char> invalid = new(Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()));
+    static HashSet<char> invalid = [..Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars())];
 
     public static string ConvertToFileName(string url)
     {

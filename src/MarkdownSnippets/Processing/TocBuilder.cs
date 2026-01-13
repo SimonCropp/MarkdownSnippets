@@ -43,7 +43,9 @@ static class TocBuilder
 
             var link = BuildLink(processed, title);
             builder.Append(' ', (headerLevel - 1) * 2);
-            Polyfill.Append(builder, $"* [{title}](#{link})");
+            builder.Append($"* [{title}](#");
+            builder.Append(link);
+            builder.Append(')');
             builder.Append(newLine);
         }
 

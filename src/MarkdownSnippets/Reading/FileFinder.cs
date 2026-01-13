@@ -19,11 +19,11 @@
             FindFiles(subDirectory);
         }
 
-        return (
-            snippetFiles.OrderBy(_ => _).ToList(),
-            mdFiles.OrderBy(_ => _).ToList(),
-            includeFiles.OrderBy(_ => _).ToList(),
-            allFiles.OrderBy(_ => _).ToList());
+        snippetFiles.Sort(StringComparer.Ordinal);
+        mdFiles.Sort(StringComparer.Ordinal);
+        includeFiles.Sort(StringComparer.Ordinal);
+        allFiles.Sort(StringComparer.Ordinal);
+        return (snippetFiles, mdFiles, includeFiles, allFiles);
     }
 
     void FindFiles(string directory)

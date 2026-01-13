@@ -42,10 +42,8 @@ static class TocBuilder
             headingCount++;
 
             var link = BuildLink(processed, title);
-            var indent = new string(' ', (headerLevel - 1) * 2);
-            Polyfill.Append(
-                builder,
-                $"{indent}* [{title}](#{link})");
+            builder.Append(' ', (headerLevel - 1) * 2);
+            Polyfill.Append(builder, $"* [{title}](#{link})");
             builder.Append(newLine);
         }
 

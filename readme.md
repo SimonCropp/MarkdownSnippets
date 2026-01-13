@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # <img src="/src/icon.png" height="30px"> MarkdownSnippets
 
-[![Build status](https://img.shields.io/appveyor/build/SimonCropp/MarkdownSnippets)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
+[![Build status](https://ci.appveyor.com/api/projects/status/8ijthhby6mhw8fk3/branch/main?svg=true)](https://ci.appveyor.com/project/SimonCropp/MarkdownSnippets)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/MarkdownSnippets.Tool/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.MsBuild.svg?label=MsBuild%20Task)](https://www.nuget.org/packages/MarkdownSnippets.MsBuild/)
 [![NuGet Status](https://img.shields.io/nuget/v/MarkdownSnippets.svg?label=.net%20API)](https://www.nuget.org/packages/MarkdownSnippets/)

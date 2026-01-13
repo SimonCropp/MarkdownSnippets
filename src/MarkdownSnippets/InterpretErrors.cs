@@ -34,7 +34,7 @@ public static class InterpretErrors
     public static string ErrorsAsMarkdown(this ProcessResult processResult)
     {
         var builder = StringBuilderCache.Acquire();
-        var missingSnippets = processResult.MissingSnippets.ToList();
+        var missingSnippets = processResult.MissingSnippets;
         if (missingSnippets.Count != 0)
         {
             builder.Append(

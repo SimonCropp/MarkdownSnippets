@@ -26,8 +26,12 @@
     }
 
     [Fact]
-    public Task SanitizeLink() =>
-        Verify(TocBuilder.SanitizeLink("A!@#$%,^&*()_+-={};':\"<>?/b"));
+    public Task SanitizeLink()
+    {
+        var builder = new StringBuilder();
+        TocBuilder.SanitizeLink(builder, "A!@#$%,^&*()_+-={};':\"<>?/b");
+        return Verify(builder);
+    }
 
     [Fact]
     public Task StripMarkdown()

@@ -11,8 +11,12 @@ static class SnippetKey
 
         var substring = lineCurrent[14..];
         var indexOf = substring.IndexOf("-->");
-        key = substring[..indexOf]
-            .Trim();
+        if (indexOf < 0)
+        {
+            throw new SnippetException($"Could not find closing '-->' in: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
+        }
+
+        key = substring[..indexOf].Trim();
         return true;
     }
 
@@ -32,6 +36,11 @@ static class SnippetKey
 
         var substring = lineCurrent[18..]; // after "<!-- web-snippet: "
         var indexOf = substring.IndexOf("-->");
+        if (indexOf < 0)
+        {
+            throw new SnippetException($"Could not find closing '-->' in: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
+        }
+
         var value = substring[..indexOf].Trim();
 
         // Check for optional second URL separated by whitespace

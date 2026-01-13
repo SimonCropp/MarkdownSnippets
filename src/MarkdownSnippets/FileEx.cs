@@ -48,15 +48,16 @@
             return;
         }
 
-        new FileInfo(path)
+        var attributes = File.GetAttributes(path);
+        if ((attributes & FileAttributes.ReadOnly) != 0)
         {
-            IsReadOnly = false
-        };
+            File.SetAttributes(path, attributes & ~FileAttributes.ReadOnly);
+        }
     }
 
-    public static void MakeReadOnly(string path) =>
-        new FileInfo(path)
-        {
-            IsReadOnly = true
-        };
+    public static void MakeReadOnly(string path)
+    {
+        var attributes = File.GetAttributes(path);
+        File.SetAttributes(path, attributes | FileAttributes.ReadOnly);
+    }
 }

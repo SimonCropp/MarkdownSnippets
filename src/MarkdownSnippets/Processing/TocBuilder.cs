@@ -2,7 +2,8 @@ static class TocBuilder
 {
     public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)
     {
-        var processed = new List<string>();
+        var excludesSet = new HashSet<string>(tocExcludes, StringComparer.OrdinalIgnoreCase);
+        var processed = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         var builder = new StringBuilder();
         builder.Append("<!-- toc -->");
         builder.Append(newLine);
@@ -33,18 +34,19 @@ static class TocBuilder
             }
 
             var title = GetTitle(trimmedHash);
-            if (tocExcludes.Any(_ => string.Equals(_, title, StringComparison.OrdinalIgnoreCase)))
+            if (excludesSet.Contains(title))
             {
                 continue;
             }
 
             headingCount++;
 
-            var link = BuildLink(processed, title);
-            var indent = new string(' ', (headerLevel - 1) * 2);
-            Polyfill.Append(
-                builder,
-                $"{indent}* [{title}](#{link})");
+            builder.Append(' ', (headerLevel - 1) * 2);
+            builder.Append("* [");
+            builder.Append(title);
+            builder.Append("](#");
+            BuildLink(builder, processed, title);
+            builder.Append(')');
             builder.Append(newLine);
         }
 
@@ -65,29 +67,31 @@ static class TocBuilder
         return Markdown.StripMarkdown(trim);
     }
 
-    static string BuildLink(List<string> processed, string title)
+    static void BuildLink(StringBuilder builder, Dictionary<string, int> processed, string title)
     {
         var lowerTitle = title.ToLowerInvariant();
-        var processedCount = processed.Count(_ => _ == lowerTitle);
-        processed.Add(lowerTitle);
-        var noSpaces = SanitizeLink(lowerTitle);
-        if (processedCount == 0)
+        processed.TryGetValue(lowerTitle, out var processedCount);
+        processed[lowerTitle] = processedCount + 1;
+        SanitizeLink(builder, lowerTitle);
+        if (processedCount > 0)
         {
-            return noSpaces;
+            builder.Append('-');
+            builder.Append(processedCount);
         }
-
-        return $"{noSpaces}-{processedCount}";
     }
 
-    internal static string SanitizeLink(string lowerTitle)
+    internal static void SanitizeLink(StringBuilder builder, string lowerTitle)
     {
-        lowerTitle = new(lowerTitle
-            .Where(_ => char.IsLetterOrDigit(_) ||
-                        char.IsWhiteSpace(_) ||
-                        _ is
-                            '-' or
-                            '_')
-            .ToArray());
-        return lowerTitle.Replace(' ', '-');
+        foreach (var ch in lowerTitle)
+        {
+            if (char.IsLetterOrDigit(ch) || ch is '-' or '_')
+            {
+                builder.Append(ch);
+            }
+            else if (char.IsWhiteSpace(ch))
+            {
+                builder.Append('-');
+            }
+        }
     }
 }

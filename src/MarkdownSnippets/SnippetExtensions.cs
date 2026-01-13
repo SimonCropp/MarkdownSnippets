@@ -7,8 +7,23 @@ static class SnippetExtensions
                 keySelector: _ => _.Key,
                 elementSelector: _ => _.OrderBy(ScrubPath).ToReadonlyList());
 
-    static string? ScrubPath(Snippet snippet) =>
-        snippet.Path?
-            .Replace("/", "")
-            .Replace("\\", "");
+    static string? ScrubPath(Snippet snippet)
+    {
+        var path = snippet.Path;
+        if (path == null)
+        {
+            return null;
+        }
+
+        var builder = StringBuilderCache.Acquire(path.Length);
+        foreach (var ch in path)
+        {
+            if (ch is not ('/' or '\\'))
+            {
+                builder.Append(ch);
+            }
+        }
+
+        return StringBuilderCache.GetStringAndRelease(builder);
+    }
 }

@@ -5,7 +5,7 @@
     Value:
 image:
 - Visual Studio 2022
-- macOS
+#- macOS
 environment:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true

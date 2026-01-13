@@ -2,7 +2,7 @@ static class TocBuilder
 {
     public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)
     {
-        var processed = new List<string>();
+        var processed = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         var builder = new StringBuilder();
         builder.Append("<!-- toc -->");
         builder.Append(newLine);
@@ -65,11 +65,11 @@ static class TocBuilder
         return Markdown.StripMarkdown(trim);
     }
 
-    static string BuildLink(List<string> processed, string title)
+    static string BuildLink(Dictionary<string, int> processed, string title)
     {
         var lowerTitle = title.ToLowerInvariant();
-        var processedCount = processed.Count(_ => _ == lowerTitle);
-        processed.Add(lowerTitle);
+        processed.TryGetValue(lowerTitle, out var processedCount);
+        processed[lowerTitle] = processedCount + 1;
         var noSpaces = SanitizeLink(lowerTitle);
         if (processedCount == 0)
         {

@@ -7,23 +7,19 @@
         string? path,
         Line startLine)
     {
-        while (true)
+        var endIndex = index;
+        while (endIndex < lines.Count)
         {
-            if (index == lines.Count)
+            if (lines[endIndex].Current.Contains(match))
             {
-                throw new MarkdownProcessingException($"Expected to find `{match}`.", path, startLine.LineNumber);
+                lines.RemoveRange(index, endIndex - index + 1);
+                return;
             }
 
-            var lineCurrent = lines[index].Current;
-            var shouldExit = lineCurrent.Contains(match);
-            if (shouldExit)
-            {
-                lines.RemoveAt(index);
-                break;
-            }
-
-            lines.RemoveAt(index);
+            endIndex++;
         }
+
+        throw new MarkdownProcessingException($"Expected to find `{match}`.", path, startLine.LineNumber);
     }
 
     public static IEnumerable<Line> ReadAllLines(TextReader textReader, string? path)

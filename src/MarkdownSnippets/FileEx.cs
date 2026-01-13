@@ -4,7 +4,17 @@
     {
         var fileName = Path.GetFileName(file);
         var directory = Path.GetDirectoryName(file);
-        var filePaths = Directory.GetFiles(directory!, fileName, SearchOption.TopDirectoryOnly);
+        if (string.IsNullOrEmpty(directory))
+        {
+            directory = ".";
+        }
+
+        var filePaths = Directory.GetFiles(directory, fileName, SearchOption.TopDirectoryOnly);
+        if (filePaths.Length == 0)
+        {
+            throw new FileNotFoundException($"Could not find file: {file}");
+        }
+
         return filePaths[0];
     }
 

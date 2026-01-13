@@ -2,6 +2,7 @@ static class TocBuilder
 {
     public static string BuildToc(List<Line> headerLines, int level, List<string> tocExcludes, string newLine)
     {
+        var excludesSet = new HashSet<string>(tocExcludes, StringComparer.OrdinalIgnoreCase);
         var processed = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         var builder = new StringBuilder();
         builder.Append("<!-- toc -->");
@@ -33,7 +34,7 @@ static class TocBuilder
             }
 
             var title = GetTitle(trimmedHash);
-            if (tocExcludes.Any(_ => string.Equals(_, title, StringComparison.OrdinalIgnoreCase)))
+            if (excludesSet.Contains(title))
             {
                 continue;
             }

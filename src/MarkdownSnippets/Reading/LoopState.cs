@@ -46,7 +46,7 @@ class LoopState(string key, EndFunc endFunc, int startLine, int maxWidth, string
         var lineLength = line.Length - paddingToRemove;
         if (lineLength > maxWidth)
         {
-            throw new LineTooLongException(line.Substring(paddingToRemove, lineLength));
+            throw new LineTooLongException(line.AsSpan(paddingToRemove, lineLength).ToString());
         }
 
         builder.Append(line, paddingToRemove, lineLength);

@@ -116,21 +116,23 @@ static class ContentValidation
 
     static string Clean(string input)
     {
-        var builder = StringBuilderCache.Acquire();
-        builder.Append(' ');
-        foreach (var ch in input)
+        var length = input.Length + 2; // +2 for leading and trailing spaces
+        return string.Create(length, input, (span, source) =>
         {
-            if (ch is '\'' or '?' or '.' or ',')
+            span[0] = ' ';
+            var index = 1;
+            foreach (var ch in source)
             {
-                builder.Append(' ');
+                if (ch is '\'' or '?' or '.' or ',')
+                {
+                    span[index++] = ' ';
+                }
+                else
+                {
+                    span[index++] = char.ToLowerInvariant(ch);
+                }
             }
-            else
-            {
-                builder.Append(char.ToLowerInvariant(ch));
-            }
-        }
-
-        builder.Append(' ');
-        return StringBuilderCache.GetStringAndRelease(builder);
+            span[index] = ' ';
+        });
     }
 }

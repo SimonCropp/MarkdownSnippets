@@ -131,6 +131,6 @@ static class ContentValidation
         }
 
         builder.Append(' ');
-        return builder.ToString();
+        return StringBuilderCache.GetStringAndRelease(builder);
     }
 }

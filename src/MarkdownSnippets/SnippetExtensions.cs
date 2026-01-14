@@ -15,15 +15,22 @@ static class SnippetExtensions
             return null;
         }
 
-        var builder = StringBuilderCache.Acquire(path.Length);
-        foreach (var ch in path)
+        var count = path.Count(_ => _ is '/' or '\\');
+        if (count == 0)
         {
-            if (ch is not ('/' or '\\'))
-            {
-                builder.Append(ch);
-            }
+            return path;
         }
 
-        return StringBuilderCache.GetStringAndRelease(builder);
+        return string.Create(path.Length - count, path, (span, source) =>
+        {
+            var index = 0;
+            foreach (var ch in source)
+            {
+                if (ch is not ('/' or '\\'))
+                {
+                    span[index++] = ch;
+                }
+            }
+        });
     }
 }

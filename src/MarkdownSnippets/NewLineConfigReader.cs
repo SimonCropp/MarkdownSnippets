@@ -94,7 +94,23 @@ static class NewLineConfigReader
             valueEnd++;
         }
 
-        return line.Substring(valueStart, valueEnd - valueStart).ToLowerInvariant();
+        var value = line.AsSpan(valueStart, valueEnd - valueStart);
+        if (value.Equals("lf", StringComparison.OrdinalIgnoreCase))
+        {
+            return "lf";
+        }
+
+        if (value.Equals("crlf", StringComparison.OrdinalIgnoreCase))
+        {
+            return "crlf";
+        }
+
+        if (value.Equals("cr", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cr";
+        }
+
+        return null;
     }
 
     static string GetGitAttributePattern(string line)
@@ -139,8 +155,8 @@ static class NewLineConfigReader
             // Check for section headers
             if (trimmed.StartsWith('[') && trimmed.EndsWith(']'))
             {
-                var section = trimmed.Substring(1, trimmed.Length - 2);
-                inWildcardSection = section == "*";
+                var section = trimmed.AsSpan(1, trimmed.Length - 2);
+                inWildcardSection = section.SequenceEqual("*");
                 inExtensionSection = EditorConfigSectionMatchesMd(section);
                 continue;
             }
@@ -173,10 +189,10 @@ static class NewLineConfigReader
         return EolValueToNewLine(eol);
     }
 
-    static bool EditorConfigSectionMatchesMd(string section)
+    static bool EditorConfigSectionMatchesMd(CharSpan section)
     {
         // Handle patterns like *.md, *.{md,txt}, etc.
-        if (!section.StartsWith('*'))
+        if (section.Length == 0 || section[0] != '*')
         {
             return false;
         }
@@ -188,14 +204,21 @@ static class NewLineConfigReader
         }
 
         // Handle {md,txt} style patterns like *.{md,txt}
-        if (pattern.StartsWith('.') && pattern.Contains('{'))
+        if (pattern.Length > 0 && pattern[0] == '.')
         {
             var braceStart = pattern.IndexOf('{');
             var braceEnd = pattern.IndexOf('}');
             if (braceStart != -1 && braceEnd > braceStart)
             {
-                var extensions = pattern.Substring(braceStart + 1, braceEnd - braceStart - 1).Split(',');
-                return extensions.Any(_ => _.Trim().Equals("md", StringComparison.OrdinalIgnoreCase));
+                var extensionsSpan = pattern.Slice(braceStart + 1, braceEnd - braceStart - 1);
+                foreach (var range in extensionsSpan.Split(','))
+                {
+                    var ext = extensionsSpan[range].Trim();
+                    if (ext.Equals("md", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
             }
         }
 

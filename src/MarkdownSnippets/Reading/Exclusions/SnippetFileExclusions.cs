@@ -3,14 +3,15 @@
 public static class SnippetFileExclusions
 {
     public static bool IsBinary(string extension) =>
-        BinaryFileExtensions.Contains(extension);
+        binaryFileExtensionsFrozen.Contains(extension);
 
     public static bool CanContainCommentsExtension(string extension) =>
-        !NoAcceptCommentsExtensions.Contains(extension);
+        !noAcceptCommentsExtensionsFrozen.Contains(extension);
 
-    public static HashSet<string> NoAcceptCommentsExtensions { get; set; } =
-        new(StringComparer.OrdinalIgnoreCase)
-        {
+    static FrozenSet<string> noAcceptCommentsExtensionsFrozen = FrozenSet.Create(
+        StringComparer.OrdinalIgnoreCase,
+        source:
+        [
             //files that dont accept comments hence cant contain snippets
 
             #region NoAcceptCommentsExtensions
@@ -22,11 +23,34 @@ public static class SnippetFileExclusions
             "sln"
 
             #endregion
-        };
+        ]);
 
-    public static HashSet<string> BinaryFileExtensions { get; set; } =
-        new(StringComparer.OrdinalIgnoreCase)
+    public static void AddNoAcceptCommentsExtensions(params string[] extensions)
+    {
+        var set = new HashSet<string>(noAcceptCommentsExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
+        foreach (var extension in extensions)
         {
+            set.Add(extension);
+        }
+
+        noAcceptCommentsExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    public static void RemoveNoAcceptCommentsExtensions(params string[] extensions)
+    {
+        var set = new HashSet<string>(noAcceptCommentsExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
+        foreach (var extension in extensions)
+        {
+            set.Remove(extension);
+        }
+
+        noAcceptCommentsExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    static FrozenSet<string> binaryFileExtensionsFrozen = FrozenSet.Create(
+        StringComparer.OrdinalIgnoreCase,
+        source:
+        [
             #region BinaryFileExtensions
 
             "user",
@@ -297,5 +321,27 @@ public static class SnippetFileExclusions
             "zipx"
 
             #endregion
-        };
+        ]);
+
+    public static void AddBinaryFileExtensions(params string[] extensions)
+    {
+        var set = new HashSet<string>(binaryFileExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
+        foreach (var extension in extensions)
+        {
+            set.Add(extension);
+        }
+
+        binaryFileExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    public static void RemoveBinaryFileExtensions(params string[] extensions)
+    {
+        var set = new HashSet<string>(binaryFileExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
+        foreach (var extension in extensions)
+        {
+            set.Remove(extension);
+        }
+
+        binaryFileExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
 }

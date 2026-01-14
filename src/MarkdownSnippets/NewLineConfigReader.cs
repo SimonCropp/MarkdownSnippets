@@ -189,7 +189,7 @@ static class NewLineConfigReader
         return EolValueToNewLine(eol);
     }
 
-    static bool EditorConfigSectionMatchesMd(ReadOnlySpan<char> section)
+    static bool EditorConfigSectionMatchesMd(CharSpan section)
     {
         // Handle patterns like *.md, *.{md,txt}, etc.
         if (section.Length == 0 || section[0] != '*')

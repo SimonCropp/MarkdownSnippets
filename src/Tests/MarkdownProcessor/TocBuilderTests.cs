@@ -8,7 +8,7 @@
             new("##", "", 0)
         };
 
-        var buildToc = TocBuilder.BuildToc(lines, 1, new(), "\r");
+        var buildToc = TocBuilder.BuildToc(lines, 1, [], "\r");
         Assert.DoesNotContain("\r\n", buildToc);
         return Verify(buildToc);
     }
@@ -22,7 +22,7 @@
             new("## Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
     }
 
     [Fact]
@@ -41,7 +41,7 @@
             new("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
     }
 
     [Fact]
@@ -67,7 +67,7 @@
             new("### Heading4", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, [], Environment.NewLine));
     }
 
     [Fact]
@@ -81,7 +81,7 @@
             new("##### Heading4", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 10, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 10, [], Environment.NewLine));
     }
 
     [Fact]
@@ -94,7 +94,7 @@
             new("#### Heading3", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 2, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, [], Environment.NewLine));
     }
 
     [Fact]
@@ -105,7 +105,7 @@
             new("## Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
     }
 
     [Fact]
@@ -116,7 +116,7 @@
             new("##  A B ", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
     }
 
     [Fact]
@@ -129,7 +129,7 @@
             new("#### Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines,4, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines,4, [], Environment.NewLine));
     }
 
     [Fact]
@@ -142,6 +142,6 @@
             new("## a", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, new(), Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
     }
 }

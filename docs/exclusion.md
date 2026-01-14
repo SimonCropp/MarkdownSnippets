@@ -361,7 +361,7 @@ All binary files as defined by https://github.com/sindresorhus/binary-extensions
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L50-L319' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L49-L318' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -378,5 +378,5 @@ Files that cannot contain comments are excluded.
 "geojson",
 "sln"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L18-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-NoAcceptCommentsExtensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L15-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-NoAcceptCommentsExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

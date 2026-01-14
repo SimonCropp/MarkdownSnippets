@@ -8,19 +8,22 @@ public static class SnippetFileExclusions
     public static bool CanContainCommentsExtension(string extension) =>
         !noAcceptCommentsExtensionsFrozen.Contains(extension);
 
-    static FrozenSet<string> noAcceptCommentsExtensionsFrozen = FrozenSet.Create(StringComparer.OrdinalIgnoreCase, [
-        //files that dont accept comments hence cant contain snippets
+    static FrozenSet<string> noAcceptCommentsExtensionsFrozen = FrozenSet.Create(
+        StringComparer.OrdinalIgnoreCase,
+        source:
+        [
+            //files that dont accept comments hence cant contain snippets
 
-        #region NoAcceptCommentsExtensions
+            #region NoAcceptCommentsExtensions
 
-        "DotSettings",
-        "csv",
-        "json",
-        "geojson",
-        "sln"
+            "DotSettings",
+            "csv",
+            "json",
+            "geojson",
+            "sln"
 
-        #endregion
-    ]);
+            #endregion
+        ]);
 
     public static void AddNoAcceptCommentsExtensions(params string[] extensions)
     {
@@ -29,6 +32,7 @@ public static class SnippetFileExclusions
         {
             set.Add(extension);
         }
+
         noAcceptCommentsExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
 
@@ -39,10 +43,13 @@ public static class SnippetFileExclusions
         {
             set.Remove(extension);
         }
+
         noAcceptCommentsExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
 
-    static FrozenSet<string> binaryFileExtensionsFrozen = FrozenSet.Create(StringComparer.OrdinalIgnoreCase,
+    static FrozenSet<string> binaryFileExtensionsFrozen = FrozenSet.Create(
+        StringComparer.OrdinalIgnoreCase,
+        source:
         [
             #region BinaryFileExtensions
 
@@ -323,6 +330,7 @@ public static class SnippetFileExclusions
         {
             set.Add(extension);
         }
+
         binaryFileExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
 
@@ -333,6 +341,7 @@ public static class SnippetFileExclusions
         {
             set.Remove(extension);
         }
+
         binaryFileExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
 }

@@ -1,6 +1,6 @@
 static class ContentValidation
 {
-    static Dictionary<string, string> phrases = new()
+    static FrozenDictionary<string, string> phrases = new Dictionary<string, string>
     {
         {"a majority of ", "most"},
         {"a number of", "some or many"},
@@ -32,7 +32,7 @@ static class ContentValidation
         {"a lot", "many"},
         {"sort of", "similar or approximately"},
         {"kind of", "similar or approximately "}
-    };
+    }.ToFrozenDictionary();
 
     static List<string> invalidStrings;
 

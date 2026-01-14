@@ -3,28 +3,48 @@
 public static class SnippetFileExclusions
 {
     public static bool IsBinary(string extension) =>
-        BinaryFileExtensions.Contains(extension);
+        binaryFileExtensionsFrozen.Contains(extension);
 
     public static bool CanContainCommentsExtension(string extension) =>
-        !NoAcceptCommentsExtensions.Contains(extension);
+        !noAcceptCommentsExtensionsFrozen.Contains(extension);
 
-    public static HashSet<string> NoAcceptCommentsExtensions { get; set; } =
-        new(StringComparer.OrdinalIgnoreCase)
+    static FrozenSet<string> noAcceptCommentsExtensionsFrozen;
+    static FrozenSet<string> binaryFileExtensionsFrozen;
+
+    static HashSet<string> noAcceptCommentsExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        //files that dont accept comments hence cant contain snippets
+
+        #region NoAcceptCommentsExtensions
+
+        "DotSettings",
+        "csv",
+        "json",
+        "geojson",
+        "sln"
+
+        #endregion
+    };
+
+    public static void AddNoAcceptCommentsExtensions(params string[] extensions)
+    {
+        foreach (var extension in extensions)
         {
-            //files that dont accept comments hence cant contain snippets
+            noAcceptCommentsExtensions.Add(extension);
+        }
+        noAcceptCommentsExtensionsFrozen = noAcceptCommentsExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
 
-            #region NoAcceptCommentsExtensions
+    public static void RemoveNoAcceptCommentsExtensions(params string[] extensions)
+    {
+        foreach (var extension in extensions)
+        {
+            noAcceptCommentsExtensions.Remove(extension);
+        }
+        noAcceptCommentsExtensionsFrozen = noAcceptCommentsExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
 
-            "DotSettings",
-            "csv",
-            "json",
-            "geojson",
-            "sln"
-
-            #endregion
-        };
-
-    public static HashSet<string> BinaryFileExtensions { get; set; } =
+    static HashSet<string> binaryFileExtensions =
         new(StringComparer.OrdinalIgnoreCase)
         {
             #region BinaryFileExtensions
@@ -298,4 +318,28 @@ public static class SnippetFileExclusions
 
             #endregion
         };
+
+    public static void AddBinaryFileExtensions(params string[] extensions)
+    {
+        foreach (var extension in extensions)
+        {
+            binaryFileExtensions.Add(extension);
+        }
+        binaryFileExtensionsFrozen = binaryFileExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    public static void RemoveBinaryFileExtensions(params string[] extensions)
+    {
+        foreach (var extension in extensions)
+        {
+            binaryFileExtensions.Remove(extension);
+        }
+        binaryFileExtensionsFrozen = binaryFileExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
+
+    static SnippetFileExclusions()
+    {
+        noAcceptCommentsExtensionsFrozen = noAcceptCommentsExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+        binaryFileExtensionsFrozen = binaryFileExtensions.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+    }
 }

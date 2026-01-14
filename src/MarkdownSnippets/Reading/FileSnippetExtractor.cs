@@ -18,7 +18,7 @@ public static class FileSnippetExtractor
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
     /// </summary>
     public static Task AppendUrlsAsSnippets(this ICollection<Snippet> snippets, params string[] urls) =>
-        AppendUrlsAsSnippets(snippets, (IEnumerable<string>) urls);
+        snippets.AppendUrlsAsSnippets((IEnumerable<string>) urls);
 
     /// <summary>
     /// Each url will be accessible using the file name as a key. Any snippets within the files will be extracted and accessible as individual keyed snippets.
@@ -27,7 +27,7 @@ public static class FileSnippetExtractor
     {
         foreach (var url in urls)
         {
-            await AppendUrlAsSnippet(snippets, url);
+            await snippets.AppendUrlAsSnippet(url);
         }
     }
 
@@ -63,7 +63,7 @@ public static class FileSnippetExtractor
     {
         foreach (var filePath in filePaths)
         {
-            AppendFileAsSnippet(snippets, filePath);
+            snippets.AppendFileAsSnippet(filePath);
         }
     }
 

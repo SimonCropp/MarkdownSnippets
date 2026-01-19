@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;NU1608;NU1109</NoWarn>
-    <Version>28.0.0-beta.11</Version>
+    <Version>28.0.0-beta.12</Version>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Markdown, Snippets, mdsnippets, documentation, MarkdownSnippets</PackageTags>

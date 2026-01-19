@@ -42,7 +42,6 @@
     <!-- Packages to shade to avoid version conflicts in MSBuild -->
     <PackageReference Include="System.Collections.Immutable" Shade="true" Condition="'$(TargetFramework)' != 'net10.0'" />
     <PackageReference Include="System.Memory" Shade="true" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-    <PackageReference Include="System.Net.Http" Shade="true" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
 
   <!-- Include shaded dependencies in the NuGet package -->

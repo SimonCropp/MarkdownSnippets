@@ -6,6 +6,17 @@
     <DevelopmentDependency>true</DevelopmentDependency>
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- PackageShader configuration -->
+    <Shader_Internalize>true</Shader_Internalize>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <!-- Strong name signing -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\ConfigReader\*.cs" />
 
@@ -26,5 +37,25 @@
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <PackageReference Include="PackageShader.MsBuild" PrivateAssets="all" />
+
+    <!-- Packages to shade to avoid version conflicts in MSBuild -->
+    <PackageReference Include="System.Collections.Immutable" Shade="true" Condition="'$(TargetFramework)' != 'net10.0'" />
+    <PackageReference Include="System.Memory" Shade="true" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
+
+  <!-- Include shaded dependencies in the NuGet package -->
+  <Target Name="IncludeShadedDependenciesInPackage"
+          AfterTargets="ShadeTarget"
+          BeforeTargets="_GetBuildOutputFilesWithTfm">
+    <ItemGroup>
+      <!-- Add shaded DLLs to package -->
+      <TfmSpecificPackageFile Include="$(OutputPath)*.dll"
+                              Exclude="$(OutputPath)MarkdownSnippets*.dll"
+                              Condition="Exists('$(OutputPath)%(Filename)%(Extension)')">
+        <PackagePath>task\$(TargetFramework)</PackagePath>
+        <Pack>true</Pack>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target>
 </Project>

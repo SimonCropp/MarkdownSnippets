@@ -35,7 +35,7 @@
 
     <PackageReference Include="Microsoft.Build.Tasks.Core" PrivateAssets="All" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" Condition="$(Configuration)=='Release'" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="PackageShader.MsBuild" PrivateAssets="all" />
 

@@ -1,0 +1,13 @@
+﻿Config:
+    TargetDirectory: theRoot
+    UrlPrefix: 
+    LinkFormat: GitHub
+    Convention: SourceTransform
+    TocLevel: 0
+    ValidateContent: False
+    OmitSnippetLinks: False
+    TreatMissingAsWarning: False
+    FileConfigPath: theConfigFilePath (exists:False)
+    ReadOnly: 
+    WriteHeader: 
+    Header:

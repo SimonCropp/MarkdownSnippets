@@ -1,0 +1,23 @@
+﻿Config:
+    TargetDirectory: theRoot
+    UrlPrefix: 
+    LinkFormat: Tfs
+    Convention: InPlaceOverwrite
+    TocLevel: 5
+    ValidateContent: False
+    OmitSnippetLinks: False
+    TreatMissingAsWarning: False
+    FileConfigPath: theConfigFilePath (exists:False)
+    MaxWidth: 80
+    ExcludeDirectories:
+        Dir1
+        Dir2
+    ExcludeMarkdownDirectories:
+        Dir3
+        Dir4
+    ExcludeSnippetDirectories:
+        Dir5
+        Dir6
+    UrlsAsSnippets:
+        Url1
+        Url2

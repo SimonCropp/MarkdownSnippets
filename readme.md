@@ -16,7 +16,7 @@ A [dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools)
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
-**[.net 8](https://dotnet.microsoft.com/download/dotnet/8.0) or higher is required to run the dotnet tool.**
+**[.net 10](https://dotnet.microsoft.com/download/dotnet/10.0) or higher is required to run the dotnet tool.**
 
 
 ## Value Proposition
@@ -246,6 +246,7 @@ Will render:
 	<sup><a href='https://github.com/SimonCropp/MarkdownSnippets/blob/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet#L1-L3' title='Snippet source file'>anchor</a></sup>
 	<!-- endSnippet -->
 
+
 ### Including a full file
 
 If no snippet is found matching the defined name. The target directory will be searched for a file matching that name. For example:
@@ -280,6 +281,7 @@ Will render:
 	```
 	<sup><a href='/license.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-license.txt' title='Start of snippet'>anchor</a></sup>
 	<!-- endSnippet -->
+
 
 ### LinkFormat
 

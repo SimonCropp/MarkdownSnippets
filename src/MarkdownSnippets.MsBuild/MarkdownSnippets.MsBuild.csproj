@@ -43,19 +43,4 @@
     <PackageReference Include="System.Collections.Immutable" Shade="true" Condition="'$(TargetFramework)' != 'net10.0'" />
     <PackageReference Include="System.Memory" Shade="true" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
-
-  <!-- Include shaded dependencies in the NuGet package -->
-  <Target Name="IncludeShadedDependenciesInPackage"
-          AfterTargets="ShadeTarget"
-          BeforeTargets="_GetBuildOutputFilesWithTfm">
-    <ItemGroup>
-      <!-- Add shaded DLLs to package -->
-      <TfmSpecificPackageFile Include="$(OutputPath)*.dll"
-                              Exclude="$(OutputPath)MarkdownSnippets*.dll"
-                              Condition="Exists('$(OutputPath)%(Filename)%(Extension)')">
-        <PackagePath>task\$(TargetFramework)</PackagePath>
-        <Pack>true</Pack>
-      </TfmSpecificPackageFile>
-    </ItemGroup>
-  </Target>
 </Project>

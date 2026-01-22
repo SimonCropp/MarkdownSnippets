@@ -24,10 +24,6 @@
       <Pack>true</Pack>
       <PackagePath>task\$(TargetFramework)</PackagePath>
     </TfmSpecificPackageFile>
-    <TfmSpecificPackageFile Include="$(SolutionDir)MarkdownSnippets\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.dll">
-      <Pack>true</Pack>
-      <PackagePath>task\$(TargetFramework)</PackagePath>
-    </TfmSpecificPackageFile>
     <Content Include="MarkdownSnippets.MsBuild.targets">
       <Pack>true</Pack>
       <PackagePath>build</PackagePath>

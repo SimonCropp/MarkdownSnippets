@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 // Integration tests for MSBuild task
 #if RELEASE
 public class MsBuildIntegrationTests
@@ -43,7 +41,7 @@ public class MsBuildIntegrationTests
         using var tempDir = new TempDirectory();
         await SetupTestProject(tempDir);
 
-        var result = await RunProcess(msbuildPath, $"\"{tempDir.Path}\" /p:Configuration=Release /restore", tempDir);
+        var result = await RunProcess(msbuildPath, $"\"{tempDir.Path}\" /p:Configuration=Release /restore -verbosity:minimal", tempDir);
 
         Assert.True(result.ExitCode == 0, $"msbuild failed:\n{result.Output}\n{result.Error}");
 
@@ -60,9 +58,14 @@ public class MsBuildIntegrationTests
         var nugetVersion = GetLatestNugetVersion();
 
         // Create nuget.config pointing to local nugets folder
+        // Use a local packages folder to avoid global cache issues when testing local package changes
+        var localPackagesFolder = Path.Combine(tempDir, "packages");
         var nugetConfig = $"""
             <?xml version="1.0" encoding="utf-8"?>
             <configuration>
+              <config>
+                <add key="globalPackagesFolder" value="{localPackagesFolder}" />
+              </config>
               <packageSources>
                 <clear />
                 <add key="local" value="{GetNugetsDir()}" />

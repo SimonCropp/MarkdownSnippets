@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <!-- PackageShader configuration -->
-    <Shader_Internalize>true</Shader_Internalize>
+    <Shader_Internalize>false</Shader_Internalize>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
     <!-- Strong name signing -->

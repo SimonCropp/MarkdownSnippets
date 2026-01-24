@@ -38,7 +38,7 @@ public class MsBuildIntegrationTests
         using var tempDir = new TempDirectory();
         await SetupTestProject(tempDir);
 
-        var result = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release", tempDir);
+        var result = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release -nodeReuse:false", tempDir);
 
         Assert.True(result.ExitCode == 0, $"dotnet build failed:\n{result.Output}\n{result.Error}");
 
@@ -62,7 +62,7 @@ public class MsBuildIntegrationTests
         using var tempDir = new TempDirectory();
         await SetupTestProject(tempDir);
 
-        var result = await RunProcess(msbuildPath, $"\"{tempDir}\" /p:Configuration=Release /restore -verbosity:minimal", tempDir);
+        var result = await RunProcess(msbuildPath, $"\"{tempDir}\" /p:Configuration=Release /restore /nodeReuse:false -verbosity:minimal", tempDir);
 
         Assert.True(result.ExitCode == 0, $"msbuild failed:\n{result.Output}\n{result.Error}");
 

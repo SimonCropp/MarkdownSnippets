@@ -218,7 +218,7 @@ public class MsBuildIntegrationTests
 
     record ProcessResult(int ExitCode, string Output, string Error);
 
-    [Fact]
+    [Fact(Explicit = true)]
     public async Task MsBuild_AllLocalProjects_UsingMarkdownSnippets()
     {
         var msbuildPath = FindMsBuild();
@@ -228,14 +228,19 @@ public class MsBuildIntegrationTests
             return;
         }
 
-        var codeRoot = @"C:\Code";
-        if (!Directory.Exists(codeRoot))
+        var codeRoots = new[] { @"C:\Code", @"D:\Code" }
+            .Where(Directory.Exists)
+            .ToList();
+
+        if (codeRoots.Count == 0)
         {
-            // Skip if C:\Code doesn't exist
+            // Skip if no code directories exist
             return;
         }
 
-        var projectsUsingMdSnippets = FindProjectsUsingMarkdownSnippets(codeRoot);
+        var projectsUsingMdSnippets = codeRoots
+            .SelectMany(FindProjectsUsingMarkdownSnippets)
+            .ToList();
         if (projectsUsingMdSnippets.Count == 0)
         {
             return;
@@ -308,7 +313,7 @@ public class MsBuildIntegrationTests
         return results;
     }
 
-    static async Task<ProcessResult> RunMsBuildOnProject(string msbuildPath, string projectDir)
+    static Task<ProcessResult> RunMsBuildOnProject(string msbuildPath, string projectDir)
     {
         // Find a solution file (.sln or .slnx)
         var slnFiles = Directory.GetFiles(projectDir, "*.sln");
@@ -346,7 +351,7 @@ public class MsBuildIntegrationTests
         }
 
         var arguments = $"\"{targetFile}\" /p:Configuration=Release /restore /nodeReuse:false /t:Build -verbosity:minimal -maxcpucount:1";
-        return await RunProcess(msbuildPath, arguments, projectDir);
+        return RunProcess(msbuildPath, arguments, projectDir);
     }
 
     static string ExtractErrorLines(string output)

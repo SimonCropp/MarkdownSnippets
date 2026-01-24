@@ -28,7 +28,7 @@ public class MsBuildIntegrationTests
         var solutionDir = ProjectFiles.SolutionDirectory.Path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         // SolutionDirectory is C:\Code\MarkdownSnippets\src, nugets is at C:\Code\MarkdownSnippets\nugets
         var repoDir = Directory.GetParent(solutionDir)?.FullName
-            ?? throw new InvalidOperationException($"Could not get parent of {solutionDir}");
+                      ?? throw new InvalidOperationException($"Could not get parent of {solutionDir}");
         return Path.Combine(repoDir, "nugets");
     }
 
@@ -38,7 +38,7 @@ public class MsBuildIntegrationTests
         using var tempDir = new TempDirectory();
         await SetupTestProject(tempDir);
 
-        var result = await RunProcess("dotnet", $"build \"{tempDir.Path}\" -c Release", tempDir);
+        var result = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release", tempDir);
 
         Assert.True(result.ExitCode == 0, $"dotnet build failed:\n{result.Output}\n{result.Error}");
 
@@ -62,7 +62,7 @@ public class MsBuildIntegrationTests
         using var tempDir = new TempDirectory();
         await SetupTestProject(tempDir);
 
-        var result = await RunProcess(msbuildPath, $"\"{tempDir.Path}\" /p:Configuration=Release /restore -verbosity:minimal", tempDir);
+        var result = await RunProcess(msbuildPath, $"\"{tempDir}\" /p:Configuration=Release /restore -verbosity:minimal", tempDir);
 
         Assert.True(result.ExitCode == 0, $"msbuild failed:\n{result.Output}\n{result.Error}");
 
@@ -73,7 +73,7 @@ public class MsBuildIntegrationTests
         Assert.Contains("GENERATED FILE", content);
     }
 
-    static async Task SetupTestProject(string tempDir)
+    static async Task SetupTestProject(TempDirectory tempDir)
     {
         // Find the latest nuget version
         var nugetVersion = GetLatestNugetVersion();
@@ -82,49 +82,49 @@ public class MsBuildIntegrationTests
         // Use a local packages folder to avoid global cache issues when testing local package changes
         var localPackagesFolder = Path.Combine(tempDir, "packages");
         var nugetConfig = $"""
-            <?xml version="1.0" encoding="utf-8"?>
-            <configuration>
-              <config>
-                <add key="globalPackagesFolder" value="{localPackagesFolder}" />
-              </config>
-              <packageSources>
-                <clear />
-                <add key="local" value="{GetNugetsDir()}" />
-                <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-              </packageSources>
-            </configuration>
-            """;
+                           <?xml version="1.0" encoding="utf-8"?>
+                           <configuration>
+                             <config>
+                               <add key="globalPackagesFolder" value="{localPackagesFolder}" />
+                             </config>
+                             <packageSources>
+                               <clear />
+                               <add key="local" value="{GetNugetsDir()}" />
+                               <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+                             </packageSources>
+                           </configuration>
+                           """;
         await File.WriteAllTextAsync(Path.Combine(tempDir, "nuget.config"), nugetConfig);
 
         // Create a minimal csproj
         var csproj = $"""
-            <Project Sdk="Microsoft.NET.Sdk">
-              <PropertyGroup>
-                <TargetFramework>net8.0</TargetFramework>
-                <OutputType>Library</OutputType>
-              </PropertyGroup>
-              <ItemGroup>
-                <PackageReference Include="MarkdownSnippets.MsBuild" Version="{nugetVersion}" PrivateAssets="all" />
-              </ItemGroup>
-            </Project>
-            """;
+                      <Project Sdk="Microsoft.NET.Sdk">
+                        <PropertyGroup>
+                          <TargetFramework>net8.0</TargetFramework>
+                          <OutputType>Library</OutputType>
+                        </PropertyGroup>
+                        <ItemGroup>
+                          <PackageReference Include="MarkdownSnippets.MsBuild" Version="{nugetVersion}" PrivateAssets="all" />
+                        </ItemGroup>
+                      </Project>
+                      """;
         await File.WriteAllTextAsync(Path.Combine(tempDir, "TestProject.csproj"), csproj);
 
         // Create a simple C# file with a snippet
         var csFile = """
-            using System;
+                     using System;
 
-            public class Sample
-            {
-                public void Method()
-                {
-                    // begin-snippet: MySnippet
-                    var message = "Hello from snippet";
-                    Console.WriteLine(message);
-                    // end-snippet
-                }
-            }
-            """;
+                     public class Sample
+                     {
+                         public void Method()
+                         {
+                             // begin-snippet: MySnippet
+                             var message = "Hello from snippet";
+                             Console.WriteLine(message);
+                             // end-snippet
+                         }
+                     }
+                     """;
         await File.WriteAllTextAsync(Path.Combine(tempDir, "Sample.cs"), csFile);
 
         // Initialize git repo (required by MarkdownSnippets)
@@ -137,11 +137,11 @@ public class MsBuildIntegrationTests
         Directory.CreateDirectory(docsDir);
 
         var sourceMd = """
-            # Test Document
+                       # Test Document
 
-            <!-- snippet: MySnippet -->
-            <!-- endSnippet -->
-            """;
+                       <!-- snippet: MySnippet -->
+                       <!-- endSnippet -->
+                       """;
         await File.WriteAllTextAsync(Path.Combine(docsDir, "readme.source.md"), sourceMd);
     }
 
@@ -149,9 +149,9 @@ public class MsBuildIntegrationTests
     {
         var packages = Directory.GetFiles(GetNugetsDir(), "MarkdownSnippets.MsBuild.*.nupkg")
             .Select(Path.GetFileNameWithoutExtension)
-            .Where(name => name != null)
-            .Select(name => name!.Replace("MarkdownSnippets.MsBuild.", ""))
-            .OrderByDescending(v => v)
+            .Where(_ => _ != null)
+            .Select(_ => _!.Replace("MarkdownSnippets.MsBuild.", ""))
+            .OrderByDescending(_ => _)
             .FirstOrDefault();
 
         return packages ?? throw new InvalidOperationException("No MarkdownSnippets.MsBuild nuget found. Run Release build first.");
@@ -168,24 +168,25 @@ public class MsBuildIntegrationTests
             return null;
         }
 
-        var process = Process.Start(new ProcessStartInfo
-        {
-            FileName = vswherePath,
-            Arguments = "-latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        });
+        var process = Process.Start(
+            new ProcessStartInfo
+            {
+                FileName = vswherePath,
+                Arguments = @"-latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            })!;
 
-        process?.WaitForExit();
-        var msbuildPath = process?.StandardOutput.ReadToEnd().Trim().Split('\n').FirstOrDefault()?.Trim();
+        process.WaitForExit();
+        var msbuildPath = process.StandardOutput.ReadToEnd().Trim().Split('\n').FirstOrDefault()?.Trim();
 
-        if (!string.IsNullOrEmpty(msbuildPath) && File.Exists(msbuildPath))
+        if (string.IsNullOrEmpty(msbuildPath) || !File.Exists(msbuildPath))
         {
-            return msbuildPath;
+            return null;
         }
 
-        return null;
+        return msbuildPath;
     }
 
     static async Task<ProcessResult> RunProcess(string fileName, string arguments, string workingDirectory)
@@ -206,37 +207,9 @@ public class MsBuildIntegrationTests
         var error = await process.StandardError.ReadToEndAsync();
         await process.WaitForExitAsync();
 
-        return new ProcessResult(process.ExitCode, output, error);
+        return new(process.ExitCode, output, error);
     }
 
     record ProcessResult(int ExitCode, string Output, string Error);
-}
-
-class TempDirectory : IDisposable
-{
-    public string Path { get; }
-
-    public TempDirectory()
-    {
-        Path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "MsBuildIntegrationTest_" + Guid.NewGuid().ToString("N")[..8]);
-        Directory.CreateDirectory(Path);
-    }
-
-    public void Dispose()
-    {
-        try
-        {
-            if (Directory.Exists(Path))
-            {
-                Directory.Delete(Path, recursive: true);
-            }
-        }
-        catch
-        {
-            // Ignore cleanup errors
-        }
-    }
-
-    public static implicit operator string(TempDirectory dir) => dir.Path;
 }
 #endif

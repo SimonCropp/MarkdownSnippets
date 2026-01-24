@@ -217,5 +217,214 @@ public class MsBuildIntegrationTests
     }
 
     record ProcessResult(int ExitCode, string Output, string Error);
+
+    [Fact]
+    public async Task MsBuild_AllLocalProjects_UsingMarkdownSnippets()
+    {
+        var msbuildPath = FindMsBuild();
+        if (msbuildPath == null)
+        {
+            // Skip if msbuild.exe not found
+            return;
+        }
+
+        var codeRoot = @"C:\Code";
+        if (!Directory.Exists(codeRoot))
+        {
+            // Skip if C:\Code doesn't exist
+            return;
+        }
+
+        var projectsUsingMdSnippets = FindProjectsUsingMarkdownSnippets(codeRoot);
+        if (projectsUsingMdSnippets.Count == 0)
+        {
+            return;
+        }
+
+        var failures = new List<(string Directory, string Error)>();
+
+        foreach (var projectDir in projectsUsingMdSnippets)
+        {
+            // Skip MarkdownSnippets itself
+            if (projectDir.Contains("MarkdownSnippets", StringComparison.OrdinalIgnoreCase) &&
+                projectDir.Contains(Path.Combine("Code", "MarkdownSnippets"), StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            var result = await RunMsBuildOnProject(msbuildPath, projectDir);
+            if (result.ExitCode != 0)
+            {
+                // Extract just the error lines (lines containing "error")
+                var errorLines = ExtractErrorLines(result.Output + "\n" + result.Error);
+                failures.Add((projectDir, errorLines));
+            }
+        }
+
+        // Generate markdown report
+        var reportPath = Path.Combine(GetNugetsDir(), "msbuild-test-report.md");
+        await GenerateMarkdownReport(reportPath, projectsUsingMdSnippets.Count, failures);
+
+        // Output report location
+        if (failures.Count > 0)
+        {
+            Assert.Fail($"MSBuild failed for {failures.Count} projects. Report written to: {reportPath}\n\n" +
+                        $"Summary:\n{string.Join("\n", failures.Select(f => $"  - {f.Directory}"))}");
+        }
+    }
+
+    static List<string> FindProjectsUsingMarkdownSnippets(string rootDir)
+    {
+        var results = new List<string>();
+
+        try
+        {
+            // Find all Directory.Packages.props files
+            var propsFiles = Directory.GetFiles(rootDir, "Directory.Packages.props", SearchOption.AllDirectories);
+
+            foreach (var propsFile in propsFiles)
+            {
+                try
+                {
+                    var content = File.ReadAllText(propsFile);
+                    if (content.Contains("MarkdownSnippets.MsBuild", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Get the directory containing this props file (the repo root or src folder)
+                        var dir = Path.GetDirectoryName(propsFile)!;
+                        results.Add(dir);
+                    }
+                }
+                catch
+                {
+                    // Ignore files we can't read
+                }
+            }
+        }
+        catch
+        {
+            // Ignore directories we can't access
+        }
+
+        return results;
+    }
+
+    static async Task<ProcessResult> RunMsBuildOnProject(string msbuildPath, string projectDir)
+    {
+        // Find a solution file (.sln or .slnx)
+        var slnFiles = Directory.GetFiles(projectDir, "*.sln");
+        var slnxFiles = Directory.GetFiles(projectDir, "*.slnx");
+
+        string targetFile;
+        if (slnFiles.Length > 0)
+        {
+            targetFile = slnFiles[0];
+        }
+        else if (slnxFiles.Length > 0)
+        {
+            targetFile = slnxFiles[0];
+        }
+        else
+        {
+            // Try to find in subdirectories
+            slnFiles = Directory.GetFiles(projectDir, "*.sln", SearchOption.AllDirectories);
+            if (slnFiles.Length > 0)
+            {
+                targetFile = slnFiles[0];
+            }
+            else
+            {
+                slnxFiles = Directory.GetFiles(projectDir, "*.slnx", SearchOption.AllDirectories);
+                if (slnxFiles.Length > 0)
+                {
+                    targetFile = slnxFiles[0];
+                }
+                else
+                {
+                    throw new InvalidOperationException($"No .sln or .slnx found in {projectDir}");
+                }
+            }
+        }
+
+        var arguments = $"\"{targetFile}\" /p:Configuration=Release /restore /nodeReuse:false /t:Build -verbosity:minimal -maxcpucount:1";
+        return await RunProcess(msbuildPath, arguments, projectDir);
+    }
+
+    static string ExtractErrorLines(string output)
+    {
+        var lines = output.Split('\n');
+        var errorLines = lines
+            .Where(l =>
+                // Standard MSBuild error format: "path(line,col): error CODE: message"
+                l.Contains(": error ", StringComparison.OrdinalIgnoreCase) ||
+                // Error prefix format
+                l.Contains("error MSB", StringComparison.OrdinalIgnoreCase) ||
+                l.Contains("error CS", StringComparison.OrdinalIgnoreCase) ||
+                l.Contains("error FS", StringComparison.OrdinalIgnoreCase) ||
+                l.Contains("error NU", StringComparison.OrdinalIgnoreCase) ||
+                // MarkdownSnippets specific errors
+                (l.Contains("MarkdownSnippets", StringComparison.OrdinalIgnoreCase) &&
+                 l.Contains("error", StringComparison.OrdinalIgnoreCase)) ||
+                // MSBUILD : error format (no file path)
+                l.TrimStart().StartsWith("MSBUILD : error", StringComparison.OrdinalIgnoreCase) ||
+                // Build failed line
+                l.Contains("Build FAILED", StringComparison.OrdinalIgnoreCase) ||
+                // Custom error messages
+                l.Contains("No .sln or .slnx found", StringComparison.OrdinalIgnoreCase))
+            .Select(l => l.Trim())
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .Take(10) // Limit to first 10 error lines
+            .ToList();
+
+        if (errorLines.Count > 0)
+        {
+            return string.Join("\n", errorLines);
+        }
+
+        // If no specific errors found, capture last 15 non-empty lines of output
+        var lastLines = lines
+            .Select(l => l.Trim())
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .TakeLast(15)
+            .ToList();
+
+        return lastLines.Count > 0
+            ? $"(Last {lastLines.Count} lines of output)\n{string.Join("\n", lastLines)}"
+            : "Build failed (no output captured)";
+    }
+
+    static async Task GenerateMarkdownReport(string reportPath, int totalProjects, List<(string Directory, string Error)> failures)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("# MSBuild Integration Test Report");
+        sb.AppendLine();
+        sb.AppendLine($"**Date:** {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+        sb.AppendLine();
+        sb.AppendLine($"**Total Projects Tested:** {totalProjects}");
+        sb.AppendLine($"**Passed:** {totalProjects - failures.Count}");
+        sb.AppendLine($"**Failed:** {failures.Count}");
+        sb.AppendLine();
+
+        if (failures.Count == 0)
+        {
+            sb.AppendLine("## Result: All projects built successfully! ✓");
+        }
+        else
+        {
+            sb.AppendLine("## Failures");
+            sb.AppendLine();
+
+            foreach (var (directory, error) in failures)
+            {
+                sb.AppendLine($"### {directory}");
+                sb.AppendLine();
+                sb.AppendLine("```");
+                sb.AppendLine(error);
+                sb.AppendLine("```");
+                sb.AppendLine();
+            }
+        }
+
+        await File.WriteAllTextAsync(reportPath, sb.ToString());
+    }
 }
 #endif

@@ -1,4 +1,25 @@
 // Integration tests for MSBuild task
+//
+// These tests verify that the MarkdownSnippets.MsBuild NuGet package works correctly
+// when consumed by a project using both .NET Core (dotnet build) and .NET Framework (msbuild.exe).
+//
+// How it works:
+// 1. Creates a temporary directory with a minimal test project
+// 2. Configures nuget.config to use the local nugets folder (C:\Code\MarkdownSnippets\nugets)
+//    with a local packages cache to avoid global NuGet cache issues
+// 3. Creates a .csproj referencing MarkdownSnippets.MsBuild
+// 4. Creates a C# file with a code snippet and a markdown file referencing it
+// 5. Runs the build (dotnet or msbuild.exe) which triggers the MarkdownSnippets task
+// 6. Verifies the markdown was processed correctly
+//
+// The .NET Framework test (msbuild.exe) is particularly important because:
+// - MSBuild loads the netstandard2.0 version of the task DLL
+// - All dependencies (including System.Collections.Immutable with FrozenSet) are shaded
+//   via PackageShader to avoid version conflicts with MSBuild's own dependencies
+// - Static field data (FieldRVA entries) must be correctly patched when shading
+//
+// These tests only run in RELEASE configuration because they depend on the
+// MarkdownSnippets.MsBuild.nupkg being built in the nugets folder.
 #if RELEASE
 public class MsBuildIntegrationTests
 {

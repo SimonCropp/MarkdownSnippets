@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <!-- PackageShader configuration -->
-    <Shader_Internalize>true</Shader_Internalize>
+    <Shader_Internalize>false</Shader_Internalize>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
     <!-- Strong name signing -->
@@ -21,10 +21,6 @@
     <Compile Include="..\ConfigReader\*.cs" />
 
     <TfmSpecificPackageFile Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.MsBuild.dll">
-      <Pack>true</Pack>
-      <PackagePath>task\$(TargetFramework)</PackagePath>
-    </TfmSpecificPackageFile>
-    <TfmSpecificPackageFile Include=".\bin\$(Configuration)\$(TargetFramework)\MarkdownSnippets.MsBuild.deps.json">
       <Pack>true</Pack>
       <PackagePath>task\$(TargetFramework)</PackagePath>
     </TfmSpecificPackageFile>

@@ -42,6 +42,9 @@ public class MsBuildIntegrationTests
 
         Assert.True(result.ExitCode == 0, $"dotnet build failed:\n{result.Output}\n{result.Error}");
 
+        // Allow build processes to fully release file handles before cleanup
+        await Task.Delay(2000);
+
         // Verify the markdown was processed (generated header indicates task ran)
         var outputMd = Path.Combine(tempDir, "docs", "readme.md");
         Assert.True(File.Exists(outputMd), $"Output markdown should exist at {outputMd}");
@@ -65,6 +68,9 @@ public class MsBuildIntegrationTests
         var result = await RunProcess(msbuildPath, $"\"{tempDir}\" /p:Configuration=Release /restore /nodeReuse:false -verbosity:minimal", tempDir);
 
         Assert.True(result.ExitCode == 0, $"msbuild failed:\n{result.Output}\n{result.Error}");
+
+        // Allow MSBuild processes to fully release file handles before cleanup
+        await Task.Delay(2000);
 
         // Verify the markdown was processed (generated header indicates task ran)
         var outputMd = Path.Combine(tempDir, "docs", "readme.md");

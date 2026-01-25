@@ -143,7 +143,7 @@ public class MsBuildIntegrationTests
         Directory.CreateDirectory(docsDir);
 
         var sourceMd = """
-                       # Test Document
+                       Test Document
 
                        <!-- snippet: MySnippet -->
                        <!-- endSnippet -->

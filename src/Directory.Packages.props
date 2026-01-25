@@ -9,7 +9,7 @@
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="18.0.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
-    <PackageVersion Include="PackageShader.MsBuild" Version="0.1.11" />
+    <PackageVersion Include="PackageShader.MsBuild" Version="0.1.13" />
     <PackageVersion Include="Polyfill" Version="9.7.6" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.170" />
     <PackageVersion Include="ProjectFiles" Version="0.4.0" />

@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
     <PackageVersion Include="PackageShader.MsBuild" Version="0.1.13" />
     <PackageVersion Include="Polyfill" Version="9.8.1" />
-    <PackageVersion Include="ProjectDefaults" Version="1.0.170" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.171" />
     <PackageVersion Include="ProjectFiles" Version="0.5.0" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.2" />
     <PackageVersion Include="System.Buffers" Version="4.6.1" />
@@ -21,7 +21,7 @@
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.1.2" />
-    <PackageVersion Include="Verify.XunitV3" Version="31.10.0" />
+    <PackageVersion Include="Verify.XunitV3" Version="31.11.0" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
   </ItemGroup>

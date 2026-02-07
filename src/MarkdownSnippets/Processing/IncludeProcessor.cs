@@ -37,21 +37,21 @@ class IncludeProcessor
             return false;
         }
 
-        static string GetIncludeKey(string substring)
+        static string GetIncludeKey(CharSpan substring)
         {
-            var indexOfDotPath = substring.IndexOf(". path:");
+            var indexOfDotPath = substring.IndexOf(". path:", StringComparison.Ordinal);
             if (indexOfDotPath != -1)
             {
-                return substring[..indexOfDotPath];
+                return substring[..indexOfDotPath].ToString();
             }
 
-            return substring[..^4];
+            return substring[..^4].ToString();
         }
 
         var indexSingleLineInclude = current.IndexOf("<!-- singleLineInclude: ", StringComparison.Ordinal);
         if (indexSingleLineInclude > 0)
         {
-            var substring = current[(indexSingleLineInclude + 24)..];
+            var substring = current.AsSpan()[(indexSingleLineInclude + 24)..];
             var includeKey = GetIncludeKey(substring);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
             return true;
@@ -59,7 +59,7 @@ class IncludeProcessor
 
         if (current.StartsWith("<!-- include: ", StringComparison.Ordinal))
         {
-            var substring = current[14..];
+            var substring = current.AsSpan()[14..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);
@@ -69,7 +69,7 @@ class IncludeProcessor
         var indexOfInclude = current.IndexOf("<!-- include: ", StringComparison.Ordinal);
         if (indexOfInclude > 0)
         {
-            var substring = current[(indexOfInclude + 14)..];
+            var substring = current.AsSpan()[(indexOfInclude + 14)..];
             var includeKey = GetIncludeKey(substring);
             lines.RemoveUntil(index + 1, "<!-- endInclude -->", line.Path, line);
             Inner(lines, line, used, index, missing, includeKey, relativePath);

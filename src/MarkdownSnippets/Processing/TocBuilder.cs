@@ -69,10 +69,9 @@ static class TocBuilder
 
     static void BuildLink(StringBuilder builder, Dictionary<string, int> processed, string title)
     {
-        var lowerTitle = title.ToLowerInvariant();
-        processed.TryGetValue(lowerTitle, out var processedCount);
-        processed[lowerTitle] = processedCount + 1;
-        SanitizeLink(builder, lowerTitle);
+        processed.TryGetValue(title, out var processedCount);
+        processed[title] = processedCount + 1;
+        SanitizeLink(builder, title);
         if (processedCount > 0)
         {
             builder.Append('-');
@@ -80,13 +79,13 @@ static class TocBuilder
         }
     }
 
-    internal static void SanitizeLink(StringBuilder builder, string lowerTitle)
+    internal static void SanitizeLink(StringBuilder builder, CharSpan title)
     {
-        foreach (var ch in lowerTitle)
+        foreach (var ch in title)
         {
             if (char.IsLetterOrDigit(ch) || ch is '-' or '_')
             {
-                builder.Append(ch);
+                builder.Append(char.ToLowerInvariant(ch));
             }
             else if (char.IsWhiteSpace(ch))
             {

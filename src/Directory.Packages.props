@@ -10,7 +10,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.5" />
     <PackageVersion Include="PackageShader.MsBuild" Version="0.1.13" />
-    <PackageVersion Include="Polyfill" Version="9.9.0" />
+    <PackageVersion Include="Polyfill" Version="9.10.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.172" />
     <PackageVersion Include="ProjectFiles" Version="0.5.0" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.3" />
@@ -21,12 +21,12 @@
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="Verify.DiffPlex" Version="3.1.2" />
-    <PackageVersion Include="Verify.XunitV3" Version="31.13.1" />
+    <PackageVersion Include="Verify.XunitV3" Version="31.13.2" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="DiffEngine" Version="18.4.1" />
+    <PackageVersion Include="DiffEngine" Version="18.4.2" />
     <PackageVersion Include="EmptyFiles" Version="8.17.2" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
-    <PackageVersion Include="Verify" Version="31.13.1" />
+    <PackageVersion Include="Verify" Version="31.13.2" />
   </ItemGroup>
 </Project>

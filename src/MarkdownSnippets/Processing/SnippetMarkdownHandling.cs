@@ -124,7 +124,7 @@ public class SnippetMarkdownHandling
     {
         if (linkFormat == LinkFormat.DevOps)
         {
-            path = WebUtility.UrlEncode(path);
+            path = WebUtility.UrlEncode(path)!;
         }
         else
         {

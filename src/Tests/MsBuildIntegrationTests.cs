@@ -397,7 +397,7 @@ public class MsBuildIntegrationTests
             : "Build failed (no output captured)";
     }
 
-    static async Task GenerateMarkdownReport(string reportPath, int totalProjects, List<(string Directory, string Error)> failures)
+    static Task GenerateMarkdownReport(string reportPath, int totalProjects, List<(string Directory, string Error)> failures)
     {
         var sb = new StringBuilder();
         sb.AppendLine("# MSBuild Integration Test Report");
@@ -429,7 +429,7 @@ public class MsBuildIntegrationTests
             }
         }
 
-        await File.WriteAllTextAsync(reportPath, sb.ToString());
+        return File.WriteAllTextAsync(reportPath, sb.ToString());
     }
 }
 #endif

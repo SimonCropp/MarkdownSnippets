@@ -122,6 +122,14 @@ public class SnippetMarkdownHandling
 
     void BuildLink(Snippet snippet, string path, StringBuilder builder)
     {
+        if (linkFormat == LinkFormat.DevOps)
+        {
+            path = WebUtility.UrlEncode(path);
+        }
+        else
+        {
+            path = path.Replace("#", "%23");
+        }
         #region BuildLink
         switch (linkFormat)
         {

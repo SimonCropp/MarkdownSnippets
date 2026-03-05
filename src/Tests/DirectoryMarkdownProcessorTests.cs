@@ -13,7 +13,7 @@ public class DirectoryMarkdownProcessorTests
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true,
             tocLevel: 1,
-            tocExcludes: new List<string> {"Icon", "Credits", "Release Notes"});
+            tocExcludes: new List<string> { "Icon", "Credits", "Release Notes" });
         processor.Run();
     }
 
@@ -287,6 +287,23 @@ public class DirectoryMarkdownProcessorTests
     public Task FileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verify(File.ReadAllText(result));
+    }
+
+    [Fact]
+    public Task FileSnippetWithHash()
+    {
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithHash");
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,

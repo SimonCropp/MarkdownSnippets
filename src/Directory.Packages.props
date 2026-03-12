@@ -13,7 +13,7 @@
     <PackageVersion Include="Polyfill" Version="9.18.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.172" />
     <PackageVersion Include="ProjectFiles" Version="1.1.1" />
-    <PackageVersion Include="System.Collections.Immutable" Version="10.0.4" />
+    <PackageVersion Include="System.Collections.Immutable" Version="10.0.5" />
     <PackageVersion Include="System.Buffers" Version="4.6.1" />
     <PackageVersion Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageVersion Include="System.Numerics.Vectors" Version="4.6.1" />

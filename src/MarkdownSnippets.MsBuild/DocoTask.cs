@@ -24,11 +24,19 @@ public class DocoTask :
     public List<string> UrlsAsSnippets { get; set; } = [];
     public bool? TreatMissingAsWarning { get; set; }
     public bool? OmitSnippetLinks { get; set; }
+    public string? PackageOutputPath { get; set; }
 
     public override bool Execute()
     {
         var stopwatch = Stopwatch.StartNew();
         var root = GitRepoDirectoryFinder.FindForDirectory(ProjectDirectory);
+
+        if (!string.IsNullOrWhiteSpace(PackageOutputPath))
+        {
+            var resolved = Path.GetFullPath(Path.Combine(ProjectDirectory, PackageOutputPath));
+            ExcludeDirs.Add(resolved);
+        }
+
         var (fileConfig, configFilePath) = ConfigReader.Read(root);
 
         var configResult = ConfigDefaults.Convert(

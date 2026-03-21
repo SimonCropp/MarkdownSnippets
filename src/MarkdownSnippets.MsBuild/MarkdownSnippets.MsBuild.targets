@@ -19,6 +19,7 @@
     <MarkdownSnippets.DocoTask
       ProjectDirectory="$(MSBuildProjectDirectory)"
       ReadOnly="$(MarkdownSnippetsReadOnly)"
-      WriteHeader="$(MarkdownSnippetsWriteHeader)" />
+      WriteHeader="$(MarkdownSnippetsWriteHeader)"
+      PackageOutputPath="$(PackageOutputPath)" />
   </Target>
 </Project>

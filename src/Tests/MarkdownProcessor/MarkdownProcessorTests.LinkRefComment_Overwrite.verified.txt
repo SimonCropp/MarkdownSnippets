@@ -1,0 +1,36 @@
+{
+  UsedSnippets: [
+    {
+      Key: snippet1,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
+      IsInError: false
+    },
+    {
+      Key: snippet2,
+      Language: cs,
+      Value: Snippet,
+      Error: ,
+      FileLocation: thePath(1-2),
+      IsInError: false
+    }
+  ],
+  result:
+[//]: # (snippet: snippet1)
+```cs
+Snippet
+```
+[//]: # (endSnippet)
+
+some text
+
+[//]: # (snippet: snippet2)
+```cs
+Snippet
+```
+[//]: # (endSnippet)
+
+some other text
+}

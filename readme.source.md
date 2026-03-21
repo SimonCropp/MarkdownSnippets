@@ -192,6 +192,31 @@ Notes:
  * [H33: Supplementing link text with the title attribute](https://www.w3.org/TR/WCAG20-TECHS/H33.html)
 
 
+### MDX / Link Reference Comment Syntax
+
+When using MDX files (e.g. with [fumadocs](https://fumadocs.dev), [Astro](https://astro.build/), or other JSX-based static site generators), HTML comments (`<!-- -->`) are not supported. An alternative comment syntax using [markdown link reference definitions](https://spec.commonmark.org/0.31.2/#link-reference-definitions) can be used instead:
+
+<pre>
+[//]: # (snippet: MySnippetName)
+[//]: # (endSnippet)
+</pre>
+
+This works the same way as the HTML comment syntax but is compatible with both standard markdown and MDX parsers. When using InPlaceOverwrite convention, the content between the markers will be replaced with the snippet content, and the link reference format will be preserved:
+
+    [//]: # (snippet: MySnippetName)
+    ```cs
+    My Snippet Code
+    ```
+    [//]: # (endSnippet)
+
+This syntax also works for web-snippets:
+
+<pre>
+[//]: # (web-snippet: https://example.com/file.cs#snippetKey)
+[//]: # (endSnippet)
+</pre>
+
+
 ### Including a snippet from the web
 
 Snippets that start with `http` will be downloaded and the contents rendered. For example:

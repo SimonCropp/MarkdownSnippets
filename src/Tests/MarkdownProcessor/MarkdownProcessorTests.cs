@@ -854,6 +854,56 @@ public class MarkdownProcessorTests
             content);
     }
 
+    [Fact]
+    public Task LinkRefComment_Overwrite()
+    {
+        var availableSnippets = new List<Snippet>
+        {
+            SnippetBuild("cs", "snippet1"),
+            SnippetBuild("cs", "snippet2")
+        };
+        var content = """
+
+                      [//]: # (snippet: snippet1)
+                      ```cs
+                      BAD
+                      ```
+                      [//]: # (endSnippet)
+
+                      some text
+
+                      [//]: # (snippet: snippet2)
+                      ```cs
+                      BAD
+                      ```
+                      [//]: # (endSnippet)
+
+                      some other text
+
+                      """;
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content,
+            availableSnippets);
+    }
+
+    [Fact]
+    public Task LinkRefComment_Overwrite_Missing()
+    {
+        var content = """
+
+                      [//]: # (snippet: missingKey)
+                      ```cs
+                      BAD
+                      ```
+                      [//]: # (endSnippet)
+
+                      """;
+        return SnippetVerifier.Verify(
+            DocumentConvention.InPlaceOverwrite,
+            content);
+    }
+
     static Snippet SnippetBuild(string language, string key) =>
         Snippet.Build(
             language: language,

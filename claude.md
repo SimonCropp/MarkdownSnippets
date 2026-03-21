@@ -1,0 +1,76 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+MarkdownSnippets is a .NET tool/library that extracts code snippets from source files (via `begin-snippet`/`end-snippet` markers and C# regions) and merges them into markdown documents. Distributed as:
+- **dotnet global tool** (`MarkdownSnippets.Tool`, command: `mdsnippets`)
+- **MSBuild task** (`MarkdownSnippets.MsBuild`)
+- **Library** (`MarkdownSnippets`)
+
+## Build Commands
+
+```bash
+# Build everything (from src/)
+dotnet build src
+
+# Run all tests
+dotnet test src
+
+# Run a single test project
+dotnet test src/Tests/Tests.csproj
+dotnet test src/ConfigReader.Tests/ConfigReader.Tests.csproj
+dotnet test src/MarkdownSnippets.Tool.Tests/MarkdownSnippets.Tool.Tests.csproj
+
+# Run a specific test by name
+dotnet test src/Tests/Tests.csproj --filter "FullyQualifiedName~TestClassName.TestMethodName"
+
+# Pack the tool
+dotnet pack src/MarkdownSnippets.Tool/MarkdownSnippets.Tool.csproj
+```
+
+Requires .NET SDK 10.0 (preview). See `src/global.json` for exact version.
+
+## Architecture
+
+All source is under `src/`. There is no `.sln` file; build by targeting `src/` or individual `.csproj` files.
+
+### Core Library (`src/MarkdownSnippets/`)
+
+Two main subsystems:
+
+- **Reading** (`Reading/`): Extracts snippets from source files. `FileSnippetExtractor` scans files for `begin-snippet`/`end-snippet` markers. `StartEndTester` handles marker detection including C# regions. `Snippet` is the data model.
+- **Processing** (`Processing/`): Transforms markdown files. `DirectoryMarkdownProcessor` is the top-level orchestrator that scans directories, collects snippets, and processes markdown. `MarkdownProcessor` handles individual file transformation. `IncludeProcessor` handles include directives.
+
+### Tool (`src/MarkdownSnippets.Tool/`)
+
+CLI entry point. `Program.cs` uses top-level statements. `CommandRunner` parses args via `CommandLineParser` and delegates to `DirectoryMarkdownProcessor`. Shares `ConfigReader` source files via `<Compile Include>` (not a project reference).
+
+### ConfigReader (`src/ConfigReader/`)
+
+Reads `mdsnippets.json` configuration files. Source files are compiled directly into the Tool project (not referenced as a library).
+
+### MsBuild Task (`src/MarkdownSnippets.MsBuild/`)
+
+Wraps the library as an MSBuild task. Uses `PackageShader.MsBuild` for dependency isolation. Targets netstandard2.0 and net10.0.
+
+## Testing
+
+- Framework: **xunit.v3** with **Verify** (snapshot testing)
+- Snapshots are `.verified.txt` files alongside tests. When a test fails due to output changes, review the `.received.txt` diff and accept with the Verify tooling if correct.
+- Main test project (`src/Tests/`) targets net10.0 (and net48 on Windows)
+- Test data directories (e.g., `DirectoryMarkdownProcessor/`, `SnippetExtractor/`) are copied to output via csproj settings
+
+## Build Configuration
+
+- `src/Directory.Build.props`: Version (28.0.1), LangVersion preview, TreatWarningsAsErrors, EnforceCodeStyleInBuild
+- `src/Directory.Packages.props`: Central package management with transitive pinning
+- Global type alias: `CharSpan` = `System.ReadOnlySpan<System.Char>` (defined in Directory.Build.props)
+- Multi-targeting: Library targets netstandard2.0/2.1, net48, net8.0, net9.0, net10.0
+
+## Document Conventions
+
+The tool supports two modes for processing markdown:
+- **SourceTransform** (default): Reads `*.source.md`, writes output to `*.md`
+- **InPlaceOverwrite**: Modifies `*.md` files directly

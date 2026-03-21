@@ -101,7 +101,8 @@ public static class FileSnippetExtractor
             return [];
         }
 
-        using var reader = File.OpenText(path);
+        using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var reader = new StreamReader(stream);
         return Read(reader, path, maxWidth, newLine).ToList();
     }
 

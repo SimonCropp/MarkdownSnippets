@@ -40,6 +40,29 @@
     }
 
     [Fact]
+    public Task CanReadFileWhileLockedByAnotherProcess()
+    {
+        var temp = Path.Combine(Path.GetTempPath(), "LockedSnippetFile.cs");
+        try
+        {
+            File.WriteAllText(temp,
+                """
+                #region CodeKey
+                The Code
+                #endregion
+                """);
+            using var lockingStream = new FileStream(temp, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            var snippets = FileSnippetExtractor.Read(temp);
+            return Verify(snippets)
+                .AddScrubber(_ => _.Replace(temp, "LockedFile.cs"));
+        }
+        finally
+        {
+            File.Delete(temp);
+        }
+    }
+
+    [Fact]
     public Task CanExtractWithInnerWhiteSpace()
     {
         var input = """

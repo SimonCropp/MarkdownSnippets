@@ -2,9 +2,12 @@ static class Guard
 {
     public static void AgainstUpperCase(string value, string argumentName)
     {
-        if (value.Any(char.IsUpper))
+        foreach (var c in value.AsSpan())
         {
-            throw new ArgumentException($"Cannot contain upper case. Value: {value}", argumentName);
+            if (char.IsUpper(c))
+            {
+                throw new ArgumentException($"Cannot contain upper case. Value: {value}", argumentName);
+            }
         }
     }
 

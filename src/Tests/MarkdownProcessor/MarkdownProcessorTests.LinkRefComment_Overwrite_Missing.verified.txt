@@ -1,0 +1,14 @@
+{
+  MissingSnippets: [
+    {
+      Key: missingKey,
+      LineNumber: 2
+    }
+  ],
+  result:
+[//]: # (snippet: missingKey)
+```
+** Could not find snippet 'missingKey' **
+```
+[//]: # (endSnippet)
+}

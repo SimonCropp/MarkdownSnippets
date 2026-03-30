@@ -1,7 +1,7 @@
 class IncludeProcessor
 {
     DocumentConvention convention;
-    IReadOnlyList<Include> includes;
+    Dictionary<string, Include> includesLookup;
     IReadOnlyDictionary<string, IReadOnlyList<Snippet>> snippets;
     IReadOnlyList<string> allFiles;
     string targetDirectory;
@@ -16,7 +16,7 @@ class IncludeProcessor
         targetDirectory = Path.GetFullPath(targetDirectory);
         this.targetDirectory = targetDirectory.Replace('\\', '/');
         this.convention = convention;
-        this.includes = includes;
+        includesLookup = includes.ToDictionary(_ => _.Key);
         this.snippets = snippets;
         this.allFiles = allFiles;
     }
@@ -81,8 +81,7 @@ class IncludeProcessor
 
     void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
     {
-        var include = includes.SingleOrDefault(_ => _.Key == includeKey);
-        if (include != null)
+        if (includesLookup.TryGetValue(includeKey, out var include))
         {
             AddInclude(lines, line, used, index, include, true);
             return;

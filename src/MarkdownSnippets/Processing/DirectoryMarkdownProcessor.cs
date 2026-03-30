@@ -132,10 +132,11 @@ public class DirectoryMarkdownProcessor
 
         if (scanForIncludes)
         {
+            var includeKeys = new HashSet<string>();
             foreach (var file in includeFiles)
             {
                 var key = Path.GetFileName(file).Replace(".include.md", "");
-                if (includes.Any(_ => _.Key == key))
+                if (!includeKeys.Add(key))
                 {
                     throw new($"Duplicate include: {key}");
                 }

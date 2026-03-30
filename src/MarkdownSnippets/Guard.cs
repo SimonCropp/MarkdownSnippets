@@ -2,7 +2,7 @@ static class Guard
 {
     public static void AgainstUpperCase(string value, string argumentName)
     {
-        foreach (var c in value.AsSpan())
+        foreach (var c in value)
         {
             if (char.IsUpper(c))
             {

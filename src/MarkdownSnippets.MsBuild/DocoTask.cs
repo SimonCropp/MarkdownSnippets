@@ -85,14 +85,13 @@ public class DocoTask :
 
         try
         {
-            var snippets = new List<Snippet>();
             var urlsAsSnippets = configResult.UrlsAsSnippets;
-            if (urlsAsSnippets != null)
+            if (urlsAsSnippets != null && urlsAsSnippets.Count != 0)
             {
+                var snippets = new List<Snippet>();
                 snippets.AppendUrlsAsSnippets(urlsAsSnippets).GetAwaiter().GetResult();
+                processor.AddSnippets(snippets);
             }
-
-            processor.AddSnippets(snippets);
             var snippetsInError = processor.Snippets.Where(_ => _.IsInError).ToList();
             if (snippetsInError.Count != 0)
             {

@@ -282,14 +282,14 @@ public class MarkdownProcessor
             return false;
         }
 
-        var errors = ContentValidation.Verify(line.Original).ToList();
-        if (errors.Count == 0)
+        var found = false;
+        foreach (var error in ContentValidation.Verify(line.Original))
         {
-            return false;
+            validationErrors.Add(new(error.error, line.LineNumber, error.column, line.Path));
+            found = true;
         }
 
-        validationErrors.AddRange(errors.Select(error => new ValidationError(error.error, line.LineNumber, error.column, line.Path)));
-        return true;
+        return found;
     }
 
     void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)

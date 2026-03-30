@@ -404,7 +404,7 @@ public class MarkdownProcessor
             .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
             .Select(file => FileToSnippet(key, file, file))
             .ToList();
-        if (snippetsForKey.Any())
+        if (snippetsForKey.Count != 0)
         {
             return true;
         }

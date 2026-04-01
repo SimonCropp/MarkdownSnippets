@@ -181,20 +181,20 @@ public class MarkdownProcessor
                 continue;
             }
 
-            void AppendSnippet(string key1)
+            void AppendSnippet(string key1, bool useLinkRefFormat = false)
             {
                 builder.Clear();
                 var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
-                ProcessSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
+                ProcessSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, key1, relativePath, line, useLinkRefFormat);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
 
-            void AppendWebSnippet(string url, string snippetKey, string? viewUrl = null)
+            void AppendWebSnippet(string url, string snippetKey, string? viewUrl = null, bool useLinkRefFormat = false)
             {
                 builder.Clear();
                 var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
-                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, viewUrl, line);
+                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, viewUrl, line, useLinkRefFormat);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -239,6 +239,34 @@ public class MarkdownProcessor
                 lines.RemoveUntil(
                     index,
                     "<!-- endSnippet -->",
+                    relativePath,
+                    line);
+                continue;
+            }
+
+            if (SnippetKey.ExtractLinkRefCommentSnippet(line, out key))
+            {
+                AppendSnippet(key, useLinkRefFormat: true);
+
+                index++;
+
+                lines.RemoveUntil(
+                    index,
+                    "[//]: # (endSnippet)",
+                    relativePath,
+                    line);
+                continue;
+            }
+
+            if (SnippetKey.ExtractLinkRefCommentWebSnippet(line, out url, out snippetKey, out viewUrl))
+            {
+                AppendWebSnippet(url, snippetKey, viewUrl, useLinkRefFormat: true);
+
+                index++;
+
+                lines.RemoveUntil(
+                    index,
+                    "[//]: # (endSnippet)",
                     relativePath,
                     line);
                 continue;
@@ -292,14 +320,16 @@ public class MarkdownProcessor
         return found;
     }
 
-    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line, bool useLinkRefFormat = false)
     {
-        appendLine($"<!-- snippet: {key} -->");
+        var startMarker = useLinkRefFormat ? $"[//]: # (snippet: {key})" : $"<!-- snippet: {key} -->";
+        var endMarker = useLinkRefFormat ? "[//]: # (endSnippet)" : "<!-- endSnippet -->";
+        appendLine(startMarker);
 
         if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
         {
             appendSnippets(key, snippetsForKey, appendLine);
-            appendLine("<!-- endSnippet -->");
+            appendLine(endMarker);
             used.AddRange(snippetsForKey);
             return;
         }
@@ -309,14 +339,19 @@ public class MarkdownProcessor
         appendLine("```");
         appendLine($"** Could not find snippet '{key}' **");
         appendLine("```");
-        appendLine("<!-- endSnippet -->");
+        appendLine(endMarker);
     }
 
-    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, string? viewUrl, Line line)
+    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, string? viewUrl, Line line, bool useLinkRefFormat = false)
     {
-        var commentText = viewUrl == null
-            ? $"<!-- web-snippet: {url}#{snippetKey} -->"
-            : $"<!-- web-snippet: {url}#{snippetKey} {viewUrl} -->";
+        var endMarker = useLinkRefFormat ? "[//]: # (endSnippet)" : "<!-- endSnippet -->";
+        var commentText = useLinkRefFormat
+            ? (viewUrl == null
+                ? $"[//]: # (web-snippet: {url}#{snippetKey})"
+                : $"[//]: # (web-snippet: {url}#{snippetKey} {viewUrl})")
+            : (viewUrl == null
+                ? $"<!-- web-snippet: {url}#{snippetKey} -->"
+                : $"<!-- web-snippet: {url}#{snippetKey} {viewUrl} -->");
         appendLine(commentText);
         // Download file content
         try
@@ -329,7 +364,7 @@ public class MarkdownProcessor
                 appendLine("```");
                 appendLine($"** Could not fetch or parse web-snippet '{url}#{snippetKey}' **");
                 appendLine("```");
-                appendLine("<!-- endSnippet -->");
+                appendLine(endMarker);
                 return;
             }
             // Extract snippets from content
@@ -343,7 +378,7 @@ public class MarkdownProcessor
                 appendLine("```");
                 appendLine($"** Could not find snippet '{snippetKey}' in '{url}' **");
                 appendLine("```");
-                appendLine("<!-- endSnippet -->");
+                appendLine(endMarker);
                 return;
             }
             // Create new snippet with viewUrl if provided
@@ -359,7 +394,7 @@ public class MarkdownProcessor
                     expressiveCode: found.ExpressiveCode,
                     viewUrl: viewUrl);
             appendSnippets(snippetKey, [snippetToAppend], appendLine);
-            appendLine("<!-- endSnippet -->");
+            appendLine(endMarker);
             used.Add(snippetToAppend);
         }
         catch
@@ -369,7 +404,7 @@ public class MarkdownProcessor
             appendLine("```");
             appendLine($"** Could not fetch or parse web-snippet '{url}#{snippetKey}' **");
             appendLine("```");
-            appendLine("<!-- endSnippet -->");
+            appendLine(endMarker);
         }
     }
 

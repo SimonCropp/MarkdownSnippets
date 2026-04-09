@@ -16,8 +16,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)nuget-readme.md" Pack="true" PackagePath="readme.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
   </ItemGroup>
 </Project>

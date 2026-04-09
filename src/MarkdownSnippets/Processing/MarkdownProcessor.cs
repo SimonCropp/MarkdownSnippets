@@ -463,7 +463,7 @@ public class MarkdownProcessor
             var lineCount = 0;
             foreach (var line in File.ReadLines(file))
             {
-                if (!StartEndTester.IsStartOrEnd(line.TrimStart()))
+                if (!StartEndTester.IsStartOrEnd(line.AsSpan().TrimStart()))
                 {
                     if (lineCount > 0)
                     {

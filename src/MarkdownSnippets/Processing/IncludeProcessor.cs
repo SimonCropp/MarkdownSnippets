@@ -21,7 +21,7 @@ class IncludeProcessor
         this.allFiles = allFiles;
     }
 
-    public bool TryProcessInclude(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string? relativePath)
+    public bool TryProcessInclude(List<Line> lines, Line line, ICollection<Include> used, int index, List<MissingInclude> missing, string? relativePath)
     {
         var current = line.Current;
 
@@ -79,7 +79,7 @@ class IncludeProcessor
         return false;
     }
 
-    void Inner(List<Line> lines, Line line, List<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
+    void Inner(List<Line> lines, Line line, ICollection<Include> used, int index, List<MissingInclude> missing, string includeKey, string? relativePath)
     {
         if (includesLookup.TryGetValue(includeKey, out var include))
         {
@@ -125,7 +125,7 @@ class IncludeProcessor
         line.Current = $"** Could not find include '{includeKey}' ** <!-- singleLineInclude: {includeKey} -->";
     }
 
-    void AddInclude(List<Line> lines, Line line, List<Include> used, int index, Include include, bool writePath)
+    void AddInclude(List<Line> lines, Line line, ICollection<Include> used, int index, Include include, bool writePath)
     {
         used.Add(include);
         var linesToInject = BuildIncludes(line, include, writePath).ToList();

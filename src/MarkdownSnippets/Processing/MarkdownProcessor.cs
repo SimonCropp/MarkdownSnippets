@@ -129,8 +129,8 @@ public class MarkdownProcessor
         var missingSnippets = new List<MissingSnippet>();
         var validationErrors = new List<ValidationError>();
         var missingIncludes = new List<MissingInclude>();
-        var usedSnippets = new List<Snippet>();
-        var usedIncludes = new List<Include>();
+        var usedSnippets = new HashSet<Snippet>();
+        var usedIncludes = new HashSet<Include>();
         var builder = new StringBuilder();
         Line? tocLine = null;
 
@@ -263,8 +263,8 @@ public class MarkdownProcessor
 
         return new(
             missingSnippets: missingSnippets,
-            usedSnippets: usedSnippets.Distinct().ToList(),
-            usedIncludes: usedIncludes.Distinct().ToList(),
+            usedSnippets: usedSnippets.ToList(),
+            usedIncludes: usedIncludes.ToList(),
             missingIncludes: missingIncludes,
             validationErrors: validationErrors);
     }
@@ -292,7 +292,7 @@ public class MarkdownProcessor
         return found;
     }
 
-    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string key, string? relativePath, Line line)
+    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, HashSet<Snippet> used, string key, string? relativePath, Line line)
     {
         appendLine($"<!-- snippet: {key} -->");
 
@@ -300,7 +300,7 @@ public class MarkdownProcessor
         {
             appendSnippets(key, snippetsForKey, appendLine);
             appendLine("<!-- endSnippet -->");
-            used.AddRange(snippetsForKey);
+            used.UnionWith(snippetsForKey);
             return;
         }
 
@@ -312,7 +312,7 @@ public class MarkdownProcessor
         appendLine("<!-- endSnippet -->");
     }
 
-    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, List<Snippet> used, string url, string snippetKey, string? viewUrl, Line line)
+    void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, HashSet<Snippet> used, string url, string snippetKey, string? viewUrl, Line line)
     {
         var commentText = viewUrl == null
             ? $"<!-- web-snippet: {url}#{snippetKey} -->"

@@ -8,3 +8,4 @@ obj/
 *.received.*
 nugets/
 nul
+/src/Benchmarks/BenchmarkDotNet.Artifacts

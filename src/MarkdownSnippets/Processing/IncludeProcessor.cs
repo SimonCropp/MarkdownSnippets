@@ -129,13 +129,11 @@ class IncludeProcessor
     {
         used.Add(include);
         var linesToInject = BuildIncludes(line, include, writePath).ToList();
-        var first = linesToInject.First();
-        lines[index] = first;
+        lines[index] = linesToInject[0];
 
-        for (var includeIndex = 1; includeIndex < linesToInject.Count; includeIndex++)
+        if (linesToInject.Count > 1)
         {
-            var lineToInject = linesToInject[includeIndex];
-            lines.Insert(index + includeIndex, lineToInject);
+            lines.InsertRange(index + 1, linesToInject.GetRange(1, linesToInject.Count - 1));
         }
     }
 

@@ -11,8 +11,10 @@ MarkdownSnippets is a .NET tool/library that extracts code snippets from source 
 
 ## Build Commands
 
+All commands must be run from the repo root directory.
+
 ```bash
-# Build everything (from src/)
+# Build everything
 dotnet build src
 
 # Run all tests

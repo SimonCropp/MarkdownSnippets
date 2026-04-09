@@ -22,7 +22,7 @@ public class ReadSnippets :
     /// </summary>
     public virtual IEnumerator<Snippet> GetEnumerator()
     {
-        if (SnippetsInError.Any())
+        if (SnippetsInError.Count != 0)
         {
             throw new SnippetReadingException($"SnippetsInError: {string.Join(", ", SnippetsInError.Select(_ => _.Key))}");
         }

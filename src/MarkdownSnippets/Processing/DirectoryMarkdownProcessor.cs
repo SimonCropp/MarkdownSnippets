@@ -267,7 +267,7 @@ public class DirectoryMarkdownProcessor
         var result = markdownProcessor.Apply(lines, newLine, relativeSource);
 
         var missingSnippets = result.MissingSnippets;
-        if (missingSnippets.Any())
+        if (missingSnippets.Count != 0)
         {
             // If the config value is set to treat missing snippets as warnings, then don't throw
             if (treatMissingAsWarning)
@@ -284,7 +284,7 @@ public class DirectoryMarkdownProcessor
         }
 
         var missingIncludes = result.MissingIncludes;
-        if (missingIncludes.Any())
+        if (missingIncludes.Count != 0)
         {
             // If the config value is set to treat missing include as warnings, then don't throw
             if (treatMissingAsWarning)
@@ -301,7 +301,7 @@ public class DirectoryMarkdownProcessor
         }
 
         var errors = result.ValidationErrors;
-        if (errors.Any())
+        if (errors.Count != 0)
         {
             throw new ContentValidationException(errors);
         }

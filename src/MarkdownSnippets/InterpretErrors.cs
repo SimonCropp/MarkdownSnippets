@@ -10,7 +10,7 @@ public static class InterpretErrors
     /// </summary>
     public static string ErrorsAsMarkdown(this IReadOnlyList<Snippet> snippets)
     {
-        if (!snippets.Any())
+        if (snippets.Count == 0)
         {
             return "";
         }

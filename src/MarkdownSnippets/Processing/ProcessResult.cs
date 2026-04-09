@@ -26,17 +26,17 @@ public class ProcessResult(
     /// </summary>
     public virtual IEnumerator<Snippet> GetEnumerator()
     {
-        if (MissingSnippets.Any())
+        if (MissingSnippets.Count != 0)
         {
             throw new MissingSnippetsException(MissingSnippets);
         }
 
-        if (MissingIncludes.Any())
+        if (MissingIncludes.Count != 0)
         {
             throw new MissingIncludesException(MissingIncludes);
         }
 
-        if (ValidationErrors.Any())
+        if (ValidationErrors.Count != 0)
         {
             throw new ContentValidationException(ValidationErrors);
         }

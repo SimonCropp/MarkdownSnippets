@@ -152,7 +152,7 @@ public static class FileSnippetExtractor
                 break;
             }
 
-            var trimmedLine = line.Trim();
+            var trimmedLine = line.AsSpan().Trim();
 
             if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc, out var expressive))
             {

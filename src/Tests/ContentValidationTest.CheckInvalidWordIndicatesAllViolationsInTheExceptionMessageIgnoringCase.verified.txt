@@ -8,11 +8,11 @@
     Item2: 1
   },
   {
-    Item1: Invalid word detected: 'us',
-    Item2: 37
-  },
-  {
     Item1: Invalid word detected: 'yourself',
     Item2: 27
+  },
+  {
+    Item1: Invalid word detected: 'us',
+    Item2: 37
   }
 ]

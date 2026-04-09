@@ -90,7 +90,7 @@ public class MarkdownProcessor
             using var writer = new StringWriter(builder);
             var processResult = Apply(reader, writer, file);
             var missing = processResult.MissingSnippets;
-            if (missing.Any())
+            if (missing.Count != 0)
             {
                 throw new MissingSnippetsException(missing);
             }

@@ -81,10 +81,20 @@ public static class FileSnippetExtractor
     /// <param name="paths">The paths to extract <see cref="Snippet"/>s from.</param>
     /// <param name="maxWidth">Controls the maximum character width for snippets. Must be positive.</param>
     /// <param name="newLine">The string to use as a line separator in snippets.</param>
-    public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n") =>
-        paths
+    public static IEnumerable<Snippet> Read(IEnumerable<string> paths, int maxWidth = int.MaxValue, string newLine = "\n")
+    {
+        var filteredPaths = paths
             .Where(_ => SnippetFileExclusions.CanContainCommentsExtension(GetLanguageFromPath(_)))
-            .SelectMany(path => Read(path, maxWidth, newLine));
+            .ToList();
+
+        var results = new IEnumerable<Snippet>[filteredPaths.Count];
+        Parallel.For(0, filteredPaths.Count, i =>
+        {
+            results[i] = Read(filteredPaths[i], maxWidth, newLine);
+        });
+
+        return results.SelectMany(_ => _);
+    }
 
     /// <summary>
     /// Read from a path.

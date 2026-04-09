@@ -12,10 +12,13 @@ public class DirectoryMarkdownProcessor
     Action<string> log;
     string targetDirectory;
     List<string> mdFiles = [];
+    public IReadOnlyList<string> MdFiles => mdFiles;
     List<Include> includes = [];
+    public IReadOnlyList<Include> Includes => includes;
     List<Snippet> snippets = [];
     public IReadOnlyList<Snippet> Snippets => snippets;
     List<string> snippetSourceFiles = [];
+    public IReadOnlyList<string> SnippetSourceFiles => snippetSourceFiles;
     AppendSnippetsToMarkdown appendSnippets;
     bool treatMissingAsWarning;
     string newLine;

@@ -53,6 +53,55 @@ public class MsBuildIntegrationTests
     }
 
     [Fact]
+    public async Task DotnetBuild_IsIncremental()
+    {
+        using var tempDir = new TempDirectory();
+        await SetupTestProject(tempDir);
+
+        // First build — task runs, stamp + inputs files are created
+        var result1 = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release -nodeReuse:false -v:normal", tempDir);
+        Assert.True(result1.ExitCode == 0, $"First build failed:\n{result1.Output}\n{result1.Error}");
+
+        var stampPath = Path.Combine(tempDir, "obj", "Release", "net8.0", "mdsnippets.stamp");
+        var inputsPath = Path.Combine(tempDir, "obj", "Release", "net8.0", "mdsnippets.inputs");
+        Assert.True(File.Exists(stampPath), $"Stamp file should exist at {stampPath}");
+        Assert.True(File.Exists(inputsPath), $"Inputs file should exist at {inputsPath}");
+
+        // Verify the inputs file contains the C# source we created
+        var inputsContent = await File.ReadAllTextAsync(inputsPath);
+        Assert.Contains("Sample.cs", inputsContent);
+
+        var stampAfterFirst = File.GetLastWriteTimeUtc(stampPath);
+
+        // Wait for filesystem timestamp resolution
+        await Task.Delay(1500);
+
+        // Second build with no changes — target should be skipped, stamp unchanged
+        var result2 = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release -nodeReuse:false -v:normal", tempDir);
+        Assert.True(result2.ExitCode == 0, $"Second build failed:\n{result2.Output}\n{result2.Error}");
+
+        var stampAfterSecond = File.GetLastWriteTimeUtc(stampPath);
+        Assert.Equal(stampAfterFirst, stampAfterSecond);
+
+        // Soft assertion on the build log (verbosity-dependent)
+        Assert.Contains("Skipping target \"MarkdownSnippetsTarget\"", result2.Output);
+
+        // Touch the C# source file
+        await Task.Delay(1500);
+        File.SetLastWriteTimeUtc(Path.Combine(tempDir, "Sample.cs"), DateTime.UtcNow);
+
+        // Third build — task should re-run because input changed
+        var result3 = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release -nodeReuse:false -v:normal", tempDir);
+        Assert.True(result3.ExitCode == 0, $"Third build failed:\n{result3.Output}\n{result3.Error}");
+
+        var stampAfterThird = File.GetLastWriteTimeUtc(stampPath);
+        Assert.NotEqual(stampAfterSecond, stampAfterThird);
+
+        // Allow build processes to release file handles before cleanup
+        await Task.Delay(2000);
+    }
+
+    [Fact]
     public async Task MsBuild_UsesNetFrameworkTask()
     {
         var msbuildPath = FindMsBuild();

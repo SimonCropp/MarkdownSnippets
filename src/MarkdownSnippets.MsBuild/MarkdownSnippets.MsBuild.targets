@@ -1,25 +1,40 @@
-﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MarkdownSnippetsAssembly Condition="$(MSBuildRuntimeType) == 'Core'">$(MSBuildThisFileDirectory)..\task\net10.0\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
     <MarkdownSnippetsAssembly Condition="$(MSBuildRuntimeType) != 'Core'">$(MSBuildThisFileDirectory)..\task\netstandard2.0\MarkdownSnippets.MsBuild.dll</MarkdownSnippetsAssembly>
+    <MarkdownSnippetsInputsFile>$(IntermediateOutputPath)mdsnippets.inputs</MarkdownSnippetsInputsFile>
+    <MarkdownSnippetsStampFile>$(IntermediateOutputPath)mdsnippets.stamp</MarkdownSnippetsStampFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <CustomAdditionalCompileInputs Include="$(MdTargetDir)**\*.source.md"/>
-  </ItemGroup>
 
   <UsingTask
     TaskName="MarkdownSnippets.DocoTask"
     AssemblyFile="$(MarkdownSnippetsAssembly)" />
 
+  <Target Name="MarkdownSnippetsResolveInputs">
+    <ReadLinesFromFile File="$(MarkdownSnippetsInputsFile)" Condition="Exists('$(MarkdownSnippetsInputsFile)')">
+      <Output TaskParameter="Lines" ItemName="MarkdownSnippetsInput" />
+    </ReadLinesFromFile>
+    <!-- First build (no sidecar yet): use the project file as a sentinel input.
+         The stamp file also doesn't exist on first build, so the target runs regardless. -->
+    <ItemGroup Condition="!Exists('$(MarkdownSnippetsInputsFile)')">
+      <MarkdownSnippetsInput Include="$(MSBuildProjectFullPath)" />
+    </ItemGroup>
+  </Target>
+
   <Target
     Name="MarkdownSnippetsTarget"
     AfterTargets="AfterCompile"
+    DependsOnTargets="MarkdownSnippetsResolveInputs"
+    Inputs="@(MarkdownSnippetsInput)"
+    Outputs="$(MarkdownSnippetsStampFile)"
     Condition="$(DesignTimeBuild) != true AND '$(NCrunch)' != '1' AND ('$(TargetFrameworks)' == '' OR $(TargetFramework) == $([MSBuild]::ValueOrDefault('$(TargetFrameworks)', '').Split(';')[0]))" >
+    <MakeDir Directories="$(IntermediateOutputPath)" />
     <MarkdownSnippets.DocoTask
       ProjectDirectory="$(MSBuildProjectDirectory)"
+      InputsListFile="$(MarkdownSnippetsInputsFile)"
       ReadOnly="$(MarkdownSnippetsReadOnly)"
       WriteHeader="$(MarkdownSnippetsWriteHeader)"
       PackageOutputPath="$(PackageOutputPath)" />
+    <Touch Files="$(MarkdownSnippetsStampFile)" AlwaysCreate="true" />
   </Target>
 </Project>

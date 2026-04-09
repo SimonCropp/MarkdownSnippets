@@ -25,6 +25,7 @@ public class DocoTask :
     public bool? TreatMissingAsWarning { get; set; }
     public bool? OmitSnippetLinks { get; set; }
     public string? PackageOutputPath { get; set; }
+    public string? InputsListFile { get; set; }
 
     public override bool Execute()
     {
@@ -104,6 +105,7 @@ public class DocoTask :
             }
 
             processor.Run();
+            WriteInputsList(processor, configFilePath);
             return true;
         }
         catch (MissingSnippetsException exception)
@@ -166,5 +168,47 @@ public class DocoTask :
 
     public void Cancel()
     {
+    }
+
+    void WriteInputsList(DirectoryMarkdownProcessor processor, string? configFilePath)
+    {
+        if (string.IsNullOrWhiteSpace(InputsListFile))
+        {
+            return;
+        }
+
+        var inputs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in processor.SnippetSourceFiles)
+        {
+            inputs.Add(file);
+        }
+
+        foreach (var file in processor.MdFiles)
+        {
+            inputs.Add(file);
+        }
+
+        foreach (var include in processor.Includes)
+        {
+            if (include.Path != null)
+            {
+                inputs.Add(include.Path);
+            }
+        }
+
+        if (configFilePath != null)
+        {
+            inputs.Add(configFilePath);
+        }
+
+        inputs.Add(typeof(DocoTask).Assembly.Location);
+
+        var dir = Path.GetDirectoryName(InputsListFile);
+        if (!string.IsNullOrEmpty(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+
+        File.WriteAllLines(InputsListFile!, inputs);
     }
 }

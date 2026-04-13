@@ -116,4 +116,34 @@
         Assert.Equal("CodeKey", key);
         Assert.Equal("""title="Program.cs" {1-3}""", expressive);
     }
+
+    [Fact]
+    public void CanExtractLanguageOverride()
+    {
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=json) -->", "file", out var key, out var expressive, out var language);
+        Assert.True(isBeginSnippet);
+        Assert.Equal("CodeKey", key);
+        Assert.Equal("json", language.ToString());
+        Assert.Equal(0, expressive.Length);
+    }
+
+    [Fact]
+    public void CanExtractLanguageOverrideWithExpressiveCode()
+    {
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!-- begin-snippet: CodeKey (lang=json title="a.json") -->""", "file", out var key, out var expressive, out var language);
+        Assert.True(isBeginSnippet);
+        Assert.Equal("CodeKey", key);
+        Assert.Equal("json", language.ToString());
+        Assert.Equal("""title="a.json" """.TrimEnd(), expressive.ToString());
+    }
+
+    [Fact]
+    public Task ShouldThrowForInvalidLanguageValue() =>
+        Throws(() =>
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=C#) -->", "file", out _, out _, out _));
+
+    [Fact]
+    public Task ShouldThrowForEmptyLanguageValue() =>
+        Throws(() =>
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=) -->", "file", out _, out _, out _));
 }

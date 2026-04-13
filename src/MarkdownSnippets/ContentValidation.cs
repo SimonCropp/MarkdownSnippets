@@ -33,10 +33,8 @@ static class ContentValidation
         new("kind of", "similar or approximately ")
     ]);
 
-    static List<string> invalidStrings;
-
-    static List<string> invalidWords =
-    [
+    static FrozenSet<string> invalidWordSet = new[]
+    {
         "you",
         "we",
         "our",
@@ -64,13 +62,16 @@ static class ContentValidation
         "whereat",
         "wherein",
         "whereof"
-    ];
+    }.ToFrozenSet();
 
-    static ContentValidation() =>
-        invalidStrings = BuildInvalidStrings().ToList();
-
-    static IEnumerable<string> BuildInvalidStrings() =>
-        invalidWords.Select(word => $" {word} ");
+    static FrozenDictionary<string, KeyValuePair<string, string>[]> phrasesByFirstWord =
+        phrases
+            .GroupBy(p =>
+            {
+                var spaceIndex = p.Key.IndexOf(' ');
+                return spaceIndex == -1 ? p.Key : p.Key[..spaceIndex];
+            })
+            .ToFrozenDictionary(g => g.Key, g => g.ToArray());
 
     public static IEnumerable<(string error, int column)> Verify(string line)
     {
@@ -88,29 +89,65 @@ static class ContentValidation
             yield return (message, exclamationIndex1);
         }
 
-        foreach (var invalidString in invalidStrings)
+        // Tokenize words with positions
+        var words = Tokenize(cleanedLine);
+
+        // Check invalid words via set lookup (report first occurrence only)
+        var seenWords = new HashSet<string>();
+        foreach (var (word, start) in words)
         {
-            var indexOf = cleanedLine.IndexOf(invalidString);
-            if (indexOf == -1)
+            if (invalidWordSet.Contains(word) && seenWords.Add(word))
             {
+                yield return ($"Invalid word detected: '{word}'", start - 1);
+            }
+        }
+
+        // Check phrases via first-word lookup (report first occurrence only)
+        var seenPhrases = new HashSet<string>();
+        foreach (var (word, start) in words)
+        {
+            if (phrasesByFirstWord.TryGetValue(word, out var candidates))
+            {
+                foreach (var candidate in candidates)
+                {
+                    if (seenPhrases.Contains(candidate.Key))
+                    {
+                        continue;
+                    }
+
+                    if (cleanedLine.AsSpan(start).StartsWith(candidate.Key.AsSpan(), StringComparison.Ordinal))
+                    {
+                        seenPhrases.Add(candidate.Key);
+                        yield return ($"Invalid phrase detected: '{candidate.Key}'. Instead consider '{candidate.Value}'", start);
+                    }
+                }
+            }
+        }
+    }
+
+    static List<(string word, int start)> Tokenize(string cleanedLine)
+    {
+        var words = new List<(string word, int start)>();
+        var span = cleanedLine.AsSpan();
+        var pos = 0;
+        while (pos < span.Length)
+        {
+            if (span[pos] == ' ')
+            {
+                pos++;
                 continue;
             }
 
-            var error = $"Invalid word detected: '{invalidString.Trim()}'";
-            yield return (error, indexOf);
-        }
-
-        foreach (var phrase in phrases)
-        {
-            var indexOf = cleanedLine.IndexOf(phrase.Key);
-            if (indexOf == -1)
+            var wordStart = pos;
+            while (pos < span.Length && span[pos] != ' ')
             {
-                continue;
+                pos++;
             }
 
-            var error = $"Invalid phrase detected: '{phrase.Key}'. Instead consider '{phrase.Value}'";
-            yield return (error, indexOf);
+            words.Add((span[wordStart..pos].ToString(), wordStart));
         }
+
+        return words;
     }
 
     static string Clean(string input)

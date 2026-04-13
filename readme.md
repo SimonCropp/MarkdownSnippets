@@ -460,6 +460,37 @@ Console.WriteLine("Hello, World");
 ````
 
 
+## Language Override
+
+By default the language of a rendered fenced code block is derived from the source file extension (e.g. a snippet extracted from a `.cs` file renders as `csharp`). The language can be overridden per snippet by adding a `lang=` token as the first item inside the parenthesised metadata:
+
+```csharp
+// begin-snippet: SampleJson(lang=json)
+{"hello": "world"}
+// end-snippet
+```
+
+Renders as:
+
+````markdown
+<-- begin-snippet: SampleJson -->
+```json
+{"hello": "world"}
+```
+<-- end-snippet -->
+````
+
+`lang=` can be combined with Expressive Code metadata — the language token must come first, followed by a space, then the remaining metadata:
+
+```csharp
+// begin-snippet: SampleJson(lang=json title=config.json)
+{"hello": "world"}
+// end-snippet
+```
+
+The value must be lowercase alphanumeric.
+
+
 ## More Documentation
 
   * Developer Information<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->

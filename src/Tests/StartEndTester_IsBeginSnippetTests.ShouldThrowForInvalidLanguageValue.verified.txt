@@ -1,0 +1,9 @@
+﻿{
+  Type: SnippetReadingException,
+  Message:
+lang value must be lowercase alphanumeric.
+Key: CodeKey
+Value: C#
+Path: file
+Line: <!-- begin-snippet: CodeKey (lang=C#) -->
+}

@@ -204,6 +204,30 @@
         return Verify(snippets);
     }
 
+    [Fact]
+    public Task LanguageOverride()
+    {
+        var input = """
+                    <!-- begin-snippet: CodeKey (lang=json) -->
+                    {"a": 1}
+                    <!-- end-snippet -->
+                    """;
+        var snippets = FromText(input);
+        return Verify(snippets);
+    }
+
+    [Fact]
+    public Task LanguageOverrideWithExpressiveCode()
+    {
+        var input = """
+                    <!-- begin-snippet: CodeKey (lang=json title="config.json") -->
+                    {"a": 1}
+                    <!-- end-snippet -->
+                    """;
+        var snippets = FromText(input);
+        return Verify(snippets);
+    }
+
     static List<Snippet> FromText(string contents)
     {
         using var reader = new StringReader(contents);

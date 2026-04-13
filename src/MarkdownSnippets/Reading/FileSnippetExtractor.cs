@@ -154,9 +154,9 @@ public static class FileSnippetExtractor
 
             var trimmedLine = line.AsSpan().Trim();
 
-            if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc, out var expressive))
+            if (StartEndTester.IsStart(trimmedLine, path, out var key, out var endFunc, out var expressive, out var languageOverride))
             {
-                loopStack.Push(endFunc, key, index, maxWidth, newLine, expressive);
+                loopStack.Push(endFunc, key, index, maxWidth, newLine, expressive, languageOverride);
                 continue;
             }
 
@@ -208,7 +208,7 @@ public static class FileSnippetExtractor
             key: loopState.Key,
             value: value,
             path: path,
-            language: language,
+            language: loopState.Language ?? language,
             expressiveCode: loopState.ExpressiveCode
         );
     }

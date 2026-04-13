@@ -14,9 +14,10 @@ static class StartEndTester
         CharSpan path,
         out CharSpan currentKey,
         [NotNullWhen(true)] out EndFunc? endFunc,
-        out CharSpan expressiveCode)
+        out CharSpan expressiveCode,
+        out CharSpan language)
     {
-        if (IsBeginSnippet(trimmedLine, path, out currentKey, out expressiveCode))
+        if (IsBeginSnippet(trimmedLine, path, out currentKey, out expressiveCode, out language))
         {
             endFunc = IsEndSnippet;
             return true;
@@ -27,10 +28,12 @@ static class StartEndTester
             endFunc = IsEndRegion;
             // not supported for regions
             expressiveCode = null;
+            language = null;
             return true;
         }
 
         expressiveCode = null;
+        language = null;
         endFunc = throwFunc;
 
         return false;
@@ -80,9 +83,18 @@ static class StartEndTester
         CharSpan line,
         CharSpan path,
         out CharSpan key,
-        out CharSpan expressiveCode)
+        out CharSpan expressiveCode) =>
+        IsBeginSnippet(line, path, out key, out expressiveCode, out _);
+
+    internal static bool IsBeginSnippet(
+        CharSpan line,
+        CharSpan path,
+        out CharSpan key,
+        out CharSpan expressiveCode,
+        out CharSpan language)
     {
         expressiveCode = null;
+        language = null;
         var beginSnippetIndex = IndexOf(line, "begin-snippet: ");
         if (beginSnippetIndex == -1)
         {
@@ -115,7 +127,9 @@ static class StartEndTester
                      """);
             }
 
-            expressiveCode = substring[(startArgs + 1)..^1].Trim();
+            var args = substring[(startArgs + 1)..^1].Trim();
+            args = ExtractLanguage(args, key, path, line, out language);
+            expressiveCode = args;
         }
 
         if (key.Length == 0)
@@ -140,6 +154,59 @@ static class StartEndTester
              Path: {path}
              Line: {line}
              """);
+    }
+
+    static CharSpan ExtractLanguage(CharSpan args, scoped CharSpan key, scoped CharSpan path, scoped CharSpan line, out CharSpan language)
+    {
+        language = null;
+        if (!args.StartsWith("lang=", StringComparison.Ordinal))
+        {
+            return args;
+        }
+
+        var rest = args[5..];
+        var end = rest.IndexOf(' ');
+        CharSpan value;
+        CharSpan remainder;
+        if (end == -1)
+        {
+            value = rest;
+            remainder = null;
+        }
+        else
+        {
+            value = rest[..end];
+            remainder = rest[(end + 1)..].Trim();
+        }
+
+        if (value.Length == 0)
+        {
+            throw new SnippetReadingException(
+                $"""
+                 lang= must have a value.
+                 Key: {key}
+                 Path: {path}
+                 Line: {line}
+                 """);
+        }
+
+        foreach (var c in value)
+        {
+            if (c is < 'a' or > 'z' && c is < '0' or > '9')
+            {
+                throw new SnippetReadingException(
+                    $"""
+                     lang value must be lowercase alphanumeric.
+                     Key: {key}
+                     Value: {value.ToString()}
+                     Path: {path}
+                     Line: {line}
+                     """);
+            }
+        }
+
+        language = value;
+        return remainder;
     }
 
     static int IndexOf(CharSpan line, CharSpan value)

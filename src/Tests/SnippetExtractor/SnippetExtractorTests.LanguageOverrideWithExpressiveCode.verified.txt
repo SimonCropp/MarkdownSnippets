@@ -1,0 +1,10 @@
+﻿[
+  {
+    Key: CodeKey,
+    Language: json,
+    Value: {"a": 1},
+    Error: ,
+    FileLocation: path.cs(1-3),
+    IsInError: false
+  }
+]

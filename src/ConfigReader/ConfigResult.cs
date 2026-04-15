@@ -11,6 +11,7 @@
     public List<string>? ExcludeDirectories { get; init; }
     public List<string>? ExcludeMarkdownDirectories { get; init; }
     public List<string>? ExcludeSnippetDirectories { get; init; }
+    public List<string>? ExcludeSnippetFiles { get; init; }
     public bool? WriteHeader { get; init; }
     public string? Header { get; init; }
     public string? UrlPrefix { get; init; }

@@ -301,6 +301,28 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public Task FileSnippetExplicitIncludeBypassesExcludeSnippetFiles()
+    {
+        // `ExcludeSnippetFiles` should stop MarkdownSnippets from scanning the file for
+        // `begin-snippet`/`end-snippet` markers, but an explicit `snippet: sourceFile.txt`
+        // in a markdown file must still resolve to the whole-file contents — that lookup
+        // goes through allFiles, which remains unfiltered.
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true,
+            snippetFileIncludes: path => Path.GetFileName(path) != "sourceFile.txt");
+        processor.Run();
+
+        var result = Path.Combine(root, "one.md");
+
+        return Verify(File.ReadAllText(result));
+    }
+
+    [Fact]
     public Task FileSnippetWithHash()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithHash");

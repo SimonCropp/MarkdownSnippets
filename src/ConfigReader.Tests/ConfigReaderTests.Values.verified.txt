@@ -22,6 +22,10 @@
     Dir4,
     Dir5
   ],
+  ExcludeSnippetFiles: [
+    *.verified.txt,
+    *.received.txt
+  ],
   WriteHeader: true,
   Header: GENERATED FILE - Source File: {relativePath},
   UrlPrefix: TheUrlPrefix,

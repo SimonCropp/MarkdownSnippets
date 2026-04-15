@@ -3,7 +3,8 @@
     DocumentConvention convention,
     ShouldIncludeDirectory directoryIncludes,
     ShouldIncludeDirectory markdownDirectoryIncludes,
-    ShouldIncludeDirectory snippetDirectoryIncludes)
+    ShouldIncludeDirectory snippetDirectoryIncludes,
+    ShouldIncludeFile? snippetFileIncludes = null)
 {
     List<string> snippetFiles = [];
     List<string> mdFiles = [];
@@ -54,7 +55,10 @@
                     continue;
                 }
 
-                snippetFiles.Add(file);
+                if (IncludeAsSnippet(file))
+                {
+                    snippetFiles.Add(file);
+                }
             }
 
             return;
@@ -66,7 +70,10 @@
                          .Where(_ => !_.IsMdFile()))
             {
                 allFiles.Add(file);
-                snippetFiles.Add(file);
+                if (IncludeAsSnippet(file))
+                {
+                    snippetFiles.Add(file);
+                }
             }
 
             return;
@@ -82,6 +89,9 @@
             }
         }
     }
+
+    bool IncludeAsSnippet(string file) =>
+        snippetFileIncludes == null || snippetFileIncludes(file);
 
     static IEnumerable<string> EnumerateFiles(string directory) =>
         Directory.EnumerateFiles(directory)

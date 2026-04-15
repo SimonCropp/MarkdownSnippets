@@ -33,6 +33,24 @@ mdsnippets --exclude-markdown-directories foo:bar
 ```
 
 
+## Exclude files from snippet discovery
+
+To exclude specific files from snippet discovery, add an `ExcludeSnippetFiles` array to [`mdsnippets.json`](/docs/config-file.md). Each entry is a glob pattern matched (case-insensitively) against the file *name* — not the full path. Patterns support `*` (any sequence of characters) and `?` (a single character).
+
+For example, the following excludes all Verify snapshot files so that `<!-- begin-snippet -->` markers hand-added to a `*.verified.txt` are not picked up as snippet sources:
+
+```json
+{
+  "ExcludeSnippetFiles": [
+    "*.verified.txt",
+    "*.received.txt"
+  ]
+}
+```
+
+Matched files are still visible to the include/all-files enumeration — only snippet scanning skips them.
+
+
 ## Ignored paths
 
 ### Directory exclusion rules:

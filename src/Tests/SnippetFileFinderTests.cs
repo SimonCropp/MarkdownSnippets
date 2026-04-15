@@ -31,6 +31,25 @@ public class SnippetFileFinderTests
     }
 
     [Fact]
+    public Task ExcludeSnippetFiles()
+    {
+        var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Simple");
+        var finder = new FileFinder(
+            directory,
+            DocumentConvention.SourceTransform,
+            _ => true,
+            _ => true,
+            _ => true,
+            snippetFileIncludes: path =>
+            {
+                var name = Path.GetFileName(path);
+                return name != "code2.txt" && name != "code4.txt";
+            });
+        var files = finder.FindFiles();
+        return Verify(files.snippetFiles);
+    }
+
+    [Fact]
     public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();

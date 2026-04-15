@@ -33,6 +33,8 @@
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" Shade="true" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <PackageReference Include="PackageShader.MsBuild" PrivateAssets="all" />
+    <!--  Avoid transitive CVE from Microsoft.Build.Tasks.Core-->
+    <PackageReference Include="System.Security.Cryptography.Xml" PrivateAssets="All" />
 
     <!-- Packages to shade to avoid version conflicts in MSBuild -->
     <PackageReference Include="System.Collections.Immutable" Shade="true" Condition="'$(TargetFramework)' != 'net10.0'" />

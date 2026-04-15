@@ -1,0 +1,4 @@
+[
+  {ProjectDirectory}SnippetFileFinder/Simple/code1.txt,
+  {ProjectDirectory}SnippetFileFinder/Simple/code3.txt
+]

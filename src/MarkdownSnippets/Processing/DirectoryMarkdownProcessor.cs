@@ -42,7 +42,8 @@ public class DirectoryMarkdownProcessor
         string? urlPrefix = null,
         bool validateContent = false,
         string? newLine = null,
-        bool omitSnippetLinks = false) :
+        bool omitSnippetLinks = false,
+        ShouldIncludeFile? snippetFileIncludes = null) :
         this(
             targetDirectory,
             new SnippetMarkdownHandling(targetDirectory, linkFormat, omitSnippetLinks, urlPrefix).Append,
@@ -62,7 +63,8 @@ public class DirectoryMarkdownProcessor
             treatMissingAsWarning: treatMissingAsWarning,
             maxWidth: maxWidth,
             validateContent: validateContent,
-            newLine: newLine)
+            newLine: newLine,
+            snippetFileIncludes: snippetFileIncludes)
     {
     }
 
@@ -85,7 +87,8 @@ public class DirectoryMarkdownProcessor
         bool treatMissingAsWarning = false,
         int maxWidth = int.MaxValue,
         bool validateContent = false,
-        string? newLine = null)
+        string? newLine = null,
+        ShouldIncludeFile? snippetFileIncludes = null)
     {
         this.appendSnippets = appendSnippets;
         this.convention = convention;
@@ -103,7 +106,7 @@ public class DirectoryMarkdownProcessor
         Guard.DirectoryExists(targetDirectory, nameof(targetDirectory));
         this.targetDirectory = Path.GetFullPath(targetDirectory);
 
-        var fileFinder = new FileFinder(targetDirectory, convention, directoryIncludes, markdownDirectoryIncludes, snippetDirectoryIncludes);
+        var fileFinder = new FileFinder(targetDirectory, convention, directoryIncludes, markdownDirectoryIncludes, snippetDirectoryIncludes, snippetFileIncludes);
 
         var (snippetFiles, mdFiles, includeFiles, allFiles) = fileFinder.FindFiles();
         this.allFiles = allFiles;

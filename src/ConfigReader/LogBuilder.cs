@@ -70,6 +70,17 @@ static class LogBuilder
                  """);
         }
 
+        var excludeSnippetFiles = config.ExcludeSnippetFiles;
+        if (excludeSnippetFiles != null && excludeSnippetFiles.Count != 0)
+        {
+            Polyfill.AppendLine(
+                builder,
+                $"""
+                     ExcludeSnippetFiles:
+                         {string.Join("\r\n        ", excludeSnippetFiles)}
+                 """);
+        }
+
         var tocExcludes = config.TocExcludes;
         if (tocExcludes != null && tocExcludes.Count != 0)
         {

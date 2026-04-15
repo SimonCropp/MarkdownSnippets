@@ -116,6 +116,23 @@
         "pattern": "^.*$"
       }
     },
+    "ExcludeSnippetFiles": {
+      "$id": "#root/ExcludeSnippetFiles",
+      "title": "ExcludeSnippetFiles",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/ExcludeSnippetFiles/items",
+        "title": "Items",
+        "type": "string",
+        "default": "",
+        "examples": [
+          "*.verified.txt",
+          "*.received.txt"
+        ],
+        "pattern": "^.*$"
+      }
+    },
     "ExcludeDirectories": {
       "$id": "#root/ExcludeDirectories",
       "title": "ExcludeDirectories",

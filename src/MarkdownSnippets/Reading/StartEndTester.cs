@@ -192,7 +192,7 @@ static class StartEndTester
 
         foreach (var c in value)
         {
-            if (c is < 'a' or > 'z' && c is < '0' or > '9')
+            if (c is (< 'a' or > 'z') and (< '0' or > '9'))
             {
                 throw new SnippetReadingException(
                     $"""

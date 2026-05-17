@@ -20,17 +20,22 @@ build_script:
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-      sudo ./dotnet-install.sh --version 9.0.306 --architecture x64 --install-dir '/usr/local/share/dotnet'
+      sudo ./dotnet-install.sh --version 9.0.314 --architecture x64 --install-dir '/usr/local/share/dotnet'
     }
 - dotnet build src --configuration Release
 - dotnet test src --configuration Release --no-build --no-restore
 test: off
 on_failure:
-  - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: |
+      $root = (Get-Location).Path
+      Get-ChildItem *.received.* -Recurse | % {
+        $rel = $_.FullName.Substring($root.Length + 1)
+        Push-AppveyorArtifact $_.FullName -FileName $rel
+      }
 artifacts:
 - path: nugets/*.nupkg,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-26),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-31),
     IsInError: false
   }
 ]

@@ -6,6 +6,11 @@ class IncludeProcessor
     IReadOnlyList<string> allFiles;
     string targetDirectory;
 
+    // Cache of Include instances built from snippets. The Lines() split on Snippet.Value
+    // (and the Include allocation itself) are wasted work when the same snippet is used as
+    // an include multiple times - across both repeats within a file and reuse across files.
+    Dictionary<string, Include> snippetIncludeCache = new(StringComparer.Ordinal);
+
     public IncludeProcessor(
         DocumentConvention convention,
         IReadOnlyList<Include> includes,
@@ -96,8 +101,12 @@ class IncludeProcessor
 
             if (snippetsResult.Count == 1)
             {
-                var snippet = snippetsResult[0];
-                var snippetInclude = Include.Build(snippet.Key, snippet.Value.Lines(), snippet.Path);
+                if (!snippetIncludeCache.TryGetValue(includeKey, out var snippetInclude))
+                {
+                    var snippet = snippetsResult[0];
+                    snippetInclude = Include.Build(snippet.Key, snippet.Value.Lines(), snippet.Path);
+                    snippetIncludeCache[includeKey] = snippetInclude;
+                }
                 AddInclude(lines, line, used, index, snippetInclude, true);
                 return;
             }

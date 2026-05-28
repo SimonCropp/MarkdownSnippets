@@ -13,8 +13,32 @@ public class ReadSnippets :
     {
         Snippets = snippets;
         Files = files;
-        SnippetsInError = Snippets.Where(_ => _.IsInError).Distinct().ToList();
+        SnippetsInError = BuildErrors(snippets);
         Lookup = Snippets.ToDictionary();
+    }
+
+    // Single-pass replacement for Snippets.Where(IsInError).Distinct().ToList(). The common case
+    // is zero errors, in which case we return Array.Empty rather than allocating a List + HashSet.
+    static IReadOnlyList<Snippet> BuildErrors(IReadOnlyList<Snippet> snippets)
+    {
+        HashSet<Snippet>? seen = null;
+        List<Snippet>? errors = null;
+        foreach (var snippet in snippets)
+        {
+            if (!snippet.IsInError)
+            {
+                continue;
+            }
+
+            seen ??= [];
+            if (seen.Add(snippet))
+            {
+                errors ??= [];
+                errors.Add(snippet);
+            }
+        }
+
+        return errors ?? (IReadOnlyList<Snippet>) Array.Empty<Snippet>();
     }
 
     /// <summary>

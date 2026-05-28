@@ -80,7 +80,9 @@ public class SnippetMarkdownHandling
             return linkForAnchor;
         }
 
-        var path = pathLocal.Replace('\\', '/');
+        // SlashPath caches the slash-normalized form on the snippet so repeated writes
+        // of the same snippet don't re-allocate the normalized string.
+        var path = snippet.SlashPath!;
         if (path.StartsWith("http", StringComparison.OrdinalIgnoreCase))
         {
             // For web-snippets: use ViewUrl if provided, otherwise link back to the original URL with the snippet key as a hash

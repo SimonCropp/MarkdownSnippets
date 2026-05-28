@@ -15,7 +15,18 @@ static class SnippetExtensions
             return null;
         }
 
-        var count = path.Count(_ => _ is '/' or '\\');
+        // Plain foreach over a span instead of LINQ Count(predicate). Count(predicate) on a
+        // string boxes the IEnumerator<char> and allocates a delegate per call - real cost
+        // because OrderBy(ScrubPath) calls this O(n log n) times per dictionary group.
+        var count = 0;
+        foreach (var ch in path.AsSpan())
+        {
+            if (ch is '/' or '\\')
+            {
+                count++;
+            }
+        }
+
         if (count == 0)
         {
             return path;

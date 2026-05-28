@@ -6,6 +6,11 @@ var switcher = BenchmarkSwitcher.FromTypes(
     typeof(WholeFileSnippetBenchmark),
     typeof(SnippetAsIncludeBenchmark),
     typeof(ValidateContentBenchmark),
-    typeof(FilesToSnippetsLookupBenchmark)
+    typeof(FilesToSnippetsLookupBenchmark),
+    typeof(ClosurePerSnippetLineBenchmark),
+    typeof(ReadSnippetsBenchmark),
+    typeof(SnippetMarkdownHandlingBenchmark),
+    typeof(MarkdownProcessorCtorBenchmark),
+    typeof(StartEndTesterBenchmark)
 ]);
 switcher.Run(args);

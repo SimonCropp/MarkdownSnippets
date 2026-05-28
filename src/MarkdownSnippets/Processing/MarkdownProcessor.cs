@@ -152,23 +152,12 @@ public class MarkdownProcessor
         var usedSnippets = new HashSet<Snippet>();
         var usedIncludes = new HashSet<Include>();
         var builder = new StringBuilder();
+        // The appender wraps builder + newLine + a mutable Indent and exposes a single cached
+        // Action<string> delegate. Previously every snippet line allocated a closure object
+        // (plus a delegate) via CreateIndentedAppendLine(indent); the appender amortises that
+        // to one allocation per Apply call.
+        var appender = new IndentedAppender(builder, newLine);
         Line? tocLine = null;
-
-        Action<string> CreateIndentedAppendLine(string indent) => s =>
-        {
-            var first = true;
-            foreach (var line in s.AsSpan().EnumerateLines())
-            {
-                if (!first)
-                {
-                    builder.Append(newLine);
-                }
-                first = false;
-                builder.Append(indent);
-                builder.Append(line);
-            }
-            builder.Append(newLine);
-        };
 
         // The exclusion check depends only on relativePath, which is constant for this Apply call.
         // Hoisting it out of the per-line loop avoids repeated string.Contains calls and the
@@ -210,8 +199,8 @@ public class MarkdownProcessor
             void AppendSnippet(string key1)
             {
                 builder.Clear();
-                var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
-                ProcessSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, key1, relativePath, line);
+                appender.Indent = line.LeadingWhitespace;
+                ProcessSnippetLine(appender.Action, missingSnippets, usedSnippets, key1, relativePath, line);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -219,8 +208,8 @@ public class MarkdownProcessor
             void AppendWebSnippet(string url, string snippetKey, string? viewUrl = null)
             {
                 builder.Clear();
-                var indentedAppendLine = CreateIndentedAppendLine(line.LeadingWhitespace);
-                ProcessWebSnippetLine(indentedAppendLine, missingSnippets, usedSnippets, url, snippetKey, viewUrl, line);
+                appender.Indent = line.LeadingWhitespace;
+                ProcessWebSnippetLine(appender.Action, missingSnippets, usedSnippets, url, snippetKey, viewUrl, line);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -535,6 +524,41 @@ public class MarkdownProcessor
         finally
         {
             StringBuilderCache.Release(builder);
+        }
+    }
+
+    sealed class IndentedAppender
+    {
+        readonly StringBuilder builder;
+        readonly string newLine;
+
+        public IndentedAppender(StringBuilder builder, string newLine)
+        {
+            this.builder = builder;
+            this.newLine = newLine;
+            Action = AppendImpl;
+        }
+
+        public string Indent { get; set; } = "";
+
+        // Cached delegate. Callers pass Action to APIs that expect Action<string>; without
+        // this field every reference to a method group would allocate a fresh delegate.
+        public Action<string> Action { get; }
+
+        void AppendImpl(string s)
+        {
+            var first = true;
+            foreach (var line in s.AsSpan().EnumerateLines())
+            {
+                if (!first)
+                {
+                    builder.Append(newLine);
+                }
+                first = false;
+                builder.Append(Indent);
+                builder.Append(line);
+            }
+            builder.Append(newLine);
         }
     }
 }

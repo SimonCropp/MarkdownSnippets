@@ -123,6 +123,25 @@ public class Snippet :
     /// </summary>
     public string? Path { get; private init; }
 
+    string? slashPath;
+
+    /// <summary>
+    /// <see cref="Path"/> with backslashes replaced by forward slashes. Cached on first access -
+    /// SnippetMarkdownHandling needs this on every snippet write and Path is immutable.
+    /// </summary>
+    internal string? SlashPath
+    {
+        get
+        {
+            if (Path == null)
+            {
+                return null;
+            }
+
+            return slashPath ??= Path.Replace('\\', '/');
+        }
+    }
+
     /// <summary>
     /// The line the snippets started on.
     /// </summary>

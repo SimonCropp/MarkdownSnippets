@@ -119,6 +119,11 @@
 
     static bool ShouldInclude(string file)
     {
+        if (file.IsClaudeMdFile())
+        {
+            return false;
+        }
+
         var extension = FileSnippetExtractor.GetLanguageFromPath(file);
         if (extension == string.Empty)
         {

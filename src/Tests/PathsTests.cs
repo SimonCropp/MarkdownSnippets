@@ -29,4 +29,16 @@ public class PathsTests
     [InlineData("file.md", false)]
     public void IsIncludeMdFile(string value, bool expected) =>
         Assert.Equal(expected, value.IsIncludeMdFile());
+
+    [Theory]
+    [InlineData("CLAUDE.md", true)]
+    [InlineData("claude.md", true)]
+    [InlineData("Claude.Md", true)]
+    [InlineData("dir/CLAUDE.md", true)]
+    [InlineData("C:/repo/CLAUDE.md", true)]
+    [InlineData("claudez.md", false)]
+    [InlineData("CLAUDE.source.md", false)]
+    [InlineData("file.md", false)]
+    public void IsClaudeMdFile(string value, bool expected) =>
+        Assert.Equal(expected, value.IsClaudeMdFile());
 }

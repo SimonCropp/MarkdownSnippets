@@ -10,4 +10,7 @@ static class Paths
 
     public static bool IsIncludeMdFile(this string value) =>
         value.EndsWith(".include.md", StringComparison.OrdinalIgnoreCase);
+
+    public static bool IsClaudeMdFile(this string value) =>
+        string.Equals(Path.GetFileName(value), "CLAUDE.md", StringComparison.OrdinalIgnoreCase);
 }

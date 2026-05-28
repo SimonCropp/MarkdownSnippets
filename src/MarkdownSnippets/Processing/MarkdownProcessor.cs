@@ -15,6 +15,9 @@ public class MarkdownProcessor
     int tocLevel;
     List<string> tocExcludes;
     List<string> snippetSourceFiles;
+    // snippetSourceFiles grouped by their last path segment (case-insensitive) so
+    // FilesToSnippets can do an O(1) lookup instead of an EndsWith scan of every file.
+    Dictionary<string, List<string>> snippetSourceFilesByName;
     IncludeProcessor includeProcessor;
 
     static List<string> validationExcludes =
@@ -26,6 +29,12 @@ public class MarkdownProcessor
 
     string targetDirectory;
     IReadOnlyList<string> allFiles;
+
+    // Cache for ReadNonStartEndLines results, keyed by file path. A single MarkdownProcessor
+    // typically processes many markdown files in one run, and the same whole-file snippet is
+    // often referenced from multiple of them; caching avoids re-reading and re-scanning the
+    // file every time FileToSnippet is called.
+    Dictionary<string, (string text, int lineCount)> readNonStartEndCache = new(StringComparer.Ordinal);
 
     public MarkdownProcessor(
         DocumentConvention convention,
@@ -77,6 +86,17 @@ public class MarkdownProcessor
         this.snippetSourceFiles = snippetSourceFiles
             .Select(_ => _.Replace('\\', '/'))
             .ToList();
+        snippetSourceFilesByName = new(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in this.snippetSourceFiles)
+        {
+            var fileName = Path.GetFileName(file);
+            if (!snippetSourceFilesByName.TryGetValue(fileName, out var bucket))
+            {
+                bucket = [];
+                snippetSourceFilesByName[fileName] = bucket;
+            }
+            bucket.Add(file);
+        }
         includeProcessor = new(convention, includes, snippets, targetDirectory, this.allFiles);
     }
 
@@ -150,12 +170,18 @@ public class MarkdownProcessor
             builder.Append(newLine);
         };
 
+        // The exclusion check depends only on relativePath, which is constant for this Apply call.
+        // Hoisting it out of the per-line loop avoids repeated string.Contains calls and the
+        // method-group delegate allocation that LINQ Any(method-group) would do on every line.
+        var runValidation = validateContent &&
+            (relativePath == null || !IsValidationExcluded(relativePath));
+
         var headerLines = new List<Line>();
         for (var index = 0; index < lines.Count; index++)
         {
             var line = lines[index];
 
-            if (ValidateContent(relativePath, line, validationErrors))
+            if (runValidation && ValidateLine(line, validationErrors))
             {
                 continue;
             }
@@ -269,19 +295,21 @@ public class MarkdownProcessor
             validationErrors: validationErrors);
     }
 
-    bool ValidateContent(string? relativePath, Line line, List<ValidationError> validationErrors)
+    static bool IsValidationExcluded(string relativePath)
     {
-        if (!validateContent)
+        foreach (var exclude in validationExcludes)
         {
-            return false;
+            if (relativePath.Contains(exclude))
+            {
+                return true;
+            }
         }
 
-        if (relativePath != null &&
-            validationExcludes.Any(relativePath.Contains))
-        {
-            return false;
-        }
+        return false;
+    }
 
+    static bool ValidateLine(Line line, List<ValidationError> validationErrors)
+    {
         var found = false;
         foreach (var error in ContentValidation.Verify(line.Original))
         {
@@ -398,15 +426,28 @@ public class MarkdownProcessor
         string? linePath,
         [NotNullWhen(true)] out IReadOnlyList<Snippet>? snippetsForKey)
     {
-        var keyWithDirChar = FileEx.PrependSlash(key);
-
-        snippetsForKey = snippetSourceFiles
-            .Where(file => file.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
-            .Select(file => FileToSnippet(key, file, file))
-            .ToList();
-        if (snippetsForKey.Count != 0)
+        // The key may be a multi-segment path (e.g. "Dir/File.cs"); look up by its last segment
+        // via the prebuilt dictionary, then verify each candidate ends with "/key".
+        var keyName = Path.GetFileName(key);
+        if (keyName.Length != 0 &&
+            snippetSourceFilesByName.TryGetValue(keyName, out var bucket))
         {
-            return true;
+            var keyWithDirChar = FileEx.PrependSlash(key);
+            List<Snippet>? matches = null;
+            foreach (var candidate in bucket)
+            {
+                if (candidate.EndsWith(keyWithDirChar, StringComparison.OrdinalIgnoreCase))
+                {
+                    matches ??= [];
+                    matches.Add(FileToSnippet(key, candidate, candidate));
+                }
+            }
+
+            if (matches != null)
+            {
+                snippetsForKey = matches;
+                return true;
+            }
         }
 
         if (RelativeFile.Find(allFiles, targetDirectory, key, relativePath, linePath, out var path))
@@ -457,6 +498,11 @@ public class MarkdownProcessor
 
     (string text, int lineCount) ReadNonStartEndLines(string file)
     {
+        if (readNonStartEndCache.TryGetValue(file, out var cached))
+        {
+            return cached;
+        }
+
         var builder = StringBuilderCache.Acquire();
         try
         {
@@ -482,7 +528,9 @@ public class MarkdownProcessor
                 start++;
             }
 
-            return (builder.ToString(start, builder.Length - start), lineCount);
+            var result = (builder.ToString(start, builder.Length - start), lineCount);
+            readNonStartEndCache[file] = result;
+            return result;
         }
         finally
         {

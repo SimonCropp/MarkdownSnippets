@@ -9,3 +9,6 @@ obj/
 nugets/
 nul
 /src/Benchmarks/BenchmarkDotNet.Artifacts
+/BenchmarkDotNet.Artifacts/baseline
+/BenchmarkDotNet.Artifacts/optimized
+/BenchmarkDotNet.Artifacts

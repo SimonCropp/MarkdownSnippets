@@ -14,7 +14,7 @@ public class MarkdownProcessor
     string? header;
     int tocLevel;
     List<string> tocExcludes;
-    List<string> snippetSourceFiles;
+
     // snippetSourceFiles grouped by their last path segment (case-insensitive) so
     // FilesToSnippets can do an O(1) lookup instead of an EndsWith scan of every file.
     Dictionary<string, List<string>> snippetSourceFilesByName;
@@ -83,11 +83,11 @@ public class MarkdownProcessor
             this.tocExcludes = tocExcludes.ToList();
         }
 
-        this.snippetSourceFiles = snippetSourceFiles
+        var snippetSourceFiles1 = snippetSourceFiles
             .Select(_ => _.Replace('\\', '/'))
             .ToList();
         snippetSourceFilesByName = new(StringComparer.OrdinalIgnoreCase);
-        foreach (var file in this.snippetSourceFiles)
+        foreach (var file in snippetSourceFiles1)
         {
             var fileName = Path.GetFileName(file);
             if (!snippetSourceFilesByName.TryGetValue(fileName, out var bucket))

@@ -22,6 +22,9 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
     - name: Run MarkdownSnippets
       run: |
         dotnet tool install --global MarkdownSnippets.Tool
@@ -37,7 +40,7 @@ jobs:
         git push "${remote}" ${branch} || echo "nothing to push"
       shell: bash
 ```
-<sup><a href='/docs/on-push-do-docs.yml#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-on-push-do-docs.yml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/docs/on-push-do-docs.yml#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-on-push-do-docs.yml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This action performs the following tasks:

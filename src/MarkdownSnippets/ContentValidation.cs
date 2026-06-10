@@ -64,6 +64,8 @@ static class ContentValidation
         "whereof"
     }.ToFrozenSet();
 
+    static string invalidWordList = string.Join(", ", invalidWordSet.Order());
+
     static FrozenDictionary<string, KeyValuePair<string, string>[]> phrasesByFirstWord =
         phrases
             .GroupBy(p =>
@@ -98,7 +100,7 @@ static class ContentValidation
         {
             if (invalidWordSet.Contains(word) && seenWords.Add(word))
             {
-                yield return ($"Invalid word detected: '{word}'", start - 1);
+                yield return ($"Invalid word detected: '{word}'. The full list of invalid words is: {invalidWordList}", start - 1);
             }
         }
 

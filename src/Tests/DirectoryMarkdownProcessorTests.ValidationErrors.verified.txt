@@ -2,12 +2,12 @@
   Type: ContentValidationException,
   Errors: [
     {
-      Error: Invalid word detected: 'you',
+      Error: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
       Line: 1,
       File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
     },
     {
-      Error: Invalid word detected: 'we',
+      Error: Invalid word detected: 'we'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
       Line: 2,
       Column: 1,
       File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
@@ -21,11 +21,11 @@
   ],
   Message:
 Content validation errors:
-Invalid word detected: 'you'
+Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself
   File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
   Line: 1
   Column: 0
-Invalid word detected: 'we'
+Invalid word detected: 'we'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself
   File: {CurrentDirectory}DirectoryMarkdownProcessor/ValidationErrors/one.source.md
   Line: 2
   Column: 1

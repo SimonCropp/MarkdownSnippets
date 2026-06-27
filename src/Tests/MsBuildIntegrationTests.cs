@@ -157,8 +157,7 @@ public class MsBuildIntegrationTests
             .Select(Path.GetFileNameWithoutExtension)
             .Where(_ => _ != null)
             .Select(_ => _!.Replace("MarkdownSnippets.MsBuild.", ""))
-            .OrderByDescending(_ => _)
-            .FirstOrDefault();
+            .Max();
 
         return packages ?? throw new InvalidOperationException("No MarkdownSnippets.MsBuild nuget found. Run Release build first.");
     }

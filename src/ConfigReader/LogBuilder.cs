@@ -81,6 +81,17 @@ static class LogBuilder
                  """);
         }
 
+        var excludeMarkdownFiles = config.ExcludeMarkdownFiles;
+        if (excludeMarkdownFiles != null && excludeMarkdownFiles.Count != 0)
+        {
+            Polyfill.AppendLine(
+                builder,
+                $"""
+                     ExcludeMarkdownFiles:
+                         {string.Join("\r\n        ", excludeMarkdownFiles)}
+                 """);
+        }
+
         var tocExcludes = config.TocExcludes;
         if (tocExcludes != null && tocExcludes.Count != 0)
         {

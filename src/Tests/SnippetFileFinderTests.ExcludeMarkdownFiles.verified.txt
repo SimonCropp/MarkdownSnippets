@@ -1,0 +1,4 @@
+﻿[
+  {ProjectDirectory}DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder/one.source.md,
+  {ProjectDirectory}DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder/two.source.md
+]

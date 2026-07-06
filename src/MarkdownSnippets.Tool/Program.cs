@@ -51,7 +51,8 @@ static async Task Inner(string targetDirectory, ConfigInput configInput)
         urlPrefix: configResult.UrlPrefix,
         validateContent: configResult.ValidateContent,
         omitSnippetLinks: configResult.OmitSnippetLinks,
-        snippetFileIncludes: ExcludeToFilterBuilder.FileExcludesToFilter(configResult.ExcludeSnippetFiles));
+        snippetFileIncludes: ExcludeToFilterBuilder.FileExcludesToFilter(configResult.ExcludeSnippetFiles),
+        markdownFileIncludes: ExcludeToFilterBuilder.FileExcludesToFilter(configResult.ExcludeMarkdownFiles));
 
     var urlsAsSnippets = configResult.UrlsAsSnippets;
     if (urlsAsSnippets != null && urlsAsSnippets.Count != 0)

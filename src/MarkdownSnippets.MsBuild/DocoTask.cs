@@ -81,7 +81,8 @@ public class DocoTask :
             maxWidth: configResult.MaxWidth,
             urlPrefix: configResult.UrlPrefix,
             validateContent: configResult.ValidateContent,
-            omitSnippetLinks: configResult.OmitSnippetLinks);
+            omitSnippetLinks: configResult.OmitSnippetLinks,
+            markdownFileIncludes: ExcludeToFilterBuilder.FileExcludesToFilter(configResult.ExcludeMarkdownFiles));
 
         try
         {

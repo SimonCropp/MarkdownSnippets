@@ -15,6 +15,7 @@
     public List<string> ExcludeMarkdownDirectories { get; set; } = [];
     public List<string> ExcludeSnippetDirectories { get; set; } = [];
     public List<string> ExcludeSnippetFiles { get; set; } = [];
+    public List<string> ExcludeMarkdownFiles { get; set; } = [];
     public List<string> TocExcludes { get; set; } = [];
     public bool? TreatMissingAsWarning { get; set; }
 }

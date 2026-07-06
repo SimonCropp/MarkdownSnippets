@@ -58,6 +58,24 @@ For example, the following excludes all Verify snapshot files so that `<!-- begi
 Matched files are still visible to the include/all-files enumeration — only snippet scanning skips them.
 
 
+## Exclude files from markdown processing
+
+To exclude specific markdown files from being processed, add an `ExcludeMarkdownFiles` array to [`mdsnippets.json`](/docs/config-file.md). Each entry is a glob pattern matched (case-insensitively) against the file *name* — not the full path. Patterns support `*` (any sequence of characters) and `?` (a single character).
+
+For example, the following excludes any draft file and a specific changelog from processing:
+
+```json
+{
+  "ExcludeMarkdownFiles": [
+    "*.draft.md",
+    "changelog.source.md"
+  ]
+}
+```
+
+The pattern is matched against the source file name. For [SourceTransform](/readme.md#sourcetransform) that is the `*.source.md` (or `*.source.mdx`) file; for [InPlaceOverwrite](/readme.md#inplaceoverwrite) it is the `*.md` (or `*.mdx`) file. Excluded files are skipped entirely: no output is generated for them. `*.include.md` files are unaffected — use directory exclusions to control includes.
+
+
 ## Ignored paths
 
 ### Directory exclusion rules:

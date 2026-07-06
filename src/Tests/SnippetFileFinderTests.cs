@@ -50,6 +50,25 @@ public class SnippetFileFinderTests
     }
 
     [Fact]
+    public Task ExcludeMarkdownFiles()
+    {
+        var directory = Path.Combine(ProjectFiles.ProjectDirectory, "DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder");
+        var finder = new FileFinder(
+            directory,
+            DocumentConvention.SourceTransform,
+            _ => true,
+            _ => true,
+            _ => true,
+            markdownFileIncludes: path =>
+            {
+                var name = Path.GetFileName(path);
+                return name != "one.draft.source.md";
+            });
+        var files = finder.FindFiles();
+        return Verify(files.mdFiles);
+    }
+
+    [Fact]
     public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();

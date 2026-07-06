@@ -54,6 +54,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "ExcludeMarkdownDirectories": [ "Dir2", "Dir3" ],
   "ExcludeSnippetDirectories": [ "Dir4", "Dir5" ],
   "ExcludeSnippetFiles": [ "*.verified.txt", "*.received.txt" ],
+  "ExcludeMarkdownFiles": [ "*.draft.md", "changelog.source.md" ],
   "UrlsAsSnippets": [ "Url1", "Url2" ],
   "TocExcludes": [ "Exclude Heading1", "Exclude Heading2" ],
   "Convention": "InPlaceOverwrite",
@@ -66,7 +67,7 @@ Add a file named `mdsnippets.json` at the target directory with the following co
   "OmitSnippetLinks": true
 }
 ```
-<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ConfigReader.Tests/allConfig.json#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-allConfig.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -4,7 +4,8 @@
     ShouldIncludeDirectory directoryIncludes,
     ShouldIncludeDirectory markdownDirectoryIncludes,
     ShouldIncludeDirectory snippetDirectoryIncludes,
-    ShouldIncludeFile? snippetFileIncludes = null)
+    ShouldIncludeFile? snippetFileIncludes = null,
+    ShouldIncludeFile? markdownFileIncludes = null)
 {
     List<string> snippetFiles = [];
     List<string> mdFiles = [];
@@ -93,6 +94,9 @@
     bool IncludeAsSnippet(string file) =>
         snippetFileIncludes == null || snippetFileIncludes(file);
 
+    bool IncludeAsMarkdown(string file) =>
+        markdownFileIncludes == null || markdownFileIncludes(file);
+
     static IEnumerable<string> EnumerateFiles(string directory) =>
         Directory.EnumerateFiles(directory)
             .Where(ShouldInclude);
@@ -102,6 +106,11 @@
         if (file.IsIncludeMdFile())
         {
             includeFiles.Add(file);
+            return;
+        }
+
+        if (!IncludeAsMarkdown(file))
+        {
             return;
         }
 

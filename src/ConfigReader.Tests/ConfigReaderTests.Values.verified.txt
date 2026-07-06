@@ -26,6 +26,10 @@
     *.verified.txt,
     *.received.txt
   ],
+  ExcludeMarkdownFiles: [
+    *.draft.md,
+    changelog.source.md
+  ],
   WriteHeader: true,
   Header: GENERATED FILE - Source File: {relativePath},
   UrlPrefix: TheUrlPrefix,

@@ -133,6 +133,23 @@
         "pattern": "^.*$"
       }
     },
+    "ExcludeMarkdownFiles": {
+      "$id": "#root/ExcludeMarkdownFiles",
+      "title": "ExcludeMarkdownFiles",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/ExcludeMarkdownFiles/items",
+        "title": "Items",
+        "type": "string",
+        "default": "",
+        "examples": [
+          "*.draft.md",
+          "changelog.source.md"
+        ],
+        "pattern": "^.*$"
+      }
+    },
     "ExcludeDirectories": {
       "$id": "#root/ExcludeDirectories",
       "title": "ExcludeDirectories",

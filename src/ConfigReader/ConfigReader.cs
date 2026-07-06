@@ -49,6 +49,7 @@
             ExcludeMarkdownDirectories = config.ExcludeMarkdownDirectories,
             ExcludeSnippetDirectories = config.ExcludeSnippetDirectories,
             ExcludeSnippetFiles = config.ExcludeSnippetFiles,
+            ExcludeMarkdownFiles = config.ExcludeMarkdownFiles,
             Header = config.Header,
             UrlPrefix = config.UrlPrefix,
             TocExcludes = config.TocExcludes,

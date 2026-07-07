@@ -7,7 +7,6 @@ class Line
         Current = original;
         Path = path;
         LineNumber = lineNumber;
-        LeadingWhitespace = GetLeadingWhitespace(original);
     }
 
     public Line WithCurrent(string current) =>
@@ -39,7 +38,11 @@ class Line
 
     public bool IsWhiteSpace { get; private set; }
 
-    public string LeadingWhitespace { get; }
+    // Computed lazily: only snippet / web-snippet lines ever read this (to indent inserted
+    // snippet bodies). Computing it in the ctor allocated a substring for every indented line
+    // in the document, the vast majority of which are never snippet lines.
+    string? leadingWhitespace;
+    public string LeadingWhitespace => leadingWhitespace ??= GetLeadingWhitespace(Original);
 
     static string GetLeadingWhitespace(string text)
     {

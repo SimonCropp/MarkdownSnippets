@@ -11,6 +11,8 @@ var switcher = BenchmarkSwitcher.FromTypes(
     typeof(ReadSnippetsBenchmark),
     typeof(SnippetMarkdownHandlingBenchmark),
     typeof(MarkdownProcessorCtorBenchmark),
-    typeof(StartEndTesterBenchmark)
+    typeof(StartEndTesterBenchmark),
+    typeof(GetLanguageFromPathBenchmark),
+    typeof(IndentedMarkdownApplyBenchmark)
 ]);
 switcher.Run(args);

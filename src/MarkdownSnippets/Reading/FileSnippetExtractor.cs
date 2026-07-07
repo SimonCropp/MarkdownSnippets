@@ -122,10 +122,25 @@ public static class FileSnippetExtractor
 
     public static string GetLanguageFromPath(string path)
     {
-        var extension = Path.GetExtension(path);
-        // ReSharper disable once ConstantConditionalAccessQualifier
-        var s = extension?.TrimStart('.');
-        return s?.ToLowerInvariant() ?? string.Empty;
+        // Path.GetExtension over a span avoids allocating the ".ext" string; the leading '.'
+        // is dropped and the remainder lower-cased in a single string.Create pass. The old
+        // GetExtension + TrimStart('.') + ToLowerInvariant chain allocated three strings per
+        // call, and this is called for every file during discovery and again per snippet file.
+        var extension = Path.GetExtension(path.AsSpan());
+        if (extension.Length <= 1)
+        {
+            return string.Empty;
+        }
+
+        var offset = path.Length - extension.Length + 1;
+        return string.Create(extension.Length - 1, (path, offset), static (span, state) =>
+        {
+            var (source, start) = state;
+            for (var index = 0; index < span.Length; index++)
+            {
+                span[index] = char.ToLowerInvariant(source[start + index]);
+            }
+        });
     }
 
     static IEnumerable<Snippet> GetSnippets(TextReader stringReader, string path, int maxWidth, string newLine)

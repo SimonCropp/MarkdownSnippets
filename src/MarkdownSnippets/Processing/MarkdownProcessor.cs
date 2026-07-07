@@ -190,7 +190,7 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (line.Current.TrimStart() == "toc")
+            if (line.Current.AsSpan().TrimStart().SequenceEqual("toc"))
             {
                 tocLine = line;
                 continue;
@@ -259,7 +259,7 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (line.Current.TrimStart() == "<!-- toc -->")
+            if (line.Current.AsSpan().TrimStart().SequenceEqual("<!-- toc -->"))
             {
                 tocLine = line;
 

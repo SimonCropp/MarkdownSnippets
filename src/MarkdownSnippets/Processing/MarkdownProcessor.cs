@@ -276,12 +276,15 @@ public class MarkdownProcessor
 
         tocLine?.Current = TocBuilder.BuildToc(headerLines, tocLevel, tocExcludes, newLine);
 
-        return new(
-            missingSnippets: missingSnippets,
-            usedSnippets: usedSnippets.ToList(),
-            usedIncludes: usedIncludes.ToList(),
-            missingIncludes: missingIncludes,
-            validationErrors: validationErrors);
+        return
+        [
+            with(
+                missingSnippets: missingSnippets,
+                usedSnippets: usedSnippets.ToList(),
+                usedIncludes: usedIncludes.ToList(),
+                missingIncludes: missingIncludes,
+                validationErrors: validationErrors)
+        ];
     }
 
     static bool IsValidationExcluded(string relativePath)

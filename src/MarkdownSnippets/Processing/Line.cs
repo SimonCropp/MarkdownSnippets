@@ -41,8 +41,7 @@ class Line
     // Computed lazily: only snippet / web-snippet lines ever read this (to indent inserted
     // snippet bodies). Computing it in the ctor allocated a substring for every indented line
     // in the document, the vast majority of which are never snippet lines.
-    string? leadingWhitespace;
-    public string LeadingWhitespace => leadingWhitespace ??= GetLeadingWhitespace(Original);
+    public string LeadingWhitespace => field ??= GetLeadingWhitespace(Original);
 
     static string GetLeadingWhitespace(string text)
     {

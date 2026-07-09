@@ -324,11 +324,44 @@ public class DirectoryMarkdownProcessor
     {
         var directoryName = Path.GetDirectoryName(target)!;
         Directory.CreateDirectory(directoryName);
-        using var writer = File.CreateText(target);
-        writer.NewLine = newLine;
+
+        var builder = new StringBuilder();
         foreach (var line in lines)
         {
-            writer.WriteLine(line.Current);
+            builder.Append(line.Current);
+            builder.Append(newLine);
+        }
+
+        var content = builder.ToString();
+
+        // Skip writing when the content is unchanged. This avoids needless churn
+        // and reduces the chance of colliding with another process reading the file
+        // (e.g. a parallel build packing a nuget that consumes the same markdown).
+        if (File.Exists(target) &&
+            File.ReadAllText(target) == content)
+        {
+            return;
+        }
+
+        WriteAllTextWithRetry(target, content);
+    }
+
+    static void WriteAllTextWithRetry(string target, string content)
+    {
+        const int maxAttempts = 5;
+        for (var attempt = 1; ; attempt++)
+        {
+            try
+            {
+                File.WriteAllText(target, content);
+                return;
+            }
+            catch (IOException) when (attempt < maxAttempts)
+            {
+                // The file is transiently locked by another process (common during
+                // parallel builds). Back off briefly and retry.
+                Thread.Sleep(100 * attempt);
+            }
         }
     }
 

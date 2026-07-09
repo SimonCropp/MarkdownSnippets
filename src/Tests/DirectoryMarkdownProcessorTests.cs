@@ -539,6 +539,101 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
+    [Fact]
+    public void DoesNotRewriteWhenContentUnchanged()
+    {
+        using var directory = new TempDirectory();
+        File.WriteAllText(Path.Combine(directory, "one.source.md"), "snippet: snippet1");
+        var target = Path.Combine(directory, "one.md");
+
+        BuildTempProcessor(directory).Run();
+
+        // Stamp a distinct past write time, then re-run with an unchanged source.
+        // The output is identical, so it must not be rewritten.
+        var sentinel = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        File.SetLastWriteTimeUtc(target, sentinel);
+
+        BuildTempProcessor(directory).Run();
+
+        Assert.Equal(sentinel, File.GetLastWriteTimeUtc(target));
+    }
+
+    [Fact]
+    public void RewritesWhenContentChanged()
+    {
+        using var directory = new TempDirectory();
+        var source = Path.Combine(directory, "one.source.md");
+        File.WriteAllText(source, "snippet: snippet1");
+        var target = Path.Combine(directory, "one.md");
+
+        BuildTempProcessor(directory).Run();
+        var firstContent = File.ReadAllText(target);
+
+        File.WriteAllText(source, "snippet: snippet2");
+        BuildTempProcessor(directory).Run();
+        var secondContent = File.ReadAllText(target);
+
+        Assert.NotEqual(firstContent, secondContent);
+        Assert.Contains("snippet2", secondContent);
+    }
+
+    [Fact]
+    public async Task RetriesWriteWhenTargetTemporarilyLocked()
+    {
+        using var directory = new TempDirectory();
+        var source = Path.Combine(directory, "one.source.md");
+        File.WriteAllText(source, "snippet: snippet1");
+        var target = Path.Combine(directory, "one.md");
+
+        BuildTempProcessor(directory).Run();
+
+        // Change the source so the next run must write (rather than skip as unchanged).
+        File.WriteAllText(source, "snippet: snippet2");
+
+        using var lockAcquired = new ManualResetEventSlim();
+        using var releaseLock = new ManualResetEventSlim();
+
+        // Hold a shared read lock on the target, mirroring another process (e.g. nuget
+        // pack) reading the file mid-build. This denies the write until released.
+        var locker = Task.Run(() =>
+        {
+            using var stream = new FileStream(target, FileMode.Open, FileAccess.Read, FileShare.Read);
+            lockAcquired.Set();
+            releaseLock.Wait();
+        });
+
+        lockAcquired.Wait();
+
+        // Release the lock after a short delay, well within the retry budget.
+        var releaser = Task.Run(() =>
+        {
+            Thread.Sleep(200);
+            releaseLock.Set();
+        });
+
+        // Must retry past the transient lock and complete without throwing.
+        BuildTempProcessor(directory).Run();
+
+        await Task.WhenAll(locker, releaser);
+
+        Assert.Contains("snippet2", File.ReadAllText(target));
+    }
+
+    static DirectoryMarkdownProcessor BuildTempProcessor(string root)
+    {
+        var processor = new DirectoryMarkdownProcessor(
+            root,
+            writeHeader: false,
+            newLine: "\n",
+            directoryIncludes: _ => true,
+            markdownDirectoryIncludes: _ => true,
+            snippetDirectoryIncludes: _ => true);
+        processor.AddSnippets(
+            SnippetBuild("snippet1"),
+            SnippetBuild("snippet2"));
+        return processor;
+    }
+
     static Snippet SnippetBuild(string key, string? path = null) =>
         Snippet.Build(
             language: "cs",

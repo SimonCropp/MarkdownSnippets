@@ -1,3 +1,4 @@
+// ReSharper disable RedundantSuppressNullableWarningExpression
 namespace MarkdownSnippets;
 
 /// <summary>

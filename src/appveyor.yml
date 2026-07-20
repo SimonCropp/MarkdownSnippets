@@ -17,8 +17,20 @@ build_script:
       sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
       sudo ./dotnet-install.sh --version 9.0.314 --architecture x64 --install-dir '/usr/local/share/dotnet'
     }
-- dotnet build src --configuration Release
-- dotnet test src --configuration Release --no-build --no-restore
+- pwsh: |
+    dotnet build src --configuration Release
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    # xunit.v3 runs on Microsoft.Testing.Platform (opted into via global.json), so trx is
+    # requested with --report-trx rather than the VSTest --logger trx.
+    dotnet test src --configuration Release --no-build --no-restore --report-trx
+    $testExit = $LASTEXITCODE
+    $url = "https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)"
+    Get-ChildItem -Recurse -Filter *.trx | ForEach-Object {
+      Write-Host "Uploading test results: $($_.FullName)"
+      try { (New-Object System.Net.WebClient).UploadFile($url, $_.FullName) }
+      catch { Write-Host "Failed to upload test results: $_" }
+    }
+    if ($testExit -ne 0) { exit $testExit }
 test: off
 on_failure:
   - ps: |

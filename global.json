@@ -2,6 +2,9 @@
   "msbuild-sdks": {
     "MSBuild.Sdk.Extras": "3.0.44"
   },
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  },
   "sdk": {
     "version": "10.0.302",
     "allowPrerelease": true,

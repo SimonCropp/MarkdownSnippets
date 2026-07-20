@@ -369,7 +369,7 @@ switch (linkFormat)
         throw new($"Unknown LinkFormat: {linkFormat}");
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L135-L156' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Processing/SnippetMarkdownHandling.cs#L136-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-BuildLink' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

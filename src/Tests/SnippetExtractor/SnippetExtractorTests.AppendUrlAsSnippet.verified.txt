@@ -22,8 +22,21 @@ build_script:
       sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
       sudo ./dotnet-install.sh --version 9.0.314 --architecture x64 --install-dir '/usr/local/share/dotnet'
     }
-- dotnet build src --configuration Release
-- dotnet test src --configuration Release --no-build --no-restore
+- pwsh: |
+    dotnet build src --configuration Release
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    # xunit.v3 runs on Microsoft.Testing.Platform (opted into via global.json). It ships its own
+    # reporters, so the flag is --report-xunit-trx: the VSTest --logger trx does not apply, and
+    # --report-trx is the Microsoft TRX extension that xunit.v3 does not bundle.
+    dotnet test src --configuration Release --no-build --no-restore --report-xunit-trx
+    $testExit = $LASTEXITCODE
+    $url = "https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)"
+    Get-ChildItem -Recurse -Filter *.trx | ForEach-Object {
+      Write-Host "Uploading test results: $($_.FullName)"
+      try { (New-Object System.Net.WebClient).UploadFile($url, $_.FullName) }
+      catch { Write-Host "Failed to upload test results: $_" }
+    }
+    if ($testExit -ne 0) { exit $testExit }
 test: off
 on_failure:
   - ps: |
@@ -35,7 +48,7 @@ on_failure:
 artifacts:
 - path: nugets/*.nupkg,
     Error: ,
-    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-31),
+    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml(1-44),
     IsInError: false
   }
 ]

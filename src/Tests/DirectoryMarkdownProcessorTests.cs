@@ -578,7 +578,7 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
-    public async Task RetriesWriteWhenTargetTemporarilyLocked()
+    public void RetriesWriteWhenTargetTemporarilyLocked()
     {
         using var directory = new TempDirectory();
         var source = Path.Combine(directory, "one.source.md");
@@ -590,31 +590,36 @@ public class DirectoryMarkdownProcessorTests
         // Change the source so the next run must write (rather than skip as unchanged).
         File.WriteAllText(source, "snippet: snippet2");
 
-        using var lockAcquired = new ManualResetEventSlim();
-        using var releaseLock = new ManualResetEventSlim();
-
         // Hold a shared read lock on the target, mirroring another process (e.g. nuget
         // pack) reading the file mid-build. This denies the write until released.
-        var locker = Task.Run(() =>
+        var stream = new FileStream(target, FileMode.Open, FileAccess.Read, FileShare.Read);
+        try
         {
-            using var stream = new FileStream(target, FileMode.Open, FileAccess.Read, FileShare.Read);
-            lockAcquired.Set();
-            releaseLock.Wait();
-        });
+            // Release on a dedicated thread rather than the thread pool. Under parallel
+            // test runs the pool can be saturated, and pool thread injection is far
+            // slower than the write retry budget, so a queued releaser can arrive after
+            // the retries are already exhausted.
+            var releaser = new Thread(() =>
+            {
+                Thread.Sleep(200);
+                stream.Dispose();
+            })
+            {
+                IsBackground = true
+            };
+            releaser.Start();
 
-        lockAcquired.Wait();
+            // Must retry past the transient lock and complete without throwing.
+            BuildTempProcessor(directory).Run();
 
-        // Release the lock after a short delay, well within the retry budget.
-        var releaser = Task.Run(() =>
+            releaser.Join();
+        }
+        finally
         {
-            Thread.Sleep(200);
-            releaseLock.Set();
-        });
-
-        // Must retry past the transient lock and complete without throwing.
-        BuildTempProcessor(directory).Run();
-
-        await Task.WhenAll(locker, releaser);
+            // Always release, so a failing run reports its own error rather than being
+            // masked by TempDirectory.Dispose failing to delete a still-locked file.
+            stream.Dispose();
+        }
 
         Assert.Contains("snippet2", File.ReadAllText(target));
     }

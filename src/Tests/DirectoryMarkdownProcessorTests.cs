@@ -200,6 +200,70 @@ public class DirectoryMarkdownProcessorTests
     }
 
     [Fact]
+    public void ValidationIgnoresCodeBlocksAndInlineCode()
+    {
+        // Invalid words and the null-forgiving `!` appear only inside inline code and a fenced
+        // code block, so none of them should be reported.
+        var result = Validate(
+            """
+            Inline `you` and `simple!` are ignored.
+            ```cs
+            you we our simple!
+            ```
+            """);
+        Assert.Empty(result.ValidationErrors);
+    }
+
+    [Fact]
+    public void ValidationErrorsForUnclosedCodeFence()
+    {
+        var result = Validate(
+            """
+            Prose.
+            ```cs
+            you we our
+            """);
+        var error = Assert.Single(result.ValidationErrors);
+        Assert.Contains("Unclosed code fence", error.Error);
+        Assert.Equal(2, error.Line);
+    }
+
+    [Fact]
+    public void ValidationLongerFenceIsNotClosedByShorterInnerFence()
+    {
+        // The outer four-backtick fence wraps a three-backtick block; the inner ``` must not
+        // close it, and everything inside stays unvalidated with no unclosed-fence error.
+        var result = Validate(
+            """
+            ````
+            ```cs
+            you we our simple!
+            ```
+            ````
+            """);
+        Assert.Empty(result.ValidationErrors);
+    }
+
+    static ProcessResult Validate(string markdown)
+    {
+        var processor = new MarkdownProcessor(
+            convention: DocumentConvention.InPlaceOverwrite,
+            snippets: new Dictionary<string, IReadOnlyList<Snippet>>(),
+            includes: [],
+            appendSnippets: SimpleSnippetMarkdownHandling.Append,
+            snippetSourceFiles: [],
+            allFiles: [],
+            tocLevel: 2,
+            writeHeader: false,
+            targetDirectory: "c:/root",
+            validateContent: true);
+        var builder = new StringBuilder();
+        using var reader = new StringReader(markdown);
+        using var writer = new StringWriter(builder);
+        return processor.Apply(reader, writer, "file.md");
+    }
+
+    [Fact]
     public Task UrlIncludeMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");

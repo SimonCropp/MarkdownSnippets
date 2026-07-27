@@ -159,9 +159,17 @@ static class ContentValidation
         {
             span[0] = ' ';
             var index = 1;
+            // Content inside an inline-code span (delimited by backticks) is code, not prose,
+            // so it is blanked out and excluded from validation along with the backticks.
+            var inInlineCode = false;
             foreach (var ch in source)
             {
-                if (ch is '\'' or '?' or '.' or ',')
+                if (ch == '`')
+                {
+                    inInlineCode = !inInlineCode;
+                    span[index++] = ' ';
+                }
+                else if (inInlineCode || ch is '\'' or '?' or '.' or ',')
                 {
                     span[index++] = ' ';
                 }

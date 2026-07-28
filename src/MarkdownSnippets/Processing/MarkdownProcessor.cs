@@ -166,14 +166,34 @@ public class MarkdownProcessor
             (relativePath == null || !IsValidationExcluded(relativePath));
 
         var headerLines = new List<Line>();
+        // Fenced code blocks are code, not prose, so their content is excluded from content
+        // validation. The opening fence's delimiter char and length are tracked so a shorter
+        // inner fence does not close the block early, and so an unclosed block can be reported.
+        Line? openFence = null;
+        var fenceChar = '\0';
+        var fenceLength = 0;
         for (var index = 0; index < lines.Count; index++)
         {
             var line = lines[index];
+            var trimmed = line.Current.AsSpan().TrimStart();
 
-            if (runValidation && ValidateLine(line, validationErrors))
+            if (openFence is null)
             {
-                continue;
+                if (TryReadFenceOpen(trimmed, out fenceChar, out fenceLength))
+                {
+                    openFence = line;
+                }
+                else if (runValidation && ValidateLine(line, validationErrors))
+                {
+                    continue;
+                }
             }
+            else if (IsFenceClose(trimmed, fenceChar, fenceLength))
+            {
+                openFence = null;
+            }
+
+            // Lines inside a fenced block (and the fences themselves) fall through unvalidated.
 
             if (includeProcessor.TryProcessInclude(lines, line, usedIncludes, index, missingIncludes, relativePath))
             {
@@ -269,6 +289,18 @@ public class MarkdownProcessor
             }
         }
 
+        // A fence that opened but never closed would silently exclude everything after it from
+        // validation, so report it rather than let content slip through unchecked.
+        if (runValidation && openFence is not null)
+        {
+            validationErrors.Add(
+                new(
+                    "Unclosed code fence. A fenced code block was opened but never closed.",
+                    openFence.LineNumber,
+                    0,
+                    openFence.Path));
+        }
+
         if (writeHeader)
         {
             lines.Insert(0, new(HeaderWriter.WriteHeader(relativePath!, header, newLine), "", 0));
@@ -298,6 +330,58 @@ public class MarkdownProcessor
         }
 
         return false;
+    }
+
+    // Detects the opening of a fenced code block: three or more backticks or tildes. A backtick
+    // info string may not itself contain a backtick (per CommonMark), which disambiguates a real
+    // opener from inline code that happens to start a line.
+    static bool TryReadFenceOpen(CharSpan line, out char fenceChar, out int length)
+    {
+        fenceChar = '\0';
+        length = 0;
+        if (line.Length < 3)
+        {
+            return false;
+        }
+
+        var ch = line[0];
+        if (ch != '`' && ch != '~')
+        {
+            return false;
+        }
+
+        var count = 0;
+        while (count < line.Length && line[count] == ch)
+        {
+            count++;
+        }
+
+        if (count < 3)
+        {
+            return false;
+        }
+
+        if (ch == '`' && line[count..].Contains('`'))
+        {
+            return false;
+        }
+
+        fenceChar = ch;
+        length = count;
+        return true;
+    }
+
+    // A closing fence is a run of the same delimiter char, at least as long as the opener, with
+    // only trailing whitespace after it.
+    static bool IsFenceClose(CharSpan line, char fenceChar, int minLength)
+    {
+        var count = 0;
+        while (count < line.Length && line[count] == fenceChar)
+        {
+            count++;
+        }
+
+        return count >= minLength && line[count..].TrimEnd().IsEmpty;
     }
 
     static bool ValidateLine(Line line, List<ValidationError> validationErrors)

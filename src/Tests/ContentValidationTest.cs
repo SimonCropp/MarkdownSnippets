@@ -47,4 +47,20 @@ public class ContentValidationTest
         Assert.Empty(ContentValidation.Verify(" /us/ "));
         Assert.Empty(ContentValidation.Verify("/us-"));
     }
+
+    [Fact]
+    public void InvalidWordInInlineCodeIsIgnored()
+    {
+        Assert.Empty(ContentValidation.Verify(" a `you` b "));
+        Assert.Empty(ContentValidation.Verify(" see `simple` here "));
+    }
+
+    // The null-forgiving operator inside inline code must not trip the exclamation rule.
+    [Fact]
+    public void ExclamationInInlineCodeIsIgnored() =>
+        Assert.Empty(ContentValidation.Verify(" project `_.Department!.Name` out of it "));
+
+    [Fact]
+    public Task ValidWordOutsideInlineCodeStillDetected() =>
+        Verify(ContentValidation.Verify(" you and `you` "));
 }

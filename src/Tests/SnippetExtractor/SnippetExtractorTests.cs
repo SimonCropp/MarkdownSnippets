@@ -25,13 +25,13 @@
             await File.WriteAllTextAsync(temp, "Foo");
             var snippets = new List<Snippet>();
             snippets.AppendFileAsSnippet(temp);
+            var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
             await Verify(snippets)
-                .AddScrubber(_ =>
-                {
-                    var nameWithoutExtension = Path.GetFileNameWithoutExtension(temp);
-                    _.Replace(temp, "FilePath.txt");
-                    _.Replace(nameWithoutExtension, "File");
-                });
+                .ScrubReplace(
+                    StringComparison.Ordinal,
+                    false,
+                    (temp, "FilePath.txt"),
+                    (nameWithoutExtension, "File"));
         }
         finally
         {
@@ -54,7 +54,7 @@
             using var lockingStream = new FileStream(temp, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             var snippets = FileSnippetExtractor.Read(temp);
             return Verify(snippets)
-                .AddScrubber(_ => _.Replace(temp, "LockedFile.cs"));
+                .ScrubReplace(temp, "LockedFile.cs");
         }
         finally
         {

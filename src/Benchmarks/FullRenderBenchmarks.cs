@@ -35,9 +35,9 @@ public class FullRenderBenchmarks
             scanForMdFiles: false,
             tocLevel: 1);
         snippetLookup = processor.Snippets
-            .Where(s => !s.IsInError)
-            .GroupBy(s => s.Key)
-            .ToDictionary(g => g.Key, g => (IReadOnlyList<Snippet>) g.ToList());
+            .Where(_ => !_.IsInError)
+            .GroupBy(_ => _.Key)
+            .ToDictionary(_ => _.Key, _ => (IReadOnlyList<Snippet>) _.ToList());
 
         // build a synthetic markdown doc that references real snippet keys
         var sb = new StringBuilder();

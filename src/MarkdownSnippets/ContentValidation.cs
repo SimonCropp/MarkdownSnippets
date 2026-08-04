@@ -73,7 +73,7 @@ static class ContentValidation
                 var spaceIndex = p.Key.IndexOf(' ');
                 return spaceIndex == -1 ? p.Key : p.Key[..spaceIndex];
             })
-            .ToFrozenDictionary(g => g.Key, g => g.ToArray());
+            .ToFrozenDictionary(_ => _.Key, _ => _.ToArray());
 
     public static IEnumerable<(string error, int column)> Verify(string line)
     {

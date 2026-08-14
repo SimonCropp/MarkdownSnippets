@@ -6,13 +6,14 @@ static class SnippetVerifier
         IReadOnlyList<Snippet>? snippets = null,
         IReadOnlyList<string>? snippetSourceFiles = null,
         IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
         var processor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var builder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(builder);
-        return Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile);
+        return Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile, lineNumber);
     }
 
     static MarkdownProcessor BuildProcessor(
@@ -43,9 +44,9 @@ static class SnippetVerifier
         List<Snippet>? snippets = null,
         IReadOnlyList<string>? snippetSourceFiles = null,
         IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "")
+        [CallerFilePath] string sourceFile = "",
+        [CallerLineNumber] int lineNumber = 0)
     {
-
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
@@ -58,7 +59,7 @@ static class SnippetVerifier
             processResult.UsedSnippets,
             result
         };
-        await Verifier.Verify(output, null, sourceFile);
+        await Verifier.Verify(output, null, sourceFile, lineNumber);
         return result;
     }
 }

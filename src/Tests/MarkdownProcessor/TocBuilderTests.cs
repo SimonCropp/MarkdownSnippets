@@ -86,7 +86,17 @@
             new("##### Heading4", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 10, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 10, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading1](#heading1)
+                    * [Heading2](#heading2)
+                      * [Heading3](#heading3)
+                        * [Heading4](#heading4)<!-- endToc -->
+                """);
     }
 
     [Fact]

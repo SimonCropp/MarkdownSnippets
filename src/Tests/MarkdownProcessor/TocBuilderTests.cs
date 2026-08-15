@@ -58,7 +58,14 @@
             new("### Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, ["Heading2"], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, ["Heading2"], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading1](#heading1)<!-- endToc -->
+                """);
     }
 
     [Fact]
@@ -144,7 +151,16 @@
             new("#### Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines,4, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines,4, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading](#heading)
+                    * [Heading](#heading-1)
+                      * [Heading](#heading-2)<!-- endToc -->
+                """);
     }
 
     [Fact]

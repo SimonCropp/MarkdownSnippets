@@ -183,6 +183,15 @@
             new("## a", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [A](#a)
+                  * [A](#a-1)
+                  * [a](#a-2)<!-- endToc -->
+                """);
     }
 }

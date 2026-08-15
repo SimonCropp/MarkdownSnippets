@@ -10,7 +10,12 @@
 
         var buildToc = TocBuilder.BuildToc(lines, 1, [], "\r");
         Assert.DoesNotContain("\r\n", buildToc);
-        return Verify(buildToc);
+        return Verify(buildToc)
+            .Snapshot(
+                """
+                <!-- toc -->
+                <!-- endToc -->
+                """);
     }
 
     [Fact]

@@ -31,7 +31,20 @@
                     StringComparison.Ordinal,
                     false,
                     (temp, "FilePath.txt"),
-                    (nameWithoutExtension, "File"));
+                    (nameWithoutExtension, "File"))
+                    .Snapshot(
+                        """
+                        [
+                          {
+                            Key: File.tmp,
+                            Language: tmp,
+                            Value: Foo,
+                            Error: ,
+                            FileLocation: FilePath.txt(1-1),
+                            IsInError: false
+                          }
+                        ]
+                        """);
         }
         finally
         {
@@ -54,7 +67,20 @@
             using var lockingStream = new FileStream(temp, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             var snippets = FileSnippetExtractor.Read(temp);
             return Verify(snippets)
-                .ScrubReplace(temp, "LockedFile.cs");
+                .ScrubReplace(temp, "LockedFile.cs")
+                .Snapshot(
+                    """
+                    [
+                      {
+                        Key: CodeKey,
+                        Language: cs,
+                        Value: The Code,
+                        Error: ,
+                        FileLocation: LockedFile.cs(1-3),
+                        IsInError: false
+                      }
+                    ]
+                    """);
         }
         finally
         {
@@ -201,7 +227,20 @@
                     <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: <configSections/>,
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -213,7 +252,20 @@
                     <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: json,
+                    Value: {"a": 1},
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -225,7 +277,20 @@
                     <!-- end-snippet -->
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: json,
+                    Value: {"a": 1},
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     static List<Snippet> FromText(string contents)
@@ -242,7 +307,18 @@
                     <configSections/>
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Snippet was not closed,
+                    FileLocation: path.cs(2-2),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -254,7 +330,18 @@
                       <configSections/>
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Snippet was not closed,
+                    FileLocation: path.cs(3-3),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -267,7 +354,18 @@
                       #endregion
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Line too long: caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab,
+                    FileLocation: path.cs(3-3),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -292,7 +390,20 @@
                       #endregion
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: The Code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -305,7 +416,20 @@
                       // end-snippet
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: the code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -318,7 +442,20 @@
                       <!--end-snippet-->
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: <configSections/>,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -331,7 +468,20 @@
                       // end-snippet
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: the code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -343,6 +493,19 @@
                       <!--end-snippet-->
                     """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: Console.WriteLine("Hello World");,
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 }

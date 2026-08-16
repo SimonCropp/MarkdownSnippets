@@ -310,7 +310,18 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                <!-- snippet: sourceFile.dot -->
+                <a id='snippet-sourceFile.dot'></a>
+                ```dot
+                From Source File
+                ```
+                <sup><a href='#snippet-sourceFile.dot' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+                """);
     }
 
     [Fact]

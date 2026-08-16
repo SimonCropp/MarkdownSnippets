@@ -11,7 +11,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-thekey'></a>
+                ```thelanguage
+                theValue
+                ```
+                <sup><a href='#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>
+
+                """);
     }
 
     [Fact]

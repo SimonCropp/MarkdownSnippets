@@ -38,28 +38,17 @@ static class SnippetVerifier
             allFiles: new List<string>());
     }
 
-    public static async Task<string> Verify(
-        DocumentConvention convention,
-        string markdownContent,
-        List<Snippet>? snippets = null,
-        IReadOnlyList<string>? snippetSourceFiles = null,
-        IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "",
-        [CallerLineNumber] int lineNumber = 0)
+    public record RenderResult(IReadOnlyList<MissingSnippet> MissingSnippets, IReadOnlyList<Snippet> UsedSnippets, string result);
+
+    public static RenderResult Render(DocumentConvention convention, string markdownContent, List<Snippet>? snippets, IReadOnlyList<string>? snippetSourceFiles, IReadOnlyList<Include>? includes)
     {
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
+        // ReSharper disable once UseAwaitUsing
         using var writer = new StringWriter(stringBuilder);
         var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
         var result = stringBuilder.ToString();
-        var output = new
-        {
-            processResult.MissingSnippets,
-            processResult.UsedSnippets,
-            result
-        };
-        await Verifier.Verify(output, null, sourceFile, lineNumber);
-        return result;
+        return new(processResult.MissingSnippets, processResult.UsedSnippets, result);
     }
 }

@@ -15,7 +15,7 @@ public class MarkdownProcessorTests
     }
 
     [Fact]
-    public Task WithEmptyMultiLineInclude_Overwrite()
+    public async Task WithEmptyMultiLineInclude_Overwrite()
     {
         var content = """
 
@@ -33,14 +33,13 @@ public class MarkdownProcessorTests
             "one",
             "two"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithMultiLineInclude_Overwrite()
+    public async Task WithMultiLineInclude_Overwrite()
     {
         var content = """
 
@@ -58,14 +57,13 @@ public class MarkdownProcessorTests
             "theValue1",
             "theValue2"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithSingleInclude_Overwrite()
+    public async Task WithSingleInclude_Overwrite()
     {
         var content = """
 
@@ -80,14 +78,13 @@ public class MarkdownProcessorTests
         {
             "theValue1"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithSingleInclude()
+    public async Task WithSingleInclude()
     {
         var content = """
 
@@ -102,14 +99,13 @@ public class MarkdownProcessorTests
         {
             "theValue1"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithMixedCaseInclude()
+    public async Task WithMixedCaseInclude()
     {
         var content = """
 
@@ -122,18 +118,17 @@ public class MarkdownProcessorTests
                       after
 
                       """;
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            includes:
-            [
-                Include.Build("theKey", ["theValue1"], Path.GetFullPath("thePath")),
-                Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath"))
-            ]);
+        IReadOnlyList<Include>? includes =
+        [
+            Include.Build("theKey", ["theValue1"], Path.GetFullPath("thePath")),
+            Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath"))
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithSingleSnippet()
+    public async Task WithSingleSnippet()
     {
         var content = """
 
@@ -145,13 +140,13 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets: [SnippetBuild("cs", "theKey")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "theKey")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
+
     [Fact]
-    public Task WithMixedCaseSnippet()
+    public async Task WithMixedCaseSnippet()
     {
         var content = """
 
@@ -165,18 +160,17 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets:
-            [
-                SnippetBuild("cs", "theKey"),
-                SnippetBuild("cs", "TheKey"),
-            ]);
+        List<Snippet>? snippets =
+        [
+            SnippetBuild("cs", "theKey"),
+            SnippetBuild("cs", "TheKey"),
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithTwoLineSnippet()
+    public async Task WithTwoLineSnippet()
     {
         var content = """
 
@@ -188,27 +182,26 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets:
-            [
-                Snippet.Build(
-                    language: "cs",
-                    startLine: 1,
-                    endLine: 2,
-                    value: """
-                           the
-                           Snippet
-                           """,
-                    key: "theKey",
-                    path: "thePath",
-                    expressiveCode: null),
-            ]);
+        List<Snippet>? snippets =
+        [
+            Snippet.Build(
+                language: "cs",
+                startLine: 1,
+                endLine: 2,
+                value: """
+                       the
+                       Snippet
+                       """,
+                key: "theKey",
+                path: "thePath",
+                expressiveCode: null),
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithMultiLineSnippet()
+    public async Task WithMultiLineSnippet()
     {
         var content = """
 
@@ -220,28 +213,27 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets:
-            [
-                Snippet.Build(
-                    language: "cs",
-                    startLine: 1,
-                    endLine: 2,
-                    value: """
-                           the
-                           long
-                           Snippet
-                           """,
-                    key: "theKey",
-                    path: "thePath",
-                    expressiveCode: null)
-            ]);
+        List<Snippet>? snippets =
+        [
+            Snippet.Build(
+                language: "cs",
+                startLine: 1,
+                endLine: 2,
+                value: """
+                       the
+                       long
+                       Snippet
+                       """,
+                key: "theKey",
+                path: "thePath",
+                expressiveCode: null)
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithDoubleInclude()
+    public async Task WithDoubleInclude()
     {
         var content = """
 
@@ -257,17 +249,16 @@ public class MarkdownProcessorTests
             "theValue1",
             "theValue2"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            includes:
-            [
-                Include.Build("theKey", lines, Path.GetFullPath("thePath"))
-            ]);
+        IReadOnlyList<Include>? includes =
+        [
+            Include.Build("theKey", lines, Path.GetFullPath("thePath"))
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithEmptyMultipleInclude()
+    public async Task WithEmptyMultipleInclude()
     {
         var content = """
 
@@ -284,14 +275,13 @@ public class MarkdownProcessorTests
             "",
             ""
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithMultipleInclude()
+    public async Task WithMultipleInclude()
     {
         var content = """
 
@@ -308,14 +298,13 @@ public class MarkdownProcessorTests
             "theValue2",
             "theValue3"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            includes: [Include.Build("theKey", lines, Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task MissingInclude()
+    public async Task MissingInclude()
     {
         var content = """
 
@@ -326,11 +315,12 @@ public class MarkdownProcessorTests
                       after
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task SkipHeadingBeforeToc()
+    public async Task SkipHeadingBeforeToc()
     {
         var content = """
 
@@ -345,11 +335,12 @@ public class MarkdownProcessorTests
                       Text2
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task Toc1()
+    public async Task Toc1()
     {
         var content = """
 
@@ -366,11 +357,12 @@ public class MarkdownProcessorTests
                       Text2
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task Toc()
+    public async Task Toc()
     {
         var content = """
 
@@ -387,11 +379,12 @@ public class MarkdownProcessorTests
                       Text2
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task TocRetainedIfNoHeadingsInFile()
+    public async Task TocRetainedIfNoHeadingsInFile()
     {
         var content = """
 
@@ -405,7 +398,8 @@ public class MarkdownProcessorTests
                       any headings are added in future.
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.SourceTransform, content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
@@ -445,7 +439,7 @@ public class MarkdownProcessorTests
     }
 
     [Fact]
-    public Task Toc_Overwrite()
+    public async Task Toc_Overwrite()
     {
         var content = """
 
@@ -463,11 +457,12 @@ public class MarkdownProcessorTests
                       Text2
 
                       """;
-        return SnippetVerifier.Verify(DocumentConvention.InPlaceOverwrite, content);
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task Simple_Overwrite()
+    public async Task Simple_Overwrite()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -507,14 +502,12 @@ public class MarkdownProcessorTests
                       <!-- endSnippet -->
 
                       """;
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            availableSnippets,
-            new List<string>
-            {
-                Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
-            });
+        IReadOnlyList<string>? snippetSourceFiles = new List<string>
+        {
+            Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
+        };
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, availableSnippets, snippetSourceFiles, null);
+        await Verify(output);
     }
 
     [Fact]
@@ -531,21 +524,19 @@ public class MarkdownProcessorTests
                       snippet: FileWithMixedNewLines.txt
 
                       """;
-        var result = await SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            availableSnippets,
-            new List<string>
-            {
-                file
-            });
+        IReadOnlyList<string>? snippetSourceFiles = new List<string>
+        {
+            file
+        };
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, snippetSourceFiles, null);
+        await Verify(output);
 
-        Assert.DoesNotContain("\r\n", result);
-        Assert.DoesNotContain("\r", result);
+        Assert.DoesNotContain("\r\n", output.result);
+        Assert.DoesNotContain("\r", output.result);
     }
 
     [Fact]
-    public Task Simple()
+    public async Task Simple()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -569,18 +560,16 @@ public class MarkdownProcessorTests
                       snippet: /FileToUseAsSnippet.txt
 
                       """;
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            availableSnippets,
-            new List<string>
-            {
-                Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
-            });
+        IReadOnlyList<string>? snippetSourceFiles = new List<string>
+        {
+            Path.Combine(GitRepoDirectoryFinder.FindForFilePath(), "src/Tests/FileToUseAsSnippet.txt")
+        };
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, snippetSourceFiles, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task SnippetInInclude()
+    public async Task SnippetInInclude()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -599,15 +588,13 @@ public class MarkdownProcessorTests
         {
             "snippet: snippet1"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            availableSnippets,
-            includes: [Include.Build("theKey", lines, "thePath")]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task TableInInclude()
+    public async Task TableInInclude()
     {
         var availableSnippets = new List<Snippet>();
         var content = """
@@ -627,15 +614,13 @@ public class MarkdownProcessorTests
             |2|5|25|25|
             """
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            availableSnippets,
-            includes: [Include.Build("theKey", lines, "thePath")]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task SnippetInIncludeLast()
+    public async Task SnippetInIncludeLast()
     {
         var availableSnippets = new List<Snippet>
         {
@@ -655,15 +640,13 @@ public class MarkdownProcessorTests
             "line1",
             "snippet: snippet1"
         };
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            availableSnippets,
-            includes: [Include.Build("theKey", lines, "thePath")]);
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithIndentedSnippet()
+    public async Task WithIndentedSnippet()
     {
         var content = """
 
@@ -675,14 +658,13 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets: [SnippetBuild("cs", "theKey")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "theKey")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithIndentedSnippetMultipleSpaces()
+    public async Task WithIndentedSnippetMultipleSpaces()
     {
         var content = """
 
@@ -694,14 +676,13 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets: [SnippetBuild("cs", "theKey")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "theKey")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithIndentedCommentSnippet()
+    public async Task WithIndentedCommentSnippet()
     {
         var content = """
 
@@ -715,33 +696,31 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            snippets: [SnippetBuild("cs", "theKey")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "theKey")];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithTabIndentedSnippet()
+    public async Task WithTabIndentedSnippet()
     {
         var content = $"""
 
-                      before
+                       before
 
-                      {"\t"}snippet: theKey
+                       {"\t"}snippet: theKey
 
-                      after
+                       after
 
-                      """;
+                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets: [SnippetBuild("cs", "theKey")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "theKey")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithIndentedWebSnippet()
+    public async Task WithIndentedWebSnippet()
     {
         var content = """
 
@@ -753,14 +732,13 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets: [SnippetBuild("cs", "snippet1")]);
+        List<Snippet>? snippets = [SnippetBuild("cs", "snippet1")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithIndentedMultiLineSnippet()
+    public async Task WithIndentedMultiLineSnippet()
     {
         var content = """
 
@@ -772,28 +750,27 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content,
-            snippets:
-            [
-                Snippet.Build(
-                    language: "cs",
-                    startLine: 1,
-                    endLine: 2,
-                    value: """
-                           the
-                           long
-                           Snippet
-                           """,
-                    key: "theKey",
-                    path: "thePath",
-                    expressiveCode: null)
-            ]);
+        List<Snippet>? snippets =
+        [
+            Snippet.Build(
+                language: "cs",
+                startLine: 1,
+                endLine: 2,
+                value: """
+                       the
+                       long
+                       Snippet
+                       """,
+                key: "theKey",
+                path: "thePath",
+                expressiveCode: null)
+        ];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithCommentWebSnippetUpdate()
+    public async Task WithCommentWebSnippetUpdate()
     {
         var content = """
 
@@ -809,13 +786,12 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content);
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithCommentWebSnippetWithViewUrl()
+    public async Task WithCommentWebSnippetWithViewUrl()
     {
         var content = """
 
@@ -831,13 +807,12 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.InPlaceOverwrite,
-            content);
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, null);
+        await Verify(output);
     }
 
     [Fact]
-    public Task WithInlineWebSnippetWithViewUrl()
+    public async Task WithInlineWebSnippetWithViewUrl()
     {
         var content = """
 
@@ -849,9 +824,8 @@ public class MarkdownProcessorTests
 
                       """;
 
-        return SnippetVerifier.Verify(
-            DocumentConvention.SourceTransform,
-            content);
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
+        await Verify(output);
     }
 
     static Snippet SnippetBuild(string language, string key) =>

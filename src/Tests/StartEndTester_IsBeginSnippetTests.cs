@@ -10,7 +10,17 @@
 
     [Fact]
     public Task ShouldThrowForNoKey() =>
-        Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _, out _));
+        Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _, out _))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetReadingException,
+                  Message:
+                No Key could be derived.
+                Path: file
+                Line: '<!-- begin-snippet: -->'
+                }
+                """);
 
     [Fact]
     public void ShouldNotThrowForNoKeyWithNoSpace() =>
@@ -59,12 +69,34 @@
     [Fact]
     public Task ShouldThrowForKeyStartingWithSymbol() =>
         Throws(() =>
-            StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _, out _));
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _, out _))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetReadingException,
+                  Message:
+                Key cannot contain whitespace or start/end with symbols.
+                Key: _key
+                Path: file
+                Line: <!-- begin-snippet: _key-->
+                }
+                """);
 
     [Fact]
     public Task ShouldThrowForKeyEndingWithSymbol() =>
         Throws(() =>
-            StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _, out _));
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _, out _))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetReadingException,
+                  Message:
+                Key cannot contain whitespace or start/end with symbols.
+                Key: key_
+                Path: file
+                Line: <!-- begin-snippet: key_ -->
+                }
+                """);
 
     [Fact]
     public void CanExtractWithDifferentEndComments()
@@ -140,10 +172,33 @@
     [Fact]
     public Task ShouldThrowForInvalidLanguageValue() =>
         Throws(() =>
-            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=C#) -->", "file", out _, out _, out _));
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=C#) -->", "file", out _, out _, out _))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetReadingException,
+                  Message:
+                lang value must be lowercase alphanumeric.
+                Key: CodeKey
+                Value: C#
+                Path: file
+                Line: <!-- begin-snippet: CodeKey (lang=C#) -->
+                }
+                """);
 
     [Fact]
     public Task ShouldThrowForEmptyLanguageValue() =>
         Throws(() =>
-            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=) -->", "file", out _, out _, out _));
+            StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=) -->", "file", out _, out _, out _))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetReadingException,
+                  Message:
+                lang= must have a value.
+                Key: CodeKey
+                Path: file
+                Line: <!-- begin-snippet: CodeKey (lang=) -->
+                }
+                """);
 }

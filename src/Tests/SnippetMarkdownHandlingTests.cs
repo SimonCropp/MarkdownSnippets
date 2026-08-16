@@ -34,7 +34,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-thekey'></a>
+                ```thelanguage
+                theValue
+                ```
+                <sup><a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>
+
+                """);
     }
 
     [Fact]
@@ -48,7 +57,14 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                ```thelanguage
+                theValue
+                ```
+
+                """);
     }
 
     [Fact]
@@ -62,7 +78,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-thekey'></a>
+                ```thelanguage
+                theValue
+                ```
+                <sup><a href='prefix-#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>
+
+                """);
     }
 
     [Fact]
@@ -76,7 +101,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-thekey'></a>
+                ```thelanguage
+                theValue
+                ```
+                <sup><a href='#L1-L2' title='Snippet source file'>snippet source</a> | <a href='#snippet-thekey' title='Start of snippet'>anchor</a></sup>
+
+                """);
     }
 
     [Fact]
@@ -97,7 +131,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", new List<Snippet> { webSnippet }, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-http://example.com/file.cs%23mysnippet'></a>
+                ```cs
+                theValue
+                ```
+                <sup><a href='http://example.com/file.cs#mysnippet' title='Snippet source file'>anchor</a></sup>
+
+                """);
     }
 
     [Fact]
@@ -119,7 +162,16 @@ public class SnippetMarkdownHandlingTests
             markdownHandling.Append("key1", new List<Snippet> { webSnippet }, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                <a id='snippet-http://example.com/raw/file.cs%23mysnippet'></a>
+                ```cs
+                theValue
+                ```
+                <sup><a href='https://github.com/user/repo/blob/main/file.cs#L5-L10' title='Snippet source file'>anchor</a></sup>
+
+                """);
     }
 
     static List<Snippet> Snippets() =>

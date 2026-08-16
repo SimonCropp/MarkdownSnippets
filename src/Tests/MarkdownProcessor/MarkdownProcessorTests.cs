@@ -8,10 +8,18 @@ public class MarkdownProcessorTests
                       BAD<!-- include: theKey. path: /thePath -->
 
                       """;
-        return SnippetVerifier.VerifyThrows(
-            DocumentConvention.InPlaceOverwrite,
-            content,
-            includes: [Include.Build("theKey", [], Path.GetFullPath("thePath"))]);
+        IReadOnlyList<Include> includes = [Include.Build("theKey", [], Path.GetFullPath("thePath"))];
+        var processor = SnippetVerifier.BuildProcessor(DocumentConvention.InPlaceOverwrite, null, null, includes);
+
+        return Throws(() => SnippetVerifier.Apply(content, processor))
+            .Snapshot(
+                """
+                {
+                  Type: MarkdownProcessingException,
+                  LineNumber: 2,
+                  Message: Expected to find `<!-- endInclude -->`. File: . LineNumber: 2.
+                }
+                """);
     }
 
     [Fact]
@@ -35,7 +43,19 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                one<!-- include: theKey. path: {CurrentDirectory}thePath -->
+                two<!-- endInclude -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -59,7 +79,19 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- include: theKey. path: {CurrentDirectory}thePath -->
+                theValue2<!-- endInclude -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -80,7 +112,18 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -101,7 +144,18 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -124,7 +178,20 @@ public class MarkdownProcessorTests
             Include.Build("TheKey", ["theValue2"], Path.GetFullPath("thePath"))
         ];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- singleLineInclude: theKey. path: {CurrentDirectory}thePath -->
+
+                theValue2<!-- singleLineInclude: TheKey. path: {CurrentDirectory}thePath -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -254,7 +321,19 @@ public class MarkdownProcessorTests
             Include.Build("theKey", lines, Path.GetFullPath("thePath"))
         ];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- include: theKey. path: {CurrentDirectory}thePath -->
+                theValue2<!-- endInclude -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -277,7 +356,20 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                <!-- include: theKey. path: {CurrentDirectory}thePath -->
+
+                <!-- endInclude -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -300,7 +392,20 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                theValue1<!-- include: theKey. path: {CurrentDirectory}thePath -->
+                theValue2
+                theValue3<!-- endInclude -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -316,7 +421,18 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                ** Could not find include 'theKey' ** <!-- singleLineInclude: theKey -->
+
+                after
+                }
+                """);
     }
 
     [Fact]
@@ -411,7 +527,18 @@ public class MarkdownProcessorTests
                       Bad
 
                       """;
-        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
+        var processor = SnippetVerifier.BuildProcessor(DocumentConvention.InPlaceOverwrite, null, null, null);
+
+        return Throws(() => SnippetVerifier.Apply(content, processor))
+            .Snapshot(
+                """
+                {
+                  Type: MarkdownProcessingException,
+                  File: sourceFile,
+                  LineNumber: 2,
+                  Message: Expected to find `<!-- endToc -->`. File: sourceFile. LineNumber: 2.
+                }
+                """);
     }
 
     [Fact]
@@ -423,7 +550,16 @@ public class MarkdownProcessorTests
 
 
                       """;
-        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
+        var processor = SnippetVerifier.BuildProcessor(DocumentConvention.InPlaceOverwrite, null, null, null);
+
+        return Throws(() => SnippetVerifier.Apply(content, processor))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetException,
+                  Message: Could not parse snippet from: snippet:. Path: . Line: 2
+                }
+                """);
     }
 
     [Fact]
@@ -435,7 +571,16 @@ public class MarkdownProcessorTests
 
 
                       """;
-        return SnippetVerifier.VerifyThrows(DocumentConvention.InPlaceOverwrite, content);
+        var processor = SnippetVerifier.BuildProcessor(DocumentConvention.InPlaceOverwrite, null, null, null);
+
+        return Throws(() => SnippetVerifier.Apply(content, processor))
+            .Snapshot(
+                """
+                {
+                  Type: SnippetException,
+                  Message: Could not parse snippet from: snippet:. Path: . Line: 2
+                }
+                """);
     }
 
     [Fact]

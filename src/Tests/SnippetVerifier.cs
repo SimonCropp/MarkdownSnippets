@@ -1,22 +1,14 @@
 static class SnippetVerifier
 {
-    public static Task VerifyThrows(
-        DocumentConvention convention,
-        string markdownContent,
-        IReadOnlyList<Snippet>? snippets = null,
-        IReadOnlyList<string>? snippetSourceFiles = null,
-        IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "",
-        [CallerLineNumber] int lineNumber = 0)
+    public static ProcessResult Apply(string markdownContent, MarkdownProcessor processor)
     {
-        var processor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var builder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(builder);
-        return Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile, lineNumber);
+        return processor.Apply(reader, writer, "sourceFile");
     }
 
-    static MarkdownProcessor BuildProcessor(
+    public static MarkdownProcessor BuildProcessor(
         DocumentConvention convention,
         IReadOnlyList<Snippet>? snippets,
         IReadOnlyList<string>? snippetSourceFiles,

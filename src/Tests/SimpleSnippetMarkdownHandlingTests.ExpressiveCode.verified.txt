@@ -1,3 +1,0 @@
-﻿```cs title="HelloWorld.cs" {1}
-Console.WriteLine("Hello World");
-```

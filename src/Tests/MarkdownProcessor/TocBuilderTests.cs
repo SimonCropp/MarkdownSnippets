@@ -27,7 +27,14 @@
             new("## Heading2", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading2](#heading2)<!-- endToc -->
+                """);
     }
 
     [Fact]
@@ -35,7 +42,8 @@
     {
         var builder = new StringBuilder();
         TocBuilder.SanitizeLink(builder, "A!@#$%,^&*()_+-={};':\"<>?/b");
-        return Verify(builder);
+        return Verify(builder)
+            .Snapshot("a_-b");
     }
 
     [Fact]
@@ -46,7 +54,14 @@
             new("## **bold** *italic* [Link](link)", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [bold italic Link](#bold-italic-link)<!-- endToc -->
+                """);
     }
 
     [Fact]
@@ -126,7 +141,15 @@
             new("#### Heading3", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 2, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 2, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading1](#heading1)
+                    * [Heading2](#heading2)<!-- endToc -->
+                """);
     }
 
     [Fact]
@@ -137,7 +160,14 @@
             new("## Heading", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading](#heading)<!-- endToc -->
+                """);
     }
 
     [Fact]
@@ -148,7 +178,14 @@
             new("##  A B ", "", 0)
         };
 
-        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine));
+        return Verify(TocBuilder.BuildToc(lines, 1, [], Environment.NewLine))
+            .Snapshot(
+                """
+                <!-- toc -->
+                ## Contents
+
+                  * [A B](#a-b)<!-- endToc -->
+                """);
     }
 
     [Fact]

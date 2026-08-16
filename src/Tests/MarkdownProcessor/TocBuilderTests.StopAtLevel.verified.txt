@@ -1,5 +1,0 @@
-﻿<!-- toc -->
-## Contents
-
-  * [Heading1](#heading1)
-    * [Heading2](#heading2)<!-- endToc -->

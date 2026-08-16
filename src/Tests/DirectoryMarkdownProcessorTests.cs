@@ -123,7 +123,16 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
-        return VerifyFile(fileInfo);
+        return VerifyFile(fileInfo)
+            .Snapshot(
+                """
+                <!-- snippet: missing.txt -->
+                ```
+                ** Could not find snippet 'missing.txt' **
+                ```
+                <!-- endSnippet -->
+
+                """);
     }
 
     [Fact]
@@ -310,7 +319,18 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                <!-- snippet: sourceFile.dot -->
+                <a id='snippet-sourceFile.dot'></a>
+                ```dot
+                From Source File
+                ```
+                <sup><a href='#snippet-sourceFile.dot' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+                """);
     }
 
     [Fact]
@@ -418,7 +438,12 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                The include text<!-- singleLineInclude: fIletoinClude.txt -->
+
+                """);
     }
 
     [Fact]
@@ -473,7 +498,21 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                The include text<!-- include: fileToInclude.txt -->
+
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+                <!-- endInclude -->
+
+                """);
     }
 
     [Fact]

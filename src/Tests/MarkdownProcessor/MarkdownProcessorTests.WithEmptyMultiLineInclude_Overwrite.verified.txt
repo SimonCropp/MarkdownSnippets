@@ -1,9 +1,0 @@
-﻿{
-  result:
-before
-
-one<!-- include: theKey. path: {CurrentDirectory}thePath -->
-two<!-- endInclude -->
-
-after
-}

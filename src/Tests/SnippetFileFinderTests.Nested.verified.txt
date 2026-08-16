@@ -1,3 +1,0 @@
-﻿[
-  {ProjectDirectory}SnippetFileFinder/Nested/nested/nested/code.txt
-]

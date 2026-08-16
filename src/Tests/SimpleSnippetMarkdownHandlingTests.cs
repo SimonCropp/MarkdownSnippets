@@ -10,7 +10,14 @@
             SimpleSnippetMarkdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                ```thelanguage
+                theValue
+                ```
+
+                """);
     }
 
     [Fact]
@@ -23,6 +30,13 @@
             SimpleSnippetMarkdownHandling.Append("key1", snippets, writer.WriteLine);
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                ```cs title="HelloWorld.cs" {1}
+                Console.WriteLine("Hello World");
+                ```
+
+                """);
     }
 }

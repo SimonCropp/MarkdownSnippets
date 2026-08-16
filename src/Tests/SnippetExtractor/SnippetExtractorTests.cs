@@ -31,7 +31,20 @@
                     StringComparison.Ordinal,
                     false,
                     (temp, "FilePath.txt"),
-                    (nameWithoutExtension, "File"));
+                    (nameWithoutExtension, "File"))
+                .Snapshot(
+                    """
+                    [
+                      {
+                        Key: File.tmp,
+                        Language: tmp,
+                        Value: Foo,
+                        Error: ,
+                        FileLocation: FilePath.txt(1-1),
+                        IsInError: false
+                      }
+                    ]
+                    """);
         }
         finally
         {
@@ -54,7 +67,20 @@
             using var lockingStream = new FileStream(temp, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             var snippets = FileSnippetExtractor.Read(temp);
             return Verify(snippets)
-                .ScrubReplace(temp, "LockedFile.cs");
+                .ScrubReplace(temp, "LockedFile.cs")
+                .Snapshot(
+                    """
+                    [
+                      {
+                        Key: CodeKey,
+                        Language: cs,
+                        Value: The Code,
+                        Error: ,
+                        FileLocation: LockedFile.cs(1-3),
+                        IsInError: false
+                      }
+                    ]
+                    """);
         }
         finally
         {
@@ -65,16 +91,17 @@
     [Fact]
     public Task CanExtractWithInnerWhiteSpace()
     {
-        var input = """
+        var input =
+            """
 
-                      #region CodeKey
+              #region CodeKey
 
-                      BeforeWhiteSpace
+              BeforeWhiteSpace
 
-                      AfterWhiteSpace
+              AfterWhiteSpace
 
-                      #endregion
-                    """;
+              #endregion
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -82,15 +109,16 @@
     [Fact]
     public Task NestedBroken()
     {
-        var input = """
+        var input =
+            """
 
-                      #region KeyParent
-                      a
-                      #region KeyChild
-                      b
-                      c
-                      #endregion
-                    """;
+              #region KeyParent
+              a
+              #region KeyChild
+              b
+              c
+              #endregion
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -98,16 +126,17 @@
     [Fact]
     public Task NestedRegion()
     {
-        var input = """
+        var input =
+            """
 
-                      #region KeyParent
-                      a
-                      #region KeyChild
-                      b
-                      #endregion
-                      c
-                      #endregion
-                    """;
+              #region KeyParent
+              a
+              #region KeyChild
+              b
+              #endregion
+              c
+              #endregion
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -115,15 +144,16 @@
     [Fact]
     public Task NestedMixed2()
     {
-        var input = """
-                    #region KeyParent
-                    a
-                    <!-- begin-snippet: KeyChild -->
-                    b
-                    <!-- end-snippet -->
-                    c
-                    #endregion
-                    """;
+        var input =
+            """
+            #region KeyParent
+            a
+            <!-- begin-snippet: KeyChild -->
+            b
+            <!-- end-snippet -->
+            c
+            #endregion
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -131,31 +161,32 @@
     [Fact]
     public Task RemoveDuplicateNewlines()
     {
-        var input = """
+        var input =
+            """
 
-                    <!-- begin-snippet: KeyParent -->
-
-
-                    a
+            <!-- begin-snippet: KeyParent -->
 
 
-                    <!-- begin-snippet: KeyChild -->
+            a
 
 
-                    b
+            <!-- begin-snippet: KeyChild -->
 
 
-                    <!-- end-snippet -->
+            b
 
 
-                    c
+            <!-- end-snippet -->
 
 
-                    <!-- end-snippet -->
+            c
+
+
+            <!-- end-snippet -->
 
 
 
-                    """;
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -163,15 +194,16 @@
     [Fact]
     public Task NestedStartCode()
     {
-        var input = """
-                    <!-- begin-snippet: KeyParent -->
-                    a
-                    <!-- begin-snippet: KeyChild -->
-                    b
-                    <!-- end-snippet -->
-                    c
-                    <!-- end-snippet -->
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: KeyParent -->
+            a
+            <!-- begin-snippet: KeyChild -->
+            b
+            <!-- end-snippet -->
+            c
+            <!-- end-snippet -->
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -179,15 +211,16 @@
     [Fact]
     public Task NestedMixed1()
     {
-        var input = """
-                    <!-- begin-snippet: KeyParent -->
-                    a
-                    #region KeyChild
-                    b
-                    #endregion
-                    c
-                    <!-- end-snippet -->
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: KeyParent -->
+            a
+            #region KeyChild
+            b
+            #endregion
+            c
+            <!-- end-snippet -->
+            """;
         var snippets = FromText(input);
         return Verify(snippets);
     }
@@ -195,37 +228,79 @@
     [Fact]
     public Task CanExtractFromXml()
     {
-        var input = """
-                    <!-- begin-snippet: CodeKey -->
-                    <configSections/>
-                    <!-- end-snippet -->
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: CodeKey -->
+            <configSections/>
+            <!-- end-snippet -->
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: <configSections/>,
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task LanguageOverride()
     {
-        var input = """
-                    <!-- begin-snippet: CodeKey (lang=json) -->
-                    {"a": 1}
-                    <!-- end-snippet -->
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: CodeKey (lang=json) -->
+            {"a": 1}
+            <!-- end-snippet -->
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: json,
+                    Value: {"a": 1},
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task LanguageOverrideWithExpressiveCode()
     {
-        var input = """
-                    <!-- begin-snippet: CodeKey (lang=json title="config.json") -->
-                    {"a": 1}
-                    <!-- end-snippet -->
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: CodeKey (lang=json title="config.json") -->
+            {"a": 1}
+            <!-- end-snippet -->
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: json,
+                    Value: {"a": 1},
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     static List<Snippet> FromText(string contents)
@@ -237,37 +312,73 @@
     [Fact]
     public Task UnClosedSnippet()
     {
-        var input = """
-                    <!-- begin-snippet: CodeKey -->
-                    <configSections/>
-                    """;
+        var input =
+            """
+            <!-- begin-snippet: CodeKey -->
+            <configSections/>
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Snippet was not closed,
+                    FileLocation: path.cs(2-2),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task UnClosedRegion()
     {
-        var input = """
+        var input =
+            """
 
-                      #region CodeKey
-                      <configSections/>
-                    """;
+              #region CodeKey
+              <configSections/>
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Snippet was not closed,
+                    FileLocation: path.cs(3-3),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task TooWide()
     {
-        var input = """
+        var input =
+            """
 
-                      #region CodeKey
-                      caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
-                      #endregion
-                    """;
+              #region CodeKey
+              caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+              #endregion
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Error: Line too long: caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab,
+                    FileLocation: path.cs(3-3),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Fact]
@@ -285,64 +396,134 @@
     [Fact]
     public Task CanExtractFromRegion()
     {
-        var input = """
+        var input =
+            """
 
-                      #region CodeKey
-                      The Code
-                      #endregion
-                    """;
+              #region CodeKey
+              The Code
+              #endregion
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: The Code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task CanExtractWithNoTrailingCharacters()
     {
-        var input = """
+        var input =
+            """
 
-                      // begin-snippet: CodeKey
-                      the code
-                      // end-snippet
-                    """;
+              // begin-snippet: CodeKey
+              the code
+              // end-snippet
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: the code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task CanExtractWithMissingSpaces()
     {
-        var input = """
+        var input =
+            """
 
-                      <!--begin-snippet: CodeKey-->
-                      <configSections/>
-                      <!--end-snippet-->
-                    """;
+              <!--begin-snippet: CodeKey-->
+              <configSections/>
+              <!--end-snippet-->
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: <configSections/>,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task CanExtractWithTrailingWhitespace()
     {
-        var input = """
+        var input =
+            """
 
-                      // begin-snippet: CodeKey
-                      the code
-                      // end-snippet
-                    """;
+              // begin-snippet: CodeKey
+              the code
+              // end-snippet
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: the code,
+                    Error: ,
+                    FileLocation: path.cs(2-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Fact]
     public Task CanExtractWithExpressiveCode()
     {
-        var input = """
-                      <!--begin-snippet: CodeKey(title="Program.cs" {1-3})-->
-                      Console.WriteLine("Hello World");
-                      <!--end-snippet-->
-                    """;
+        var input =
+            """
+              <!--begin-snippet: CodeKey(title="Program.cs" {1-3})-->
+              Console.WriteLine("Hello World");
+              <!--end-snippet-->
+            """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value: Console.WriteLine("Hello World");,
+                    Error: ,
+                    FileLocation: path.cs(1-3),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 }

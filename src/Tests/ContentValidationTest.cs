@@ -1,7 +1,16 @@
 public class ContentValidationTest
 {
     [Fact]
-    public Task CheckInvalidWord() => Verify(ContentValidation.Verify(" you "));
+    public Task CheckInvalidWord() => Verify(ContentValidation.Verify(" you "))
+        .Snapshot(
+            """
+            [
+              {
+                Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                Item2: 1
+              }
+            ]
+            """);
 
     [Fact]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage() =>
@@ -13,23 +22,67 @@ public class ContentValidationTest
 
     [Fact]
     public Task CheckInvalidWordWithQuestionMark() =>
-        Verify(ContentValidation.Verify(" you? "));
+        Verify(ContentValidation.Verify(" you? "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  }
+                ]
+                """);
 
     [Fact]
     public Task CheckInvalidWordWithComma() =>
-        Verify(ContentValidation.Verify(" you, "));
+        Verify(ContentValidation.Verify(" you, "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  }
+                ]
+                """);
 
     [Fact]
     public Task CheckInvalidWordSentenceEnd() =>
-        Verify(ContentValidation.Verify(" you. "));
+        Verify(ContentValidation.Verify(" you. "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  }
+                ]
+                """);
 
     [Fact]
     public Task CheckInvalidWordSentenceStart() =>
-        Verify(ContentValidation.Verify("you "));
+        Verify(ContentValidation.Verify("you "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself
+                  }
+                ]
+                """);
 
     [Fact]
     public Task CheckInvalidWordStringEnd() =>
-        Verify(ContentValidation.Verify("the you"));
+        Verify(ContentValidation.Verify("the you"))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 4
+                  }
+                ]
+                """);
 
     [Fact]
     public void CheckInvalidWordDoesNotThrowWhenNoMatch() =>
@@ -62,5 +115,14 @@ public class ContentValidationTest
 
     [Fact]
     public Task ValidWordOutsideInlineCodeStillDetected() =>
-        Verify(ContentValidation.Verify(" you and `you` "));
+        Verify(ContentValidation.Verify(" you and `you` "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  }
+                ]
+                """);
 }

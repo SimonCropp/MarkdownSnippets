@@ -1,8 +1,0 @@
-﻿{
-  Type: SnippetReadingException,
-  Message:
-lang= must have a value.
-Key: CodeKey
-Path: file
-Line: <!-- begin-snippet: CodeKey (lang=) -->
-}

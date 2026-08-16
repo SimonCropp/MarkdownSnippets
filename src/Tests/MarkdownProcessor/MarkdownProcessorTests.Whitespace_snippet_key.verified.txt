@@ -1,4 +1,0 @@
-﻿{
-  Type: SnippetException,
-  Message: Could not parse snippet from: snippet:. Path: . Line: 2
-}

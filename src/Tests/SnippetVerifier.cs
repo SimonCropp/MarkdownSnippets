@@ -1,21 +1,14 @@
 static class SnippetVerifier
 {
-    public static Task VerifyThrows(
-        DocumentConvention convention,
-        string markdownContent,
-        IReadOnlyList<Snippet>? snippets = null,
-        IReadOnlyList<string>? snippetSourceFiles = null,
-        IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "")
+    public static ProcessResult Apply(string markdownContent, MarkdownProcessor processor)
     {
-        var processor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var builder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
         using var writer = new StringWriter(builder);
-        return Throws(() => processor.Apply(reader, writer, "sourceFile"), null, sourceFile);
+        return processor.Apply(reader, writer, "sourceFile");
     }
 
-    static MarkdownProcessor BuildProcessor(
+    public static MarkdownProcessor BuildProcessor(
         DocumentConvention convention,
         IReadOnlyList<Snippet>? snippets,
         IReadOnlyList<string>? snippetSourceFiles,
@@ -37,28 +30,17 @@ static class SnippetVerifier
             allFiles: new List<string>());
     }
 
-    public static async Task<string> Verify(
-        DocumentConvention convention,
-        string markdownContent,
-        List<Snippet>? snippets = null,
-        IReadOnlyList<string>? snippetSourceFiles = null,
-        IReadOnlyList<Include>? includes = null,
-        [CallerFilePath] string sourceFile = "")
-    {
+    public record RenderResult(IReadOnlyList<MissingSnippet> MissingSnippets, IReadOnlyList<Snippet> UsedSnippets, string result);
 
+    public static RenderResult Render(DocumentConvention convention, string markdownContent, List<Snippet>? snippets, IReadOnlyList<string>? snippetSourceFiles, IReadOnlyList<Include>? includes)
+    {
         var markdownProcessor = BuildProcessor(convention, snippets, snippetSourceFiles, includes);
         var stringBuilder = new StringBuilder();
         using var reader = new StringReader(markdownContent);
+        // ReSharper disable once UseAwaitUsing
         using var writer = new StringWriter(stringBuilder);
         var processResult = markdownProcessor.Apply(reader, writer, "sourceFile");
         var result = stringBuilder.ToString();
-        var output = new
-        {
-            processResult.MissingSnippets,
-            processResult.UsedSnippets,
-            result
-        };
-        await Verifier.Verify(output, null, sourceFile);
-        return result;
+        return new(processResult.MissingSnippets, processResult.UsedSnippets, result);
     }
 }

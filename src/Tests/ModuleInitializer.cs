@@ -11,6 +11,7 @@
             converters.Add(new ProcessResultConverter());
             converters.Add(new SnippetConverter());
         });
+        VerifierSettings.Inline(maxLines: 10, applyMaxLinesToExisting: true);
         VerifierSettings.AddScrubber(_ => _.Replace('\\', '/'));
     }
 }

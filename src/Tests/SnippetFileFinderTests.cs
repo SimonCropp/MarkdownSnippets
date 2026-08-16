@@ -18,7 +18,13 @@ public class SnippetFileFinderTests
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Nested");
         var finder = new FileFinder(directory, DocumentConvention.SourceTransform, _ => true, _ => true, _ => true);
         var files = finder.FindFiles();
-        return Verify(files.snippetFiles);
+        return Verify(files.snippetFiles)
+            .Snapshot(
+                """
+                [
+                  {ProjectDirectory}SnippetFileFinder/Nested/nested/nested/code.txt
+                ]
+                """);
     }
 
     [Fact]
@@ -27,7 +33,16 @@ public class SnippetFileFinderTests
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Simple");
         var finder = new FileFinder(directory, DocumentConvention.SourceTransform, _ => true, _ => true, _ => true);
         var files = finder.FindFiles();
-        return Verify(files.snippetFiles);
+        return Verify(files.snippetFiles)
+            .Snapshot(
+                """
+                [
+                  {ProjectDirectory}SnippetFileFinder/Simple/code1.txt,
+                  {ProjectDirectory}SnippetFileFinder/Simple/code2.txt,
+                  {ProjectDirectory}SnippetFileFinder/Simple/code3.txt,
+                  {ProjectDirectory}SnippetFileFinder/Simple/code4.txt
+                ]
+                """);
     }
 
     [Fact]
@@ -46,7 +61,14 @@ public class SnippetFileFinderTests
                 return name != "code2.txt" && name != "code4.txt";
             });
         var files = finder.FindFiles();
-        return Verify(files.snippetFiles);
+        return Verify(files.snippetFiles)
+            .Snapshot(
+                """
+                [
+                  {ProjectDirectory}SnippetFileFinder/Simple/code1.txt,
+                  {ProjectDirectory}SnippetFileFinder/Simple/code3.txt
+                ]
+                """);
     }
 
     [Fact]
@@ -65,7 +87,14 @@ public class SnippetFileFinderTests
                 return name != "one.draft.source.md";
             });
         var files = finder.FindFiles();
-        return Verify(files.mdFiles);
+        return Verify(files.mdFiles)
+            .Snapshot(
+                """
+                [
+                  {ProjectDirectory}DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder/one.source.md,
+                  {ProjectDirectory}DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder/two.source.md
+                ]
+                """);
     }
 
     [Fact]

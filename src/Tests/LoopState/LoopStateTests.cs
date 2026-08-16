@@ -7,7 +7,13 @@ public class LoopStateTests
         loopState.AppendLine("   Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verify(loopState.GetLines());
+        return Verify(loopState.GetLines())
+            .Snapshot(
+                """
+                Line1
+                 Line2
+                Line2
+                """);
     }
 
     [Fact]
@@ -17,7 +23,8 @@ public class LoopStateTests
         loopState.AppendLine("   ");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   ");
-        return Verify(loopState.GetLines());
+        return Verify(loopState.GetLines())
+            .Snapshot("Line2");
     }
 
     [Fact]
@@ -27,7 +34,13 @@ public class LoopStateTests
         loopState.AppendLine("      Line2");
         loopState.AppendLine("   ");
         loopState.AppendLine("     Line4");
-        return Verify(loopState.GetLines());
+        return Verify(loopState.GetLines())
+            .Snapshot(
+                """
+                Line2
+
+                Line4
+                """);
     }
 
     [Fact]
@@ -53,6 +66,12 @@ public class LoopStateTests
         loopState.AppendLine("Line1");
         loopState.AppendLine("    Line2");
         loopState.AppendLine("   Line2");
-        return Verify(loopState.GetLines());
+        return Verify(loopState.GetLines())
+            .Snapshot(
+                """
+                Line1
+                    Line2
+                   Line2
+                """);
     }
 }

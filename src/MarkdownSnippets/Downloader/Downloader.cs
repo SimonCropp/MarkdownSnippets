@@ -71,7 +71,9 @@
         {
             using (var response = await httpClient.GetAsync(uri))
             {
+                // ReSharper disable once UseAwaitUsing
                 using var httpStream = await response.Content.ReadAsStreamAsync();
+                // ReSharper disable once UseAwaitUsing
                 using (var fileStream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None))
                 {
                     await httpStream.CopyToAsync(fileStream);

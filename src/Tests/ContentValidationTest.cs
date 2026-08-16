@@ -115,5 +115,14 @@ public class ContentValidationTest
 
     [Fact]
     public Task ValidWordOutsideInlineCodeStillDetected() =>
-        Verify(ContentValidation.Verify(" you and `you` "));
+        Verify(ContentValidation.Verify(" you and `you` "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  }
+                ]
+                """);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <NoWarn>CS1591;NU1608;NU1109</NoWarn>
+    <NoWarn>CS1591;NU1608;NU1109;SC023</NoWarn>
     <Version>28.4.2</Version>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -13,6 +13,7 @@
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <PolyStringInterpolation>true</PolyStringInterpolation>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <Verify_SponsorshipLicenseIgnored>true</Verify_SponsorshipLicenseIgnored>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)nuget-readme.md" Pack="true" PackagePath="readme.md" />

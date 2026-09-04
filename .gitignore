@@ -12,3 +12,4 @@ nul
 /BenchmarkDotNet.Artifacts/baseline
 /BenchmarkDotNet.Artifacts/optimized
 /BenchmarkDotNet.Artifacts
+*.lnk

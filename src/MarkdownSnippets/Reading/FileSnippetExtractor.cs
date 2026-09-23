@@ -11,7 +11,7 @@ public static class FileSnippetExtractor
     public static Task AppendUrlAsSnippet(this ICollection<Snippet> snippets, string url)
     {
         Guard.AgainstNullAndEmpty(url, nameof(url));
-        return AppendUrlAsSnippet(snippets, url, Path.GetFileName(url).ToLowerInvariant());
+        return AppendUrlAsSnippet(snippets, url, Path.GetFileName(url));
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public static class FileSnippetExtractor
     public static void AppendFileAsSnippet(this ICollection<Snippet> snippets, string filePath)
     {
         Guard.FileExists(filePath, nameof(filePath));
-        AppendFileAsSnippet(snippets, filePath, Path.GetFileName(filePath).ToLowerInvariant());
+        AppendFileAsSnippet(snippets, filePath, Path.GetFileName(filePath));
     }
 
     public static void AppendFilesAsSnippets(this ICollection<Snippet> snippets, params string[] filePaths)

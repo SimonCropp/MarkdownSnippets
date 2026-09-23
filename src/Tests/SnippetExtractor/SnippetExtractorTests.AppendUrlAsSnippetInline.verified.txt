@@ -1,6 +1,6 @@
 ﻿[
   {
-    Key: usage.cs,
+    Key: Usage.cs,
     Language: cs,
     Value:
 // ReSharper disable UnusedVariable

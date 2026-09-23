@@ -168,6 +168,8 @@ public class DirectoryMarkdownProcessor
         var files = snippets
             .Where(_ => _.Path != null)
             .Select(_ => _.Path!)
+            // url snippets have no file on disk to fall back to
+            .Where(_ => !_.StartsWith("http", StringComparison.OrdinalIgnoreCase))
             .Distinct()
             .ToList();
         if (files.Count != 0)

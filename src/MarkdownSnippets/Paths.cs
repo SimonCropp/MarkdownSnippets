@@ -11,10 +11,37 @@ static class Paths
     public static bool IsIncludeMdFile(this string value) =>
         value.EndsWith(".include.md", StringComparison.OrdinalIgnoreCase);
 
-    public static bool IsClaudeMdFile(this string value)
+    static string[] agentFilePrefixes =
+    [
+        "CLAUDE.",
+        "AGENTS.",
+        "GEMINI."
+    ];
+
+    static string[] agentFileSuffixes =
+    [
+        ".instructions.md",
+        ".prompt.md",
+        ".chatmode.md",
+        ".agent.md"
+    ];
+
+    public static bool IsAgentFile(this string value)
     {
         var name = Path.GetFileName(value);
-        return name.StartsWith("CLAUDE.", StringComparison.OrdinalIgnoreCase) &&
-               name.EndsWith(".md", StringComparison.OrdinalIgnoreCase);
+        if (name.Equals("copilot-instructions.md", StringComparison.OrdinalIgnoreCase) ||
+            name.Equals(".cursorrules", StringComparison.OrdinalIgnoreCase) ||
+            name.Equals(".windsurfrules", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        if (agentFileSuffixes.Any(_ => name.EndsWith(_, StringComparison.OrdinalIgnoreCase)))
+        {
+            return true;
+        }
+
+        return name.EndsWith(".md", StringComparison.OrdinalIgnoreCase) &&
+               agentFilePrefixes.Any(_ => name.StartsWith(_, StringComparison.OrdinalIgnoreCase));
     }
 }

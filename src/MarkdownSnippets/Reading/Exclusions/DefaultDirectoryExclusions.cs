@@ -16,8 +16,11 @@ public static class DefaultDirectoryExclusions
             ".vscode" or
             ".idea" or
 
-            // claude code
+            // ai agents
             ".claude" or
+            ".cursor" or
+            ".windsurf" or
+            ".gemini" or
 
             // package cache
             "packages" or

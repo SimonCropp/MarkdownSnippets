@@ -101,6 +101,9 @@ public static class DefaultDirectoryExclusions
             ".vscode" or
             ".idea" or
 
+            // claude code
+            ".claude" or
+
             // package cache
             "packages" or
             "node_modules" or
@@ -119,7 +122,7 @@ public static class DefaultDirectoryExclusions
     }
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

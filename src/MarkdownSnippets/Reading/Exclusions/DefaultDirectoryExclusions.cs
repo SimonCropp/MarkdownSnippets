@@ -16,6 +16,9 @@ public static class DefaultDirectoryExclusions
             ".vscode" or
             ".idea" or
 
+            // claude code
+            ".claude" or
+
             // package cache
             "packages" or
             "node_modules" or

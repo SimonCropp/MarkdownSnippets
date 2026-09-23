@@ -37,7 +37,10 @@ public class PathsTests
     [InlineData("dir/CLAUDE.md", true)]
     [InlineData("C:/repo/CLAUDE.md", true)]
     [InlineData("claudez.md", false)]
-    [InlineData("CLAUDE.source.md", false)]
+    [InlineData("CLAUDE.source.md", true)]
+    [InlineData("CLAUDE.local.md", true)]
+    [InlineData("claude.include.md", true)]
+    [InlineData("CLAUDE.txt", false)]
     [InlineData("file.md", false)]
     public void IsClaudeMdFile(string value, bool expected) =>
         Assert.Equal(expected, value.IsClaudeMdFile());

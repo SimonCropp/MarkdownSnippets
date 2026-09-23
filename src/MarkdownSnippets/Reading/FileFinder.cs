@@ -128,7 +128,7 @@
 
     static bool ShouldInclude(string file)
     {
-        if (file.IsClaudeMdFile())
+        if (file.IsAgentFile())
         {
             return false;
         }

@@ -1,9 +1,9 @@
 ﻿public class GirRepoDirectoryFinderTests
 {
-    [Fact]
-    public void CanFindGirRepoDir()
+    [Test]
+    public async Task CanFindGirRepoDir()
     {
         var path = GitRepoDirectoryFinder.FindForFilePath();
-        Assert.True(Directory.Exists(path));
+        await Assert.That(Directory.Exists(path)).IsTrue();
     }
 }

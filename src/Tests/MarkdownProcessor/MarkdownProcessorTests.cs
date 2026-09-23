@@ -1,6 +1,6 @@
 public class MarkdownProcessorTests
 {
-    [Fact]
+    [Test]
     public Task Missing_endInclude()
     {
         var content = """
@@ -22,7 +22,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithEmptyMultiLineInclude_Overwrite()
     {
         var content = """
@@ -58,7 +58,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithMultiLineInclude_Overwrite()
     {
         var content = """
@@ -94,7 +94,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithSingleInclude_Overwrite()
     {
         var content = """
@@ -126,7 +126,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithSingleInclude()
     {
         var content = """
@@ -158,7 +158,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithMixedCaseInclude()
     {
         var content = """
@@ -194,7 +194,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithSingleSnippet()
     {
         var content = """
@@ -212,7 +212,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithMixedCaseSnippet()
     {
         var content = """
@@ -236,7 +236,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithTwoLineSnippet()
     {
         var content = """
@@ -267,7 +267,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithMultiLineSnippet()
     {
         var content = """
@@ -299,7 +299,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithDoubleInclude()
     {
         var content = """
@@ -336,7 +336,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithEmptyMultipleInclude()
     {
         var content = """
@@ -372,7 +372,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task WithMultipleInclude()
     {
         var content = """
@@ -408,7 +408,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task MissingInclude()
     {
         var content = """
@@ -435,7 +435,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task SkipHeadingBeforeToc()
     {
         var content = """
@@ -455,7 +455,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task Toc1()
     {
         var content = """
@@ -477,7 +477,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task Toc()
     {
         var content = """
@@ -499,7 +499,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task TocRetainedIfNoHeadingsInFile()
     {
         var content = """
@@ -518,7 +518,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public Task Missing_endToc()
     {
         var content = """
@@ -541,7 +541,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Empty_snippet_key()
     {
         var content = """
@@ -562,7 +562,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Whitespace_snippet_key()
     {
         var content = """
@@ -583,7 +583,7 @@ public class MarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public async Task Toc_Overwrite()
     {
         var content = """
@@ -606,7 +606,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task Simple_Overwrite()
     {
         var availableSnippets = new List<Snippet>
@@ -655,7 +655,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task MixedNewlinesInFile()
     {
         var file = "FileWithMixedNewLines.txt";
@@ -676,11 +676,11 @@ public class MarkdownProcessorTests
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, snippetSourceFiles, null);
         await Verify(output);
 
-        Assert.DoesNotContain("\r\n", output.result);
-        Assert.DoesNotContain("\r", output.result);
+        await Assert.That(output.result).DoesNotContain("\r\n");
+        await Assert.That(output.result).DoesNotContain("\r");
     }
 
-    [Fact]
+    [Test]
     public async Task Simple()
     {
         var availableSnippets = new List<Snippet>
@@ -713,7 +713,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task SnippetInInclude()
     {
         var availableSnippets = new List<Snippet>
@@ -738,7 +738,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task TableInInclude()
     {
         var availableSnippets = new List<Snippet>();
@@ -764,7 +764,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task SnippetInIncludeLast()
     {
         var availableSnippets = new List<Snippet>
@@ -790,7 +790,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithIndentedSnippet()
     {
         var content = """
@@ -808,7 +808,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithIndentedSnippetMultipleSpaces()
     {
         var content = """
@@ -826,7 +826,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithIndentedCommentSnippet()
     {
         var content = """
@@ -846,7 +846,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithTabIndentedSnippet()
     {
         var content = $"""
@@ -864,7 +864,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithIndentedWebSnippet()
     {
         var content = """
@@ -882,7 +882,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithIndentedMultiLineSnippet()
     {
         var content = """
@@ -914,7 +914,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithCommentWebSnippetUpdate()
     {
         var content = """
@@ -935,7 +935,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithCommentWebSnippetWithViewUrl()
     {
         var content = """
@@ -956,7 +956,7 @@ public class MarkdownProcessorTests
         await Verify(output);
     }
 
-    [Fact]
+    [Test]
     public async Task WithInlineWebSnippetWithViewUrl()
     {
         var content = """

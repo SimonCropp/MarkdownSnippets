@@ -32,7 +32,7 @@ public class MsBuildIntegrationTests
         return Path.Combine(repoDir, "nugets");
     }
 
-    [Fact]
+    [Test]
     public async Task DotnetBuild_UsesNetCoreTask()
     {
         using var tempDir = new TempDirectory();
@@ -40,19 +40,19 @@ public class MsBuildIntegrationTests
 
         var result = await RunProcess("dotnet", $"build \"{tempDir}\" -c Release -nodeReuse:false", tempDir);
 
-        Assert.True(result.ExitCode == 0, $"dotnet build failed:\n{result.Output}\n{result.Error}");
+        await Assert.That(result.ExitCode == 0).IsTrue().Because($"dotnet build failed:\n{result.Output}\n{result.Error}");
 
         // Allow build processes to fully release file handles before cleanup
         await Task.Delay(2000);
 
         // Verify the markdown was processed (generated header indicates task ran)
         var outputMd = Path.Combine(tempDir, "docs", "readme.md");
-        Assert.True(File.Exists(outputMd), $"Output markdown should exist at {outputMd}");
+        await Assert.That(File.Exists(outputMd)).IsTrue().Because($"Output markdown should exist at {outputMd}");
         var content = await File.ReadAllTextAsync(outputMd);
-        Assert.Contains("GENERATED FILE", content);
+        await Assert.That(content).Contains("GENERATED FILE");
     }
 
-    [Fact]
+    [Test]
     public async Task MsBuild_UsesNetFrameworkTask()
     {
         var msbuildPath = FindMsBuild();
@@ -67,16 +67,16 @@ public class MsBuildIntegrationTests
 
         var result = await RunProcess(msbuildPath, $"\"{tempDir}\" /p:Configuration=Release /restore /nodeReuse:false -verbosity:minimal", tempDir);
 
-        Assert.True(result.ExitCode == 0, $"msbuild failed:\n{result.Output}\n{result.Error}");
+        await Assert.That(result.ExitCode == 0).IsTrue().Because($"msbuild failed:\n{result.Output}\n{result.Error}");
 
         // Allow MSBuild processes to fully release file handles before cleanup
         await Task.Delay(2000);
 
         // Verify the markdown was processed (generated header indicates task ran)
         var outputMd = Path.Combine(tempDir, "docs", "readme.md");
-        Assert.True(File.Exists(outputMd), $"Output markdown should exist at {outputMd}");
+        await Assert.That(File.Exists(outputMd)).IsTrue().Because($"Output markdown should exist at {outputMd}");
         var content = await File.ReadAllTextAsync(outputMd);
-        Assert.Contains("GENERATED FILE", content);
+        await Assert.That(content).Contains("GENERATED FILE");
     }
 
     static async Task SetupTestProject(TempDirectory tempDir)
@@ -217,7 +217,7 @@ public class MsBuildIntegrationTests
 
     record ProcessResult(int ExitCode, string Output, string Error);
 
-    [Fact(Explicit = true)]
+    [Test, Explicit]
     public async Task MsBuild_AllLocalProjects_UsingMarkdownSnippets()
     {
         var msbuildPath = FindMsBuild();

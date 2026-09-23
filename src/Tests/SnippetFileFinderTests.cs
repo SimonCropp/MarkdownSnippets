@@ -2,17 +2,17 @@
 
 public class SnippetFileFinderTests
 {
-    [Fact]
-    public void Hidden()
+    [Test]
+    public async Task Hidden()
     {
         var path = Path.Combine(Path.GetTempPath(), "mdsnippetsHidden");
         var directory = new DirectoryInfo(path);
         directory.Create();
         directory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-        Assert.True(DefaultDirectoryExclusions.ShouldExcludeDirectory(path));
+        await Assert.That(DefaultDirectoryExclusions.ShouldExcludeDirectory(path)).IsTrue();
     }
 
-    [Fact]
+    [Test]
     public Task Nested()
     {
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Nested");
@@ -27,7 +27,7 @@ public class SnippetFileFinderTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Simple()
     {
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Simple");
@@ -45,7 +45,7 @@ public class SnippetFileFinderTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task ExcludeSnippetFiles()
     {
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Simple");
@@ -71,7 +71,7 @@ public class SnippetFileFinderTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task ExcludeMarkdownFiles()
     {
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "DirectoryMarkdownProcessor/ExcludeMarkdownFilesFinder");
@@ -97,7 +97,7 @@ public class SnippetFileFinderTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task VerifyLambdasAreCalled()
     {
         var directories = new ConcurrentBag<string>();

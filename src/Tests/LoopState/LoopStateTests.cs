@@ -1,6 +1,6 @@
 public class LoopStateTests
 {
-    [Fact]
+    [Test]
     public Task TrimIndentation()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");
@@ -16,7 +16,7 @@ public class LoopStateTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task ExcludeEmptyPaddingLines()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");
@@ -27,7 +27,7 @@ public class LoopStateTests
             .Snapshot("Line2");
     }
 
-    [Fact]
+    [Test]
     public Task TrimIndentation_with_mis_match()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");
@@ -43,23 +43,23 @@ public class LoopStateTests
                 """);
     }
 
-    [Fact]
-    public void ExcludeEmptyPaddingLines_empty_list()
+    [Test]
+    public async Task ExcludeEmptyPaddingLines_empty_list()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");
-        Assert.Empty(loopState.GetLines());
+        await Assert.That(loopState.GetLines()).IsEmpty();
     }
 
-    [Fact]
-    public void ExcludeEmptyPaddingLines_whitespace_list()
+    [Test]
+    public async Task ExcludeEmptyPaddingLines_whitespace_list()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");
         loopState.AppendLine("");
         loopState.AppendLine("  ");
-        Assert.Empty(loopState.GetLines());
+        await Assert.That(loopState.GetLines()).IsEmpty();
     }
 
-    [Fact]
+    [Test]
     public Task TrimIndentation_no_initial_padding()
     {
         var loopState = new LoopState("key", _ => throw new(), 1, int.MaxValue, "\n");

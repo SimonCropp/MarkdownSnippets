@@ -1,19 +1,19 @@
 ﻿public class SnippetKey_ExtractStartCommentWebSnippet
 {
-    [Fact]
-    public void Simple()
+    [Test]
+    public async Task Simple()
     {
-        Assert.True(SnippetKey.ExtractStartCommentWebSnippet(new("<!-- web-snippet: https://example.com/file.cs#mysnippet -->", "path", 1), out var url, out var key));
-        Assert.Equal("https://example.com/file.cs", url);
-        Assert.Equal("mysnippet", key);
+        await Assert.That(SnippetKey.ExtractStartCommentWebSnippet(new("<!-- web-snippet: https://example.com/file.cs#mysnippet -->", "path", 1), out var url, out var key)).IsTrue();
+        await Assert.That(url).IsEqualTo("https://example.com/file.cs");
+        await Assert.That(key).IsEqualTo("mysnippet");
     }
 
-    [Fact]
-    public void MissingClosingComment_Throws()
+    [Test]
+    public async Task MissingClosingComment_Throws()
     {
         var line = new Line("<!-- web-snippet: https://example.com/file.cs#mysnippet", "test.md", 10);
         var exception = Assert.Throws<SnippetException>(() => SnippetKey.ExtractStartCommentWebSnippet(line, out _, out _));
-        Assert.Contains("-->", exception.Message);
-        Assert.Contains("test.md", exception.Message);
+        await Assert.That(exception.Message).Contains("-->");
+        await Assert.That(exception.Message).Contains("test.md");
     }
 }

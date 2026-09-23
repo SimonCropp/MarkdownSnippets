@@ -1,6 +1,6 @@
 public class ContentValidationTest
 {
-    [Fact]
+    [Test]
     public Task CheckInvalidWord() => Verify(ContentValidation.Verify(" you "))
         .Snapshot(
             """
@@ -12,15 +12,15 @@ public class ContentValidationTest
             ]
             """);
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage() =>
         Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase() =>
         Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordWithQuestionMark() =>
         Verify(ContentValidation.Verify(" you? "))
             .Snapshot(
@@ -33,7 +33,7 @@ public class ContentValidationTest
                 ]
                 """);
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordWithComma() =>
         Verify(ContentValidation.Verify(" you, "))
             .Snapshot(
@@ -46,7 +46,7 @@ public class ContentValidationTest
                 ]
                 """);
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordSentenceEnd() =>
         Verify(ContentValidation.Verify(" you. "))
             .Snapshot(
@@ -59,7 +59,7 @@ public class ContentValidationTest
                 ]
                 """);
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordSentenceStart() =>
         Verify(ContentValidation.Verify("you "))
             .Snapshot(
@@ -71,7 +71,7 @@ public class ContentValidationTest
                 ]
                 """);
 
-    [Fact]
+    [Test]
     public Task CheckInvalidWordStringEnd() =>
         Verify(ContentValidation.Verify("the you"))
             .Snapshot(
@@ -84,36 +84,36 @@ public class ContentValidationTest
                 ]
                 """);
 
-    [Fact]
-    public void CheckInvalidWordDoesNotThrowWhenNoMatch() =>
-        Assert.Empty(ContentValidation.Verify(" some random content which doesn't contain invalid words. "));
+    [Test]
+    public async Task CheckInvalidWordDoesNotThrowWhenNoMatch() =>
+        await Assert.That(ContentValidation.Verify(" some random content which doesn't contain invalid words. ")).IsEmpty();
 
-    [Fact]
-    public void CheckInvalidWordDoesNotThrowWhenIsQuote() =>
-        Assert.Empty(ContentValidation.Verify("> you "));
+    [Test]
+    public async Task CheckInvalidWordDoesNotThrowWhenIsQuote() =>
+        await Assert.That(ContentValidation.Verify("> you ")).IsEmpty();
 
-    [Fact]
-    public void CheckInvalidWordInUrl()
+    [Test]
+    public async Task CheckInvalidWordInUrl()
     {
-        Assert.Empty(ContentValidation.Verify("some random content containing links /us/allowed/"));
-        Assert.Empty(ContentValidation.Verify("some random content containing links /yourself/us/"));
-        Assert.Empty(ContentValidation.Verify(" /us/ "));
-        Assert.Empty(ContentValidation.Verify("/us-"));
+        await Assert.That(ContentValidation.Verify("some random content containing links /us/allowed/")).IsEmpty();
+        await Assert.That(ContentValidation.Verify("some random content containing links /yourself/us/")).IsEmpty();
+        await Assert.That(ContentValidation.Verify(" /us/ ")).IsEmpty();
+        await Assert.That(ContentValidation.Verify("/us-")).IsEmpty();
     }
 
-    [Fact]
-    public void InvalidWordInInlineCodeIsIgnored()
+    [Test]
+    public async Task InvalidWordInInlineCodeIsIgnored()
     {
-        Assert.Empty(ContentValidation.Verify(" a `you` b "));
-        Assert.Empty(ContentValidation.Verify(" see `simple` here "));
+        await Assert.That(ContentValidation.Verify(" a `you` b ")).IsEmpty();
+        await Assert.That(ContentValidation.Verify(" see `simple` here ")).IsEmpty();
     }
 
     // The null-forgiving operator inside inline code must not trip the exclamation rule.
-    [Fact]
-    public void ExclamationInInlineCodeIsIgnored() =>
-        Assert.Empty(ContentValidation.Verify(" project `_.Department!.Name` out of it "));
+    [Test]
+    public async Task ExclamationInInlineCodeIsIgnored() =>
+        await Assert.That(ContentValidation.Verify(" project `_.Department!.Name` out of it ")).IsEmpty();
 
-    [Fact]
+    [Test]
     public Task ValidWordOutsideInlineCodeStillDetected() =>
         Verify(ContentValidation.Verify(" you and `you` "))
             .Snapshot(

@@ -26,12 +26,12 @@ dotnet test src/ConfigReader.Tests/ConfigReader.Tests.csproj
 dotnet test src/MarkdownSnippets.Tool.Tests/MarkdownSnippets.Tool.Tests.csproj
 
 # Run a specific test by name. Tests run on Microsoft.Testing.Platform (opted into via
-# global.json), so the VSTest `--filter` option does not apply. Pass xunit.v3's own
-# filters after `--`. Wildcards are supported at the start and/or end of each filter.
-dotnet test src/Tests/Tests.csproj -- --filter-method "*TestClassName.TestMethodName"
+# global.json), so the VSTest `--filter` option does not apply. Pass TUnit's tree node
+# filter (/assembly/namespace/class/method) after `--`. `*` matches any segment.
+dotnet test src/Tests/Tests.csproj -- --treenode-filter "/*/*/TestClassName/TestMethodName"
 
 # Run all tests in a class
-dotnet test src/Tests/Tests.csproj -- --filter-class "*TestClassName"
+dotnet test src/Tests/Tests.csproj -- --treenode-filter "/*/*/TestClassName/*"
 
 # Pack the tool
 dotnet pack src/MarkdownSnippets.Tool/MarkdownSnippets.Tool.csproj
@@ -64,7 +64,7 @@ Wraps the library as an MSBuild task. Uses `PackageShader.MsBuild` for dependenc
 
 ## Testing
 
-- Framework: **xunit.v3** with **Verify** (snapshot testing)
+- Framework: **TUnit** with **Verify** (snapshot testing)
 - Snapshots are `.verified.txt` files alongside tests. When a test fails due to output changes, review the `.received.txt` diff and accept with the Verify tooling if correct.
 - Main test project (`src/Tests/`) targets net10.0 (and net48 on Windows)
 - Test data directories (e.g., `DirectoryMarkdownProcessor/`, `SnippetExtractor/`) are copied to output via csproj settings

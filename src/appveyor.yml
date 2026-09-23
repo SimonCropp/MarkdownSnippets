@@ -20,10 +20,9 @@ build_script:
 - pwsh: |
     dotnet build src --configuration Release
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    # xunit.v3 runs on Microsoft.Testing.Platform (opted into via global.json). It ships its own
-    # reporters, so the flag is --report-xunit-trx: the VSTest --logger trx does not apply, and
-    # --report-trx is the Microsoft TRX extension that xunit.v3 does not bundle.
-    dotnet test src --configuration Release --no-build --no-restore --report-xunit-trx
+    # TUnit runs on Microsoft.Testing.Platform (opted into via global.json) and bundles the
+    # Microsoft TRX extension, so the flag is --report-trx: the VSTest --logger trx does not apply.
+    dotnet test src --configuration Release --no-build --no-restore --report-trx
     $testExit = $LASTEXITCODE
     $url = "https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)"
     Get-ChildItem -Recurse -Filter *.trx | ForEach-Object {

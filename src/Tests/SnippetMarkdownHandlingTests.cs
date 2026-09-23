@@ -1,6 +1,6 @@
 public class SnippetMarkdownHandlingTests
 {
-    [Fact]
+    [Test]
     public Task Append()
     {
         var builder = new StringBuilder();
@@ -23,7 +23,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendOmitSourceLink()
     {
         var builder = new StringBuilder();
@@ -46,7 +46,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendOmitSnippetLinks()
     {
         var builder = new StringBuilder();
@@ -67,7 +67,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendPrefixed()
     {
         var builder = new StringBuilder();
@@ -90,7 +90,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendHashed()
     {
         var builder = new StringBuilder();
@@ -113,7 +113,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendWebSnippet()
     {
         var builder = new StringBuilder();
@@ -143,7 +143,7 @@ public class SnippetMarkdownHandlingTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task AppendWebSnippetWithViewUrl()
     {
         var builder = new StringBuilder();

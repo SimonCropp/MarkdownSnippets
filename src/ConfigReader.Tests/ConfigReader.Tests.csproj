@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <OutputType>Exe</OutputType>
-    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
     <RootNamespace>testing</RootNamespace>
   </PropertyGroup>
 
@@ -11,14 +10,13 @@
     <ProjectReference Include="..\ConfigReader\ConfigReader.csproj" />
     <PackageReference Include="ProjectFiles" />
     <PackageReference Include="Verify.DiffPlex" />
-    <PackageReference Include="Verify.XunitV3" />
+    <PackageReference Include="Verify.TUnit" />
     <PackageReference Include="Argon" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="EmptyFiles" />
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Verify" />
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="TUnit" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <None Update="allConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

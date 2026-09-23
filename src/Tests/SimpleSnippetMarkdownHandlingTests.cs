@@ -1,6 +1,6 @@
 ﻿public class SimpleSnippetMarkdownHandlingTests
 {
-    [Fact]
+    [Test]
     public Task Append()
     {
         var builder = new StringBuilder();
@@ -20,7 +20,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task ExpressiveCode()
     {
         var builder = new StringBuilder();

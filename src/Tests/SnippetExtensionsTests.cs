@@ -1,6 +1,6 @@
 ﻿public class SnippetExtensionsTests
 {
-    [Fact]
+    [Test]
     public Task ToDictionary()
     {
         var snippets = new List<Snippet>
@@ -11,7 +11,7 @@
         return Verify(snippets.ToDictionary());
     }
 
-    [Fact]
+    [Test]
     public Task ToDictionary_SameKey()
     {
         var snippets = new List<Snippet>

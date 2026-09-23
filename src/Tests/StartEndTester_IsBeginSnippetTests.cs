@@ -1,14 +1,15 @@
 ﻿public class StartEndTester_IsBeginSnippetTests
 {
-    [Fact]
-    public void CanExtractFromXml()
+    [Test]
+    public async Task CanExtractFromXml()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey -->", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
+    [Test]
     public Task ShouldThrowForNoKey() =>
         Throws(() => StartEndTester.IsBeginSnippet("<!-- begin-snippet: -->", "file", out _, out _))
             .Snapshot(
@@ -22,51 +23,56 @@
                 }
                 """);
 
-    [Fact]
+    [Test]
     public void ShouldNotThrowForNoKeyWithNoSpace() =>
         StartEndTester.IsBeginSnippet("<!--begin-snippet:-->", "file", out _, out _);
 
-    [Fact]
-    public void CanExtractFromXmlWithMissingSpaces()
+    [Test]
+    public async Task CanExtractFromXmlWithMissingSpaces()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--begin-snippet: CodeKey-->", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractFromXmlWithExtraSpaces()
+    [Test]
+    public async Task CanExtractFromXmlWithExtraSpaces()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!--  begin-snippet:  CodeKey  -->", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithNoTrailingCharacters()
+    [Test]
+    public async Task CanExtractWithNoTrailingCharacters()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithUnderScores()
+    [Test]
+    public async Task CanExtractWithUnderScores()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("Code_Key", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code_Key -->", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("Code_Key");
     }
 
-    [Fact]
-    public void CanExtractWithDashes()
+    [Test]
+    public async Task CanExtractWithDashes()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("Code-Key", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: Code-Key -->", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("Code-Key");
     }
 
-    [Fact]
+    [Test]
     public Task ShouldThrowForKeyStartingWithSymbol() =>
         Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: _key-->", "file", out _, out _))
@@ -82,7 +88,7 @@
                 }
                 """);
 
-    [Fact]
+    [Test]
     public Task ShouldThrowForKeyEndingWithSymbol() =>
         Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: key_ -->", "file", out _, out _))
@@ -98,78 +104,94 @@
                 }
                 """);
 
-    [Fact]
-    public void CanExtractWithDifferentEndComments()
+    [Test]
+    public async Task CanExtractWithDifferentEndComments()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var key,out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("/* begin-snippet: CodeKey */", "file", out var keySpan,out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithDifferentEndCommentsAndNoSpaces()
+    [Test]
+    public async Task CanExtractWithDifferentEndCommentsAndNoSpaces()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var key, out _);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("/*begin-snippet: CodeKey */", "file", out var keySpan, out _);
+        var key = keySpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithExpressiveCodeWithHtmlSnippet()
+    [Test]
+    public async Task CanExtractWithExpressiveCodeWithHtmlSnippet()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!--begin-snippet: CodeKey(title="Program.cs" {1-3})-->""", "file", out var key, out var block);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("""title="Program.cs" {1-3}""", block);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!--begin-snippet: CodeKey(title="Program.cs" {1-3})-->""", "file", out var keySpan, out var blockSpan);
+        var key = keySpan.ToString();
+        var block = blockSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(block).IsEqualTo("""title="Program.cs" {1-3}""");
     }
 
-    [Fact]
-    public void CanExtractWithExpressiveCodeWithCsharpComment()
+    [Test]
+    public async Task CanExtractWithExpressiveCodeWithCsharpComment()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("""/*begin-snippet: CodeKey(title="Program.cs" {1-3})*/""", "file", out var key, out var expressive);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("""title="Program.cs" {1-3}""", expressive);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""/*begin-snippet: CodeKey(title="Program.cs" {1-3})*/""", "file", out var keySpan, out var expressiveSpan);
+        var key = keySpan.ToString();
+        var expressive = expressiveSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(expressive).IsEqualTo("""title="Program.cs" {1-3}""");
     }
-    [Fact]
-    public void CanExtractWithExpressiveCodeWithHtmlSnippetTrailingWhitespace()
+    [Test]
+    public async Task CanExtractWithExpressiveCodeWithHtmlSnippetTrailingWhitespace()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!--begin-snippet: CodeKey(title="Program.cs" {1-3})  -->""", "file", out var key, out var block);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("""title="Program.cs" {1-3}""", block);
-    }
-
-    [Fact]
-    public void CanExtractWithExpressiveCodeWithCsharpCommentTrailingWhitespace()
-    {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("""/*begin-snippet: CodeKey(title="Program.cs" {1-3})  */""", "file", out var key, out var expressive);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("""title="Program.cs" {1-3}""", expressive);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!--begin-snippet: CodeKey(title="Program.cs" {1-3})  -->""", "file", out var keySpan, out var blockSpan);
+        var key = keySpan.ToString();
+        var block = blockSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(block).IsEqualTo("""title="Program.cs" {1-3}""");
     }
 
-    [Fact]
-    public void CanExtractLanguageOverride()
+    [Test]
+    public async Task CanExtractWithExpressiveCodeWithCsharpCommentTrailingWhitespace()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=json) -->", "file", out var key, out var expressive, out var language);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("json", language.ToString());
-        Assert.Equal(0, expressive.Length);
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""/*begin-snippet: CodeKey(title="Program.cs" {1-3})  */""", "file", out var keySpan, out var expressiveSpan);
+        var key = keySpan.ToString();
+        var expressive = expressiveSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(expressive).IsEqualTo("""title="Program.cs" {1-3}""");
     }
 
-    [Fact]
-    public void CanExtractLanguageOverrideWithExpressiveCode()
+    [Test]
+    public async Task CanExtractLanguageOverride()
     {
-        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!-- begin-snippet: CodeKey (lang=json title="a.json") -->""", "file", out var key, out var expressive, out var language);
-        Assert.True(isBeginSnippet);
-        Assert.Equal("CodeKey", key);
-        Assert.Equal("json", language.ToString());
-        Assert.Equal("""title="a.json" """.TrimEnd(), expressive.ToString());
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=json) -->", "file", out var keySpan, out var expressiveSpan, out var languageSpan);
+        var key = keySpan.ToString();
+        var expressive = expressiveSpan.ToString();
+        var language = languageSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(language).IsEqualTo("json");
+        await Assert.That(expressive.Length).IsEqualTo(0);
     }
 
-    [Fact]
+    [Test]
+    public async Task CanExtractLanguageOverrideWithExpressiveCode()
+    {
+        var isBeginSnippet = StartEndTester.IsBeginSnippet("""<!-- begin-snippet: CodeKey (lang=json title="a.json") -->""", "file", out var keySpan, out var expressiveSpan, out var languageSpan);
+        var key = keySpan.ToString();
+        var expressive = expressiveSpan.ToString();
+        var language = languageSpan.ToString();
+        await Assert.That(isBeginSnippet).IsTrue();
+        await Assert.That(key).IsEqualTo("CodeKey");
+        await Assert.That(language).IsEqualTo("json");
+        await Assert.That(expressive).IsEqualTo("""title="a.json" """.TrimEnd());
+    }
+
+    [Test]
     public Task ShouldThrowForInvalidLanguageValue() =>
         Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=C#) -->", "file", out _, out _, out _))
@@ -186,7 +208,7 @@
                 }
                 """);
 
-    [Fact]
+    [Test]
     public Task ShouldThrowForEmptyLanguageValue() =>
         Throws(() =>
             StartEndTester.IsBeginSnippet("<!-- begin-snippet: CodeKey (lang=) -->", "file", out _, out _, out _))

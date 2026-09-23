@@ -1,6 +1,6 @@
 ﻿public class LogBuilderTests
 {
-    [Fact]
+    [Test]
     public Task BuildConfigLogMessage()
     {
         var config = new ConfigResult
@@ -25,7 +25,7 @@
             .UniqueForTargetFrameworkAndVersion();
     }
 
-    [Fact]
+    [Test]
     public Task BuildConfigLogMessageSourceTransform()
     {
         var config = new ConfigResult
@@ -50,7 +50,7 @@
             .UniqueForTargetFrameworkAndVersion();
     }
 
-    [Fact]
+    [Test]
     public Task BuildConfigLogMessageMinimal()
     {
         var config = new ConfigResult();

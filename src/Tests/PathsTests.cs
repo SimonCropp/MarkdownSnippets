@@ -1,59 +1,59 @@
 public class PathsTests
 {
-    [Theory]
-    [InlineData("file.md", true)]
-    [InlineData("file.mdx", true)]
-    [InlineData("file.MD", true)]
-    [InlineData("file.MDX", true)]
-    [InlineData("file.Md", true)]
-    [InlineData("file.txt", false)]
-    [InlineData("file.mdxx", false)]
-    public void IsMdFile(string value, bool expected) =>
-        Assert.Equal(expected, value.IsMdFile());
+    [Test]
+    [Arguments("file.md", true)]
+    [Arguments("file.mdx", true)]
+    [Arguments("file.MD", true)]
+    [Arguments("file.MDX", true)]
+    [Arguments("file.Md", true)]
+    [Arguments("file.txt", false)]
+    [Arguments("file.mdxx", false)]
+    public async Task IsMdFile(string value, bool expected) =>
+        await Assert.That(value.IsMdFile()).IsEqualTo(expected);
 
-    [Theory]
-    [InlineData("file.source.md", true)]
-    [InlineData("file.source.mdx", true)]
-    [InlineData("file.SOURCE.MD", true)]
-    [InlineData("file.Source.Mdx", true)]
-    [InlineData("file.md", false)]
-    [InlineData("file.mdx", false)]
-    public void IsSourceMdFile(string value, bool expected) =>
-        Assert.Equal(expected, value.IsSourceMdFile());
+    [Test]
+    [Arguments("file.source.md", true)]
+    [Arguments("file.source.mdx", true)]
+    [Arguments("file.SOURCE.MD", true)]
+    [Arguments("file.Source.Mdx", true)]
+    [Arguments("file.md", false)]
+    [Arguments("file.mdx", false)]
+    public async Task IsSourceMdFile(string value, bool expected) =>
+        await Assert.That(value.IsSourceMdFile()).IsEqualTo(expected);
 
-    [Theory]
-    [InlineData("file.include.md", true)]
-    [InlineData("file.INCLUDE.MD", true)]
-    [InlineData("file.Include.Md", true)]
-    [InlineData("file.include.mdx", false)]
-    [InlineData("file.md", false)]
-    public void IsIncludeMdFile(string value, bool expected) =>
-        Assert.Equal(expected, value.IsIncludeMdFile());
+    [Test]
+    [Arguments("file.include.md", true)]
+    [Arguments("file.INCLUDE.MD", true)]
+    [Arguments("file.Include.Md", true)]
+    [Arguments("file.include.mdx", false)]
+    [Arguments("file.md", false)]
+    public async Task IsIncludeMdFile(string value, bool expected) =>
+        await Assert.That(value.IsIncludeMdFile()).IsEqualTo(expected);
 
-    [Theory]
-    [InlineData("CLAUDE.md", true)]
-    [InlineData("claude.md", true)]
-    [InlineData("Claude.Md", true)]
-    [InlineData("dir/CLAUDE.md", true)]
-    [InlineData("C:/repo/CLAUDE.md", true)]
-    [InlineData("claudez.md", false)]
-    [InlineData("CLAUDE.source.md", true)]
-    [InlineData("CLAUDE.local.md", true)]
-    [InlineData("claude.include.md", true)]
-    [InlineData("CLAUDE.txt", false)]
-    [InlineData("AGENTS.md", true)]
-    [InlineData("agents.source.md", true)]
-    [InlineData("GEMINI.md", true)]
-    [InlineData(".github/copilot-instructions.md", true)]
-    [InlineData("csharp.instructions.md", true)]
-    [InlineData("review.prompt.md", true)]
-    [InlineData("plan.chatmode.md", true)]
-    [InlineData("reviewer.agent.md", true)]
-    [InlineData(".cursorrules", true)]
-    [InlineData(".windsurfrules", true)]
-    [InlineData("agentsz.md", false)]
-    [InlineData("instructions.md", false)]
-    [InlineData("file.md", false)]
-    public void IsAgentFile(string value, bool expected) =>
-        Assert.Equal(expected, value.IsAgentFile());
+    [Test]
+    [Arguments("CLAUDE.md", true)]
+    [Arguments("claude.md", true)]
+    [Arguments("Claude.Md", true)]
+    [Arguments("dir/CLAUDE.md", true)]
+    [Arguments("C:/repo/CLAUDE.md", true)]
+    [Arguments("claudez.md", false)]
+    [Arguments("CLAUDE.source.md", true)]
+    [Arguments("CLAUDE.local.md", true)]
+    [Arguments("claude.include.md", true)]
+    [Arguments("CLAUDE.txt", false)]
+    [Arguments("AGENTS.md", true)]
+    [Arguments("agents.source.md", true)]
+    [Arguments("GEMINI.md", true)]
+    [Arguments(".github/copilot-instructions.md", true)]
+    [Arguments("csharp.instructions.md", true)]
+    [Arguments("review.prompt.md", true)]
+    [Arguments("plan.chatmode.md", true)]
+    [Arguments("reviewer.agent.md", true)]
+    [Arguments(".cursorrules", true)]
+    [Arguments(".windsurfrules", true)]
+    [Arguments("agentsz.md", false)]
+    [Arguments("instructions.md", false)]
+    [Arguments("file.md", false)]
+    public async Task IsAgentFile(string value, bool expected) =>
+        await Assert.That(value.IsAgentFile()).IsEqualTo(expected);
 }

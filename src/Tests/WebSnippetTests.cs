@@ -1,18 +1,18 @@
 public class WebSnippetTests
 {
-    [Fact]
-    public void ExtractWebSnippet_ParsesCorrectly()
+    [Test]
+    public async Task ExtractWebSnippet_ParsesCorrectly()
     {
         var line = new Line("web-snippet:https://example.com/file.cs#mysnippet", "", 1);
-        Assert.True(SnippetKey.ExtractWebSnippet(line, out var url, out var key));
-        Assert.Equal("https://example.com/file.cs", url);
-        Assert.Equal("mysnippet", key);
+        await Assert.That(SnippetKey.ExtractWebSnippet(line, out var url, out var key)).IsTrue();
+        await Assert.That(url).IsEqualTo("https://example.com/file.cs");
+        await Assert.That(key).IsEqualTo("mysnippet");
     }
 
-    [Fact]
-    public void ExtractWebSnippet_FailsWithoutHash()
+    [Test]
+    public async Task ExtractWebSnippet_FailsWithoutHash()
     {
         var line = new Line("web-snippet:https://example.com/file.cs", "", 1);
-        Assert.False(SnippetKey.ExtractWebSnippet(line, out var _, out var _));
+        await Assert.That(SnippetKey.ExtractWebSnippet(line, out var _, out var _)).IsFalse();
     }
 }

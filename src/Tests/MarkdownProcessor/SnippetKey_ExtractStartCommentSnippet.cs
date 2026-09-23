@@ -1,25 +1,25 @@
 ﻿public class SnippetKey_ExtractStartCommentSnippet
 {
-    [Fact]
-    public void WithDashes()
+    [Test]
+    public async Task WithDashes()
     {
-        Assert.True(SnippetKey.ExtractStartCommentSnippet(new("<!-- snippet: my-code-snippet -->", "path", 1), out var key));
-        Assert.Equal("my-code-snippet", key);
+        await Assert.That(SnippetKey.ExtractStartCommentSnippet(new("<!-- snippet: my-code-snippet -->", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("my-code-snippet");
     }
 
-    [Fact]
-    public void Simple()
+    [Test]
+    public async Task Simple()
     {
-        Assert.True(SnippetKey.ExtractStartCommentSnippet(new("<!-- snippet: snippet -->", "path", 1), out var key));
-        Assert.Equal("snippet", key);
+        await Assert.That(SnippetKey.ExtractStartCommentSnippet(new("<!-- snippet: snippet -->", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("snippet");
     }
 
-    [Fact]
-    public void MissingClosingComment_Throws()
+    [Test]
+    public async Task MissingClosingComment_Throws()
     {
         var line = new Line("<!-- snippet: my-snippet", "test.md", 5);
         var exception = Assert.Throws<SnippetException>(() => SnippetKey.ExtractStartCommentSnippet(line, out _));
-        Assert.Contains("-->", exception.Message);
-        Assert.Contains("test.md", exception.Message);
+        await Assert.That(exception.Message).Contains("-->");
+        await Assert.That(exception.Message).Contains("test.md");
     }
 }

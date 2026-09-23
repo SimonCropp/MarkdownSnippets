@@ -1,6 +1,6 @@
 ﻿public class ConfigReaderTests
 {
-    [Fact]
+    [Test]
     public Task Empty()
     {
         var config = ConfigReader.Parse("{}", "filePath");
@@ -8,7 +8,7 @@
         return Verify(config);
     }
 
-    [Fact]
+    [Test]
     public Task BadJson() =>
         Throws(() => ConfigReader.Parse(
             """
@@ -19,7 +19,7 @@
             """,
             "filePath"));
 
-    [Fact]
+    [Test]
     public Task Values()
     {
         var stream = File.ReadAllText("allConfig.json");
@@ -27,15 +27,15 @@
         return Verify(config);
     }
 
-    [Fact]
-    public void FileExcludesToFilter_NullOrEmpty_ReturnsNull()
+    [Test]
+    public async Task FileExcludesToFilter_NullOrEmpty_ReturnsNull()
     {
-        Assert.Null(ExcludeToFilterBuilder.FileExcludesToFilter(null));
-        Assert.Null(ExcludeToFilterBuilder.FileExcludesToFilter([]));
+        await Assert.That(ExcludeToFilterBuilder.FileExcludesToFilter(null)).IsNull();
+        await Assert.That(ExcludeToFilterBuilder.FileExcludesToFilter([])).IsNull();
     }
 
-    [Fact]
-    public void FileExcludesToFilter_GlobMatching()
+    [Test]
+    public async Task FileExcludesToFilter_GlobMatching()
     {
         var filter = ExcludeToFilterBuilder.FileExcludesToFilter(
         [
@@ -44,18 +44,18 @@
             "ignore?.cs"
         ])!;
 
-        Assert.False(filter("/a/b/Foo.verified.txt"));
-        Assert.False(filter(@"C:\x\y\Foo.received.md"));
-        Assert.False(filter("ignore1.cs"));
-        Assert.True(filter("Foo.cs"));
-        Assert.True(filter("Foo.txt"));
-        Assert.True(filter("ignoreAB.cs"));
+        await Assert.That(filter("/a/b/Foo.verified.txt")).IsFalse();
+        await Assert.That(filter(@"C:\x\y\Foo.received.md")).IsFalse();
+        await Assert.That(filter("ignore1.cs")).IsFalse();
+        await Assert.That(filter("Foo.cs")).IsTrue();
+        await Assert.That(filter("Foo.txt")).IsTrue();
+        await Assert.That(filter("ignoreAB.cs")).IsTrue();
     }
 
-    [Fact]
-    public void FileExcludesToFilter_CaseInsensitive()
+    [Test]
+    public async Task FileExcludesToFilter_CaseInsensitive()
     {
         var filter = ExcludeToFilterBuilder.FileExcludesToFilter(["*.VERIFIED.txt"])!;
-        Assert.False(filter("foo.verified.TXT"));
+        await Assert.That(filter("foo.verified.TXT")).IsFalse();
     }
 }

@@ -1,6 +1,6 @@
 public class DirectoryMarkdownProcessorTests
 {
-    [Fact]
+    [Test]
     public void Run()
     {
         var root = GitRepoDirectoryFinder.FindForFilePath();
@@ -17,7 +17,7 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExists");
@@ -35,7 +35,7 @@ public class DirectoryMarkdownProcessorTests
         return VerifyFile(fileInfo);
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteExistsMdx()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteExistsMdx");
@@ -53,7 +53,7 @@ public class DirectoryMarkdownProcessorTests
         return VerifyFile(fileInfo);
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteNotExists()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteNotExists");
@@ -73,7 +73,7 @@ public class DirectoryMarkdownProcessorTests
         return VerifyFile(fileInfo);
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteUrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteUrlSnippet");
@@ -90,7 +90,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteUrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteUrlInclude");
@@ -107,7 +107,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task InPlaceOverwriteWithFileSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/InPlaceOverwriteWithFileSnippetMissing");
@@ -135,8 +135,8 @@ public class DirectoryMarkdownProcessorTests
                 """);
     }
 
-    [Fact]
-    public void ReadOnly()
+    [Test]
+    public async Task ReadOnly()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Readonly");
         try
@@ -155,7 +155,7 @@ public class DirectoryMarkdownProcessorTests
             processor.Run();
 
             var fileInfo = new FileInfo(Path.Combine(root, "one.md"));
-            Assert.True(fileInfo.IsReadOnly);
+            await Assert.That(fileInfo.IsReadOnly).IsTrue();
         }
         finally
         {
@@ -166,7 +166,7 @@ public class DirectoryMarkdownProcessorTests
         }
     }
 
-    [Fact]
+    [Test]
     public Task FileSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetMissing");
@@ -180,7 +180,7 @@ public class DirectoryMarkdownProcessorTests
         return Throws(() => processor.Run());
     }
 
-    [Fact]
+    [Test]
     public Task UrlSnippetMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippetMissing");
@@ -194,7 +194,7 @@ public class DirectoryMarkdownProcessorTests
         return Throws(() => processor.Run());
     }
 
-    [Fact]
+    [Test]
     public Task ValidationErrors()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ValidationErrors");
@@ -208,8 +208,8 @@ public class DirectoryMarkdownProcessorTests
         return Throws(() => processor.Run());
     }
 
-    [Fact]
-    public void ValidationIgnoresCodeBlocksAndInlineCode()
+    [Test]
+    public async Task ValidationIgnoresCodeBlocksAndInlineCode()
     {
         // Invalid words and the null-forgiving `!` appear only inside inline code and a fenced
         // code block, so none of them should be reported.
@@ -220,11 +220,11 @@ public class DirectoryMarkdownProcessorTests
             you we our simple!
             ```
             """);
-        Assert.Empty(result.ValidationErrors);
+        await Assert.That(result.ValidationErrors).IsEmpty();
     }
 
-    [Fact]
-    public void ValidationErrorsForUnclosedCodeFence()
+    [Test]
+    public async Task ValidationErrorsForUnclosedCodeFence()
     {
         var result = Validate(
             """
@@ -232,13 +232,13 @@ public class DirectoryMarkdownProcessorTests
             ```cs
             you we our
             """);
-        var error = Assert.Single(result.ValidationErrors);
-        Assert.Contains("Unclosed code fence", error.Error);
-        Assert.Equal(2, error.Line);
+        var error = await Assert.That(result.ValidationErrors).HasSingleItem();
+        await Assert.That(error.Error).Contains("Unclosed code fence");
+        await Assert.That(error.Line).IsEqualTo(2);
     }
 
-    [Fact]
-    public void ValidationLongerFenceIsNotClosedByShorterInnerFence()
+    [Test]
+    public async Task ValidationLongerFenceIsNotClosedByShorterInnerFence()
     {
         // The outer four-backtick fence wraps a three-backtick block; the inner ``` must not
         // close it, and everything inside stays unvalidated with no unclosed-fence error.
@@ -250,7 +250,7 @@ public class DirectoryMarkdownProcessorTests
             ```
             ````
             """);
-        Assert.Empty(result.ValidationErrors);
+        await Assert.That(result.ValidationErrors).IsEmpty();
     }
 
     static ProcessResult Validate(string markdown)
@@ -272,7 +272,7 @@ public class DirectoryMarkdownProcessorTests
         return processor.Apply(reader, writer, "file.md");
     }
 
-    [Fact]
+    [Test]
     public Task UrlIncludeMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlIncludeMissing");
@@ -286,7 +286,7 @@ public class DirectoryMarkdownProcessorTests
         return Throws(() => processor.Run());
     }
 
-    [Fact]
+    [Test]
     public Task UrlSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlSnippet");
@@ -304,7 +304,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task BinaryFileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/BinaryFileSnippet");
@@ -333,7 +333,7 @@ public class DirectoryMarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task FileSnippetWithWhiteSpace()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithWhiteSpace");
@@ -350,7 +350,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task Mdx()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Mdx");
@@ -367,7 +367,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task FileSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
@@ -384,7 +384,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task FileSnippetExplicitIncludeBypassesExcludeSnippetFiles()
     {
         // `ExcludeSnippetFiles` should stop MarkdownSnippets from scanning the file for
@@ -406,7 +406,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task FileSnippetWithHash()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetWithHash");
@@ -423,7 +423,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task MixedCaseInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MixedCaseInclude");
@@ -446,7 +446,7 @@ public class DirectoryMarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task ExplicitFileInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileInclude");
@@ -463,7 +463,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task ExplicitFileIncludeWithMergedSnippet()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithMergedSnippet");
@@ -482,7 +482,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task ExplicitFileIncludeWithSnippetAtEnd()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ExplicitFileIncludeWithSnippetAtEnd");
@@ -515,7 +515,7 @@ public class DirectoryMarkdownProcessorTests
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task UrlInclude()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/UrlInclude");
@@ -532,7 +532,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(File.ReadAllText(result));
     }
 
-    [Fact]
+    [Test]
     public Task Convention()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
@@ -559,7 +559,7 @@ public class DirectoryMarkdownProcessorTests
 
         return Verify(builder.ToString());
     }
-    [Fact]
+    [Test]
     public Task ConventionWithNestedDir()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/ConventionWithNestedDir");
@@ -584,7 +584,7 @@ public class DirectoryMarkdownProcessorTests
         return Verify(builder.ToString());
     }
 
-    [Fact]
+    [Test]
     public void MustErrorByDefaultWhenIncludesAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
@@ -598,7 +598,7 @@ public class DirectoryMarkdownProcessorTests
         Assert.Throws<MissingIncludesException>(() => processor.Run());
     }
 
-    [Fact]
+    [Test]
     public void MustNotErrorForMissingIncludesIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingInclude");
@@ -613,7 +613,7 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    [Fact]
+    [Test]
     public void MustErrorByDefaultWhenSnippetsAreMissing()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
@@ -627,7 +627,7 @@ public class DirectoryMarkdownProcessorTests
         Assert.Throws<MissingSnippetsException>(() => processor.Run());
     }
 
-    [Fact]
+    [Test]
     public void MustNotErrorForMissingSnippetsIfConfigured()
     {
         var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
@@ -642,8 +642,8 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
     }
 
-    [Fact]
-    public void DoesNotRewriteWhenContentUnchanged()
+    [Test]
+    public async Task DoesNotRewriteWhenContentUnchanged()
     {
         using var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, "one.source.md"), "snippet: snippet1");
@@ -658,11 +658,11 @@ public class DirectoryMarkdownProcessorTests
 
         BuildTempProcessor(directory).Run();
 
-        Assert.Equal(sentinel, File.GetLastWriteTimeUtc(target));
+        await Assert.That(File.GetLastWriteTimeUtc(target)).IsEqualTo(sentinel);
     }
 
-    [Fact]
-    public void RewritesWhenContentChanged()
+    [Test]
+    public async Task RewritesWhenContentChanged()
     {
         using var directory = new TempDirectory();
         var source = Path.Combine(directory, "one.source.md");
@@ -676,12 +676,12 @@ public class DirectoryMarkdownProcessorTests
         BuildTempProcessor(directory).Run();
         var secondContent = File.ReadAllText(target);
 
-        Assert.NotEqual(firstContent, secondContent);
-        Assert.Contains("snippet2", secondContent);
+        await Assert.That(secondContent).IsNotEqualTo(firstContent);
+        await Assert.That(secondContent).Contains("snippet2");
     }
 
-    [Fact]
-    public void RetriesWriteWhenTargetTemporarilyLocked()
+    [Test]
+    public async Task RetriesWriteWhenTargetTemporarilyLocked()
     {
         using var directory = new TempDirectory();
         var source = Path.Combine(directory, "one.source.md");
@@ -724,7 +724,7 @@ public class DirectoryMarkdownProcessorTests
             stream.Dispose();
         }
 
-        Assert.Contains("snippet2", File.ReadAllText(target));
+        await Assert.That(File.ReadAllText(target)).Contains("snippet2");
     }
 
     static DirectoryMarkdownProcessor BuildTempProcessor(string root)

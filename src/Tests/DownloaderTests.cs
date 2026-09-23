@@ -1,17 +1,17 @@
 public class DownloaderTests
 {
-    [Fact]
+    [Test]
     public async Task Valid()
     {
         var content = await Downloader.DownloadContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/.gitattributes");
         await Verify(new {content.success, content.content});
     }
 
-    [Fact]
+    [Test]
     public async Task Missing()
     {
         var content = await Downloader.DownloadContent("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt");
-        Assert.False(content.success);
-        Assert.Null(content.content);
+        await Assert.That(content.success).IsFalse();
+        await Assert.That(content.content).IsNull();
     }
 }

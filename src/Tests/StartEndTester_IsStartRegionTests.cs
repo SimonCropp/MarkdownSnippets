@@ -1,53 +1,58 @@
 ﻿public class StartEndTester_IsStartRegionTests
 {
-    [Fact]
-    public void CanExtractFromXml()
+    [Test]
+    public async Task CanExtractFromXml()
     {
-        StartEndTester.IsStartRegion("#region CodeKey", out var key);
-        Assert.Equal("CodeKey", key);
+        StartEndTester.IsStartRegion("#region CodeKey", out var keySpan);
+        var key = keySpan.ToString();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void ShouldThrowForKeyStartingWithSymbol() =>
-        Assert.False(StartEndTester.IsStartRegion("#region _key", out _));
+    [Test]
+    public async Task ShouldThrowForKeyStartingWithSymbol() =>
+        await Assert.That(StartEndTester.IsStartRegion("#region _key", out _)).IsFalse();
 
-    [Fact]
-    public void WithSpaces() =>
-        Assert.False(StartEndTester.IsStartRegion("#region the text", out _));
+    [Test]
+    public async Task WithSpaces() =>
+        await Assert.That(StartEndTester.IsStartRegion("#region the text", out _)).IsFalse();
 
-    [Fact]
-    public void ShouldThrowForKeyEndingWithSymbol() =>
-        Assert.False(StartEndTester.IsStartRegion("#region key_ ", out _));
+    [Test]
+    public async Task ShouldThrowForKeyEndingWithSymbol() =>
+        await Assert.That(StartEndTester.IsStartRegion("#region key_ ", out _)).IsFalse();
 
-    [Fact]
-    public void ShouldIgnoreForNoKey() =>
-        Assert.False(StartEndTester.IsStartRegion("#region ", out _));
+    [Test]
+    public async Task ShouldIgnoreForNoKey() =>
+        await Assert.That(StartEndTester.IsStartRegion("#region ", out _)).IsFalse();
 
-    [Fact]
-    public void CanExtractFromXmlWithExtraSpaces()
+    [Test]
+    public async Task CanExtractFromXmlWithExtraSpaces()
     {
-        StartEndTester.IsStartRegion("#region  CodeKey   ", out var key);
-        Assert.Equal("CodeKey", key);
+        StartEndTester.IsStartRegion("#region  CodeKey   ", out var keySpan);
+        var key = keySpan.ToString();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithNoTrailingCharacters()
+    [Test]
+    public async Task CanExtractWithNoTrailingCharacters()
     {
-        StartEndTester.IsStartRegion("#region CodeKey", out var key);
-        Assert.Equal("CodeKey", key);
+        StartEndTester.IsStartRegion("#region CodeKey", out var keySpan);
+        var key = keySpan.ToString();
+        await Assert.That(key).IsEqualTo("CodeKey");
     }
 
-    [Fact]
-    public void CanExtractWithUnderScores()
+    [Test]
+    public async Task CanExtractWithUnderScores()
     {
-        StartEndTester.IsStartRegion("#region Code_Key", out var key);
-        Assert.Equal("Code_Key", key);
+        StartEndTester.IsStartRegion("#region Code_Key", out var keySpan);
+        var key = keySpan.ToString();
+        await Assert.That(key).IsEqualTo("Code_Key");
     }
 
-    [Fact]
-    public void CanExtractWithDashes()
+    [Test]
+    public async Task CanExtractWithDashes()
     {
-        StartEndTester.IsStartRegion("#region Code-Key", out var key);
-        Assert.Equal("Code-Key", key);
+        StartEndTester.IsStartRegion("#region Code-Key", out var keySpan);
+        var key = keySpan.ToString();
+        await Assert.That(key).IsEqualTo("Code-Key");
     }
 }

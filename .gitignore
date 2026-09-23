@@ -13,3 +13,4 @@ nul
 /BenchmarkDotNet.Artifacts/optimized
 /BenchmarkDotNet.Artifacts
 *.lnk
+TestResults/

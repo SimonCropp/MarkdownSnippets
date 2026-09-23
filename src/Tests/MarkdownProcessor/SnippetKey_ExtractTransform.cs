@@ -1,30 +1,30 @@
 ﻿public class SnippetKey_ExtractTransform
 {
-    [Fact]
-    public void MissingSpaces()
+    [Test]
+    public async Task MissingSpaces()
     {
-        Assert.True( SnippetKey.ExtractSnippet(new("snippet:snippet", "path", 1), out var key));
-        Assert.Equal("snippet", key);
+        await Assert.That(SnippetKey.ExtractSnippet(new("snippet:snippet", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("snippet");
     }
 
-    [Fact]
-    public void WithDashes()
+    [Test]
+    public async Task WithDashes()
     {
-        Assert.True(SnippetKey.ExtractSnippet(new("snippet: my-code-snippet", "path", 1), out var key));
-        Assert.Equal("my-code-snippet", key);
+        await Assert.That(SnippetKey.ExtractSnippet(new("snippet: my-code-snippet", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("my-code-snippet");
     }
 
-    [Fact]
-    public void Simple()
+    [Test]
+    public async Task Simple()
     {
-        Assert.True(SnippetKey.ExtractSnippet(new("snippet: snippet", "path", 1), out var key));
-        Assert.Equal("snippet", key);
+        await Assert.That(SnippetKey.ExtractSnippet(new("snippet: snippet", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("snippet");
     }
 
-    [Fact]
-    public void ExtraSpace()
+    [Test]
+    public async Task ExtraSpace()
     {
-        Assert.True(SnippetKey.ExtractSnippet(new("snippet:  snippet   ", "path", 1), out var key));
-        Assert.Equal("snippet", key);
+        await Assert.That(SnippetKey.ExtractSnippet(new("snippet:  snippet   ", "path", 1), out var key)).IsTrue();
+        await Assert.That(key).IsEqualTo("snippet");
     }
 }

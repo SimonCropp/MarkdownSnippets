@@ -1,11 +1,11 @@
 ﻿public class HeaderWriterTests
 {
-    [Fact]
+    [Test]
     public Task DefaultHeader() =>
         Verify(HeaderWriter.DefaultHeader)
             .NotInline();
 
-    [Fact]
+    [Test]
     public Task WriteHeaderDefaultHeader() =>
         Verify(HeaderWriter.WriteHeader("thePath", null, "\r\n"))
             .Snapshot(
@@ -19,7 +19,7 @@
 
                 """);
 
-    [Fact]
+    [Test]
     public Task WriteHeaderHeaderCustom() =>
         Verify(HeaderWriter.WriteHeader("thePath", @"line1\nline2", "\r\n"))
             .Snapshot(

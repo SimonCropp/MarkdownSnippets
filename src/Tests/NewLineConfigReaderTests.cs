@@ -1,35 +1,35 @@
 public class NewLineConfigReaderTests
 {
-    [Fact]
-    public void GitAttributes_WildcardEolLf()
+    [Test]
+    public async Task GitAttributes_WildcardEolLf()
     {
         var directory = new TempDirectory();
 
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text eol=lf");
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void GitAttributes_WildcardEolCrlf()
+    [Test]
+    public async Task GitAttributes_WildcardEolCrlf()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text eol=crlf");
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\r\n", result);
+        await Assert.That(result).IsEqualTo("\r\n");
     }
 
-    [Fact]
-    public void GitAttributes_MdSpecificEolLf()
+    [Test]
+    public async Task GitAttributes_MdSpecificEolLf()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "*.md text eol=lf");
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void GitAttributes_MdSpecificOverridesWildcard()
+    [Test]
+    public async Task GitAttributes_MdSpecificOverridesWildcard()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -39,20 +39,20 @@ public class NewLineConfigReaderTests
             *.md text eol=lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void GitAttributes_NoEolSetting_FallsBackToEnvironmentNewLine()
+    [Test]
+    public async Task GitAttributes_NoEolSetting_FallsBackToEnvironmentNewLine()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text");
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal(Environment.NewLine, result);
+        await Assert.That(result).IsEqualTo(Environment.NewLine);
     }
 
-    [Fact]
-    public void GitAttributes_IgnoresComments()
+    [Test]
+    public async Task GitAttributes_IgnoresComments()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -62,22 +62,22 @@ public class NewLineConfigReaderTests
             * text eol=lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void GitAttributes_InParentDirectory()
+    [Test]
+    public async Task GitAttributes_InParentDirectory()
     {
         var directory = new TempDirectory();
         var childDir = Path.Combine(directory, "child");
         Directory.CreateDirectory(childDir);
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text eol=lf");
         var result = NewLineConfigReader.ReadNewLine(childDir, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void EditorConfig_WildcardEndOfLineLf()
+    [Test]
+    public async Task EditorConfig_WildcardEndOfLineLf()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -87,11 +87,11 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void EditorConfig_WildcardEndOfLineCrlf()
+    [Test]
+    public async Task EditorConfig_WildcardEndOfLineCrlf()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -101,11 +101,11 @@ public class NewLineConfigReaderTests
             end_of_line = crlf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\r\n", result);
+        await Assert.That(result).IsEqualTo("\r\n");
     }
 
-    [Fact]
-    public void EditorConfig_MdSpecificEndOfLine()
+    [Test]
+    public async Task EditorConfig_MdSpecificEndOfLine()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -115,11 +115,11 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void EditorConfig_MdSpecificOverridesWildcard()
+    [Test]
+    public async Task EditorConfig_MdSpecificOverridesWildcard()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -132,11 +132,11 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void EditorConfig_BracePattern()
+    [Test]
+    public async Task EditorConfig_BracePattern()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -146,11 +146,11 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void EditorConfig_IgnoresComments()
+    [Test]
+    public async Task EditorConfig_IgnoresComments()
     {
         var directory = new TempDirectory();
         File.WriteAllText(
@@ -162,11 +162,11 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void GitAttributes_TakesPriorityOverEditorConfig()
+    [Test]
+    public async Task GitAttributes_TakesPriorityOverEditorConfig()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text eol=crlf");
@@ -177,19 +177,19 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\r\n", result);
+        await Assert.That(result).IsEqualTo("\r\n");
     }
 
-    [Fact]
-    public void NoConfigFiles_FallsBackToEnvironmentNewLine()
+    [Test]
+    public async Task NoConfigFiles_FallsBackToEnvironmentNewLine()
     {
         var directory = new TempDirectory();
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal(Environment.NewLine, result);
+        await Assert.That(result).IsEqualTo(Environment.NewLine);
     }
 
-    [Fact]
-    public void EditorConfig_FallbackWhenGitAttributesHasNoEol()
+    [Test]
+    public async Task EditorConfig_FallbackWhenGitAttributesHasNoEol()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text");
@@ -200,42 +200,42 @@ public class NewLineConfigReaderTests
             end_of_line = lf
             """);
         var result = NewLineConfigReader.ReadNewLine(directory, []);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void DetectsNewLineFromMdFiles_Lf()
+    [Test]
+    public async Task DetectsNewLineFromMdFiles_Lf()
     {
         var directory = new TempDirectory();
         var mdFile = Path.Combine(directory, "test.md");
         File.WriteAllText(mdFile, "line1\nline2\n");
         var result = NewLineConfigReader.ReadNewLine(directory, [mdFile]);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void DetectsNewLineFromMdFiles_Crlf()
+    [Test]
+    public async Task DetectsNewLineFromMdFiles_Crlf()
     {
         var directory = new TempDirectory();
         var mdFile = Path.Combine(directory, "test.md");
         File.WriteAllText(mdFile, "line1\r\nline2\r\n");
         var result = NewLineConfigReader.ReadNewLine(directory, [mdFile]);
-        Assert.Equal("\r\n", result);
+        await Assert.That(result).IsEqualTo("\r\n");
     }
 
-    [Fact]
-    public void ConfigTakesPriorityOverMdFileDetection()
+    [Test]
+    public async Task ConfigTakesPriorityOverMdFileDetection()
     {
         var directory = new TempDirectory();
         File.WriteAllText(Path.Combine(directory, ".gitattributes"), "* text eol=lf");
         var mdFile = Path.Combine(directory, "test.md");
         File.WriteAllText(mdFile, "line1\r\nline2\r\n");
         var result = NewLineConfigReader.ReadNewLine(directory, [mdFile]);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void MdFileDetection_PicksShortestFileFirst()
+    [Test]
+    public async Task MdFileDetection_PicksShortestFileFirst()
     {
         var directory = new TempDirectory();
         var shortFile = Path.Combine(directory, "a.md");
@@ -243,11 +243,11 @@ public class NewLineConfigReaderTests
         File.WriteAllText(shortFile, "line1\nline2\n");
         File.WriteAllText(longFile, "line1\r\nline2\r\n");
         var result = NewLineConfigReader.ReadNewLine(directory, [longFile, shortFile]);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 
-    [Fact]
-    public void MdFileDetection_SkipsFilesWithNoNewlines()
+    [Test]
+    public async Task MdFileDetection_SkipsFilesWithNoNewlines()
     {
         var directory = new TempDirectory();
         var noNewlineFile = Path.Combine(directory, "a.md");
@@ -255,6 +255,6 @@ public class NewLineConfigReaderTests
         File.WriteAllText(noNewlineFile, "no newlines here");
         File.WriteAllText(withNewlineFile, "has\nnewlines");
         var result = NewLineConfigReader.ReadNewLine(directory, [noNewlineFile, withNewlineFile]);
-        Assert.Equal("\n", result);
+        await Assert.That(result).IsEqualTo("\n");
     }
 }

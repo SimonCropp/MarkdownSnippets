@@ -1,7 +1,7 @@
 public class FileExTests
 {
-    [Fact]
-    public void MakeReadOnly_SetsReadOnlyAttribute()
+    [Test]
+    public async Task MakeReadOnly_SetsReadOnlyAttribute()
     {
         var tempFile = Path.GetTempFileName();
         try
@@ -9,7 +9,7 @@ public class FileExTests
             FileEx.MakeReadOnly(tempFile);
 
             var attributes = File.GetAttributes(tempFile);
-            Assert.True((attributes & FileAttributes.ReadOnly) != 0);
+            await Assert.That((attributes & FileAttributes.ReadOnly) != 0).IsTrue();
         }
         finally
         {
@@ -18,8 +18,8 @@ public class FileExTests
         }
     }
 
-    [Fact]
-    public void ClearReadOnly_RemovesReadOnlyAttribute()
+    [Test]
+    public async Task ClearReadOnly_RemovesReadOnlyAttribute()
     {
         var tempFile = Path.GetTempFileName();
         try
@@ -29,7 +29,7 @@ public class FileExTests
             FileEx.ClearReadOnly(tempFile);
 
             var attributes = File.GetAttributes(tempFile);
-            Assert.False((attributes & FileAttributes.ReadOnly) != 0);
+            await Assert.That((attributes & FileAttributes.ReadOnly) != 0).IsFalse();
         }
         finally
         {
@@ -38,27 +38,27 @@ public class FileExTests
         }
     }
 
-    [Fact]
-    public void ClearReadOnly_DoesNothingIfFileDoesNotExist()
+    [Test]
+    public async Task ClearReadOnly_DoesNothingIfFileDoesNotExist()
     {
         var nonExistentFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
         FileEx.ClearReadOnly(nonExistentFile);
 
-        Assert.False(File.Exists(nonExistentFile));
+        await Assert.That(File.Exists(nonExistentFile)).IsFalse();
     }
 
-    [Fact]
-    public void MakeReadOnly_ThenClearReadOnly_RoundTrip()
+    [Test]
+    public async Task MakeReadOnly_ThenClearReadOnly_RoundTrip()
     {
         var tempFile = Path.GetTempFileName();
         try
         {
             FileEx.MakeReadOnly(tempFile);
-            Assert.True((File.GetAttributes(tempFile) & FileAttributes.ReadOnly) != 0);
+            await Assert.That((File.GetAttributes(tempFile) & FileAttributes.ReadOnly) != 0).IsTrue();
 
             FileEx.ClearReadOnly(tempFile);
-            Assert.False((File.GetAttributes(tempFile) & FileAttributes.ReadOnly) != 0);
+            await Assert.That((File.GetAttributes(tempFile) & FileAttributes.ReadOnly) != 0).IsFalse();
         }
         finally
         {
@@ -67,8 +67,8 @@ public class FileExTests
         }
     }
 
-    [Fact]
-    public void FixFileCapitalization_ReturnsActualCasing()
+    [Test]
+    public async Task FixFileCapitalization_ReturnsActualCasing()
     {
         using var tempDir = new TempDirectory();
         var actualPath = Path.Combine(tempDir, "TestFile.txt");
@@ -78,15 +78,15 @@ public class FileExTests
 
         var result = FileEx.FixFileCapitalization(inputPath);
 
-        Assert.Equal(actualPath, result);
+        await Assert.That(result).IsEqualTo(actualPath);
     }
 
-    [Fact]
-    public void FixFileCapitalization_WorksWhenCasingMatches()
+    [Test]
+    public async Task FixFileCapitalization_WorksWhenCasingMatches()
     {
         using var tempFile = TempFile.Create();
         var result = FileEx.FixFileCapitalization(tempFile);
 
-        Assert.Equal(tempFile, result);
+        await Assert.That(result).IsEqualTo(tempFile);
     }
 }

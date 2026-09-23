@@ -3,8 +3,6 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
     <TargetFrameworks>net10.0;$(TargetFrameworks)</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
-    <RootNamespace>testing</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
@@ -12,13 +10,12 @@
     <PackageReference Include="Argon" />
     <PackageReference Include="ProjectFiles" />
     <PackageReference Include="Verify.DiffPlex" />
-    <PackageReference Include="Verify.XunitV3" />
+    <PackageReference Include="Verify.TUnit" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="EmptyFiles" />
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Verify" />
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="TUnit" />
     <ProjectReference Include="..\MarkdownSnippets\MarkdownSnippets.csproj" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <None Include="badsnippets\code.txt">

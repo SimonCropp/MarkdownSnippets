@@ -1,7 +1,7 @@
 ﻿public class TocBuilderTests
 {
-    [Fact]
-    public Task EmptyHeading()
+    [Test]
+    public async Task EmptyHeading()
     {
         var lines = new List<Line>
         {
@@ -9,8 +9,8 @@
         };
 
         var buildToc = TocBuilder.BuildToc(lines, 1, [], "\r");
-        Assert.DoesNotContain("\r\n", buildToc);
-        return Verify(buildToc)
+        await Assert.That(buildToc).DoesNotContain("\r\n");
+        await Verify(buildToc)
             .Snapshot(
                 """
                 <!-- toc -->
@@ -18,7 +18,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task IgnoreTop()
     {
         var lines = new List<Line>
@@ -37,7 +37,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task SanitizeLink()
     {
         var builder = new StringBuilder();
@@ -46,7 +46,7 @@
             .Snapshot("a_-b");
     }
 
-    [Fact]
+    [Test]
     public Task StripMarkdown()
     {
         var lines = new List<Line>
@@ -64,7 +64,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Exclude()
     {
         var lines = new List<Line>
@@ -83,7 +83,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Nested()
     {
         var lines = new List<Line>
@@ -107,7 +107,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Deep()
     {
         var lines = new List<Line>
@@ -131,7 +131,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task StopAtLevel()
     {
         var lines = new List<Line>
@@ -152,7 +152,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Single()
     {
         var lines = new List<Line>
@@ -170,7 +170,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task WithSpaces()
     {
         var lines = new List<Line>
@@ -188,7 +188,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task DuplicateNested()
     {
         var lines = new List<Line>
@@ -210,7 +210,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task Duplicates()
     {
         var lines = new List<Line>

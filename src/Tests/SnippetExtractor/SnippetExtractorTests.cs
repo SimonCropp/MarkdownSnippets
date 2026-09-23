@@ -1,6 +1,6 @@
 ﻿public class SnippetExtractorTests
 {
-    [Fact]
+    [Test]
     public async Task AppendUrlAsSnippet()
     {
         var snippets = new List<Snippet>();
@@ -8,7 +8,7 @@
         await Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public async Task AppendUrlAsSnippetInline()
     {
         var snippets = new List<Snippet>();
@@ -16,7 +16,7 @@
         await Verify(snippets).ScrubLinesContaining("#region", "#endregion");
     }
 
-    [Fact]
+    [Test]
     public async Task AppendFileAsSnippet()
     {
         var temp = Path.GetTempFileName().ToLowerInvariant();
@@ -52,7 +52,7 @@
         }
     }
 
-    [Fact]
+    [Test]
     public Task CanReadFileWhileLockedByAnotherProcess()
     {
         var temp = Path.Combine(Path.GetTempPath(), "LockedSnippetFile.cs");
@@ -88,7 +88,7 @@
         }
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractWithInnerWhiteSpace()
     {
         var input =
@@ -106,7 +106,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task NestedBroken()
     {
         var input =
@@ -123,7 +123,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task NestedRegion()
     {
         var input =
@@ -141,7 +141,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task NestedMixed2()
     {
         var input =
@@ -158,7 +158,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task RemoveDuplicateNewlines()
     {
         var input =
@@ -191,7 +191,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task NestedStartCode()
     {
         var input =
@@ -208,7 +208,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task NestedMixed1()
     {
         var input =
@@ -225,7 +225,7 @@
         return Verify(snippets);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractFromXml()
     {
         var input =
@@ -251,7 +251,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task LanguageOverride()
     {
         var input =
@@ -277,7 +277,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task LanguageOverrideWithExpressiveCode()
     {
         var input =
@@ -309,7 +309,7 @@
         return FileSnippetExtractor.Read(reader, "path.cs", 80).ToList();
     }
 
-    [Fact]
+    [Test]
     public Task UnClosedSnippet()
     {
         var input =
@@ -332,7 +332,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task UnClosedRegion()
     {
         var input =
@@ -356,7 +356,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task TooWide()
     {
         var input =
@@ -381,19 +381,19 @@
                 """);
     }
 
-    [Fact]
-    public Task MixedNewLines()
+    [Test]
+    public async Task MixedNewLines()
     {
         var input = "#region CodeKey\r  A\r\n  B\r  C\n  D\n  #endregion";
         var snippets = FromText(input);
         var single = snippets.Single();
         var value = single.Value;
-        Assert.DoesNotContain("\r\n", value);
-        Assert.DoesNotContain("\r", value);
-        return Verify(single);
+        await Assert.That(value).DoesNotContain("\r\n");
+        await Assert.That(value).DoesNotContain("\r");
+        await Verify(single);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractFromRegion()
     {
         var input =
@@ -420,7 +420,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractWithNoTrailingCharacters()
     {
         var input =
@@ -447,7 +447,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractWithMissingSpaces()
     {
         var input =
@@ -474,7 +474,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractWithTrailingWhitespace()
     {
         var input =
@@ -501,7 +501,7 @@
                 """);
     }
 
-    [Fact]
+    [Test]
     public Task CanExtractWithExpressiveCode()
     {
         var input =

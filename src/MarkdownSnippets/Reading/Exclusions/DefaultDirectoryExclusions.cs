@@ -35,6 +35,13 @@ public static class DefaultDirectoryExclusions
             return true;
         }
 
+        // Cache Directory Tagging spec (https://bford.info/cachedir/). Cargo writes one into its target
+        // directory, which can hold files cargo keeps locked while a build is running
+        if (File.Exists(Path.Combine(path, "CACHEDIR.TAG")))
+        {
+            return true;
+        }
+
         var directory = new DirectoryInfo(path);
         return directory.Attributes.HasFlag(FileAttributes.Hidden);
     }

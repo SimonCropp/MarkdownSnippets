@@ -13,6 +13,18 @@ public class SnippetFileFinderTests
     }
 
     [Test]
+    public async Task CacheDirTag()
+    {
+        var path = Path.Combine(Path.GetTempPath(), "mdsnippetsCacheDirTag");
+        Directory.CreateDirectory(path);
+        var tag = Path.Combine(path, "CACHEDIR.TAG");
+        File.Delete(tag);
+        await Assert.That(DefaultDirectoryExclusions.ShouldExcludeDirectory(path)).IsFalse();
+        await File.WriteAllTextAsync(tag, "Signature: 8a477f597d28d172789f06886806bc55");
+        await Assert.That(DefaultDirectoryExclusions.ShouldExcludeDirectory(path)).IsTrue();
+    }
+
+    [Test]
     public Task Nested()
     {
         var directory = Path.Combine(ProjectFiles.ProjectDirectory, "SnippetFileFinder/Nested");

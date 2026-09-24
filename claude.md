@@ -37,7 +37,7 @@ dotnet test src/Tests/Tests.csproj -- --treenode-filter "/*/*/TestClassName/*"
 dotnet pack src/MarkdownSnippets.Tool/MarkdownSnippets.Tool.csproj
 ```
 
-Requires .NET SDK 10.0 (preview). See `src/global.json` for exact version.
+Requires .NET SDK 10.0 (preview). See `global.json` (repo root) for exact version.
 
 ## Architecture
 

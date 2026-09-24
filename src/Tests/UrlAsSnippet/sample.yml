@@ -1,0 +1,4 @@
+name: sample
+steps:
+  - run: echo one
+  - run: echo two

@@ -30,7 +30,10 @@ public static class DefaultDirectoryExclusions
             "dist" or
             ".angular" or
             "bin" or
-            "obj")
+            "obj" or
+
+            // rust/cargo build output
+            "target")
         {
             return true;
         }

@@ -115,7 +115,10 @@ public static class DefaultDirectoryExclusions
             "dist" or
             ".angular" or
             "bin" or
-            "obj")
+            "obj" or
+
+            // rust/cargo build output
+            "target")
         {
             return true;
         }
@@ -125,7 +128,7 @@ public static class DefaultDirectoryExclusions
     }
 }
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/DefaultDirectoryExclusions.cs#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefaultDirectoryExclusions.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

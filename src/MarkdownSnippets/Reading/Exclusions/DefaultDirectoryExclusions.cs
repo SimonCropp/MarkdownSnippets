@@ -30,10 +30,14 @@ public static class DefaultDirectoryExclusions
             "dist" or
             ".angular" or
             "bin" or
-            "obj" or
+            "obj")
+        {
+            return true;
+        }
 
-            // rust/cargo build output
-            "target")
+        // Cache Directory Tagging spec (https://bford.info/cachedir/). Cargo writes one into its target
+        // directory, which can hold files cargo keeps locked while a build is running
+        if (File.Exists(Path.Combine(path, "CACHEDIR.TAG")))
         {
             return true;
         }

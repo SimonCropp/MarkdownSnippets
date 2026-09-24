@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="DirectorySnippetExtractor\VerifyLambdasAreCalled\subpath\" />
     <Folder Include="GitDirs\" />
+    <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'" />
     <PackageReference Include="Argon" />
     <PackageReference Include="ProjectFiles" />
     <PackageReference Include="Verify.DiffPlex" />

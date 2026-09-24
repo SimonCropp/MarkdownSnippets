@@ -4,7 +4,7 @@
     public async Task AppendUrlAsSnippet()
     {
         var snippets = new List<Snippet>();
-        await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/src/appveyor.yml");
+        await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/UrlAsSnippet/sample.yml");
         await Verify(snippets);
     }
 

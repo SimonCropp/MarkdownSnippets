@@ -28,9 +28,28 @@ static class Downloader
         Timeout = TimeSpan.FromSeconds(30)
     };
 
+    static ConcurrentDictionary<string, SemaphoreSlim> locks = new();
+
+    // Serialize requests for the same url within the process. Otherwise concurrent callers each
+    // download and swap in their own copy, deleting the cached file while another caller that
+    // was already handed its path is reading it.
     public static async Task<(bool success, string? path)> DownloadFile(string uri)
     {
         var file = Path.Combine(cache, FileNameFromUrl.ConvertToFileName(uri));
+        var semaphore = locks.GetOrAdd(file, _ => new(1, 1));
+        await semaphore.WaitAsync();
+        try
+        {
+            return await DownloadFile(uri, file);
+        }
+        finally
+        {
+            semaphore.Release();
+        }
+    }
+
+    static async Task<(bool success, string? path)> DownloadFile(string uri, string file)
+    {
 
         if (File.Exists(file))
         {
@@ -112,6 +131,12 @@ static class Downloader
                 // magnitude shorter than the request, so a brief back off clears it.
                 // Windows reports a file that is open or pending delete as access denied.
                 await Task.Delay(50 * attempt);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException &&
+                                              File.Exists(target))
+            {
+                // Still held by another process. Its copy is usable, so keep it rather than fail.
+                return;
             }
         }
     }

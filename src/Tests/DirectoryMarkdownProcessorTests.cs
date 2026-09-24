@@ -391,7 +391,8 @@ public class DirectoryMarkdownProcessorTests
         // `begin-snippet`/`end-snippet` markers, but an explicit `snippet: sourceFile.txt`
         // in a markdown file must still resolve to the whole-file contents — that lookup
         // goes through allFiles, which remains unfiltered.
-        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippet");
+        // Own copy of the FileSnippet fixture, so it does not race FileSnippet writing the same one.md
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/FileSnippetExplicitInclude");
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,

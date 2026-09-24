@@ -340,12 +340,34 @@ public class DirectoryMarkdownProcessor
         // and reduces the chance of colliding with another process reading the file
         // (e.g. a parallel build packing a nuget that consumes the same markdown).
         if (File.Exists(target) &&
-            File.ReadAllText(target) == content)
+            ReadAllTextWithRetry(target) == content)
         {
             return;
         }
 
         WriteAllTextWithRetry(target, content);
+    }
+
+    static string? ReadAllTextWithRetry(string target)
+    {
+        const int maxAttempts = 5;
+        for (var attempt = 1; ; attempt++)
+        {
+            try
+            {
+                return File.ReadAllText(target);
+            }
+            catch (IOException) when (attempt < maxAttempts)
+            {
+                // Another process is writing the file. Back off briefly and retry.
+                Thread.Sleep(100 * attempt);
+            }
+            catch (IOException)
+            {
+                // Still locked: treat as changed and let the write path deal with it
+                return null;
+            }
+        }
     }
 
     static void WriteAllTextWithRetry(string target, string content)

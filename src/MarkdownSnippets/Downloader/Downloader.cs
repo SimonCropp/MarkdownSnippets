@@ -1,6 +1,6 @@
-﻿static class Downloader
+static class Downloader
 {
-    static string cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
+    internal static string cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippets");
 
     static Downloader()
     {
@@ -14,7 +14,7 @@
             {
                 file.Delete();
             }
-            catch (IOException)
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
             {
                 // The cache is shared by every process on the machine, so another
                 // process may be reading this file. Pruning is best effort: leave it
@@ -23,7 +23,7 @@
         }
     }
 
-    static HttpClient httpClient = new()
+    internal static HttpClient httpClient = new()
     {
         Timeout = TimeSpan.FromSeconds(30)
     };
@@ -104,11 +104,13 @@
                 File.Move(temp, target);
                 return;
             }
-            catch (IOException) when (attempt < maxAttempts)
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException &&
+                                              attempt < maxAttempts)
             {
                 // Another process is reading the same cached url, or swapped its own
                 // copy in between the delete and the move. This window is orders of
                 // magnitude shorter than the request, so a brief back off clears it.
+                // Windows reports a file that is open or pending delete as access denied.
                 await Task.Delay(50 * attempt);
             }
         }
@@ -120,7 +122,7 @@
         {
             File.Delete(temp);
         }
-        catch (IOException)
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
             // Best effort. A leftover temp file is pruned with the rest of the cache.
         }

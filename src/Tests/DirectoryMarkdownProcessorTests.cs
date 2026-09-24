@@ -616,7 +616,7 @@ public class DirectoryMarkdownProcessorTests
     [Test]
     public void MustErrorByDefaultWhenSnippetsAreMissing()
     {
-        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingSnippets");
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,
@@ -630,7 +630,7 @@ public class DirectoryMarkdownProcessorTests
     [Test]
     public void MustNotErrorForMissingSnippetsIfConfigured()
     {
-        var root = Path.GetFullPath("DirectoryMarkdownProcessor/Convention");
+        var root = Path.GetFullPath("DirectoryMarkdownProcessor/MissingSnippets");
         var processor = new DirectoryMarkdownProcessor(
             root,
             writeHeader: false,

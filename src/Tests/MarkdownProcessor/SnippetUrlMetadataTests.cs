@@ -67,4 +67,89 @@ public class SnippetUrlMetadataTests
             null);
         return Verify(output);
     }
+
+    [Test]
+    public Task FullFileUrl_MissingKeepsMetadataInMarkerButNotInKey()
+    {
+        var output = SnippetVerifier.Render(
+            DocumentConvention.SourceTransform,
+            "snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/doesNotExist.txt (lang=xml title=missing)",
+            null,
+            null,
+            null);
+        return Verify(output);
+    }
+
+    [Test]
+    public Task NamedSnippetWithUrlKey_AppliesMetadata()
+    {
+        List<Snippet> snippets =
+        [
+            Snippet.Build(
+                language: "txt",
+                startLine: 1,
+                endLine: 1,
+                value: "the snippet",
+                key: "https://example.com/named.txt",
+                path: "thePath",
+                expressiveCode: null),
+        ];
+        var output = SnippetVerifier.Render(
+            DocumentConvention.SourceTransform,
+            "snippet: https://example.com/named.txt (lang=cs title=named)",
+            snippets,
+            null,
+            null);
+        return Verify(output);
+    }
+
+    [Test]
+    public Task FullFileUrl_EmptyParentheses()
+    {
+        var output = SnippetVerifier.Render(
+            DocumentConvention.SourceTransform,
+            $"snippet: {url} ()",
+            null,
+            null,
+            null);
+        return Verify(output);
+    }
+
+    [Test]
+    public async Task FullFileUrl_NoSpaceBeforeParenthesesIsPartOfUrl()
+    {
+        var input = $"snippet: {url}(lang=xml)";
+        await Assert.That(SnippetKey.ExtractSnippet(
+            new(input, "path", 1),
+            out var key,
+            out var language,
+            out var expressiveCode)).IsTrue();
+        await Assert.That(key).IsEqualTo($"{url}(lang=xml)");
+        await Assert.That(language).IsNull();
+        await Assert.That(expressiveCode).IsNull();
+    }
+
+    [Test]
+    public Task FullFileUrl_UppercaseScheme()
+    {
+        var output = SnippetVerifier.Render(
+            DocumentConvention.SourceTransform,
+            $"snippet: HTTPS{url[5..]} (lang=cs title=code1.txt)",
+            null,
+            null,
+            null);
+        return Verify(output);
+    }
+
+    [Test]
+    public Task FullFileUrl_ExtraWhitespace()
+    {
+        var output = SnippetVerifier.Render(
+            DocumentConvention.SourceTransform,
+            $"snippet: {url} \t (  lang=cs  title=code1.txt\t)",
+            null,
+            null,
+            null);
+        return Verify(output);
+    }
 }

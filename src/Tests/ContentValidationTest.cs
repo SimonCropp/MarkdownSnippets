@@ -14,11 +14,49 @@ public class ContentValidationTest
 
     [Test]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessage() =>
-        Verify(ContentValidation.Verify(" you, and you again! Still yourself? "));
+        Verify(ContentValidation.Verify(" you, and you again! Still yourself? "))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ,
+                    Item2: 20
+                  },
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  },
+                  {
+                    Item1: Invalid word detected: 'yourself'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 27
+                  }
+                ]
+                """);
 
     [Test]
     public Task CheckInvalidWordIndicatesAllViolationsInTheExceptionMessageIgnoringCase() =>
-        Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"));
+        Verify(ContentValidation.Verify(" you, and you again! Still Yourself? Us"))
+            .Snapshot(
+                """
+                [
+                  {
+                    Item1: No exclamation marks. If a statement is important make it bold. https://www.technicalcommunicationcenter.com/2011/12/30/the-discipline-of-punctuation-in-technical-writing/. ,
+                    Item2: 20
+                  },
+                  {
+                    Item1: Invalid word detected: 'you'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 1
+                  },
+                  {
+                    Item1: Invalid word detected: 'yourself'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 27
+                  },
+                  {
+                    Item1: Invalid word detected: 'us'. The full list of invalid words is: above-mentioned, aforementioned, easy, feel, foregoing, henceforth, hereafter, heretofore, herewith, just, our, please, simple, simply, thereafter, thereof, therewith, think, us, we, whatsoever, whereat, wherein, whereof, you, your, yourself,
+                    Item2: 37
+                  }
+                ]
+                """);
 
     [Test]
     public Task CheckInvalidWordWithQuestionMark() =>

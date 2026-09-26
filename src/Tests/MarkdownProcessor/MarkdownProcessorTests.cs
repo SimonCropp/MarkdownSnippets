@@ -452,7 +452,25 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                ## Heading 1
+
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading 2](#heading-2)<!-- endToc -->
+
+                Text1
+
+                ## Heading 2
+
+                Text2
+                }
+                """);
     }
 
     [Test]
@@ -474,7 +492,24 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                # Title
+
+                toc1
+
+                ## Heading 1
+
+                Text1
+
+                ## Heading 2
+
+                Text2
+                }
+                """);
     }
 
     [Test]
@@ -496,7 +531,28 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                # Title
+
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading 1](#heading-1)
+                  * [Heading 2](#heading-2)<!-- endToc -->
+
+                ## Heading 1
+
+                Text1
+
+                ## Heading 2
+
+                Text2
+                }
+                """);
     }
 
     [Test]
@@ -515,7 +571,22 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                # Title
+
+                <!-- toc -->
+                <!-- endToc -->
+
+                This document has no headings.
+
+                An empty toc section should be generated, in case
+                any headings are added in future.
+                }
+                """);
     }
 
     [Test]
@@ -603,7 +674,28 @@ public class MarkdownProcessorTests
 
                       """;
         var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                # Title
+
+                <!-- toc -->
+                ## Contents
+
+                  * [Heading 1](#heading-1)
+                  * [Heading 2](#heading-2)<!-- endToc -->
+
+                ## Heading 1
+
+                Text1
+
+                ## Heading 2
+
+                Text2
+                }
+                """);
     }
 
     [Test]
@@ -761,7 +853,22 @@ public class MarkdownProcessorTests
         };
         IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                some text
+
+                <!-- include: theKey. path: thePath -->
+                | Number of Parameters | Variations per Parameter | Total Combinations | Pairwise Combinations |
+                | -------------------- | ----------------------- | ------------------ | --------------------- |
+                |2|5|25|25|
+                <!-- endInclude -->
+
+                some other text
+                }
+                """);
     }
 
     [Test]
@@ -879,7 +986,28 @@ public class MarkdownProcessorTests
 
         List<Snippet>? snippets = [SnippetBuild("cs", "snippet1")];
         var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, snippets, null, null);
-        await Verify(output);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  MissingSnippets: [
+                    {
+                      Key: http://example.com/file.cs#snippet1,
+                      LineNumber: 4
+                    }
+                  ],
+                  result:
+                before
+
+                    <!-- web-snippet: http://example.com/file.cs#snippet1 -->
+                    ```
+                    ** Could not fetch or parse web-snippet 'http://example.com/file.cs#snippet1' **
+                    ```
+                    <!-- endSnippet -->
+
+                after
+                }
+                """);
     }
 
     [Test]

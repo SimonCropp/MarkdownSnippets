@@ -140,6 +140,22 @@ public class SnippetFileFinderTests
             directories = directories.OrderBy(_ => _),
             markdownDirectories = markdownDirectories.OrderBy(_ => _),
             snippetDirectories = snippetDirectories.OrderBy(_ => _),
-        });
+        })
+        .Snapshot(
+            """
+            {
+              directories: [
+                {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled/subpath
+              ],
+              markdownDirectories: [
+                {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled,
+                {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled/subpath
+              ],
+              snippetDirectories: [
+                {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled,
+                {ProjectDirectory}SnippetFileFinder/VerifyLambdasAreCalled/subpath
+              ]
+            }
+            """);
     }
 }

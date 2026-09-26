@@ -5,7 +5,24 @@
     {
         var snippets = new List<Snippet>();
         await snippets.AppendUrlAsSnippet("https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/UrlAsSnippet/sample.yml");
-        await Verify(snippets);
+        await Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: sample.yml,
+                    Language: yml,
+                    Value:
+                name: sample
+                steps:
+                  - run: echo one
+                  - run: echo two,
+                    Error: ,
+                    FileLocation: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/UrlAsSnippet/sample.yml(1-4),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Test]
@@ -103,7 +120,23 @@
               #endregion
             """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: CodeKey,
+                    Language: cs,
+                    Value:
+                BeforeWhiteSpace
+
+                AfterWhiteSpace,
+                    Error: ,
+                    FileLocation: path.cs(2-8),
+                    IsInError: false
+                  }
+                ]
+                """);
     }
 
     [Test]
@@ -120,7 +153,28 @@
               #endregion
             """;
         var snippets = FromText(input);
-        return Verify(snippets);
+        return Verify(snippets)
+            .Snapshot(
+                """
+                [
+                  {
+                    Key: KeyChild,
+                    Language: cs,
+                    Value:
+                b
+                c,
+                    Error: ,
+                    FileLocation: path.cs(4-7),
+                    IsInError: false
+                  },
+                  {
+                    Key: KeyParent,
+                    Error: Snippet was not closed,
+                    FileLocation: path.cs(3-3),
+                    IsInError: true
+                  }
+                ]
+                """);
     }
 
     [Test]
@@ -390,7 +444,22 @@
         var value = single.Value;
         await Assert.That(value).DoesNotContain("\r\n");
         await Assert.That(value).DoesNotContain("\r");
-        await Verify(single);
+        await Verify(single)
+            .Snapshot(
+                """
+                {
+                  Key: CodeKey,
+                  Language: cs,
+                  Value:
+                A
+                B
+                C
+                D,
+                  Error: ,
+                  FileLocation: path.cs(1-6),
+                  IsInError: false
+                }
+                """);
     }
 
     [Test]

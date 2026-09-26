@@ -11,7 +11,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: cs,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (lang=cs) -->
+                ```cs
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -23,7 +44,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: cs,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (lang=cs title=code1.txt) -->
+                ```cs title=code1.txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -35,7 +77,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: txt,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (title=code1.txt) -->
+                ```txt title=code1.txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -65,7 +128,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: cs,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (lang=cs title=code1.txt) -->
+                ```cs title=code1.txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -77,7 +161,24 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  MissingSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/doesNotExist.txt,
+                      LineNumber: 1
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/doesNotExist.txt (lang=xml title=missing) -->
+                ```
+                ** Could not find snippet 'https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/doesNotExist.txt' **
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -100,7 +201,28 @@ public class SnippetUrlMetadataTests
             snippets,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://example.com/named.txt,
+                      Language: cs,
+                      Value: the snippet,
+                      Error: ,
+                      FileLocation: thePath(1-1),
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://example.com/named.txt (lang=cs title=named) -->
+                ```cs title=named
+                the snippet
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -112,7 +234,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: txt,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt -->
+                ```txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -138,7 +281,28 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: HTTPS://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: cs,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: HTTPS://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (lang=cs title=code1.txt) -->
+                ```cs title=code1.txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 
     [Test]
@@ -150,6 +314,27 @@ public class SnippetUrlMetadataTests
             null,
             null,
             null);
-        return Verify(output);
+        return Verify(output)
+            .Snapshot(
+                """
+                {
+                  UsedSnippets: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt,
+                      Language: cs,
+                      Value: Some code,
+                      Error: ,
+                      FileLocation: null,
+                      IsInError: false
+                    }
+                  ],
+                  result:
+                <!-- snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt (lang=cs title=code1.txt) -->
+                ```cs title=code1.txt
+                Some code
+                ```
+                <!-- endSnippet -->
+                }
+                """);
     }
 }

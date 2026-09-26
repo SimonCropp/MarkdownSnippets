@@ -32,7 +32,30 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
-        return VerifyFile(fileInfo);
+        return VerifyFile(fileInfo)
+            .Snapshot(
+                """
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+                The include text<!-- singleLineInclude: fileToInclude.txt -->
+
+                Line 1<!-- include: multiLineFileToInclude.txt -->
+
+                Line 2<!-- endInclude -->
+
+                <!-- include: includeWithCode.txt -->
+                ```
+                The Code
+                ```
+                <!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -50,7 +73,30 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var fileInfo = new FileInfo(Path.Combine(root, "file.mdx"));
-        return VerifyFile(fileInfo);
+        return VerifyFile(fileInfo)
+            .Snapshot(
+                """
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+                The include text<!-- singleLineInclude: fileToInclude.txt -->
+
+                Line 1<!-- include: multiLineFileToInclude.txt -->
+
+                Line 2<!-- endInclude -->
+
+                <!-- include: includeWithCode.txt -->
+                ```
+                The Code
+                ```
+                <!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -70,7 +116,30 @@ public class DirectoryMarkdownProcessorTests
         processor.Run();
 
         var fileInfo = new FileInfo(Path.Combine(root, "file.md"));
-        return VerifyFile(fileInfo);
+        return VerifyFile(fileInfo)
+            .Snapshot(
+                """
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+                The include text<!-- singleLineInclude: fileToInclude.txt -->
+
+                Line 1<!-- include: multiLineFileToInclude.txt -->
+
+                Line 2<!-- endInclude -->
+
+                <!-- include: includeWithCode.txt -->
+                ```
+                The Code
+                ```
+                <!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -104,7 +173,31 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                The MIT License (MIT)<!-- include: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt -->
+
+                Copyright (c) 2013 Simon Cropp
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy of
+                this software and associated documentation files (the "Software"), to deal in
+                the Software without restriction, including without limitation the rights to
+                use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                the Software, and to permit persons to whom the Software is furnished to do so,
+                subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+                FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -177,7 +270,23 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Throws(() => processor.Run());
+        return Throws(() => processor.Run())
+            .Snapshot(
+                """
+                {
+                  Type: MissingSnippetsException,
+                  Missing: [
+                    {
+                      Key: missing.txt,
+                      LineNumber: 1,
+                      File: {CurrentDirectory}DirectoryMarkdownProcessor/FileSnippetMissing/one.source.md
+                    }
+                  ],
+                  Message:
+                Missing snippets:
+                  {CurrentDirectory}DirectoryMarkdownProcessor/FileSnippetMissing/one.source.md: missing.txt
+                }
+                """);
     }
 
     [Test]
@@ -191,7 +300,23 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Throws(() => processor.Run());
+        return Throws(() => processor.Run())
+            .Snapshot(
+                """
+                {
+                  Type: MissingSnippetsException,
+                  Missing: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt,
+                      LineNumber: 1,
+                      File: {CurrentDirectory}DirectoryMarkdownProcessor/UrlSnippetMissing/one.source.md
+                    }
+                  ],
+                  Message:
+                Missing snippets:
+                  {CurrentDirectory}DirectoryMarkdownProcessor/UrlSnippetMissing/one.source.md: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt
+                }
+                """);
     }
 
     [Test]
@@ -283,7 +408,21 @@ public class DirectoryMarkdownProcessorTests
             directoryIncludes: _ => true,
             markdownDirectoryIncludes: _ => true,
             snippetDirectoryIncludes: _ => true);
-        return Throws(() => processor.Run());
+        return Throws(() => processor.Run())
+            .Snapshot(
+                """
+                {
+                  Type: MissingIncludesException,
+                  Missing: [
+                    {
+                      Key: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt,
+                      LineNumber: 1,
+                      File: {CurrentDirectory}DirectoryMarkdownProcessor/UrlIncludeMissing/one.source.md
+                    }
+                  ],
+                  Message: Missing includes: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/missing.txt
+                }
+                """);
     }
 
     [Test]
@@ -461,7 +600,22 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                The include text 1<!-- singleLineInclude: fileToInclude1.txt -->
+
+                The include text 2<!-- singleLineInclude: /fileToInclude2.txt -->
+
+                The include text 3<!-- singleLineInclude: fileToInclude3.txt -->
+
+                The include text 4<!-- singleLineInclude: /fileToInclude4.txt -->
+
+                The include text 5<!-- singleLineInclude: Nested/fileToInclude5.txt -->
+
+                The include text 6<!-- singleLineInclude: /Nested/fileToInclude6.txt -->
+
+                """);
     }
 
     [Test]
@@ -480,7 +634,23 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                some content
+
+                The include text<!-- include: fileToInclude.txt -->
+
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```.cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Navigate to start of snippet `snippet1`'>anchor</a></sup>
+                <!-- endSnippet -->
+                <!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -530,7 +700,31 @@ public class DirectoryMarkdownProcessorTests
 
         var result = Path.Combine(root, "one.md");
 
-        return Verify(File.ReadAllText(result));
+        return Verify(File.ReadAllText(result))
+            .Snapshot(
+                """
+                The MIT License (MIT)<!-- include: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/master/license.txt -->
+
+                Copyright (c) 2013 Simon Cropp
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy of
+                this software and associated documentation files (the "Software"), to deal in
+                the Software without restriction, including without limitation the rights to
+                use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                the Software, and to permit persons to whom the Software is furnished to do so,
+                subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+                FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<!-- endInclude -->
+
+                """);
     }
 
     [Test]
@@ -582,7 +776,23 @@ public class DirectoryMarkdownProcessorTests
             builder.AppendLineN();
         }
 
-        return Verify(builder.ToString());
+        return Verify(builder.ToString())
+            .Snapshot(
+                """
+                /mdsource/Nested/one.source.md
+                snippet: snippet1
+
+                /Nested/one.md
+                <!-- snippet: snippet1 -->
+                <a id='snippet-snippet1'></a>
+                ```cs
+                the code from snippet1
+                ```
+                <sup><a href='#snippet-snippet1' title='Start of snippet'>anchor</a></sup>
+                <!-- endSnippet -->
+
+
+                """);
     }
 
     [Test]

@@ -1,46 +1,41 @@
 public class SnippetUrlMetadataTests
 {
-    const string url = "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Directory.Packages.props";
+    const string url = "https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt";
 
     [Test]
-    public async Task FullFileUrl_LanguageOnlyOverride()
+    public Task FullFileUrl_LanguageOnlyOverride()
     {
-        var result = SnippetVerifier.Render(
+        var output = SnippetVerifier.Render(
             DocumentConvention.SourceTransform,
-            $"snippet: {url} (lang=xml)",
+            $"snippet: {url} (lang=cs)",
             null,
             null,
             null);
-
-        await Assert.That(result.result).Contains($"<!-- snippet: {url} (lang=xml) -->");
-        await Assert.That(result.result).Contains("```xml\n");
+        return Verify(output);
     }
 
     [Test]
-    public async Task FullFileUrl_OverridesLanguageAndRendersExpressiveCode()
+    public Task FullFileUrl_OverridesLanguageAndRendersExpressiveCode()
     {
-        var result = SnippetVerifier.Render(
+        var output = SnippetVerifier.Render(
             DocumentConvention.SourceTransform,
-            $"snippet: {url} (lang=xml title=Directory.Packages.props)",
+            $"snippet: {url} (lang=cs title=code1.txt)",
             null,
             null,
             null);
-
-        await Assert.That(result.result).Contains($"<!-- snippet: {url} (lang=xml title=Directory.Packages.props) -->");
-        await Assert.That(result.result).Contains("```xml title=Directory.Packages.props");
+        return Verify(output);
     }
 
     [Test]
-    public async Task FullFileUrl_MetadataWithoutLanguageUsesUrlLanguage()
+    public Task FullFileUrl_MetadataWithoutLanguageUsesUrlLanguage()
     {
-        var result = SnippetVerifier.Render(
+        var output = SnippetVerifier.Render(
             DocumentConvention.SourceTransform,
-            $"snippet: {url} (title=Directory.Packages.props)",
+            $"snippet: {url} (title=code1.txt)",
             null,
             null,
             null);
-
-        await Assert.That(result.result).Contains("```props title=Directory.Packages.props");
+        return Verify(output);
     }
 
     [Test]
@@ -49,7 +44,7 @@ public class SnippetUrlMetadataTests
         var exception = Assert.Throws<SnippetReadingException>(() =>
             SnippetVerifier.Render(
                 DocumentConvention.SourceTransform,
-                $"snippet: {url} (lang=XML title=Directory.Packages.props)",
+                $"snippet: {url} (lang=CS title=code1.txt)",
                 null,
                 null,
                 null));
@@ -58,21 +53,18 @@ public class SnippetUrlMetadataTests
     }
 
     [Test]
-    public async Task InPlaceFullFileUrl_PreservesMetadataInGeneratedMarker()
+    public Task InPlaceFullFileUrl_PreservesMetadataInGeneratedMarker()
     {
-        var result = SnippetVerifier.Render(
+        var output = SnippetVerifier.Render(
             DocumentConvention.InPlaceOverwrite,
             $"""
-             <!-- snippet: {url} (lang=xml title=Directory.Packages.props) -->
+             <!-- snippet: {url} (lang=cs title=code1.txt) -->
              old content
              <!-- endSnippet -->
              """,
             null,
             null,
             null);
-
-        await Assert.That(result.result).Contains($"<!-- snippet: {url} (lang=xml title=Directory.Packages.props) -->");
-        await Assert.That(result.result).Contains("```xml title=Directory.Packages.props");
-        await Assert.That(result.result).DoesNotContain("old content");
+        return Verify(output);
     }
 }

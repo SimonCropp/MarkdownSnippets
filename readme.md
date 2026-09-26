@@ -218,6 +218,20 @@ Will render:
 
 Files are downloaded to `%temp%MarkdownSnippets` with a maximum of 100 files kept.
 
+Full-file URL snippets can include parenthesized metadata after the URL. Use a leading `lang=` token to override the language inferred from the URL's file extension:
+
+`snippet: https://raw.githubusercontent.com/flcdrg/using-setup-dotnet-action/refs/heads/main/globaljson-and-nugetconfig-clear/nuget.config (lang=xml)`
+
+Other metadata in the parentheses is emitted after the fenced-code language using [Expressive Code](https://expressive-code.com/):
+
+`snippet: https://raw.githubusercontent.com/flcdrg/using-setup-dotnet-action/refs/heads/main/globaljson-and-nugetconfig-clear/nuget.config (lang=xml title=nuget.config)`
+
+Metadata can also be provided without a language override, in which case the language continues to be derived from the URL:
+
+`snippet: https://raw.githubusercontent.com/flcdrg/using-setup-dotnet-action/refs/heads/main/globaljson-and-nugetconfig-clear/nuget.config (title=nuget.config)`
+
+The `lang=` value must be lowercase alphanumeric, as with source-defined snippets. An empty or invalid value raises a snippet-reading error. This syntax applies to full-file HTTP(S) URLs, not local file references or `web-snippet:` directives.
+
 `web-snippet:` can be used to reference remote content where a specific snippet is defined in that content.
 
 `web-snippet: https://raw.githubusercontent.com/SimonCropp/MarkdownSnippets/main/src/Tests/DirectorySnippetExtractor/Case/code1.txt#snipPet`

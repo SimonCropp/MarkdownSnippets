@@ -216,11 +216,11 @@ public class MarkdownProcessor
                 continue;
             }
 
-            void AppendSnippet(string key1)
+            void AppendSnippet(string key1, string? language = null, string? expressiveCode = null)
             {
                 builder.Clear();
                 appender.Indent = line.LeadingWhitespace;
-                ProcessSnippetLine(appender.Action, missingSnippets, usedSnippets, key1, relativePath, line);
+                ProcessSnippetLine(appender.Action, missingSnippets, usedSnippets, key1, relativePath, line, language, expressiveCode);
                 builder.TrimEnd();
                 line.Current = builder.ToString();
             }
@@ -234,9 +234,9 @@ public class MarkdownProcessor
                 line.Current = builder.ToString();
             }
 
-            if (SnippetKey.ExtractSnippet(line, out var key))
+            if (SnippetKey.ExtractSnippet(line, out var key, out var language, out var expressiveCode))
             {
-                AppendSnippet(key);
+                AppendSnippet(key, language, expressiveCode);
                 continue;
             }
 
@@ -251,9 +251,9 @@ public class MarkdownProcessor
                 continue;
             }
 
-            if (SnippetKey.ExtractStartCommentSnippet(line, out key))
+            if (SnippetKey.ExtractStartCommentSnippet(line, out key, out language, out expressiveCode))
             {
-                AppendSnippet(key);
+                AppendSnippet(key, language, expressiveCode);
 
                 index++;
 
@@ -396,11 +396,20 @@ public class MarkdownProcessor
         return found;
     }
 
-    void ProcessSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, HashSet<Snippet> used, string key, string? relativePath, Line line)
+    void ProcessSnippetLine(
+        Action<string> appendLine,
+        List<MissingSnippet> missings,
+        HashSet<Snippet> used,
+        string key,
+        string? relativePath,
+        Line line,
+        string? language,
+        string? expressiveCode)
     {
-        appendLine($"<!-- snippet: {key} -->");
+        var metadata = FormatMetadata(language, expressiveCode);
+        appendLine($"<!-- snippet: {key}{metadata} -->");
 
-        if (TryGetSnippets(key, relativePath, line.Path, out var snippetsForKey))
+        if (TryGetSnippets(key, relativePath, line.Path, language, expressiveCode, out var snippetsForKey))
         {
             appendSnippets(key, snippetsForKey, appendLine);
             appendLine("<!-- endSnippet -->");
@@ -414,6 +423,32 @@ public class MarkdownProcessor
         appendLine($"** Could not find snippet '{key}' **");
         appendLine("```");
         appendLine("<!-- endSnippet -->");
+    }
+
+    static string FormatMetadata(string? language, string? expressiveCode)
+    {
+        if (language == null && expressiveCode == null)
+        {
+            return string.Empty;
+        }
+
+        var builder = new StringBuilder(" (");
+        if (language != null)
+        {
+            Polyfill.Append(builder, $"lang={language}");
+            if (expressiveCode != null)
+            {
+                builder.Append(' ');
+            }
+        }
+
+        if (expressiveCode != null)
+        {
+            builder.Append(expressiveCode);
+        }
+
+        builder.Append(')');
+        return builder.ToString();
     }
 
     void ProcessWebSnippetLine(Action<string> appendLine, List<MissingSnippet> missings, HashSet<Snippet> used, string url, string snippetKey, string? viewUrl, Line line)
@@ -481,16 +516,33 @@ public class MarkdownProcessor
         string key,
         string? relativePath,
         string? linePath,
+        string? language,
+        string? expressiveCode,
         [NotNullWhen(true)] out IReadOnlyList<Snippet>? snippetsForKey)
     {
         if (snippets.TryGetValue(key, out snippetsForKey))
         {
+            if (language != null || expressiveCode != null)
+            {
+                snippetsForKey = snippetsForKey
+                    .Select(_ => Snippet.Build(
+                        startLine: _.StartLine,
+                        endLine: _.EndLine,
+                        value: _.Value,
+                        key: _.Key,
+                        language: language ?? _.Language,
+                        path: _.Path,
+                        expressiveCode: expressiveCode,
+                        viewUrl: _.ViewUrl))
+                    .ToList();
+            }
+
             return true;
         }
 
-        if (key.StartsWith("http"))
+        if (key.StartsWith("http", StringComparison.OrdinalIgnoreCase))
         {
-            return GetForHttp(key, out snippetsForKey);
+            return GetForHttp(key, language, expressiveCode, out snippetsForKey);
         }
 
         return FilesToSnippets(key, relativePath, linePath, out snippetsForKey);
@@ -540,7 +592,7 @@ public class MarkdownProcessor
     List<Snippet> SnippetsForFile(string key, string relativeToRoot) =>
         [FileToSnippet(key, relativeToRoot, null)];
 
-    bool GetForHttp(string key, out IReadOnlyList<Snippet> snippetsForKey)
+    bool GetForHttp(string key, string? language, string? expressiveCode, out IReadOnlyList<Snippet> snippetsForKey)
     {
         var (success, path) = Downloader.DownloadFile(key).GetAwaiter().GetResult();
         if (!success)
@@ -549,11 +601,11 @@ public class MarkdownProcessor
             return false;
         }
 
-        snippetsForKey = SnippetsForFile(key, path!);
+        snippetsForKey = [FileToSnippet(key, path!, null, language, expressiveCode)];
         return true;
     }
 
-    Snippet FileToSnippet(string key, string file, string? path)
+    Snippet FileToSnippet(string key, string file, string? path, string? languageOverride = null, string? expressiveCode = null)
     {
         var (text, lineCount) = ReadNonStartEndLines(file);
 
@@ -567,9 +619,9 @@ public class MarkdownProcessor
             endLine: lineCount,
             value: text,
             key: key,
-            language: FileSnippetExtractor.GetLanguageFromPath(file),
+            language: languageOverride ?? FileSnippetExtractor.GetLanguageFromPath(file),
             path: path,
-            expressiveCode: null);
+            expressiveCode: expressiveCode);
     }
 
     (string text, int lineCount) ReadNonStartEndLines(string file)

@@ -1,11 +1,20 @@
 static class SnippetKey
 {
     public static bool ExtractStartCommentSnippet(Line line, [NotNullWhen(true)] out string? key)
+        => ExtractStartCommentSnippet(line, out key, out _, out _);
+
+    public static bool ExtractStartCommentSnippet(
+        Line line,
+        [NotNullWhen(true)] out string? key,
+        out string? language,
+        out string? expressiveCode)
     {
         var lineCurrent = line.Current.AsSpan().TrimStart();
         if (!IsStartCommentSnippetLine(lineCurrent))
         {
             key = null;
+            language = null;
+            expressiveCode = null;
             return false;
         }
 
@@ -16,9 +25,58 @@ static class SnippetKey
             throw new SnippetException($"Could not find closing '-->' in: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
         }
 
-        key = substring[..indexOf].Trim().ToString();
+        ExtractUrlMetadata(line, substring[..indexOf].Trim(), out var keyWithoutMetadata, out language, out expressiveCode);
+        key = keyWithoutMetadata.ToString();
         return true;
     }
+
+    static void ExtractUrlMetadata(
+        Line line,
+        CharSpan value,
+        out CharSpan key,
+        out string? language,
+        out string? expressiveCode)
+    {
+        key = value;
+        language = null;
+        expressiveCode = null;
+
+        if (value.Length < 3 || value[^1] != ')')
+        {
+            return;
+        }
+
+        var metadataStart = -1;
+        for (var index = 1; index < value.Length - 1; index++)
+        {
+            if (value[index] == '(' && char.IsWhiteSpace(value[index - 1]) && IsHttpUrl(value[..index].TrimEnd()))
+            {
+                metadataStart = index;
+                break;
+            }
+        }
+
+        if (metadataStart == -1)
+        {
+            return;
+        }
+
+        var url = value[..metadataStart].TrimEnd();
+        key = url;
+        var metadata = value[(metadataStart + 1)..^1].Trim();
+        var remainingMetadata = StartEndTester.ExtractLanguage(
+            metadata,
+            url,
+            line.Path.AsSpan(),
+            line.Original.AsSpan(),
+            out var languageValue);
+        language = languageValue.IsEmpty ? null : languageValue.ToString();
+        expressiveCode = remainingMetadata.IsEmpty ? null : remainingMetadata.ToString();
+    }
+
+    static bool IsHttpUrl(CharSpan value) =>
+        value.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+        value.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
 
     public static bool ExtractStartCommentWebSnippet(Line line, [NotNullWhen(true)] out string? url, [NotNullWhen(true)] out string? snippetKey) =>
         ExtractStartCommentWebSnippet(line, out url, out snippetKey, out _);
@@ -73,11 +131,20 @@ static class SnippetKey
     }
 
     public static bool ExtractSnippet(Line line, [NotNullWhen(true)] out string? key)
+        => ExtractSnippet(line, out key, out _, out _);
+
+    public static bool ExtractSnippet(
+        Line line,
+        [NotNullWhen(true)] out string? key,
+        out string? language,
+        out string? expressiveCode)
     {
         var lineCurrent = line.Current.AsSpan().TrimStart();
         if (!IsSnippetLine(lineCurrent))
         {
             key = null;
+            language = null;
+            expressiveCode = null;
             return false;
         }
 
@@ -87,7 +154,8 @@ static class SnippetKey
             throw new SnippetException($"Could not parse snippet from: {line.Original}. Path: {line.Path}. Line: {line.LineNumber}");
         }
 
-        key = keySpan.ToString();
+        ExtractUrlMetadata(line, keySpan, out var keyWithoutMetadata, out language, out expressiveCode);
+        key = keyWithoutMetadata.ToString();
         return true;
     }
 

@@ -156,7 +156,7 @@ static class StartEndTester
              """);
     }
 
-    static CharSpan ExtractLanguage(CharSpan args, scoped CharSpan key, scoped CharSpan path, scoped CharSpan line, out CharSpan language)
+    internal static CharSpan ExtractLanguage(CharSpan args, scoped CharSpan key, scoped CharSpan path, scoped CharSpan line, out CharSpan language)
     {
         language = null;
         if (!args.StartsWith("lang=", StringComparison.Ordinal))

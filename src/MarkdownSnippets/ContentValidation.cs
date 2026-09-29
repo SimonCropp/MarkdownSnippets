@@ -71,7 +71,12 @@ static class ContentValidation
             .GroupBy(p =>
             {
                 var spaceIndex = p.Key.IndexOf(' ');
-                return spaceIndex == -1 ? p.Key : p.Key[..spaceIndex];
+                if (spaceIndex == -1)
+                {
+                    return p.Key;
+                }
+
+                return p.Key[..spaceIndex];
             })
             .ToFrozenDictionary(_ => _.Key, _ => _.ToArray());
 

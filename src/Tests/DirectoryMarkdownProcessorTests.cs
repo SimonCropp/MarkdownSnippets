@@ -857,7 +857,7 @@ public class DirectoryMarkdownProcessorTests
     public async Task DoesNotRewriteWhenContentUnchanged()
     {
         using var directory = new TempDirectory();
-        File.WriteAllText(Path.Combine(directory, "one.source.md"), "snippet: snippet1");
+        await File.WriteAllTextAsync(Path.Combine(directory, "one.source.md"), "snippet: snippet1");
         var target = Path.Combine(directory, "one.md");
 
         BuildTempProcessor(directory).Run();
@@ -877,15 +877,15 @@ public class DirectoryMarkdownProcessorTests
     {
         using var directory = new TempDirectory();
         var source = Path.Combine(directory, "one.source.md");
-        File.WriteAllText(source, "snippet: snippet1");
+        await File.WriteAllTextAsync(source, "snippet: snippet1");
         var target = Path.Combine(directory, "one.md");
 
         BuildTempProcessor(directory).Run();
-        var firstContent = File.ReadAllText(target);
+        var firstContent = await File.ReadAllTextAsync(target);
 
-        File.WriteAllText(source, "snippet: snippet2");
+        await File.WriteAllTextAsync(source, "snippet: snippet2");
         BuildTempProcessor(directory).Run();
-        var secondContent = File.ReadAllText(target);
+        var secondContent = await File.ReadAllTextAsync(target);
 
         await Assert.That(secondContent).IsNotEqualTo(firstContent);
         await Assert.That(secondContent).Contains("snippet2");
@@ -896,13 +896,13 @@ public class DirectoryMarkdownProcessorTests
     {
         using var directory = new TempDirectory();
         var source = Path.Combine(directory, "one.source.md");
-        File.WriteAllText(source, "snippet: snippet1");
+        await File.WriteAllTextAsync(source, "snippet: snippet1");
         var target = Path.Combine(directory, "one.md");
 
         BuildTempProcessor(directory).Run();
 
         // Change the source so the next run must write (rather than skip as unchanged).
-        File.WriteAllText(source, "snippet: snippet2");
+        await File.WriteAllTextAsync(source, "snippet: snippet2");
 
         // Hold a shared read lock on the target, mirroring another process (e.g. nuget
         // pack) reading the file mid-build. This denies the write until released.
@@ -935,7 +935,7 @@ public class DirectoryMarkdownProcessorTests
             stream.Dispose();
         }
 
-        await Assert.That(File.ReadAllText(target)).Contains("snippet2");
+        await Assert.That(await File.ReadAllTextAsync(target)).Contains("snippet2");
     }
 
     static DirectoryMarkdownProcessor BuildTempProcessor(string root)

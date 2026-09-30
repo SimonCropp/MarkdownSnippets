@@ -72,7 +72,7 @@ public class FileExTests
     {
         using var tempDir = new TempDirectory();
         var actualPath = Path.Combine(tempDir, "TestFile.txt");
-        File.WriteAllText(actualPath, "test");
+        await File.WriteAllTextAsync(actualPath, "test");
 
         var inputPath = Path.Combine(tempDir, "testfile.txt");
 

@@ -16,7 +16,7 @@
         var fileName = Path.GetTempFileName();
         try
         {
-            File.WriteAllText(fileName, input);
+            await File.WriteAllTextAsync(fileName, input);
             using var streamReader = File.OpenText(fileName);
             streamReader.TryFindNewline(out var newline);
             await Assert.That(newline).IsEqualTo(expected);

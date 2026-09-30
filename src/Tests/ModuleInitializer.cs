@@ -7,7 +7,6 @@
         // Isolate from the machine wide cache, which may hold real downloads
         Downloader.cache = Path.Combine(Path.GetTempPath(), "MarkdownSnippetsTests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(Downloader.cache);
-        VerifyDiffPlex.Initialize(OutputType.Compact);
         VerifierSettings.IgnoreStackTrace();
         VerifierSettings.AddExtraSettings(serializer =>
         {

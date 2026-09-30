@@ -2,5 +2,4 @@
 {
     [ModuleInitializer]
     public static void Initialize() =>
-        VerifyDiffPlex.Initialize(OutputType.Compact);
 }

@@ -1,1 +1,1 @@
-﻿global using VerifyTests.DiffPlex;
+﻿

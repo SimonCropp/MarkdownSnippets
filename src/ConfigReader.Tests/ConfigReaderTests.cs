@@ -22,7 +22,7 @@
     [Test]
     public Task Values()
     {
-        var stream = File.ReadAllText("allConfig.json");
+        var stream = ProjectFiles.allConfig_json.ReadAllText();
         var config = ConfigReader.Parse(stream, "filePath");
         return Verify(config);
     }

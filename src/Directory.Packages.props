@@ -9,7 +9,7 @@
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="18.10.1" />
     <PackageVersion Include="PackageShader.MsBuild" Version="1.1.0" />
-    <PackageVersion Include="Polyfill" Version="11.4.1" />
+    <PackageVersion Include="Polyfill" Version="11.4.3" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.182" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
     <PackageVersion Include="Sbom" Version="0.3.1" />

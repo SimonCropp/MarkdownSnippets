@@ -72,7 +72,7 @@
     [Test]
     public Task CanReadFileWhileLockedByAnotherProcess()
     {
-        var temp = Path.Combine(Path.GetTempPath(), "LockedSnippetFile.cs");
+        var temp = Path.Combine(Path.GetTempPath(), $"LockedSnippetFile{Guid.NewGuid():N}.cs");
         try
         {
             File.WriteAllText(temp,

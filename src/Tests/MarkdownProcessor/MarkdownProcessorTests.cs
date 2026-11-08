@@ -95,6 +95,119 @@ public class MarkdownProcessorTests
     }
 
     [Test]
+    public async Task HeadingInInclude_Overwrite_OldFormat()
+    {
+        var content = """
+
+                      before
+
+                      ## About Llewellyn<!-- include: theKey. path: /thePath -->
+
+                      BAD<!-- endInclude -->
+
+                      after
+
+                      """;
+        var lines = new List<string>
+        {
+            "## About Llewellyn",
+            "",
+            "theValue"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                <!-- include: theKey. path: {CurrentDirectory}thePath -->
+                ## About Llewellyn
+
+                theValue<!-- endInclude -->
+
+                after
+                }
+                """);
+    }
+
+    [Test]
+    public async Task HeadingInInclude_Overwrite_NewFormat()
+    {
+        var content = """
+
+                      before
+
+                      <!-- include: theKey. path: /thePath -->
+                      ## About Llewellyn
+
+                      BAD<!-- endInclude -->
+
+                      after
+
+                      """;
+        var lines = new List<string>
+        {
+            "## About Llewellyn",
+            "",
+            "theValue"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                <!-- include: theKey. path: {CurrentDirectory}thePath -->
+                ## About Llewellyn
+
+                theValue<!-- endInclude -->
+
+                after
+                }
+                """);
+    }
+
+    [Test]
+    public async Task SingleLineHeadingInInclude_Overwrite_OldFormat()
+    {
+        var content = """
+
+                      before
+
+                      ## BAD<!-- singleLineInclude: theKey. path: /thePath -->
+
+                      after
+
+                      """;
+        var lines = new List<string>
+        {
+            "## About Llewellyn"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, Path.GetFullPath("thePath"))];
+        var output = SnippetVerifier.Render(DocumentConvention.InPlaceOverwrite, content, null, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                before
+
+                <!-- include: theKey. path: {CurrentDirectory}thePath -->
+                ## About Llewellyn
+                <!-- endInclude -->
+
+                after
+                }
+                """);
+    }
+
+    [Test]
     public async Task WithSingleInclude_Overwrite()
     {
         var content = """

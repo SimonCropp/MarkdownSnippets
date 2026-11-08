@@ -872,6 +872,79 @@ public class MarkdownProcessorTests
     }
 
     [Test]
+    public async Task HeadingInInclude()
+    {
+        var availableSnippets = new List<Snippet>();
+        var content = """
+
+                      some text
+
+                      include: theKey
+
+                      some other text
+
+                      """;
+        var lines = new List<string>
+        {
+            "## About Llewellyn",
+            "",
+            "* [Blog](https://llewellynfalco.blogspot.com/)"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                some text
+
+                <!-- include: theKey. path: thePath -->
+                ## About Llewellyn
+
+                * [Blog](https://llewellynfalco.blogspot.com/)<!-- endInclude -->
+
+                some other text
+                }
+                """);
+    }
+
+    [Test]
+    public async Task SingleLineHeadingInInclude()
+    {
+        var availableSnippets = new List<Snippet>();
+        var content = """
+
+                      some text
+
+                      include: theKey
+
+                      some other text
+
+                      """;
+        var lines = new List<string>
+        {
+            "## About Llewellyn"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                some text
+
+                <!-- include: theKey. path: thePath -->
+                ## About Llewellyn
+                <!-- endInclude -->
+
+                some other text
+                }
+                """);
+    }
+
+    [Test]
     public async Task SnippetInIncludeLast()
     {
         var availableSnippets = new List<Snippet>

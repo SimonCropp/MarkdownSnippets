@@ -216,6 +216,7 @@ class IncludeProcessor
     static bool ShouldWriteIncludeOnDiffLine(string line) =>
         SnippetKey.IsSnippetLine(line) ||
         line.StartsWith("<!-- endSnippet -->") ||
+        line.StartsWith('#') ||
         line.EndsWith("```") ||
         line.StartsWith('|') ||
         line.EndsWith('|');

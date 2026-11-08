@@ -910,6 +910,48 @@ public class MarkdownProcessorTests
     }
 
     [Test]
+    public async Task HeadingInIncludeWithToc()
+    {
+        var availableSnippets = new List<Snippet>();
+        var content = """
+
+                      toc
+
+                      ## Page Heading
+
+                      include: theKey
+
+                      """;
+        var lines = new List<string>
+        {
+            "## Included Heading",
+            "",
+            "text"
+        };
+        IReadOnlyList<Include>? includes = [Include.Build("theKey", lines, "thePath")];
+        var output = SnippetVerifier.Render(DocumentConvention.SourceTransform, content, availableSnippets, null, includes);
+        await Verify(output)
+            .Snapshot(
+                """
+                {
+                  result:
+                <!-- toc -->
+                ## Contents
+
+                  * [Page Heading](#page-heading)
+                  * [Included Heading](#included-heading)<!-- endToc -->
+
+                ## Page Heading
+
+                <!-- include: theKey. path: thePath -->
+                ## Included Heading
+
+                text<!-- endInclude -->
+                }
+                """);
+    }
+
+    [Test]
     public async Task SingleLineHeadingInInclude()
     {
         var availableSnippets = new List<Snippet>();

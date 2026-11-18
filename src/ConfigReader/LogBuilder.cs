@@ -117,9 +117,6 @@ static class LogBuilder
 #if NET48
         builder.AppendLine("    TargetFramework: net48");
 #endif
-#if NET9_0
-        builder.AppendLine("    TargetFramework: net9.0");
-#endif
         builder.TrimEnd();
         return builder.ToString();
     }

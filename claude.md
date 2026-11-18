@@ -75,7 +75,7 @@ Wraps the library as an MSBuild task. Uses `PackageShader.MsBuild` for dependenc
 - `src/Directory.Build.props`: Version (28.4.1), LangVersion preview, TreatWarningsAsErrors, EnforceCodeStyleInBuild
 - `src/Directory.Packages.props`: Central package management with transitive pinning
 - Global type alias: `CharSpan` = `System.ReadOnlySpan<System.Char>` (defined in Directory.Build.props)
-- Multi-targeting: Library targets netstandard2.0/2.1, net48, net8.0, net9.0, net10.0
+- Multi-targeting: Library targets netstandard2.0/2.1, net48, net10.0, net11.0
 
 ## Document Conventions
 

@@ -410,7 +410,7 @@ All binary files as defined by https://github.com/sindresorhus/binary-extensions
 "zip",
 "zipx"
 ```
-<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L54-L323' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/MarkdownSnippets/Reading/Exclusions/SnippetFileExclusions.cs#L55-L324' title='Snippet source file'>snippet source</a> | <a href='#snippet-BinaryFileExtensions' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -932,6 +932,7 @@ public class DirectoryMarkdownProcessorTests
         {
             // Always release, so a failing run reports its own error rather than being
             // masked by TempDirectory.Dispose failing to delete a still-locked file.
+            // ReSharper disable once MethodHasAsyncOverload
             stream.Dispose();
         }
 

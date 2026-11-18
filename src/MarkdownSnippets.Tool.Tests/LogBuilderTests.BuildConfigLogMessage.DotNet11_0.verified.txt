@@ -21,3 +21,4 @@
     UrlsAsSnippets:
         Url1
         Url2
+    TargetFramework: .NETCoreApp,Version=v11.0

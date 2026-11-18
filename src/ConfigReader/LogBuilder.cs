@@ -1,5 +1,10 @@
+using System.Reflection;
+using System.Runtime.Versioning;
+
 static class LogBuilder
 {
+    static string? targetFramework = typeof(LogBuilder).Assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName;
+
     public static string BuildConfigLogMessage(string targetDirectory, ConfigResult config, string configFilePath)
     {
         var builder = new StringBuilder(
@@ -114,9 +119,7 @@ static class LogBuilder
                  """);
         }
 
-#if NET48
-        builder.AppendLine("    TargetFramework: net48");
-#endif
+        builder.AppendLine($"    TargetFramework: {targetFramework}");
         builder.TrimEnd();
         return builder.ToString();
     }

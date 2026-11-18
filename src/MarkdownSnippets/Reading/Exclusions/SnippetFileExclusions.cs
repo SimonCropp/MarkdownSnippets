@@ -27,11 +27,12 @@ public static class SnippetFileExclusions
 
     public static void AddNoAcceptCommentsExtensions(params string[] extensions)
     {
-        var set = new HashSet<string>(noAcceptCommentsExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
-        foreach (var extension in extensions)
-        {
-            set.Add(extension);
-        }
+        HashSet<string> set =
+        [
+            with(StringComparer.OrdinalIgnoreCase),
+            .. noAcceptCommentsExtensionsFrozen,
+            .. extensions
+        ];
 
         noAcceptCommentsExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
@@ -325,11 +326,12 @@ public static class SnippetFileExclusions
 
     public static void AddBinaryFileExtensions(params string[] extensions)
     {
-        var set = new HashSet<string>(binaryFileExtensionsFrozen, StringComparer.OrdinalIgnoreCase);
-        foreach (var extension in extensions)
-        {
-            set.Add(extension);
-        }
+        HashSet<string> set =
+        [
+            with(StringComparer.OrdinalIgnoreCase),
+            .. binaryFileExtensionsFrozen,
+            .. extensions
+        ];
 
         binaryFileExtensionsFrozen = set.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
     }
